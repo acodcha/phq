@@ -105,7 +105,7 @@ TEST(MassDensity, ComparisonOperators) {
 
 TEST(MassDensity, CopyAssignmentOperator) {
   const MassDensity first{1.0, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity second = MassDensity::Zero();
+  MassDensity second = MassDensity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -118,7 +118,7 @@ TEST(MassDensity, CopyConstructor) {
 
 TEST(MassDensity, Create) {
   constexpr MassDensity mass_density =
-      MassDensity::Create<Unit::MassDensity::KilogramPerCubicMetre>(1.0);
+      MassDensity<>::Create<Unit::MassDensity::KilogramPerCubicMetre>(1.0);
   EXPECT_EQ(mass_density, MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
@@ -127,14 +127,14 @@ TEST(MassDensity, DefaultConstructor) {
 }
 
 TEST(MassDensity, Dimensions) {
-  EXPECT_EQ(MassDensity::Dimensions(), RelatedDimensions<Unit::MassDensity>);
+  EXPECT_EQ(MassDensity<>::Dimensions(), RelatedDimensions<Unit::MassDensity>);
 }
 
 TEST(MassDensity, Hash) {
   const MassDensity first{1.0, Unit::MassDensity::GramPerCubicMillimetre};
   const MassDensity second{1.00001, Unit::MassDensity::GramPerCubicMillimetre};
   const MassDensity third{-1.0, Unit::MassDensity::GramPerCubicMillimetre};
-  const std::hash<MassDensity> hash;
+  const std::hash<MassDensity<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -161,7 +161,7 @@ TEST(MassDensity, MiscellaneousConstructor) {
 
 TEST(MassDensity, MoveAssignmentOperator) {
   MassDensity first{1.0, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity second = MassDensity::Zero();
+  MassDensity second = MassDensity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
@@ -203,7 +203,7 @@ TEST(MassDensity, StandardConstructor) {
 
 TEST(MassDensity, StaticValue) {
   constexpr MassDensity mass_density =
-      MassDensity::Create<Unit::MassDensity::GramPerCubicMillimetre>(2.0);
+      MassDensity<>::Create<Unit::MassDensity::GramPerCubicMillimetre>(2.0);
   constexpr double value = mass_density.StaticValue<Unit::MassDensity::GramPerCubicMillimetre>();
   EXPECT_EQ(value, 2.0);
 }
@@ -215,7 +215,7 @@ TEST(MassDensity, Stream) {
 }
 
 TEST(MassDensity, Unit) {
-  EXPECT_EQ(MassDensity::Unit(), Standard<Unit::MassDensity>);
+  EXPECT_EQ(MassDensity<>::Unit(), Standard<Unit::MassDensity>);
 }
 
 TEST(MassDensity, Value) {
@@ -242,7 +242,7 @@ TEST(MassDensity, YAML) {
 }
 
 TEST(MassDensity, Zero) {
-  EXPECT_EQ(MassDensity::Zero(), MassDensity(0.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(MassDensity<>::Zero(), MassDensity(0.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 }  // namespace

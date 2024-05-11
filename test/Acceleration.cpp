@@ -125,7 +125,7 @@ TEST(Acceleration, ComparisonOperators) {
 
 TEST(Acceleration, CopyAssignmentOperator) {
   const Acceleration first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
-  Acceleration second = Acceleration::Zero();
+  Acceleration second = Acceleration<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -139,20 +139,20 @@ TEST(Acceleration, CopyConstructor) {
 TEST(Acceleration, Create) {
   {
     constexpr Acceleration acceleration =
-        Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0, -2.0, 3.0);
+        Acceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0, -2.0, 3.0);
     EXPECT_EQ(
         acceleration, Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
     constexpr Acceleration acceleration =
-        Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(
+        Acceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(
             std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(
         acceleration, Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
     constexpr Acceleration acceleration =
-        Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(Vector{1.0, -2.0, 3.0});
+        Acceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(
         acceleration, Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
@@ -163,7 +163,7 @@ TEST(Acceleration, DefaultConstructor) {
 }
 
 TEST(Acceleration, Dimensions) {
-  EXPECT_EQ(Acceleration::Dimensions(), RelatedDimensions<Unit::Acceleration>);
+  EXPECT_EQ(Acceleration<>::Dimensions(), RelatedDimensions<Unit::Acceleration>);
 }
 
 TEST(Acceleration, Direction) {
@@ -175,7 +175,7 @@ TEST(Acceleration, Hash) {
   const Acceleration first({1.0, -2.0, 3.0}, Unit::Acceleration::MillimetrePerSquareSecond);
   const Acceleration second({1.0, -2.0, 3.000001}, Unit::Acceleration::MillimetrePerSquareSecond);
   const Acceleration third({1.0, 2.0, 3.0}, Unit::Acceleration::MillimetrePerSquareSecond);
-  const std::hash<Acceleration> hash;
+  const std::hash<Acceleration<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -215,7 +215,7 @@ TEST(Acceleration, MiscellaneousConstructors) {
 
 TEST(Acceleration, MoveAssignmentOperator) {
   Acceleration first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
-  Acceleration second = Acceleration::Zero();
+  Acceleration second = Acceleration<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
@@ -257,7 +257,7 @@ TEST(Acceleration, StandardConstructor) {
 
 TEST(Acceleration, StaticValue) {
   constexpr Acceleration acceleration =
-      Acceleration::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.0, -2.0, 3.0);
+      Acceleration<>::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.0, -2.0, 3.0);
   constexpr Vector value =
       acceleration.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
@@ -271,7 +271,7 @@ TEST(Acceleration, Stream) {
 }
 
 TEST(Acceleration, Unit) {
-  EXPECT_EQ(Acceleration::Unit(), Standard<Unit::Acceleration>);
+  EXPECT_EQ(Acceleration<>::Unit(), Standard<Unit::Acceleration>);
 }
 
 TEST(Acceleration, Value) {
@@ -312,7 +312,7 @@ TEST(Acceleration, YAML) {
 }
 
 TEST(Acceleration, Zero) {
-  EXPECT_EQ(Acceleration::Zero(),
+  EXPECT_EQ(Acceleration<>::Zero(),
             Acceleration({0.0, 0.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 

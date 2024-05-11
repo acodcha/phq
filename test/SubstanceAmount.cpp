@@ -96,7 +96,7 @@ TEST(SubstanceAmount, ComparisonOperators) {
 
 TEST(SubstanceAmount, CopyAssignmentOperator) {
   const SubstanceAmount first{1.0, Unit::SubstanceAmount::Mole};
-  SubstanceAmount second = SubstanceAmount::Zero();
+  SubstanceAmount second = SubstanceAmount<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -109,7 +109,7 @@ TEST(SubstanceAmount, CopyConstructor) {
 
 TEST(SubstanceAmount, Create) {
   constexpr SubstanceAmount substance_amount =
-      SubstanceAmount::Create<Unit::SubstanceAmount::Mole>(1.0);
+      SubstanceAmount<>::Create<Unit::SubstanceAmount::Mole>(1.0);
   EXPECT_EQ(substance_amount, SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
 }
 
@@ -118,14 +118,14 @@ TEST(SubstanceAmount, DefaultConstructor) {
 }
 
 TEST(SubstanceAmount, Dimensions) {
-  EXPECT_EQ(SubstanceAmount::Dimensions(), RelatedDimensions<Unit::SubstanceAmount>);
+  EXPECT_EQ(SubstanceAmount<>::Dimensions(), RelatedDimensions<Unit::SubstanceAmount>);
 }
 
 TEST(SubstanceAmount, Hash) {
   const SubstanceAmount first{1.0, Unit::SubstanceAmount::Kilomole};
   const SubstanceAmount second{1.000001, Unit::SubstanceAmount::Kilomole};
   const SubstanceAmount third{-1.0, Unit::SubstanceAmount::Kilomole};
-  const std::hash<SubstanceAmount> hash;
+  const std::hash<SubstanceAmount<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -141,7 +141,7 @@ TEST(SubstanceAmount, JSON) {
 
 TEST(SubstanceAmount, MoveAssignmentOperator) {
   SubstanceAmount first{1.0, Unit::SubstanceAmount::Mole};
-  SubstanceAmount second = SubstanceAmount::Zero();
+  SubstanceAmount second = SubstanceAmount<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
 }
@@ -182,7 +182,7 @@ TEST(SubstanceAmount, StandardConstructor) {
 
 TEST(SubstanceAmount, StaticValue) {
   constexpr SubstanceAmount substance_amount =
-      SubstanceAmount::Create<Unit::SubstanceAmount::Kilomole>(1.0);
+      SubstanceAmount<>::Create<Unit::SubstanceAmount::Kilomole>(1.0);
   constexpr double value = substance_amount.StaticValue<Unit::SubstanceAmount::Kilomole>();
   EXPECT_EQ(value, 1.0);
 }
@@ -194,7 +194,7 @@ TEST(SubstanceAmount, Stream) {
 }
 
 TEST(SubstanceAmount, Unit) {
-  EXPECT_EQ(SubstanceAmount::Unit(), Standard<Unit::SubstanceAmount>);
+  EXPECT_EQ(SubstanceAmount<>::Unit(), Standard<Unit::SubstanceAmount>);
 }
 
 TEST(SubstanceAmount, Value) {
@@ -221,7 +221,7 @@ TEST(SubstanceAmount, YAML) {
 }
 
 TEST(SubstanceAmount, Zero) {
-  EXPECT_EQ(SubstanceAmount::Zero(), SubstanceAmount(0.0, Unit::SubstanceAmount::Mole));
+  EXPECT_EQ(SubstanceAmount<>::Zero(), SubstanceAmount(0.0, Unit::SubstanceAmount::Mole));
 }
 
 }  // namespace

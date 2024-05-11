@@ -108,7 +108,7 @@ TEST(HeatFlux, ComparisonOperators) {
 
 TEST(HeatFlux, CopyAssignmentOperator) {
   const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux second = HeatFlux::Zero();
+  HeatFlux second = HeatFlux<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -122,17 +122,17 @@ TEST(HeatFlux, CopyConstructor) {
 TEST(HeatFlux, Create) {
   {
     constexpr HeatFlux heat_flux =
-        HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.0, -2.0, 3.0);
+        HeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.0, -2.0, 3.0);
     EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
   {
-    constexpr HeatFlux heat_flux = HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(
+    constexpr HeatFlux heat_flux = HeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(
         std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
   {
     constexpr HeatFlux heat_flux =
-        HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(Vector{1.0, -2.0, 3.0});
+        HeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
 }
@@ -142,7 +142,7 @@ TEST(HeatFlux, DefaultConstructor) {
 }
 
 TEST(HeatFlux, Dimensions) {
-  EXPECT_EQ(HeatFlux::Dimensions(), RelatedDimensions<Unit::EnergyFlux>);
+  EXPECT_EQ(HeatFlux<>::Dimensions(), RelatedDimensions<Unit::EnergyFlux>);
 }
 
 TEST(HeatFlux, Direction) {
@@ -154,7 +154,7 @@ TEST(HeatFlux, Hash) {
   const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
   const HeatFlux second({1.0, -2.0, 3.000001}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
   const HeatFlux third({1.0, 2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
-  const std::hash<HeatFlux> hash;
+  const std::hash<HeatFlux<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -194,7 +194,7 @@ TEST(HeatFlux, MiscellaneousConstructors) {
 
 TEST(HeatFlux, MoveAssignmentOperator) {
   HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux second = HeatFlux::Zero();
+  HeatFlux second = HeatFlux<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
@@ -236,7 +236,7 @@ TEST(HeatFlux, StandardConstructor) {
 
 TEST(HeatFlux, StaticValue) {
   constexpr HeatFlux heat_flux =
-      HeatFlux::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(1.0, -2.0, 3.0);
+      HeatFlux<>::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(1.0, -2.0, 3.0);
   constexpr Vector value = heat_flux.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -248,7 +248,7 @@ TEST(HeatFlux, Stream) {
 }
 
 TEST(HeatFlux, Unit) {
-  EXPECT_EQ(HeatFlux::Unit(), Standard<Unit::EnergyFlux>);
+  EXPECT_EQ(HeatFlux<>::Unit(), Standard<Unit::EnergyFlux>);
 }
 
 TEST(HeatFlux, Value) {
@@ -289,7 +289,7 @@ TEST(HeatFlux, YAML) {
 }
 
 TEST(HeatFlux, Zero) {
-  EXPECT_EQ(HeatFlux::Zero(), HeatFlux({0.0, 0.0, 0.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux<>::Zero(), HeatFlux({0.0, 0.0, 0.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 }  // namespace

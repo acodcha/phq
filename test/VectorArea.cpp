@@ -103,7 +103,7 @@ TEST(VectorArea, ComparisonOperators) {
 
 TEST(VectorArea, CopyAssignmentOperator) {
   const VectorArea first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
-  VectorArea second = VectorArea::Zero();
+  VectorArea second = VectorArea<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -116,17 +116,18 @@ TEST(VectorArea, CopyConstructor) {
 
 TEST(VectorArea, Create) {
   {
-    constexpr VectorArea vector_area = VectorArea::Create<Unit::Area::SquareMetre>(1.0, -2.0, 3.0);
+    constexpr VectorArea vector_area =
+        VectorArea<>::Create<Unit::Area::SquareMetre>(1.0, -2.0, 3.0);
     EXPECT_EQ(vector_area, VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
   }
   {
     constexpr VectorArea vector_area =
-        VectorArea::Create<Unit::Area::SquareMetre>(std::array<double, 3>{1.0, -2.0, 3.0});
+        VectorArea<>::Create<Unit::Area::SquareMetre>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(vector_area, VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
   }
   {
     constexpr VectorArea vector_area =
-        VectorArea::Create<Unit::Area::SquareMetre>(Vector{1.0, -2.0, 3.0});
+        VectorArea<>::Create<Unit::Area::SquareMetre>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(vector_area, VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
   }
 }
@@ -136,7 +137,7 @@ TEST(VectorArea, DefaultConstructor) {
 }
 
 TEST(VectorArea, Dimensions) {
-  EXPECT_EQ(VectorArea::Dimensions(), RelatedDimensions<Unit::Area>);
+  EXPECT_EQ(VectorArea<>::Dimensions(), RelatedDimensions<Unit::Area>);
 }
 
 TEST(VectorArea, Direction) {
@@ -148,7 +149,7 @@ TEST(VectorArea, Hash) {
   const VectorArea first({1.0, -2.0, 3.0}, Unit::Area::SquareMillimetre);
   const VectorArea second({1.0, -2.0, 3.000001}, Unit::Area::SquareMillimetre);
   const VectorArea third({1.0, 2.0, 3.0}, Unit::Area::SquareMillimetre);
-  const std::hash<VectorArea> hash;
+  const std::hash<VectorArea<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -179,7 +180,7 @@ TEST(VectorArea, MiscellaneousConstructors) {
 
 TEST(VectorArea, MoveAssignmentOperator) {
   VectorArea first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
-  VectorArea second = VectorArea::Zero();
+  VectorArea second = VectorArea<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
 }
@@ -221,7 +222,7 @@ TEST(VectorArea, StandardConstructor) {
 
 TEST(VectorArea, StaticValue) {
   constexpr VectorArea vector_area =
-      VectorArea::Create<Unit::Area::SquareMillimetre>(1.0, -2.0, 3.0);
+      VectorArea<>::Create<Unit::Area::SquareMillimetre>(1.0, -2.0, 3.0);
   constexpr Vector value = vector_area.StaticValue<Unit::Area::SquareMillimetre>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -233,7 +234,7 @@ TEST(VectorArea, Stream) {
 }
 
 TEST(VectorArea, Unit) {
-  EXPECT_EQ(VectorArea::Unit(), Standard<Unit::Area>);
+  EXPECT_EQ(VectorArea<>::Unit(), Standard<Unit::Area>);
 }
 
 TEST(VectorArea, Value) {
@@ -272,7 +273,7 @@ TEST(VectorArea, YAML) {
 }
 
 TEST(VectorArea, Zero) {
-  EXPECT_EQ(VectorArea::Zero(), VectorArea({0.0, 0.0, 0.0}, Unit::Area::SquareMetre));
+  EXPECT_EQ(VectorArea<>::Zero(), VectorArea({0.0, 0.0, 0.0}, Unit::Area::SquareMetre));
 }
 
 }  // namespace

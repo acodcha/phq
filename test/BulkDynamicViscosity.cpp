@@ -96,7 +96,7 @@ TEST(BulkDynamicViscosity, ComparisonOperators) {
 
 TEST(BulkDynamicViscosity, CopyAssignmentOperator) {
   const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity second = BulkDynamicViscosity::Zero();
+  BulkDynamicViscosity second = BulkDynamicViscosity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -109,7 +109,7 @@ TEST(BulkDynamicViscosity, CopyConstructor) {
 
 TEST(BulkDynamicViscosity, Create) {
   constexpr BulkDynamicViscosity bulk_dynamic_viscosity =
-      BulkDynamicViscosity::Create<Unit::DynamicViscosity::PascalSecond>(1.0);
+      BulkDynamicViscosity<>::Create<Unit::DynamicViscosity::PascalSecond>(1.0);
   EXPECT_EQ(
       bulk_dynamic_viscosity, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
@@ -119,14 +119,14 @@ TEST(BulkDynamicViscosity, DefaultConstructor) {
 }
 
 TEST(BulkDynamicViscosity, Dimensions) {
-  EXPECT_EQ(BulkDynamicViscosity::Dimensions(), RelatedDimensions<Unit::DynamicViscosity>);
+  EXPECT_EQ(BulkDynamicViscosity<>::Dimensions(), RelatedDimensions<Unit::DynamicViscosity>);
 }
 
 TEST(BulkDynamicViscosity, Hash) {
   const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::KilopascalSecond};
   const BulkDynamicViscosity second{1.000001, Unit::DynamicViscosity::KilopascalSecond};
   const BulkDynamicViscosity third{-1.0, Unit::DynamicViscosity::KilopascalSecond};
-  const std::hash<BulkDynamicViscosity> hash;
+  const std::hash<BulkDynamicViscosity<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -142,7 +142,7 @@ TEST(BulkDynamicViscosity, JSON) {
 
 TEST(BulkDynamicViscosity, MoveAssignmentOperator) {
   BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity second = BulkDynamicViscosity::Zero();
+  BulkDynamicViscosity second = BulkDynamicViscosity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
@@ -184,7 +184,7 @@ TEST(BulkDynamicViscosity, StandardConstructor) {
 
 TEST(BulkDynamicViscosity, StaticValue) {
   constexpr BulkDynamicViscosity bulk_dynamic_viscosity =
-      BulkDynamicViscosity::Create<Unit::DynamicViscosity::KilopascalSecond>(1.0);
+      BulkDynamicViscosity<>::Create<Unit::DynamicViscosity::KilopascalSecond>(1.0);
   constexpr double value =
       bulk_dynamic_viscosity.StaticValue<Unit::DynamicViscosity::KilopascalSecond>();
   EXPECT_EQ(value, 1.0);
@@ -197,7 +197,7 @@ TEST(BulkDynamicViscosity, Stream) {
 }
 
 TEST(BulkDynamicViscosity, Unit) {
-  EXPECT_EQ(BulkDynamicViscosity::Unit(), Standard<Unit::DynamicViscosity>);
+  EXPECT_EQ(BulkDynamicViscosity<>::Unit(), Standard<Unit::DynamicViscosity>);
 }
 
 TEST(BulkDynamicViscosity, Value) {
@@ -224,7 +224,7 @@ TEST(BulkDynamicViscosity, YAML) {
 }
 
 TEST(BulkDynamicViscosity, Zero) {
-  EXPECT_EQ(BulkDynamicViscosity::Zero(),
+  EXPECT_EQ(BulkDynamicViscosity<>::Zero(),
             BulkDynamicViscosity(0.0, Unit::DynamicViscosity::PascalSecond));
 }
 

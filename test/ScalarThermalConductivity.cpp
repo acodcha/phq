@@ -94,7 +94,7 @@ TEST(ScalarThermalConductivity, ComparisonOperators) {
 
 TEST(ScalarThermalConductivity, CopyAssignmentOperator) {
   const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  ScalarThermalConductivity second = ScalarThermalConductivity::Zero();
+  ScalarThermalConductivity second = ScalarThermalConductivity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -107,7 +107,7 @@ TEST(ScalarThermalConductivity, CopyConstructor) {
 
 TEST(ScalarThermalConductivity, Create) {
   constexpr ScalarThermalConductivity quantity =
-      ScalarThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(1.0);
+      ScalarThermalConductivity<>::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(1.0);
   EXPECT_EQ(
       quantity, ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
@@ -117,14 +117,15 @@ TEST(ScalarThermalConductivity, DefaultConstructor) {
 }
 
 TEST(ScalarThermalConductivity, Dimensions) {
-  EXPECT_EQ(ScalarThermalConductivity::Dimensions(), RelatedDimensions<Unit::ThermalConductivity>);
+  EXPECT_EQ(
+      ScalarThermalConductivity<>::Dimensions(), RelatedDimensions<Unit::ThermalConductivity>);
 }
 
 TEST(ScalarThermalConductivity, Hash) {
   const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   const ScalarThermalConductivity second{1.00001, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   const ScalarThermalConductivity third{-1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  const std::hash<ScalarThermalConductivity> hash;
+  const std::hash<ScalarThermalConductivity<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -141,7 +142,7 @@ TEST(ScalarThermalConductivity, JSON) {
 
 TEST(ScalarThermalConductivity, MoveAssignmentOperator) {
   ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  ScalarThermalConductivity second = ScalarThermalConductivity::Zero();
+  ScalarThermalConductivity second = ScalarThermalConductivity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(
       second, ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
@@ -187,9 +188,8 @@ TEST(ScalarThermalConductivity, StandardConstructor) {
 }
 
 TEST(ScalarThermalConductivity, StaticValue) {
-  constexpr ScalarThermalConductivity quantity =
-      ScalarThermalConductivity::Create<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
-          2.0);
+  constexpr ScalarThermalConductivity quantity = ScalarThermalConductivity<>::Create<
+      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(2.0);
   constexpr double value =
       quantity.StaticValue<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>();
   EXPECT_EQ(value, 2.0);
@@ -204,7 +204,7 @@ TEST(ScalarThermalConductivity, Stream) {
 }
 
 TEST(ScalarThermalConductivity, Unit) {
-  EXPECT_EQ(ScalarThermalConductivity::Unit(), Standard<Unit::ThermalConductivity>);
+  EXPECT_EQ(ScalarThermalConductivity<>::Unit(), Standard<Unit::ThermalConductivity>);
 }
 
 TEST(ScalarThermalConductivity, Value) {
@@ -236,7 +236,7 @@ TEST(ScalarThermalConductivity, YAML) {
 }
 
 TEST(ScalarThermalConductivity, Zero) {
-  EXPECT_EQ(ScalarThermalConductivity::Zero(),
+  EXPECT_EQ(ScalarThermalConductivity<>::Zero(),
             ScalarThermalConductivity(0.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 

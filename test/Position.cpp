@@ -129,7 +129,7 @@ TEST(Position, ComparisonOperators) {
 
 TEST(Position, CopyAssignmentOperator) {
   const Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Position second = Position::Zero();
+  Position second = Position<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -142,16 +142,16 @@ TEST(Position, CopyConstructor) {
 
 TEST(Position, Create) {
   {
-    constexpr Position position = Position::Create<Unit::Length::Metre>(1.0, -2.0, 3.0);
+    constexpr Position position = Position<>::Create<Unit::Length::Metre>(1.0, -2.0, 3.0);
     EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
   }
   {
     constexpr Position position =
-        Position::Create<Unit::Length::Metre>(std::array<double, 3>{1.0, -2.0, 3.0});
+        Position<>::Create<Unit::Length::Metre>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
   }
   {
-    constexpr Position position = Position::Create<Unit::Length::Metre>(Vector{1.0, -2.0, 3.0});
+    constexpr Position position = Position<>::Create<Unit::Length::Metre>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
   }
 }
@@ -161,7 +161,7 @@ TEST(Position, DefaultConstructor) {
 }
 
 TEST(Position, Dimensions) {
-  EXPECT_EQ(Position::Dimensions(), RelatedDimensions<Unit::Length>);
+  EXPECT_EQ(Position<>::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
 TEST(Position, Direction) {
@@ -172,7 +172,7 @@ TEST(Position, Hash) {
   const Position first({1.0, -2.0, 3.0}, Unit::Length::Millimetre);
   const Position second({1.0, -2.0, 3.000001}, Unit::Length::Millimetre);
   const Position third({1.0, 2.0, 3.0}, Unit::Length::Millimetre);
-  const std::hash<Position> hash;
+  const std::hash<Position<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -203,7 +203,7 @@ TEST(Position, MiscellaneousConstructors) {
 
 TEST(Position, MoveAssignmentOperator) {
   Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Position second = Position::Zero();
+  Position second = Position<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
@@ -243,7 +243,7 @@ TEST(Position, StandardConstructor) {
 }
 
 TEST(Position, StaticValue) {
-  constexpr Position position = Position::Create<Unit::Length::Millimetre>(1.0, -2.0, 3.0);
+  constexpr Position position = Position<>::Create<Unit::Length::Millimetre>(1.0, -2.0, 3.0);
   constexpr Vector value = position.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -255,7 +255,7 @@ TEST(Position, Stream) {
 }
 
 TEST(Position, Unit) {
-  EXPECT_EQ(Position::Unit(), Standard<Unit::Length>);
+  EXPECT_EQ(Position<>::Unit(), Standard<Unit::Length>);
 }
 
 TEST(Position, Value) {
@@ -288,7 +288,7 @@ TEST(Position, YAML) {
 }
 
 TEST(Position, Zero) {
-  EXPECT_EQ(Position::Zero(), Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(Position<>::Zero(), Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
 }
 
 }  // namespace

@@ -111,7 +111,7 @@ TEST(VolumeRate, ComparisonOperators) {
 
 TEST(VolumeRate, CopyAssignmentOperator) {
   const VolumeRate first{1.0, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second = VolumeRate::Zero();
+  VolumeRate second = VolumeRate<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -123,7 +123,8 @@ TEST(VolumeRate, CopyConstructor) {
 }
 
 TEST(VolumeRate, Create) {
-  constexpr VolumeRate volume_rate = VolumeRate::Create<Unit::VolumeRate::CubicMetrePerSecond>(1.0);
+  constexpr VolumeRate volume_rate =
+      VolumeRate<>::Create<Unit::VolumeRate::CubicMetrePerSecond>(1.0);
   EXPECT_EQ(volume_rate, VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
@@ -132,14 +133,14 @@ TEST(VolumeRate, DefaultConstructor) {
 }
 
 TEST(VolumeRate, Dimensions) {
-  EXPECT_EQ(VolumeRate::Dimensions(), RelatedDimensions<Unit::VolumeRate>);
+  EXPECT_EQ(VolumeRate<>::Dimensions(), RelatedDimensions<Unit::VolumeRate>);
 }
 
 TEST(VolumeRate, Hash) {
   const VolumeRate first{1.0, Unit::VolumeRate::CubicFootPerSecond};
   const VolumeRate second{1.000001, Unit::VolumeRate::CubicFootPerSecond};
   const VolumeRate third{-1.0, Unit::VolumeRate::CubicFootPerSecond};
-  const std::hash<VolumeRate> hash;
+  const std::hash<VolumeRate<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -173,7 +174,7 @@ TEST(VolumeRate, MiscellaneousConstructors) {
 
 TEST(VolumeRate, MoveAssignmentOperator) {
   VolumeRate first{1.0, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second = VolumeRate::Zero();
+  VolumeRate second = VolumeRate<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
@@ -213,7 +214,8 @@ TEST(VolumeRate, StandardConstructor) {
 }
 
 TEST(VolumeRate, StaticValue) {
-  constexpr VolumeRate volume_rate = VolumeRate::Create<Unit::VolumeRate::CubicFootPerSecond>(1.0);
+  constexpr VolumeRate volume_rate =
+      VolumeRate<>::Create<Unit::VolumeRate::CubicFootPerSecond>(1.0);
   constexpr double value = volume_rate.StaticValue<Unit::VolumeRate::CubicFootPerSecond>();
   EXPECT_EQ(value, 1.0);
 }
@@ -225,7 +227,7 @@ TEST(VolumeRate, Stream) {
 }
 
 TEST(VolumeRate, Unit) {
-  EXPECT_EQ(VolumeRate::Unit(), Standard<Unit::VolumeRate>);
+  EXPECT_EQ(VolumeRate<>::Unit(), Standard<Unit::VolumeRate>);
 }
 
 TEST(VolumeRate, Value) {
@@ -252,7 +254,7 @@ TEST(VolumeRate, YAML) {
 }
 
 TEST(VolumeRate, Zero) {
-  EXPECT_EQ(VolumeRate::Zero(), VolumeRate(0.0, Unit::VolumeRate::CubicMetrePerSecond));
+  EXPECT_EQ(VolumeRate<>::Zero(), VolumeRate(0.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 }  // namespace

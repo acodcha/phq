@@ -82,7 +82,7 @@ TEST(HeatCapacityRatio, ComparisonOperators) {
 
 TEST(HeatCapacityRatio, CopyAssignmentOperator) {
   const HeatCapacityRatio first{1.0};
-  HeatCapacityRatio second = HeatCapacityRatio::Zero();
+  HeatCapacityRatio second = HeatCapacityRatio<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -98,14 +98,14 @@ TEST(HeatCapacityRatio, DefaultConstructor) {
 }
 
 TEST(HeatCapacityRatio, Dimensions) {
-  EXPECT_EQ(HeatCapacityRatio::Dimensions(), Dimensionless);
+  EXPECT_EQ(HeatCapacityRatio<>::Dimensions(), Dimensionless);
 }
 
 TEST(HeatCapacityRatio, Hash) {
   const HeatCapacityRatio first{1.0};
   const HeatCapacityRatio second{1.000001};
   const HeatCapacityRatio third{-1.0};
-  const std::hash<HeatCapacityRatio> hash;
+  const std::hash<HeatCapacityRatio<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -133,7 +133,7 @@ TEST(HeatCapacityRatio, Mathematics) {
 
 TEST(HeatCapacityRatio, MoveAssignmentOperator) {
   HeatCapacityRatio first{1.0};
-  HeatCapacityRatio second = HeatCapacityRatio::Zero();
+  HeatCapacityRatio second = HeatCapacityRatio<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, HeatCapacityRatio(1.0));
 }
@@ -188,7 +188,7 @@ TEST(HeatCapacityRatio, YAML) {
 }
 
 TEST(HeatCapacityRatio, Zero) {
-  EXPECT_EQ(HeatCapacityRatio::Zero(), HeatCapacityRatio(0.0));
+  EXPECT_EQ(HeatCapacityRatio<>::Zero(), HeatCapacityRatio(0.0));
 }
 
 }  // namespace

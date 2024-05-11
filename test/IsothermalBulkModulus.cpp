@@ -90,7 +90,7 @@ TEST(IsothermalBulkModulus, ComparisonOperators) {
 
 TEST(IsothermalBulkModulus, CopyAssignmentOperator) {
   const IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
-  IsothermalBulkModulus second = IsothermalBulkModulus::Zero();
+  IsothermalBulkModulus second = IsothermalBulkModulus<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -103,7 +103,7 @@ TEST(IsothermalBulkModulus, CopyConstructor) {
 
 TEST(IsothermalBulkModulus, Create) {
   constexpr IsothermalBulkModulus isothermal_bulk_modulus =
-      IsothermalBulkModulus::Create<Unit::Pressure::Pascal>(1.0);
+      IsothermalBulkModulus<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(isothermal_bulk_modulus, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
@@ -112,14 +112,14 @@ TEST(IsothermalBulkModulus, DefaultConstructor) {
 }
 
 TEST(IsothermalBulkModulus, Dimensions) {
-  EXPECT_EQ(IsothermalBulkModulus::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(IsothermalBulkModulus<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(IsothermalBulkModulus, Hash) {
   const IsothermalBulkModulus first{1.0, Unit::Pressure::Kilopascal};
   const IsothermalBulkModulus second{1.00001, Unit::Pressure::Kilopascal};
   const IsothermalBulkModulus third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<IsothermalBulkModulus> hash;
+  const std::hash<IsothermalBulkModulus<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -134,7 +134,7 @@ TEST(IsothermalBulkModulus, JSON) {
 
 TEST(IsothermalBulkModulus, MoveAssignmentOperator) {
   IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
-  IsothermalBulkModulus second = IsothermalBulkModulus::Zero();
+  IsothermalBulkModulus second = IsothermalBulkModulus<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
 }
@@ -175,7 +175,7 @@ TEST(IsothermalBulkModulus, StandardConstructor) {
 
 TEST(IsothermalBulkModulus, StaticValue) {
   constexpr IsothermalBulkModulus isothermal_bulk_modulus =
-      IsothermalBulkModulus::Create<Unit::Pressure::Kilopascal>(2.0);
+      IsothermalBulkModulus<>::Create<Unit::Pressure::Kilopascal>(2.0);
   constexpr double value = isothermal_bulk_modulus.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 2.0);
 }
@@ -187,7 +187,7 @@ TEST(IsothermalBulkModulus, Stream) {
 }
 
 TEST(IsothermalBulkModulus, Unit) {
-  EXPECT_EQ(IsothermalBulkModulus::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(IsothermalBulkModulus<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(IsothermalBulkModulus, Value) {
@@ -212,7 +212,7 @@ TEST(IsothermalBulkModulus, YAML) {
 }
 
 TEST(IsothermalBulkModulus, Zero) {
-  EXPECT_EQ(IsothermalBulkModulus::Zero(), IsothermalBulkModulus(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(IsothermalBulkModulus<>::Zero(), IsothermalBulkModulus(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

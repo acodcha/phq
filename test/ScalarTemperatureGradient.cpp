@@ -100,7 +100,7 @@ TEST(ScalarTemperatureGradient, ComparisonOperators) {
 
 TEST(ScalarTemperatureGradient, CopyAssignmentOperator) {
   const ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
-  ScalarTemperatureGradient second = ScalarTemperatureGradient::Zero();
+  ScalarTemperatureGradient second = ScalarTemperatureGradient<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -113,7 +113,7 @@ TEST(ScalarTemperatureGradient, CopyConstructor) {
 
 TEST(ScalarTemperatureGradient, Create) {
   constexpr ScalarTemperatureGradient quantity =
-      ScalarTemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(1.0);
+      ScalarTemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(1.0);
   EXPECT_EQ(quantity, ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
@@ -122,14 +122,15 @@ TEST(ScalarTemperatureGradient, DefaultConstructor) {
 }
 
 TEST(ScalarTemperatureGradient, Dimensions) {
-  EXPECT_EQ(ScalarTemperatureGradient::Dimensions(), RelatedDimensions<Unit::TemperatureGradient>);
+  EXPECT_EQ(
+      ScalarTemperatureGradient<>::Dimensions(), RelatedDimensions<Unit::TemperatureGradient>);
 }
 
 TEST(ScalarTemperatureGradient, Hash) {
   const ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   const ScalarTemperatureGradient second{1.00001, Unit::TemperatureGradient::KelvinPerMetre};
   const ScalarTemperatureGradient third{-1.0, Unit::TemperatureGradient::KelvinPerMetre};
-  const std::hash<ScalarTemperatureGradient> hash;
+  const std::hash<ScalarTemperatureGradient<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -156,7 +157,7 @@ TEST(ScalarTemperatureGradient, MiscellaneousConstructors) {
 
 TEST(ScalarTemperatureGradient, MoveAssignmentOperator) {
   ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
-  ScalarTemperatureGradient second = ScalarTemperatureGradient::Zero();
+  ScalarTemperatureGradient second = ScalarTemperatureGradient<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
@@ -198,7 +199,7 @@ TEST(ScalarTemperatureGradient, StandardConstructor) {
 
 TEST(ScalarTemperatureGradient, StaticValue) {
   constexpr ScalarTemperatureGradient quantity =
-      ScalarTemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.0);
+      ScalarTemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.0);
   constexpr double value = quantity.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
   EXPECT_EQ(value, 1.0);
 }
@@ -211,7 +212,7 @@ TEST(ScalarTemperatureGradient, Stream) {
 }
 
 TEST(ScalarTemperatureGradient, Unit) {
-  EXPECT_EQ(ScalarTemperatureGradient::Unit(), Standard<Unit::TemperatureGradient>);
+  EXPECT_EQ(ScalarTemperatureGradient<>::Unit(), Standard<Unit::TemperatureGradient>);
 }
 
 TEST(ScalarTemperatureGradient, Value) {
@@ -238,7 +239,7 @@ TEST(ScalarTemperatureGradient, YAML) {
 }
 
 TEST(ScalarTemperatureGradient, Zero) {
-  EXPECT_EQ(ScalarTemperatureGradient::Zero(),
+  EXPECT_EQ(ScalarTemperatureGradient<>::Zero(),
             ScalarTemperatureGradient(0.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 

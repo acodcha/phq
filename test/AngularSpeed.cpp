@@ -119,7 +119,7 @@ TEST(AngularSpeed, ComparisonOperators) {
 
 TEST(AngularSpeed, CopyAssignmentOperator) {
   const AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed second = AngularSpeed::Zero();
+  AngularSpeed second = AngularSpeed<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -132,7 +132,7 @@ TEST(AngularSpeed, CopyConstructor) {
 
 TEST(AngularSpeed, Create) {
   constexpr AngularSpeed angular_speed =
-      AngularSpeed::Create<Unit::AngularSpeed::RadianPerSecond>(1.0);
+      AngularSpeed<>::Create<Unit::AngularSpeed::RadianPerSecond>(1.0);
   EXPECT_EQ(angular_speed, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
@@ -141,14 +141,14 @@ TEST(AngularSpeed, DefaultConstructor) {
 }
 
 TEST(AngularSpeed, Dimensions) {
-  EXPECT_EQ(AngularSpeed::Dimensions(), RelatedDimensions<Unit::AngularSpeed>);
+  EXPECT_EQ(AngularSpeed<>::Dimensions(), RelatedDimensions<Unit::AngularSpeed>);
 }
 
 TEST(AngularSpeed, Hash) {
   const AngularSpeed first{1.0, Unit::AngularSpeed::DegreePerSecond};
   const AngularSpeed second{1.000001, Unit::AngularSpeed::DegreePerSecond};
   const AngularSpeed third{-1.0, Unit::AngularSpeed::DegreePerSecond};
-  const std::hash<AngularSpeed> hash;
+  const std::hash<AngularSpeed<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -188,7 +188,7 @@ TEST(AngularSpeed, MiscellaneousConstructors) {
 
 TEST(AngularSpeed, MoveAssignmentOperator) {
   AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed second = AngularSpeed::Zero();
+  AngularSpeed second = AngularSpeed<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
@@ -229,7 +229,7 @@ TEST(AngularSpeed, StandardConstructor) {
 
 TEST(AngularSpeed, StaticValue) {
   constexpr AngularSpeed angular_speed =
-      AngularSpeed::Create<Unit::AngularSpeed::DegreePerSecond>(1.0);
+      AngularSpeed<>::Create<Unit::AngularSpeed::DegreePerSecond>(1.0);
   constexpr double value = angular_speed.StaticValue<Unit::AngularSpeed::DegreePerSecond>();
   EXPECT_EQ(value, 1.0);
 }
@@ -241,7 +241,7 @@ TEST(AngularSpeed, Stream) {
 }
 
 TEST(AngularSpeed, Unit) {
-  EXPECT_EQ(AngularSpeed::Unit(), Standard<Unit::AngularSpeed>);
+  EXPECT_EQ(AngularSpeed<>::Unit(), Standard<Unit::AngularSpeed>);
 }
 
 TEST(AngularSpeed, Value) {
@@ -268,7 +268,7 @@ TEST(AngularSpeed, YAML) {
 }
 
 TEST(AngularSpeed, Zero) {
-  EXPECT_EQ(AngularSpeed::Zero(), AngularSpeed(0.0, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(AngularSpeed<>::Zero(), AngularSpeed(0.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 }  // namespace

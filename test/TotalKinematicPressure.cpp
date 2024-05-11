@@ -115,7 +115,7 @@ TEST(TotalKinematicPressure, ComparisonOperators) {
 
 TEST(TotalKinematicPressure, CopyAssignmentOperator) {
   const TotalKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  TotalKinematicPressure second = TotalKinematicPressure::Zero();
+  TotalKinematicPressure second = TotalKinematicPressure<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -128,7 +128,7 @@ TEST(TotalKinematicPressure, CopyConstructor) {
 
 TEST(TotalKinematicPressure, Create) {
   constexpr TotalKinematicPressure total_kinematic_pressure =
-      TotalKinematicPressure::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
+      TotalKinematicPressure<>::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
   EXPECT_EQ(total_kinematic_pressure,
             TotalKinematicPressure(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
@@ -138,14 +138,14 @@ TEST(TotalKinematicPressure, DefaultConstructor) {
 }
 
 TEST(TotalKinematicPressure, Dimensions) {
-  EXPECT_EQ(TotalKinematicPressure::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
+  EXPECT_EQ(TotalKinematicPressure<>::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
 }
 
 TEST(TotalKinematicPressure, Hash) {
   const TotalKinematicPressure first{1.0, Unit::SpecificEnergy::NanojoulePerGram};
   const TotalKinematicPressure second{1.000001, Unit::SpecificEnergy::NanojoulePerGram};
   const TotalKinematicPressure third{-1.0, Unit::SpecificEnergy::NanojoulePerGram};
-  const std::hash<TotalKinematicPressure> hasher;
+  const std::hash<TotalKinematicPressure<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -182,7 +182,7 @@ TEST(TotalKinematicPressure, MiscellaneousConstructors) {
 
 TEST(TotalKinematicPressure, MoveAssignmentOperator) {
   TotalKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  TotalKinematicPressure second = TotalKinematicPressure::Zero();
+  TotalKinematicPressure second = TotalKinematicPressure<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, TotalKinematicPressure(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
@@ -224,7 +224,7 @@ TEST(TotalKinematicPressure, StandardConstructor) {
 
 TEST(TotalKinematicPressure, StaticValue) {
   constexpr TotalKinematicPressure total_kinematic_pressure =
-      TotalKinematicPressure::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
+      TotalKinematicPressure<>::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
   constexpr double value =
       total_kinematic_pressure.StaticValue<Unit::SpecificEnergy::NanojoulePerGram>();
   EXPECT_EQ(value, 2.0);
@@ -238,7 +238,7 @@ TEST(TotalKinematicPressure, Stream) {
 }
 
 TEST(TotalKinematicPressure, Unit) {
-  EXPECT_EQ(TotalKinematicPressure::Unit(), Standard<Unit::SpecificEnergy>);
+  EXPECT_EQ(TotalKinematicPressure<>::Unit(), Standard<Unit::SpecificEnergy>);
 }
 
 TEST(TotalKinematicPressure, Value) {
@@ -265,7 +265,7 @@ TEST(TotalKinematicPressure, YAML) {
 }
 
 TEST(TotalKinematicPressure, Zero) {
-  EXPECT_EQ(TotalKinematicPressure::Zero(),
+  EXPECT_EQ(TotalKinematicPressure<>::Zero(),
             TotalKinematicPressure(0.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 

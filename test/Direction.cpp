@@ -64,7 +64,7 @@ TEST(Direction, ComparisonOperators) {
 
 TEST(Direction, CopyAssignmentOperator) {
   const Direction first(1.0, -2.0, 3.0);
-  Direction second = Direction::Zero();
+  Direction second = Direction<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -82,11 +82,11 @@ TEST(Direction, Cross) {
 }
 
 TEST(Direction, DefaultConstructor) {
-  EXPECT_EQ(Direction{}, Direction::Zero());
+  EXPECT_EQ(Direction{}, Direction<>::Zero());
 }
 
 TEST(Direction, Dimensions) {
-  EXPECT_EQ(Direction::Dimensions(), Dimensionless);
+  EXPECT_EQ(Direction<>::Dimensions(), Dimensionless);
 }
 
 TEST(Direction, Dot) {
@@ -110,7 +110,7 @@ TEST(Direction, Hash) {
   const Direction first{1.0, -2.0, 3.0};
   const Direction second{1.0, -2.0, 3.000001};
   const Direction third{1.0, 2.0, 3.0};
-  const std::hash<Direction> hasher;
+  const std::hash<Direction<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -142,7 +142,7 @@ TEST(Direction, MiscellaneousMethods) {
 
 TEST(Direction, MoveAssignmentOperator) {
   Direction first(1.0, -2.0, 3.0);
-  Direction second = Direction::Zero();
+  Direction second = Direction<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Direction(1.0, -2.0, 3.0));
 }
@@ -219,7 +219,7 @@ TEST(Direction, YAML) {
 }
 
 TEST(Direction, Zero) {
-  EXPECT_EQ(Direction::Zero(), Direction(0.0, 0.0, 0.0));
+  EXPECT_EQ(Direction<>::Zero(), Direction(0.0, 0.0, 0.0));
 }
 
 }  // namespace

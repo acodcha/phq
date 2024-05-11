@@ -122,7 +122,7 @@ TEST(ThermalConductivity, ComparisonOperators) {
 TEST(ThermalConductivity, CopyAssignmentOperator) {
   const ThermalConductivity first(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  ThermalConductivity second = ThermalConductivity::Zero();
+  ThermalConductivity second = ThermalConductivity<>::Zero();
   second = first;
   EXPECT_EQ(second, ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                                         Unit::ThermalConductivity::WattPerMetrePerKelvin));
@@ -139,7 +139,7 @@ TEST(ThermalConductivity, CopyConstructor) {
 TEST(ThermalConductivity, Create) {
   {
     constexpr ThermalConductivity thermal_conductivity =
-        ThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+        ThermalConductivity<>::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
             1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
     EXPECT_EQ(thermal_conductivity,
               ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
@@ -147,7 +147,7 @@ TEST(ThermalConductivity, Create) {
   }
   {
     constexpr ThermalConductivity thermal_conductivity =
-        ThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+        ThermalConductivity<>::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
             std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
     EXPECT_EQ(thermal_conductivity,
               ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
@@ -155,7 +155,7 @@ TEST(ThermalConductivity, Create) {
   }
   {
     constexpr ThermalConductivity thermal_conductivity =
-        ThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+        ThermalConductivity<>::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
             SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
     EXPECT_EQ(thermal_conductivity,
               ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
@@ -168,7 +168,7 @@ TEST(ThermalConductivity, DefaultConstructor) {
 }
 
 TEST(ThermalConductivity, Dimensions) {
-  EXPECT_EQ(ThermalConductivity::Dimensions(), RelatedDimensions<Unit::ThermalConductivity>);
+  EXPECT_EQ(ThermalConductivity<>::Dimensions(), RelatedDimensions<Unit::ThermalConductivity>);
 }
 
 TEST(ThermalConductivity, Hash) {
@@ -178,7 +178,7 @@ TEST(ThermalConductivity, Hash) {
                                    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin);
   const ThermalConductivity third(
       {1.0, -2.0, 3.0, 4.0, 5.0, -6.0}, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin);
-  const std::hash<ThermalConductivity> hash;
+  const std::hash<ThermalConductivity<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -209,7 +209,7 @@ TEST(ThermalConductivity, MiscellaneousConstructors) {
 TEST(ThermalConductivity, MoveAssignmentOperator) {
   ThermalConductivity first(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  ThermalConductivity second = ThermalConductivity::Zero();
+  ThermalConductivity second = ThermalConductivity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                                         Unit::ThermalConductivity::WattPerMetrePerKelvin));
@@ -262,7 +262,7 @@ TEST(ThermalConductivity, StandardConstructor) {
 
 TEST(ThermalConductivity, StaticValue) {
   constexpr ThermalConductivity thermal_conductivity =
-      ThermalConductivity::Create<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
+      ThermalConductivity<>::Create<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
           1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
   constexpr SymmetricDyad value =
       thermal_conductivity.StaticValue<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>();
@@ -357,7 +357,7 @@ TEST(ThermalConductivity, YAML) {
 }
 
 TEST(ThermalConductivity, Zero) {
-  EXPECT_EQ(ThermalConductivity::Zero(),
+  EXPECT_EQ(ThermalConductivity<>::Zero(),
             ThermalConductivity(
                 {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }

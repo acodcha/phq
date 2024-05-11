@@ -105,7 +105,7 @@ TEST(SpecificEnergy, ComparisonOperators) {
 
 TEST(SpecificEnergy, CopyAssignmentOperator) {
   const SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  SpecificEnergy second = SpecificEnergy::Zero();
+  SpecificEnergy second = SpecificEnergy<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -118,7 +118,7 @@ TEST(SpecificEnergy, CopyConstructor) {
 
 TEST(SpecificEnergy, Create) {
   constexpr SpecificEnergy quantity =
-      SpecificEnergy::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
+      SpecificEnergy<>::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
   EXPECT_EQ(quantity, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
@@ -127,14 +127,14 @@ TEST(SpecificEnergy, DefaultConstructor) {
 }
 
 TEST(SpecificEnergy, Dimensions) {
-  EXPECT_EQ(SpecificEnergy::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
+  EXPECT_EQ(SpecificEnergy<>::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
 }
 
 TEST(SpecificEnergy, Hash) {
   const SpecificEnergy first{1.0, Unit::SpecificEnergy::NanojoulePerGram};
   const SpecificEnergy second{1.00001, Unit::SpecificEnergy::NanojoulePerGram};
   const SpecificEnergy third{-1.0, Unit::SpecificEnergy::NanojoulePerGram};
-  const std::hash<SpecificEnergy> hash;
+  const std::hash<SpecificEnergy<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -161,7 +161,7 @@ TEST(SpecificEnergy, MiscellaneousConstructors) {
 
 TEST(SpecificEnergy, MoveAssignmentOperator) {
   SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  SpecificEnergy second = SpecificEnergy::Zero();
+  SpecificEnergy second = SpecificEnergy<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
@@ -203,7 +203,7 @@ TEST(SpecificEnergy, StandardConstructor) {
 
 TEST(SpecificEnergy, StaticValue) {
   constexpr SpecificEnergy quantity =
-      SpecificEnergy::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
+      SpecificEnergy<>::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
   constexpr double value = quantity.StaticValue<Unit::SpecificEnergy::NanojoulePerGram>();
   EXPECT_EQ(value, 2.0);
 }
@@ -215,7 +215,7 @@ TEST(SpecificEnergy, Stream) {
 }
 
 TEST(SpecificEnergy, Unit) {
-  EXPECT_EQ(SpecificEnergy::Unit(), Standard<Unit::SpecificEnergy>);
+  EXPECT_EQ(SpecificEnergy<>::Unit(), Standard<Unit::SpecificEnergy>);
 }
 
 TEST(SpecificEnergy, Value) {
@@ -242,7 +242,7 @@ TEST(SpecificEnergy, YAML) {
 }
 
 TEST(SpecificEnergy, Zero) {
-  EXPECT_EQ(SpecificEnergy::Zero(), SpecificEnergy(0.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(SpecificEnergy<>::Zero(), SpecificEnergy(0.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 }  // namespace

@@ -105,7 +105,7 @@ TEST(VolumetricThermalExpansionCoefficient, ComparisonOperators) {
 
 TEST(VolumetricThermalExpansionCoefficient, CopyAssignmentOperator) {
   const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
-  VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient::Zero();
+  VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -118,7 +118,7 @@ TEST(VolumetricThermalExpansionCoefficient, CopyConstructor) {
 
 TEST(VolumetricThermalExpansionCoefficient, Create) {
   constexpr VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient =
-      VolumetricThermalExpansionCoefficient::Create<Unit::ThermalExpansion::PerKelvin>(1.0);
+      VolumetricThermalExpansionCoefficient<>::Create<Unit::ThermalExpansion::PerKelvin>(1.0);
   EXPECT_EQ(volumetric_thermal_expansion_coefficient,
             VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
 }
@@ -128,7 +128,7 @@ TEST(VolumetricThermalExpansionCoefficient, DefaultConstructor) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Dimensions) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient::Dimensions(),
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient<>::Dimensions(),
             RelatedDimensions<Unit::ThermalExpansion>);
 }
 
@@ -136,7 +136,7 @@ TEST(VolumetricThermalExpansionCoefficient, Hash) {
   const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerRankine};
   const VolumetricThermalExpansionCoefficient second{1.000001, Unit::ThermalExpansion::PerRankine};
   const VolumetricThermalExpansionCoefficient third{-1.0, Unit::ThermalExpansion::PerRankine};
-  const std::hash<VolumetricThermalExpansionCoefficient> hasher;
+  const std::hash<VolumetricThermalExpansionCoefficient<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -152,7 +152,7 @@ TEST(VolumetricThermalExpansionCoefficient, JSON) {
 
 TEST(VolumetricThermalExpansionCoefficient, MoveAssignmentOperator) {
   VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
-  VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient::Zero();
+  VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
 }
@@ -196,7 +196,7 @@ TEST(VolumetricThermalExpansionCoefficient, StandardConstructor) {
 
 TEST(VolumetricThermalExpansionCoefficient, StaticValue) {
   constexpr VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient =
-      VolumetricThermalExpansionCoefficient::Create<Unit::ThermalExpansion::PerRankine>(1.0);
+      VolumetricThermalExpansionCoefficient<>::Create<Unit::ThermalExpansion::PerRankine>(1.0);
   constexpr double value =
       volumetric_thermal_expansion_coefficient.StaticValue<Unit::ThermalExpansion::PerRankine>();
   EXPECT_EQ(value, 1.0);
@@ -210,7 +210,7 @@ TEST(VolumetricThermalExpansionCoefficient, Stream) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Unit) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient::Unit(), Standard<Unit::ThermalExpansion>);
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient<>::Unit(), Standard<Unit::ThermalExpansion>);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Value) {
@@ -238,7 +238,7 @@ TEST(VolumetricThermalExpansionCoefficient, YAML) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Zero) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient::Zero(),
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient<>::Zero(),
             VolumetricThermalExpansionCoefficient(0.0, Unit::ThermalExpansion::PerKelvin));
 }
 

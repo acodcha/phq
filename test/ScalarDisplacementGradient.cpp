@@ -84,7 +84,7 @@ TEST(ScalarDisplacementGradient, ComparisonOperators) {
 
 TEST(ScalarDisplacementGradient, CopyAssignmentOperator) {
   const ScalarDisplacementGradient first{1.0};
-  ScalarDisplacementGradient second = ScalarDisplacementGradient::Zero();
+  ScalarDisplacementGradient second = ScalarDisplacementGradient<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -100,14 +100,14 @@ TEST(ScalarDisplacementGradient, DefaultConstructor) {
 }
 
 TEST(ScalarDisplacementGradient, Dimensions) {
-  EXPECT_EQ(ScalarDisplacementGradient::Dimensions(), Dimensionless);
+  EXPECT_EQ(ScalarDisplacementGradient<>::Dimensions(), Dimensionless);
 }
 
 TEST(ScalarDisplacementGradient, Hash) {
   const ScalarDisplacementGradient first{1.0};
   const ScalarDisplacementGradient second{1.00001};
   const ScalarDisplacementGradient third{-1.0};
-  const std::hash<ScalarDisplacementGradient> hash;
+  const std::hash<ScalarDisplacementGradient<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -135,7 +135,7 @@ TEST(ScalarDisplacementGradient, Mathematics) {
 
 TEST(ScalarDisplacementGradient, MoveAssignmentOperator) {
   ScalarDisplacementGradient first{1.0};
-  ScalarDisplacementGradient second = ScalarDisplacementGradient::Zero();
+  ScalarDisplacementGradient second = ScalarDisplacementGradient<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarDisplacementGradient(1.0));
 }
@@ -190,7 +190,7 @@ TEST(ScalarDisplacementGradient, YAML) {
 }
 
 TEST(ScalarDisplacementGradient, Zero) {
-  EXPECT_EQ(ScalarDisplacementGradient::Zero(), ScalarDisplacementGradient(0.0));
+  EXPECT_EQ(ScalarDisplacementGradient<>::Zero(), ScalarDisplacementGradient(0.0));
 }
 
 }  // namespace

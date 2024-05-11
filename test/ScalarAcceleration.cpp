@@ -117,7 +117,7 @@ TEST(ScalarAcceleration, ComparisonOperators) {
 
 TEST(ScalarAcceleration, CopyAssignmentOperator) {
   const ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
-  ScalarAcceleration second = ScalarAcceleration::Zero();
+  ScalarAcceleration second = ScalarAcceleration<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -130,7 +130,7 @@ TEST(ScalarAcceleration, CopyConstructor) {
 
 TEST(Angle, Create) {
   constexpr ScalarAcceleration scalar_acceleration =
-      ScalarAcceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0);
+      ScalarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0);
   EXPECT_EQ(scalar_acceleration, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
@@ -139,14 +139,14 @@ TEST(ScalarAcceleration, DefaultConstructor) {
 }
 
 TEST(ScalarAcceleration, Dimensions) {
-  EXPECT_EQ(ScalarAcceleration::Dimensions(), RelatedDimensions<Unit::Acceleration>);
+  EXPECT_EQ(ScalarAcceleration<>::Dimensions(), RelatedDimensions<Unit::Acceleration>);
 }
 
 TEST(ScalarAcceleration, Hash) {
   const ScalarAcceleration first{1.0, Unit::Acceleration::MillimetrePerSquareSecond};
   const ScalarAcceleration second{1.000001, Unit::Acceleration::MillimetrePerSquareSecond};
   const ScalarAcceleration third{-1.0, Unit::Acceleration::MillimetrePerSquareSecond};
-  const std::hash<ScalarAcceleration> hash;
+  const std::hash<ScalarAcceleration<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -183,7 +183,7 @@ TEST(ScalarAcceleration, MiscellaneousConstructors) {
 
 TEST(ScalarAcceleration, MoveAssignmentOperator) {
   ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
-  ScalarAcceleration second = ScalarAcceleration::Zero();
+  ScalarAcceleration second = ScalarAcceleration<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
@@ -225,7 +225,7 @@ TEST(ScalarAcceleration, StandardConstructor) {
 
 TEST(ScalarAcceleration, StaticValue) {
   constexpr ScalarAcceleration scalar_acceleration =
-      ScalarAcceleration::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.0);
+      ScalarAcceleration<>::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.0);
   constexpr double value =
       scalar_acceleration.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
   EXPECT_EQ(value, 1.0);
@@ -239,7 +239,7 @@ TEST(ScalarAcceleration, Stream) {
 }
 
 TEST(ScalarAcceleration, Unit) {
-  EXPECT_EQ(ScalarAcceleration::Unit(), Standard<Unit::Acceleration>);
+  EXPECT_EQ(ScalarAcceleration<>::Unit(), Standard<Unit::Acceleration>);
 }
 
 TEST(ScalarAcceleration, Value) {
@@ -266,7 +266,7 @@ TEST(ScalarAcceleration, YAML) {
 }
 
 TEST(ScalarAcceleration, Zero) {
-  EXPECT_EQ(ScalarAcceleration::Zero(),
+  EXPECT_EQ(ScalarAcceleration<>::Zero(),
             ScalarAcceleration(0.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 

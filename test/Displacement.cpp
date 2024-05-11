@@ -100,7 +100,7 @@ TEST(Displacement, ComparisonOperators) {
 
 TEST(Displacement, CopyAssignmentOperator) {
   const Displacement first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Displacement second = Displacement::Zero();
+  Displacement second = Displacement<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -113,17 +113,18 @@ TEST(Displacement, CopyConstructor) {
 
 TEST(Displacement, Create) {
   {
-    constexpr Displacement displacement = Displacement::Create<Unit::Length::Metre>(1.0, -2.0, 3.0);
+    constexpr Displacement displacement =
+        Displacement<>::Create<Unit::Length::Metre>(1.0, -2.0, 3.0);
     EXPECT_EQ(displacement, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
   }
   {
     constexpr Displacement displacement =
-        Displacement::Create<Unit::Length::Metre>(std::array<double, 3>{1.0, -2.0, 3.0});
+        Displacement<>::Create<Unit::Length::Metre>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(displacement, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
   }
   {
     constexpr Displacement displacement =
-        Displacement::Create<Unit::Length::Metre>(Vector{1.0, -2.0, 3.0});
+        Displacement<>::Create<Unit::Length::Metre>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(displacement, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
   }
 }
@@ -133,7 +134,7 @@ TEST(Displacement, DefaultConstructor) {
 }
 
 TEST(Displacement, Dimensions) {
-  EXPECT_EQ(Displacement::Dimensions(), RelatedDimensions<Unit::Length>);
+  EXPECT_EQ(Displacement<>::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
 TEST(Displacement, Direction) {
@@ -145,7 +146,7 @@ TEST(Displacement, Hash) {
   const Displacement first({1.0, -2.0, 3.0}, Unit::Length::Millimetre);
   const Displacement second({1.0, -2.0, 3.000001}, Unit::Length::Millimetre);
   const Displacement third({1.0, 2.0, 3.0}, Unit::Length::Millimetre);
-  const std::hash<Displacement> hash;
+  const std::hash<Displacement<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -175,7 +176,7 @@ TEST(Displacement, MiscellaneousConstructors) {
 
 TEST(Displacement, MoveAssignmentOperator) {
   Displacement first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Displacement second = Displacement::Zero();
+  Displacement second = Displacement<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
@@ -217,7 +218,7 @@ TEST(Displacement, StandardConstructor) {
 
 TEST(Displacement, StaticValue) {
   constexpr Displacement displacement =
-      Displacement::Create<Unit::Length::Millimetre>(1.0, -2.0, 3.0);
+      Displacement<>::Create<Unit::Length::Millimetre>(1.0, -2.0, 3.0);
   constexpr Vector value = displacement.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -229,7 +230,7 @@ TEST(Displacement, Stream) {
 }
 
 TEST(Displacement, Unit) {
-  EXPECT_EQ(Displacement::Unit(), Standard<Unit::Length>);
+  EXPECT_EQ(Displacement<>::Unit(), Standard<Unit::Length>);
 }
 
 TEST(Displacement, Value) {
@@ -265,7 +266,7 @@ TEST(Displacement, YAML) {
 }
 
 TEST(Displacement, Zero) {
-  EXPECT_EQ(Displacement::Zero(), Displacement({0.0, 0.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(Displacement<>::Zero(), Displacement({0.0, 0.0, 0.0}, Unit::Length::Metre));
 }
 
 }  // namespace

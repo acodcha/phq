@@ -94,7 +94,7 @@ TEST(DynamicPressure, ComparisonOperators) {
 
 TEST(DynamicPressure, CopyAssignmentOperator) {
   const DynamicPressure first{1.0, Unit::Pressure::Pascal};
-  DynamicPressure second = DynamicPressure::Zero();
+  DynamicPressure second = DynamicPressure<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -106,7 +106,8 @@ TEST(DynamicPressure, CopyConstructor) {
 }
 
 TEST(DynamicPressure, Create) {
-  constexpr DynamicPressure dynamic_pressure = DynamicPressure::Create<Unit::Pressure::Pascal>(1.0);
+  constexpr DynamicPressure dynamic_pressure =
+      DynamicPressure<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(dynamic_pressure, DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
@@ -115,14 +116,14 @@ TEST(DynamicPressure, DefaultConstructor) {
 }
 
 TEST(DynamicPressure, Dimensions) {
-  EXPECT_EQ(DynamicPressure::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(DynamicPressure<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(DynamicPressure, Hash) {
   const DynamicPressure first{1.0, Unit::Pressure::Kilopascal};
   const DynamicPressure second{1.000001, Unit::Pressure::Kilopascal};
   const DynamicPressure third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<DynamicPressure> hash;
+  const std::hash<DynamicPressure<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -149,7 +150,7 @@ TEST(DynamicPressure, MiscellaneousConstructors) {
 
 TEST(DynamicPressure, MoveAssignmentOperator) {
   DynamicPressure first{1.0, Unit::Pressure::Pascal};
-  DynamicPressure second = DynamicPressure::Zero();
+  DynamicPressure second = DynamicPressure<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
@@ -189,7 +190,7 @@ TEST(DynamicPressure, StandardConstructor) {
 
 TEST(DynamicPressure, StaticValue) {
   constexpr DynamicPressure dynamic_pressure =
-      DynamicPressure::Create<Unit::Pressure::Kilopascal>(1.0);
+      DynamicPressure<>::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = dynamic_pressure.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.0);
 }
@@ -201,7 +202,7 @@ TEST(DynamicPressure, Stream) {
 }
 
 TEST(DynamicPressure, Unit) {
-  EXPECT_EQ(DynamicPressure::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(DynamicPressure<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(DynamicPressure, Value) {
@@ -225,7 +226,7 @@ TEST(DynamicPressure, YAML) {
 }
 
 TEST(DynamicPressure, Zero) {
-  EXPECT_EQ(DynamicPressure::Zero(), DynamicPressure(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(DynamicPressure<>::Zero(), DynamicPressure(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

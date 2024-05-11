@@ -149,7 +149,7 @@ TEST(SpecificIsobaricHeatCapacity, ComparisonOperators) {
 TEST(SpecificIsobaricHeatCapacity, CopyAssignmentOperator) {
   const SpecificIsobaricHeatCapacity first{
       1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificIsobaricHeatCapacity second = SpecificIsobaricHeatCapacity::Zero();
+  SpecificIsobaricHeatCapacity second = SpecificIsobaricHeatCapacity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -163,7 +163,7 @@ TEST(SpecificIsobaricHeatCapacity, CopyConstructor) {
 
 TEST(SpecificIsobaricHeatCapacity, Create) {
   constexpr SpecificIsobaricHeatCapacity quantity =
-      SpecificIsobaricHeatCapacity::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+      SpecificIsobaricHeatCapacity<>::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
           1.0);
   EXPECT_EQ(quantity, SpecificIsobaricHeatCapacity(
                           1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
@@ -175,7 +175,7 @@ TEST(SpecificIsobaricHeatCapacity, DefaultConstructor) {
 
 TEST(SpecificIsobaricHeatCapacity, Dimensions) {
   EXPECT_EQ(
-      SpecificIsobaricHeatCapacity::Dimensions(), RelatedDimensions<Unit::SpecificHeatCapacity>);
+      SpecificIsobaricHeatCapacity<>::Dimensions(), RelatedDimensions<Unit::SpecificHeatCapacity>);
 }
 
 TEST(SpecificIsobaricHeatCapacity, Hash) {
@@ -185,7 +185,7 @@ TEST(SpecificIsobaricHeatCapacity, Hash) {
       1.00001, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
   const SpecificIsobaricHeatCapacity third{
       -1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
-  const std::hash<SpecificIsobaricHeatCapacity> hasher;
+  const std::hash<SpecificIsobaricHeatCapacity<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -234,7 +234,7 @@ TEST(SpecificIsobaricHeatCapacity, MiscellaneousConstructors) {
 
 TEST(SpecificIsobaricHeatCapacity, MoveAssignmentOperator) {
   SpecificIsobaricHeatCapacity first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificIsobaricHeatCapacity second = SpecificIsobaricHeatCapacity::Zero();
+  SpecificIsobaricHeatCapacity second = SpecificIsobaricHeatCapacity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SpecificIsobaricHeatCapacity(
                         1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
@@ -280,7 +280,7 @@ TEST(SpecificIsobaricHeatCapacity, StandardConstructor) {
 
 TEST(SpecificIsobaricHeatCapacity, StaticValue) {
   constexpr SpecificIsobaricHeatCapacity quantity =
-      SpecificIsobaricHeatCapacity::Create<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(
+      SpecificIsobaricHeatCapacity<>::Create<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(
           2.0);
   constexpr double value =
       quantity.StaticValue<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>();
@@ -297,7 +297,7 @@ TEST(SpecificIsobaricHeatCapacity, Stream) {
 }
 
 TEST(SpecificIsobaricHeatCapacity, Unit) {
-  EXPECT_EQ(SpecificIsobaricHeatCapacity::Unit(), Standard<Unit::SpecificHeatCapacity>);
+  EXPECT_EQ(SpecificIsobaricHeatCapacity<>::Unit(), Standard<Unit::SpecificHeatCapacity>);
 }
 
 TEST(SpecificIsobaricHeatCapacity, Value) {
@@ -329,7 +329,7 @@ TEST(SpecificIsobaricHeatCapacity, YAML) {
 
 TEST(SpecificIsobaricHeatCapacity, Zero) {
   EXPECT_EQ(
-      SpecificIsobaricHeatCapacity::Zero(),
+      SpecificIsobaricHeatCapacity<>::Zero(),
       SpecificIsobaricHeatCapacity(0.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 

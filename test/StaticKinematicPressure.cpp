@@ -100,7 +100,7 @@ TEST(StaticKinematicPressure, ComparisonOperators) {
 
 TEST(StaticKinematicPressure, CopyAssignmentOperator) {
   const StaticKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  StaticKinematicPressure second = StaticKinematicPressure::Zero();
+  StaticKinematicPressure second = StaticKinematicPressure<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -113,7 +113,7 @@ TEST(StaticKinematicPressure, CopyConstructor) {
 
 TEST(StaticKinematicPressure, Create) {
   constexpr StaticKinematicPressure quantity =
-      StaticKinematicPressure::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
+      StaticKinematicPressure<>::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
   EXPECT_EQ(quantity, StaticKinematicPressure(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
@@ -122,14 +122,14 @@ TEST(StaticKinematicPressure, DefaultConstructor) {
 }
 
 TEST(StaticKinematicPressure, Dimensions) {
-  EXPECT_EQ(StaticKinematicPressure::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
+  EXPECT_EQ(StaticKinematicPressure<>::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
 }
 
 TEST(StaticKinematicPressure, Hash) {
   const StaticKinematicPressure first{1.0, Unit::SpecificEnergy::NanojoulePerGram};
   const StaticKinematicPressure second{1.00001, Unit::SpecificEnergy::NanojoulePerGram};
   const StaticKinematicPressure third{-1.0, Unit::SpecificEnergy::NanojoulePerGram};
-  const std::hash<StaticKinematicPressure> hash;
+  const std::hash<StaticKinematicPressure<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -154,7 +154,7 @@ TEST(StaticKinematicPressure, MiscellaneousConstructors) {
 
 TEST(StaticKinematicPressure, MoveAssignmentOperator) {
   StaticKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  StaticKinematicPressure second = StaticKinematicPressure::Zero();
+  StaticKinematicPressure second = StaticKinematicPressure<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, StaticKinematicPressure(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
@@ -196,7 +196,7 @@ TEST(StaticKinematicPressure, StandardConstructor) {
 
 TEST(StaticKinematicPressure, StaticValue) {
   constexpr StaticKinematicPressure quantity =
-      StaticKinematicPressure::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
+      StaticKinematicPressure<>::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
   constexpr double value = quantity.StaticValue<Unit::SpecificEnergy::NanojoulePerGram>();
   EXPECT_EQ(value, 2.0);
 }
@@ -209,7 +209,7 @@ TEST(StaticKinematicPressure, Stream) {
 }
 
 TEST(StaticKinematicPressure, Unit) {
-  EXPECT_EQ(StaticKinematicPressure::Unit(), Standard<Unit::SpecificEnergy>);
+  EXPECT_EQ(StaticKinematicPressure<>::Unit(), Standard<Unit::SpecificEnergy>);
 }
 
 TEST(StaticKinematicPressure, Value) {
@@ -236,7 +236,7 @@ TEST(StaticKinematicPressure, YAML) {
 }
 
 TEST(StaticKinematicPressure, Zero) {
-  EXPECT_EQ(StaticKinematicPressure::Zero(),
+  EXPECT_EQ(StaticKinematicPressure<>::Zero(),
             StaticKinematicPressure(0.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 

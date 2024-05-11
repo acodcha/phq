@@ -83,7 +83,7 @@ TEST(Time, ComparisonOperators) {
 
 TEST(Time, CopyAssignmentOperator) {
   const Time first{1.0, Unit::Time::Second};
-  Time second = Time::Zero();
+  Time second = Time<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -95,7 +95,7 @@ TEST(Time, CopyConstructor) {
 }
 
 TEST(Time, Create) {
-  constexpr Time time = Time::Create<Unit::Time::Second>(1.0);
+  constexpr Time time = Time<>::Create<Unit::Time::Second>(1.0);
   EXPECT_EQ(time, Time(1.0, Unit::Time::Second));
 }
 
@@ -104,14 +104,14 @@ TEST(Time, DefaultConstructor) {
 }
 
 TEST(Time, Dimensions) {
-  EXPECT_EQ(Time::Dimensions(), RelatedDimensions<Unit::Time>);
+  EXPECT_EQ(Time<>::Dimensions(), RelatedDimensions<Unit::Time>);
 }
 
 TEST(Time, Hash) {
   const Time first{1.0, Unit::Time::Second};
   const Time second{1.000001, Unit::Time::Second};
   const Time third{-1.0, Unit::Time::Second};
-  const std::hash<Time> hash;
+  const std::hash<Time<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -125,7 +125,7 @@ TEST(Time, JSON) {
 
 TEST(Time, MoveAssignmentOperator) {
   Time first{1.0, Unit::Time::Second};
-  Time second = Time::Zero();
+  Time second = Time<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Time(1.0, Unit::Time::Second));
 }
@@ -163,7 +163,7 @@ TEST(Time, StandardConstructor) {
 }
 
 TEST(Time, StaticValue) {
-  constexpr Time time = Time::Create<Unit::Time::Minute>(1.0);
+  constexpr Time time = Time<>::Create<Unit::Time::Minute>(1.0);
   constexpr double value = time.StaticValue<Unit::Time::Minute>();
   EXPECT_EQ(value, 1.0);
 }
@@ -175,7 +175,7 @@ TEST(Time, Stream) {
 }
 
 TEST(Time, Unit) {
-  EXPECT_EQ(Time::Unit(), Standard<Unit::Time>);
+  EXPECT_EQ(Time<>::Unit(), Standard<Unit::Time>);
 }
 
 TEST(Time, Value) {
@@ -196,7 +196,7 @@ TEST(Time, YAML) {
 }
 
 TEST(Time, Zero) {
-  EXPECT_EQ(Time::Zero(), Time(0.0, Unit::Time::Second));
+  EXPECT_EQ(Time<>::Zero(), Time(0.0, Unit::Time::Second));
 }
 
 }  // namespace

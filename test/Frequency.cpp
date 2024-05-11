@@ -87,7 +87,7 @@ TEST(Frequency, ComparisonOperators) {
 
 TEST(Frequency, CopyAssignmentOperator) {
   const Frequency first{1.0, Unit::Frequency::Hertz};
-  Frequency second = Frequency::Zero();
+  Frequency second = Frequency<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -99,7 +99,7 @@ TEST(Frequency, CopyConstructor) {
 }
 
 TEST(Frequency, Create) {
-  constexpr Frequency frequency = Frequency::Create<Unit::Frequency::Hertz>(1.0);
+  constexpr Frequency frequency = Frequency<>::Create<Unit::Frequency::Hertz>(1.0);
   EXPECT_EQ(frequency, Frequency(1.0, Unit::Frequency::Hertz));
 }
 
@@ -108,14 +108,14 @@ TEST(Frequency, DefaultConstructor) {
 }
 
 TEST(Frequency, Dimensions) {
-  EXPECT_EQ(Frequency::Dimensions(), RelatedDimensions<Unit::Frequency>);
+  EXPECT_EQ(Frequency<>::Dimensions(), RelatedDimensions<Unit::Frequency>);
 }
 
 TEST(Frequency, Hash) {
   const Frequency first{1.0, Unit::Frequency::Hertz};
   const Frequency second{1.000001, Unit::Frequency::Hertz};
   const Frequency third{-1.0, Unit::Frequency::Hertz};
-  const std::hash<Frequency> hash;
+  const std::hash<Frequency<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -139,7 +139,7 @@ TEST(Frequency, MiscellaneousMethods) {
 
 TEST(Frequency, MoveAssignmentOperator) {
   Frequency first{1.0, Unit::Frequency::Hertz};
-  Frequency second = Frequency::Zero();
+  Frequency second = Frequency<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Frequency(1.0, Unit::Frequency::Hertz));
 }
@@ -178,7 +178,7 @@ TEST(Frequency, StandardConstructor) {
 }
 
 TEST(Frequency, StaticValue) {
-  constexpr Frequency frequency = Frequency::Create<Unit::Frequency::Kilohertz>(1.0);
+  constexpr Frequency frequency = Frequency<>::Create<Unit::Frequency::Kilohertz>(1.0);
   constexpr double value = frequency.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, 1.0);
 }
@@ -190,7 +190,7 @@ TEST(Frequency, Stream) {
 }
 
 TEST(Frequency, Unit) {
-  EXPECT_EQ(Frequency::Unit(), Standard<Unit::Frequency>);
+  EXPECT_EQ(Frequency<>::Unit(), Standard<Unit::Frequency>);
 }
 
 TEST(Frequency, Value) {
@@ -213,7 +213,7 @@ TEST(Frequency, YAML) {
 }
 
 TEST(Frequency, Zero) {
-  EXPECT_EQ(Frequency::Zero(), Frequency(0.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(Frequency<>::Zero(), Frequency(0.0, Unit::Frequency::Hertz));
 }
 
 }  // namespace

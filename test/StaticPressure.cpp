@@ -100,7 +100,7 @@ TEST(StaticPressure, ComparisonOperators) {
 
 TEST(StaticPressure, CopyAssignmentOperator) {
   const StaticPressure first{1.0, Unit::Pressure::Pascal};
-  StaticPressure second = StaticPressure::Zero();
+  StaticPressure second = StaticPressure<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -112,7 +112,7 @@ TEST(StaticPressure, CopyConstructor) {
 }
 
 TEST(StaticPressure, Create) {
-  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Pascal>(1.0);
+  constexpr StaticPressure quantity = StaticPressure<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(quantity, StaticPressure(1.0, Unit::Pressure::Pascal));
 }
 
@@ -121,14 +121,14 @@ TEST(StaticPressure, DefaultConstructor) {
 }
 
 TEST(StaticPressure, Dimensions) {
-  EXPECT_EQ(StaticPressure::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(StaticPressure<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(StaticPressure, Hash) {
   const StaticPressure first{1.0, Unit::Pressure::Kilopascal};
   const StaticPressure second{1.00001, Unit::Pressure::Kilopascal};
   const StaticPressure third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<StaticPressure> hash;
+  const std::hash<StaticPressure<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -155,7 +155,7 @@ TEST(StaticPressure, MiscellaneousConstructors) {
 
 TEST(StaticPressure, MoveAssignmentOperator) {
   StaticPressure first{1.0, Unit::Pressure::Pascal};
-  StaticPressure second = StaticPressure::Zero();
+  StaticPressure second = StaticPressure<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, StaticPressure(1.0, Unit::Pressure::Pascal));
 }
@@ -194,7 +194,7 @@ TEST(StaticPressure, StandardConstructor) {
 }
 
 TEST(StaticPressure, StaticValue) {
-  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr StaticPressure quantity = StaticPressure<>::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.0);
 }
@@ -206,7 +206,7 @@ TEST(StaticPressure, Stream) {
 }
 
 TEST(StaticPressure, Unit) {
-  EXPECT_EQ(StaticPressure::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(StaticPressure<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(StaticPressure, Value) {
@@ -229,7 +229,7 @@ TEST(StaticPressure, YAML) {
 }
 
 TEST(StaticPressure, Zero) {
-  EXPECT_EQ(StaticPressure::Zero(), StaticPressure(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(StaticPressure<>::Zero(), StaticPressure(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

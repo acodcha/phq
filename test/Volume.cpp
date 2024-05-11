@@ -95,7 +95,7 @@ TEST(Volume, ComparisonOperators) {
 
 TEST(Volume, CopyAssignmentOperator) {
   const Volume first{1.0, Unit::Volume::CubicMetre};
-  Volume second = Volume::Zero();
+  Volume second = Volume<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -107,7 +107,7 @@ TEST(Volume, CopyConstructor) {
 }
 
 TEST(Volume, Create) {
-  constexpr Volume volume = Volume::Create<Unit::Volume::CubicMetre>(1.0);
+  constexpr Volume volume = Volume<>::Create<Unit::Volume::CubicMetre>(1.0);
   EXPECT_EQ(volume, Volume(1.0, Unit::Volume::CubicMetre));
 }
 
@@ -116,14 +116,14 @@ TEST(Volume, DefaultConstructor) {
 }
 
 TEST(Volume, Dimensions) {
-  EXPECT_EQ(Volume::Dimensions(), RelatedDimensions<Unit::Volume>);
+  EXPECT_EQ(Volume<>::Dimensions(), RelatedDimensions<Unit::Volume>);
 }
 
 TEST(Volume, Hash) {
   const Volume first{1.0, Unit::Volume::CubicMetre};
   const Volume second{1.000001, Unit::Volume::CubicMetre};
   const Volume third{-1.0, Unit::Volume::CubicMetre};
-  const std::hash<Volume> hash;
+  const std::hash<Volume<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -138,7 +138,7 @@ TEST(Volume, JSON) {
 
 TEST(Volume, MoveAssignmentOperator) {
   Volume first{1.0, Unit::Volume::CubicMetre};
-  Volume second = Volume::Zero();
+  Volume second = Volume<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Volume(1.0, Unit::Volume::CubicMetre));
 }
@@ -177,7 +177,7 @@ TEST(Volume, StandardConstructor) {
 }
 
 TEST(Volume, StaticValue) {
-  constexpr Volume volume = Volume::Create<Unit::Volume::CubicMillimetre>(1.0);
+  constexpr Volume volume = Volume<>::Create<Unit::Volume::CubicMillimetre>(1.0);
   constexpr double value = volume.StaticValue<Unit::Volume::CubicMillimetre>();
   EXPECT_EQ(value, 1.0);
 }
@@ -189,7 +189,7 @@ TEST(Volume, Stream) {
 }
 
 TEST(Volume, Unit) {
-  EXPECT_EQ(Volume::Unit(), Standard<Unit::Volume>);
+  EXPECT_EQ(Volume<>::Unit(), Standard<Unit::Volume>);
 }
 
 TEST(Volume, Value) {
@@ -212,7 +212,7 @@ TEST(Volume, YAML) {
 }
 
 TEST(Volume, Zero) {
-  EXPECT_EQ(Volume::Zero(), Volume(0.0, Unit::Volume::CubicMetre));
+  EXPECT_EQ(Volume<>::Zero(), Volume(0.0, Unit::Volume::CubicMetre));
 }
 
 }  // namespace

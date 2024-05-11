@@ -83,7 +83,7 @@ TEST(Length, ComparisonOperators) {
 
 TEST(Length, CopyAssignmentOperator) {
   const Length first{1.0, Unit::Length::Metre};
-  Length second = Length::Zero();
+  Length second = Length<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -95,7 +95,7 @@ TEST(Length, CopyConstructor) {
 }
 
 TEST(Length, Create) {
-  constexpr Length length = Length::Create<Unit::Length::Metre>(1.0);
+  constexpr Length length = Length<>::Create<Unit::Length::Metre>(1.0);
   EXPECT_EQ(length, Length(1.0, Unit::Length::Metre));
 }
 
@@ -104,14 +104,14 @@ TEST(Length, DefaultConstructor) {
 }
 
 TEST(Length, Dimensions) {
-  EXPECT_EQ(Length::Dimensions(), RelatedDimensions<Unit::Length>);
+  EXPECT_EQ(Length<>::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
 TEST(Length, Hash) {
   const Length first{1.0, Unit::Length::Millimetre};
   const Length second{1.00001, Unit::Length::Millimetre};
   const Length third{-1.0, Unit::Length::Millimetre};
-  const std::hash<Length> hash;
+  const std::hash<Length<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -126,7 +126,7 @@ TEST(Length, JSON) {
 
 TEST(Length, MoveAssignmentOperator) {
   Length first{1.0, Unit::Length::Metre};
-  Length second = Length::Zero();
+  Length second = Length<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Length(1.0, Unit::Length::Metre));
 }
@@ -165,7 +165,7 @@ TEST(Length, StandardConstructor) {
 }
 
 TEST(Length, StaticValue) {
-  constexpr Length length = Length::Create<Unit::Length::Metre>(1.0);
+  constexpr Length length = Length<>::Create<Unit::Length::Metre>(1.0);
   constexpr double value = length.StaticValue<Unit::Length::Metre>();
   EXPECT_EQ(value, 1.0);
 }
@@ -177,7 +177,7 @@ TEST(Length, Stream) {
 }
 
 TEST(Length, Unit) {
-  EXPECT_EQ(Length::Unit(), Standard<Unit::Length>);
+  EXPECT_EQ(Length<>::Unit(), Standard<Unit::Length>);
 }
 
 TEST(Length, Value) {
@@ -199,7 +199,7 @@ TEST(Length, YAML) {
 }
 
 TEST(Length, Zero) {
-  EXPECT_EQ(Length::Zero(), Length(0.0, Unit::Length::Metre));
+  EXPECT_EQ(Length<>::Zero(), Length(0.0, Unit::Length::Metre));
 }
 
 }  // namespace

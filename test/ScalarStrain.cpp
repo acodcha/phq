@@ -82,7 +82,7 @@ TEST(ScalarStrain, ComparisonOperators) {
 
 TEST(ScalarStrain, CopyAssignmentOperator) {
   const ScalarStrain first{1.0};
-  ScalarStrain second = ScalarStrain::Zero();
+  ScalarStrain second = ScalarStrain<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -98,14 +98,14 @@ TEST(ScalarStrain, DefaultConstructor) {
 }
 
 TEST(ScalarStrain, Dimensions) {
-  EXPECT_EQ(ScalarStrain::Dimensions(), Dimensionless);
+  EXPECT_EQ(ScalarStrain<>::Dimensions(), Dimensionless);
 }
 
 TEST(ScalarStrain, Hash) {
   const ScalarStrain first{1.0};
   const ScalarStrain second{1.00001};
   const ScalarStrain third{-1.0};
-  const std::hash<ScalarStrain> hash;
+  const std::hash<ScalarStrain<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -133,7 +133,7 @@ TEST(ScalarStrain, Mathematics) {
 
 TEST(ScalarStrain, MoveAssignmentOperator) {
   ScalarStrain first{1.0};
-  ScalarStrain second = ScalarStrain::Zero();
+  ScalarStrain second = ScalarStrain<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarStrain(1.0));
 }
@@ -188,7 +188,7 @@ TEST(ScalarStrain, YAML) {
 }
 
 TEST(ScalarStrain, Zero) {
-  EXPECT_EQ(ScalarStrain::Zero(), ScalarStrain(0.0));
+  EXPECT_EQ(ScalarStrain<>::Zero(), ScalarStrain(0.0));
 }
 
 }  // namespace

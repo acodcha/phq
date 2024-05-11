@@ -83,7 +83,7 @@ TEST(Mass, ComparisonOperators) {
 
 TEST(Mass, CopyAssignmentOperator) {
   const Mass first{1.0, Unit::Mass::Kilogram};
-  Mass second = Mass::Zero();
+  Mass second = Mass<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -95,7 +95,7 @@ TEST(Mass, CopyConstructor) {
 }
 
 TEST(Mass, Create) {
-  constexpr Mass mass = Mass::Create<Unit::Mass::Kilogram>(1.0);
+  constexpr Mass mass = Mass<>::Create<Unit::Mass::Kilogram>(1.0);
   EXPECT_EQ(mass, Mass(1.0, Unit::Mass::Kilogram));
 }
 
@@ -104,14 +104,14 @@ TEST(Mass, DefaultConstructor) {
 }
 
 TEST(Mass, Dimensions) {
-  EXPECT_EQ(Mass::Dimensions(), RelatedDimensions<Unit::Mass>);
+  EXPECT_EQ(Mass<>::Dimensions(), RelatedDimensions<Unit::Mass>);
 }
 
 TEST(Mass, Hash) {
   const Mass first{1.0, Unit::Mass::Gram};
   const Mass second{1.00001, Unit::Mass::Gram};
   const Mass third{-1.0, Unit::Mass::Gram};
-  const std::hash<Mass> hash;
+  const std::hash<Mass<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -126,7 +126,7 @@ TEST(Mass, JSON) {
 
 TEST(Mass, MoveAssignmentOperator) {
   Mass first{1.0, Unit::Mass::Kilogram};
-  Mass second = Mass::Zero();
+  Mass second = Mass<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Mass(1.0, Unit::Mass::Kilogram));
 }
@@ -164,7 +164,7 @@ TEST(Mass, StandardConstructor) {
 }
 
 TEST(Mass, StaticValue) {
-  constexpr Mass mass = Mass::Create<Unit::Mass::Gram>(1.0);
+  constexpr Mass mass = Mass<>::Create<Unit::Mass::Gram>(1.0);
   constexpr double value = mass.StaticValue<Unit::Mass::Gram>();
   EXPECT_EQ(value, 1.0);
 }
@@ -176,7 +176,7 @@ TEST(Mass, Stream) {
 }
 
 TEST(Mass, Unit) {
-  EXPECT_EQ(Mass::Unit(), Standard<Unit::Mass>);
+  EXPECT_EQ(Mass<>::Unit(), Standard<Unit::Mass>);
 }
 
 TEST(Mass, Value) {
@@ -198,7 +198,7 @@ TEST(Mass, YAML) {
 }
 
 TEST(Mass, Zero) {
-  EXPECT_EQ(Mass::Zero(), Mass(0.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Mass<>::Zero(), Mass(0.0, Unit::Mass::Kilogram));
 }
 
 }  // namespace

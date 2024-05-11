@@ -111,7 +111,7 @@ TEST(MemoryRate, ComparisonOperators) {
 
 TEST(MemoryRate, CopyAssignmentOperator) {
   const MemoryRate first{1.0, Unit::MemoryRate::BitPerSecond};
-  MemoryRate second = MemoryRate::Zero();
+  MemoryRate second = MemoryRate<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -123,7 +123,7 @@ TEST(MemoryRate, CopyConstructor) {
 }
 
 TEST(MemoryRate, Create) {
-  constexpr MemoryRate memory_rate = MemoryRate::Create<Unit::MemoryRate::BitPerSecond>(1.0);
+  constexpr MemoryRate memory_rate = MemoryRate<>::Create<Unit::MemoryRate::BitPerSecond>(1.0);
   EXPECT_EQ(memory_rate, MemoryRate(1.0, Unit::MemoryRate::BitPerSecond));
 }
 
@@ -132,14 +132,14 @@ TEST(MemoryRate, DefaultConstructor) {
 }
 
 TEST(MemoryRate, Dimensions) {
-  EXPECT_EQ(MemoryRate::Dimensions(), RelatedDimensions<Unit::MemoryRate>);
+  EXPECT_EQ(MemoryRate<>::Dimensions(), RelatedDimensions<Unit::MemoryRate>);
 }
 
 TEST(MemoryRate, Hash) {
   const MemoryRate first{1.0, Unit::MemoryRate::BytePerSecond};
   const MemoryRate second{1.00001, Unit::MemoryRate::BytePerSecond};
   const MemoryRate third{-1.0, Unit::MemoryRate::BytePerSecond};
-  const std::hash<MemoryRate> hasher;
+  const std::hash<MemoryRate<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -169,7 +169,7 @@ TEST(MemoryRate, MiscellaneousConstructors) {
 
 TEST(MemoryRate, MoveAssignmentOperator) {
   MemoryRate first{1.0, Unit::MemoryRate::BitPerSecond};
-  MemoryRate second = MemoryRate::Zero();
+  MemoryRate second = MemoryRate<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, MemoryRate(1.0, Unit::MemoryRate::BitPerSecond));
 }
@@ -208,7 +208,7 @@ TEST(MemoryRate, StandardConstructor) {
 }
 
 TEST(MemoryRate, StaticValue) {
-  constexpr MemoryRate memory_rate = MemoryRate::Create<Unit::MemoryRate::BytePerSecond>(1.0);
+  constexpr MemoryRate memory_rate = MemoryRate<>::Create<Unit::MemoryRate::BytePerSecond>(1.0);
   constexpr double value = memory_rate.StaticValue<Unit::MemoryRate::BytePerSecond>();
   EXPECT_EQ(value, 1.0);
 }
@@ -220,7 +220,7 @@ TEST(MemoryRate, Stream) {
 }
 
 TEST(MemoryRate, Unit) {
-  EXPECT_EQ(MemoryRate::Unit(), Standard<Unit::MemoryRate>);
+  EXPECT_EQ(MemoryRate<>::Unit(), Standard<Unit::MemoryRate>);
 }
 
 TEST(MemoryRate, Value) {
@@ -244,7 +244,7 @@ TEST(MemoryRate, YAML) {
 }
 
 TEST(MemoryRate, Zero) {
-  EXPECT_EQ(MemoryRate::Zero(), MemoryRate(0.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(MemoryRate<>::Zero(), MemoryRate(0.0, Unit::MemoryRate::BitPerSecond));
 }
 
 }  // namespace

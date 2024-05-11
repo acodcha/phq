@@ -115,7 +115,7 @@ TEST(Velocity, ComparisonOperators) {
 
 TEST(Velocity, CopyAssignmentOperator) {
   const Velocity first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
-  Velocity second = Velocity::Zero();
+  Velocity second = Velocity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -128,17 +128,17 @@ TEST(Velocity, CopyConstructor) {
 
 TEST(Velocity, Create) {
   {
-    constexpr Velocity velocity = Velocity::Create<Unit::Speed::MetrePerSecond>(1.0, -2.0, 3.0);
+    constexpr Velocity velocity = Velocity<>::Create<Unit::Speed::MetrePerSecond>(1.0, -2.0, 3.0);
     EXPECT_EQ(velocity, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
   }
   {
     constexpr Velocity velocity =
-        Velocity::Create<Unit::Speed::MetrePerSecond>(std::array<double, 3>{1.0, -2.0, 3.0});
+        Velocity<>::Create<Unit::Speed::MetrePerSecond>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(velocity, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
   }
   {
     constexpr Velocity velocity =
-        Velocity::Create<Unit::Speed::MetrePerSecond>(Vector{1.0, -2.0, 3.0});
+        Velocity<>::Create<Unit::Speed::MetrePerSecond>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(velocity, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
   }
 }
@@ -148,7 +148,7 @@ TEST(Velocity, DefaultConstructor) {
 }
 
 TEST(Velocity, Dimensions) {
-  EXPECT_EQ(Velocity::Dimensions(), RelatedDimensions<Unit::Speed>);
+  EXPECT_EQ(Velocity<>::Dimensions(), RelatedDimensions<Unit::Speed>);
 }
 
 TEST(Velocity, Direction) {
@@ -160,7 +160,7 @@ TEST(Velocity, Hash) {
   const Velocity first({1.0, -2.0, 3.0}, Unit::Speed::MillimetrePerSecond);
   const Velocity second({1.0, -2.0, 3.000001}, Unit::Speed::MillimetrePerSecond);
   const Velocity third({1.0, 2.0, 3.0}, Unit::Speed::MillimetrePerSecond);
-  const std::hash<Velocity> hash;
+  const std::hash<Velocity<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -197,7 +197,7 @@ TEST(Velocity, MiscellaneousConstructors) {
 
 TEST(Velocity, MoveAssignmentOperator) {
   Velocity first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
-  Velocity second = Velocity::Zero();
+  Velocity second = Velocity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
 }
@@ -238,7 +238,8 @@ TEST(Velocity, StandardConstructor) {
 }
 
 TEST(Velocity, StaticValue) {
-  constexpr Velocity velocity = Velocity::Create<Unit::Speed::MillimetrePerSecond>(1.0, -2.0, 3.0);
+  constexpr Velocity velocity =
+      Velocity<>::Create<Unit::Speed::MillimetrePerSecond>(1.0, -2.0, 3.0);
   constexpr Vector value = velocity.StaticValue<Unit::Speed::MillimetrePerSecond>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -250,7 +251,7 @@ TEST(Velocity, Stream) {
 }
 
 TEST(Velocity, Unit) {
-  EXPECT_EQ(Velocity::Unit(), Standard<Unit::Speed>);
+  EXPECT_EQ(Velocity<>::Unit(), Standard<Unit::Speed>);
 }
 
 TEST(Velocity, Value) {
@@ -291,7 +292,7 @@ TEST(Velocity, YAML) {
 }
 
 TEST(Velocity, Zero) {
-  EXPECT_EQ(Velocity::Zero(), Velocity({0.0, 0.0, 0.0}, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Velocity<>::Zero(), Velocity({0.0, 0.0, 0.0}, Unit::Speed::MetrePerSecond));
 }
 
 }  // namespace

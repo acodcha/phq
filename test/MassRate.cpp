@@ -109,7 +109,7 @@ TEST(MassRate, ComparisonOperators) {
 
 TEST(MassRate, CopyAssignmentOperator) {
   const MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
-  MassRate second = MassRate::Zero();
+  MassRate second = MassRate<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -121,7 +121,7 @@ TEST(MassRate, CopyConstructor) {
 }
 
 TEST(MassRate, Create) {
-  constexpr MassRate mass_rate = MassRate::Create<Unit::MassRate::KilogramPerSecond>(1.0);
+  constexpr MassRate mass_rate = MassRate<>::Create<Unit::MassRate::KilogramPerSecond>(1.0);
   EXPECT_EQ(mass_rate, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
 
@@ -130,14 +130,14 @@ TEST(MassRate, DefaultConstructor) {
 }
 
 TEST(MassRate, Dimensions) {
-  EXPECT_EQ(MassRate::Dimensions(), RelatedDimensions<Unit::MassRate>);
+  EXPECT_EQ(MassRate<>::Dimensions(), RelatedDimensions<Unit::MassRate>);
 }
 
 TEST(MassRate, Hash) {
   const MassRate first{1.0, Unit::MassRate::GramPerSecond};
   const MassRate second{1.00001, Unit::MassRate::GramPerSecond};
   const MassRate third{-1.0, Unit::MassRate::GramPerSecond};
-  const std::hash<MassRate> hasher;
+  const std::hash<MassRate<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -165,7 +165,7 @@ TEST(MassRate, MiscellaneousConstructors) {
 
 TEST(MassRate, MoveAssignmentOperator) {
   MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
-  MassRate second = MassRate::Zero();
+  MassRate second = MassRate<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
@@ -204,7 +204,7 @@ TEST(MassRate, StandardConstructor) {
 }
 
 TEST(MassRate, StaticValue) {
-  constexpr MassRate mass_rate = MassRate::Create<Unit::MassRate::GramPerSecond>(1.0);
+  constexpr MassRate mass_rate = MassRate<>::Create<Unit::MassRate::GramPerSecond>(1.0);
   constexpr double value = mass_rate.StaticValue<Unit::MassRate::GramPerSecond>();
   EXPECT_EQ(value, 1.0);
 }
@@ -216,7 +216,7 @@ TEST(MassRate, Stream) {
 }
 
 TEST(MassRate, Unit) {
-  EXPECT_EQ(MassRate::Unit(), Standard<Unit::MassRate>);
+  EXPECT_EQ(MassRate<>::Unit(), Standard<Unit::MassRate>);
 }
 
 TEST(MassRate, Value) {
@@ -239,7 +239,7 @@ TEST(MassRate, YAML) {
 }
 
 TEST(MassRate, Zero) {
-  EXPECT_EQ(MassRate::Zero(), MassRate(0.0, Unit::MassRate::KilogramPerSecond));
+  EXPECT_EQ(MassRate<>::Zero(), MassRate(0.0, Unit::MassRate::KilogramPerSecond));
 }
 
 }  // namespace

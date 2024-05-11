@@ -92,7 +92,7 @@ TEST(Stress, ComparisonOperators) {
 
 TEST(Stress, CopyAssignmentOperator) {
   const Stress first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
-  Stress second = Stress::Zero();
+  Stress second = Stress<>::Zero();
   second = first;
   EXPECT_EQ(second, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
 }
@@ -106,17 +106,17 @@ TEST(Stress, CopyConstructor) {
 TEST(Stress, Create) {
   {
     constexpr Stress stress =
-        Stress::Create<Unit::Pressure::Pascal>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+        Stress<>::Create<Unit::Pressure::Pascal>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
     EXPECT_EQ(stress, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
   }
   {
-    constexpr Stress stress = Stress::Create<Unit::Pressure::Pascal>(
+    constexpr Stress stress = Stress<>::Create<Unit::Pressure::Pascal>(
         std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
     EXPECT_EQ(stress, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
   }
   {
     constexpr Stress stress =
-        Stress::Create<Unit::Pressure::Pascal>(SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
+        Stress<>::Create<Unit::Pressure::Pascal>(SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
     EXPECT_EQ(stress, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
   }
 }
@@ -126,14 +126,14 @@ TEST(Stress, DefaultConstructor) {
 }
 
 TEST(Stress, Dimensions) {
-  EXPECT_EQ(Stress::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(Stress<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(Stress, Hash) {
   const Stress first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Kilopascal);
   const Stress second({1.0, -2.0, 3.0, -4.0, 5.0, -6.000001}, Unit::Pressure::Kilopascal);
   const Stress third({1.0, -2.0, 3.0, 4.0, 5.0, -6.0}, Unit::Pressure::Kilopascal);
-  const std::hash<Stress> hash;
+  const std::hash<Stress<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -178,7 +178,7 @@ TEST(Stress, MiscellaneousMethods) {
 
 TEST(Stress, MoveAssignmentOperator) {
   Stress first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
-  Stress second = Stress::Zero();
+  Stress second = Stress<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
 }
@@ -222,7 +222,7 @@ TEST(Stress, StandardConstructor) {
 
 TEST(Stress, StaticValue) {
   constexpr Stress stress =
-      Stress::Create<Unit::Pressure::Kilopascal>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+      Stress<>::Create<Unit::Pressure::Kilopascal>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
   constexpr SymmetricDyad value = stress.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
@@ -286,7 +286,7 @@ TEST(Stress, YAML) {
 }
 
 TEST(Stress, Zero) {
-  EXPECT_EQ(Stress::Zero(), Stress({0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress<>::Zero(), Stress({0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, Unit::Pressure::Pascal));
 }
 
 }  // namespace

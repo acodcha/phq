@@ -116,7 +116,7 @@ TEST(TemperatureGradient, ComparisonOperators) {
 
 TEST(TemperatureGradient, CopyAssignmentOperator) {
   const TemperatureGradient first({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient second = TemperatureGradient::Zero();
+  TemperatureGradient second = TemperatureGradient<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -129,18 +129,18 @@ TEST(TemperatureGradient, CopyConstructor) {
 
 TEST(TemperatureGradient, Create) {
   constexpr TemperatureGradient first =
-      TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(1.0, -2.0, 3.0);
+      TemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(1.0, -2.0, 3.0);
   EXPECT_EQ(
       first, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
   constexpr TemperatureGradient second =
-      TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(
+      TemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(
           std::array<double, 3>{1.0, -2.0, 3.0});
   EXPECT_EQ(
       second, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
   constexpr TemperatureGradient third =
-      TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(
+      TemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(
           Vector{1.0, -2.0, 3.0});
   EXPECT_EQ(
       third, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
@@ -151,7 +151,7 @@ TEST(TemperatureGradient, DefaultConstructor) {
 }
 
 TEST(TemperatureGradient, Dimensions) {
-  EXPECT_EQ(TemperatureGradient::Dimensions(), RelatedDimensions<Unit::TemperatureGradient>);
+  EXPECT_EQ(TemperatureGradient<>::Dimensions(), RelatedDimensions<Unit::TemperatureGradient>);
 }
 
 TEST(TemperatureGradient, Direction) {
@@ -165,7 +165,7 @@ TEST(TemperatureGradient, Hash) {
   const TemperatureGradient second(
       {1.0, -2.0, 3.00001}, Unit::TemperatureGradient::KelvinPerMillimetre);
   const TemperatureGradient third({1.0, 2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMillimetre);
-  const std::hash<TemperatureGradient> hash;
+  const std::hash<TemperatureGradient<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -197,7 +197,7 @@ TEST(TemperatureGradient, MiscellaneousConstructors) {
 
 TEST(TemperatureGradient, MoveAssignmentOperator) {
   TemperatureGradient first({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient second = TemperatureGradient::Zero();
+  TemperatureGradient second = TemperatureGradient<>::Zero();
   second = std::move(first);
   EXPECT_EQ(
       second, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
@@ -245,7 +245,7 @@ TEST(TemperatureGradient, StandardConstructor) {
 
 TEST(TemperatureGradient, StaticValue) {
   constexpr TemperatureGradient temperature_gradient =
-      TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.0, -2.0, 3.0);
+      TemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.0, -2.0, 3.0);
   constexpr Vector value =
       temperature_gradient.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
@@ -260,7 +260,7 @@ TEST(TemperatureGradient, Stream) {
 }
 
 TEST(TemperatureGradient, Unit) {
-  EXPECT_EQ(TemperatureGradient::Unit(), Standard<Unit::TemperatureGradient>);
+  EXPECT_EQ(TemperatureGradient<>::Unit(), Standard<Unit::TemperatureGradient>);
 }
 
 TEST(TemperatureGradient, Value) {
@@ -300,7 +300,7 @@ TEST(TemperatureGradient, YAML) {
 }
 
 TEST(TemperatureGradient, Zero) {
-  EXPECT_EQ(TemperatureGradient::Zero(),
+  EXPECT_EQ(TemperatureGradient<>::Zero(),
             TemperatureGradient({0.0, 0.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 

@@ -83,7 +83,7 @@ TEST(ScalarForce, ComparisonOperators) {
 
 TEST(ScalarForce, CopyAssignmentOperator) {
   const ScalarForce first{1.0, Unit::Force::Newton};
-  ScalarForce second = ScalarForce::Zero();
+  ScalarForce second = ScalarForce<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -95,7 +95,7 @@ TEST(ScalarForce, CopyConstructor) {
 }
 
 TEST(ScalarForce, Create) {
-  constexpr ScalarForce quantity = ScalarForce::Create<Unit::Force::Newton>(1.0);
+  constexpr ScalarForce quantity = ScalarForce<>::Create<Unit::Force::Newton>(1.0);
   EXPECT_EQ(quantity, ScalarForce(1.0, Unit::Force::Newton));
 }
 
@@ -104,14 +104,14 @@ TEST(ScalarForce, DefaultConstructor) {
 }
 
 TEST(ScalarForce, Dimensions) {
-  EXPECT_EQ(ScalarForce::Dimensions(), RelatedDimensions<Unit::Force>);
+  EXPECT_EQ(ScalarForce<>::Dimensions(), RelatedDimensions<Unit::Force>);
 }
 
 TEST(ScalarForce, Hash) {
   const ScalarForce first{1.0, Unit::Force::Micronewton};
   const ScalarForce second{1.00001, Unit::Force::Micronewton};
   const ScalarForce third{-1.0, Unit::Force::Micronewton};
-  const std::hash<ScalarForce> hash;
+  const std::hash<ScalarForce<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -126,7 +126,7 @@ TEST(ScalarForce, JSON) {
 
 TEST(ScalarForce, MoveAssignmentOperator) {
   ScalarForce first{1.0, Unit::Force::Newton};
-  ScalarForce second = ScalarForce::Zero();
+  ScalarForce second = ScalarForce<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarForce(1.0, Unit::Force::Newton));
 }
@@ -165,7 +165,7 @@ TEST(ScalarForce, StandardConstructor) {
 }
 
 TEST(ScalarForce, StaticValue) {
-  constexpr ScalarForce quantity = ScalarForce::Create<Unit::Force::Micronewton>(2.0);
+  constexpr ScalarForce quantity = ScalarForce<>::Create<Unit::Force::Micronewton>(2.0);
   constexpr double value = quantity.StaticValue<Unit::Force::Micronewton>();
   EXPECT_EQ(value, 2.0);
 }
@@ -177,7 +177,7 @@ TEST(ScalarForce, Stream) {
 }
 
 TEST(ScalarForce, Unit) {
-  EXPECT_EQ(ScalarForce::Unit(), Standard<Unit::Force>);
+  EXPECT_EQ(ScalarForce<>::Unit(), Standard<Unit::Force>);
 }
 
 TEST(ScalarForce, Value) {
@@ -199,7 +199,7 @@ TEST(ScalarForce, YAML) {
 }
 
 TEST(ScalarForce, Zero) {
-  EXPECT_EQ(ScalarForce::Zero(), ScalarForce(0.0, Unit::Force::Newton));
+  EXPECT_EQ(ScalarForce<>::Zero(), ScalarForce(0.0, Unit::Force::Newton));
 }
 
 }  // namespace

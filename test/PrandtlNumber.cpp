@@ -91,7 +91,7 @@ TEST(PrandtlNumber, ComparisonOperators) {
 
 TEST(PrandtlNumber, CopyAssignmentOperator) {
   const PrandtlNumber first{1.0};
-  PrandtlNumber second = PrandtlNumber::Zero();
+  PrandtlNumber second = PrandtlNumber<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -107,14 +107,14 @@ TEST(PrandtlNumber, DefaultConstructor) {
 }
 
 TEST(PrandtlNumber, Dimensions) {
-  EXPECT_EQ(PrandtlNumber::Dimensions(), Dimensionless);
+  EXPECT_EQ(PrandtlNumber<>::Dimensions(), Dimensionless);
 }
 
 TEST(PrandtlNumber, Hash) {
   const PrandtlNumber first{1.0};
   const PrandtlNumber second{1.000001};
   const PrandtlNumber third{-1.0};
-  const std::hash<PrandtlNumber> hash;
+  const std::hash<PrandtlNumber<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -201,7 +201,7 @@ TEST(PrandtlNumber, MiscellaneousMethods) {
 
 TEST(PrandtlNumber, MoveAssignmentOperator) {
   PrandtlNumber first{1.0};
-  PrandtlNumber second = PrandtlNumber::Zero();
+  PrandtlNumber second = PrandtlNumber<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, PrandtlNumber(1.0));
 }
@@ -256,7 +256,7 @@ TEST(PrandtlNumber, YAML) {
 }
 
 TEST(PrandtlNumber, Zero) {
-  EXPECT_EQ(PrandtlNumber::Zero(), PrandtlNumber(0.0));
+  EXPECT_EQ(PrandtlNumber<>::Zero(), PrandtlNumber(0.0));
 }
 
 }  // namespace

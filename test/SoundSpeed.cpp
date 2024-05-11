@@ -125,7 +125,7 @@ TEST(SoundSpeed, ComparisonOperators) {
 
 TEST(SoundSpeed, CopyAssignmentOperator) {
   const SoundSpeed first{1.0, Unit::Speed::MetrePerSecond};
-  SoundSpeed second = SoundSpeed::Zero();
+  SoundSpeed second = SoundSpeed<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -137,7 +137,7 @@ TEST(SoundSpeed, CopyConstructor) {
 }
 
 TEST(SoundSpeed, Create) {
-  constexpr SoundSpeed quantity = SoundSpeed::Create<Unit::Speed::MetrePerSecond>(1.0);
+  constexpr SoundSpeed quantity = SoundSpeed<>::Create<Unit::Speed::MetrePerSecond>(1.0);
   EXPECT_EQ(quantity, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
 }
 
@@ -146,14 +146,14 @@ TEST(SoundSpeed, DefaultConstructor) {
 }
 
 TEST(SoundSpeed, Dimensions) {
-  EXPECT_EQ(SoundSpeed::Dimensions(), RelatedDimensions<Unit::Speed>);
+  EXPECT_EQ(SoundSpeed<>::Dimensions(), RelatedDimensions<Unit::Speed>);
 }
 
 TEST(SoundSpeed, Hash) {
   const SoundSpeed first{1.0, Unit::Speed::MillimetrePerSecond};
   const SoundSpeed second{1.00001, Unit::Speed::MillimetrePerSecond};
   const SoundSpeed third{-1.0, Unit::Speed::MillimetrePerSecond};
-  const std::hash<SoundSpeed> hash;
+  const std::hash<SoundSpeed<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -189,7 +189,7 @@ TEST(SoundSpeed, MiscellaneousConstructors) {
 
 TEST(SoundSpeed, MoveAssignmentOperator) {
   SoundSpeed first{1.0, Unit::Speed::MetrePerSecond};
-  SoundSpeed second = SoundSpeed::Zero();
+  SoundSpeed second = SoundSpeed<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
 }
@@ -229,7 +229,7 @@ TEST(SoundSpeed, StandardConstructor) {
 }
 
 TEST(SoundSpeed, StaticValue) {
-  constexpr SoundSpeed quantity = SoundSpeed::Create<Unit::Speed::MillimetrePerSecond>(1.0);
+  constexpr SoundSpeed quantity = SoundSpeed<>::Create<Unit::Speed::MillimetrePerSecond>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Speed::MillimetrePerSecond>();
   EXPECT_EQ(value, 1.0);
 }
@@ -241,7 +241,7 @@ TEST(SoundSpeed, Stream) {
 }
 
 TEST(SoundSpeed, Unit) {
-  EXPECT_EQ(SoundSpeed::Unit(), Standard<Unit::Speed>);
+  EXPECT_EQ(SoundSpeed<>::Unit(), Standard<Unit::Speed>);
 }
 
 TEST(SoundSpeed, Value) {
@@ -267,7 +267,7 @@ TEST(SoundSpeed, YAML) {
 }
 
 TEST(SoundSpeed, Zero) {
-  EXPECT_EQ(SoundSpeed::Zero(), SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(SoundSpeed<>::Zero(), SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
 }
 
 }  // namespace

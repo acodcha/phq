@@ -107,7 +107,7 @@ TEST(Dimensions, Hash) {
       Dimension::Temperature(0),
       Dimension::SubstanceAmount(0),
       Dimension::LuminousIntensity(1)};
-  const std::hash<Dimensions> hasher;
+  const std::hash<Dimensions<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));

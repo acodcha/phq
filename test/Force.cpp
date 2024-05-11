@@ -103,7 +103,7 @@ TEST(Force, ComparisonOperators) {
 
 TEST(Force, CopyAssignmentOperator) {
   const Force first({1.0, -2.0, 3.0}, Unit::Force::Newton);
-  Force second = Force::Zero();
+  Force second = Force<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -116,16 +116,16 @@ TEST(Force, CopyConstructor) {
 
 TEST(Force, Create) {
   {
-    constexpr Force force = Force::Create<Unit::Force::Newton>(1.0, -2.0, 3.0);
+    constexpr Force force = Force<>::Create<Unit::Force::Newton>(1.0, -2.0, 3.0);
     EXPECT_EQ(force, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
   }
   {
     constexpr Force force =
-        Force::Create<Unit::Force::Newton>(std::array<double, 3>{1.0, -2.0, 3.0});
+        Force<>::Create<Unit::Force::Newton>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(force, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
   }
   {
-    constexpr Force force = Force::Create<Unit::Force::Newton>(Vector{1.0, -2.0, 3.0});
+    constexpr Force force = Force<>::Create<Unit::Force::Newton>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(force, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
   }
 }
@@ -135,7 +135,7 @@ TEST(Force, DefaultConstructor) {
 }
 
 TEST(Force, Dimensions) {
-  EXPECT_EQ(Force::Dimensions(), RelatedDimensions<Unit::Force>);
+  EXPECT_EQ(Force<>::Dimensions(), RelatedDimensions<Unit::Force>);
 }
 
 TEST(Force, Direction) {
@@ -146,7 +146,7 @@ TEST(Force, Hash) {
   const Force first({1.0, -2.0, 3.0}, Unit::Force::Pound);
   const Force second({1.0, -2.0, 3.000001}, Unit::Force::Pound);
   const Force third({1.0, 2.0, 3.0}, Unit::Force::Pound);
-  const std::hash<Force> hash;
+  const std::hash<Force<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -175,7 +175,7 @@ TEST(Force, MiscellaneousConstructors) {
 
 TEST(Force, MoveAssignmentOperator) {
   Force first({1.0, -2.0, 3.0}, Unit::Force::Newton);
-  Force second = Force::Zero();
+  Force second = Force<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
 }
@@ -215,7 +215,7 @@ TEST(Force, StandardConstructor) {
 }
 
 TEST(Force, StaticValue) {
-  constexpr Force force = Force::Create<Unit::Force::Pound>(1.0, -2.0, 3.0);
+  constexpr Force force = Force<>::Create<Unit::Force::Pound>(1.0, -2.0, 3.0);
   constexpr Vector value = force.StaticValue<Unit::Force::Pound>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -227,7 +227,7 @@ TEST(Force, Stream) {
 }
 
 TEST(Force, Unit) {
-  EXPECT_EQ(Force::Unit(), Standard<Unit::Force>);
+  EXPECT_EQ(Force<>::Unit(), Standard<Unit::Force>);
 }
 
 TEST(Force, Value) {
@@ -261,7 +261,7 @@ TEST(Force, YAML) {
 }
 
 TEST(Force, Zero) {
-  EXPECT_EQ(Force::Zero(), Force({0.0, 0.0, 0.0}, Unit::Force::Newton));
+  EXPECT_EQ(Force<>::Zero(), Force({0.0, 0.0, 0.0}, Unit::Force::Newton));
 }
 
 }  // namespace
