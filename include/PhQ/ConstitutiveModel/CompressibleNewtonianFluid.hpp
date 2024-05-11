@@ -36,7 +36,8 @@ namespace PhQ {
 // for a compressible fluid. It is similar to the model for an incompressible Newtonian fluid, but
 // also includes the effect of the volumetric component of the strain rate tensor in addition to its
 // deviatoric component.
-class ConstitutiveModel::CompressibleNewtonianFluid : public ConstitutiveModel {
+template <typename Number>
+class ConstitutiveModel<Number>::CompressibleNewtonianFluid : public ConstitutiveModel<Number> {
 public:
   // Default constructor. Constructs a compressible Newtonian fluid constitutive model with an
   // uninitialized dynamic viscosity and bulk dynamic viscosity.
@@ -44,15 +45,15 @@ public:
 
   // Constructor. Constructs a compressible Newtonian fluid constitutive model from a given dynamic
   // viscosity. Initializes the bulk dynamic viscosity as -2/3 of the dynamic viscosity.
-  explicit constexpr CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity)
-    : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
+  explicit constexpr CompressibleNewtonianFluid(const DynamicViscosity<Number>& dynamic_viscosity)
+    : ConstitutiveModel<Number>(), dynamic_viscosity(dynamic_viscosity),
       bulk_dynamic_viscosity(-2.0 / 3.0 * dynamic_viscosity.Value()) {}
 
   // Constructor. Constructs a compressible Newtonian fluid constitutive model from a given dynamic
   // viscosity and bulk dynamic viscosity.
-  constexpr CompressibleNewtonianFluid(
-      const DynamicViscosity& dynamic_viscosity, const BulkDynamicViscosity& bulk_dynamic_viscosity)
-    : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
+  constexpr CompressibleNewtonianFluid(const DynamicViscosity<Number>& dynamic_viscosity,
+                                       const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity)
+    : ConstitutiveModel<Number>(), dynamic_viscosity(dynamic_viscosity),
       bulk_dynamic_viscosity(bulk_dynamic_viscosity) {}
 
   // Destructor. Destroys this compressible Newtonian fluid constitutive model.
@@ -75,12 +76,13 @@ public:
   CompressibleNewtonianFluid& operator=(CompressibleNewtonianFluid&& other) noexcept = default;
 
   // Dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::DynamicViscosity& DynamicViscosity() const noexcept {
+  [[nodiscard]] inline constexpr const PhQ::DynamicViscosity<Number>&
+  DynamicViscosity() const noexcept {
     return dynamic_viscosity;
   }
 
   // Bulk dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::BulkDynamicViscosity&
+  [[nodiscard]] inline constexpr const PhQ::BulkDynamicViscosity<Number>&
   BulkDynamicViscosity() const noexcept {
     return bulk_dynamic_viscosity;
   }
@@ -93,40 +95,45 @@ public:
   // Returns the stress resulting from a given strain and strain rate. Since this is a compressible
   // Newtonian fluid constitutive model, the strain does not contribute to the stress and is
   // ignored.
-  [[nodiscard]] inline PhQ::Stress Stress(
-      const PhQ::Strain& /*strain*/, const PhQ::StrainRate& strain_rate) const override {
-    return Stress(strain_rate);
+  [[nodiscard]] inline PhQ::Stress<Number> Stress(
+      const PhQ::Strain<Number>& /*strain*/,
+      const PhQ::StrainRate<Number>& strain_rate) const override {
+    return Stress<Number>(strain_rate);
   }
 
   // Returns the stress resulting from a given strain. Since this is a compressible Newtonian fluid
   // constitutive model, the strain does not contribute to the stress, so this always returns a
   // stress of zero.
-  [[nodiscard]] inline PhQ::Stress Stress(const PhQ::Strain& /*strain*/) const override {
-    return PhQ::Stress::Zero();
+  [[nodiscard]] inline PhQ::Stress<Number> Stress(
+      const PhQ::Strain<Number>& /*strain*/) const override {
+    return PhQ::Stress<Number>::Zero();
   }
 
   // Returns the stress resulting from a given strain rate.
-  [[nodiscard]] inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const override {
+  [[nodiscard]] inline PhQ::Stress<Number> Stress(
+      const PhQ::StrainRate<Number>& strain_rate) const override {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
     const double a{2.0 * dynamic_viscosity.Value()};
     const double b{bulk_dynamic_viscosity.Value() * strain_rate.Value().Trace()};
-    return {
-        SymmetricDyad{a * strain_rate.Value()}
-        + SymmetricDyad{ b, 0.0, 0.0, b, 0.0, b},
+    return PhQ::Stress<Number>{
+        SymmetricDyad<Number>{a * strain_rate.Value()}
+            + SymmetricDyad<Number>{ b, 0.0, 0.0, b, 0.0, b},
         Standard<Unit::Pressure>
     };
   }
 
   // Returns the strain resulting from a given stress. Since this is a compressible Newtonian fluid
   // constitutive model, stress does not depend on strain, so this always returns a strain of zero.
-  [[nodiscard]] inline PhQ::Strain Strain(const PhQ::Stress& /*stress*/) const override {
-    return PhQ::Strain::Zero();
+  [[nodiscard]] inline PhQ::Strain<Number> Strain(
+      const PhQ::Stress<Number>& /*stress*/) const override {
+    return PhQ::Strain<Number>::Zero();
   }
 
   // Returns the strain rate resulting from a given stress.
-  [[nodiscard]] inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
+  [[nodiscard]] inline PhQ::StrainRate<Number> StrainRate(
+      const PhQ::Stress<Number>& stress) const override {
     // strain_rate = a * stress + b * trace(stress) * identity_matrix
     // a = 1 / (2 * dynamic_viscosity)
     // b = -1 * bulk_dynamic_viscosity /
@@ -136,8 +143,8 @@ public:
                    / (2.0 * dynamic_viscosity.Value()
                       * (2.0 * dynamic_viscosity.Value() + 3.0 * bulk_dynamic_viscosity.Value()))};
     const double temporary{b * stress.Value().Trace()};
-    return {
-        a * stress.Value() + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
+    return PhQ::StrainRate<Number>{
+        a * stress.Value() + SymmetricDyad<Number>{temporary, 0.0, 0.0, temporary, 0.0, temporary},
         Standard<Unit::Frequency>
     };
   }
@@ -172,58 +179,66 @@ public:
 
 private:
   // Dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  PhQ::DynamicViscosity dynamic_viscosity;
+  PhQ::DynamicViscosity<Number> dynamic_viscosity;
 
   // Bulk dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  PhQ::BulkDynamicViscosity bulk_dynamic_viscosity;
+  PhQ::BulkDynamicViscosity<Number> bulk_dynamic_viscosity;
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const ConstitutiveModel::CompressibleNewtonianFluid& left,
-    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() == right.DynamicViscosity()
          && left.BulkDynamicViscosity() == right.BulkDynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const ConstitutiveModel::CompressibleNewtonianFluid& left,
-    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() != right.DynamicViscosity()
          || left.BulkDynamicViscosity() != right.BulkDynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const ConstitutiveModel::CompressibleNewtonianFluid& left,
-    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& right) noexcept {
   if (left.DynamicViscosity() != right.DynamicViscosity()) {
     return left.DynamicViscosity() < right.DynamicViscosity();
   }
   return left.BulkDynamicViscosity() < right.BulkDynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const ConstitutiveModel::CompressibleNewtonianFluid& left,
-    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& right) noexcept {
   if (left.DynamicViscosity() != right.DynamicViscosity()) {
     return left.DynamicViscosity() > right.DynamicViscosity();
   }
   return left.BulkDynamicViscosity() > right.BulkDynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const ConstitutiveModel::CompressibleNewtonianFluid& left,
-    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& right) noexcept {
   return !(left > right);
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const ConstitutiveModel::CompressibleNewtonianFluid& left,
-    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& right) noexcept {
   return !(left < right);
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ConstitutiveModel::CompressibleNewtonianFluid& model) {
+    std::ostream& stream,
+    const typename ConstitutiveModel<Number>::CompressibleNewtonianFluid& model) {
   stream << model.Print();
   return stream;
 }
@@ -232,12 +247,12 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
-  size_t operator()(const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
+template <typename Number>
+struct hash<typename PhQ::ConstitutiveModel<Number>::CompressibleNewtonianFluid> {
+  size_t operator()(const PhQ::ConstitutiveModel<Number>::CompressibleNewtonianFluid& model) const {
     size_t result{17};
-    result = 31 * result + hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
-    result = 31 * result + hash<PhQ::BulkDynamicViscosity>()(model.BulkDynamicViscosity());
+    result = 31 * result + hash<PhQ::DynamicViscosity<Number>>()(model.DynamicViscosity());
+    result = 31 * result + hash<PhQ::BulkDynamicViscosity<Number>>()(model.BulkDynamicViscosity());
     return result;
   }
 };

@@ -41,7 +41,8 @@ namespace PhQ {
 
 // Constitutive model for an elastic isotropic solid. This is the simplest constitutive model for a
 // deformable solid material.
-class ConstitutiveModel::ElasticIsotropicSolid : public ConstitutiveModel {
+template <typename Number>
+class ConstitutiveModel<Number>::ElasticIsotropicSolid : public ConstitutiveModel<Number> {
 public:
   // Default constructor. Constructs an elastic isotropic solid constitutive model with an
   // uninitialized value.
@@ -49,8 +50,9 @@ public:
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and Poisson's ratio.
-  ElasticIsotropicSolid(const YoungModulus& young_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(),
+  ElasticIsotropicSolid(
+      const YoungModulus<Number>& young_modulus, const PoissonRatio<Number>& poisson_ratio)
+    : ConstitutiveModel<Number>(),
       shear_modulus(young_modulus.Value() / (2.0 * (1.0 + poisson_ratio.Value()))),
       lame_first_modulus(young_modulus.Value() * poisson_ratio.Value()
                          / ((1.0 + poisson_ratio.Value()) * (1.0 - 2.0 * poisson_ratio.Value()))) {}
@@ -58,17 +60,17 @@ public:
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and shear modulus.
   constexpr ElasticIsotropicSolid(
-      const YoungModulus& young_modulus, const ShearModulus& shear_modulus)
-    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      const YoungModulus<Number>& young_modulus, const ShearModulus<Number>& shear_modulus)
+    : ConstitutiveModel<Number>(), shear_modulus(shear_modulus),
       lame_first_modulus(
           (shear_modulus.Value() * (young_modulus.Value() - 2.0 * shear_modulus.Value()))
           / (3.0 * shear_modulus.Value() - young_modulus.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and isentropic bulk modulus.
-  ElasticIsotropicSolid(
-      const YoungModulus& young_modulus, const IsentropicBulkModulus& isentropic_bulk_modulus)
-    : ConstitutiveModel(),
+  ElasticIsotropicSolid(const YoungModulus<Number>& young_modulus,
+                        const IsentropicBulkModulus<Number>& isentropic_bulk_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(3.0 * young_modulus.Value() * isentropic_bulk_modulus.Value()
                     / (9.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())),
       lame_first_modulus(3.0 * isentropic_bulk_modulus.Value()
@@ -77,9 +79,9 @@ public:
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and isothermal bulk modulus.
-  ElasticIsotropicSolid(
-      const YoungModulus& young_modulus, const IsothermalBulkModulus& isothermal_bulk_modulus)
-    : ConstitutiveModel(),
+  ElasticIsotropicSolid(const YoungModulus<Number>& young_modulus,
+                        const IsothermalBulkModulus<Number>& isothermal_bulk_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(3.0 * young_modulus.Value() * isothermal_bulk_modulus.Value()
                     / (9.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())),
       lame_first_modulus(3.0 * isothermal_bulk_modulus.Value()
@@ -89,8 +91,8 @@ public:
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(
-      const YoungModulus& young_modulus, const LameFirstModulus& lame_first_modulus)
-    : ConstitutiveModel(),
+      const YoungModulus<Number>& young_modulus, const LameFirstModulus<Number>& lame_first_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(0.25
                     * (young_modulus.Value() - 3.0 * lame_first_modulus.Value()
                        + ::std::sqrt(::std::pow(young_modulus.Value(), 2)
@@ -101,8 +103,8 @@ public:
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
-      const YoungModulus& young_modulus, const PWaveModulus& p_wave_modulus)
-    : ConstitutiveModel(),
+      const YoungModulus<Number>& young_modulus, const PWaveModulus<Number>& p_wave_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(0.125
                     * (3.0 * p_wave_modulus.Value() + young_modulus.Value()
                        - ::std::sqrt(::std::pow(young_modulus.Value(), 2)
@@ -118,75 +120,76 @@ public:
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
-      const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      const ShearModulus<Number>& shear_modulus, const PoissonRatio<Number>& poisson_ratio)
+    : ConstitutiveModel<Number>(), shear_modulus(shear_modulus),
       lame_first_modulus((2.0 * shear_modulus.Value() * poisson_ratio.Value())
                          / (1.0 - 2.0 * poisson_ratio.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and isentropic bulk modulus.
-  constexpr ElasticIsotropicSolid(
-      const ShearModulus& shear_modulus, const IsentropicBulkModulus& isentropic_bulk_modulus)
-    : ConstitutiveModel(), shear_modulus(shear_modulus),
+  constexpr ElasticIsotropicSolid(const ShearModulus<Number>& shear_modulus,
+                                  const IsentropicBulkModulus<Number>& isentropic_bulk_modulus)
+    : ConstitutiveModel<Number>(), shear_modulus(shear_modulus),
       lame_first_modulus(isentropic_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and isothermal bulk modulus.
-  constexpr ElasticIsotropicSolid(
-      const ShearModulus& shear_modulus, const IsothermalBulkModulus& isothermal_bulk_modulus)
-    : ConstitutiveModel(), shear_modulus(shear_modulus),
+  constexpr ElasticIsotropicSolid(const ShearModulus<Number>& shear_modulus,
+                                  const IsothermalBulkModulus<Number>& isothermal_bulk_modulus)
+    : ConstitutiveModel<Number>(), shear_modulus(shear_modulus),
       lame_first_modulus(isothermal_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(
-      const ShearModulus& shear_modulus, const LameFirstModulus& lame_first_modulus)
-    : ConstitutiveModel(), shear_modulus(shear_modulus), lame_first_modulus(lame_first_modulus) {}
+      const ShearModulus<Number>& shear_modulus, const LameFirstModulus<Number>& lame_first_modulus)
+    : ConstitutiveModel<Number>(), shear_modulus(shear_modulus),
+      lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
-      const ShearModulus& shear_modulus, const PWaveModulus& p_wave_modulus)
-    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      const ShearModulus<Number>& shear_modulus, const PWaveModulus<Number>& p_wave_modulus)
+    : ConstitutiveModel<Number>(), shear_modulus(shear_modulus),
       lame_first_modulus(p_wave_modulus.Value() - 2.0 * shear_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
   // bulk modulus and Lamé's first modulus.
-  constexpr ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
-                                  const LameFirstModulus& lame_first_modulus)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
+                                  const LameFirstModulus<Number>& lame_first_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(1.5 * (isentropic_bulk_modulus.Value() - lame_first_modulus.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
   // bulk modulus and Lamé's first modulus.
-  constexpr ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
-                                  const LameFirstModulus& lame_first_modulus)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus,
+                                  const LameFirstModulus<Number>& lame_first_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(1.5 * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
   // bulk modulus and P-wave modulus.
-  constexpr ElasticIsotropicSolid(
-      const IsentropicBulkModulus& isentropic_bulk_modulus, const PWaveModulus& p_wave_modulus)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
+                                  const PWaveModulus<Number>& p_wave_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(0.75 * (p_wave_modulus.Value() - isentropic_bulk_modulus.Value())),
       lame_first_modulus(1.5 * isentropic_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
   // bulk modulus and P-wave modulus.
-  constexpr ElasticIsotropicSolid(
-      const IsothermalBulkModulus& isothermal_bulk_modulus, const PWaveModulus& p_wave_modulus)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus,
+                                  const PWaveModulus<Number>& p_wave_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(0.75 * (p_wave_modulus.Value() - isothermal_bulk_modulus.Value())),
       lame_first_modulus(1.5 * isothermal_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
   // bulk modulus and Poisson's ratio.
-  constexpr ElasticIsotropicSolid(
-      const IsentropicBulkModulus& isentropic_bulk_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
+                                  const PoissonRatio<Number>& poisson_ratio)
+    : ConstitutiveModel<Number>(),
       shear_modulus(3.0 * isentropic_bulk_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
                     / (2.0 + 2.0 * poisson_ratio.Value())),
       lame_first_modulus(3.0 * isentropic_bulk_modulus.Value() * poisson_ratio.Value()
@@ -194,9 +197,9 @@ public:
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
   // bulk modulus and Poisson's ratio.
-  constexpr ElasticIsotropicSolid(
-      const IsothermalBulkModulus& isothermal_bulk_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus,
+                                  const PoissonRatio<Number>& poisson_ratio)
+    : ConstitutiveModel<Number>(),
       shear_modulus(3.0 * isothermal_bulk_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
                     / (2.0 + 2.0 * poisson_ratio.Value())),
       lame_first_modulus(3.0 * isothermal_bulk_modulus.Value() * poisson_ratio.Value()
@@ -204,17 +207,17 @@ public:
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Lamé's first
   // modulus and P-wave modulus.
-  constexpr ElasticIsotropicSolid(
-      const LameFirstModulus& lame_first_modulus, const PWaveModulus& p_wave_modulus)
-    : ConstitutiveModel(),
+  constexpr ElasticIsotropicSolid(const LameFirstModulus<Number>& lame_first_modulus,
+                                  const PWaveModulus<Number>& p_wave_modulus)
+    : ConstitutiveModel<Number>(),
       shear_modulus(0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Lamé's first
   // modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
-      const LameFirstModulus& lame_first_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(),
+      const LameFirstModulus<Number>& lame_first_modulus, const PoissonRatio<Number>& poisson_ratio)
+    : ConstitutiveModel<Number>(),
       shear_modulus(lame_first_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
                     / (2.0 * poisson_ratio.Value())),
       lame_first_modulus(lame_first_modulus) {}
@@ -222,8 +225,8 @@ public:
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given P-wave
   // modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
-      const PWaveModulus& p_wave_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(),
+      const PWaveModulus<Number>& p_wave_modulus, const PoissonRatio<Number>& poisson_ratio)
+    : ConstitutiveModel<Number>(),
       shear_modulus(p_wave_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
                     / (2.0 - 2.0 * poisson_ratio.Value())),
       lame_first_modulus(
@@ -249,45 +252,47 @@ public:
   ElasticIsotropicSolid& operator=(ElasticIsotropicSolid&& other) noexcept = default;
 
   // Shear modulus of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::ShearModulus& ShearModulus() const noexcept {
+  [[nodiscard]] inline constexpr const PhQ::ShearModulus<Number>& ShearModulus() const noexcept {
     return shear_modulus;
   }
 
   // Lamé's first modulus of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::LameFirstModulus& LameFirstModulus() const noexcept {
+  [[nodiscard]] inline constexpr const PhQ::LameFirstModulus<Number>&
+  LameFirstModulus() const noexcept {
     return lame_first_modulus;
   }
 
   // Young's modulus of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline PhQ::YoungModulus YoungModulus() const {
+  [[nodiscard]] inline PhQ::YoungModulus<Number> YoungModulus() const {
     const double numerator{
         shear_modulus.Value() * (3.0 * lame_first_modulus.Value() + 2.0 * shear_modulus.Value())};
     const double denominator{shear_modulus.Value() + lame_first_modulus.Value()};
-    return {numerator / denominator, Standard<Unit::Pressure>};
+    return PhQ::YoungModulus<Number>{numerator / denominator, Standard<Unit::Pressure>};
   }
 
   // Isentropic bulk modulus of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline PhQ::IsentropicBulkModulus IsentropicBulkModulus() const {
-    return {
+  [[nodiscard]] inline PhQ::IsentropicBulkModulus<Number> IsentropicBulkModulus() const {
+    return PhQ::IsentropicBulkModulus<Number>{
         lame_first_modulus.Value() + 2.0 / 3.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
   }
 
   // Isothermal bulk modulus of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline PhQ::IsothermalBulkModulus IsothermalBulkModulus() const {
-    return {
+  [[nodiscard]] inline PhQ::IsothermalBulkModulus<Number> IsothermalBulkModulus() const {
+    return PhQ::IsothermalBulkModulus<Number>{
         lame_first_modulus.Value() + 2.0 / 3.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
   }
 
   // P-wave modulus of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline PhQ::PWaveModulus PWaveModulus() const {
-    return {lame_first_modulus.Value() + 2.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
+  [[nodiscard]] inline PhQ::PWaveModulus<Number> PWaveModulus() const {
+    return PhQ::PWaveModulus<Number>{
+        lame_first_modulus.Value() + 2.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
   }
 
   // Poisson's ratio of this elastic isotropic solid constitutive model.
-  [[nodiscard]] inline PhQ::PoissonRatio PoissonRatio() const {
+  [[nodiscard]] inline PhQ::PoissonRatio<Number> PoissonRatio() const {
     const double numerator{0.5 * lame_first_modulus.Value()};
     const double denominator{shear_modulus.Value() + lame_first_modulus.Value()};
-    return PhQ::PoissonRatio{numerator / denominator};
+    return PhQ::PoissonRatio<Number>{numerator / denominator};
   }
 
   // Returns this constitutive model's type.
@@ -372,51 +377,64 @@ public:
   }
 
 private:
-  PhQ::ShearModulus shear_modulus;
+  PhQ::ShearModulus<Number> shear_modulus;
 
-  PhQ::LameFirstModulus lame_first_modulus;
+  PhQ::LameFirstModulus<Number> lame_first_modulus;
 };
 
-inline constexpr bool operator==(const ConstitutiveModel::ElasticIsotropicSolid& left,
-                                 const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
-  return left.ShearModulus() == right.ShearModulus()
-         && left.LameFirstModulus() == right.LameFirstModulus();
+template <typename Number>
+inline constexpr bool operator==(
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+  return left.ShearModulus<Number>() == right.ShearModulus<Number>()
+         && left.LameFirstModulus<Number>() == right.LameFirstModulus<Number>();
 }
 
-inline constexpr bool operator!=(const ConstitutiveModel::ElasticIsotropicSolid& left,
-                                 const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
-  return left.ShearModulus() != right.ShearModulus()
-         || left.LameFirstModulus() != right.LameFirstModulus();
+template <typename Number>
+inline constexpr bool operator!=(
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+  return left.ShearModulus<Number>() != right.ShearModulus<Number>()
+         || left.LameFirstModulus<Number>() != right.LameFirstModulus<Number>();
 }
 
-inline constexpr bool operator<(const ConstitutiveModel::ElasticIsotropicSolid& left,
-                                const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
-  if (left.ShearModulus() != right.ShearModulus()) {
-    return left.ShearModulus() < right.ShearModulus();
+template <typename Number>
+inline constexpr bool operator<(
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+  if (left.ShearModulus<Number>() != right.ShearModulus<Number>()) {
+    return left.ShearModulus<Number>() < right.ShearModulus<Number>();
   }
-  return left.LameFirstModulus() < right.LameFirstModulus();
+  return left.LameFirstModulus<Number>() < right.LameFirstModulus<Number>();
 }
 
-inline constexpr bool operator>(const ConstitutiveModel::ElasticIsotropicSolid& left,
-                                const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
-  if (left.ShearModulus() != right.ShearModulus()) {
-    return left.ShearModulus() > right.ShearModulus();
+template <typename Number>
+inline constexpr bool operator>(
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+  if (left.ShearModulus<Number>() != right.ShearModulus<Number>()) {
+    return left.ShearModulus<Number>() > right.ShearModulus<Number>();
   }
-  return left.LameFirstModulus() > right.LameFirstModulus();
+  return left.LameFirstModulus<Number>() > right.LameFirstModulus<Number>();
 }
 
-inline constexpr bool operator<=(const ConstitutiveModel::ElasticIsotropicSolid& left,
-                                 const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
   return !(left > right);
 }
 
-inline constexpr bool operator>=(const ConstitutiveModel::ElasticIsotropicSolid& left,
-                                 const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
   return !(left < right);
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ConstitutiveModel::ElasticIsotropicSolid& model) {
+    std::ostream& stream, const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& model) {
   stream << model.Print();
   return stream;
 }
@@ -425,12 +443,12 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
-  size_t operator()(const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
+template <typename Number>
+struct hash<typename PhQ::ConstitutiveModel<Number>::ElasticIsotropicSolid> {
+  size_t operator()(const PhQ::ConstitutiveModel<Number>::ElasticIsotropicSolid& model) const {
     size_t result{17};
-    result = 31 * result + hash<PhQ::ShearModulus>()(model.ShearModulus());
-    result = 31 * result + hash<PhQ::LameFirstModulus>()(model.LameFirstModulus());
+    result = 31 * result + hash<PhQ::ShearModulus<Number>>()(model.ShearModulus<Number>());
+    result = 31 * result + hash<PhQ::LameFirstModulus<Number>>()(model.LameFirstModulus<Number>());
     return result;
   }
 };

@@ -33,7 +33,8 @@ namespace PhQ {
 // Constitutive model for an incompressible Newtonian fluid. This is the simplest constitutive model
 // for a fluid. The viscous stress tensor at a point is a linear function of only the local strain
 // rate tensor at that point.
-class ConstitutiveModel::IncompressibleNewtonianFluid : public ConstitutiveModel {
+template <typename Number>
+class ConstitutiveModel<Number>::IncompressibleNewtonianFluid : public ConstitutiveModel<Number> {
 public:
   // Default constructor. Constructs an incompressible Newtonian fluid constitutive model with an
   // uninitialized dynamic viscosity.
@@ -41,8 +42,8 @@ public:
 
   // Constructor. Constructs an incompressible Newtonian fluid constitutive model from a given
   // dynamic viscosity.
-  explicit constexpr IncompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity)
-    : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity) {}
+  explicit constexpr IncompressibleNewtonianFluid(const DynamicViscosity<Number>& dynamic_viscosity)
+    : ConstitutiveModel<Number>(), dynamic_viscosity(dynamic_viscosity) {}
 
   // Destructor. Destroys this incompressible Newtonian fluid constitutive model.
   ~IncompressibleNewtonianFluid() noexcept override = default;
@@ -64,7 +65,8 @@ public:
   IncompressibleNewtonianFluid& operator=(IncompressibleNewtonianFluid&& other) noexcept = default;
 
   // Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::DynamicViscosity& DynamicViscosity() const noexcept {
+  [[nodiscard]] inline constexpr const PhQ::DynamicViscosity<Number>&
+  DynamicViscosity() const noexcept {
     return dynamic_viscosity;
   }
 
@@ -76,35 +78,42 @@ public:
   // Returns the stress resulting from a given strain and strain rate. Since this is an
   // incompressible Newtonian fluid constitutive model, the strain does not contribute to the stress
   // and is ignored.
-  [[nodiscard]] inline PhQ::Stress Stress(
-      const PhQ::Strain& /*strain*/, const PhQ::StrainRate& strain_rate) const override {
-    return Stress(strain_rate);
+  [[nodiscard]] inline PhQ::Stress<Number> Stress(
+      const PhQ::Strain<Number>& /*strain*/,
+      const PhQ::StrainRate<Number>& strain_rate) const override {
+    return Stress<Number>(strain_rate);
   }
 
   // Returns the stress resulting from a given strain. Since this is an incompressible Newtonian
   // fluid constitutive model, the strain does not contribute to the stress, so this always returns
   // a stress of zero.
-  [[nodiscard]] inline PhQ::Stress Stress(const PhQ::Strain& /*strain*/) const override {
-    return PhQ::Stress::Zero();
+  [[nodiscard]] inline PhQ::Stress<Number> Stress(
+      const PhQ::Strain<Number>& /*strain*/) const override {
+    return PhQ::Stress<Number>::Zero();
   }
 
   // Returns the stress resulting from a given strain rate.
-  [[nodiscard]] inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const override {
+  [[nodiscard]] inline PhQ::Stress<Number> Stress(
+      const PhQ::StrainRate<Number>& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
-    return {{2.0 * dynamic_viscosity.Value() * strain_rate.Value()}, Standard<Unit::Pressure>};
+    return PhQ::Stress<Number>{
+        {2.0 * dynamic_viscosity.Value() * strain_rate.Value()}, Standard<Unit::Pressure>};
   }
 
   // Returns the strain resulting from a given stress. Since this is an incompressible Newtonian
   // fluid constitutive model, stress does not depend on strain, so this always returns a strain of
   // zero.
-  [[nodiscard]] inline PhQ::Strain Strain(const PhQ::Stress& /*stress*/) const override {
-    return PhQ::Strain::Zero();
+  [[nodiscard]] inline PhQ::Strain<Number> Strain(
+      const PhQ::Stress<Number>& /*stress*/) const override {
+    return PhQ::Strain<Number>::Zero();
   }
 
   // Returns the strain rate resulting from a given stress.
-  [[nodiscard]] inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
+  [[nodiscard]] inline PhQ::StrainRate<Number> StrainRate(
+      const PhQ::Stress<Number>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
-    return {{stress.Value() / (2.0 * dynamic_viscosity.Value())}, Standard<Unit::Frequency>};
+    return PhQ::StrainRate<Number>{
+        {stress.Value() / (2.0 * dynamic_viscosity.Value())}, Standard<Unit::Frequency>};
   }
   // Prints this incompressible Newtonian fluid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
@@ -132,47 +141,55 @@ public:
 
 private:
   // Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
-  PhQ::DynamicViscosity dynamic_viscosity;
+  PhQ::DynamicViscosity<Number> dynamic_viscosity;
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const ConstitutiveModel::IncompressibleNewtonianFluid& left,
-    const ConstitutiveModel::IncompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() == right.DynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const ConstitutiveModel::IncompressibleNewtonianFluid& left,
-    const ConstitutiveModel::IncompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() != right.DynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const ConstitutiveModel::IncompressibleNewtonianFluid& left,
-    const ConstitutiveModel::IncompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() < right.DynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const ConstitutiveModel::IncompressibleNewtonianFluid& left,
-    const ConstitutiveModel::IncompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() > right.DynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const ConstitutiveModel::IncompressibleNewtonianFluid& left,
-    const ConstitutiveModel::IncompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() <= right.DynamicViscosity();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const ConstitutiveModel::IncompressibleNewtonianFluid& left,
-    const ConstitutiveModel::IncompressibleNewtonianFluid& right) noexcept {
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& left,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() >= right.DynamicViscosity();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ConstitutiveModel::IncompressibleNewtonianFluid& model) {
+    std::ostream& stream,
+    const typename ConstitutiveModel<Number>::IncompressibleNewtonianFluid& model) {
   stream << model.Print();
   return stream;
 }
@@ -181,10 +198,11 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ConstitutiveModel::IncompressibleNewtonianFluid> {
-  size_t operator()(const PhQ::ConstitutiveModel::IncompressibleNewtonianFluid& model) const {
-    return hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
+template <typename Number>
+struct hash<typename PhQ::ConstitutiveModel<Number>::IncompressibleNewtonianFluid> {
+  size_t operator()(
+      const PhQ::ConstitutiveModel<Number>::IncompressibleNewtonianFluid& model) const {
+    return hash<PhQ::DynamicViscosity<Number>>()(model.DynamicViscosity());
   }
 };
 
