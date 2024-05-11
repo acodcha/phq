@@ -279,13 +279,13 @@ public:
   }
 
   // Returns the angle between the direction and the given vector.
-  [[nodiscard]] PhQ::Angle Angle(const Vector<Number>& vector) const {
-    return PhQ::Angle{*this, vector};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Vector<Number>& vector) const {
+    return PhQ::Angle<Number>{*this, vector};
   }
 
   // Returns the angle between the direction and the given other direction.
-  [[nodiscard]] PhQ::Angle Angle(const Direction<Number>& direction) const {
-    return PhQ::Angle{*this, direction};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Direction<Number>& direction) const {
+    return PhQ::Angle<Number>{*this, direction};
   }
 
   constexpr Acceleration<Number> operator*(
