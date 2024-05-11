@@ -113,7 +113,7 @@ TEST(IsochoricHeatCapacity, Create) {
 }
 
 TEST(IsochoricHeatCapacity, DefaultConstructor) {
-  EXPECT_NO_THROW(IsochoricHeatCapacity{});
+  EXPECT_NO_THROW(IsochoricHeatCapacity<>{});
 }
 
 TEST(IsochoricHeatCapacity, Dimensions) {
@@ -173,7 +173,7 @@ TEST(IsochoricHeatCapacity, SetValue) {
 }
 
 TEST(IsochoricHeatCapacity, SizeOf) {
-  EXPECT_EQ(sizeof(IsochoricHeatCapacity{}), sizeof(double));
+  EXPECT_EQ(sizeof(IsochoricHeatCapacity<>{}), sizeof(double));
 }
 
 TEST(IsochoricHeatCapacity, StandardConstructor) {

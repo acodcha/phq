@@ -67,7 +67,7 @@ public:
   template <typename OtherNumber>
   explicit constexpr ScalarDisplacementGradient(
       const ScalarDisplacementGradient<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarDisplacementGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar displacement gradient by moving another one.
   constexpr ScalarDisplacementGradient(
@@ -81,7 +81,7 @@ public:
   template <typename OtherNumber>
   constexpr ScalarDisplacementGradient<Number>& operator=(
       const ScalarDisplacementGradient<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -96,47 +96,47 @@ public:
 
   constexpr ScalarDisplacementGradient<Number> operator+(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const {
-    return ScalarDisplacementGradient<Number>{value + scalar_displacement_gradient.value};
+    return ScalarDisplacementGradient<Number>{this->value + scalar_displacement_gradient.value};
   }
 
   constexpr ScalarDisplacementGradient<Number> operator-(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const {
-    return ScalarDisplacementGradient<Number>{value - scalar_displacement_gradient.value};
+    return ScalarDisplacementGradient<Number>{this->value - scalar_displacement_gradient.value};
   }
 
   constexpr ScalarDisplacementGradient<Number> operator*(const Number number) const {
-    return ScalarDisplacementGradient<Number>{value * number};
+    return ScalarDisplacementGradient<Number>{this->value * number};
   }
 
   constexpr ScalarVelocityGradient<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr ScalarDisplacementGradient<Number> operator/(const Number number) const {
-    return ScalarDisplacementGradient<Number>{value / number};
+    return ScalarDisplacementGradient<Number>{this->value / number};
   }
 
   constexpr ScalarVelocityGradient<Number> operator/(const Time<Number>& time) const;
 
   constexpr Number operator/(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const noexcept {
-    return value / scalar_displacement_gradient.value;
+    return this->value / scalar_displacement_gradient.value;
   }
 
   constexpr void operator+=(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) noexcept {
-    value += scalar_displacement_gradient.value;
+    this->value += scalar_displacement_gradient.value;
   }
 
   constexpr void operator-=(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) noexcept {
-    value -= scalar_displacement_gradient.value;
+    this->value -= scalar_displacement_gradient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

@@ -386,7 +386,7 @@ TEST(Vector, Hash) {
     constexpr Vector first(1.0F, -2.0F, 3.0F);
     constexpr Vector second(1.0F, -2.0F, 3.000001F);
     constexpr Vector third(1.0F, 2.0F, 3.0F);
-    const std::hash<Vector<float><>> hash;
+    const std::hash<Vector<float>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -395,7 +395,7 @@ TEST(Vector, Hash) {
     constexpr Vector first(1.0, -2.0, 3.0);
     constexpr Vector second(1.0, -2.0, 3.000001);
     constexpr Vector third(1.0, 2.0, 3.0);
-    const std::hash<Vector<><>> hash;
+    const std::hash<Vector<>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -404,7 +404,7 @@ TEST(Vector, Hash) {
     constexpr Vector first(1.0L, -2.0L, 3.0L);
     constexpr Vector second(1.0L, -2.0L, 3.000001L);
     constexpr Vector third(1.0L, 2.0L, 3.0L);
-    const std::hash<Vector<long double><>> hash;
+    const std::hash<Vector<long double>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -656,10 +656,10 @@ TEST(Vector, YAML) {
 }
 
 TEST(Vector, Zero) {
-  EXPECT_EQ(Vector<><>::Zero(), Vector(0.0, 0.0, 0.0));
-  EXPECT_EQ(Vector<float><>::Zero(), Vector(0.0F, 0.0F, 0.0F));
-  EXPECT_EQ(Vector<double><>::Zero(), Vector(0.0, 0.0, 0.0));
-  EXPECT_EQ(Vector<long double><>::Zero(), Vector(0.0L, 0.0L, 0.0L));
+  EXPECT_EQ(Vector<>::Zero(), Vector(0.0, 0.0, 0.0));
+  EXPECT_EQ(Vector<float>::Zero(), Vector(0.0F, 0.0F, 0.0F));
+  EXPECT_EQ(Vector<double>::Zero(), Vector(0.0, 0.0, 0.0));
+  EXPECT_EQ(Vector<long double>::Zero(), Vector(0.0L, 0.0L, 0.0L));
 }
 
 }  // namespace

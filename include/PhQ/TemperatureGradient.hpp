@@ -56,7 +56,7 @@ public:
   // Copy constructor. Constructs a temperature gradient vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr TemperatureGradient(const TemperatureGradient<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : TemperatureGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a temperature gradient vector by moving another one.
   constexpr TemperatureGradient(TemperatureGradient<Number>&& other) noexcept = default;
@@ -68,7 +68,7 @@ public:
   // Copy assignment operator. Assigns this temperature gradient vector by copying another one.
   template <typename OtherNumber>
   constexpr TemperatureGradient<Number>& operator=(const TemperatureGradient<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -111,27 +111,27 @@ public:
 
   // Returns the x Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient<Number> x() const noexcept {
-    return ScalarTemperatureGradient<Number>{value.x()};
+    return ScalarTemperatureGradient<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient<Number> y() const noexcept {
-    return ScalarTemperatureGradient<Number>{value.y()};
+    return ScalarTemperatureGradient<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient<Number> z() const noexcept {
-    return ScalarTemperatureGradient<Number>{value.z()};
+    return ScalarTemperatureGradient<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this temperature gradient vector.
   [[nodiscard]] ScalarTemperatureGradient<Number> Magnitude() const {
-    return ScalarTemperatureGradient<Number>{value.Magnitude()};
+    return ScalarTemperatureGradient<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this temperature gradient vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this temperature gradient vector and another one.
@@ -142,36 +142,36 @@ public:
 
   constexpr TemperatureGradient<Number> operator+(
       const TemperatureGradient<Number>& temperature_gradient) const {
-    return TemperatureGradient<Number>{value + temperature_gradient.value};
+    return TemperatureGradient<Number>{this->value + temperature_gradient.value};
   }
 
   constexpr TemperatureGradient<Number> operator-(
       const TemperatureGradient<Number>& temperature_gradient) const {
-    return TemperatureGradient<Number>{value - temperature_gradient.value};
+    return TemperatureGradient<Number>{this->value - temperature_gradient.value};
   }
 
   constexpr TemperatureGradient<Number> operator*(const Number number) const {
-    return TemperatureGradient<Number>{value * number};
+    return TemperatureGradient<Number>{this->value * number};
   }
 
   constexpr TemperatureGradient<Number> operator/(const Number number) const {
-    return TemperatureGradient<Number>{value / number};
+    return TemperatureGradient<Number>{this->value / number};
   }
 
   constexpr void operator+=(const TemperatureGradient<Number>& temperature_gradient) noexcept {
-    value += temperature_gradient.value;
+    this->value += temperature_gradient.value;
   }
 
   constexpr void operator-=(const TemperatureGradient<Number>& temperature_gradient) noexcept {
-    value -= temperature_gradient.value;
+    this->value -= temperature_gradient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

@@ -104,7 +104,7 @@ TEST(ScalarStress, Create) {
 }
 
 TEST(ScalarStress, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarStress{});
+  EXPECT_NO_THROW(ScalarStress<>{});
 }
 
 TEST(ScalarStress, Dimensions) {
@@ -161,7 +161,7 @@ TEST(ScalarStress, SetValue) {
 }
 
 TEST(ScalarStress, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarStress{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarStress<>{}), sizeof(double));
 }
 
 TEST(ScalarStress, StandardConstructor) {

@@ -129,7 +129,7 @@ TEST(VolumeRate, Create) {
 }
 
 TEST(VolumeRate, DefaultConstructor) {
-  EXPECT_NO_THROW(VolumeRate{});
+  EXPECT_NO_THROW(VolumeRate<>{});
 }
 
 TEST(VolumeRate, Dimensions) {
@@ -206,7 +206,7 @@ TEST(VolumeRate, SetValue) {
 }
 
 TEST(VolumeRate, SizeOf) {
-  EXPECT_EQ(sizeof(VolumeRate{}), sizeof(double));
+  EXPECT_EQ(sizeof(VolumeRate<>{}), sizeof(double));
 }
 
 TEST(VolumeRate, StandardConstructor) {

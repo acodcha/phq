@@ -50,7 +50,7 @@ public:
   template <typename OtherNumber>
   explicit constexpr LinearThermalExpansionCoefficient(
       const LinearThermalExpansionCoefficient<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : LinearThermalExpansionCoefficient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a linear thermal expansion coefficient by moving another one.
   constexpr LinearThermalExpansionCoefficient(
@@ -66,7 +66,7 @@ public:
   template <typename OtherNumber>
   constexpr LinearThermalExpansionCoefficient<Number>& operator=(
       const LinearThermalExpansionCoefficient<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -91,17 +91,17 @@ public:
   constexpr LinearThermalExpansionCoefficient<Number> operator+(
       const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const {
     return LinearThermalExpansionCoefficient<Number>{
-        value + linear_thermal_expansion_coefficient.value};
+        this->value + linear_thermal_expansion_coefficient.value};
   }
 
   constexpr LinearThermalExpansionCoefficient<Number> operator-(
       const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const {
     return LinearThermalExpansionCoefficient<Number>{
-        value - linear_thermal_expansion_coefficient.value};
+        this->value - linear_thermal_expansion_coefficient.value};
   }
 
   constexpr LinearThermalExpansionCoefficient<Number> operator*(const Number number) const {
-    return LinearThermalExpansionCoefficient<Number>{value * number};
+    return LinearThermalExpansionCoefficient<Number>{this->value * number};
   }
 
   constexpr ScalarStrain<Number> operator*(
@@ -110,31 +110,31 @@ public:
   }
 
   constexpr LinearThermalExpansionCoefficient<Number> operator/(const Number number) const {
-    return LinearThermalExpansionCoefficient<Number>{value / number};
+    return LinearThermalExpansionCoefficient<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient)
       const noexcept {
-    return value / linear_thermal_expansion_coefficient.value;
+    return this->value / linear_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator+=(const LinearThermalExpansionCoefficient<Number>&
                                 linear_thermal_expansion_coefficient) noexcept {
-    value += linear_thermal_expansion_coefficient.value;
+    this->value += linear_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator-=(const LinearThermalExpansionCoefficient<Number>&
                                 linear_thermal_expansion_coefficient) noexcept {
-    value -= linear_thermal_expansion_coefficient.value;
+    this->value -= linear_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

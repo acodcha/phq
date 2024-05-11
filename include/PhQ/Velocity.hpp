@@ -77,7 +77,7 @@ public:
   // Copy constructor. Constructs a velocity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Velocity(const Velocity<OtherNumber>& other)
-    : value(static_cast<Vector<Number>>(other.Value())) {}
+    : Velocity(static_cast<Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a velocity vector by moving another one.
   constexpr Velocity(Velocity<Number>&& other) noexcept = default;
@@ -88,7 +88,7 @@ public:
   // Copy assignment operator. Assigns this velocity by copying another one.
   template <typename OtherNumber>
   constexpr Velocity<Number>& operator=(const Velocity<OtherNumber>& other) {
-    value = static_cast<Vector<Number>>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 
@@ -124,27 +124,27 @@ public:
 
   // Returns the x Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed<Number> x() const noexcept {
-    return Speed<Number>{value.x()};
+    return Speed<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed<Number> y() const noexcept {
-    return Speed<Number>{value.y()};
+    return Speed<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed<Number> z() const noexcept {
-    return Speed<Number>{value.z()};
+    return Speed<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this velocity vector.
   [[nodiscard]] Speed<Number> Magnitude() const {
-    return Speed<Number>{value.Magnitude()};
+    return Speed<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this velocity vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this velocity vector and another one.
@@ -153,15 +153,15 @@ public:
   }
 
   constexpr Velocity<Number> operator+(const Velocity<Number>& velocity) const {
-    return Velocity<Number>{value + velocity.value};
+    return Velocity<Number>{this->value + velocity.value};
   }
 
   constexpr Velocity<Number> operator-(const Velocity<Number>& velocity) const {
-    return Velocity<Number>{value - velocity.value};
+    return Velocity<Number>{this->value - velocity.value};
   }
 
   constexpr Velocity<Number> operator*(const Number number) const {
-    return Velocity<Number>{value * number};
+    return Velocity<Number>{this->value * number};
   }
 
   constexpr Displacement<Number> operator*(const Time<Number>& time) const {
@@ -171,7 +171,7 @@ public:
   constexpr Acceleration<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr Velocity<Number> operator/(const Number number) const {
-    return Velocity<Number>{value / number};
+    return Velocity<Number>{this->value / number};
   }
 
   constexpr Acceleration<Number> operator/(const Time<Number>& time) const;
@@ -181,19 +181,19 @@ public:
   }
 
   constexpr void operator+=(const Velocity<Number>& velocity) noexcept {
-    value += velocity.value;
+    this->value += velocity.value;
   }
 
   constexpr void operator-=(const Velocity<Number>& velocity) noexcept {
-    value -= velocity.value;
+    this->value -= velocity.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

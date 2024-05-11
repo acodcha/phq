@@ -123,7 +123,7 @@ TEST(ScalarStrainRate, Create) {
 }
 
 TEST(ScalarStrainRate, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarStrainRate{});
+  EXPECT_NO_THROW(ScalarStrainRate<>{});
 }
 
 TEST(ScalarStrainRate, Dimensions) {
@@ -193,7 +193,7 @@ TEST(ScalarStrainRate, SetValue) {
 }
 
 TEST(ScalarStrainRate, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarStrainRate{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarStrainRate<>{}), sizeof(double));
 }
 
 TEST(ScalarStrainRate, StandardConstructor) {

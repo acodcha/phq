@@ -73,7 +73,7 @@ public:
   // Copy constructor. Constructs a power quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Power(const Power<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Power(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a power quantity by moving another one.
   constexpr Power(Power<Number>&& other) noexcept = default;
@@ -84,7 +84,7 @@ public:
   // Copy assignment operator. Assigns this power quantity by copying another one.
   template <typename OtherNumber>
   constexpr Power<Number>& operator=(const Power<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -103,15 +103,15 @@ public:
   }
 
   constexpr Power<Number> operator+(const Power<Number>& power) const {
-    return Power<Number>{value + power.value};
+    return Power<Number>{this->value + power.value};
   }
 
   constexpr Power<Number> operator-(const Power<Number>& power) const {
-    return Power<Number>{value - power.value};
+    return Power<Number>{this->value - power.value};
   }
 
   constexpr Power<Number> operator*(const Number number) const {
-    return Power<Number>{value * number};
+    return Power<Number>{this->value * number};
   }
 
   constexpr Energy<Number> operator*(const Time<Number>& time) const {
@@ -119,7 +119,7 @@ public:
   }
 
   constexpr Power<Number> operator/(const Number number) const {
-    return Power<Number>{value / number};
+    return Power<Number>{this->value / number};
   }
 
   constexpr Energy<Number> operator/(const Frequency<Number>& frequency) const {
@@ -135,23 +135,23 @@ public:
   constexpr Mass<Number> operator/(const SpecificPower<Number>& specific_power) const;
 
   constexpr Number operator/(const Power<Number>& power) const noexcept {
-    return value / power.value;
+    return this->value / power.value;
   }
 
   constexpr void operator+=(const Power<Number>& power) noexcept {
-    value += power.value;
+    this->value += power.value;
   }
 
   constexpr void operator-=(const Power<Number>& power) noexcept {
-    value -= power.value;
+    this->value -= power.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

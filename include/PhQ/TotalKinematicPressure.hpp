@@ -63,7 +63,7 @@ public:
   // Copy constructor. Constructs a total kinematic pressure by copying another one.
   template <typename OtherNumber>
   explicit constexpr TotalKinematicPressure(const TotalKinematicPressure<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : TotalKinematicPressure(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a total kinematic pressure by moving another one.
   constexpr TotalKinematicPressure(TotalKinematicPressure<Number>&& other) noexcept = default;
@@ -76,7 +76,7 @@ public:
   template <typename OtherNumber>
   constexpr TotalKinematicPressure<Number>& operator=(
       const TotalKinematicPressure<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -99,12 +99,12 @@ public:
 
   constexpr TotalKinematicPressure<Number> operator+(
       const TotalKinematicPressure<Number>& total_kinematic_pressure) const {
-    return TotalKinematicPressure<Number>{value + total_kinematic_pressure.value};
+    return TotalKinematicPressure<Number>{this->value + total_kinematic_pressure.value};
   }
 
   constexpr TotalKinematicPressure<Number> operator-(
       const TotalKinematicPressure<Number>& total_kinematic_pressure) const {
-    return TotalKinematicPressure<Number>{value - total_kinematic_pressure.value};
+    return TotalKinematicPressure<Number>{this->value - total_kinematic_pressure.value};
   }
 
   constexpr DynamicKinematicPressure<Number> operator-(
@@ -118,34 +118,34 @@ public:
   }
 
   constexpr TotalKinematicPressure<Number> operator*(const Number number) const {
-    return TotalKinematicPressure<Number>{value * number};
+    return TotalKinematicPressure<Number>{this->value * number};
   }
 
   constexpr TotalKinematicPressure<Number> operator/(const Number number) const {
-    return TotalKinematicPressure<Number>{value / number};
+    return TotalKinematicPressure<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const TotalKinematicPressure<Number>& total_kinematic_pressure) const noexcept {
-    return value / total_kinematic_pressure.value;
+    return this->value / total_kinematic_pressure.value;
   }
 
   constexpr void operator+=(
       const TotalKinematicPressure<Number>& total_kinematic_pressure) noexcept {
-    value += total_kinematic_pressure.value;
+    this->value += total_kinematic_pressure.value;
   }
 
   constexpr void operator-=(
       const TotalKinematicPressure<Number>& total_kinematic_pressure) noexcept {
-    value -= total_kinematic_pressure.value;
+    this->value -= total_kinematic_pressure.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

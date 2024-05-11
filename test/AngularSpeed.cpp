@@ -137,7 +137,7 @@ TEST(AngularSpeed, Create) {
 }
 
 TEST(AngularSpeed, DefaultConstructor) {
-  EXPECT_NO_THROW(AngularSpeed{});
+  EXPECT_NO_THROW(AngularSpeed<>{});
 }
 
 TEST(AngularSpeed, Dimensions) {
@@ -220,7 +220,7 @@ TEST(AngularSpeed, SetValue) {
 }
 
 TEST(AngularSpeed, SizeOf) {
-  EXPECT_EQ(sizeof(AngularSpeed{}), sizeof(double));
+  EXPECT_EQ(sizeof(AngularSpeed<>{}), sizeof(double));
 }
 
 TEST(AngularSpeed, StandardConstructor) {

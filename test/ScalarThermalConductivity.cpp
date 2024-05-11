@@ -113,7 +113,7 @@ TEST(ScalarThermalConductivity, Create) {
 }
 
 TEST(ScalarThermalConductivity, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarThermalConductivity{});
+  EXPECT_NO_THROW(ScalarThermalConductivity<>{});
 }
 
 TEST(ScalarThermalConductivity, Dimensions) {
@@ -179,7 +179,7 @@ TEST(ScalarThermalConductivity, SetValue) {
 }
 
 TEST(ScalarThermalConductivity, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarThermalConductivity{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarThermalConductivity<>{}), sizeof(double));
 }
 
 TEST(ScalarThermalConductivity, StandardConstructor) {

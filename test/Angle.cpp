@@ -101,7 +101,7 @@ TEST(Angle, Create) {
 }
 
 TEST(Angle, DefaultConstructor) {
-  EXPECT_NO_THROW(Angle{});
+  EXPECT_NO_THROW(Angle<>{});
 }
 
 TEST(Angle, Dimensions) {
@@ -169,7 +169,7 @@ TEST(Angle, SetValue) {
 }
 
 TEST(Angle, SizeOf) {
-  EXPECT_EQ(sizeof(Angle{}), sizeof(double));
+  EXPECT_EQ(sizeof(Angle<>{}), sizeof(double));
 }
 
 TEST(Angle, StandardConstructor) {

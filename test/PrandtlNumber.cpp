@@ -103,7 +103,7 @@ TEST(PrandtlNumber, CopyConstructor) {
 }
 
 TEST(PrandtlNumber, DefaultConstructor) {
-  EXPECT_NO_THROW(PrandtlNumber{});
+  EXPECT_NO_THROW(PrandtlNumber<>{});
 }
 
 TEST(PrandtlNumber, Dimensions) {
@@ -230,7 +230,7 @@ TEST(PrandtlNumber, SetValue) {
 }
 
 TEST(PrandtlNumber, SizeOf) {
-  EXPECT_EQ(sizeof(PrandtlNumber{}), sizeof(double));
+  EXPECT_EQ(sizeof(PrandtlNumber<>{}), sizeof(double));
 }
 
 TEST(PrandtlNumber, StandardConstructor) {

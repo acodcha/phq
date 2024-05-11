@@ -79,7 +79,7 @@ public:
   // Copy constructor. Constructs a dynamic viscosity by copying another one.
   template <typename OtherNumber>
   explicit constexpr DynamicViscosity(const DynamicViscosity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : DynamicViscosity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dynamic viscosity by moving another one.
   constexpr DynamicViscosity(DynamicViscosity<Number>&& other) noexcept = default;
@@ -90,7 +90,7 @@ public:
   // Copy assignment operator. Assigns this dynamic viscosity by copying another one.
   template <typename OtherNumber>
   constexpr DynamicViscosity<Number>& operator=(const DynamicViscosity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -113,20 +113,20 @@ public:
 
   constexpr DynamicViscosity<Number> operator+(
       const DynamicViscosity<Number>& dynamic_viscosity) const {
-    return DynamicViscosity<Number>{value + dynamic_viscosity.value};
+    return DynamicViscosity<Number>{this->value + dynamic_viscosity.value};
   }
 
   constexpr DynamicViscosity<Number> operator-(
       const DynamicViscosity<Number>& dynamic_viscosity) const {
-    return DynamicViscosity<Number>{value - dynamic_viscosity.value};
+    return DynamicViscosity<Number>{this->value - dynamic_viscosity.value};
   }
 
   constexpr DynamicViscosity<Number> operator*(const Number number) const {
-    return DynamicViscosity<Number>{value * number};
+    return DynamicViscosity<Number>{this->value * number};
   }
 
   constexpr DynamicViscosity<Number> operator/(const Number number) const {
-    return DynamicViscosity<Number>{value / number};
+    return DynamicViscosity<Number>{this->value / number};
   }
 
   constexpr KinematicViscosity<Number> operator/(const MassDensity<Number>& mass_density) const {
@@ -139,23 +139,23 @@ public:
   }
 
   constexpr Number operator/(const DynamicViscosity<Number>& dynamic_viscosity) const noexcept {
-    return value / dynamic_viscosity.value;
+    return this->value / dynamic_viscosity.value;
   }
 
   constexpr void operator+=(const DynamicViscosity<Number>& dynamic_viscosity) noexcept {
-    value += dynamic_viscosity.value;
+    this->value += dynamic_viscosity.value;
   }
 
   constexpr void operator-=(const DynamicViscosity<Number>& dynamic_viscosity) noexcept {
-    value -= dynamic_viscosity.value;
+    this->value -= dynamic_viscosity.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

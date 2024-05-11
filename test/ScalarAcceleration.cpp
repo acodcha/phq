@@ -135,7 +135,7 @@ TEST(Angle, Create) {
 }
 
 TEST(ScalarAcceleration, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarAcceleration{});
+  EXPECT_NO_THROW(ScalarAcceleration<>{});
 }
 
 TEST(ScalarAcceleration, Dimensions) {
@@ -216,7 +216,7 @@ TEST(ScalarAcceleration, SetValue) {
 }
 
 TEST(ScalarAcceleration, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarAcceleration{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarAcceleration<>{}), sizeof(double));
 }
 
 TEST(ScalarAcceleration, StandardConstructor) {

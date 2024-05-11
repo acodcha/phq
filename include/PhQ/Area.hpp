@@ -81,7 +81,7 @@ public:
   // Copy constructor. Constructs an area by copying another one.
   template <typename OtherNumber>
   explicit constexpr Area(const Area<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Area(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an area by moving another one.
   constexpr Area(Area<Number>&& other) noexcept = default;
@@ -92,7 +92,7 @@ public:
   // Copy assignment operator. Assigns this area by copying another one.
   template <typename OtherNumber>
   constexpr Area<Number>& operator=(const Area<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -111,15 +111,15 @@ public:
   }
 
   constexpr Area<Number> operator+(const Area<Number>& area) const {
-    return Area<Number>{value + area.value};
+    return Area<Number>{this->value + area.value};
   }
 
   constexpr Area<Number> operator-(const Area<Number>& area) const {
-    return Area<Number>{value - area.value};
+    return Area<Number>{this->value - area.value};
   }
 
   constexpr Area<Number> operator*(const Number number) const {
-    return Area<Number>{value * number};
+    return Area<Number>{this->value * number};
   }
 
   constexpr Volume<Number> operator*(const Length<Number>& length) const;
@@ -129,7 +129,7 @@ public:
   constexpr VectorArea<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr Area<Number> operator/(const Number number) const {
-    return Area<Number>{value / number};
+    return Area<Number>{this->value / number};
   }
 
   constexpr Length<Number> operator/(const Length<Number>& length) const {
@@ -137,23 +137,23 @@ public:
   }
 
   constexpr Number operator/(const Area<Number>& area) const noexcept {
-    return value / area.value;
+    return this->value / area.value;
   }
 
   constexpr void operator+=(const Area<Number>& area) noexcept {
-    value += area.value;
+    this->value += area.value;
   }
 
   constexpr void operator-=(const Area<Number>& area) noexcept {
-    value -= area.value;
+    this->value -= area.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

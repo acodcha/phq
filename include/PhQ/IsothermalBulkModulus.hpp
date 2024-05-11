@@ -44,7 +44,7 @@ public:
   // Copy constructor. Constructs a isothermal bulk modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr IsothermalBulkModulus(const IsothermalBulkModulus<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : IsothermalBulkModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an isothermal bulk modulus by moving another one.
   constexpr IsothermalBulkModulus(IsothermalBulkModulus<Number>&& other) noexcept = default;
@@ -57,7 +57,7 @@ public:
   template <typename OtherNumber>
   constexpr IsothermalBulkModulus<Number>& operator=(
       const IsothermalBulkModulus<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -80,41 +80,41 @@ public:
 
   constexpr IsothermalBulkModulus<Number> operator+(
       const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const {
-    return IsothermalBulkModulus<Number>{value + isothermal_bulk_modulus.value};
+    return IsothermalBulkModulus<Number>{this->value + isothermal_bulk_modulus.value};
   }
 
   constexpr IsothermalBulkModulus<Number> operator-(
       const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const {
-    return IsothermalBulkModulus<Number>{value - isothermal_bulk_modulus.value};
+    return IsothermalBulkModulus<Number>{this->value - isothermal_bulk_modulus.value};
   }
 
   constexpr IsothermalBulkModulus<Number> operator*(const Number number) const {
-    return IsothermalBulkModulus<Number>{value * number};
+    return IsothermalBulkModulus<Number>{this->value * number};
   }
 
   constexpr IsothermalBulkModulus<Number> operator/(const Number number) const {
-    return IsothermalBulkModulus<Number>{value / number};
+    return IsothermalBulkModulus<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const noexcept {
-    return value / isothermal_bulk_modulus.value;
+    return this->value / isothermal_bulk_modulus.value;
   }
 
   constexpr void operator+=(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) noexcept {
-    value += isothermal_bulk_modulus.value;
+    this->value += isothermal_bulk_modulus.value;
   }
 
   constexpr void operator-=(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) noexcept {
-    value -= isothermal_bulk_modulus.value;
+    this->value -= isothermal_bulk_modulus.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

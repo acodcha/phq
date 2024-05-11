@@ -45,7 +45,7 @@ public:
   // Copy constructor. Constructs a Young's modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr YoungModulus(const YoungModulus<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : YoungModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Young's modulus by moving another one.
   constexpr YoungModulus(YoungModulus<Number>&& other) noexcept = default;
@@ -56,7 +56,7 @@ public:
   // Copy assignment operator. Assigns this Young's modulus by copying another one.
   template <typename OtherNumber>
   constexpr YoungModulus<Number>& operator=(const YoungModulus<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -76,39 +76,39 @@ public:
   }
 
   constexpr YoungModulus<Number> operator+(const YoungModulus<Number>& young_modulus) const {
-    return YoungModulus<Number>{value + young_modulus.value};
+    return YoungModulus<Number>{this->value + young_modulus.value};
   }
 
   constexpr YoungModulus<Number> operator-(const YoungModulus<Number>& young_modulus) const {
-    return YoungModulus<Number>{value - young_modulus.value};
+    return YoungModulus<Number>{this->value - young_modulus.value};
   }
 
   constexpr YoungModulus<Number> operator*(const Number number) const {
-    return YoungModulus<Number>{value * number};
+    return YoungModulus<Number>{this->value * number};
   }
 
   constexpr YoungModulus<Number> operator/(const Number number) const {
-    return YoungModulus<Number>{value / number};
+    return YoungModulus<Number>{this->value / number};
   }
 
   constexpr Number operator/(const YoungModulus<Number>& young_modulus) const noexcept {
-    return value / young_modulus.value;
+    return this->value / young_modulus.value;
   }
 
   constexpr void operator+=(const YoungModulus<Number>& young_modulus) noexcept {
-    value += young_modulus.value;
+    this->value += young_modulus.value;
   }
 
   constexpr void operator-=(const YoungModulus<Number>& young_modulus) noexcept {
-    value -= young_modulus.value;
+    this->value -= young_modulus.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

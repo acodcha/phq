@@ -160,7 +160,7 @@ public:
   // Copy constructor. Constructs a direction by copying another one.
   template <typename OtherNumber>
   explicit constexpr Direction(const Direction<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Direction(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a direction by moving another one.
   constexpr Direction(Direction<Number>&& other) noexcept = default;
@@ -171,7 +171,7 @@ public:
   // Copy assignment operator. Assigns this direction by copying another one.
   template <typename OtherNumber>
   constexpr Direction<Number>& operator=(const Direction<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -185,17 +185,17 @@ public:
 
   // Returns the x Cartesian component of this direction.
   [[nodiscard]] constexpr Number x() const noexcept {
-    return value.x();
+    return this->value.x();
   }
 
   // Returns the y Cartesian component of this direction.
   [[nodiscard]] constexpr Number y() const noexcept {
-    return value.y();
+    return this->value.y();
   }
 
   // Returns the z Cartesian component of this direction.
   [[nodiscard]] constexpr Number z() const noexcept {
-    return value.z();
+    return this->value.z();
   }
 
   // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
@@ -204,9 +204,9 @@ public:
     const Number magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > static_cast<Number>(0)) {
       const Number magnitude{std::sqrt(magnitude_squared)};
-      value = Vector{x / magnitude, y / magnitude, z / magnitude};
+      this->value = Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value = Vector<>::Zero();
+      this->value = Vector<>::Zero();
     }
   }
 
@@ -216,9 +216,9 @@ public:
     const Number magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > static_cast<Number>(0)) {
       const Number magnitude{std::sqrt(magnitude_squared)};
-      value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
+      this->value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value = Vector<>::Zero();
+      this->value = Vector<>::Zero();
     }
   }
 
@@ -230,52 +230,52 @@ public:
 
   // Returns true if the direction is a unit vector, or false if it is the zero vector.
   [[nodiscard]] constexpr bool Valid() const noexcept {
-    return value.x() != static_cast<Number>(0) || value.y() != static_cast<Number>(0)
-           || value.z() != static_cast<Number>(0);
+    return this->value.x() != static_cast<Number>(0) || this->value.y() != static_cast<Number>(0)
+           || this->value.z() != static_cast<Number>(0);
   }
 
   // Returns the square of the magnitude of the direction. This is guaranteed to be exactly 1 if the
   // direction is valid, or 0 if the direction is the zero vector.
   [[nodiscard]] constexpr Number MagnitudeSquared() const noexcept {
-    return value.MagnitudeSquared();
+    return this->value.MagnitudeSquared();
   }
 
   // Returns the magnitude of the direction. This is guaranteed to be exactly 1 if the direction is
   // valid, or 0 if the direction is the zero vector.
   [[nodiscard]] Number Magnitude() const noexcept {
-    return value.Magnitude();
+    return this->value.Magnitude();
   }
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given vector.
   [[nodiscard]] constexpr Number Dot(const Vector<Number>& vector) const noexcept {
-    return value.Dot(vector);
+    return this->value.Dot(vector);
   }
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given other direction.
   [[nodiscard]] constexpr Number Dot(const Direction<Number>& direction) const noexcept {
-    return value.Dot(direction.value);
+    return this->value.Dot(direction.value);
   }
 
   // Returns the cross product of the direction with the given vector.
   [[nodiscard]] constexpr Vector<Number> Cross(const Vector<Number>& vector) const {
-    return value.Cross(vector);
+    return this->value.Cross(vector);
   }
 
   // Returns the cross product of the direction with the given other direction.
   [[nodiscard]] Direction<Number> Cross(const Direction<Number>& direction) const {
-    return Direction<Number>{value.Cross(direction.value)};
+    return Direction<Number>{this->value.Cross(direction.value)};
   }
 
   // Returns the dyadic product of the direction with the given vector.
   [[nodiscard]] constexpr Dyad<Number> Dyadic(const Vector<Number>& vector) const {
-    return value.Dyadic(vector);
+    return this->value.Dyadic(vector);
   }
 
   // Returns the dyadic product of the direction with the given other direction.
   [[nodiscard]] constexpr Dyad<Number> Dyadic(const Direction<Number>& direction) const {
-    return value.Dyadic(direction.value);
+    return this->value.Dyadic(direction.value);
   }
 
   // Returns the angle between the direction and the given vector.

@@ -57,7 +57,7 @@ public:
   // Copy constructor. Constructs a stress tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr Stress(const Stress<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Stress(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a stress tensor by moving another one.
   constexpr Stress(Stress<Number>&& other) noexcept = default;
@@ -68,7 +68,7 @@ public:
   // Copy assignment operator. Assigns this stress tensor by copying another one.
   template <typename OtherNumber>
   constexpr Stress<Number>& operator=(const Stress<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -105,47 +105,47 @@ public:
 
   // Returns the xx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> xx() const noexcept {
-    return ScalarStress<Number>{value.xx()};
+    return ScalarStress<Number>{this->value.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> xy() const noexcept {
-    return ScalarStress<Number>{value.xy()};
+    return ScalarStress<Number>{this->value.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> xz() const noexcept {
-    return ScalarStress<Number>{value.xz()};
+    return ScalarStress<Number>{this->value.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> yx() const noexcept {
-    return ScalarStress<Number>{value.yx()};
+    return ScalarStress<Number>{this->value.yx()};
   }
 
   // Returns the yy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> yy() const noexcept {
-    return ScalarStress<Number>{value.yy()};
+    return ScalarStress<Number>{this->value.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> yz() const noexcept {
-    return ScalarStress<Number>{value.yz()};
+    return ScalarStress<Number>{this->value.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> zx() const noexcept {
-    return ScalarStress<Number>{value.zx()};
+    return ScalarStress<Number>{this->value.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> zy() const noexcept {
-    return ScalarStress<Number>{value.zy()};
+    return ScalarStress<Number>{this->value.zy()};
   }
 
   // Returns the zz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> zz() const noexcept {
-    return ScalarStress<Number>{value.zz()};
+    return ScalarStress<Number>{this->value.zz()};
   }
 
   // Creates a traction from this stress tensor using the definition of traction.
@@ -157,41 +157,44 @@ public:
   [[nodiscard]] constexpr ScalarStress<Number> VonMises() const {
     return ScalarStress<Number>{std::sqrt(
         0.5
-        * (std::pow(value.xx() - value.yy(), 2) + std::pow(value.yy() - value.zz(), 2)
-           + std::pow(value.zz() - value.xx(), 2)
-           + 6.0 * (std::pow(value.xy(), 2) + std::pow(value.xz(), 2) + std::pow(value.yz(), 2))))};
+        * (std::pow(this->value.xx() - this->value.yy(), 2)
+           + std::pow(this->value.yy() - this->value.zz(), 2)
+           + std::pow(this->value.zz() - this->value.xx(), 2)
+           + 6.0
+                 * (std::pow(this->value.xy(), 2) + std::pow(this->value.xz(), 2)
+                    + std::pow(this->value.yz(), 2))))};
   }
 
   constexpr Stress<Number> operator+(const Stress<Number>& stress) const {
-    return Stress<Number>{value + stress.value};
+    return Stress<Number>{this->value + stress.value};
   }
 
   constexpr Stress<Number> operator-(const Stress<Number>& stress) const {
-    return Stress<Number>{value - stress.value};
+    return Stress<Number>{this->value - stress.value};
   }
 
   constexpr Stress<Number> operator*(const Number number) const {
-    return Stress<Number>{value * number};
+    return Stress<Number>{this->value * number};
   }
 
   constexpr Stress<Number> operator/(const Number number) const {
-    return Stress<Number>{value / number};
+    return Stress<Number>{this->value / number};
   }
 
   constexpr void operator+=(const Stress<Number>& stress) noexcept {
-    value += stress.value;
+    this->value += stress.value;
   }
 
   constexpr void operator-=(const Stress<Number>& stress) noexcept {
-    value -= stress.value;
+    this->value -= stress.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

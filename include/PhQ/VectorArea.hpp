@@ -52,7 +52,7 @@ public:
   // Copy constructor. Constructs a vector area by copying another one.
   template <typename OtherNumber>
   explicit constexpr VectorArea(const VectorArea<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : VectorArea(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a vector area by moving another one.
   constexpr VectorArea(VectorArea<Number>&& other) noexcept = default;
@@ -63,7 +63,7 @@ public:
   // Copy assignment operator. Assigns this vector area by copying another one.
   template <typename OtherNumber>
   constexpr VectorArea<Number>& operator=(const VectorArea<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -99,27 +99,27 @@ public:
 
   // Returns the x Cartesian component of this vector area.
   [[nodiscard]] constexpr Area<Number> x() const noexcept {
-    return Area<Number>{value.x()};
+    return Area<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this vector area.
   [[nodiscard]] constexpr Area<Number> y() const noexcept {
-    return Area<Number>{value.y()};
+    return Area<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this vector area.
   [[nodiscard]] constexpr Area<Number> z() const noexcept {
-    return Area<Number>{value.z()};
+    return Area<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this vector area.
   [[nodiscard]] Area<Number> Magnitude() const {
-    return Area<Number>{value.Magnitude()};
+    return Area<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this vector area.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this vector area and another one.
@@ -128,35 +128,35 @@ public:
   }
 
   constexpr VectorArea<Number> operator+(const VectorArea<Number>& vector_area) const {
-    return VectorArea<Number>{value + vector_area.value};
+    return VectorArea<Number>{this->value + vector_area.value};
   }
 
   constexpr VectorArea<Number> operator-(const VectorArea<Number>& vector_area) const {
-    return VectorArea<Number>{value - vector_area.value};
+    return VectorArea<Number>{this->value - vector_area.value};
   }
 
   constexpr VectorArea<Number> operator*(const Number number) const {
-    return VectorArea<Number>{value * number};
+    return VectorArea<Number>{this->value * number};
   }
 
   constexpr VectorArea<Number> operator/(const Number number) const {
-    return VectorArea<Number>{value / number};
+    return VectorArea<Number>{this->value / number};
   }
 
   constexpr void operator+=(const VectorArea<Number>& vector_area) noexcept {
-    value += vector_area.value;
+    this->value += vector_area.value;
   }
 
   constexpr void operator-=(const VectorArea<Number>& vector_area) noexcept {
-    value -= vector_area.value;
+    this->value -= vector_area.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

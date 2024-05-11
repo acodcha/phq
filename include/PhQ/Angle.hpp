@@ -146,7 +146,7 @@ public:
   // Copy constructor. Constructs an angle by copying another one.
   template <typename OtherNumber>
   explicit constexpr Angle(const Angle<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Angle(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an angle by moving another one.
   constexpr Angle(Angle<Number>&& other) noexcept = default;
@@ -157,7 +157,7 @@ public:
   // Copy assignment operator. Assigns this angle by copying another one.
   template <typename OtherNumber>
   constexpr Angle<Number>& operator=(const Angle<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -176,45 +176,45 @@ public:
   }
 
   constexpr Angle<Number> operator+(const Angle<Number>& other) const {
-    return Angle<Number>{value + other.value};
+    return Angle<Number>{this->value + other.value};
   }
 
   constexpr Angle<Number> operator-(const Angle<Number>& other) const {
-    return Angle<Number>{value - other.value};
+    return Angle<Number>{this->value - other.value};
   }
 
   constexpr Angle<Number> operator*(const Number number) const {
-    return Angle<Number>{value * number};
+    return Angle<Number>{this->value * number};
   }
 
   constexpr AngularSpeed<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr Angle<Number> operator/(const Number number) const {
-    return Angle<Number>{value / number};
+    return Angle<Number>{this->value / number};
   }
 
   constexpr AngularSpeed<Number> operator/(const Time<Number>& time) const;
 
   constexpr Time<Number> operator/(const AngularSpeed<Number>& angular_speed) const;
 
-  constexpr Number operator/(const Angle<Number>& angle) const noexcept {
-    return value / angle.value;
+  constexpr Number operator/(const Angle<Number>& other) const noexcept {
+    return this->value / other.value;
   }
 
-  constexpr void operator+=(const Angle<Number>& angle) noexcept {
-    value += angle.value;
+  constexpr void operator+=(const Angle<Number>& other) noexcept {
+    this->value += other.value;
   }
 
-  constexpr void operator-=(const Angle<Number>& angle) noexcept {
-    value -= angle.value;
+  constexpr void operator-=(const Angle<Number>& other) noexcept {
+    this->value -= other.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

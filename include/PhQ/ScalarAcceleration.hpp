@@ -65,7 +65,7 @@ public:
   // Copy constructor. Constructs a scalar acceleration by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarAcceleration(const ScalarAcceleration<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarAcceleration(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar acceleration by moving another one.
   constexpr ScalarAcceleration(ScalarAcceleration<Number>&& other) noexcept = default;
@@ -77,7 +77,7 @@ public:
   // Copy assignment operator. Assigns this scalar acceleration by copying another one.
   template <typename OtherNumber>
   constexpr ScalarAcceleration<Number>& operator=(const ScalarAcceleration<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -100,16 +100,16 @@ public:
 
   constexpr ScalarAcceleration<Number> operator+(
       const ScalarAcceleration<Number>& scalar_acceleration) const {
-    return ScalarAcceleration<Number>{value + scalar_acceleration.value};
+    return ScalarAcceleration<Number>{this->value + scalar_acceleration.value};
   }
 
   constexpr ScalarAcceleration<Number> operator-(
       const ScalarAcceleration<Number>& scalar_acceleration) const {
-    return ScalarAcceleration<Number>{value - scalar_acceleration.value};
+    return ScalarAcceleration<Number>{this->value - scalar_acceleration.value};
   }
 
   constexpr ScalarAcceleration<Number> operator*(const Number number) const {
-    return ScalarAcceleration<Number>{value * number};
+    return ScalarAcceleration<Number>{this->value * number};
   }
 
   constexpr Speed<Number> operator*(const Time<Number>& time) const {
@@ -119,7 +119,7 @@ public:
   constexpr Acceleration<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarAcceleration<Number> operator/(const Number number) const {
-    return ScalarAcceleration<Number>{value / number};
+    return ScalarAcceleration<Number>{this->value / number};
   }
 
   constexpr Speed<Number> operator/(const Frequency<Number>& frequency) const {
@@ -131,23 +131,23 @@ public:
   }
 
   constexpr Number operator/(const ScalarAcceleration<Number>& scalar_acceleration) const noexcept {
-    return value / scalar_acceleration.value;
+    return this->value / scalar_acceleration.value;
   }
 
   constexpr void operator+=(const ScalarAcceleration<Number>& scalar_acceleration) noexcept {
-    value += scalar_acceleration.value;
+    this->value += scalar_acceleration.value;
   }
 
   constexpr void operator-=(const ScalarAcceleration<Number>& scalar_acceleration) noexcept {
-    value -= scalar_acceleration.value;
+    this->value -= scalar_acceleration.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

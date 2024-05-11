@@ -41,7 +41,7 @@ public:
   // Copy constructor. Constructs a Poisson's ratio by copying another one.
   template <typename OtherNumber>
   explicit constexpr PoissonRatio(const PoissonRatio<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : PoissonRatio(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Poisson's ratio by moving another one.
   constexpr PoissonRatio(PoissonRatio<Number>&& other) noexcept = default;
@@ -52,7 +52,7 @@ public:
   // Copy assignment operator. Assigns this Poisson's ratio by copying another one.
   template <typename OtherNumber>
   constexpr PoissonRatio<Number>& operator=(const PoissonRatio<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -65,39 +65,39 @@ public:
   }
 
   constexpr PoissonRatio<Number> operator+(const PoissonRatio<Number>& poisson_ratio) const {
-    return PoissonRatio<Number>{value + poisson_ratio.value};
+    return PoissonRatio<Number>{this->value + poisson_ratio.value};
   }
 
   constexpr PoissonRatio<Number> operator-(const PoissonRatio<Number>& poisson_ratio) const {
-    return PoissonRatio<Number>{value - poisson_ratio.value};
+    return PoissonRatio<Number>{this->value - poisson_ratio.value};
   }
 
   constexpr PoissonRatio<Number> operator*(const Number number) const {
-    return PoissonRatio<Number>{value * number};
+    return PoissonRatio<Number>{this->value * number};
   }
 
   constexpr PoissonRatio<Number> operator/(const Number number) const {
-    return PoissonRatio<Number>{value / number};
+    return PoissonRatio<Number>{this->value / number};
   }
 
   constexpr Number operator/(const PoissonRatio<Number>& poisson_ratio) const noexcept {
-    return value / poisson_ratio.value;
+    return this->value / poisson_ratio.value;
   }
 
   constexpr void operator+=(const PoissonRatio<Number>& poisson_ratio) noexcept {
-    value += poisson_ratio.value;
+    this->value += poisson_ratio.value;
   }
 
   constexpr void operator-=(const PoissonRatio<Number>& poisson_ratio) noexcept {
-    value -= poisson_ratio.value;
+    this->value -= poisson_ratio.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

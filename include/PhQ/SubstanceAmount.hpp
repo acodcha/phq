@@ -44,7 +44,7 @@ public:
   // Copy constructor. Constructs a substance amount by copying another one.
   template <typename OtherNumber>
   explicit constexpr SubstanceAmount(const SubstanceAmount<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : SubstanceAmount(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a substance amount by moving another one.
   constexpr SubstanceAmount(SubstanceAmount<Number>&& other) noexcept = default;
@@ -55,7 +55,7 @@ public:
   // Copy assignment operator. Assigns this substance amount by copying another one.
   template <typename OtherNumber>
   constexpr SubstanceAmount<Number>& operator=(const SubstanceAmount<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -77,40 +77,40 @@ public:
 
   constexpr SubstanceAmount<Number> operator+(
       const SubstanceAmount<Number>& substance_amount) const {
-    return SubstanceAmount<Number>{value + substance_amount.value};
+    return SubstanceAmount<Number>{this->value + substance_amount.value};
   }
 
   constexpr SubstanceAmount<Number> operator-(
       const SubstanceAmount<Number>& substance_amount) const {
-    return SubstanceAmount<Number>{value - substance_amount.value};
+    return SubstanceAmount<Number>{this->value - substance_amount.value};
   }
 
   constexpr SubstanceAmount<Number> operator*(const Number number) const {
-    return SubstanceAmount<Number>{value * number};
+    return SubstanceAmount<Number>{this->value * number};
   }
 
   constexpr SubstanceAmount<Number> operator/(const Number number) const {
-    return SubstanceAmount<Number>{value / number};
+    return SubstanceAmount<Number>{this->value / number};
   }
 
   constexpr Number operator/(const SubstanceAmount<Number>& substance_amount) const noexcept {
-    return value / substance_amount.value;
+    return this->value / substance_amount.value;
   }
 
   constexpr void operator+=(const SubstanceAmount<Number>& substance_amount) noexcept {
-    value += substance_amount.value;
+    this->value += substance_amount.value;
   }
 
   constexpr void operator-=(const SubstanceAmount<Number>& substance_amount) noexcept {
-    value -= substance_amount.value;
+    this->value -= substance_amount.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

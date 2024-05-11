@@ -104,7 +104,7 @@ public:
   // Copy constructor. Constructs a heat capacity ratio by copying another one.
   template <typename OtherNumber>
   explicit constexpr HeatCapacityRatio(const HeatCapacityRatio<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : HeatCapacityRatio(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a heat capacity ratio by moving another one.
   constexpr HeatCapacityRatio(HeatCapacityRatio<Number>&& other) noexcept = default;
@@ -115,7 +115,7 @@ public:
   // Copy assignment operator. Assigns this heat capacity ratio by copying another one.
   template <typename OtherNumber>
   constexpr HeatCapacityRatio<Number>& operator=(const HeatCapacityRatio<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -130,16 +130,16 @@ public:
 
   constexpr HeatCapacityRatio<Number> operator+(
       const HeatCapacityRatio<Number>& heat_capacity_ratio) const {
-    return HeatCapacityRatio<Number>{value + heat_capacity_ratio.value};
+    return HeatCapacityRatio<Number>{this->value + heat_capacity_ratio.value};
   }
 
   constexpr HeatCapacityRatio<Number> operator-(
       const HeatCapacityRatio<Number>& heat_capacity_ratio) const {
-    return HeatCapacityRatio<Number>{value - heat_capacity_ratio.value};
+    return HeatCapacityRatio<Number>{this->value - heat_capacity_ratio.value};
   }
 
   constexpr HeatCapacityRatio<Number> operator*(const Number number) const {
-    return HeatCapacityRatio<Number>{value * number};
+    return HeatCapacityRatio<Number>{this->value * number};
   }
 
   constexpr IsobaricHeatCapacity<Number> operator*(
@@ -149,27 +149,27 @@ public:
       const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity) const;
 
   constexpr HeatCapacityRatio<Number> operator/(const Number number) const {
-    return HeatCapacityRatio<Number>{value / number};
+    return HeatCapacityRatio<Number>{this->value / number};
   }
 
   constexpr Number operator/(const HeatCapacityRatio<Number>& heat_capacity_ratio) const noexcept {
-    return value / heat_capacity_ratio.value;
+    return this->value / heat_capacity_ratio.value;
   }
 
   constexpr void operator+=(const HeatCapacityRatio<Number>& heat_capacity_ratio) noexcept {
-    value += heat_capacity_ratio.value;
+    this->value += heat_capacity_ratio.value;
   }
 
   constexpr void operator-=(const HeatCapacityRatio<Number>& heat_capacity_ratio) noexcept {
-    value -= heat_capacity_ratio.value;
+    this->value -= heat_capacity_ratio.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

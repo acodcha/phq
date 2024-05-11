@@ -99,7 +99,7 @@ TEST(Strain, CopyConstructor) {
 }
 
 TEST(Strain, DefaultConstructor) {
-  EXPECT_NO_THROW(Strain{});
+  EXPECT_NO_THROW(Strain<>{});
 }
 
 TEST(Strain, Dimensions) {
@@ -156,7 +156,7 @@ TEST(Strain, SetValue) {
 }
 
 TEST(Strain, SizeOf) {
-  EXPECT_EQ(sizeof(Strain{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(Strain<>{}), 6 * sizeof(double));
 }
 
 TEST(Strain, StandardConstructor) {

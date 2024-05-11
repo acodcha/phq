@@ -110,7 +110,7 @@ TEST(Area, Create) {
 }
 
 TEST(Area, DefaultConstructor) {
-  EXPECT_NO_THROW(Area{});
+  EXPECT_NO_THROW(Area<>{});
 }
 
 TEST(Area, Dimensions) {
@@ -167,7 +167,7 @@ TEST(Area, SetValue) {
 }
 
 TEST(Area, SizeOf) {
-  EXPECT_EQ(sizeof(Area{}), sizeof(double));
+  EXPECT_EQ(sizeof(Area<>{}), sizeof(double));
 }
 
 TEST(Area, StandardConstructor) {

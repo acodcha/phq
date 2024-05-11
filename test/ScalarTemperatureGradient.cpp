@@ -118,7 +118,7 @@ TEST(ScalarTemperatureGradient, Create) {
 }
 
 TEST(ScalarTemperatureGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarTemperatureGradient{});
+  EXPECT_NO_THROW(ScalarTemperatureGradient<>{});
 }
 
 TEST(ScalarTemperatureGradient, Dimensions) {
@@ -190,7 +190,7 @@ TEST(ScalarTemperatureGradient, SetValue) {
 }
 
 TEST(ScalarTemperatureGradient, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarTemperatureGradient{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarTemperatureGradient<>{}), sizeof(double));
 }
 
 TEST(ScalarTemperatureGradient, StandardConstructor) {

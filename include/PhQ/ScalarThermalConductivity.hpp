@@ -80,7 +80,7 @@ public:
   // Copy constructor. Constructs a scalar thermal conductivity by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarThermalConductivity(const ScalarThermalConductivity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarThermalConductivity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar thermal conductivity by moving another one.
   constexpr ScalarThermalConductivity(ScalarThermalConductivity<Number>&& other) noexcept = default;
@@ -93,7 +93,7 @@ public:
   template <typename OtherNumber>
   constexpr ScalarThermalConductivity<Number>& operator=(
       const ScalarThermalConductivity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -117,43 +117,43 @@ public:
 
   constexpr ScalarThermalConductivity<Number> operator+(
       const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const {
-    return ScalarThermalConductivity<Number>{value + thermal_conductivity_scalar.value};
+    return ScalarThermalConductivity<Number>{this->value + thermal_conductivity_scalar.value};
   }
 
   constexpr ScalarThermalConductivity<Number> operator-(
       const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const {
-    return ScalarThermalConductivity<Number>{value - thermal_conductivity_scalar.value};
+    return ScalarThermalConductivity<Number>{this->value - thermal_conductivity_scalar.value};
   }
 
   constexpr ScalarThermalConductivity<Number> operator*(const Number number) const {
-    return ScalarThermalConductivity<Number>{value * number};
+    return ScalarThermalConductivity<Number>{this->value * number};
   }
 
   constexpr ScalarThermalConductivity<Number> operator/(const Number number) const {
-    return ScalarThermalConductivity<Number>{value / number};
+    return ScalarThermalConductivity<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const noexcept {
-    return value / thermal_conductivity_scalar.value;
+    return this->value / thermal_conductivity_scalar.value;
   }
 
   constexpr void operator+=(
       const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) noexcept {
-    value += thermal_conductivity_scalar.value;
+    this->value += thermal_conductivity_scalar.value;
   }
 
   constexpr void operator-=(
       const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) noexcept {
-    value -= thermal_conductivity_scalar.value;
+    this->value -= thermal_conductivity_scalar.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

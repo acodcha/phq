@@ -197,7 +197,7 @@ public:
   // Copy constructor. Constructs a time quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Time(const Time<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Time(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a time quantity by moving another one.
   constexpr Time(Time<Number>&& other) noexcept = default;
@@ -208,7 +208,7 @@ public:
   // Copy assignment operator. Assigns this time quantity by copying another one.
   template <typename OtherNumber>
   constexpr Time<Number>& operator=(const Time<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -229,15 +229,15 @@ public:
   [[nodiscard]] constexpr PhQ::Frequency<Number> Frequency() const;
 
   constexpr Time<Number> operator+(const Time<Number>& time) const {
-    return Time<Number>{value + time.value};
+    return Time<Number>{this->value + time.value};
   }
 
   constexpr Time<Number> operator-(const Time<Number>& time) const {
-    return Time<Number>{value - time.value};
+    return Time<Number>{this->value - time.value};
   }
 
   constexpr Time<Number> operator*(const Number number) const {
-    return Time<Number>{value * number};
+    return Time<Number>{this->value * number};
   }
 
   constexpr Number operator*(const PhQ::Frequency<Number>& frequency) const noexcept;
@@ -268,27 +268,27 @@ public:
   constexpr Volume<Number> operator*(const VolumeRate<Number>& volume_rate) const;
 
   constexpr Time<Number> operator/(const Number number) const {
-    return Time<Number>{value / number};
+    return Time<Number>{this->value / number};
   }
 
   constexpr Number operator/(const Time<Number>& time) const noexcept {
-    return value / time.value;
+    return this->value / time.value;
   }
 
   constexpr void operator+=(const Time<Number>& time) noexcept {
-    value += time.value;
+    this->value += time.value;
   }
 
   constexpr void operator-=(const Time<Number>& time) noexcept {
-    value -= time.value;
+    this->value -= time.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

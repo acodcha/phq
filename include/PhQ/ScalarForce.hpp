@@ -60,7 +60,7 @@ public:
   // Copy constructor. Constructs a scalar force by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarForce(const ScalarForce<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarForce(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar force by moving another one.
   constexpr ScalarForce(ScalarForce<Number>&& other) noexcept = default;
@@ -71,7 +71,7 @@ public:
   // Copy assignment operator. Assigns this scalar force by copying another one.
   template <typename OtherNumber>
   constexpr ScalarForce<Number>& operator=(const ScalarForce<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -90,43 +90,43 @@ public:
   }
 
   constexpr ScalarForce<Number> operator+(const ScalarForce<Number>& scalar_force) const {
-    return ScalarForce<Number>{value + scalar_force.value};
+    return ScalarForce<Number>{this->value + scalar_force.value};
   }
 
   constexpr ScalarForce<Number> operator-(const ScalarForce<Number>& scalar_force) const {
-    return ScalarForce<Number>{value - scalar_force.value};
+    return ScalarForce<Number>{this->value - scalar_force.value};
   }
 
   constexpr ScalarForce<Number> operator*(const Number number) const {
-    return ScalarForce<Number>{value * number};
+    return ScalarForce<Number>{this->value * number};
   }
 
   constexpr Force<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarForce<Number> operator/(const Number number) const {
-    return ScalarForce<Number>{value / number};
+    return ScalarForce<Number>{this->value / number};
   }
 
   constexpr StaticPressure<Number> operator/(const Area<Number>& area) const;
 
   constexpr Number operator/(const ScalarForce<Number>& scalar_force) const noexcept {
-    return value / scalar_force.value;
+    return this->value / scalar_force.value;
   }
 
   constexpr void operator+=(const ScalarForce<Number>& scalar_force) noexcept {
-    value += scalar_force.value;
+    this->value += scalar_force.value;
   }
 
   constexpr void operator-=(const ScalarForce<Number>& scalar_force) noexcept {
-    value -= scalar_force.value;
+    this->value -= scalar_force.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:
@@ -135,6 +135,7 @@ private:
   explicit constexpr ScalarForce(const Number value)
     : DimensionalScalar<Unit::Force, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class Force;
 };
 

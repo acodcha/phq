@@ -142,7 +142,7 @@ TEST(SoundSpeed, Create) {
 }
 
 TEST(SoundSpeed, DefaultConstructor) {
-  EXPECT_NO_THROW(SoundSpeed{});
+  EXPECT_NO_THROW(SoundSpeed<>{});
 }
 
 TEST(SoundSpeed, Dimensions) {
@@ -221,7 +221,7 @@ TEST(SoundSpeed, SetValue) {
 }
 
 TEST(SoundSpeed, SizeOf) {
-  EXPECT_EQ(sizeof(SoundSpeed{}), sizeof(double));
+  EXPECT_EQ(sizeof(SoundSpeed<>{}), sizeof(double));
 }
 
 TEST(SoundSpeed, StandardConstructor) {

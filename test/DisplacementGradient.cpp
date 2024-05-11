@@ -109,7 +109,7 @@ TEST(DisplacementGradient, CopyConstructor) {
 }
 
 TEST(DisplacementGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(DisplacementGradient{});
+  EXPECT_NO_THROW(DisplacementGradient<>{});
 }
 
 TEST(DisplacementGradient, Dimensions) {
@@ -176,7 +176,7 @@ TEST(DisplacementGradient, SetValue) {
 }
 
 TEST(DisplacementGradient, SizeOf) {
-  EXPECT_EQ(sizeof(DisplacementGradient{}), 9 * sizeof(double));
+  EXPECT_EQ(sizeof(DisplacementGradient<>{}), 9 * sizeof(double));
 }
 
 TEST(DisplacementGradient, StandardConstructor) {

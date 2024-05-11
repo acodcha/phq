@@ -96,7 +96,7 @@ TEST(ScalarDisplacementGradient, CopyConstructor) {
 }
 
 TEST(ScalarDisplacementGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarDisplacementGradient{});
+  EXPECT_NO_THROW(ScalarDisplacementGradient<>{});
 }
 
 TEST(ScalarDisplacementGradient, Dimensions) {
@@ -164,7 +164,7 @@ TEST(ScalarDisplacementGradient, SetValue) {
 }
 
 TEST(ScalarDisplacementGradient, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarDisplacementGradient{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarDisplacementGradient<>{}), sizeof(double));
 }
 
 TEST(ScalarDisplacementGradient, StandardConstructor) {

@@ -147,7 +147,7 @@ TEST(TemperatureGradient, Create) {
 }
 
 TEST(TemperatureGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(TemperatureGradient{});
+  EXPECT_NO_THROW(TemperatureGradient<>{});
 }
 
 TEST(TemperatureGradient, Dimensions) {
@@ -235,7 +235,7 @@ TEST(TemperatureGradient, SetValue) {
 }
 
 TEST(TemperatureGradient, SizeOf) {
-  EXPECT_EQ(sizeof(TemperatureGradient{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(TemperatureGradient<>{}), 3 * sizeof(double));
 }
 
 TEST(TemperatureGradient, StandardConstructor) {

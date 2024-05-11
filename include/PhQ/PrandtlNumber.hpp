@@ -61,7 +61,7 @@ public:
   // Copy constructor. Constructs a Prandtl number by copying another one.
   template <typename OtherNumber>
   explicit constexpr PrandtlNumber(const PrandtlNumber<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : PrandtlNumber(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Prandtl number by moving another one.
   constexpr PrandtlNumber(PrandtlNumber<Number>&& other) noexcept = default;
@@ -72,7 +72,7 @@ public:
   // Copy assignment operator. Assigns this Prandtl number by copying another one.
   template <typename OtherNumber>
   constexpr PrandtlNumber<Number>& operator=(const PrandtlNumber<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -116,39 +116,39 @@ public:
   }
 
   constexpr PrandtlNumber<Number> operator+(const PrandtlNumber<Number>& prandtl_number) const {
-    return PrandtlNumber<Number>{value + prandtl_number.value};
+    return PrandtlNumber<Number>{this->value + prandtl_number.value};
   }
 
   constexpr PrandtlNumber<Number> operator-(const PrandtlNumber<Number>& prandtl_number) const {
-    return PrandtlNumber<Number>{value - prandtl_number.value};
+    return PrandtlNumber<Number>{this->value - prandtl_number.value};
   }
 
   constexpr PrandtlNumber<Number> operator*(const Number number) const {
-    return PrandtlNumber<Number>{value * number};
+    return PrandtlNumber<Number>{this->value * number};
   }
 
   constexpr PrandtlNumber<Number> operator/(const Number number) const {
-    return PrandtlNumber<Number>{value / number};
+    return PrandtlNumber<Number>{this->value / number};
   }
 
   constexpr Number operator/(const PrandtlNumber<Number>& prandtl_number) const noexcept {
-    return value / prandtl_number.value;
+    return this->value / prandtl_number.value;
   }
 
   constexpr void operator+=(const PrandtlNumber<Number>& prandtl_number) noexcept {
-    value += prandtl_number.value;
+    this->value += prandtl_number.value;
   }
 
   constexpr void operator-=(const PrandtlNumber<Number>& prandtl_number) noexcept {
-    value -= prandtl_number.value;
+    this->value -= prandtl_number.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

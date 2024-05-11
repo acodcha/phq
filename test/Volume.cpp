@@ -112,7 +112,7 @@ TEST(Volume, Create) {
 }
 
 TEST(Volume, DefaultConstructor) {
-  EXPECT_NO_THROW(Volume{});
+  EXPECT_NO_THROW(Volume<>{});
 }
 
 TEST(Volume, Dimensions) {
@@ -169,7 +169,7 @@ TEST(Volume, SetValue) {
 }
 
 TEST(Volume, SizeOf) {
-  EXPECT_EQ(sizeof(Volume{}), sizeof(double));
+  EXPECT_EQ(sizeof(Volume<>{}), sizeof(double));
 }
 
 TEST(Volume, StandardConstructor) {

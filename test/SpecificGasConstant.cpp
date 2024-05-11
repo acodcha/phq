@@ -148,7 +148,7 @@ TEST(SpecificGasConstant, Create) {
 }
 
 TEST(SpecificGasConstant, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificGasConstant{});
+  EXPECT_NO_THROW(SpecificGasConstant<>{});
 }
 
 TEST(SpecificGasConstant, Dimensions) {
@@ -268,7 +268,7 @@ TEST(SpecificGasConstant, SetValue) {
 }
 
 TEST(SpecificGasConstant, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificGasConstant{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificGasConstant<>{}), sizeof(double));
 }
 
 TEST(SpecificGasConstant, StandardConstructor) {

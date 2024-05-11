@@ -157,7 +157,7 @@ TEST(Position, Create) {
 }
 
 TEST(Position, DefaultConstructor) {
-  EXPECT_NO_THROW(Position{});
+  EXPECT_NO_THROW(Position<>{});
 }
 
 TEST(Position, Dimensions) {
@@ -235,7 +235,7 @@ TEST(Position, SetValue) {
 }
 
 TEST(Position, SizeOf) {
-  EXPECT_EQ(sizeof(Position{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Position<>{}), 3 * sizeof(double));
 }
 
 TEST(Position, StandardConstructor) {

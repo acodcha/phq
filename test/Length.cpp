@@ -100,7 +100,7 @@ TEST(Length, Create) {
 }
 
 TEST(Length, DefaultConstructor) {
-  EXPECT_NO_THROW(Length{});
+  EXPECT_NO_THROW(Length<>{});
 }
 
 TEST(Length, Dimensions) {
@@ -157,7 +157,7 @@ TEST(Length, SetValue) {
 }
 
 TEST(Length, SizeOf) {
-  EXPECT_EQ(sizeof(Length{}), sizeof(double));
+  EXPECT_EQ(sizeof(Length<>{}), sizeof(double));
 }
 
 TEST(Length, StandardConstructor) {

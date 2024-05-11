@@ -123,7 +123,7 @@ TEST(SpecificEnergy, Create) {
 }
 
 TEST(SpecificEnergy, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificEnergy{});
+  EXPECT_NO_THROW(SpecificEnergy<>{});
 }
 
 TEST(SpecificEnergy, Dimensions) {
@@ -194,7 +194,7 @@ TEST(SpecificEnergy, SetValue) {
 }
 
 TEST(SpecificEnergy, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificEnergy{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificEnergy<>{}), sizeof(double));
 }
 
 TEST(SpecificEnergy, StandardConstructor) {

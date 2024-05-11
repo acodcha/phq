@@ -73,7 +73,7 @@ public:
   // Copy constructor. Constructs an angular speed by copying another one.
   template <typename OtherNumber>
   explicit constexpr AngularSpeed(const AngularSpeed<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : AngularSpeed(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an angular speed by moving another one.
   constexpr AngularSpeed(AngularSpeed<Number>&& other) noexcept = default;
@@ -84,7 +84,7 @@ public:
   // Copy assignment operator. Assigns this angular speed by copying another one.
   template <typename OtherNumber>
   constexpr AngularSpeed<Number>& operator=(const AngularSpeed<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -104,33 +104,33 @@ public:
   }
 
   constexpr AngularSpeed<Number> operator+(const AngularSpeed<Number>& angular_speed) const {
-    return AngularSpeed<Number>{value + angular_speed.value};
+    return AngularSpeed<Number>{this->value + angular_speed.value};
   }
 
   constexpr AngularSpeed<Number> operator-(const AngularSpeed<Number>& angular_speed) const {
-    return AngularSpeed<Number>{value - angular_speed.value};
+    return AngularSpeed<Number>{this->value - angular_speed.value};
   }
 
   constexpr AngularSpeed<Number> operator*(const Number number) const {
-    return AngularSpeed<Number>{value * number};
+    return AngularSpeed<Number>{this->value * number};
   }
 
   constexpr Angle<Number> operator*(const Time<Number>& time) const {
-    return {*this, time};
+    return Angle<Number>{*this, time};
   }
 
   constexpr ScalarAngularAcceleration<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr AngularSpeed<Number> operator/(const Number number) const {
-    return AngularSpeed<Number>{value / number};
+    return AngularSpeed<Number>{this->value / number};
   }
 
   constexpr Angle<Number> operator/(const Frequency<Number>& frequency) const {
-    return {*this, frequency};
+    return Angle<Number>{*this, frequency};
   }
 
   constexpr Frequency<Number> operator/(const Angle<Number>& angle) const {
-    return {*this, angle};
+    return Frequency<Number>{*this, angle};
   }
 
   constexpr ScalarAngularAcceleration<Number> operator/(const Time<Number>& time) const;
@@ -139,23 +139,23 @@ public:
       const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const;
 
   constexpr Number operator/(const AngularSpeed<Number>& angular_speed) const noexcept {
-    return value / angular_speed.value;
+    return this->value / angular_speed.value;
   }
 
   constexpr void operator+=(const AngularSpeed<Number>& angular_speed) noexcept {
-    value += angular_speed.value;
+    this->value += angular_speed.value;
   }
 
   constexpr void operator-=(const AngularSpeed<Number>& angular_speed) noexcept {
-    value -= angular_speed.value;
+    this->value -= angular_speed.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

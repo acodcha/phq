@@ -88,7 +88,7 @@ public:
   // Copy constructor. Constructs a kinematic viscosity by copying another one.
   template <typename OtherNumber>
   explicit constexpr KinematicViscosity(const KinematicViscosity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : KinematicViscosity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a kinematic viscosity by moving another one.
   constexpr KinematicViscosity(KinematicViscosity<Number>&& other) noexcept = default;
@@ -100,7 +100,7 @@ public:
   // Copy assignment operator. Assigns this kinematic viscosity by copying another one.
   template <typename OtherNumber>
   constexpr KinematicViscosity<Number>& operator=(const KinematicViscosity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -123,42 +123,42 @@ public:
 
   constexpr KinematicViscosity<Number> operator+(
       const KinematicViscosity<Number>& kinematic_viscosity) const {
-    return KinematicViscosity<Number>{value + kinematic_viscosity.value};
+    return KinematicViscosity<Number>{this->value + kinematic_viscosity.value};
   }
 
   constexpr KinematicViscosity<Number> operator-(
       const KinematicViscosity<Number>& kinematic_viscosity) const {
-    return KinematicViscosity<Number>{value - kinematic_viscosity.value};
+    return KinematicViscosity<Number>{this->value - kinematic_viscosity.value};
   }
 
   constexpr KinematicViscosity<Number> operator*(const Number number) const {
-    return KinematicViscosity<Number>{value * number};
+    return KinematicViscosity<Number>{this->value * number};
   }
 
   constexpr DynamicViscosity<Number> operator*(const MassDensity<Number>& mass_density) const;
 
   constexpr KinematicViscosity<Number> operator/(const Number number) const {
-    return KinematicViscosity<Number>{value / number};
+    return KinematicViscosity<Number>{this->value / number};
   }
 
   constexpr Number operator/(const KinematicViscosity<Number>& kinematic_viscosity) const noexcept {
-    return value / kinematic_viscosity.value;
+    return this->value / kinematic_viscosity.value;
   }
 
   constexpr void operator+=(const KinematicViscosity<Number>& kinematic_viscosity) noexcept {
-    value += kinematic_viscosity.value;
+    this->value += kinematic_viscosity.value;
   }
 
   constexpr void operator-=(const KinematicViscosity<Number>& kinematic_viscosity) noexcept {
-    value -= kinematic_viscosity.value;
+    this->value -= kinematic_viscosity.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

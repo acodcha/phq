@@ -103,7 +103,7 @@ TEST(MachNumber, CopyConstructor) {
 }
 
 TEST(MachNumber, DefaultConstructor) {
-  EXPECT_NO_THROW(MachNumber{});
+  EXPECT_NO_THROW(MachNumber<>{});
 }
 
 TEST(MachNumber, Dimensions) {
@@ -181,7 +181,7 @@ TEST(MachNumber, SetValue) {
 }
 
 TEST(MachNumber, SizeOf) {
-  EXPECT_EQ(sizeof(MachNumber{}), sizeof(double));
+  EXPECT_EQ(sizeof(MachNumber<>{}), sizeof(double));
 }
 
 TEST(MachNumber, StandardConstructor) {

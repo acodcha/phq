@@ -56,7 +56,7 @@ public:
   template <typename OtherNumber>
   explicit constexpr TransportEnergyConsumption(
       const TransportEnergyConsumption<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : TransportEnergyConsumption(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a transport energy consumption by moving another one.
   constexpr TransportEnergyConsumption(
@@ -70,7 +70,7 @@ public:
   template <typename OtherNumber>
   constexpr TransportEnergyConsumption<Number>& operator=(
       const TransportEnergyConsumption<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -94,16 +94,16 @@ public:
 
   constexpr TransportEnergyConsumption<Number> operator+(
       const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
-    return TransportEnergyConsumption<Number>{value + transport_energy_consumption.value};
+    return TransportEnergyConsumption<Number>{this->value + transport_energy_consumption.value};
   }
 
   constexpr TransportEnergyConsumption<Number> operator-(
       const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
-    return TransportEnergyConsumption<Number>{value - transport_energy_consumption.value};
+    return TransportEnergyConsumption<Number>{this->value - transport_energy_consumption.value};
   }
 
   constexpr TransportEnergyConsumption<Number> operator*(const Number number) const {
-    return TransportEnergyConsumption<Number>{value * number};
+    return TransportEnergyConsumption<Number>{this->value * number};
   }
 
   constexpr Energy<Number> operator*(const Length<Number> length) const {
@@ -115,30 +115,30 @@ public:
   }
 
   constexpr TransportEnergyConsumption<Number> operator/(const Number number) const {
-    return TransportEnergyConsumption<Number>{value / number};
+    return TransportEnergyConsumption<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const TransportEnergyConsumption<Number>& transport_energy_consumption) const noexcept {
-    return value / transport_energy_consumption.value;
+    return this->value / transport_energy_consumption.value;
   }
 
   constexpr void operator+=(
       const TransportEnergyConsumption<Number>& transport_energy_consumption) noexcept {
-    value += transport_energy_consumption.value;
+    this->value += transport_energy_consumption.value;
   }
 
   constexpr void operator-=(
       const TransportEnergyConsumption<Number>& transport_energy_consumption) noexcept {
-    value -= transport_energy_consumption.value;
+    this->value -= transport_energy_consumption.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

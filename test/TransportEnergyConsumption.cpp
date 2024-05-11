@@ -144,7 +144,7 @@ TEST(TransportEnergyConsumption, Create) {
 }
 
 TEST(TransportEnergyConsumption, DefaultConstructor) {
-  EXPECT_NO_THROW(TransportEnergyConsumption{});
+  EXPECT_NO_THROW(TransportEnergyConsumption<>{});
 }
 
 TEST(TransportEnergyConsumption, Dimensions) {
@@ -229,7 +229,7 @@ TEST(TransportEnergyConsumption, SetValue) {
 }
 
 TEST(TransportEnergyConsumption, SizeOf) {
-  EXPECT_EQ(sizeof(TransportEnergyConsumption{}), sizeof(double));
+  EXPECT_EQ(sizeof(TransportEnergyConsumption<>{}), sizeof(double));
 }
 
 TEST(TransportEnergyConsumption, StandardConstructor) {

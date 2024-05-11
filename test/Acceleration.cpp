@@ -159,7 +159,7 @@ TEST(Acceleration, Create) {
 }
 
 TEST(Acceleration, DefaultConstructor) {
-  EXPECT_NO_THROW(Acceleration{});
+  EXPECT_NO_THROW(Acceleration<>{});
 }
 
 TEST(Acceleration, Dimensions) {
@@ -248,7 +248,7 @@ TEST(Acceleration, SetValue) {
 }
 
 TEST(Acceleration, SizeOf) {
-  EXPECT_EQ(sizeof(Acceleration{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Acceleration<>{}), 3 * sizeof(double));
 }
 
 TEST(Acceleration, StandardConstructor) {

@@ -56,7 +56,7 @@ public:
   // Copy constructor. Constructs a memory rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr MemoryRate(const MemoryRate<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : MemoryRate(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a memory rate by moving another one.
   constexpr MemoryRate(MemoryRate<Number>&& other) noexcept = default;
@@ -67,7 +67,7 @@ public:
   // Copy assignment operator. Assigns this memory rate by copying another one.
   template <typename OtherNumber>
   constexpr MemoryRate<Number>& operator=(const MemoryRate<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -87,15 +87,15 @@ public:
   }
 
   constexpr MemoryRate<Number> operator+(const MemoryRate<Number>& memory_rate) const {
-    return MemoryRate<Number>{value + memory_rate.value};
+    return MemoryRate<Number>{this->value + memory_rate.value};
   }
 
   constexpr MemoryRate<Number> operator-(const MemoryRate<Number>& memory_rate) const {
-    return MemoryRate<Number>{value - memory_rate.value};
+    return MemoryRate<Number>{this->value - memory_rate.value};
   }
 
   constexpr MemoryRate<Number> operator*(const Number number) const {
-    return MemoryRate<Number>{value * number};
+    return MemoryRate<Number>{this->value * number};
   }
 
   constexpr Memory<Number> operator*(const Time<Number>& time) const {
@@ -103,7 +103,7 @@ public:
   }
 
   constexpr MemoryRate<Number> operator/(const Number number) const {
-    return MemoryRate<Number>{value / number};
+    return MemoryRate<Number>{this->value / number};
   }
 
   constexpr Memory<Number> operator/(const Frequency<Number>& frequency) const {
@@ -115,23 +115,23 @@ public:
   }
 
   constexpr Number operator/(const MemoryRate<Number>& memory_rate) const noexcept {
-    return value / memory_rate.value;
+    return this->value / memory_rate.value;
   }
 
   constexpr void operator+=(const MemoryRate<Number>& memory_rate) noexcept {
-    value += memory_rate.value;
+    this->value += memory_rate.value;
   }
 
   constexpr void operator-=(const MemoryRate<Number>& memory_rate) noexcept {
-    value -= memory_rate.value;
+    this->value -= memory_rate.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

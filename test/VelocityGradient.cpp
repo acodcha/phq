@@ -188,7 +188,7 @@ TEST(VelocityGradient, Create) {
 }
 
 TEST(VelocityGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(VelocityGradient{});
+  EXPECT_NO_THROW(VelocityGradient<>{});
 }
 
 TEST(VelocityGradient, Dimensions) {
@@ -304,7 +304,7 @@ TEST(VelocityGradient, SetValue) {
 }
 
 TEST(VelocityGradient, SizeOf) {
-  EXPECT_EQ(sizeof(VelocityGradient{}), 9 * sizeof(double));
+  EXPECT_EQ(sizeof(VelocityGradient<>{}), 9 * sizeof(double));
 }
 
 TEST(VelocityGradient, StandardConstructor) {

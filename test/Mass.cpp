@@ -100,7 +100,7 @@ TEST(Mass, Create) {
 }
 
 TEST(Mass, DefaultConstructor) {
-  EXPECT_NO_THROW(Mass{});
+  EXPECT_NO_THROW(Mass<>{});
 }
 
 TEST(Mass, Dimensions) {
@@ -156,7 +156,7 @@ TEST(Mass, SetValue) {
 }
 
 TEST(Mass, SizeOf) {
-  EXPECT_EQ(sizeof(Mass{}), sizeof(double));
+  EXPECT_EQ(sizeof(Mass<>{}), sizeof(double));
 }
 
 TEST(Mass, StandardConstructor) {

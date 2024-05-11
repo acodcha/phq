@@ -135,7 +135,7 @@ TEST(Temperature, Create) {
 }
 
 TEST(Temperature, DefaultConstructor) {
-  EXPECT_NO_THROW(Temperature{});
+  EXPECT_NO_THROW(Temperature<>{});
 }
 
 TEST(Temperature, Dimensions) {
@@ -192,7 +192,7 @@ TEST(Temperature, SetValue) {
 }
 
 TEST(Temperature, SizeOf) {
-  EXPECT_EQ(sizeof(Temperature{}), sizeof(double));
+  EXPECT_EQ(sizeof(Temperature<>{}), sizeof(double));
 }
 
 TEST(Temperature, StandardConstructor) {

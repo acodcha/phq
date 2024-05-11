@@ -48,7 +48,7 @@ public:
   // Copy constructor. Constructs a Mach number by copying another one.
   template <typename OtherNumber>
   explicit constexpr MachNumber(const MachNumber<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : MachNumber(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Mach number by moving another one.
   constexpr MachNumber(MachNumber<Number>&& other) noexcept = default;
@@ -59,7 +59,7 @@ public:
   // Copy assignment operator. Assigns this Mach number by copying another one.
   template <typename OtherNumber>
   constexpr MachNumber<Number>& operator=(const MachNumber<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -72,15 +72,15 @@ public:
   }
 
   constexpr MachNumber<Number> operator+(const MachNumber<Number>& mach_number) const {
-    return MachNumber<Number>{value + mach_number.value};
+    return MachNumber<Number>{this->value + mach_number.value};
   }
 
   constexpr MachNumber<Number> operator-(const MachNumber<Number>& mach_number) const {
-    return MachNumber<Number>{value - mach_number.value};
+    return MachNumber<Number>{this->value - mach_number.value};
   }
 
   constexpr MachNumber<Number> operator*(const Number number) const {
-    return MachNumber<Number>{value * number};
+    return MachNumber<Number>{this->value * number};
   }
 
   constexpr Speed<Number> operator*(const SoundSpeed<Number>& sound_speed) const {
@@ -88,27 +88,27 @@ public:
   }
 
   constexpr MachNumber<Number> operator/(const Number number) const {
-    return MachNumber<Number>{value / number};
+    return MachNumber<Number>{this->value / number};
   }
 
   constexpr Number operator/(const MachNumber<Number>& mach_number) const noexcept {
-    return value / mach_number.value;
+    return this->value / mach_number.value;
   }
 
   constexpr void operator+=(const MachNumber<Number>& mach_number) noexcept {
-    value += mach_number.value;
+    this->value += mach_number.value;
   }
 
   constexpr void operator-=(const MachNumber<Number>& mach_number) noexcept {
-    value -= mach_number.value;
+    this->value -= mach_number.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

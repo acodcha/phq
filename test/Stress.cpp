@@ -122,7 +122,7 @@ TEST(Stress, Create) {
 }
 
 TEST(Stress, DefaultConstructor) {
-  EXPECT_NO_THROW(Stress{});
+  EXPECT_NO_THROW(Stress<>{});
 }
 
 TEST(Stress, Dimensions) {
@@ -213,7 +213,7 @@ TEST(Stress, SetValue) {
 }
 
 TEST(Stress, SizeOf) {
-  EXPECT_EQ(sizeof(Stress{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(Stress<>{}), 6 * sizeof(double));
 }
 
 TEST(Stress, StandardConstructor) {

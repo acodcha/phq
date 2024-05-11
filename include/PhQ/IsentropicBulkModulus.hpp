@@ -57,7 +57,7 @@ public:
   // Copy constructor. Constructs a isentropic bulk modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr IsentropicBulkModulus(const IsentropicBulkModulus<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : IsentropicBulkModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an isentropic bulk modulus by moving another one.
   constexpr IsentropicBulkModulus(IsentropicBulkModulus<Number>&& other) noexcept = default;
@@ -70,7 +70,7 @@ public:
   template <typename OtherNumber>
   constexpr IsentropicBulkModulus<Number>& operator=(
       const IsentropicBulkModulus<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -93,41 +93,41 @@ public:
 
   constexpr IsentropicBulkModulus<Number> operator+(
       const IsentropicBulkModulus<Number>& isentropic_bulk_modulus) const {
-    return IsentropicBulkModulus<Number>{value + isentropic_bulk_modulus.value};
+    return IsentropicBulkModulus<Number>{this->value + isentropic_bulk_modulus.value};
   }
 
   constexpr IsentropicBulkModulus<Number> operator-(
       const IsentropicBulkModulus<Number>& isentropic_bulk_modulus) const {
-    return IsentropicBulkModulus<Number>{value - isentropic_bulk_modulus.value};
+    return IsentropicBulkModulus<Number>{this->value - isentropic_bulk_modulus.value};
   }
 
   constexpr IsentropicBulkModulus<Number> operator*(const Number number) const {
-    return IsentropicBulkModulus<Number>{value * number};
+    return IsentropicBulkModulus<Number>{this->value * number};
   }
 
   constexpr IsentropicBulkModulus<Number> operator/(const Number number) const {
-    return IsentropicBulkModulus<Number>{value / number};
+    return IsentropicBulkModulus<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const IsentropicBulkModulus<Number>& isentropic_bulk_modulus) const noexcept {
-    return value / isentropic_bulk_modulus.value;
+    return this->value / isentropic_bulk_modulus.value;
   }
 
   constexpr void operator+=(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus) noexcept {
-    value += isentropic_bulk_modulus.value;
+    this->value += isentropic_bulk_modulus.value;
   }
 
   constexpr void operator-=(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus) noexcept {
-    value -= isentropic_bulk_modulus.value;
+    this->value -= isentropic_bulk_modulus.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

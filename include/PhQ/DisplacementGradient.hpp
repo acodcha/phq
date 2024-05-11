@@ -73,7 +73,7 @@ public:
   // Copy constructor. Constructs a displacement gradient tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr DisplacementGradient(const DisplacementGradient<OtherNumber>& other)
-    : value(static_cast<Dyad<Number>>(other.Value())) {}
+    : DisplacementGradient(static_cast<Dyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a displacement gradient tensor by moving another one.
   constexpr DisplacementGradient(DisplacementGradient<Number>&& other) noexcept = default;
@@ -86,7 +86,7 @@ public:
   template <typename OtherNumber>
   constexpr DisplacementGradient<Number>& operator=(
       const DisplacementGradient<OtherNumber>& other) {
-    value = static_cast<Dyad<Number>>(other.Value());
+    this->value = static_cast<Dyad<Number>>(other.Value());
     return *this;
   }
 
@@ -101,47 +101,47 @@ public:
 
   // Returns the xx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xx() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.xx()};
+    return ScalarDisplacementGradient<Number>{this->value.xx()};
   }
 
   // Returns the xy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xy() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.xy()};
+    return ScalarDisplacementGradient<Number>{this->value.xy()};
   }
 
   // Returns the xz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xz() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.xz()};
+    return ScalarDisplacementGradient<Number>{this->value.xz()};
   }
 
   // Returns the yx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yx() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.yx()};
+    return ScalarDisplacementGradient<Number>{this->value.yx()};
   }
 
   // Returns the yy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yy() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.yy()};
+    return ScalarDisplacementGradient<Number>{this->value.yy()};
   }
 
   // Returns the yz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yz() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.yz()};
+    return ScalarDisplacementGradient<Number>{this->value.yz()};
   }
 
   // Returns the zx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zx() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.zx()};
+    return ScalarDisplacementGradient<Number>{this->value.zx()};
   }
 
   // Returns the zy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zy() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.zy()};
+    return ScalarDisplacementGradient<Number>{this->value.zy()};
   }
 
   // Returns the zz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zz() const noexcept {
-    return ScalarDisplacementGradient<Number>{value.zz()};
+    return ScalarDisplacementGradient<Number>{this->value.zz()};
   }
 
   // Creates a strain tensor from this displacement gradient tensor using the definition of the
@@ -152,40 +152,40 @@ public:
 
   constexpr DisplacementGradient<Number> operator+(
       const DisplacementGradient<Number>& displacement_gradient) const {
-    return DisplacementGradient<Number>{value + displacement_gradient.value};
+    return DisplacementGradient<Number>{this->value + displacement_gradient.value};
   }
 
   constexpr DisplacementGradient<Number> operator-(
       const DisplacementGradient<Number>& displacement_gradient) const {
-    return DisplacementGradient<Number>{value - displacement_gradient.value};
+    return DisplacementGradient<Number>{this->value - displacement_gradient.value};
   }
 
   constexpr DisplacementGradient<Number> operator*(const Number number) const {
-    return DisplacementGradient<Number>{value * number};
+    return DisplacementGradient<Number>{this->value * number};
   }
 
   constexpr VelocityGradient<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr DisplacementGradient<Number> operator/(const Number number) const {
-    return DisplacementGradient<Number>{value / number};
+    return DisplacementGradient<Number>{this->value / number};
   }
 
   constexpr VelocityGradient<Number> operator/(const Time<Number>& time) const;
 
   constexpr void operator+=(const DisplacementGradient<Number>& displacement_gradient) noexcept {
-    value += displacement_gradient.value;
+    this->value += displacement_gradient.value;
   }
 
   constexpr void operator-=(const DisplacementGradient<Number>& displacement_gradient) noexcept {
-    value -= displacement_gradient.value;
+    this->value -= displacement_gradient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

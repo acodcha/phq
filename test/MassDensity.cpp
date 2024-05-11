@@ -123,7 +123,7 @@ TEST(MassDensity, Create) {
 }
 
 TEST(MassDensity, DefaultConstructor) {
-  EXPECT_NO_THROW(MassDensity{});
+  EXPECT_NO_THROW(MassDensity<>{});
 }
 
 TEST(MassDensity, Dimensions) {
@@ -194,7 +194,7 @@ TEST(MassDensity, SetValue) {
 }
 
 TEST(MassDensity, SizeOf) {
-  EXPECT_EQ(sizeof(MassDensity{}), sizeof(double));
+  EXPECT_EQ(sizeof(MassDensity<>{}), sizeof(double));
 }
 
 TEST(MassDensity, StandardConstructor) {

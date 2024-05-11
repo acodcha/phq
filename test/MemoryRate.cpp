@@ -128,7 +128,7 @@ TEST(MemoryRate, Create) {
 }
 
 TEST(MemoryRate, DefaultConstructor) {
-  EXPECT_NO_THROW(MemoryRate{});
+  EXPECT_NO_THROW(MemoryRate<>{});
 }
 
 TEST(MemoryRate, Dimensions) {
@@ -200,7 +200,7 @@ TEST(MemoryRate, SetValue) {
 }
 
 TEST(MemoryRate, SizeOf) {
-  EXPECT_EQ(sizeof(MemoryRate{}), sizeof(double));
+  EXPECT_EQ(sizeof(MemoryRate<>{}), sizeof(double));
 }
 
 TEST(MemoryRate, StandardConstructor) {

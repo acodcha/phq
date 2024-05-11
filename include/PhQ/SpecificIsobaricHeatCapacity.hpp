@@ -109,7 +109,7 @@ public:
   template <typename OtherNumber>
   explicit constexpr SpecificIsobaricHeatCapacity(
       const SpecificIsobaricHeatCapacity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : SpecificIsobaricHeatCapacity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a specific isobaric heat capacity by moving another one.
   constexpr SpecificIsobaricHeatCapacity(
@@ -123,7 +123,7 @@ public:
   template <typename OtherNumber>
   constexpr SpecificIsobaricHeatCapacity<Number>& operator=(
       const SpecificIsobaricHeatCapacity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -147,12 +147,14 @@ public:
 
   constexpr SpecificIsobaricHeatCapacity<Number> operator+(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
-    return SpecificIsobaricHeatCapacity<Number>{value + specific_isobaric_heat_capacity.value};
+    return SpecificIsobaricHeatCapacity<Number>{
+        this->value + specific_isobaric_heat_capacity.value};
   }
 
   constexpr SpecificIsobaricHeatCapacity<Number> operator-(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
-    return SpecificIsobaricHeatCapacity<Number>{value - specific_isobaric_heat_capacity.value};
+    return SpecificIsobaricHeatCapacity<Number>{
+        this->value - specific_isobaric_heat_capacity.value};
   }
 
   constexpr SpecificGasConstant<Number> operator-(
@@ -162,7 +164,7 @@ public:
       const SpecificGasConstant<Number>& specific_gas_constant) const;
 
   constexpr SpecificIsobaricHeatCapacity<Number> operator*(const Number number) const {
-    return SpecificIsobaricHeatCapacity<Number>{value * number};
+    return SpecificIsobaricHeatCapacity<Number>{this->value * number};
   }
 
   constexpr IsobaricHeatCapacity<Number> operator*(const Mass<Number>& mass) const {
@@ -170,12 +172,12 @@ public:
   }
 
   constexpr SpecificIsobaricHeatCapacity<Number> operator/(const Number number) const {
-    return SpecificIsobaricHeatCapacity<Number>{value / number};
+    return SpecificIsobaricHeatCapacity<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const noexcept {
-    return value / specific_isobaric_heat_capacity.value;
+    return this->value / specific_isobaric_heat_capacity.value;
   }
 
   constexpr HeatCapacityRatio<Number> operator/(
@@ -190,20 +192,20 @@ public:
 
   constexpr void operator+=(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) noexcept {
-    value += specific_isobaric_heat_capacity.value;
+    this->value += specific_isobaric_heat_capacity.value;
   }
 
   constexpr void operator-=(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) noexcept {
-    value -= specific_isobaric_heat_capacity.value;
+    this->value -= specific_isobaric_heat_capacity.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

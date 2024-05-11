@@ -73,7 +73,7 @@ public:
   // Copy constructor. Constructs a heat flux vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr HeatFlux(const HeatFlux<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : HeatFlux(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a heat flux vector by moving another one.
   constexpr HeatFlux(HeatFlux<Number>&& other) noexcept = default;
@@ -84,7 +84,7 @@ public:
   // Copy assignment operator. Assigns this heat flux vector by copying another one.
   template <typename OtherNumber>
   constexpr HeatFlux<Number>& operator=(const HeatFlux<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -121,27 +121,27 @@ public:
 
   // Returns the x Cartesian component of this heat flux vector.
   [[nodiscard]] constexpr ScalarHeatFlux<Number> x() const noexcept {
-    return ScalarHeatFlux<Number>{value.x()};
+    return ScalarHeatFlux<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this heat flux vector.
   [[nodiscard]] constexpr ScalarHeatFlux<Number> y() const noexcept {
-    return ScalarHeatFlux<Number>{value.y()};
+    return ScalarHeatFlux<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this heat flux vector.
   [[nodiscard]] constexpr ScalarHeatFlux<Number> z() const noexcept {
-    return ScalarHeatFlux<Number>{value.z()};
+    return ScalarHeatFlux<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this heat flux vector.
   [[nodiscard]] ScalarHeatFlux<Number> Magnitude() const {
-    return ScalarHeatFlux<Number>{value.Magnitude()};
+    return ScalarHeatFlux<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this heat flux vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this heat flux vector and another one.
@@ -150,35 +150,35 @@ public:
   }
 
   constexpr HeatFlux<Number> operator+(const HeatFlux<Number>& heat_flux) const {
-    return HeatFlux<Number>{value + heat_flux.value};
+    return HeatFlux<Number>{this->value + heat_flux.value};
   }
 
   constexpr HeatFlux<Number> operator-(const HeatFlux<Number>& heat_flux) const {
-    return HeatFlux<Number>{value - heat_flux.value};
+    return HeatFlux<Number>{this->value - heat_flux.value};
   }
 
   constexpr HeatFlux<Number> operator*(const Number number) const {
-    return HeatFlux<Number>{value * number};
+    return HeatFlux<Number>{this->value * number};
   }
 
   constexpr HeatFlux<Number> operator/(const Number number) const {
-    return HeatFlux<Number>{value / number};
+    return HeatFlux<Number>{this->value / number};
   }
 
   constexpr void operator+=(const HeatFlux<Number>& heat_flux) noexcept {
-    value += heat_flux.value;
+    this->value += heat_flux.value;
   }
 
   constexpr void operator-=(const HeatFlux<Number>& heat_flux) noexcept {
-    value -= heat_flux.value;
+    this->value -= heat_flux.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

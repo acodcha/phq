@@ -133,7 +133,7 @@ TEST(VectorArea, Create) {
 }
 
 TEST(VectorArea, DefaultConstructor) {
-  EXPECT_NO_THROW(VectorArea{});
+  EXPECT_NO_THROW(VectorArea<>{});
 }
 
 TEST(VectorArea, Dimensions) {
@@ -213,7 +213,7 @@ TEST(VectorArea, SetValue) {
 }
 
 TEST(VectorArea, SizeOf) {
-  EXPECT_EQ(sizeof(VectorArea{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(VectorArea<>{}), 3 * sizeof(double));
 }
 
 TEST(VectorArea, StandardConstructor) {

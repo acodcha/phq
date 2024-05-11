@@ -100,7 +100,7 @@ TEST(Time, Create) {
 }
 
 TEST(Time, DefaultConstructor) {
-  EXPECT_NO_THROW(Time{});
+  EXPECT_NO_THROW(Time<>{});
 }
 
 TEST(Time, Dimensions) {
@@ -155,7 +155,7 @@ TEST(Time, SetValue) {
 }
 
 TEST(Time, SizeOf) {
-  EXPECT_EQ(sizeof(Time{}), sizeof(double));
+  EXPECT_EQ(sizeof(Time<>{}), sizeof(double));
 }
 
 TEST(Time, StandardConstructor) {

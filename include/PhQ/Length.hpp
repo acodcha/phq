@@ -130,7 +130,7 @@ public:
   // Copy constructor. Constructs a length by copying another one.
   template <typename OtherNumber>
   explicit constexpr Length(const Length<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Length(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a length by moving another one.
   constexpr Length(Length<Number>&& other) noexcept = default;
@@ -141,7 +141,7 @@ public:
   // Copy assignment operator. Assigns this length by copying another one.
   template <typename OtherNumber>
   constexpr Length<Number>& operator=(const Length<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -160,15 +160,15 @@ public:
   }
 
   constexpr Length<Number> operator+(const Length<Number>& length) const {
-    return Length<Number>{value + length.value};
+    return Length<Number>{this->value + length.value};
   }
 
   constexpr Length<Number> operator-(const Length<Number>& length) const {
-    return Length<Number>{value - length.value};
+    return Length<Number>{this->value - length.value};
   }
 
   constexpr Length<Number> operator*(const Number number) const {
-    return Length<Number>{value * number};
+    return Length<Number>{this->value * number};
   }
 
   constexpr Area<Number> operator*(const Length<Number>& length) const;
@@ -183,7 +183,7 @@ public:
       const TransportEnergyConsumption<Number>& transport_energy_consumption) const;
 
   constexpr Length<Number> operator/(const Number number) const {
-    return Length<Number>{value / number};
+    return Length<Number>{this->value / number};
   }
 
   constexpr Speed<Number> operator/(const Time<Number>& time) const;
@@ -191,23 +191,23 @@ public:
   constexpr Time<Number> operator/(const Speed<Number>& speed) const;
 
   constexpr Number operator/(const Length<Number>& length) const noexcept {
-    return value / length.value;
+    return this->value / length.value;
   }
 
   constexpr void operator+=(const Length<Number>& length) noexcept {
-    value += length.value;
+    this->value += length.value;
   }
 
   constexpr void operator-=(const Length<Number>& length) noexcept {
-    value -= length.value;
+    this->value -= length.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

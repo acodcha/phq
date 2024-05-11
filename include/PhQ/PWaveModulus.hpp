@@ -44,7 +44,7 @@ public:
   // Copy constructor. Constructs a P-wave modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr PWaveModulus(const PWaveModulus<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : PWaveModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a P-wave modulus by moving another one.
   constexpr PWaveModulus(PWaveModulus<Number>&& other) noexcept = default;
@@ -55,7 +55,7 @@ public:
   // Copy assignment operator. Assigns this P-wave modulus by copying another one.
   template <typename OtherNumber>
   constexpr PWaveModulus<Number>& operator=(const PWaveModulus<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -75,39 +75,39 @@ public:
   }
 
   constexpr PWaveModulus<Number> operator+(const PWaveModulus<Number>& p_wave_modulus) const {
-    return PWaveModulus<Number>{value + p_wave_modulus.value};
+    return PWaveModulus<Number>{this->value + p_wave_modulus.value};
   }
 
   constexpr PWaveModulus<Number> operator-(const PWaveModulus<Number>& p_wave_modulus) const {
-    return PWaveModulus<Number>{value - p_wave_modulus.value};
+    return PWaveModulus<Number>{this->value - p_wave_modulus.value};
   }
 
   constexpr PWaveModulus<Number> operator*(const Number number) const {
-    return PWaveModulus<Number>{value * number};
+    return PWaveModulus<Number>{this->value * number};
   }
 
   constexpr PWaveModulus<Number> operator/(const Number number) const {
-    return PWaveModulus<Number>{value / number};
+    return PWaveModulus<Number>{this->value / number};
   }
 
   constexpr Number operator/(const PWaveModulus<Number>& p_wave_modulus) const noexcept {
-    return value / p_wave_modulus.value;
+    return this->value / p_wave_modulus.value;
   }
 
   constexpr void operator+=(const PWaveModulus<Number>& p_wave_modulus) noexcept {
-    value += p_wave_modulus.value;
+    this->value += p_wave_modulus.value;
   }
 
   constexpr void operator-=(const PWaveModulus<Number>& p_wave_modulus) noexcept {
-    value -= p_wave_modulus.value;
+    this->value -= p_wave_modulus.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

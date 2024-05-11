@@ -58,7 +58,7 @@ public:
   // Copy constructor. Constructs a scalar heat flux by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarHeatFlux(const ScalarHeatFlux<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarHeatFlux(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar heat flux by moving another one.
   constexpr ScalarHeatFlux(ScalarHeatFlux<Number>&& other) noexcept = default;
@@ -69,7 +69,7 @@ public:
   // Copy assignment operator. Assigns this scalar heat flux by copying another one.
   template <typename OtherNumber>
   constexpr ScalarHeatFlux<Number>& operator=(const ScalarHeatFlux<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -89,41 +89,41 @@ public:
   }
 
   constexpr ScalarHeatFlux<Number> operator+(const ScalarHeatFlux<Number>& scalar_heat_flux) const {
-    return ScalarHeatFlux<Number>{value + scalar_heat_flux.value};
+    return ScalarHeatFlux<Number>{this->value + scalar_heat_flux.value};
   }
 
   constexpr ScalarHeatFlux<Number> operator-(const ScalarHeatFlux<Number>& scalar_heat_flux) const {
-    return ScalarHeatFlux<Number>{value - scalar_heat_flux.value};
+    return ScalarHeatFlux<Number>{this->value - scalar_heat_flux.value};
   }
 
   constexpr ScalarHeatFlux<Number> operator*(const Number number) const {
-    return ScalarHeatFlux<Number>{value * number};
+    return ScalarHeatFlux<Number>{this->value * number};
   }
 
   constexpr HeatFlux<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarHeatFlux<Number> operator/(const Number number) const {
-    return ScalarHeatFlux<Number>{value / number};
+    return ScalarHeatFlux<Number>{this->value / number};
   }
 
   constexpr Number operator/(const ScalarHeatFlux<Number>& scalar_heat_flux) const noexcept {
-    return value / scalar_heat_flux.value;
+    return this->value / scalar_heat_flux.value;
   }
 
   constexpr void operator+=(const ScalarHeatFlux<Number>& scalar_heat_flux) noexcept {
-    value += scalar_heat_flux.value;
+    this->value += scalar_heat_flux.value;
   }
 
   constexpr void operator-=(const ScalarHeatFlux<Number>& scalar_heat_flux) noexcept {
-    value -= scalar_heat_flux.value;
+    this->value -= scalar_heat_flux.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

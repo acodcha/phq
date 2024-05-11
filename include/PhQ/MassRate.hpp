@@ -57,7 +57,7 @@ public:
   // Copy constructor. Constructs a mass rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr MassRate(const MassRate<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : MassRate(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a mass rate by moving another one.
   constexpr MassRate(MassRate<Number>&& other) noexcept = default;
@@ -68,7 +68,7 @@ public:
   // Copy assignment operator. Assigns this mass rate by copying another one.
   template <typename OtherNumber>
   constexpr MassRate<Number>& operator=(const MassRate<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -88,15 +88,15 @@ public:
   }
 
   constexpr MassRate<Number> operator+(const MassRate<Number>& mass_rate) const {
-    return MassRate<Number>{value + mass_rate.value};
+    return MassRate<Number>{this->value + mass_rate.value};
   }
 
   constexpr MassRate<Number> operator-(const MassRate<Number>& mass_rate) const {
-    return MassRate<Number>{value - mass_rate.value};
+    return MassRate<Number>{this->value - mass_rate.value};
   }
 
   constexpr MassRate<Number> operator*(const Number number) const {
-    return MassRate<Number>{value * number};
+    return MassRate<Number>{this->value * number};
   }
 
   constexpr Mass<Number> operator*(const Time<Number>& time) const {
@@ -104,7 +104,7 @@ public:
   }
 
   constexpr MassRate<Number> operator/(const Number number) const {
-    return MassRate<Number>{value / number};
+    return MassRate<Number>{this->value / number};
   }
 
   constexpr Frequency<Number> operator/(const Mass<Number>& mass) const {
@@ -116,23 +116,23 @@ public:
   }
 
   constexpr Number operator/(const MassRate<Number>& mass_rate) const noexcept {
-    return value / mass_rate.value;
+    return this->value / mass_rate.value;
   }
 
   constexpr void operator+=(const MassRate<Number>& mass_rate) noexcept {
-    value += mass_rate.value;
+    this->value += mass_rate.value;
   }
 
   constexpr void operator-=(const MassRate<Number>& mass_rate) noexcept {
-    value -= mass_rate.value;
+    this->value -= mass_rate.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

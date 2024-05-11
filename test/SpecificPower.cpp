@@ -153,7 +153,7 @@ TEST(SpecificPower, Create) {
 }
 
 TEST(SpecificPower, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificPower{});
+  EXPECT_NO_THROW(SpecificPower<>{});
 }
 
 TEST(SpecificPower, Dimensions) {
@@ -241,7 +241,7 @@ TEST(SpecificPower, SetValue) {
 }
 
 TEST(SpecificPower, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificPower{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificPower<>{}), sizeof(double));
 }
 
 TEST(SpecificPower, StandardConstructor) {

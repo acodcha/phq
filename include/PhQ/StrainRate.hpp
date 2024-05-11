@@ -68,7 +68,7 @@ public:
   // Copy constructor. Constructs a strain rate tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr StrainRate(const StrainRate<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : StrainRate(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a strain rate tensor by moving another one.
   constexpr StrainRate(StrainRate<Number>&& other) noexcept = default;
@@ -79,7 +79,7 @@ public:
   // Copy assignment operator. Assigns this strain rate tensor by copying another one.
   template <typename OtherNumber>
   constexpr StrainRate<Number>& operator=(const StrainRate<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -117,59 +117,59 @@ public:
 
   // Returns the xx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> xx() const noexcept {
-    return ScalarStrainRate<Number>{value.xx()};
+    return ScalarStrainRate<Number>{this->value.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> xy() const noexcept {
-    return ScalarStrainRate<Number>{value.xy()};
+    return ScalarStrainRate<Number>{this->value.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> xz() const noexcept {
-    return ScalarStrainRate<Number>{value.xz()};
+    return ScalarStrainRate<Number>{this->value.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> yx() const noexcept {
-    return ScalarStrainRate<Number>{value.yx()};
+    return ScalarStrainRate<Number>{this->value.yx()};
   }
 
   // Returns the yy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> yy() const noexcept {
-    return ScalarStrainRate<Number>{value.yy()};
+    return ScalarStrainRate<Number>{this->value.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> yz() const noexcept {
-    return ScalarStrainRate<Number>{value.yz()};
+    return ScalarStrainRate<Number>{this->value.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> zx() const noexcept {
-    return ScalarStrainRate<Number>{value.zx()};
+    return ScalarStrainRate<Number>{this->value.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> zy() const noexcept {
-    return ScalarStrainRate<Number>{value.zy()};
+    return ScalarStrainRate<Number>{this->value.zy()};
   }
 
   // Returns the zz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> zz() const noexcept {
-    return ScalarStrainRate<Number>{value.zz()};
+    return ScalarStrainRate<Number>{this->value.zz()};
   }
 
   constexpr StrainRate operator+(const StrainRate<Number>& strain_rate) const {
-    return StrainRate<Number>{value + strain_rate.value};
+    return StrainRate<Number>{this->value + strain_rate.value};
   }
 
   constexpr StrainRate<Number> operator-(const StrainRate<Number>& strain_rate) const {
-    return StrainRate<Number>{value - strain_rate.value};
+    return StrainRate<Number>{this->value - strain_rate.value};
   }
 
   constexpr StrainRate<Number> operator*(const Number number) const {
-    return StrainRate<Number>{value * number};
+    return StrainRate<Number>{this->value * number};
   }
 
   constexpr Strain<Number> operator*(const Time<Number>& time) const {
@@ -177,7 +177,7 @@ public:
   }
 
   constexpr StrainRate<Number> operator/(const Number number) const {
-    return StrainRate<Number>{value / number};
+    return StrainRate<Number>{this->value / number};
   }
 
   constexpr Strain<Number> operator/(const Frequency<Number>& frequency) const {
@@ -185,19 +185,19 @@ public:
   }
 
   constexpr void operator+=(const StrainRate<Number>& strain_rate) noexcept {
-    value += strain_rate.value;
+    this->value += strain_rate.value;
   }
 
   constexpr void operator-=(const StrainRate<Number>& strain_rate) noexcept {
-    value -= strain_rate.value;
+    this->value -= strain_rate.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

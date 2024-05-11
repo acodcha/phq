@@ -112,7 +112,7 @@ TEST(ScalarHeatFlux, Create) {
 }
 
 TEST(ScalarHeatFlux, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarHeatFlux{});
+  EXPECT_NO_THROW(ScalarHeatFlux<>{});
 }
 
 TEST(ScalarHeatFlux, Dimensions) {
@@ -179,7 +179,7 @@ TEST(ScalarHeatFlux, SetValue) {
 }
 
 TEST(ScalarHeatFlux, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarHeatFlux{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarHeatFlux<>{}), sizeof(double));
 }
 
 TEST(ScalarHeatFlux, StandardConstructor) {

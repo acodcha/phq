@@ -84,7 +84,7 @@ public:
   // Copy constructor. Constructs a strain tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr Strain(const Strain<OtherNumber>& other)
-    : value(static_cast<SymmetricDyad<Number>>(other.Value())) {}
+    : Strain(static_cast<SymmetricDyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a strain tensor by moving another one.
   constexpr Strain(Strain<Number>&& other) noexcept = default;
@@ -95,7 +95,7 @@ public:
   // Copy assignment operator. Assigns this strain tensor by copying another one.
   template <typename OtherNumber>
   constexpr Strain<Number>& operator=(const Strain<OtherNumber>& other) {
-    value = static_cast<SymmetricDyad<Number>>(other.Value());
+    this->value = static_cast<SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 
@@ -109,83 +109,83 @@ public:
 
   // Returns the xx Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> xx() const noexcept {
-    return ScalarStrain<Number>{value.xx()};
+    return ScalarStrain<Number>{this->value.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> xy() const noexcept {
-    return ScalarStrain<Number>{value.xy()};
+    return ScalarStrain<Number>{this->value.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> xz() const noexcept {
-    return ScalarStrain<Number>{value.xz()};
+    return ScalarStrain<Number>{this->value.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> yx() const noexcept {
-    return ScalarStrain<Number>{value.yx()};
+    return ScalarStrain<Number>{this->value.yx()};
   }
 
   // Returns the yy Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> yy() const noexcept {
-    return ScalarStrain<Number>{value.yy()};
+    return ScalarStrain<Number>{this->value.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> yz() const noexcept {
-    return ScalarStrain<Number>{value.yz()};
+    return ScalarStrain<Number>{this->value.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> zx() const noexcept {
-    return ScalarStrain<Number>{value.zx()};
+    return ScalarStrain<Number>{this->value.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> zy() const noexcept {
-    return ScalarStrain<Number>{value.zy()};
+    return ScalarStrain<Number>{this->value.zy()};
   }
 
   // Returns the zz Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> zz() const noexcept {
-    return ScalarStrain<Number>{value.zz()};
+    return ScalarStrain<Number>{this->value.zz()};
   }
 
   constexpr Strain<Number> operator+(const Strain<Number>& strain) const {
-    return Strain<Number>{value + strain.value};
+    return Strain<Number>{this->value + strain.value};
   }
 
   constexpr Strain<Number> operator-(const Strain<Number>& strain) const {
-    return Strain<Number>{value - strain.value};
+    return Strain<Number>{this->value - strain.value};
   }
 
   constexpr Strain<Number> operator*(const Number number) const {
-    return Strain<Number>{value * number};
+    return Strain<Number>{this->value * number};
   }
 
   constexpr StrainRate<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr Strain<Number> operator/(const Number number) const {
-    return Strain<Number>{value / number};
+    return Strain<Number>{this->value / number};
   }
 
   constexpr StrainRate<Number> operator/(const Time<Number>& time) const;
 
   constexpr void operator+=(const Strain<Number>& strain) noexcept {
-    value += strain.value;
+    this->value += strain.value;
   }
 
   constexpr void operator-=(const Strain<Number>& strain) noexcept {
-    value -= strain.value;
+    this->value -= strain.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

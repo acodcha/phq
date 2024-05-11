@@ -100,7 +100,7 @@ TEST(ScalarForce, Create) {
 }
 
 TEST(ScalarForce, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarForce{});
+  EXPECT_NO_THROW(ScalarForce<>{});
 }
 
 TEST(ScalarForce, Dimensions) {
@@ -157,7 +157,7 @@ TEST(ScalarForce, SetValue) {
 }
 
 TEST(ScalarForce, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarForce{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarForce<>{}), sizeof(double));
 }
 
 TEST(ScalarForce, StandardConstructor) {

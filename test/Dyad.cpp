@@ -439,7 +439,7 @@ TEST(Dyad, Hash) {
     constexpr Dyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
     constexpr Dyad second{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.000001F};
     constexpr Dyad third{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, 6.0F, 7.0F, -8.0F, 9.0F};
-    constexpr std::hash<Dyad<float><>> hash;
+    constexpr std::hash<Dyad<float>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -448,7 +448,7 @@ TEST(Dyad, Hash) {
     constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.000001};
     constexpr Dyad third{1.0, -2.0, 3.0, -4.0, 5.0, 6.0, 7.0, -8.0, 9.0};
-    constexpr std::hash<Dyad<><>> hash;
+    constexpr std::hash<Dyad<>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -457,7 +457,7 @@ TEST(Dyad, Hash) {
     constexpr Dyad first{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
     constexpr Dyad second{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.000001L};
     constexpr Dyad third{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, 6.0L, 7.0L, -8.0L, 9.0L};
-    constexpr std::hash<Dyad<long double><>> hash;
+    constexpr std::hash<Dyad<long double>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -898,11 +898,10 @@ TEST(Dyad, YAML) {
 }
 
 TEST(Dyad, Zero) {
-  EXPECT_EQ(Dyad<><>::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(Dyad<float><>::Zero(), Dyad(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-  EXPECT_EQ(Dyad<double><>::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(
-      Dyad<long double><>::Zero(), Dyad(0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L));
+  EXPECT_EQ(Dyad<>::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Dyad<float>::Zero(), Dyad(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+  EXPECT_EQ(Dyad<double>::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Dyad<long double>::Zero(), Dyad(0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L));
 }
 
 }  // namespace

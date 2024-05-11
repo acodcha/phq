@@ -104,7 +104,7 @@ TEST(ShearModulus, Create) {
 }
 
 TEST(ShearModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(ShearModulus{});
+  EXPECT_NO_THROW(ShearModulus<>{});
 }
 
 TEST(ShearModulus, Dimensions) {
@@ -161,7 +161,7 @@ TEST(ShearModulus, SetValue) {
 }
 
 TEST(ShearModulus, SizeOf) {
-  EXPECT_EQ(sizeof(ShearModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(ShearModulus<>{}), sizeof(double));
 }
 
 TEST(ShearModulus, StandardConstructor) {

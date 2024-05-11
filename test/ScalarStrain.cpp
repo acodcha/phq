@@ -94,7 +94,7 @@ TEST(ScalarStrain, CopyConstructor) {
 }
 
 TEST(ScalarStrain, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarStrain{});
+  EXPECT_NO_THROW(ScalarStrain<>{});
 }
 
 TEST(ScalarStrain, Dimensions) {
@@ -162,7 +162,7 @@ TEST(ScalarStrain, SetValue) {
 }
 
 TEST(ScalarStrain, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarStrain{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarStrain<>{}), sizeof(double));
 }
 
 TEST(ScalarStrain, StandardConstructor) {

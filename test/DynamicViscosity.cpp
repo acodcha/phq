@@ -124,7 +124,7 @@ TEST(DynamicViscosity, Create) {
 }
 
 TEST(DynamicViscosity, DefaultConstructor) {
-  EXPECT_NO_THROW(DynamicViscosity{});
+  EXPECT_NO_THROW(DynamicViscosity<>{});
 }
 
 TEST(DynamicViscosity, Dimensions) {
@@ -196,7 +196,7 @@ TEST(DynamicViscosity, SetValue) {
 }
 
 TEST(DynamicViscosity, SizeOf) {
-  EXPECT_EQ(sizeof(DynamicViscosity{}), sizeof(double));
+  EXPECT_EQ(sizeof(DynamicViscosity<>{}), sizeof(double));
 }
 
 TEST(DynamicViscosity, StandardConstructor) {

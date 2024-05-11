@@ -94,7 +94,7 @@ TEST(HeatCapacityRatio, CopyConstructor) {
 }
 
 TEST(HeatCapacityRatio, DefaultConstructor) {
-  EXPECT_NO_THROW(HeatCapacityRatio{});
+  EXPECT_NO_THROW(HeatCapacityRatio<>{});
 }
 
 TEST(HeatCapacityRatio, Dimensions) {
@@ -162,7 +162,7 @@ TEST(HeatCapacityRatio, SetValue) {
 }
 
 TEST(HeatCapacityRatio, SizeOf) {
-  EXPECT_EQ(sizeof(HeatCapacityRatio{}), sizeof(double));
+  EXPECT_EQ(sizeof(HeatCapacityRatio<>{}), sizeof(double));
 }
 
 TEST(HeatCapacityRatio, StandardConstructor) {

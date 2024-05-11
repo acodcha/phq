@@ -139,7 +139,7 @@ TEST(StrainRate, Create) {
 }
 
 TEST(StrainRate, DefaultConstructor) {
-  EXPECT_NO_THROW(StrainRate{});
+  EXPECT_NO_THROW(StrainRate<>{});
 }
 
 TEST(StrainRate, Dimensions) {
@@ -222,7 +222,7 @@ TEST(StrainRate, SetValue) {
 }
 
 TEST(StrainRate, SizeOf) {
-  EXPECT_EQ(sizeof(StrainRate{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(StrainRate<>{}), 6 * sizeof(double));
 }
 
 TEST(StrainRate, StandardConstructor) {

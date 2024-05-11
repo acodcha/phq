@@ -104,7 +104,7 @@ TEST(Frequency, Create) {
 }
 
 TEST(Frequency, DefaultConstructor) {
-  EXPECT_NO_THROW(Frequency{});
+  EXPECT_NO_THROW(Frequency<>{});
 }
 
 TEST(Frequency, Dimensions) {
@@ -170,7 +170,7 @@ TEST(Frequency, SetValue) {
 }
 
 TEST(Frequency, SizeOf) {
-  EXPECT_EQ(sizeof(Frequency{}), sizeof(double));
+  EXPECT_EQ(sizeof(Frequency<>{}), sizeof(double));
 }
 
 TEST(Frequency, StandardConstructor) {

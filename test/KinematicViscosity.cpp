@@ -108,7 +108,7 @@ TEST(KinematicViscosity, Create) {
 }
 
 TEST(KinematicViscosity, DefaultConstructor) {
-  EXPECT_NO_THROW(KinematicViscosity{});
+  EXPECT_NO_THROW(KinematicViscosity<>{});
 }
 
 TEST(KinematicViscosity, Dimensions) {
@@ -168,7 +168,7 @@ TEST(KinematicViscosity, SetValue) {
 }
 
 TEST(KinematicViscosity, SizeOf) {
-  EXPECT_EQ(sizeof(KinematicViscosity{}), sizeof(double));
+  EXPECT_EQ(sizeof(KinematicViscosity<>{}), sizeof(double));
 }
 
 TEST(KinematicViscosity, StandardConstructor) {

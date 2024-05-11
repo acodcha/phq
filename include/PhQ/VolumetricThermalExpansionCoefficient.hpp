@@ -50,7 +50,7 @@ public:
   template <typename OtherNumber>
   explicit constexpr VolumetricThermalExpansionCoefficient(
       const VolumetricThermalExpansionCoefficient<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : VolumetricThermalExpansionCoefficient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a volumetric thermal expansion coefficient by moving another one.
   constexpr VolumetricThermalExpansionCoefficient(
@@ -66,7 +66,7 @@ public:
   template <typename OtherNumber>
   constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
       const VolumetricThermalExpansionCoefficient<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -92,50 +92,50 @@ public:
       const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
       const {
     return VolumetricThermalExpansionCoefficient<Number>{
-        value + volumetric_thermal_expansion_coefficient.value};
+        this->value + volumetric_thermal_expansion_coefficient.value};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<Number> operator-(
       const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
       const {
     return VolumetricThermalExpansionCoefficient<Number>{
-        value - volumetric_thermal_expansion_coefficient.value};
+        this->value - volumetric_thermal_expansion_coefficient.value};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<Number> operator*(const Number number) const {
-    return VolumetricThermalExpansionCoefficient<Number>{value * number};
+    return VolumetricThermalExpansionCoefficient<Number>{this->value * number};
   }
 
   constexpr Number operator*(const TemperatureDifference<Number>& temperature_difference) const {
-    return value * temperature_difference.Value();
+    return this->value * temperature_difference.Value();
   }
 
   constexpr VolumetricThermalExpansionCoefficient<Number> operator/(const Number number) const {
-    return VolumetricThermalExpansionCoefficient<Number>{value / number};
+    return VolumetricThermalExpansionCoefficient<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
       const noexcept {
-    return value / volumetric_thermal_expansion_coefficient.value;
+    return this->value / volumetric_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator+=(const VolumetricThermalExpansionCoefficient<Number>&
                                 volumetric_thermal_expansion_coefficient) noexcept {
-    value += volumetric_thermal_expansion_coefficient.value;
+    this->value += volumetric_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator-=(const VolumetricThermalExpansionCoefficient<Number>&
                                 volumetric_thermal_expansion_coefficient) noexcept {
-    value -= volumetric_thermal_expansion_coefficient.value;
+    this->value -= volumetric_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

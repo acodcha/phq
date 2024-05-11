@@ -60,7 +60,7 @@ public:
   // Copy constructor. Constructs a Reynolds number by copying another one.
   template <typename OtherNumber>
   explicit constexpr ReynoldsNumber(const ReynoldsNumber<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ReynoldsNumber(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Reynolds number by moving another one.
   constexpr ReynoldsNumber(ReynoldsNumber<Number>&& other) noexcept = default;
@@ -71,7 +71,7 @@ public:
   // Copy assignment operator. Assigns this Reynolds number by copying another one.
   template <typename OtherNumber>
   constexpr LengtReynoldsNumberh<Number>& operator=(const ReynoldsNumber<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -125,39 +125,39 @@ public:
   }
 
   constexpr ReynoldsNumber<Number> operator+(const ReynoldsNumber<Number>& reynolds_number) const {
-    return ReynoldsNumber<Number>{value + reynolds_number.value};
+    return ReynoldsNumber<Number>{this->value + reynolds_number.value};
   }
 
   constexpr ReynoldsNumber<Number> operator-(const ReynoldsNumber<Number>& reynolds_number) const {
-    return ReynoldsNumber<Number>{value - reynolds_number.value};
+    return ReynoldsNumber<Number>{this->value - reynolds_number.value};
   }
 
   constexpr ReynoldsNumber<Number> operator*(const Number number) const {
-    return ReynoldsNumber<Number>{value * number};
+    return ReynoldsNumber<Number>{this->value * number};
   }
 
   constexpr ReynoldsNumber<Number> operator/(const Number number) const {
-    return ReynoldsNumber<Number>{value / number};
+    return ReynoldsNumber<Number>{this->value / number};
   }
 
   constexpr Number operator/(const ReynoldsNumber<Number>& reynolds_number) const noexcept {
-    return value / reynolds_number.value;
+    return this->value / reynolds_number.value;
   }
 
   constexpr void operator+=(const ReynoldsNumber<Number>& reynolds_number) noexcept {
-    value += reynolds_number.value;
+    this->value += reynolds_number.value;
   }
 
   constexpr void operator-=(const ReynoldsNumber<Number>& reynolds_number) noexcept {
-    value -= reynolds_number.value;
+    this->value -= reynolds_number.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 };
 

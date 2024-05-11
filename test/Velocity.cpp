@@ -144,7 +144,7 @@ TEST(Velocity, Create) {
 }
 
 TEST(Velocity, DefaultConstructor) {
-  EXPECT_NO_THROW(Velocity{});
+  EXPECT_NO_THROW(Velocity<>{});
 }
 
 TEST(Velocity, Dimensions) {
@@ -230,7 +230,7 @@ TEST(Velocity, SetValue) {
 }
 
 TEST(Velocity, SizeOf) {
-  EXPECT_EQ(sizeof(Velocity{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Velocity<>{}), 3 * sizeof(double));
 }
 
 TEST(Velocity, StandardConstructor) {

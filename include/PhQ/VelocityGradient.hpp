@@ -64,7 +64,7 @@ public:
   // Copy constructor. Constructs a velocity gradient tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr VelocityGradient(const VelocityGradient<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : VelocityGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a velocity gradient tensor by moving another one.
   constexpr VelocityGradient(VelocityGradient<Number>&& other) noexcept = default;
@@ -75,7 +75,7 @@ public:
   // Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
   template <typename OtherNumber>
   constexpr VelocityGradient<Number>& operator=(const VelocityGradient<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -119,47 +119,47 @@ public:
 
   // Returns the xx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> xx() const noexcept {
-    return ScalarVelocityGradient<Number>{value.xx()};
+    return ScalarVelocityGradient<Number>{this->value.xx()};
   }
 
   // Returns the xy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> xy() const noexcept {
-    return ScalarVelocityGradient<Number>{value.xy()};
+    return ScalarVelocityGradient<Number>{this->value.xy()};
   }
 
   // Returns the xz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> xz() const noexcept {
-    return ScalarVelocityGradient<Number>{value.xz()};
+    return ScalarVelocityGradient<Number>{this->value.xz()};
   }
 
   // Returns the yx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> yx() const noexcept {
-    return ScalarVelocityGradient<Number>{value.yx()};
+    return ScalarVelocityGradient<Number>{this->value.yx()};
   }
 
   // Returns the yy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> yy() const noexcept {
-    return ScalarVelocityGradient<Number>{value.yy()};
+    return ScalarVelocityGradient<Number>{this->value.yy()};
   }
 
   // Returns the yz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> yz() const noexcept {
-    return ScalarVelocityGradient<Number>{value.yz()};
+    return ScalarVelocityGradient<Number>{this->value.yz()};
   }
 
   // Returns the zx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> zx() const noexcept {
-    return ScalarVelocityGradient<Number>{value.zx()};
+    return ScalarVelocityGradient<Number>{this->value.zx()};
   }
 
   // Returns the zy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> zy() const noexcept {
-    return ScalarVelocityGradient<Number>{value.zy()};
+    return ScalarVelocityGradient<Number>{this->value.zy()};
   }
 
   // Returns the zz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> zz() const noexcept {
-    return ScalarVelocityGradient<Number>{value.zz()};
+    return ScalarVelocityGradient<Number>{this->value.zz()};
   }
 
   // Creates a strain rate tensor from this velocity gradient tensor using the definition of the
@@ -170,16 +170,16 @@ public:
 
   constexpr VelocityGradient<Number> operator+(
       const VelocityGradient<Number>& velocity_gradient) const {
-    return VelocityGradient<Number>{value + velocity_gradient.value};
+    return VelocityGradient<Number>{this->value + velocity_gradient.value};
   }
 
   constexpr VelocityGradient<Number> operator-(
       const VelocityGradient<Number>& velocity_gradient) const {
-    return VelocityGradient<Number>{value - velocity_gradient.value};
+    return VelocityGradient<Number>{this->value - velocity_gradient.value};
   }
 
   constexpr VelocityGradient<Number> operator*(const Number number) const {
-    return VelocityGradient<Number>{value * number};
+    return VelocityGradient<Number>{this->value * number};
   }
 
   constexpr DisplacementGradient<Number> operator*(const Time<Number>& time) const {
@@ -187,7 +187,7 @@ public:
   }
 
   constexpr VelocityGradient<Number> operator/(const Number number) const {
-    return VelocityGradient<Number>{value / number};
+    return VelocityGradient<Number>{this->value / number};
   }
 
   constexpr DisplacementGradient<Number> operator/(const Frequency<Number>& frequency) const {
@@ -195,19 +195,19 @@ public:
   }
 
   constexpr void operator+=(const VelocityGradient<Number>& velocity_gradient) noexcept {
-    value += velocity_gradient.value;
+    this->value += velocity_gradient.value;
   }
 
   constexpr void operator-=(const VelocityGradient<Number>& velocity_gradient) noexcept {
-    value -= velocity_gradient.value;
+    this->value -= velocity_gradient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

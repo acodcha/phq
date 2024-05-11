@@ -170,7 +170,7 @@ TEST(SpecificIsobaricHeatCapacity, Create) {
 }
 
 TEST(SpecificIsobaricHeatCapacity, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificIsobaricHeatCapacity{});
+  EXPECT_NO_THROW(SpecificIsobaricHeatCapacity<>{});
 }
 
 TEST(SpecificIsobaricHeatCapacity, Dimensions) {
@@ -270,7 +270,7 @@ TEST(SpecificIsobaricHeatCapacity, SetValue) {
 }
 
 TEST(SpecificIsobaricHeatCapacity, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificIsobaricHeatCapacity{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificIsobaricHeatCapacity<>{}), sizeof(double));
 }
 
 TEST(SpecificIsobaricHeatCapacity, StandardConstructor) {

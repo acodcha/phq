@@ -59,7 +59,7 @@ public:
   // Copy constructor. Constructs a scalar strain rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarStrainRate(const ScalarStrainRate<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarStrainRate(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar strain rate by moving another one.
   constexpr ScalarStrainRate(ScalarStrainRate<Number>&& other) noexcept = default;
@@ -70,7 +70,7 @@ public:
   // Copy assignment operator. Assigns this scalar strain rate by copying another one.
   template <typename OtherNumber>
   constexpr ScalarStrainRate<Number>& operator=(const ScalarStrainRate<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -91,19 +91,19 @@ public:
   }
 
   constexpr ScalarStrainRate<Number> operator+(const ScalarStrainRate<Number>& other) const {
-    return ScalarStrainRate<Number>{value + other.value};
+    return ScalarStrainRate<Number>{this->value + other.value};
   }
 
   constexpr ScalarStrainRate<Number> operator-(const ScalarStrainRate<Number>& other) const {
-    return ScalarStrainRate<Number>{value - other.value};
+    return ScalarStrainRate<Number>{this->value - other.value};
   }
 
   constexpr ScalarStrainRate<Number> operator*(const Number number) const {
-    return ScalarStrainRate<Number>{value * number};
+    return ScalarStrainRate<Number>{this->value * number};
   }
 
   constexpr ScalarStrainRate<Number> operator/(const Number number) const {
-    return ScalarStrainRate<Number>{value / number};
+    return ScalarStrainRate<Number>{this->value / number};
   }
 
   constexpr ScalarStrain<Number> operator*(const Time<Number>& time) const {
@@ -111,7 +111,7 @@ public:
   }
 
   constexpr Number operator/(const ScalarStrainRate<Number>& other) const noexcept {
-    return value / other.value;
+    return this->value / other.value;
   }
 
   constexpr ScalarStrain<Number> operator/(const Frequency<Number>& frequency) const {
@@ -119,19 +119,19 @@ public:
   }
 
   constexpr void operator+=(const ScalarStrainRate<Number>& other) noexcept {
-    value += other.value;
+    this->value += other.value;
   }
 
   constexpr void operator-=(const ScalarStrainRate<Number>& other) noexcept {
-    value -= other.value;
+    this->value -= other.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:
@@ -140,6 +140,7 @@ private:
   explicit constexpr ScalarStrainRate(const Number value)
     : DimensionalScalar<Unit::Frequency, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class StrainRate;
 };
 

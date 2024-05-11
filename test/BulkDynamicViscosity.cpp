@@ -115,7 +115,7 @@ TEST(BulkDynamicViscosity, Create) {
 }
 
 TEST(BulkDynamicViscosity, DefaultConstructor) {
-  EXPECT_NO_THROW(BulkDynamicViscosity{});
+  EXPECT_NO_THROW(BulkDynamicViscosity<>{});
 }
 
 TEST(BulkDynamicViscosity, Dimensions) {
@@ -175,7 +175,7 @@ TEST(BulkDynamicViscosity, SetValue) {
 }
 
 TEST(BulkDynamicViscosity, SizeOf) {
-  EXPECT_EQ(sizeof(BulkDynamicViscosity{}), sizeof(double));
+  EXPECT_EQ(sizeof(BulkDynamicViscosity<>{}), sizeof(double));
 }
 
 TEST(BulkDynamicViscosity, StandardConstructor) {

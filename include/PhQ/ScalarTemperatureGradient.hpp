@@ -61,7 +61,7 @@ public:
   // Copy constructor. Constructs a scalar temperature gradient by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarTemperatureGradient(const ScalarTemperatureGradient<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarTemperatureGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar temperature gradient by moving another one.
   constexpr ScalarTemperatureGradient(ScalarTemperatureGradient<Number>&& other) noexcept = default;
@@ -74,7 +74,7 @@ public:
   template <typename OtherNumber>
   constexpr ScalarTemperatureGradient<Number>& operator=(
       const ScalarTemperatureGradient<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -98,16 +98,16 @@ public:
 
   constexpr ScalarTemperatureGradient<Number> operator+(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
-    return ScalarTemperatureGradient<Number>{value + scalar_temperature_gradient.value};
+    return ScalarTemperatureGradient<Number>{this->value + scalar_temperature_gradient.value};
   }
 
   constexpr ScalarTemperatureGradient<Number> operator-(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
-    return ScalarTemperatureGradient<Number>{value - scalar_temperature_gradient.value};
+    return ScalarTemperatureGradient<Number>{this->value - scalar_temperature_gradient.value};
   }
 
   constexpr ScalarTemperatureGradient<Number> operator*(const Number number) const {
-    return ScalarTemperatureGradient<Number>{value * number};
+    return ScalarTemperatureGradient<Number>{this->value * number};
   }
 
   constexpr TemperatureDifference<Number> operator*(const Length<Number>& length) const {
@@ -117,30 +117,30 @@ public:
   constexpr TemperatureGradient<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarTemperatureGradient<Number> operator/(const Number number) const {
-    return ScalarTemperatureGradient<Number>{value / number};
+    return ScalarTemperatureGradient<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const noexcept {
-    return value / scalar_temperature_gradient.value;
+    return this->value / scalar_temperature_gradient.value;
   }
 
   constexpr void operator+=(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) noexcept {
-    value += scalar_temperature_gradient.value;
+    this->value += scalar_temperature_gradient.value;
   }
 
   constexpr void operator-=(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) noexcept {
-    value -= scalar_temperature_gradient.value;
+    this->value -= scalar_temperature_gradient.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

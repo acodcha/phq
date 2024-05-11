@@ -114,7 +114,7 @@ TEST(ThermalDiffusivity, Create) {
 }
 
 TEST(ThermalDiffusivity, DefaultConstructor) {
-  EXPECT_NO_THROW(ThermalDiffusivity{});
+  EXPECT_NO_THROW(ThermalDiffusivity<>{});
 }
 
 TEST(ThermalDiffusivity, Dimensions) {
@@ -201,7 +201,7 @@ TEST(ThermalDiffusivity, SetValue) {
 }
 
 TEST(ThermalDiffusivity, SizeOf) {
-  EXPECT_EQ(sizeof(ThermalDiffusivity{}), sizeof(double));
+  EXPECT_EQ(sizeof(ThermalDiffusivity<>{}), sizeof(double));
 }
 
 TEST(ThermalDiffusivity, StandardConstructor) {

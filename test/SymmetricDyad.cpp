@@ -445,7 +445,7 @@ TEST(SymmetricDyad, Hash) {
     constexpr SymmetricDyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
     constexpr SymmetricDyad second{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.000001F};
     constexpr SymmetricDyad third{1.0F, -2.0F, 3.0F, 4.0F, 5.0F, -6.0F};
-    constexpr std::hash<SymmetricDyad<float><>> hasher;
+    constexpr std::hash<SymmetricDyad<float>> hasher;
     EXPECT_NE(hasher(first), hasher(second));
     EXPECT_NE(hasher(first), hasher(third));
     EXPECT_NE(hasher(second), hasher(third));
@@ -454,7 +454,7 @@ TEST(SymmetricDyad, Hash) {
     constexpr SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     constexpr SymmetricDyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.000001};
     constexpr SymmetricDyad third{1.0, -2.0, 3.0, 4.0, 5.0, -6.0};
-    constexpr std::hash<SymmetricDyad<><>> hasher;
+    constexpr std::hash<SymmetricDyad<>> hasher;
     EXPECT_NE(hasher(first), hasher(second));
     EXPECT_NE(hasher(first), hasher(third));
     EXPECT_NE(hasher(second), hasher(third));
@@ -463,7 +463,7 @@ TEST(SymmetricDyad, Hash) {
     constexpr SymmetricDyad first{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L};
     constexpr SymmetricDyad second{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.000001L};
     constexpr SymmetricDyad third{1.0L, -2.0L, 3.0L, 4.0L, 5.0L, -6.0L};
-    constexpr std::hash<SymmetricDyad<long double><>> hasher;
+    constexpr std::hash<SymmetricDyad<long double>> hasher;
     EXPECT_NE(hasher(first), hasher(second));
     EXPECT_NE(hasher(first), hasher(third));
     EXPECT_NE(hasher(second), hasher(third));
@@ -864,11 +864,10 @@ TEST(SymmetricDyad, YAML) {
 }
 
 TEST(SymmetricDyad, Zero) {
-  EXPECT_EQ(SymmetricDyad<><>::Zero(), SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(SymmetricDyad<float><>::Zero(), SymmetricDyad(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-  EXPECT_EQ(SymmetricDyad<double><>::Zero(), SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(
-      SymmetricDyad<long double><>::Zero(), SymmetricDyad(0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L));
+  EXPECT_EQ(SymmetricDyad<>::Zero(), SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(SymmetricDyad<float>::Zero(), SymmetricDyad(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+  EXPECT_EQ(SymmetricDyad<double>::Zero(), SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(SymmetricDyad<long double>::Zero(), SymmetricDyad(0.0L, 0.0L, 0.0L, 0.0L, 0.0L, 0.0L));
 }
 
 }  // namespace

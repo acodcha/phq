@@ -117,7 +117,7 @@ TEST(StaticPressure, Create) {
 }
 
 TEST(StaticPressure, DefaultConstructor) {
-  EXPECT_NO_THROW(StaticPressure{});
+  EXPECT_NO_THROW(StaticPressure<>{});
 }
 
 TEST(StaticPressure, Dimensions) {
@@ -186,7 +186,7 @@ TEST(StaticPressure, SetValue) {
 }
 
 TEST(StaticPressure, SizeOf) {
-  EXPECT_EQ(sizeof(StaticPressure{}), sizeof(double));
+  EXPECT_EQ(sizeof(StaticPressure<>{}), sizeof(double));
 }
 
 TEST(StaticPressure, StandardConstructor) {

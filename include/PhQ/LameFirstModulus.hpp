@@ -45,7 +45,7 @@ public:
   // Copy constructor. Constructs a Lamé's first modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr LameFirstModulus(const LameFirstModulus<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : LameFirstModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Lamé's first modulus by moving another one.
   constexpr LameFirstModulus(LameFirstModulus<Number>&& other) noexcept = default;
@@ -56,7 +56,7 @@ public:
   // Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
   template <typename OtherNumber>
   constexpr LameFirstModulus<Number>& operator=(const LameFirstModulus<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -79,40 +79,40 @@ public:
 
   constexpr LameFirstModulus<Number> operator+(
       const LameFirstModulus<Number>& lame_first_modulus) const {
-    return LameFirstModulus<Number>{value + lame_first_modulus.value};
+    return LameFirstModulus<Number>{this->value + lame_first_modulus.value};
   }
 
   constexpr LameFirstModulus<Number> operator-(
       const LameFirstModulus<Number>& lame_first_modulus) const {
-    return LameFirstModulus<Number>{value - lame_first_modulus.value};
+    return LameFirstModulus<Number>{this->value - lame_first_modulus.value};
   }
 
   constexpr LameFirstModulus<Number> operator*(const Number number) const {
-    return LameFirstModulus<Number>{value * number};
+    return LameFirstModulus<Number>{this->value * number};
   }
 
   constexpr LameFirstModulus<Number> operator/(const Number number) const {
-    return LameFirstModulus<Number>{value / number};
+    return LameFirstModulus<Number>{this->value / number};
   }
 
   constexpr Number operator/(const LameFirstModulus<Number>& lame_first_modulus) const noexcept {
-    return value / lame_first_modulus.value;
+    return this->value / lame_first_modulus.value;
   }
 
   constexpr void operator+=(const LameFirstModulus<Number>& lame_first_modulus) noexcept {
-    value += lame_first_modulus.value;
+    this->value += lame_first_modulus.value;
   }
 
   constexpr void operator-=(const LameFirstModulus<Number>& lame_first_modulus) noexcept {
-    value -= lame_first_modulus.value;
+    this->value -= lame_first_modulus.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

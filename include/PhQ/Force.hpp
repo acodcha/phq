@@ -60,7 +60,7 @@ public:
   // Copy constructor. Constructs a force vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Force(const Force<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Force(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a force vector by moving another one.
   constexpr Force(Force<Number>&& other) noexcept = default;
@@ -71,7 +71,7 @@ public:
   // Copy assignment operator. Assigns this force vector by copying another one.
   template <typename OtherNumber>
   constexpr Force<Number>& operator=(const Force<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -107,27 +107,27 @@ public:
 
   // Returns the x Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce<Number> x() const noexcept {
-    return ScalarForce<Number>{value.x()};
+    return ScalarForce<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce<Number> y() const noexcept {
-    return ScalarForce<Number>{value.y()};
+    return ScalarForce<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce<Number> z() const noexcept {
-    return ScalarForce<Number>{value.z()};
+    return ScalarForce<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this force vector.
   [[nodiscard]] ScalarForce<Number> Magnitude() const {
-    return ScalarForce<Number>{value.Magnitude()};
+    return ScalarForce<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this force vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this force vector and another one.
@@ -136,37 +136,37 @@ public:
   }
 
   constexpr Force<Number> operator+(const Force<Number>& force) const {
-    return Force<Number>{value + force.value};
+    return Force<Number>{this->value + force.value};
   }
 
   constexpr Force<Number> operator-(const Force<Number>& force) const {
-    return Force<Number>{value - force.value};
+    return Force<Number>{this->value - force.value};
   }
 
   constexpr Force<Number> operator*(const Number number) const {
-    return Force<Number>{value * number};
+    return Force<Number>{this->value * number};
   }
 
   constexpr Force<Number> operator/(const Number number) const {
-    return Force<Number>{value / number};
+    return Force<Number>{this->value / number};
   }
 
   constexpr Traction<Number> operator/(const Area<Number>& area) const;
 
   constexpr void operator+=(const Force<Number>& force) noexcept {
-    value += force.value;
+    this->value += force.value;
   }
 
   constexpr void operator-=(const Force<Number>& force) noexcept {
-    value -= force.value;
+    this->value -= force.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

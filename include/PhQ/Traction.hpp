@@ -66,7 +66,7 @@ public:
   // Copy constructor. Constructs a traction vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Traction(const Traction<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Traction(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a traction vector by moving another one.
   constexpr Traction(Traction<Number>&& other) noexcept = default;
@@ -77,7 +77,7 @@ public:
   // Copy assignment operator. Assigns this traction vector by copying another one.
   template <typename OtherNumber>
   constexpr Traction<Number>& operator=(const Traction<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -114,28 +114,28 @@ public:
 
   // Returns the x Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure<Number> x() const noexcept {
-    return StaticPressure<Number>{value.x()};
+    return StaticPressure<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure<Number> y() const noexcept {
-    return StaticPressure<Number>{value.y()};
+    return StaticPressure<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure<Number> z() const noexcept {
-    return StaticPressure<Number>{value.z()};
+    return StaticPressure<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this traction vector. Since pressure is compressive, the static
   // pressure that corresponds to the magnitude of this traction vector is negative.
   [[nodiscard]] StaticPressure<Number> Magnitude() const {
-    return StaticPressure<Number>{-value.Magnitude()};
+    return StaticPressure<Number>{-this->value.Magnitude()};
   }
 
   // Returns the direction of this traction vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this traction vector and another one.
@@ -144,15 +144,15 @@ public:
   }
 
   constexpr Traction<Number> operator+(const Traction<Number>& traction) const {
-    return Traction<Number>{value + traction.value};
+    return Traction<Number>{this->value + traction.value};
   }
 
   constexpr Traction<Number> operator-(const Traction<Number>& traction) const {
-    return Traction<Number>{value - traction.value};
+    return Traction<Number>{this->value - traction.value};
   }
 
   constexpr Traction<Number> operator*(const Number number) const {
-    return Traction<Number>{value * number};
+    return Traction<Number>{this->value * number};
   }
 
   constexpr Force<Number> operator*(const Area<Number>& area) const {
@@ -160,23 +160,23 @@ public:
   }
 
   constexpr Traction<Number> operator/(const Number number) const {
-    return Traction<Number>{value / number};
+    return Traction<Number>{this->value / number};
   }
 
   constexpr void operator+=(const Traction<Number>& traction) noexcept {
-    value += traction.value;
+    this->value += traction.value;
   }
 
   constexpr void operator-=(const Traction<Number>& traction) noexcept {
-    value -= traction.value;
+    this->value -= traction.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

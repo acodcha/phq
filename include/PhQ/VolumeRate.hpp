@@ -56,7 +56,7 @@ public:
   // Copy constructor. Constructs a volume rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr VolumeRate(const VolumeRate<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : VolumeRate(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a volume rate by moving another one.
   constexpr VolumeRate(VolumeRate<Number>&& other) noexcept = default;
@@ -67,7 +67,7 @@ public:
   // Copy assignment operator. Assigns this volume rate by copying another one.
   template <typename OtherNumber>
   constexpr VolumeRate<Number>& operator=(const VolumeRate<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -87,15 +87,15 @@ public:
   }
 
   constexpr VolumeRate<Number> operator+(const VolumeRate<Number>& volume_rate) const {
-    return VolumeRate<Number>{value + volume_rate.value};
+    return VolumeRate<Number>{this->value + volume_rate.value};
   }
 
   constexpr VolumeRate<Number> operator-(const VolumeRate<Number>& volume_rate) const {
-    return VolumeRate<Number>{value - volume_rate.value};
+    return VolumeRate<Number>{this->value - volume_rate.value};
   }
 
   constexpr VolumeRate<Number> operator*(const Number number) const {
-    return VolumeRate<Number>{value * number};
+    return VolumeRate<Number>{this->value * number};
   }
 
   constexpr Volume<Number> operator*(const Time<Number>& time) const {
@@ -103,7 +103,7 @@ public:
   }
 
   constexpr VolumeRate<Number> operator/(const Number number) const {
-    return VolumeRate<Number>{value / number};
+    return VolumeRate<Number>{this->value / number};
   }
 
   constexpr Volume<Number> operator/(const Frequency<Number>& frequency) const {
@@ -115,23 +115,23 @@ public:
   }
 
   constexpr Number operator/(const VolumeRate<Number>& volume_rate) const noexcept {
-    return value / volume_rate.value;
+    return this->value / volume_rate.value;
   }
 
   constexpr void operator+=(const VolumeRate<Number>& volume_rate) noexcept {
-    value += volume_rate.value;
+    this->value += volume_rate.value;
   }
 
   constexpr void operator-=(const VolumeRate<Number>& volume_rate) noexcept {
-    value -= volume_rate.value;
+    this->value -= volume_rate.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

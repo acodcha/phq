@@ -76,7 +76,7 @@ public:
   // Copy constructor. Constructs a gas constant by copying another one.
   template <typename OtherNumber>
   explicit constexpr GasConstant(const GasConstant<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : GasConstant(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a gas constant by moving another one.
   constexpr GasConstant(GasConstant<Number>&& other) noexcept = default;
@@ -87,7 +87,7 @@ public:
   // Copy assignment operator. Assigns this gas constant by copying another one.
   template <typename OtherNumber>
   constexpr GasConstant<Number>& operator=(const GasConstant<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -107,7 +107,7 @@ public:
   }
 
   constexpr GasConstant<Number> operator+(const GasConstant<Number>& gas_constant) const {
-    return GasConstant<Number>{value + gas_constant.value};
+    return GasConstant<Number>{this->value + gas_constant.value};
   }
 
   constexpr IsobaricHeatCapacity<Number> operator+(
@@ -116,15 +116,15 @@ public:
   }
 
   constexpr GasConstant<Number> operator-(const GasConstant<Number>& gas_constant) const {
-    return GasConstant<Number>{value - gas_constant.value};
+    return GasConstant<Number>{this->value - gas_constant.value};
   }
 
   constexpr GasConstant<Number> operator*(const Number number) const {
-    return GasConstant<Number>{value * number};
+    return GasConstant<Number>{this->value * number};
   }
 
   constexpr GasConstant<Number> operator/(const Number number) const {
-    return GasConstant<Number>{value / number};
+    return GasConstant<Number>{this->value / number};
   }
 
   constexpr SpecificGasConstant<Number> operator/(const Mass<Number>& mass) const;
@@ -132,23 +132,23 @@ public:
   constexpr Mass<Number> operator/(const SpecificGasConstant<Number>& specific_gas_constant) const;
 
   constexpr Number operator/(const GasConstant<Number>& gas_constant) const noexcept {
-    return value / gas_constant.value;
+    return this->value / gas_constant.value;
   }
 
   constexpr void operator+=(const GasConstant<Number>& gas_constant) noexcept {
-    value += gas_constant.value;
+    this->value += gas_constant.value;
   }
 
   constexpr void operator-=(const GasConstant<Number>& gas_constant) noexcept {
-    value -= gas_constant.value;
+    this->value -= gas_constant.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

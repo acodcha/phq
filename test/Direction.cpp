@@ -82,7 +82,7 @@ TEST(Direction, Cross) {
 }
 
 TEST(Direction, DefaultConstructor) {
-  EXPECT_EQ(Direction{}, Direction<>::Zero());
+  EXPECT_EQ(Direction<>{}, Direction<>::Zero());
 }
 
 TEST(Direction, Dimensions) {
@@ -154,7 +154,7 @@ TEST(Direction, MoveConstructor) {
 }
 
 TEST(Direction, Print) {
-  EXPECT_EQ(Direction{}.Print(), "(" + Print(0.0) + ", " + Print(0.0) + ", " + Print(0.0) + ")");
+  EXPECT_EQ(Direction<>{}.Print(), "(" + Print(0.0) + ", " + Print(0.0) + ", " + Print(0.0) + ")");
   EXPECT_EQ(Direction(0.0, -2.0, 0.0).Print(),
             "(" + Print(0.0) + ", " + Print(-1.0) + ", " + Print(0.0) + ")");
 }
@@ -178,7 +178,7 @@ TEST(Direction, Set) {
 }
 
 TEST(Direction, SizeOf) {
-  EXPECT_EQ(sizeof(Direction{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Direction<>{}), 3 * sizeof(double));
 }
 
 TEST(Direction, StandardConstructor) {

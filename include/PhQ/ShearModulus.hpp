@@ -44,7 +44,7 @@ public:
   // Copy constructor. Constructs a shear modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr ShearModulus(const ShearModulus<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ShearModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a shear modulus by moving another one.
   constexpr ShearModulus(ShearModulus<Number>&& other) noexcept = default;
@@ -55,7 +55,7 @@ public:
   // Copy assignment operator. Assigns this shear modulus by copying another one.
   template <typename OtherNumber>
   constexpr ShearModulus<Number>& operator=(const ShearModulus<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -75,39 +75,39 @@ public:
   }
 
   constexpr ShearModulus<Number> operator+(const ShearModulus<Number>& shear_modulus) const {
-    return ShearModulus<Number>{value + shear_modulus.value};
+    return ShearModulus<Number>{this->value + shear_modulus.value};
   }
 
   constexpr ShearModulus<Number> operator-(const ShearModulus<Number>& shear_modulus) const {
-    return ShearModulus<Number>{value - shear_modulus.value};
+    return ShearModulus<Number>{this->value - shear_modulus.value};
   }
 
   constexpr ShearModulus<Number> operator*(const Number number) const {
-    return ShearModulus<Number>{value * number};
+    return ShearModulus<Number>{this->value * number};
   }
 
   constexpr ShearModulus<Number> operator/(const Number number) const {
-    return ShearModulus<Number>{value / number};
+    return ShearModulus<Number>{this->value / number};
   }
 
   constexpr Number operator/(const ShearModulus<Number>& shear_modulus) const noexcept {
-    return value / shear_modulus.value;
+    return this->value / shear_modulus.value;
   }
 
   constexpr void operator+=(const ShearModulus<Number>& shear_modulus) noexcept {
-    value += shear_modulus.value;
+    this->value += shear_modulus.value;
   }
 
   constexpr void operator-=(const ShearModulus<Number>& shear_modulus) noexcept {
-    value -= shear_modulus.value;
+    this->value -= shear_modulus.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

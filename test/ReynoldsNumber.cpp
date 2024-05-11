@@ -104,7 +104,7 @@ TEST(ReynoldsNumber, CopyConstructor) {
 }
 
 TEST(ReynoldsNumber, DefaultConstructor) {
-  EXPECT_NO_THROW(ReynoldsNumber{});
+  EXPECT_NO_THROW(ReynoldsNumber<>{});
 }
 
 TEST(ReynoldsNumber, Dimensions) {
@@ -242,7 +242,7 @@ TEST(ReynoldsNumber, SetValue) {
 }
 
 TEST(ReynoldsNumber, SizeOf) {
-  EXPECT_EQ(sizeof(ReynoldsNumber{}), sizeof(double));
+  EXPECT_EQ(sizeof(ReynoldsNumber<>{}), sizeof(double));
 }
 
 TEST(ReynoldsNumber, StandardConstructor) {

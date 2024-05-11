@@ -130,7 +130,7 @@ TEST(Displacement, Create) {
 }
 
 TEST(Displacement, DefaultConstructor) {
-  EXPECT_NO_THROW(Displacement{});
+  EXPECT_NO_THROW(Displacement<>{});
 }
 
 TEST(Displacement, Dimensions) {
@@ -209,7 +209,7 @@ TEST(Displacement, SetValue) {
 }
 
 TEST(Displacement, SizeOf) {
-  EXPECT_EQ(sizeof(Displacement{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Displacement<>{}), 3 * sizeof(double));
 }
 
 TEST(Displacement, StandardConstructor) {

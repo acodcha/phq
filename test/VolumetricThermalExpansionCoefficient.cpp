@@ -124,7 +124,7 @@ TEST(VolumetricThermalExpansionCoefficient, Create) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, DefaultConstructor) {
-  EXPECT_NO_THROW(VolumetricThermalExpansionCoefficient{});
+  EXPECT_NO_THROW(VolumetricThermalExpansionCoefficient<>{});
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Dimensions) {
@@ -187,7 +187,7 @@ TEST(VolumetricThermalExpansionCoefficient, SetValue) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, SizeOf) {
-  EXPECT_EQ(sizeof(VolumetricThermalExpansionCoefficient{}), sizeof(double));
+  EXPECT_EQ(sizeof(VolumetricThermalExpansionCoefficient<>{}), sizeof(double));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, StandardConstructor) {

@@ -119,7 +119,7 @@ public:
   // Copy constructor. Constructs a mass density by copying another one.
   template <typename OtherNumber>
   explicit constexpr MassDensity(const MassDensity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : MassDensity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a mass density by moving another one.
   constexpr MassDensity(MassDensity<Number>&& other) noexcept = default;
@@ -130,7 +130,7 @@ public:
   // Copy assignment operator. Assigns this mass density by copying another one.
   template <typename OtherNumber>
   constexpr MassDensity<Number>& operator=(const MassDensity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -150,15 +150,15 @@ public:
   }
 
   constexpr MassDensity<Number> operator+(const MassDensity<Number>& mass_density) const {
-    return MassDensity<Number>{value + mass_density.value};
+    return MassDensity<Number>{this->value + mass_density.value};
   }
 
   constexpr MassDensity<Number> operator-(const MassDensity<Number>& mass_density) const {
-    return MassDensity<Number>{value - mass_density.value};
+    return MassDensity<Number>{this->value - mass_density.value};
   }
 
   constexpr MassDensity<Number> operator*(const Number number) const {
-    return MassDensity<Number>{value * number};
+    return MassDensity<Number>{this->value * number};
   }
 
   constexpr Mass<Number> operator*(const Volume<Number>& volume) const {
@@ -169,27 +169,27 @@ public:
       const KinematicViscosity<Number>& kinematic_viscosity) const;
 
   constexpr MassDensity<Number> operator/(const Number number) const {
-    return MassDensity<Number>{value / number};
+    return MassDensity<Number>{this->value / number};
   }
 
   constexpr Number operator/(const MassDensity<Number>& mass_density) const noexcept {
-    return value / mass_density.value;
+    return this->value / mass_density.value;
   }
 
   constexpr void operator+=(const MassDensity<Number>& mass_density) noexcept {
-    value += mass_density.value;
+    this->value += mass_density.value;
   }
 
   constexpr void operator-=(const MassDensity<Number>& mass_density) noexcept {
-    value -= mass_density.value;
+    this->value -= mass_density.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

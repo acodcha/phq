@@ -122,7 +122,7 @@ TEST(Power, Create) {
 }
 
 TEST(Power, DefaultConstructor) {
-  EXPECT_NO_THROW(Power{});
+  EXPECT_NO_THROW(Power<>{});
 }
 
 TEST(Power, Dimensions) {
@@ -192,7 +192,7 @@ TEST(Power, SetValue) {
 }
 
 TEST(Power, SizeOf) {
-  EXPECT_EQ(sizeof(Power{}), sizeof(double));
+  EXPECT_EQ(sizeof(Power<>{}), sizeof(double));
 }
 
 TEST(Power, StandardConstructor) {

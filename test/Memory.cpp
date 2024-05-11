@@ -100,7 +100,7 @@ TEST(Memory, Create) {
 }
 
 TEST(Memory, DefaultConstructor) {
-  EXPECT_NO_THROW(Memory{});
+  EXPECT_NO_THROW(Memory<>{});
 }
 
 TEST(Memory, Dimensions) {
@@ -155,7 +155,7 @@ TEST(Memory, SetValue) {
 }
 
 TEST(Memory, SizeOf) {
-  EXPECT_EQ(sizeof(Memory{}), sizeof(double));
+  EXPECT_EQ(sizeof(Memory<>{}), sizeof(double));
 }
 
 TEST(Memory, StandardConstructor) {

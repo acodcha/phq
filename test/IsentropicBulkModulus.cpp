@@ -108,7 +108,7 @@ TEST(IsentropicBulkModulus, Create) {
 }
 
 TEST(IsentropicBulkModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(IsentropicBulkModulus{});
+  EXPECT_NO_THROW(IsentropicBulkModulus<>{});
 }
 
 TEST(IsentropicBulkModulus, Dimensions) {
@@ -166,7 +166,7 @@ TEST(IsentropicBulkModulus, SetValue) {
 }
 
 TEST(IsentropicBulkModulus, SizeOf) {
-  EXPECT_EQ(sizeof(IsentropicBulkModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(IsentropicBulkModulus<>{}), sizeof(double));
 }
 
 TEST(IsentropicBulkModulus, StandardConstructor) {

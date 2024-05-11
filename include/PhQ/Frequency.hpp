@@ -86,7 +86,7 @@ public:
   // Copy constructor. Constructs a frequency by copying another one.
   template <typename OtherNumber>
   explicit constexpr Frequency(const Frequency<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : Frequency(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a frequency by moving another one.
   constexpr Frequency(Frequency<Number>&& other) noexcept = default;
@@ -97,7 +97,7 @@ public:
   // Copy assignment operator. Assigns this frequency by copying another one.
   template <typename OtherNumber>
   constexpr Frequency<Number>& operator=(const Frequency<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -122,23 +122,23 @@ public:
   }
 
   constexpr Frequency<Number> operator+(const Frequency<Number>& frequency) const {
-    return Frequency<Number>{value + frequency.value};
+    return Frequency<Number>{this->value + frequency.value};
   }
 
   constexpr Frequency<Number> operator-(const Frequency<Number>& frequency) const {
-    return Frequency<Number>{value - frequency.value};
+    return Frequency<Number>{this->value - frequency.value};
   }
 
   constexpr Frequency<Number> operator*(const Number number) const {
-    return Frequency<Number>{value * number};
+    return Frequency<Number>{this->value * number};
   }
 
   constexpr Frequency<Number> operator/(const Number number) const {
-    return Frequency<Number>{value / number};
+    return Frequency<Number>{this->value / number};
   }
 
   constexpr Number operator*(const Time<Number>& time) const noexcept {
-    return value * time.Value();
+    return this->value * time.Value();
   }
 
   constexpr Speed<Number> operator*(const Length<Number>& length) const;
@@ -173,23 +173,23 @@ public:
   constexpr ScalarStrainRate<Number> operator*(const ScalarStrain<Number>& scalar_strain) const;
 
   constexpr Number operator/(const Frequency<Number>& frequency) const noexcept {
-    return value / frequency.value;
+    return this->value / frequency.value;
   }
 
   constexpr void operator+=(const Frequency<Number>& frequency) noexcept {
-    value += frequency.value;
+    this->value += frequency.value;
   }
 
   constexpr void operator-=(const Frequency<Number>& frequency) noexcept {
-    value -= frequency.value;
+    this->value -= frequency.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:
@@ -259,7 +259,7 @@ inline constexpr PhQ::Frequency<Number> Time<Number>::Frequency() const {
 template <typename Number>
 inline constexpr Number Time<Number>::operator*(
     const PhQ::Frequency<Number>& frequency) const noexcept {
-  return value * frequency.Value();
+  return this->value * frequency.Value();
 }
 
 }  // namespace PhQ

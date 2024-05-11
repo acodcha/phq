@@ -126,7 +126,7 @@ TEST(MassRate, Create) {
 }
 
 TEST(MassRate, DefaultConstructor) {
-  EXPECT_NO_THROW(MassRate{});
+  EXPECT_NO_THROW(MassRate<>{});
 }
 
 TEST(MassRate, Dimensions) {
@@ -196,7 +196,7 @@ TEST(MassRate, SetValue) {
 }
 
 TEST(MassRate, SizeOf) {
-  EXPECT_EQ(sizeof(MassRate{}), sizeof(double));
+  EXPECT_EQ(sizeof(MassRate<>{}), sizeof(double));
 }
 
 TEST(MassRate, StandardConstructor) {

@@ -104,7 +104,7 @@ TEST(YoungModulus, Create) {
 }
 
 TEST(YoungModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(YoungModulus{});
+  EXPECT_NO_THROW(YoungModulus<>{});
 }
 
 TEST(YoungModulus, Dimensions) {
@@ -161,7 +161,7 @@ TEST(YoungModulus, SetValue) {
 }
 
 TEST(YoungModulus, SizeOf) {
-  EXPECT_EQ(sizeof(YoungModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(YoungModulus<>{}), sizeof(double));
 }
 
 TEST(YoungModulus, StandardConstructor) {

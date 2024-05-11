@@ -94,7 +94,7 @@ TEST(PoissonRatio, CopyConstructor) {
 }
 
 TEST(PoissonRatio, DefaultConstructor) {
-  EXPECT_NO_THROW(PoissonRatio{});
+  EXPECT_NO_THROW(PoissonRatio<>{});
 }
 
 TEST(PoissonRatio, Dimensions) {
@@ -162,7 +162,7 @@ TEST(PoissonRatio, SetValue) {
 }
 
 TEST(PoissonRatio, SizeOf) {
-  EXPECT_EQ(sizeof(PoissonRatio{}), sizeof(double));
+  EXPECT_EQ(sizeof(PoissonRatio<>{}), sizeof(double));
 }
 
 TEST(PoissonRatio, StandardConstructor) {

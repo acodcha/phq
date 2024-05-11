@@ -47,7 +47,7 @@ public:
   // Copy constructor. Constructs a scalar stress by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarStress(const ScalarStress<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ScalarStress(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar stress by moving another one.
   constexpr ScalarStress(ScalarStress<Number>&& other) noexcept = default;
@@ -58,7 +58,7 @@ public:
   // Copy assignment operator. Assigns this scalar stress by copying another one.
   template <typename OtherNumber>
   constexpr ScalarStress<Number>& operator=(const ScalarStress<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -78,39 +78,39 @@ public:
   }
 
   constexpr ScalarStress<Number> operator+(const ScalarStress<Number>& scalar_stress) const {
-    return ScalarStress<Number>{value + scalar_stress.value};
+    return ScalarStress<Number>{this->value + scalar_stress.value};
   }
 
   constexpr ScalarStress<Number> operator-(const ScalarStress<Number>& scalar_stress) const {
-    return ScalarStress<Number>{value - scalar_stress.value};
+    return ScalarStress<Number>{this->value - scalar_stress.value};
   }
 
   constexpr ScalarStress<Number> operator*(const Number number) const {
-    return ScalarStress<Number>{value * number};
+    return ScalarStress<Number>{this->value * number};
   }
 
   constexpr ScalarStress<Number> operator/(const Number number) const {
-    return ScalarStress<Number>{value / number};
+    return ScalarStress<Number>{this->value / number};
   }
 
   constexpr Number operator/(const ScalarStress<Number>& scalar_stress) const noexcept {
-    return value / scalar_stress.value;
+    return this->value / scalar_stress.value;
   }
 
   constexpr void operator+=(const ScalarStress<Number>& scalar_stress) noexcept {
-    value += scalar_stress.value;
+    this->value += scalar_stress.value;
   }
 
   constexpr void operator-=(const ScalarStress<Number>& scalar_stress) noexcept {
-    value -= scalar_stress.value;
+    this->value -= scalar_stress.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

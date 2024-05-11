@@ -125,7 +125,7 @@ TEST(ScalarVelocityGradient, Create) {
 }
 
 TEST(ScalarVelocityGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarVelocityGradient{});
+  EXPECT_NO_THROW(ScalarVelocityGradient<>{});
 }
 
 TEST(ScalarVelocityGradient, Dimensions) {
@@ -198,7 +198,7 @@ TEST(ScalarVelocityGradient, SetValue) {
 }
 
 TEST(ScalarVelocityGradient, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarVelocityGradient{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarVelocityGradient<>{}), sizeof(double));
 }
 
 TEST(ScalarVelocityGradient, StandardConstructor) {

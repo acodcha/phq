@@ -123,7 +123,7 @@ TEST(GasConstant, Create) {
 }
 
 TEST(GasConstant, DefaultConstructor) {
-  EXPECT_NO_THROW(GasConstant{});
+  EXPECT_NO_THROW(GasConstant<>{});
 }
 
 TEST(GasConstant, Dimensions) {
@@ -212,7 +212,7 @@ TEST(GasConstant, SetValue) {
 }
 
 TEST(GasConstant, SizeOf) {
-  EXPECT_EQ(sizeof(GasConstant{}), sizeof(double));
+  EXPECT_EQ(sizeof(GasConstant<>{}), sizeof(double));
 }
 
 TEST(GasConstant, StandardConstructor) {

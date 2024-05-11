@@ -118,7 +118,7 @@ TEST(TotalPressure, Create) {
 }
 
 TEST(TotalPressure, DefaultConstructor) {
-  EXPECT_NO_THROW(TotalPressure{});
+  EXPECT_NO_THROW(TotalPressure<>{});
 }
 
 TEST(TotalPressure, Dimensions) {
@@ -187,7 +187,7 @@ TEST(TotalPressure, SetValue) {
 }
 
 TEST(TotalPressure, SizeOf) {
-  EXPECT_EQ(sizeof(TotalPressure{}), sizeof(double));
+  EXPECT_EQ(sizeof(TotalPressure<>{}), sizeof(double));
 }
 
 TEST(TotalPressure, StandardConstructor) {

@@ -114,7 +114,7 @@ TEST(SubstanceAmount, Create) {
 }
 
 TEST(SubstanceAmount, DefaultConstructor) {
-  EXPECT_NO_THROW(SubstanceAmount{});
+  EXPECT_NO_THROW(SubstanceAmount<>{});
 }
 
 TEST(SubstanceAmount, Dimensions) {
@@ -173,7 +173,7 @@ TEST(SubstanceAmount, SetValue) {
 }
 
 TEST(SubstanceAmount, SizeOf) {
-  EXPECT_EQ(sizeof(SubstanceAmount{}), sizeof(double));
+  EXPECT_EQ(sizeof(SubstanceAmount<>{}), sizeof(double));
 }
 
 TEST(SubstanceAmount, StandardConstructor) {

@@ -44,7 +44,7 @@ public:
   // Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
   template <typename OtherNumber>
   explicit constexpr BulkDynamicViscosity(const BulkDynamicViscosity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : BulkDynamicViscosity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a bulk dynamic viscosity by moving another one.
   constexpr BulkDynamicViscosity(BulkDynamicViscosity<Number>&& other) noexcept = default;
@@ -57,7 +57,7 @@ public:
   template <typename OtherNumber>
   constexpr BulkDynamicViscosity<Number>& operator=(
       const BulkDynamicViscosity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -80,41 +80,41 @@ public:
 
   constexpr BulkDynamicViscosity<Number> operator+(
       const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const {
-    return BulkDynamicViscosity<Number>{value + bulk_dynamic_viscosity.value};
+    return BulkDynamicViscosity<Number>{this->value + bulk_dynamic_viscosity.value};
   }
 
   constexpr BulkDynamicViscosity<Number> operator-(
       const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const {
-    return BulkDynamicViscosity<Number>{value - bulk_dynamic_viscosity.value};
+    return BulkDynamicViscosity<Number>{this->value - bulk_dynamic_viscosity.value};
   }
 
   constexpr BulkDynamicViscosity<Number> operator*(const Number number) const {
-    return BulkDynamicViscosity<Number>{value * number};
+    return BulkDynamicViscosity<Number>{this->value * number};
   }
 
   constexpr BulkDynamicViscosity<Number> operator/(const Number number) const {
-    return BulkDynamicViscosity<Number>{value / number};
+    return BulkDynamicViscosity<Number>{this->value / number};
   }
 
   constexpr Number operator/(
       const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const noexcept {
-    return value / bulk_dynamic_viscosity.value;
+    return this->value / bulk_dynamic_viscosity.value;
   }
 
   constexpr void operator+=(const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) noexcept {
-    value += bulk_dynamic_viscosity.value;
+    this->value += bulk_dynamic_viscosity.value;
   }
 
   constexpr void operator-=(const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) noexcept {
-    value -= bulk_dynamic_viscosity.value;
+    this->value -= bulk_dynamic_viscosity.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

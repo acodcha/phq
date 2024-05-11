@@ -108,7 +108,7 @@ TEST(LameFirstModulus, Create) {
 }
 
 TEST(LameFirstModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(LameFirstModulus{});
+  EXPECT_NO_THROW(LameFirstModulus<>{});
 }
 
 TEST(LameFirstModulus, Dimensions) {
@@ -165,7 +165,7 @@ TEST(LameFirstModulus, SetValue) {
 }
 
 TEST(LameFirstModulus, SizeOf) {
-  EXPECT_EQ(sizeof(LameFirstModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(LameFirstModulus<>{}), sizeof(double));
 }
 
 TEST(LameFirstModulus, StandardConstructor) {

@@ -138,7 +138,7 @@ TEST(Traction, Create) {
 }
 
 TEST(Traction, DefaultConstructor) {
-  EXPECT_NO_THROW(Traction{});
+  EXPECT_NO_THROW(Traction<>{});
 }
 
 TEST(Traction, Dimensions) {
@@ -223,7 +223,7 @@ TEST(Traction, SetValue) {
 }
 
 TEST(Traction, SizeOf) {
-  EXPECT_EQ(sizeof(Traction{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Traction<>{}), 3 * sizeof(double));
 }
 
 TEST(Traction, StandardConstructor) {

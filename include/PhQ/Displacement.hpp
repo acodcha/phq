@@ -80,7 +80,7 @@ public:
   // Copy constructor. Constructs a displacement by copying another one.
   template <typename OtherNumber>
   explicit constexpr Displacement(const Displacement<OtherNumber>& other)
-    : value(static_cast<Vector<Number>>(other.Value())) {}
+    : Displacement(static_cast<Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a displacement vector by moving another one.
   constexpr Displacement(Displacement<Number>&& other) noexcept = default;
@@ -91,7 +91,7 @@ public:
   // Copy assignment operator. Assigns this displacement by copying another one.
   template <typename OtherNumber>
   constexpr Displacement<Number>& operator=(const Displacement<OtherNumber>& other) {
-    value = static_cast<Vector<Number>>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 
@@ -128,27 +128,27 @@ public:
 
   // Returns the x Cartesian component of this displacement vector.
   [[nodiscard]] constexpr Length<Number> x() const noexcept {
-    return Length<Number>{value.x()};
+    return Length<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this displacement vector.
   [[nodiscard]] constexpr Length<Number> y() const noexcept {
-    return Length<Number>{value.y()};
+    return Length<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this displacement vector.
   [[nodiscard]] constexpr Length<Number> z() const noexcept {
-    return Length<Number>{value.z()};
+    return Length<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this displacement vector.
   [[nodiscard]] Length<Number> Magnitude() const {
-    return Length<Number>{value.Magnitude()};
+    return Length<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this displacement vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
-    return value.Direction();
+    return this->value.Direction();
   }
 
   // Returns the angle between this displacement vector and another one.
@@ -159,41 +159,41 @@ public:
   constexpr Position<Number> operator+(const Position<Number>& position) const;
 
   constexpr Displacement<Number> operator+(const Displacement<Number>& displacement) const {
-    return Displacement<Number>{value + displacement.value};
+    return Displacement<Number>{this->value + displacement.value};
   }
 
   constexpr Position<Number> operator-(const Position<Number>& position) const;
 
   constexpr Displacement<Number> operator-(const Displacement<Number>& displacement) const {
-    return Displacement<Number>{value - displacement.value};
+    return Displacement<Number>{this->value - displacement.value};
   }
 
   constexpr Displacement<Number> operator*(const Number number) const {
-    return Displacement<Number>{value * number};
+    return Displacement<Number>{this->value * number};
   }
 
   constexpr Velocity<Number> operator*(const Frequency<Number>& frequency) const;
 
   constexpr Displacement<Number> operator/(const Number number) const {
-    return Displacement<Number>{value / number};
+    return Displacement<Number>{this->value / number};
   }
 
   constexpr Velocity<Number> operator/(const Time<Number>& time) const;
 
   constexpr void operator+=(const Displacement<Number>& displacement) noexcept {
-    value += displacement.value;
+    this->value += displacement.value;
   }
 
   constexpr void operator-=(const Displacement<Number>& displacement) noexcept {
-    value -= displacement.value;
+    this->value -= displacement.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

@@ -108,7 +108,7 @@ TEST(IsothermalBulkModulus, Create) {
 }
 
 TEST(IsothermalBulkModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(IsothermalBulkModulus{});
+  EXPECT_NO_THROW(IsothermalBulkModulus<>{});
 }
 
 TEST(IsothermalBulkModulus, Dimensions) {
@@ -166,7 +166,7 @@ TEST(IsothermalBulkModulus, SetValue) {
 }
 
 TEST(IsothermalBulkModulus, SizeOf) {
-  EXPECT_EQ(sizeof(IsothermalBulkModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(IsothermalBulkModulus<>{}), sizeof(double));
 }
 
 TEST(IsothermalBulkModulus, StandardConstructor) {

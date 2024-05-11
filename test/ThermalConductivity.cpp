@@ -164,7 +164,7 @@ TEST(ThermalConductivity, Create) {
 }
 
 TEST(ThermalConductivity, DefaultConstructor) {
-  EXPECT_NO_THROW(ThermalConductivity{});
+  EXPECT_NO_THROW(ThermalConductivity<>{});
 }
 
 TEST(ThermalConductivity, Dimensions) {
@@ -252,7 +252,7 @@ TEST(ThermalConductivity, SetValue) {
 }
 
 TEST(ThermalConductivity, SizeOf) {
-  EXPECT_EQ(sizeof(ThermalConductivity{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(ThermalConductivity<>{}), 6 * sizeof(double));
 }
 
 TEST(ThermalConductivity, StandardConstructor) {

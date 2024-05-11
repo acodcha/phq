@@ -128,7 +128,7 @@ TEST(LinearThermalExpansionCoefficient, Create) {
 }
 
 TEST(LinearThermalExpansionCoefficient, DefaultConstructor) {
-  EXPECT_NO_THROW(LinearThermalExpansionCoefficient{});
+  EXPECT_NO_THROW(LinearThermalExpansionCoefficient<>{});
 }
 
 TEST(LinearThermalExpansionCoefficient, Dimensions) {
@@ -197,7 +197,7 @@ TEST(LinearThermalExpansionCoefficient, SetValue) {
 }
 
 TEST(LinearThermalExpansionCoefficient, SizeOf) {
-  EXPECT_EQ(sizeof(LinearThermalExpansionCoefficient{}), sizeof(double));
+  EXPECT_EQ(sizeof(LinearThermalExpansionCoefficient<>{}), sizeof(double));
 }
 
 TEST(LinearThermalExpansionCoefficient, StandardConstructor) {

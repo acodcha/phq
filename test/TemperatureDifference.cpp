@@ -113,7 +113,7 @@ TEST(TemperatureDifference, Create) {
 }
 
 TEST(TemperatureDifference, DefaultConstructor) {
-  EXPECT_NO_THROW(TemperatureDifference{});
+  EXPECT_NO_THROW(TemperatureDifference<>{});
 }
 
 TEST(TemperatureDifference, Dimensions) {
@@ -173,7 +173,7 @@ TEST(TemperatureDifference, SetValue) {
 }
 
 TEST(TemperatureDifference, SizeOf) {
-  EXPECT_EQ(sizeof(TemperatureDifference{}), sizeof(double));
+  EXPECT_EQ(sizeof(TemperatureDifference<>{}), sizeof(double));
 }
 
 TEST(TemperatureDifference, StandardConstructor) {

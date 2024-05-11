@@ -131,7 +131,7 @@ TEST(Force, Create) {
 }
 
 TEST(Force, DefaultConstructor) {
-  EXPECT_NO_THROW(Force{});
+  EXPECT_NO_THROW(Force<>{});
 }
 
 TEST(Force, Dimensions) {
@@ -207,7 +207,7 @@ TEST(Force, SetValue) {
 }
 
 TEST(Force, SizeOf) {
-  EXPECT_EQ(sizeof(Force{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Force<>{}), 3 * sizeof(double));
 }
 
 TEST(Force, StandardConstructor) {

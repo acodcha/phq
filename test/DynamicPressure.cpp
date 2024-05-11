@@ -112,7 +112,7 @@ TEST(DynamicPressure, Create) {
 }
 
 TEST(DynamicPressure, DefaultConstructor) {
-  EXPECT_NO_THROW(DynamicPressure{});
+  EXPECT_NO_THROW(DynamicPressure<>{});
 }
 
 TEST(DynamicPressure, Dimensions) {
@@ -181,7 +181,7 @@ TEST(DynamicPressure, SetValue) {
 }
 
 TEST(DynamicPressure, SizeOf) {
-  EXPECT_EQ(sizeof(DynamicPressure{}), sizeof(double));
+  EXPECT_EQ(sizeof(DynamicPressure<>{}), sizeof(double));
 }
 
 TEST(DynamicPressure, StandardConstructor) {

@@ -138,7 +138,7 @@ TEST(HeatFlux, Create) {
 }
 
 TEST(HeatFlux, DefaultConstructor) {
-  EXPECT_NO_THROW(HeatFlux{});
+  EXPECT_NO_THROW(HeatFlux<>{});
 }
 
 TEST(HeatFlux, Dimensions) {
@@ -227,7 +227,7 @@ TEST(HeatFlux, SetValue) {
 }
 
 TEST(HeatFlux, SizeOf) {
-  EXPECT_EQ(sizeof(HeatFlux{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(HeatFlux<>{}), 3 * sizeof(double));
 }
 
 TEST(HeatFlux, StandardConstructor) {

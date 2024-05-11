@@ -67,7 +67,7 @@ public:
   // Copy constructor. Constructs a thermal diffusivity by copying another one.
   template <typename OtherNumber>
   explicit constexpr ThermalDiffusivity(const ThermalDiffusivity<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : ThermalDiffusivity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a thermal diffusivity by moving another one.
   constexpr ThermalDiffusivity(ThermalDiffusivity<Number>&& other) noexcept = default;
@@ -79,7 +79,7 @@ public:
   // Copy assignment operator. Assigns this thermal diffusivity by copying another one.
   template <typename OtherNumber>
   constexpr ThermalDiffusivity<Number>& operator=(const ThermalDiffusivity<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -102,40 +102,40 @@ public:
 
   constexpr ThermalDiffusivity<Number> operator+(
       const ThermalDiffusivity<Number>& thermal_diffusivity) const {
-    return ThermalDiffusivity<Number>{value + thermal_diffusivity.value};
+    return ThermalDiffusivity<Number>{this->value + thermal_diffusivity.value};
   }
 
   constexpr ThermalDiffusivity<Number> operator-(
       const ThermalDiffusivity<Number>& thermal_diffusivity) const {
-    return ThermalDiffusivity<Number>{value - thermal_diffusivity.value};
+    return ThermalDiffusivity<Number>{this->value - thermal_diffusivity.value};
   }
 
   constexpr ThermalDiffusivity<Number> operator*(const Number number) const {
-    return ThermalDiffusivity<Number>{value * number};
+    return ThermalDiffusivity<Number>{this->value * number};
   }
 
   constexpr ThermalDiffusivity<Number> operator/(const Number number) const {
-    return ThermalDiffusivity<Number>{value / number};
+    return ThermalDiffusivity<Number>{this->value / number};
   }
 
   constexpr Number operator/(const ThermalDiffusivity<Number>& thermal_diffusivity) const noexcept {
-    return value / thermal_diffusivity.value;
+    return this->value / thermal_diffusivity.value;
   }
 
   constexpr void operator+=(const ThermalDiffusivity<Number>& thermal_diffusivity) noexcept {
-    value += thermal_diffusivity.value;
+    this->value += thermal_diffusivity.value;
   }
 
   constexpr void operator-=(const ThermalDiffusivity<Number>& thermal_diffusivity) noexcept {
-    value -= thermal_diffusivity.value;
+    this->value -= thermal_diffusivity.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:

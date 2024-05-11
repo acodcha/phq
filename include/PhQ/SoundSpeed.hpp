@@ -82,7 +82,7 @@ public:
   // Copy constructor. Constructs a sound speed by copying another one.
   template <typename OtherNumber>
   explicit constexpr SoundSpeed(const SoundSpeed<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+    : SoundSpeed(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a sound speed by moving another one.
   constexpr SoundSpeed(SoundSpeed<Number>&& other) noexcept = default;
@@ -93,7 +93,7 @@ public:
   // Copy assignment operator. Assigns this sound speed by copying another one.
   template <typename OtherNumber>
   constexpr SoundSpeed<Number>& operator=(const SoundSpeed<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+    this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -111,57 +111,57 @@ public:
   }
 
   constexpr SoundSpeed<Number> operator+(const SoundSpeed<Number>& speed) const {
-    return SoundSpeed<Number>{value + speed.value};
+    return SoundSpeed<Number>{this->value + speed.value};
   }
 
   constexpr Speed<Number> operator+(const Speed<Number>& speed) const {
-    return Speed<Number>{value + speed.value};
+    return Speed<Number>{this->value + speed.value};
   }
 
   constexpr SoundSpeed<Number> operator-(const SoundSpeed<Number>& speed) const {
-    return SoundSpeed<Number>{value - speed.value};
+    return SoundSpeed<Number>{this->value - speed.value};
   }
 
   constexpr Speed<Number> operator-(const Speed<Number>& speed) const {
-    return Speed<Number>{value - speed.value};
+    return Speed<Number>{this->value - speed.value};
   }
 
   constexpr SoundSpeed<Number> operator*(const Number number) const {
-    return SoundSpeed<Number>{value * number};
+    return SoundSpeed<Number>{this->value * number};
   }
 
   constexpr Speed<Number> operator*(const MachNumber<Number>& mach_number) const;
 
   constexpr SoundSpeed<Number> operator/(const Number number) const {
-    return SoundSpeed<Number>{value / number};
+    return SoundSpeed<Number>{this->value / number};
   }
 
   constexpr Number operator/(const SoundSpeed<Number>& sound_speed) const noexcept {
-    return value / sound_speed.value;
+    return this->value / sound_speed.value;
   }
 
   constexpr void operator+=(const SoundSpeed<Number>& sound_speed) noexcept {
-    value += sound_speed.value;
+    this->value += sound_speed.value;
   }
 
   constexpr void operator+=(const Speed<Number>& speed) noexcept {
-    value += speed.value;
+    this->value += speed.value;
   }
 
   constexpr void operator-=(const SoundSpeed<Number>& sound_speed) noexcept {
-    value -= sound_speed.value;
+    this->value -= sound_speed.value;
   }
 
   constexpr void operator-=(const Speed<Number>& speed) noexcept {
-    value -= speed.value;
+    this->value -= speed.value;
   }
 
   constexpr void operator*=(const Number number) noexcept {
-    value *= number;
+    this->value *= number;
   }
 
   constexpr void operator/=(const Number number) noexcept {
-    value /= number;
+    this->value /= number;
   }
 
 private:
