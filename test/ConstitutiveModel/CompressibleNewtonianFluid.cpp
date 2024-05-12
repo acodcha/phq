@@ -196,7 +196,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Type) {
           DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
           BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
-  EXPECT_EQ(model->GetType(), ConstitutiveModel<>::Type::CompressibleNewtonianFluid);
+  EXPECT_EQ(model->Type(), ConstitutiveModelType::CompressibleNewtonianFluid);
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, XML) {

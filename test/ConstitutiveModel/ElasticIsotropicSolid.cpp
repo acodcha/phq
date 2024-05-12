@@ -247,7 +247,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Type) {
           ShearModulus{4.0, Unit::Pressure::Pascal},
           LameFirstModulus(-2.0, Unit::Pressure::Pascal));
   ASSERT_NE(model, nullptr);
-  EXPECT_EQ(model->GetType(), ConstitutiveModel<>::Type::ElasticIsotropicSolid);
+  EXPECT_EQ(model->Type(), ConstitutiveModelType::ElasticIsotropicSolid);
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, XML) {

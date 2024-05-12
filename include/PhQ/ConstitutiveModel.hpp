@@ -26,23 +26,23 @@
 
 namespace PhQ {
 
+// Type of a material's constitutive model.
+enum class ConstitutiveModelType : int8_t {
+  // Compressible Newtonian fluid constitutive model
+  CompressibleNewtonianFluid,
+
+  // Elastic isotropic solid constitutive model
+  ElasticIsotropicSolid,
+
+  // Incompressible Newtonian fluid constitutive model
+  IncompressibleNewtonianFluid,
+};
+
 // Abstract base class for a material's constitutive model, which is a model that defines the
 // relationship between the stress and the strain and strain rate at any point in the material.
 template <typename Number = double>
 class ConstitutiveModel {
 public:
-  // Constitutive model type of a material.
-  enum class Type : int8_t {
-    // Compressible Newtonian fluid constitutive model
-    CompressibleNewtonianFluid,
-
-    // Elastic isotropic solid constitutive model
-    ElasticIsotropicSolid,
-
-    // Incompressible Newtonian fluid constitutive model
-    IncompressibleNewtonianFluid,
-  };
-
   // Forward declaration for class PhQ::ConstitutiveModel.
   class CompressibleNewtonianFluid;
 
@@ -51,6 +51,9 @@ public:
 
   // Forward declaration for class PhQ::ConstitutiveModel.
   class IncompressibleNewtonianFluid;
+
+  // Default constructor. Constructs this constitutive model.
+  constexpr ConstitutiveModel() = default;
 
   // Destructor. Destroys this constitutive model.
   virtual ~ConstitutiveModel() noexcept = default;
@@ -68,7 +71,7 @@ public:
   ConstitutiveModel<Number>& operator=(ConstitutiveModel<Number>&& other) noexcept = default;
 
   // Returns this constitutive model's type.
-  [[nodiscard]] virtual inline Type GetType() const noexcept = 0;
+  [[nodiscard]] virtual inline ConstitutiveModelType Type() const noexcept = 0;
 
   // Returns the stress resulting from a given strain and strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<Number> Stress(
@@ -101,44 +104,37 @@ public:
 
   // Serializes this constitutive model as a YAML message.
   [[nodiscard]] virtual inline std::string YAML() const = 0;
-
-protected:
-  // Default constructor. Constructs this constitutive model.
-  constexpr ConstitutiveModel() = default;
 };
 
-template <typename Number>
-inline const std::map<typename ConstitutiveModel<Number>::Type, std::string_view>
-    Internal::Abbreviations<typename ConstitutiveModel<Number>::Type>{
-        {ConstitutiveModel<Number>::Type::ElasticIsotropicSolid,        "Elastic Isotropic Solid"},
-        {ConstitutiveModel<Number>::Type::IncompressibleNewtonianFluid,
-         "Incompressible Newtonian Fluid"                                                        },
-        {ConstitutiveModel<Number>::Type::CompressibleNewtonianFluid,
-         "Compressible Newtonian Fluid"                                                          },
+template <>
+inline const std::map<ConstitutiveModelType, std::string_view>
+    Internal::Abbreviations<ConstitutiveModelType>{
+        {ConstitutiveModelType::ElasticIsotropicSolid,        "Elastic Isotropic Solid"       },
+        {ConstitutiveModelType::IncompressibleNewtonianFluid, "Incompressible Newtonian Fluid"},
+        {ConstitutiveModelType::CompressibleNewtonianFluid,   "Compressible Newtonian Fluid"  },
 };
 
-template <typename Number>
-inline const std::unordered_map<std::string_view, typename ConstitutiveModel<Number>::Type>
-    Internal::Spellings<typename ConstitutiveModel<Number>::Type>{
-        {"Elastic Isotropic Solid",        ConstitutiveModel<Number>::Type::ElasticIsotropicSolid     },
-        {"ElasticIsotropicSolid",          ConstitutiveModel<Number>::Type::ElasticIsotropicSolid     },
-        {"elastic isotropic solid",        ConstitutiveModel<Number>::Type::ElasticIsotropicSolid     },
-        {"elastic_isotropic_solid",        ConstitutiveModel<Number>::Type::ElasticIsotropicSolid     },
-        {"Incompressible Newtonian Fluid",
-         ConstitutiveModel<Number>::Type::IncompressibleNewtonianFluid                                },
-        {"IncompressibleNewtonianFluid",
-         ConstitutiveModel<Number>::Type::IncompressibleNewtonianFluid                                },
-        {"incompressible newtonian fluid",
-         ConstitutiveModel<Number>::Type::IncompressibleNewtonianFluid                                },
-        {"incompressible_newtonian_fluid",
-         ConstitutiveModel<Number>::Type::IncompressibleNewtonianFluid                                },
-        {"Compressible Newtonian Fluid",
-         ConstitutiveModel<Number>::Type::CompressibleNewtonianFluid                                  },
-        {"CompressibleNewtonianFluid",     ConstitutiveModel<Number>::Type::CompressibleNewtonianFluid},
-        {"compressible newtonian fluid",
-         ConstitutiveModel<Number>::Type::CompressibleNewtonianFluid                                  },
-        {"compressible_newtonian_fluid",
-         ConstitutiveModel<Number>::Type::CompressibleNewtonianFluid                                  },
+template <>
+inline const std::unordered_map<std::string_view, ConstitutiveModelType>
+    Internal::Spellings<ConstitutiveModelType>{
+        {"Elastic Isotropic Solid",        ConstitutiveModelType::ElasticIsotropicSolid       },
+        {"ELASTIC ISOTROPIC SOLID",        ConstitutiveModelType::ElasticIsotropicSolid       },
+        {"elastic isotropic solid",        ConstitutiveModelType::ElasticIsotropicSolid       },
+        {"ElasticIsotropicSolid",          ConstitutiveModelType::ElasticIsotropicSolid       },
+        {"ELASTIC_ISOTROPIC_SOLID",        ConstitutiveModelType::ElasticIsotropicSolid       },
+        {"elastic_isotropic_solid",        ConstitutiveModelType::ElasticIsotropicSolid       },
+        {"Incompressible Newtonian Fluid", ConstitutiveModelType::IncompressibleNewtonianFluid},
+        {"INCOMPRESSIBLE NEWTONIAN FLUID", ConstitutiveModelType::IncompressibleNewtonianFluid},
+        {"incompressible newtonian fluid", ConstitutiveModelType::IncompressibleNewtonianFluid},
+        {"IncompressibleNewtonianFluid",   ConstitutiveModelType::IncompressibleNewtonianFluid},
+        {"INCOMPRESSIBLE_NEWTONIAN_FLUID", ConstitutiveModelType::IncompressibleNewtonianFluid},
+        {"incompressible_newtonian_fluid", ConstitutiveModelType::IncompressibleNewtonianFluid},
+        {"Compressible Newtonian Fluid",   ConstitutiveModelType::CompressibleNewtonianFluid  },
+        {"COMPRESSIBLE NEWTONIAN FLUID",   ConstitutiveModelType::CompressibleNewtonianFluid  },
+        {"compressible newtonian fluid",   ConstitutiveModelType::CompressibleNewtonianFluid  },
+        {"CompressibleNewtonianFluid",     ConstitutiveModelType::CompressibleNewtonianFluid  },
+        {"COMPRESSIBLE_NEWTONIAN_FLUID",   ConstitutiveModelType::CompressibleNewtonianFluid  },
+        {"compressible_newtonian_fluid",   ConstitutiveModelType::CompressibleNewtonianFluid  },
 };
 
 template <typename Number>

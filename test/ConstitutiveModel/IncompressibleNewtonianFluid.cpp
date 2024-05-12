@@ -163,7 +163,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, Type) {
       std::make_unique<ConstitutiveModel<>::IncompressibleNewtonianFluid>(
           DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
-  EXPECT_EQ(model->GetType(), ConstitutiveModel<>::Type::IncompressibleNewtonianFluid);
+  EXPECT_EQ(model->Type(), ConstitutiveModelType::IncompressibleNewtonianFluid);
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, XML) {

@@ -46,7 +46,7 @@ class ConstitutiveModel<Number>::ElasticIsotropicSolid : public ConstitutiveMode
 public:
   // Default constructor. Constructs an elastic isotropic solid constitutive model with an
   // uninitialized value.
-  ElasticIsotropicSolid() = default;
+  ElasticIsotropicSolid() : ConstitutiveModel<Number>() {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and Poisson's ratio.
@@ -296,8 +296,8 @@ public:
   }
 
   // Returns this constitutive model's type.
-  [[nodiscard]] inline Type GetType() const noexcept override {
-    return Type::ElasticIsotropicSolid;
+  [[nodiscard]] inline ConstitutiveModelType Type() const noexcept override {
+    return ConstitutiveModelType::ElasticIsotropicSolid;
   }
 
   // Returns the stress resulting from a given strain and strain rate. Since this is an elastic
@@ -353,26 +353,26 @@ public:
 
   // Prints this elastic isotropic solid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
-    return {"Type = " + std::string{Abbreviation(GetType())} + ", Shear Modulus = "
+    return {"Type = " + std::string{Abbreviation(Type())} + ", Shear Modulus = "
             + shear_modulus.Print() + ", Lamé's First Modulus = " + lame_first_modulus.Print()};
   }
 
   // Serializes this elastic isotropic solid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
-    return {R"({"type":")" + SnakeCaseCopy(Abbreviation(GetType())) + R"(","shear_modulus":)"
+    return {R"({"type":")" + SnakeCaseCopy(Abbreviation(Type())) + R"(","shear_modulus":)"
             + shear_modulus.JSON() + ",\"lame_first_modulus\":" + lame_first_modulus.JSON() + "}"};
   }
 
   // Serializes this elastic isotropic solid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
-    return {"<type>" + SnakeCaseCopy(Abbreviation(GetType())) + "</type><shear_modulus>"
+    return {"<type>" + SnakeCaseCopy(Abbreviation(Type())) + "</type><shear_modulus>"
             + shear_modulus.XML() + "</shear_modulus><lame_first_modulus>"
             + lame_first_modulus.XML() + "</lame_first_modulus>"};
   }
 
   // Serializes this elastic isotropic solid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
-    return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType())) + "\",shear_modulus:"
+    return {"{type:\"" + SnakeCaseCopy(Abbreviation(Type())) + "\",shear_modulus:"
             + shear_modulus.YAML() + ",lame_first_modulus:" + lame_first_modulus.YAML() + "}"};
   }
 
@@ -384,24 +384,24 @@ private:
 
 template <typename Number>
 inline constexpr bool operator==(
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& right) noexcept {
   return left.ShearModulus<Number>() == right.ShearModulus<Number>()
          && left.LameFirstModulus<Number>() == right.LameFirstModulus<Number>();
 }
 
 template <typename Number>
 inline constexpr bool operator!=(
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& right) noexcept {
   return left.ShearModulus<Number>() != right.ShearModulus<Number>()
          || left.LameFirstModulus<Number>() != right.LameFirstModulus<Number>();
 }
 
 template <typename Number>
 inline constexpr bool operator<(
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& right) noexcept {
   if (left.ShearModulus<Number>() != right.ShearModulus<Number>()) {
     return left.ShearModulus<Number>() < right.ShearModulus<Number>();
   }
@@ -410,8 +410,8 @@ inline constexpr bool operator<(
 
 template <typename Number>
 inline constexpr bool operator>(
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& right) noexcept {
   if (left.ShearModulus<Number>() != right.ShearModulus<Number>()) {
     return left.ShearModulus<Number>() > right.ShearModulus<Number>();
   }
@@ -420,21 +420,22 @@ inline constexpr bool operator>(
 
 template <typename Number>
 inline constexpr bool operator<=(
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& right) noexcept {
   return !(left > right);
 }
 
 template <typename Number>
 inline constexpr bool operator>=(
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& left,
-    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& right) noexcept {
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& left,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& right) noexcept {
   return !(left < right);
 }
 
 template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const typename ConstitutiveModel<Number>::ElasticIsotropicSolid& model) {
+    std::ostream& stream,
+    const typename ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& model) {
   stream << model.Print();
   return stream;
 }
@@ -444,8 +445,9 @@ inline std::ostream& operator<<(
 namespace std {
 
 template <typename Number>
-struct hash<typename PhQ::ConstitutiveModel<Number>::ElasticIsotropicSolid> {
-  size_t operator()(const PhQ::ConstitutiveModel<Number>::ElasticIsotropicSolid& model) const {
+struct hash<typename PhQ::ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>> {
+  size_t operator()(
+      const typename PhQ::ConstitutiveModel<Number>::ElasticIsotropicSolid<Number>& model) const {
     size_t result{17};
     result = 31 * result + hash<PhQ::ShearModulus<Number>>()(model.ShearModulus<Number>());
     result = 31 * result + hash<PhQ::LameFirstModulus<Number>>()(model.LameFirstModulus<Number>());
