@@ -298,7 +298,7 @@ inline constexpr GasConstant<Number> Mass<Number>::operator*(
 template <typename Number>
 inline constexpr SpecificGasConstant<Number> GasConstant<Number>::operator/(
     const Mass<Number>& mass) const {
-  return {*this, mass};
+  return SpecificGasConstant<Number>{*this, mass};
 }
 
 template <typename Number>

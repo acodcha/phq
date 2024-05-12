@@ -221,23 +221,23 @@ inline constexpr SoundSpeed<Number> operator*(
 template <typename Number>
 inline constexpr Speed<Number> Speed<Number>::operator+(
     const SoundSpeed<Number>& sound_speed) const {
-  return Speed<Number>{value + sound_speed.Value()};
+  return Speed<Number>{this->value + sound_speed.Value()};
 }
 
 template <typename Number>
 inline constexpr Speed<Number> Speed<Number>::operator-(
     const SoundSpeed<Number>& sound_speed) const {
-  return Speed<Number>{value - sound_speed.Value()};
+  return Speed<Number>{this->value - sound_speed.Value()};
 }
 
 template <typename Number>
 inline constexpr void Speed<Number>::operator+=(const SoundSpeed<Number>& speed) noexcept {
-  value += speed.Value();
+  this->value += speed.Value();
 }
 
 template <typename Number>
 inline constexpr void Speed<Number>::operator-=(const SoundSpeed<Number>& speed) noexcept {
-  value -= speed.Value();
+  this->value -= speed.Value();
 }
 
 template <typename Number>

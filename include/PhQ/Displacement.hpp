@@ -153,7 +153,7 @@ public:
 
   // Returns the angle between this displacement vector and another one.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Displacement<Number>& displacement) const {
-    return {*this, displacement};
+    return PhQ::Angle<Number>{*this, displacement};
   }
 
   constexpr Position<Number> operator+(const Position<Number>& position) const;

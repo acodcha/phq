@@ -201,9 +201,9 @@ public:
   // Returns the cross product (also known as the vector product) of this three-dimensional vector
   // and another one.
   [[nodiscard]] constexpr Vector<Number> Cross(const Vector<Number>& vector) const {
-    return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
-            x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
-            x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
+    return Vector<Number>{x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
+                          x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
+                          x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
   // Returns the cross product (also known as the vector product) of this three-dimensional vector
@@ -323,29 +323,31 @@ inline constexpr bool operator>=(const Vector<Number>& left, const Vector<Number
 
 template <typename Number>
 inline constexpr Vector<Number> operator+(const Vector<Number>& left, const Vector<Number>& right) {
-  return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
+  return Vector<Number>{left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
 }
 
 template <typename Number>
 inline constexpr Vector<Number> operator-(const Vector<Number>& left, const Vector<Number>& right) {
-  return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
+  return Vector<Number>{left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr Vector<Number> operator*(const Vector<Number>& vector, const OtherNumber number) {
-  return {vector.x() * static_cast<Number>(number), vector.y() * static_cast<Number>(number),
-          vector.z() * static_cast<Number>(number)};
+  return Vector<Number>{
+      vector.x() * static_cast<Number>(number), vector.y() * static_cast<Number>(number),
+      vector.z() * static_cast<Number>(number)};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr Vector<Number> operator*(const OtherNumber number, const Vector<Number>& vector) {
-  return {vector * number};
+  return Vector<Number>{vector * number};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr Vector<Number> operator/(const Vector<Number>& vector, const OtherNumber number) {
-  return {vector.x() / static_cast<Number>(number), vector.y() / static_cast<Number>(number),
-          vector.z() / static_cast<Number>(number)};
+  return Vector<Number>{
+      vector.x() / static_cast<Number>(number), vector.y() / static_cast<Number>(number),
+      vector.z() / static_cast<Number>(number)};
 }
 
 template <typename Number>

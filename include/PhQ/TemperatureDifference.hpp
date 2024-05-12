@@ -41,6 +41,10 @@ class ScalarTemperatureGradient;
 
 // Forward declaration for class PhQ::TemperatureDifference.
 template <typename Number>
+class Strain;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class Temperature;
 
 // Forward declaration for class PhQ::TemperatureDifference.
@@ -131,7 +135,7 @@ public:
   constexpr ScalarStrain<Number> operator*(
       const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const;
 
-  constexpr Number operator*(
+  constexpr Strain<Number> operator*(
       const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
       const;
 

@@ -186,7 +186,7 @@ public:
   }
 
   constexpr Length<Number> operator*(const Time<Number>& time) const {
-    return {*this, time};
+    return Length<Number>{*this, time};
   }
 
   constexpr ScalarAcceleration<Number> operator*(const Frequency<Number>& frequency) const;
@@ -201,11 +201,11 @@ public:
   }
 
   constexpr Length<Number> operator/(const Frequency<Number>& frequency) const {
-    return {*this, frequency};
+    return Length<Number>{*this, frequency};
   }
 
   constexpr Frequency<Number> operator/(const Length<Number>& length) const {
-    return {*this, length};
+    return Frequency<Number>{*this, length};
   }
 
   constexpr ScalarAcceleration<Number> operator/(const Time<Number>& time) const;

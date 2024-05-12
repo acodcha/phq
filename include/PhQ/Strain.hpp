@@ -41,8 +41,16 @@ class Frequency;
 template <typename Number>
 class StrainRate;
 
-// Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
+// Forward declaration for class PhQ::Strain.
 template <typename Number>
+class TemperatureDifference;
+
+// Forward declaration for class PhQ::Strain.
+template <typename Number>
+class VolumetricThermalExpansionCoefficient;
+
+// Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
+template <typename Number = double>
 class Strain : public DimensionlessSymmetricDyad<Number> {
 public:
   // Default constructor. Constructs a strain tensor with an uninitialized value.
@@ -74,6 +82,13 @@ public:
   // Constructor. Constructs a strain tensor from a given displacement gradient using the definition
   // of the strain tensor.
   explicit constexpr Strain(const DisplacementGradient<Number>& displacement_gradient);
+
+  // Constructor. Constructs a strain tensor from a given volumetric thermal expansion coefficient
+  // and temperature difference using the definition of the volumetric thermal expansion
+  // coefficient.
+  constexpr Strain(
+      const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient,
+      const TemperatureDifference<Number>& temperature_difference);
 
   // Destructor. Destroys this strain tensor.
   ~Strain() noexcept = default;

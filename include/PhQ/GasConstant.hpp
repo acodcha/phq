@@ -251,7 +251,7 @@ inline constexpr IsobaricHeatCapacity<Number> IsochoricHeatCapacity<Number>::ope
 template <typename Number>
 inline constexpr GasConstant<Number> IsobaricHeatCapacity<Number>::operator-(
     const IsochoricHeatCapacity<Number>& isochoric_heat_capacity) const {
-  return IsochoricHeatCapacity<Number>{*this, isochoric_heat_capacity};
+  return GasConstant<Number>{*this, isochoric_heat_capacity};
 }
 
 template <typename Number>

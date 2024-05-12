@@ -311,7 +311,8 @@ public:
     const Number cofactor_yy{xx() * zz() - xz() * xz()};
     const Number cofactor_yz{xy() * xz() - xx() * yz()};
     const Number cofactor_zz{xx() * yy() - xy() * xy()};
-    return {cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
+    return SymmetricDyad<Number>{
+        cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
   // Returns the adjugate of this three-dimensional symmetric dyadic tensor.
@@ -474,43 +475,47 @@ inline constexpr bool operator>=(
 template <typename Number>
 inline constexpr SymmetricDyad<Number> operator+(
     const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) {
-  return {left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
-          left.yy() + right.yy(), left.yz() + right.yz(), left.zz() + right.zz()};
+  return SymmetricDyad<Number>{
+      left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
+      left.yy() + right.yy(), left.yz() + right.yz(), left.zz() + right.zz()};
 }
 
 template <typename Number>
 inline constexpr SymmetricDyad<Number> operator-(
     const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) {
-  return {left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
-          left.yy() - right.yy(), left.yz() - right.yz(), left.zz() - right.zz()};
+  return SymmetricDyad<Number>{
+      left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
+      left.yy() - right.yy(), left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr SymmetricDyad<Number> operator*(
     const SymmetricDyad<Number>& symmetric_dyad, const OtherNumber number) {
-  return {symmetric_dyad.xx() * static_cast<Number>(number),
-          symmetric_dyad.xy() * static_cast<Number>(number),
-          symmetric_dyad.xz() * static_cast<Number>(number),
-          symmetric_dyad.yy() * static_cast<Number>(number),
-          symmetric_dyad.yz() * static_cast<Number>(number),
-          symmetric_dyad.zz() * static_cast<Number>(number)};
+  return SymmetricDyad<Number>{
+      symmetric_dyad.xx() * static_cast<Number>(number),
+      symmetric_dyad.xy() * static_cast<Number>(number),
+      symmetric_dyad.xz() * static_cast<Number>(number),
+      symmetric_dyad.yy() * static_cast<Number>(number),
+      symmetric_dyad.yz() * static_cast<Number>(number),
+      symmetric_dyad.zz() * static_cast<Number>(number)};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr SymmetricDyad<Number> operator*(
     const OtherNumber number, const SymmetricDyad<Number>& symmetric_dyad) {
-  return {symmetric_dyad * number};
+  return SymmetricDyad<Number>{symmetric_dyad * number};
 }
 
 template <typename Number>
 inline constexpr Vector<Number> operator*(
     const SymmetricDyad<Number>& symmetric_dyad, const Vector<Number>& vector) {
-  return {symmetric_dyad.xx() * vector.x() + symmetric_dyad.xy() * vector.y()
-              + symmetric_dyad.xz() * vector.z(),
-          symmetric_dyad.xy() * vector.x() + symmetric_dyad.yy() * vector.y()
-              + symmetric_dyad.yz() * vector.z(),
-          symmetric_dyad.xz() * vector.x() + symmetric_dyad.yz() * vector.y()
-              + symmetric_dyad.zz() * vector.z()};
+  return Vector<Number>{
+      symmetric_dyad.xx() * vector.x() + symmetric_dyad.xy() * vector.y()
+          + symmetric_dyad.xz() * vector.z(),
+      symmetric_dyad.xy() * vector.x() + symmetric_dyad.yy() * vector.y()
+          + symmetric_dyad.yz() * vector.z(),
+      symmetric_dyad.xz() * vector.x() + symmetric_dyad.yz() * vector.y()
+          + symmetric_dyad.zz() * vector.z()};
 }
 
 template <typename Number>
@@ -524,12 +529,13 @@ inline constexpr Dyad<Number> operator*(
 template <typename Number, typename OtherNumber>
 inline constexpr SymmetricDyad<Number> operator/(
     const SymmetricDyad<Number>& symmetric_dyad, const OtherNumber number) {
-  return {symmetric_dyad.xx() / static_cast<Number>(number),
-          symmetric_dyad.xy() / static_cast<Number>(number),
-          symmetric_dyad.xz() / static_cast<Number>(number),
-          symmetric_dyad.yy() / static_cast<Number>(number),
-          symmetric_dyad.yz() / static_cast<Number>(number),
-          symmetric_dyad.zz() / static_cast<Number>(number)};
+  return SymmetricDyad<Number>{
+      symmetric_dyad.xx() / static_cast<Number>(number),
+      symmetric_dyad.xy() / static_cast<Number>(number),
+      symmetric_dyad.xz() / static_cast<Number>(number),
+      symmetric_dyad.yy() / static_cast<Number>(number),
+      symmetric_dyad.yz() / static_cast<Number>(number),
+      symmetric_dyad.zz() / static_cast<Number>(number)};
 }
 
 template <typename Number>

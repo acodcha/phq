@@ -189,13 +189,13 @@ inline constexpr Temperature<Number> operator*(
 template <typename Number>
 inline constexpr Temperature<Number> TemperatureDifference<Number>::operator+(
     const Temperature<Number>& temperature) const {
-  return Temperature<Number>{value + temperature.Value()};
+  return Temperature<Number>{this->value + temperature.Value()};
 }
 
 template <typename Number>
 inline constexpr Temperature<Number> TemperatureDifference<Number>::operator-(
     const Temperature<Number>& temperature) const {
-  return Temperature<Number>{value - temperature.Value()};
+  return Temperature<Number>{this->value - temperature.Value()};
 }
 
 }  // namespace PhQ

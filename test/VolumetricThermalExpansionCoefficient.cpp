@@ -18,6 +18,7 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/Strain.hpp"
 #include "../include/PhQ/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/ThermalExpansion.hpp"
@@ -45,9 +46,12 @@ TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorMultiplication) {
             VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
   EXPECT_EQ(2.0 * VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin),
             VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin)
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(6.0, Unit::ThermalExpansion::PerKelvin)
                 * TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
-            8.0);
+            Strain(4.0, 0.0, 0.0, 4.0, 0.0, 4.0));
+  EXPECT_EQ(TemperatureDifference(6.0, Unit::TemperatureDifference::Kelvin)
+                * VolumetricThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
+            Strain(4.0, 0.0, 0.0, 4.0, 0.0, 4.0));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorSubtraction) {
@@ -148,6 +152,12 @@ TEST(VolumetricThermalExpansionCoefficient, JSON) {
   EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
                 .JSON(Unit::ThermalExpansion::PerRankine),
             "{\"value\":" + Print(1.0) + ",\"unit\":\"/°R\"}");
+}
+
+TEST(VolumetricThermalExpansionCoefficient, MiscellaneousConstructors) {
+  EXPECT_EQ(Strain(VolumetricThermalExpansionCoefficient(6.0, Unit::ThermalExpansion::PerKelvin),
+                   TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin)),
+            Strain(4.0, 0.0, 0.0, 4.0, 0.0, 4.0));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, MoveAssignmentOperator) {

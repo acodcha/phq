@@ -104,7 +104,7 @@ TEST(PWaveModulus, Create) {
 }
 
 TEST(PWaveModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(PWaveModulus{});
+  EXPECT_NO_THROW(PWaveModulus<>{});
 }
 
 TEST(PWaveModulus, Dimensions) {
@@ -161,7 +161,7 @@ TEST(PWaveModulus, SetValue) {
 }
 
 TEST(PWaveModulus, SizeOf) {
-  EXPECT_EQ(sizeof(PWaveModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(PWaveModulus<>{}), sizeof(double));
 }
 
 TEST(PWaveModulus, StandardConstructor) {

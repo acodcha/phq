@@ -70,7 +70,7 @@ public:
 
   // Copy assignment operator. Assigns this Reynolds number by copying another one.
   template <typename OtherNumber>
-  constexpr LengtReynoldsNumberh<Number>& operator=(const ReynoldsNumber<OtherNumber>& other) {
+  constexpr ReynoldsNumber<Number>& operator=(const ReynoldsNumber<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }

@@ -249,7 +249,7 @@ inline constexpr ScalarAngularAcceleration<Number> AngularSpeed<Number>::operato
 template <typename Number>
 inline constexpr Time<Number> AngularSpeed<Number>::operator/(
     const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
-  return ScalarAngularAcceleration<Number>{*this, scalar_angular_acceleration};
+  return Time<Number>{*this, scalar_angular_acceleration};
 }
 
 }  // namespace PhQ

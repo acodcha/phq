@@ -19,13 +19,15 @@
 #include <ostream>
 
 #include "DimensionalScalar.hpp"
+#include "Strain.hpp"
 #include "TemperatureDifference.hpp"
 #include "Unit/ThermalExpansion.hpp"
 
 namespace PhQ {
 
 // Volumetric thermal expansion coefficient. Not to be confused with the linear thermal expansion
-// coefficient.
+// coefficient. For isotropic materials, the volumetric thermal expansion coefficient is usually
+// three times the linear thermal expansion coefficient.
 template <typename Number = double>
 class VolumetricThermalExpansionCoefficient
   : public DimensionalScalar<Unit::ThermalExpansion, Number> {
@@ -106,8 +108,9 @@ public:
     return VolumetricThermalExpansionCoefficient<Number>{this->value * number};
   }
 
-  constexpr Number operator*(const TemperatureDifference<Number>& temperature_difference) const {
-    return this->value * temperature_difference.Value();
+  constexpr Strain<Number> operator*(
+      const TemperatureDifference<Number>& temperature_difference) const {
+    return Strain<Number>{*this, temperature_difference};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<Number> operator/(const Number number) const {
@@ -203,10 +206,24 @@ inline constexpr VolumetricThermalExpansionCoefficient<Number> operator*(
 }
 
 template <typename Number>
-inline constexpr Number TemperatureDifference<Number>::operator*(
+inline constexpr PhQ::Strain<Number>::Strain(
+    const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient,
+    const TemperatureDifference<Number>& temperature_difference)
+  : Strain<Number>(
+      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+          / static_cast<Number>(3),
+      static_cast<Number>(0), static_cast<Number>(0),
+      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+          / static_cast<Number>(3),
+      static_cast<Number>(0),
+      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+          / static_cast<Number>(3)) {}
+
+template <typename Number>
+inline constexpr Strain<Number> TemperatureDifference<Number>::operator*(
     const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
     const {
-  return value * volumetric_thermal_expansion_coefficient.Value();
+  return Strain<Number>{volumetric_thermal_expansion_coefficient, *this};
 }
 
 }  // namespace PhQ
