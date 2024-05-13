@@ -201,7 +201,7 @@ private:
   // Constructor. Constructs a stress tensor with a given value expressed in the standard pressure
   // unit.
   explicit constexpr Stress(const SymmetricDyad<Number>& value)
-    : DimensionalSymmetricDyad<Unit::Pressure>(value) {}
+    : DimensionalSymmetricDyad<Unit::Pressure, Number>(value) {}
 };
 
 template <typename Number>

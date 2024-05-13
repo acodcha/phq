@@ -121,7 +121,6 @@ private:
   explicit constexpr LameFirstModulus(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 
-  template <typename OtherNumber>
   friend class ConstitutiveModel;
 };
 

@@ -123,7 +123,6 @@ private:
   explicit constexpr BulkDynamicViscosity(const Number value)
     : DimensionalScalar<Unit::DynamicViscosity, Number>(value) {}
 
-  template <typename OtherNumber>
   friend class ConstitutiveModel;
 };
 

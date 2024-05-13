@@ -116,7 +116,6 @@ private:
   explicit constexpr ShearModulus(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 
-  template <typename OtherNumber>
   friend class ConstitutiveModel;
 };
 
