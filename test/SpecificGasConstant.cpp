@@ -129,7 +129,7 @@ TEST(SpecificGasConstant, ComparisonOperators) {
 
 TEST(SpecificGasConstant, CopyAssignmentOperator) {
   const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificGasConstant second = SpecificGasConstant::Zero();
+  SpecificGasConstant second = SpecificGasConstant<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -142,24 +142,24 @@ TEST(SpecificGasConstant, CopyConstructor) {
 
 TEST(SpecificGasConstant, Create) {
   constexpr SpecificGasConstant quantity =
-      SpecificGasConstant::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(1.0);
+      SpecificGasConstant<>::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(1.0);
   EXPECT_EQ(
       quantity, SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 
 TEST(SpecificGasConstant, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificGasConstant{});
+  EXPECT_NO_THROW(SpecificGasConstant<>{});
 }
 
 TEST(SpecificGasConstant, Dimensions) {
-  EXPECT_EQ(SpecificGasConstant::Dimensions(), RelatedDimensions<Unit::SpecificHeatCapacity>);
+  EXPECT_EQ(SpecificGasConstant<>::Dimensions(), RelatedDimensions<Unit::SpecificHeatCapacity>);
 }
 
 TEST(SpecificGasConstant, Hash) {
   const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
   const SpecificGasConstant second{1.00001, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
   const SpecificGasConstant third{-1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
-  const std::hash<SpecificGasConstant> hasher;
+  const std::hash<SpecificGasConstant<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -233,7 +233,7 @@ TEST(SpecificGasConstant, MiscellaneousConstructors) {
 
 TEST(SpecificGasConstant, MoveAssignmentOperator) {
   SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificGasConstant second = SpecificGasConstant::Zero();
+  SpecificGasConstant second = SpecificGasConstant<>::Zero();
   second = std::move(first);
   EXPECT_EQ(
       second, SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
@@ -268,7 +268,7 @@ TEST(SpecificGasConstant, SetValue) {
 }
 
 TEST(SpecificGasConstant, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificGasConstant{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificGasConstant<>{}), sizeof(double));
 }
 
 TEST(SpecificGasConstant, StandardConstructor) {
@@ -277,7 +277,7 @@ TEST(SpecificGasConstant, StandardConstructor) {
 
 TEST(SpecificGasConstant, StaticValue) {
   constexpr SpecificGasConstant quantity =
-      SpecificGasConstant::Create<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(2.0);
+      SpecificGasConstant<>::Create<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(2.0);
   constexpr double value =
       quantity.StaticValue<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>();
   EXPECT_EQ(value, 2.0);
@@ -292,7 +292,7 @@ TEST(SpecificGasConstant, Stream) {
 }
 
 TEST(SpecificGasConstant, Unit) {
-  EXPECT_EQ(SpecificGasConstant::Unit(), Standard<Unit::SpecificHeatCapacity>);
+  EXPECT_EQ(SpecificGasConstant<>::Unit(), Standard<Unit::SpecificHeatCapacity>);
 }
 
 TEST(SpecificGasConstant, Value) {
@@ -320,7 +320,7 @@ TEST(SpecificGasConstant, YAML) {
 }
 
 TEST(SpecificGasConstant, Zero) {
-  EXPECT_EQ(SpecificGasConstant::Zero(),
+  EXPECT_EQ(SpecificGasConstant<>::Zero(),
             SpecificGasConstant(0.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 

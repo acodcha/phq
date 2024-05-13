@@ -28,192 +28,222 @@
 
 namespace PhQ {
 
-// Forward declaration for class Force.
+// Forward declaration for class PhQ::Force.
+template <typename Number>
 class Traction;
 
 // Force vector. See also PhQ::ScalarForce.
-class Force : public DimensionalVector<Unit::Force, double> {
+template <typename Number = double>
+class Force : public DimensionalVector<Unit::Force, Number> {
 public:
   // Default constructor. Constructs a force vector with an uninitialized value.
   Force() = default;
 
   // Constructor. Constructs a force vector with a given value expressed in a given force unit.
-  Force(const Vector<double>& value, const Unit::Force unit)
-    : DimensionalVector<Unit::Force>(value, unit) {}
+  Force(const Vector<Number>& value, const Unit::Force unit)
+    : DimensionalVector<Unit::Force, Number>(value, unit) {}
 
   // Constructor. Constructs a force vector from a given scalar force magnitude and direction.
-  constexpr Force(const ScalarForce& scalar_force, const Direction& direction)
-    : Force(scalar_force.Value() * direction.Value()) {}
+  constexpr Force(const ScalarForce<Number>& scalar_force, const Direction<Number>& direction)
+    : Force<Number>(scalar_force.Value() * direction.Value()) {}
 
   // Constructor. Constructs a force vector from a given traction and area using the definition of
   // traction.
-  constexpr Force(const Traction& traction, const Area& area);
+  constexpr Force(const Traction<Number>& traction, const Area<Number>& area);
 
   // Destructor. Destroys this force vector.
   ~Force() noexcept = default;
 
   // Copy constructor. Constructs a force vector by copying another one.
-  constexpr Force(const Force& other) = default;
+  constexpr Force(const Force<Number>& other) = default;
+
+  // Copy constructor. Constructs a force vector by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Force(const Force<OtherNumber>& other)
+    : Force(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a force vector by moving another one.
-  constexpr Force(Force&& other) noexcept = default;
+  constexpr Force(Force<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this force vector by copying another one.
-  constexpr Force& operator=(const Force& other) = default;
+  constexpr Force<Number>& operator=(const Force<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this force vector by copying another one.
+  template <typename OtherNumber>
+  constexpr Force<Number>& operator=(const Force<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this force vector by moving another one.
-  constexpr Force& operator=(Force&& other) noexcept = default;
+  constexpr Force<Number>& operator=(Force<Number>&& other) noexcept = default;
 
   // Statically creates a force vector of zero.
-  static constexpr Force Zero() {
-    return Force{Vector<>::Zero()};
+  static constexpr Force<Number> Zero() {
+    return Force<Number>{Vector<Number>::Zero()};
   }
 
   // Statically creates a force vector from the given x, y, and z Cartesian components expressed in
   // a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force Create(const double x, const double y, const double z) {
-    return Force{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<double>{x, y, z})};
+  static constexpr Force<Number> Create(const Number x, const Number y, const Number z) {
+    return Force<Number>{
+        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<Number>{x, y, z})};
   }
 
   // Statically creates a force vector from the given x, y, and z Cartesian components expressed in
   // a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force Create(const std::array<double, 3>& x_y_z) {
-    return Force{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<double>{x_y_z})};
+  static constexpr Force<Number> Create(const std::array<Number, 3>& x_y_z) {
+    return Force<Number>{
+        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<Number>{x_y_z})};
   }
 
   // Statically creates a force vector with a given value expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force Create(const Vector<double>& value) {
-    return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
+  static constexpr Force<Number> Create(const Vector<Number>& value) {
+    return Force<Number>{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   // Returns the x Cartesian component of this force vector.
-  [[nodiscard]] constexpr ScalarForce x() const noexcept {
-    return ScalarForce{value.x()};
+  [[nodiscard]] constexpr ScalarForce<Number> x() const noexcept {
+    return ScalarForce<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this force vector.
-  [[nodiscard]] constexpr ScalarForce y() const noexcept {
-    return ScalarForce{value.y()};
+  [[nodiscard]] constexpr ScalarForce<Number> y() const noexcept {
+    return ScalarForce<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this force vector.
-  [[nodiscard]] constexpr ScalarForce z() const noexcept {
-    return ScalarForce{value.z()};
+  [[nodiscard]] constexpr ScalarForce<Number> z() const noexcept {
+    return ScalarForce<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this force vector.
-  [[nodiscard]] ScalarForce Magnitude() const {
-    return ScalarForce{value.Magnitude()};
+  [[nodiscard]] ScalarForce<Number> Magnitude() const {
+    return ScalarForce<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this force vector.
-  [[nodiscard]] PhQ::Direction Direction() const {
-    return value.Direction();
+  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+    return this->value.Direction();
   }
 
   // Returns the angle between this force vector and another one.
-  [[nodiscard]] PhQ::Angle Angle(const Force& force) const {
-    return {*this, force};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Force<Number>& force) const {
+    return PhQ::Angle<Number>{*this, force};
   }
 
-  constexpr Force operator+(const Force& force) const {
-    return Force{value + force.value};
+  constexpr Force<Number> operator+(const Force<Number>& force) const {
+    return Force<Number>{this->value + force.value};
   }
 
-  constexpr Force operator-(const Force& force) const {
-    return Force{value - force.value};
+  constexpr Force<Number> operator-(const Force<Number>& force) const {
+    return Force<Number>{this->value - force.value};
   }
 
-  constexpr Force operator*(const double number) const {
-    return Force{value * number};
+  constexpr Force<Number> operator*(const Number number) const {
+    return Force<Number>{this->value * number};
   }
 
-  constexpr Force operator/(const double number) const {
-    return Force{value / number};
+  constexpr Force<Number> operator/(const Number number) const {
+    return Force<Number>{this->value / number};
   }
 
-  constexpr Traction operator/(const Area& area) const;
+  constexpr Traction<Number> operator/(const Area<Number>& area) const;
 
-  constexpr void operator+=(const Force& force) noexcept {
-    value += force.value;
+  constexpr void operator+=(const Force<Number>& force) noexcept {
+    this->value += force.value;
   }
 
-  constexpr void operator-=(const Force& force) noexcept {
-    value -= force.value;
+  constexpr void operator-=(const Force<Number>& force) noexcept {
+    this->value -= force.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a force vector with a given value expressed in the standard force unit.
-  explicit constexpr Force(const Vector<double>& value) : DimensionalVector<Unit::Force>(value) {}
+  explicit constexpr Force(const Vector<Number>& value)
+    : DimensionalVector<Unit::Force, Number>(value) {}
 };
 
-inline constexpr bool operator==(const Force& left, const Force& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Force<Number>& left, const Force<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Force& left, const Force& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Force<Number>& left, const Force<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Force& left, const Force& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Force<Number>& left, const Force<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Force& left, const Force& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Force<Number>& left, const Force<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Force& left, const Force& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Force<Number>& left, const Force<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Force& left, const Force& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Force<Number>& left, const Force<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Force& force) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Force<Number>& force) {
   stream << force.Print();
   return stream;
 }
 
-inline constexpr Force operator*(const double number, const Force& force) {
+template <typename Number>
+inline constexpr Force<Number> operator*(const Number number, const Force<Number>& force) {
   return force * number;
 }
 
-inline Direction::Direction(const Force& force) : Direction(force.Value()) {}
+template <typename Number>
+inline Direction<Number>::Direction(const Force<Number>& force)
+  : Direction<Number>(force.Value()) {}
 
-inline Angle::Angle(const Force& force1, const Force& force2)
-  : Angle(force1.Value(), force2.Value()) {}
+template <typename Number>
+inline Angle<Number>::Angle(const Force<Number>& force1, const Force<Number>& force2)
+  : Angle<Number>(force1.Value(), force2.Value()) {}
 
-inline constexpr Force Direction::operator*(const ScalarForce& scalar_force) const {
-  return {scalar_force, *this};
+template <typename Number>
+inline constexpr Force<Number> Direction<Number>::operator*(
+    const ScalarForce<Number>& scalar_force) const {
+  return Force<Number>{scalar_force, *this};
 }
 
-inline constexpr Force ScalarForce::operator*(const Direction& direction) const {
-  return {*this, direction};
+template <typename Number>
+inline constexpr Force<Number> ScalarForce<Number>::operator*(
+    const Direction<Number>& direction) const {
+  return Force<Number>{*this, direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Force> {
-  inline size_t operator()(const PhQ::Force& force) const {
-    return hash<PhQ::Vector<double>>()(force.Value());
+template <typename Number>
+struct hash<PhQ::Force<Number>> {
+  inline size_t operator()(const PhQ::Force<Number>& force) const {
+    return hash<PhQ::Vector<Number>>()(force.Value());
   }
 };
 

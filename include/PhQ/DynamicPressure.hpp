@@ -25,165 +25,194 @@
 
 namespace PhQ {
 
-// Forward declaration for class DynamicPressure.
+// Forward declaration for class PhQ::DynamicPressure.
+template <typename Number>
 class DynamicKinematicPressure;
 
 // Dynamic pressure, which is the additional pressure arising from a flowing fluid's kinetic energy.
 // Dynamic pressure can be thought of as a flowing fluid's kinetic energy per unit volume.
-class DynamicPressure : public DimensionalScalar<Unit::Pressure, double> {
+template <typename Number = double>
+class DynamicPressure : public DimensionalScalar<Unit::Pressure, Number> {
 public:
   // Default constructor. Constructs a dynamic pressure with an uninitialized value.
   DynamicPressure() = default;
 
   // Constructor. Constructs a dynamic pressure with a given value expressed in a given pressure
   // unit.
-  DynamicPressure(const double value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure>(value, unit) {}
+  DynamicPressure(const Number value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
   // Constructor. Constructs a dynamic pressure from a given mass density and speed using the
   // definition of dynamic pressure.
-  constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed)
-    : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {}
+  constexpr DynamicPressure(const MassDensity<Number>& mass_density, const Speed<Number>& speed)
+    : DynamicPressure<Number>(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {}
 
   // Constructor. Constructs a dynamic pressure from a given total pressure and static pressure
   // using the definition of total pressure.
   constexpr DynamicPressure(
-      const TotalPressure& total_pressure, const StaticPressure& static_pressure);
+      const TotalPressure<Number>& total_pressure, const StaticPressure<Number>& static_pressure);
 
   // Constructor. Constructs a dynamic pressure from a given mass density and dynamic kinematic
   // pressure using the definition of dynamic kinematic pressure.
-  constexpr DynamicPressure(
-      const MassDensity& mass_density, const DynamicKinematicPressure& dynamic_kinematic_pressure);
+  constexpr DynamicPressure(const MassDensity<Number>& mass_density,
+                            const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure);
 
   // Destructor. Destroys this dynamic pressure.
   ~DynamicPressure() noexcept = default;
 
   // Copy constructor. Constructs a dynamic pressure by copying another one.
-  constexpr DynamicPressure(const DynamicPressure& other) = default;
+  constexpr DynamicPressure(const DynamicPressure<Number>& other) = default;
+
+  // Copy constructor. Constructs a dynamic pressure by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DynamicPressure(const DynamicPressure<OtherNumber>& other)
+    : DynamicPressure(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dynamic pressure by moving another one.
-  constexpr DynamicPressure(DynamicPressure&& other) noexcept = default;
+  constexpr DynamicPressure(DynamicPressure<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dynamic pressure by copying another one.
-  constexpr DynamicPressure& operator=(const DynamicPressure& other) = default;
+  constexpr DynamicPressure<Number>& operator=(const DynamicPressure<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this dynamic pressure by copying another one.
+  template <typename OtherNumber>
+  constexpr DynamicPressure<Number>& operator=(const DynamicPressure<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this dynamic pressure by moving another one.
-  constexpr DynamicPressure& operator=(DynamicPressure&& other) noexcept = default;
+  constexpr DynamicPressure<Number>& operator=(DynamicPressure<Number>&& other) noexcept = default;
 
   // Statically creates a dynamic pressure of zero.
-  static constexpr DynamicPressure Zero() {
-    return DynamicPressure{0.0};
+  static constexpr DynamicPressure<Number> Zero() {
+    return DynamicPressure<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a dynamic pressure with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr DynamicPressure Create(const double value) {
-    return DynamicPressure{
+  static constexpr DynamicPressure<Number> Create(const Number value) {
+    return DynamicPressure<Number>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr DynamicPressure operator+(const DynamicPressure& dynamic_pressure) const {
-    return DynamicPressure{value + dynamic_pressure.value};
+  constexpr DynamicPressure<Number> operator+(
+      const DynamicPressure<Number>& dynamic_pressure) const {
+    return DynamicPressure<Number>{this->value + dynamic_pressure.value};
   }
 
-  constexpr TotalPressure operator+(const StaticPressure& static_pressure) const;
+  constexpr TotalPressure<Number> operator+(const StaticPressure<Number>& static_pressure) const;
 
-  constexpr DynamicPressure operator-(const DynamicPressure& dynamic_pressure) const {
-    return DynamicPressure{value - dynamic_pressure.value};
+  constexpr DynamicPressure<Number> operator-(
+      const DynamicPressure<Number>& dynamic_pressure) const {
+    return DynamicPressure<Number>{this->value - dynamic_pressure.value};
   }
 
-  constexpr DynamicPressure operator*(const double number) const {
-    return DynamicPressure{value * number};
+  constexpr DynamicPressure<Number> operator*(const Number number) const {
+    return DynamicPressure<Number>{this->value * number};
   }
 
-  constexpr DynamicPressure operator/(const double number) const {
-    return DynamicPressure{value / number};
+  constexpr DynamicPressure<Number> operator/(const Number number) const {
+    return DynamicPressure<Number>{this->value / number};
   }
 
-  constexpr double operator/(const DynamicPressure& dynamic_pressure) const noexcept {
-    return value / dynamic_pressure.value;
+  constexpr Number operator/(const DynamicPressure<Number>& dynamic_pressure) const noexcept {
+    return this->value / dynamic_pressure.value;
   }
 
-  constexpr DynamicKinematicPressure operator/(const MassDensity& mass_density) const;
+  constexpr DynamicKinematicPressure<Number> operator/(
+      const MassDensity<Number>& mass_density) const;
 
-  constexpr void operator+=(const DynamicPressure& dynamic_pressure) noexcept {
-    value += dynamic_pressure.value;
+  constexpr void operator+=(const DynamicPressure<Number>& dynamic_pressure) noexcept {
+    this->value += dynamic_pressure.value;
   }
 
-  constexpr void operator-=(const DynamicPressure& dynamic_pressure) noexcept {
-    value -= dynamic_pressure.value;
+  constexpr void operator-=(const DynamicPressure<Number>& dynamic_pressure) noexcept {
+    this->value -= dynamic_pressure.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a dynamic pressure with a given value expressed in the standard
   // pressure unit.
-  explicit constexpr DynamicPressure(const double value)
-    : DimensionalScalar<Unit::Pressure>(value) {}
+  explicit constexpr DynamicPressure(const Number value)
+    : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const DynamicPressure& left, const DynamicPressure& right) noexcept {
+    const DynamicPressure<Number>& left, const DynamicPressure<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const DynamicPressure& left, const DynamicPressure& right) noexcept {
+    const DynamicPressure<Number>& left, const DynamicPressure<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const DynamicPressure& left, const DynamicPressure& right) noexcept {
+    const DynamicPressure<Number>& left, const DynamicPressure<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const DynamicPressure& left, const DynamicPressure& right) noexcept {
+    const DynamicPressure<Number>& left, const DynamicPressure<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const DynamicPressure& left, const DynamicPressure& right) noexcept {
+    const DynamicPressure<Number>& left, const DynamicPressure<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const DynamicPressure& left, const DynamicPressure& right) noexcept {
+    const DynamicPressure<Number>& left, const DynamicPressure<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const DynamicPressure& dynamic_pressure) {
+template <typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream, const DynamicPressure<Number>& dynamic_pressure) {
   stream << dynamic_pressure.Print();
   return stream;
 }
 
-inline constexpr DynamicPressure operator*(
-    const double number, const DynamicPressure& dynamic_pressure) {
+template <typename Number>
+inline constexpr DynamicPressure<Number> operator*(
+    const Number number, const DynamicPressure<Number>& dynamic_pressure) {
   return dynamic_pressure * number;
 }
 
-inline constexpr MassDensity::MassDensity(
-    const DynamicPressure& dynamic_pressure, const Speed& speed)
-  : MassDensity(2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
+template <typename Number>
+inline constexpr MassDensity<Number>::MassDensity(
+    const DynamicPressure<Number>& dynamic_pressure, const Speed<Number>& speed)
+  : MassDensity<Number>(2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
 
-inline Speed::Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
-  : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
+template <typename Number>
+inline Speed<Number>::Speed(
+    const DynamicPressure<Number>& dynamic_pressure, const MassDensity<Number>& mass_density)
+  : Speed<Number>(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::DynamicPressure> {
-  inline size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
-    return hash<double>()(dynamic_pressure.Value());
+template <typename Number>
+struct hash<PhQ::DynamicPressure<Number>> {
+  inline size_t operator()(const PhQ::DynamicPressure<Number>& dynamic_pressure) const {
+    return hash<Number>()(dynamic_pressure.Value());
   }
 };
 

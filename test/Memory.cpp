@@ -83,7 +83,7 @@ TEST(Memory, ComparisonOperators) {
 
 TEST(Memory, CopyAssignmentOperator) {
   const Memory first{1.0, Unit::Memory::Bit};
-  Memory second = Memory::Zero();
+  Memory second = Memory<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -95,23 +95,23 @@ TEST(Memory, CopyConstructor) {
 }
 
 TEST(Memory, Create) {
-  constexpr Memory memory = Memory::Create<Unit::Memory::Bit>(1.0);
+  constexpr Memory memory = Memory<>::Create<Unit::Memory::Bit>(1.0);
   EXPECT_EQ(memory, Memory(1.0, Unit::Memory::Bit));
 }
 
 TEST(Memory, DefaultConstructor) {
-  EXPECT_NO_THROW(Memory{});
+  EXPECT_NO_THROW(Memory<>{});
 }
 
 TEST(Memory, Dimensions) {
-  EXPECT_EQ(Memory::Dimensions(), RelatedDimensions<Unit::Memory>);
+  EXPECT_EQ(Memory<>::Dimensions(), RelatedDimensions<Unit::Memory>);
 }
 
 TEST(Memory, Hash) {
   const Memory first{1.0, Unit::Memory::Byte};
   const Memory second{1.00001, Unit::Memory::Byte};
   const Memory third{-1.0, Unit::Memory::Byte};
-  const std::hash<Memory> hasher;
+  const std::hash<Memory<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -125,7 +125,7 @@ TEST(Memory, JSON) {
 
 TEST(Memory, MoveAssignmentOperator) {
   Memory first{1.0, Unit::Memory::Bit};
-  Memory second = Memory::Zero();
+  Memory second = Memory<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Memory(1.0, Unit::Memory::Bit));
 }
@@ -155,7 +155,7 @@ TEST(Memory, SetValue) {
 }
 
 TEST(Memory, SizeOf) {
-  EXPECT_EQ(sizeof(Memory{}), sizeof(double));
+  EXPECT_EQ(sizeof(Memory<>{}), sizeof(double));
 }
 
 TEST(Memory, StandardConstructor) {
@@ -163,7 +163,7 @@ TEST(Memory, StandardConstructor) {
 }
 
 TEST(Memory, StaticValue) {
-  constexpr Memory memory = Memory::Create<Unit::Memory::Byte>(1.0);
+  constexpr Memory memory = Memory<>::Create<Unit::Memory::Byte>(1.0);
   constexpr double value = memory.StaticValue<Unit::Memory::Byte>();
   EXPECT_EQ(value, 1.0);
 }
@@ -175,7 +175,7 @@ TEST(Memory, Stream) {
 }
 
 TEST(Memory, Unit) {
-  EXPECT_EQ(Memory::Unit(), Standard<Unit::Memory>);
+  EXPECT_EQ(Memory<>::Unit(), Standard<Unit::Memory>);
 }
 
 TEST(Memory, Value) {
@@ -197,7 +197,7 @@ TEST(Memory, YAML) {
 }
 
 TEST(Memory, Zero) {
-  EXPECT_EQ(Memory::Zero(), Memory(0.0, Unit::Memory::Bit));
+  EXPECT_EQ(Memory<>::Zero(), Memory(0.0, Unit::Memory::Bit));
 }
 
 }  // namespace

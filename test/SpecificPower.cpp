@@ -135,7 +135,7 @@ TEST(SpecificPower, ComparisonOperators) {
 
 TEST(SpecificPower, CopyAssignmentOperator) {
   const SpecificPower first{1.0, Unit::SpecificPower::WattPerKilogram};
-  SpecificPower second = SpecificPower::Zero();
+  SpecificPower second = SpecificPower<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -148,23 +148,23 @@ TEST(SpecificPower, CopyConstructor) {
 
 TEST(SpecificPower, Create) {
   constexpr SpecificPower quantity =
-      SpecificPower::Create<Unit::SpecificPower::WattPerKilogram>(1.0);
+      SpecificPower<>::Create<Unit::SpecificPower::WattPerKilogram>(1.0);
   EXPECT_EQ(quantity, SpecificPower(1.0, Unit::SpecificPower::WattPerKilogram));
 }
 
 TEST(SpecificPower, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificPower{});
+  EXPECT_NO_THROW(SpecificPower<>{});
 }
 
 TEST(SpecificPower, Dimensions) {
-  EXPECT_EQ(SpecificPower::Dimensions(), RelatedDimensions<Unit::SpecificPower>);
+  EXPECT_EQ(SpecificPower<>::Dimensions(), RelatedDimensions<Unit::SpecificPower>);
 }
 
 TEST(SpecificPower, Hash) {
   const SpecificPower first{1.0, Unit::SpecificPower::NanowattPerGram};
   const SpecificPower second{1.00001, Unit::SpecificPower::NanowattPerGram};
   const SpecificPower third{-1.0, Unit::SpecificPower::NanowattPerGram};
-  const std::hash<SpecificPower> hash;
+  const std::hash<SpecificPower<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -209,7 +209,7 @@ TEST(SpecificPower, MiscellaneousConstructors) {
 
 TEST(SpecificPower, MoveAssignmentOperator) {
   SpecificPower first{1.0, Unit::SpecificPower::WattPerKilogram};
-  SpecificPower second = SpecificPower::Zero();
+  SpecificPower second = SpecificPower<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SpecificPower(1.0, Unit::SpecificPower::WattPerKilogram));
 }
@@ -241,7 +241,7 @@ TEST(SpecificPower, SetValue) {
 }
 
 TEST(SpecificPower, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificPower{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificPower<>{}), sizeof(double));
 }
 
 TEST(SpecificPower, StandardConstructor) {
@@ -250,7 +250,7 @@ TEST(SpecificPower, StandardConstructor) {
 
 TEST(SpecificPower, StaticValue) {
   constexpr SpecificPower quantity =
-      SpecificPower::Create<Unit::SpecificPower::NanowattPerGram>(2.0);
+      SpecificPower<>::Create<Unit::SpecificPower::NanowattPerGram>(2.0);
   constexpr double value = quantity.StaticValue<Unit::SpecificPower::NanowattPerGram>();
   EXPECT_EQ(value, 2.0);
 }
@@ -262,7 +262,7 @@ TEST(SpecificPower, Stream) {
 }
 
 TEST(SpecificPower, Unit) {
-  EXPECT_EQ(SpecificPower::Unit(), Standard<Unit::SpecificPower>);
+  EXPECT_EQ(SpecificPower<>::Unit(), Standard<Unit::SpecificPower>);
 }
 
 TEST(SpecificPower, Value) {
@@ -289,7 +289,7 @@ TEST(SpecificPower, YAML) {
 }
 
 TEST(SpecificPower, Zero) {
-  EXPECT_EQ(SpecificPower::Zero(), SpecificPower(0.0, Unit::SpecificPower::WattPerKilogram));
+  EXPECT_EQ(SpecificPower<>::Zero(), SpecificPower(0.0, Unit::SpecificPower::WattPerKilogram));
 }
 
 }  // namespace

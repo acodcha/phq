@@ -168,7 +168,8 @@ protected:
 
   // Copy constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by copying
   // another one.
-  constexpr DimensionalSymmetricDyad(const DimensionalSymmetricDyad& other) = default;
+  constexpr DimensionalSymmetricDyad(
+      const DimensionalSymmetricDyad<UnitType, Number>& other) = default;
 
   // Copy constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by copying
   // another one.
@@ -179,16 +180,18 @@ protected:
 
   // Move constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by moving
   // another one.
-  constexpr DimensionalSymmetricDyad(DimensionalSymmetricDyad&& other) noexcept = default;
+  constexpr DimensionalSymmetricDyad(
+      DimensionalSymmetricDyad<UnitType, Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensional symmetric dyadic tensor physical quantity by
   // copying another one.
-  constexpr DimensionalSymmetricDyad& operator=(const DimensionalSymmetricDyad& other) = default;
+  constexpr DimensionalSymmetricDyad<UnitType, Number>& operator=(
+      const DimensionalSymmetricDyad<UnitType, Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensional symmetric dyadic tensor physical quantity by
   // copying another one.
   template <typename OtherNumber>
-  constexpr DimensionalSymmetricDyad& operator=(
+  constexpr DimensionalSymmetricDyad<UnitType, Number>& operator=(
       const DimensionalSymmetricDyad<UnitType, OtherNumber>& other) {
     value = static_cast<PhQ::SymmetricDyad<Number>>(other.Value());
     return *this;
@@ -196,8 +199,8 @@ protected:
 
   // Move assignment operator. Assigns this dimensional symmetric dyadic tensor physical quantity by
   // moving another one.
-  constexpr DimensionalSymmetricDyad& operator=(
-      DimensionalSymmetricDyad&& other) noexcept = default;
+  constexpr DimensionalSymmetricDyad<UnitType, Number>& operator=(
+      DimensionalSymmetricDyad<UnitType, Number>&& other) noexcept = default;
 
   // Value of this physical quantity expressed in its standard unit of measure.
   PhQ::SymmetricDyad<Number> value;

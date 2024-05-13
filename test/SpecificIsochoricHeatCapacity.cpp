@@ -137,7 +137,7 @@ TEST(SpecificIsochoricHeatCapacity, ComparisonOperators) {
 TEST(SpecificIsochoricHeatCapacity, CopyAssignmentOperator) {
   const SpecificIsochoricHeatCapacity first{
       1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificIsochoricHeatCapacity second = SpecificIsochoricHeatCapacity::Zero();
+  SpecificIsochoricHeatCapacity second = SpecificIsochoricHeatCapacity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -150,20 +150,19 @@ TEST(SpecificIsochoricHeatCapacity, CopyConstructor) {
 }
 
 TEST(SpecificIsochoricHeatCapacity, Create) {
-  constexpr SpecificIsochoricHeatCapacity quantity =
-      SpecificIsochoricHeatCapacity::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
-          1.0);
+  constexpr SpecificIsochoricHeatCapacity quantity = SpecificIsochoricHeatCapacity<>::Create<
+      Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(1.0);
   EXPECT_EQ(quantity, SpecificIsochoricHeatCapacity(
                           1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 
 TEST(SpecificIsochoricHeatCapacity, DefaultConstructor) {
-  EXPECT_NO_THROW(SpecificIsochoricHeatCapacity{});
+  EXPECT_NO_THROW(SpecificIsochoricHeatCapacity<>{});
 }
 
 TEST(SpecificIsochoricHeatCapacity, Dimensions) {
   EXPECT_EQ(
-      SpecificIsochoricHeatCapacity::Dimensions(), RelatedDimensions<Unit::SpecificHeatCapacity>);
+      SpecificIsochoricHeatCapacity<>::Dimensions(), RelatedDimensions<Unit::SpecificHeatCapacity>);
 }
 
 TEST(SpecificIsochoricHeatCapacity, Hash) {
@@ -173,7 +172,7 @@ TEST(SpecificIsochoricHeatCapacity, Hash) {
       1.00001, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
   const SpecificIsochoricHeatCapacity third{
       -1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
-  const std::hash<SpecificIsochoricHeatCapacity> hasher;
+  const std::hash<SpecificIsochoricHeatCapacity<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -208,7 +207,7 @@ TEST(SpecificIsochoricHeatCapacity, MiscellaneousConstructors) {
 
 TEST(SpecificIsochoricHeatCapacity, MoveAssignmentOperator) {
   SpecificIsochoricHeatCapacity first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificIsochoricHeatCapacity second = SpecificIsochoricHeatCapacity::Zero();
+  SpecificIsochoricHeatCapacity second = SpecificIsochoricHeatCapacity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SpecificIsochoricHeatCapacity(
                         1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
@@ -248,7 +247,7 @@ TEST(SpecificIsochoricHeatCapacity, SetValue) {
 }
 
 TEST(SpecificIsochoricHeatCapacity, SizeOf) {
-  EXPECT_EQ(sizeof(SpecificIsochoricHeatCapacity{}), sizeof(double));
+  EXPECT_EQ(sizeof(SpecificIsochoricHeatCapacity<>{}), sizeof(double));
 }
 
 TEST(SpecificIsochoricHeatCapacity, StandardConstructor) {
@@ -257,9 +256,8 @@ TEST(SpecificIsochoricHeatCapacity, StandardConstructor) {
 }
 
 TEST(SpecificIsochoricHeatCapacity, StaticValue) {
-  constexpr SpecificIsochoricHeatCapacity quantity =
-      SpecificIsochoricHeatCapacity::Create<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(
-          2.0);
+  constexpr SpecificIsochoricHeatCapacity quantity = SpecificIsochoricHeatCapacity<>::Create<
+      Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(2.0);
   constexpr double value =
       quantity.StaticValue<Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>();
   EXPECT_EQ(value, 2.0);
@@ -276,7 +274,7 @@ TEST(SpecificIsochoricHeatCapacity, Stream) {
 }
 
 TEST(SpecificIsochoricHeatCapacity, Unit) {
-  EXPECT_EQ(SpecificIsochoricHeatCapacity::Unit(), Standard<Unit::SpecificHeatCapacity>);
+  EXPECT_EQ(SpecificIsochoricHeatCapacity<>::Unit(), Standard<Unit::SpecificHeatCapacity>);
 }
 
 TEST(SpecificIsochoricHeatCapacity, Value) {
@@ -314,7 +312,7 @@ TEST(SpecificIsochoricHeatCapacity, YAML) {
 
 TEST(SpecificIsochoricHeatCapacity, Zero) {
   EXPECT_EQ(
-      SpecificIsochoricHeatCapacity::Zero(),
+      SpecificIsochoricHeatCapacity<>::Zero(),
       SpecificIsochoricHeatCapacity(0.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 

@@ -101,7 +101,7 @@ TEST(Speed, ComparisonOperators) {
 
 TEST(Speed, CopyAssignmentOperator) {
   const Speed first{1.0, Unit::Speed::MetrePerSecond};
-  Speed second = Speed::Zero();
+  Speed second = Speed<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -113,23 +113,23 @@ TEST(Speed, CopyConstructor) {
 }
 
 TEST(Speed, Create) {
-  constexpr Speed quantity = Speed::Create<Unit::Speed::MetrePerSecond>(1.0);
+  constexpr Speed quantity = Speed<>::Create<Unit::Speed::MetrePerSecond>(1.0);
   EXPECT_EQ(quantity, Speed(1.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Speed, DefaultConstructor) {
-  EXPECT_NO_THROW(Speed{});
+  EXPECT_NO_THROW(Speed<>{});
 }
 
 TEST(Speed, Dimensions) {
-  EXPECT_EQ(Speed::Dimensions(), RelatedDimensions<Unit::Speed>);
+  EXPECT_EQ(Speed<>::Dimensions(), RelatedDimensions<Unit::Speed>);
 }
 
 TEST(Speed, Hash) {
   const Speed first{1.0, Unit::Speed::MillimetrePerSecond};
   const Speed second{1.00001, Unit::Speed::MillimetrePerSecond};
   const Speed third{-1.0, Unit::Speed::MillimetrePerSecond};
-  const std::hash<Speed> hash;
+  const std::hash<Speed<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -159,7 +159,7 @@ TEST(Speed, MiscellaneousConstructors) {
 
 TEST(Speed, MoveAssignmentOperator) {
   Speed first{1.0, Unit::Speed::MetrePerSecond};
-  Speed second = Speed::Zero();
+  Speed second = Speed<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Speed(1.0, Unit::Speed::MetrePerSecond));
 }
@@ -190,7 +190,7 @@ TEST(Speed, SetValue) {
 }
 
 TEST(Speed, SizeOf) {
-  EXPECT_EQ(sizeof(Speed{}), sizeof(double));
+  EXPECT_EQ(sizeof(Speed<>{}), sizeof(double));
 }
 
 TEST(Speed, StandardConstructor) {
@@ -198,7 +198,7 @@ TEST(Speed, StandardConstructor) {
 }
 
 TEST(Speed, StaticValue) {
-  constexpr Speed quantity = Speed::Create<Unit::Speed::MillimetrePerSecond>(1.0);
+  constexpr Speed quantity = Speed<>::Create<Unit::Speed::MillimetrePerSecond>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Speed::MillimetrePerSecond>();
   EXPECT_EQ(value, 1.0);
 }
@@ -210,7 +210,7 @@ TEST(Speed, Stream) {
 }
 
 TEST(Speed, Unit) {
-  EXPECT_EQ(Speed::Unit(), Standard<Unit::Speed>);
+  EXPECT_EQ(Speed<>::Unit(), Standard<Unit::Speed>);
 }
 
 TEST(Speed, Value) {
@@ -234,7 +234,7 @@ TEST(Speed, YAML) {
 }
 
 TEST(Speed, Zero) {
-  EXPECT_EQ(Speed::Zero(), Speed(0.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed<>::Zero(), Speed(0.0, Unit::Speed::MetrePerSecond));
 }
 
 }  // namespace

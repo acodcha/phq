@@ -29,204 +29,236 @@
 namespace PhQ {
 
 // Temperature gradient vector. See also PhQ::ScalarTemperatureGradient.
-class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient, double> {
+template <typename Number = double>
+class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient, Number> {
 public:
   // Default constructor. Constructs a temperature gradient vector with an uninitialized value.
   TemperatureGradient() = default;
 
   // Constructor. Constructs a temperature gradient vector with a given value expressed in a given
   // temperature gradient unit.
-  TemperatureGradient(const Vector<double>& value, const Unit::TemperatureGradient unit)
-    : DimensionalVector<Unit::TemperatureGradient>(value, unit) {}
+  TemperatureGradient(const Vector<Number>& value, const Unit::TemperatureGradient unit)
+    : DimensionalVector<Unit::TemperatureGradient, Number>(value, unit) {}
 
   // Constructor. Constructs a temperature gradient vector from a given scalar temperature gradient
   // magnitude and direction.
   constexpr TemperatureGradient(
-      const ScalarTemperatureGradient& scalar_temperature_gradient, const Direction& direction)
-    : TemperatureGradient(scalar_temperature_gradient.Value() * direction.Value()) {}
+      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
+      const Direction<Number>& direction)
+    : TemperatureGradient<Number>(scalar_temperature_gradient.Value() * direction.Value()) {}
 
   // Destructor. Destroys this temperature gradient vector.
   ~TemperatureGradient() noexcept = default;
 
   // Copy constructor. Constructs a temperature gradient vector by copying another one.
-  constexpr TemperatureGradient(const TemperatureGradient& other) = default;
+  constexpr TemperatureGradient(const TemperatureGradient<Number>& other) = default;
+
+  // Copy constructor. Constructs a temperature gradient vector by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr TemperatureGradient(const TemperatureGradient<OtherNumber>& other)
+    : TemperatureGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a temperature gradient vector by moving another one.
-  constexpr TemperatureGradient(TemperatureGradient&& other) noexcept = default;
+  constexpr TemperatureGradient(TemperatureGradient<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this temperature gradient vector by copying another one.
-  constexpr TemperatureGradient& operator=(const TemperatureGradient& other) = default;
+  constexpr TemperatureGradient<Number>& operator=(
+      const TemperatureGradient<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this temperature gradient vector by copying another one.
+  template <typename OtherNumber>
+  constexpr TemperatureGradient<Number>& operator=(const TemperatureGradient<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this temperature gradient vector by moving another one.
-  constexpr TemperatureGradient& operator=(TemperatureGradient&& other) noexcept = default;
+  constexpr TemperatureGradient<Number>& operator=(
+      TemperatureGradient<Number>&& other) noexcept = default;
 
   // Statically creates a temperature gradient vector of zero.
-  static constexpr TemperatureGradient Zero() {
-    return TemperatureGradient{Vector<>::Zero()};
+  static constexpr TemperatureGradient<Number> Zero() {
+    return TemperatureGradient<Number>{Vector<Number>::Zero()};
   }
 
   // Statically creates a temperature gradient vector from the given x, y, and z Cartesian
   // components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient Create(const double x, const double y, const double z) {
-    return TemperatureGradient{
+  static constexpr TemperatureGradient<Number> Create(
+      const Number x, const Number y, const Number z) {
+    return TemperatureGradient<Number>{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Vector<double>{x, y, z})};
+            Vector<Number>{x, y, z})};
   }
 
   // Statically creates a temperature gradient vector from the given x, y, and z Cartesian
   // components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient Create(const std::array<double, 3>& x_y_z) {
-    return TemperatureGradient{
+  static constexpr TemperatureGradient<Number> Create(const std::array<Number, 3>& x_y_z) {
+    return TemperatureGradient<Number>{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Vector<double>{x_y_z})};
+            Vector<Number>{x_y_z})};
   }
 
   // Statically creates a temperature gradient vector with a given value expressed in a given
   // temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient Create(const Vector<double>& value) {
-    return TemperatureGradient{
+  static constexpr TemperatureGradient<Number> Create(const Vector<Number>& value) {
+    return TemperatureGradient<Number>{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 
   // Returns the x Cartesian component of this temperature gradient vector.
-  [[nodiscard]] constexpr ScalarTemperatureGradient x() const noexcept {
-    return ScalarTemperatureGradient{value.x()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient<Number> x() const noexcept {
+    return ScalarTemperatureGradient<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this temperature gradient vector.
-  [[nodiscard]] constexpr ScalarTemperatureGradient y() const noexcept {
-    return ScalarTemperatureGradient{value.y()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient<Number> y() const noexcept {
+    return ScalarTemperatureGradient<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this temperature gradient vector.
-  [[nodiscard]] constexpr ScalarTemperatureGradient z() const noexcept {
-    return ScalarTemperatureGradient{value.z()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient<Number> z() const noexcept {
+    return ScalarTemperatureGradient<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this temperature gradient vector.
-  [[nodiscard]] ScalarTemperatureGradient Magnitude() const {
-    return ScalarTemperatureGradient{value.Magnitude()};
+  [[nodiscard]] ScalarTemperatureGradient<Number> Magnitude() const {
+    return ScalarTemperatureGradient<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this temperature gradient vector.
-  [[nodiscard]] PhQ::Direction Direction() const {
-    return value.Direction();
+  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+    return this->value.Direction();
   }
 
   // Returns the angle between this temperature gradient vector and another one.
-  [[nodiscard]] PhQ::Angle Angle(const TemperatureGradient& temperature_gradient) const {
-    return {*this, temperature_gradient};
+  [[nodiscard]] PhQ::Angle<Number> Angle(
+      const TemperatureGradient<Number>& temperature_gradient) const {
+    return PhQ::Angle<Number>{*this, temperature_gradient};
   }
 
-  constexpr TemperatureGradient operator+(const TemperatureGradient& temperature_gradient) const {
-    return TemperatureGradient{value + temperature_gradient.value};
+  constexpr TemperatureGradient<Number> operator+(
+      const TemperatureGradient<Number>& temperature_gradient) const {
+    return TemperatureGradient<Number>{this->value + temperature_gradient.value};
   }
 
-  constexpr TemperatureGradient operator-(const TemperatureGradient& temperature_gradient) const {
-    return TemperatureGradient{value - temperature_gradient.value};
+  constexpr TemperatureGradient<Number> operator-(
+      const TemperatureGradient<Number>& temperature_gradient) const {
+    return TemperatureGradient<Number>{this->value - temperature_gradient.value};
   }
 
-  constexpr TemperatureGradient operator*(const double number) const {
-    return TemperatureGradient{value * number};
+  constexpr TemperatureGradient<Number> operator*(const Number number) const {
+    return TemperatureGradient<Number>{this->value * number};
   }
 
-  constexpr TemperatureGradient operator/(const double number) const {
-    return TemperatureGradient{value / number};
+  constexpr TemperatureGradient<Number> operator/(const Number number) const {
+    return TemperatureGradient<Number>{this->value / number};
   }
 
-  constexpr void operator+=(const TemperatureGradient& temperature_gradient) noexcept {
-    value += temperature_gradient.value;
+  constexpr void operator+=(const TemperatureGradient<Number>& temperature_gradient) noexcept {
+    this->value += temperature_gradient.value;
   }
 
-  constexpr void operator-=(const TemperatureGradient& temperature_gradient) noexcept {
-    value -= temperature_gradient.value;
+  constexpr void operator-=(const TemperatureGradient<Number>& temperature_gradient) noexcept {
+    this->value -= temperature_gradient.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a temperature gradient vector with a given value expressed in the
   // standard temperature gradient unit.
-  explicit constexpr TemperatureGradient(const Vector<double>& value)
-    : DimensionalVector<Unit::TemperatureGradient>(value) {}
+  explicit constexpr TemperatureGradient(const Vector<Number>& value)
+    : DimensionalVector<Unit::TemperatureGradient, Number>(value) {}
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const TemperatureGradient& left, const TemperatureGradient& right) noexcept {
+    const TemperatureGradient<Number>& left, const TemperatureGradient<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const TemperatureGradient& left, const TemperatureGradient& right) noexcept {
+    const TemperatureGradient<Number>& left, const TemperatureGradient<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const TemperatureGradient& left, const TemperatureGradient& right) noexcept {
+    const TemperatureGradient<Number>& left, const TemperatureGradient<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const TemperatureGradient& left, const TemperatureGradient& right) noexcept {
+    const TemperatureGradient<Number>& left, const TemperatureGradient<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const TemperatureGradient& left, const TemperatureGradient& right) noexcept {
+    const TemperatureGradient<Number>& left, const TemperatureGradient<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const TemperatureGradient& left, const TemperatureGradient& right) noexcept {
+    const TemperatureGradient<Number>& left, const TemperatureGradient<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const TemperatureGradient& temperature_gradient) {
+    std::ostream& stream, const TemperatureGradient<Number>& temperature_gradient) {
   stream << temperature_gradient.Print();
   return stream;
 }
 
-inline constexpr TemperatureGradient operator*(
-    const double number, const TemperatureGradient& temperature_gradient) {
+template <typename Number>
+inline constexpr TemperatureGradient<Number> operator*(
+    const Number number, const TemperatureGradient<Number>& temperature_gradient) {
   return temperature_gradient * number;
 }
 
-inline Direction::Direction(const TemperatureGradient& temperature_gradient)
-  : Direction(temperature_gradient.Value()) {}
+template <typename Number>
+inline Direction<Number>::Direction(const TemperatureGradient<Number>& temperature_gradient)
+  : Direction<Number>(temperature_gradient.Value()) {}
 
-inline Angle::Angle(const TemperatureGradient& temperature_gradient_1,
-                    const TemperatureGradient& temperature_gradient_2)
-  : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
+template <typename Number>
+inline Angle<Number>::Angle(const TemperatureGradient<Number>& temperature_gradient_1,
+                            const TemperatureGradient<Number>& temperature_gradient_2)
+  : Angle<Number>(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 
-inline constexpr TemperatureGradient Direction::operator*(
-    const ScalarTemperatureGradient& scalar_temperature_gradient) const {
-  return {scalar_temperature_gradient, *this};
+template <typename Number>
+inline constexpr TemperatureGradient<Number> Direction<Number>::operator*(
+    const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
+  return TemperatureGradient<Number>{scalar_temperature_gradient, *this};
 }
 
-inline constexpr TemperatureGradient ScalarTemperatureGradient::operator*(
-    const Direction& direction) const {
-  return {*this, direction};
+template <typename Number>
+inline constexpr TemperatureGradient<Number> ScalarTemperatureGradient<Number>::operator*(
+    const Direction<Number>& direction) const {
+  return TemperatureGradient<Number>{*this, direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::TemperatureGradient> {
-  inline size_t operator()(const PhQ::TemperatureGradient& temperature_gradient) const {
-    return hash<PhQ::Vector<double>>()(temperature_gradient.Value());
+template <typename Number>
+struct hash<PhQ::TemperatureGradient<Number>> {
+  inline size_t operator()(const PhQ::TemperatureGradient<Number>& temperature_gradient) const {
+    return hash<PhQ::Vector<Number>>()(temperature_gradient.Value());
   }
 };
 

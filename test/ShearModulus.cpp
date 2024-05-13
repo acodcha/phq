@@ -87,7 +87,7 @@ TEST(ShearModulus, ComparisonOperators) {
 
 TEST(ShearModulus, CopyAssignmentOperator) {
   const ShearModulus first{1.0, Unit::Pressure::Pascal};
-  ShearModulus second = ShearModulus::Zero();
+  ShearModulus second = ShearModulus<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -99,23 +99,23 @@ TEST(ShearModulus, CopyConstructor) {
 }
 
 TEST(ShearModulus, Create) {
-  constexpr ShearModulus quantity = ShearModulus::Create<Unit::Pressure::Pascal>(1.0);
+  constexpr ShearModulus quantity = ShearModulus<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(quantity, ShearModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(ShearModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(ShearModulus{});
+  EXPECT_NO_THROW(ShearModulus<>{});
 }
 
 TEST(ShearModulus, Dimensions) {
-  EXPECT_EQ(ShearModulus::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(ShearModulus<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(ShearModulus, Hash) {
   const ShearModulus first{1.0, Unit::Pressure::Kilopascal};
   const ShearModulus second{1.00001, Unit::Pressure::Kilopascal};
   const ShearModulus third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<ShearModulus> hasher;
+  const std::hash<ShearModulus<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -130,7 +130,7 @@ TEST(ShearModulus, JSON) {
 
 TEST(ShearModulus, MoveAssignmentOperator) {
   ShearModulus first{1.0, Unit::Pressure::Pascal};
-  ShearModulus second = ShearModulus::Zero();
+  ShearModulus second = ShearModulus<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ShearModulus(1.0, Unit::Pressure::Pascal));
 }
@@ -161,7 +161,7 @@ TEST(ShearModulus, SetValue) {
 }
 
 TEST(ShearModulus, SizeOf) {
-  EXPECT_EQ(sizeof(ShearModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(ShearModulus<>{}), sizeof(double));
 }
 
 TEST(ShearModulus, StandardConstructor) {
@@ -169,7 +169,7 @@ TEST(ShearModulus, StandardConstructor) {
 }
 
 TEST(ShearModulus, StaticValue) {
-  constexpr ShearModulus quantity = ShearModulus::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr ShearModulus quantity = ShearModulus<>::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.0);
 }
@@ -181,7 +181,7 @@ TEST(ShearModulus, Stream) {
 }
 
 TEST(ShearModulus, Unit) {
-  EXPECT_EQ(ShearModulus::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(ShearModulus<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(ShearModulus, Value) {
@@ -204,7 +204,7 @@ TEST(ShearModulus, YAML) {
 }
 
 TEST(ShearModulus, Zero) {
-  EXPECT_EQ(ShearModulus::Zero(), ShearModulus(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(ShearModulus<>::Zero(), ShearModulus(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

@@ -106,7 +106,7 @@ TEST(ScalarStrainRate, ComparisonOperators) {
 
 TEST(ScalarStrainRate, CopyAssignmentOperator) {
   const ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
-  ScalarStrainRate second = ScalarStrainRate::Zero();
+  ScalarStrainRate second = ScalarStrainRate<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -118,23 +118,23 @@ TEST(ScalarStrainRate, CopyConstructor) {
 }
 
 TEST(ScalarStrainRate, Create) {
-  constexpr ScalarStrainRate quantity = ScalarStrainRate::Create<Unit::Frequency::Hertz>(1.0);
+  constexpr ScalarStrainRate quantity = ScalarStrainRate<>::Create<Unit::Frequency::Hertz>(1.0);
   EXPECT_EQ(quantity, ScalarStrainRate(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(ScalarStrainRate, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarStrainRate{});
+  EXPECT_NO_THROW(ScalarStrainRate<>{});
 }
 
 TEST(ScalarStrainRate, Dimensions) {
-  EXPECT_EQ(ScalarStrainRate::Dimensions(), RelatedDimensions<Unit::Frequency>);
+  EXPECT_EQ(ScalarStrainRate<>::Dimensions(), RelatedDimensions<Unit::Frequency>);
 }
 
 TEST(ScalarStrainRate, Hash) {
   const ScalarStrainRate first{1.0, Unit::Frequency::Kilohertz};
   const ScalarStrainRate second{1.00001, Unit::Frequency::Kilohertz};
   const ScalarStrainRate third{-1.0, Unit::Frequency::Kilohertz};
-  const std::hash<ScalarStrainRate> hasher;
+  const std::hash<ScalarStrainRate<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -162,7 +162,7 @@ TEST(ScalarStrainRate, MiscellaneousConstructors) {
 
 TEST(ScalarStrainRate, MoveAssignmentOperator) {
   ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
-  ScalarStrainRate second = ScalarStrainRate::Zero();
+  ScalarStrainRate second = ScalarStrainRate<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarStrainRate(1.0, Unit::Frequency::Hertz));
 }
@@ -193,7 +193,7 @@ TEST(ScalarStrainRate, SetValue) {
 }
 
 TEST(ScalarStrainRate, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarStrainRate{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarStrainRate<>{}), sizeof(double));
 }
 
 TEST(ScalarStrainRate, StandardConstructor) {
@@ -201,7 +201,7 @@ TEST(ScalarStrainRate, StandardConstructor) {
 }
 
 TEST(ScalarStrainRate, StaticValue) {
-  constexpr ScalarStrainRate quantity = ScalarStrainRate::Create<Unit::Frequency::Kilohertz>(1.0);
+  constexpr ScalarStrainRate quantity = ScalarStrainRate<>::Create<Unit::Frequency::Kilohertz>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, 1.0);
 }
@@ -213,7 +213,7 @@ TEST(ScalarStrainRate, Stream) {
 }
 
 TEST(ScalarStrainRate, Unit) {
-  EXPECT_EQ(ScalarStrainRate::Unit(), Standard<Unit::Frequency>);
+  EXPECT_EQ(ScalarStrainRate<>::Unit(), Standard<Unit::Frequency>);
 }
 
 TEST(ScalarStrainRate, Value) {
@@ -237,7 +237,7 @@ TEST(ScalarStrainRate, YAML) {
 }
 
 TEST(ScalarStrainRate, Zero) {
-  EXPECT_EQ(ScalarStrainRate::Zero(), ScalarStrainRate(0.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(ScalarStrainRate<>::Zero(), ScalarStrainRate(0.0, Unit::Frequency::Hertz));
 }
 
 }  // namespace

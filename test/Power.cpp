@@ -105,7 +105,7 @@ TEST(Power, ComparisonOperators) {
 
 TEST(Power, CopyAssignmentOperator) {
   const Power first{1.0, Unit::Power::Watt};
-  Power second = Power::Zero();
+  Power second = Power<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -117,23 +117,23 @@ TEST(Power, CopyConstructor) {
 }
 
 TEST(Power, Create) {
-  constexpr Power power = Power::Create<Unit::Power::Watt>(1.0);
+  constexpr Power power = Power<>::Create<Unit::Power::Watt>(1.0);
   EXPECT_EQ(power, Power(1.0, Unit::Power::Watt));
 }
 
 TEST(Power, DefaultConstructor) {
-  EXPECT_NO_THROW(Power{});
+  EXPECT_NO_THROW(Power<>{});
 }
 
 TEST(Power, Dimensions) {
-  EXPECT_EQ(Power::Dimensions(), RelatedDimensions<Unit::Power>);
+  EXPECT_EQ(Power<>::Dimensions(), RelatedDimensions<Unit::Power>);
 }
 
 TEST(Power, Hash) {
   const Power first{1.0, Unit::Power::Kilowatt};
   const Power second{1.000001, Unit::Power::Kilowatt};
   const Power third{-1.0, Unit::Power::Kilowatt};
-  const std::hash<Power> hasher;
+  const std::hash<Power<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -162,7 +162,7 @@ TEST(Power, MiscellaneousConstructors) {
 
 TEST(Power, MoveAssignmentOperator) {
   Power first{1.0, Unit::Power::Watt};
-  Power second = Power::Zero();
+  Power second = Power<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Power(1.0, Unit::Power::Watt));
 }
@@ -192,7 +192,7 @@ TEST(Power, SetValue) {
 }
 
 TEST(Power, SizeOf) {
-  EXPECT_EQ(sizeof(Power{}), sizeof(double));
+  EXPECT_EQ(sizeof(Power<>{}), sizeof(double));
 }
 
 TEST(Power, StandardConstructor) {
@@ -200,7 +200,7 @@ TEST(Power, StandardConstructor) {
 }
 
 TEST(Power, StaticValue) {
-  constexpr Power power = Power::Create<Unit::Power::Kilowatt>(1.0);
+  constexpr Power power = Power<>::Create<Unit::Power::Kilowatt>(1.0);
   constexpr double value = power.StaticValue<Unit::Power::Kilowatt>();
   EXPECT_EQ(value, 1.0);
 }
@@ -212,7 +212,7 @@ TEST(Power, Stream) {
 }
 
 TEST(Power, Unit) {
-  EXPECT_EQ(Power::Unit(), Standard<Unit::Power>);
+  EXPECT_EQ(Power<>::Unit(), Standard<Unit::Power>);
 }
 
 TEST(Power, Value) {
@@ -233,7 +233,7 @@ TEST(Power, YAML) {
 }
 
 TEST(Power, Zero) {
-  EXPECT_EQ(Power::Zero(), Power(0.0, Unit::Power::Watt));
+  EXPECT_EQ(Power<>::Zero(), Power(0.0, Unit::Power::Watt));
 }
 
 }  // namespace

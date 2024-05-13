@@ -105,7 +105,7 @@ TEST(DynamicKinematicPressure, ComparisonOperators) {
 
 TEST(DynamicKinematicPressure, CopyAssignmentOperator) {
   const DynamicKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  DynamicKinematicPressure second = DynamicKinematicPressure::Zero();
+  DynamicKinematicPressure second = DynamicKinematicPressure<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -118,24 +118,24 @@ TEST(DynamicKinematicPressure, CopyConstructor) {
 
 TEST(DynamicKinematicPressure, Create) {
   constexpr DynamicKinematicPressure dynamic_kinematic_pressure =
-      DynamicKinematicPressure::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
+      DynamicKinematicPressure<>::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
   EXPECT_EQ(dynamic_kinematic_pressure,
             DynamicKinematicPressure(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(DynamicKinematicPressure, DefaultConstructor) {
-  EXPECT_NO_THROW(DynamicKinematicPressure{});
+  EXPECT_NO_THROW(DynamicKinematicPressure<>{});
 }
 
 TEST(DynamicKinematicPressure, Dimensions) {
-  EXPECT_EQ(DynamicKinematicPressure::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
+  EXPECT_EQ(DynamicKinematicPressure<>::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
 }
 
 TEST(DynamicKinematicPressure, Hash) {
   const DynamicKinematicPressure first{1.0, Unit::SpecificEnergy::NanojoulePerGram};
   const DynamicKinematicPressure second{1.000001, Unit::SpecificEnergy::NanojoulePerGram};
   const DynamicKinematicPressure third{-1.0, Unit::SpecificEnergy::NanojoulePerGram};
-  const std::hash<DynamicKinematicPressure> hash;
+  const std::hash<DynamicKinematicPressure<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -164,7 +164,7 @@ TEST(DynamicKinematicPressure, MiscellaneousConstructors) {
 
 TEST(DynamicKinematicPressure, MoveAssignmentOperator) {
   DynamicKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  DynamicKinematicPressure second = DynamicKinematicPressure::Zero();
+  DynamicKinematicPressure second = DynamicKinematicPressure<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, DynamicKinematicPressure(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
@@ -197,7 +197,7 @@ TEST(DynamicKinematicPressure, SetValue) {
 }
 
 TEST(DynamicKinematicPressure, SizeOf) {
-  EXPECT_EQ(sizeof(DynamicKinematicPressure{}), sizeof(double));
+  EXPECT_EQ(sizeof(DynamicKinematicPressure<>{}), sizeof(double));
 }
 
 TEST(DynamicKinematicPressure, StandardConstructor) {
@@ -206,7 +206,7 @@ TEST(DynamicKinematicPressure, StandardConstructor) {
 
 TEST(DynamicKinematicPressure, StaticValue) {
   constexpr DynamicKinematicPressure dynamic_kinematic_pressure =
-      DynamicKinematicPressure::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
+      DynamicKinematicPressure<>::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
   constexpr double value =
       dynamic_kinematic_pressure.StaticValue<Unit::SpecificEnergy::NanojoulePerGram>();
   EXPECT_EQ(value, 2.0);
@@ -220,7 +220,7 @@ TEST(DynamicKinematicPressure, Stream) {
 }
 
 TEST(DynamicKinematicPressure, Unit) {
-  EXPECT_EQ(DynamicKinematicPressure::Unit(), Standard<Unit::SpecificEnergy>);
+  EXPECT_EQ(DynamicKinematicPressure<>::Unit(), Standard<Unit::SpecificEnergy>);
 }
 
 TEST(DynamicKinematicPressure, Value) {
@@ -247,7 +247,7 @@ TEST(DynamicKinematicPressure, YAML) {
 }
 
 TEST(DynamicKinematicPressure, Zero) {
-  EXPECT_EQ(DynamicKinematicPressure::Zero(),
+  EXPECT_EQ(DynamicKinematicPressure<>::Zero(),
             DynamicKinematicPressure(0.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 

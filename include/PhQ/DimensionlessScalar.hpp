@@ -90,7 +90,7 @@ protected:
   ~DimensionlessScalar() noexcept = default;
 
   // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
-  constexpr DimensionlessScalar(const DimensionlessScalar& other) = default;
+  constexpr DimensionlessScalar(const DimensionlessScalar<Number>& other) = default;
 
   // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
   template <typename OtherNumber>
@@ -98,23 +98,25 @@ protected:
     : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dimensionless scalar physical quantity by moving another one.
-  constexpr DimensionlessScalar(DimensionlessScalar&& other) noexcept = default;
+  constexpr DimensionlessScalar(DimensionlessScalar<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensionless scalar physical quantity by copying
   // another one.
-  constexpr DimensionlessScalar& operator=(const DimensionlessScalar& other) = default;
+  constexpr DimensionlessScalar<Number>& operator=(
+      const DimensionlessScalar<Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensionless scalar physical quantity by copying
   // another one.
   template <typename OtherNumber>
-  constexpr DimensionlessScalar& operator=(const DimensionlessScalar<OtherNumber>& other) {
+  constexpr DimensionlessScalar<Number>& operator=(const DimensionlessScalar<OtherNumber>& other) {
     value = static_cast<Number>(other.Value());
     return *this;
   }
 
   // Move assignment operator. Assigns this dimensionless scalar physical quantity by moving another
   // one.
-  constexpr DimensionlessScalar& operator=(DimensionlessScalar&& other) noexcept = default;
+  constexpr DimensionlessScalar<Number>& operator=(
+      DimensionlessScalar<Number>&& other) noexcept = default;
 
   // Value of this physical quantity.
   Number value;

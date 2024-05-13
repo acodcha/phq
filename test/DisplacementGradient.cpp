@@ -97,7 +97,7 @@ TEST(DisplacementGradient, ComparisonOperators) {
 
 TEST(DisplacementGradient, CopyAssignmentOperator) {
   constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  DisplacementGradient second = DisplacementGradient::Zero();
+  DisplacementGradient second = DisplacementGradient<>::Zero();
   second = first;
   EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
@@ -109,18 +109,18 @@ TEST(DisplacementGradient, CopyConstructor) {
 }
 
 TEST(DisplacementGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(DisplacementGradient{});
+  EXPECT_NO_THROW(DisplacementGradient<>{});
 }
 
 TEST(DisplacementGradient, Dimensions) {
-  EXPECT_EQ(DisplacementGradient::Dimensions(), Dimensionless);
+  EXPECT_EQ(DisplacementGradient<>::Dimensions(), Dimensionless);
 }
 
 TEST(DisplacementGradient, Hash) {
   constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   constexpr DisplacementGradient second(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.00001);
   constexpr DisplacementGradient third(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, 8.0, 9.0);
-  const std::hash<DisplacementGradient> hash;
+  const std::hash<DisplacementGradient<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -141,7 +141,7 @@ TEST(DisplacementGradient, MiscellaneousConstructors) {
 
 TEST(DisplacementGradient, MoveAssignmentOperator) {
   DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  DisplacementGradient second = DisplacementGradient::Zero();
+  DisplacementGradient second = DisplacementGradient<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
@@ -176,7 +176,7 @@ TEST(DisplacementGradient, SetValue) {
 }
 
 TEST(DisplacementGradient, SizeOf) {
-  EXPECT_EQ(sizeof(DisplacementGradient{}), 9 * sizeof(double));
+  EXPECT_EQ(sizeof(DisplacementGradient<>{}), 9 * sizeof(double));
 }
 
 TEST(DisplacementGradient, StandardConstructor) {
@@ -235,7 +235,7 @@ TEST(DisplacementGradient, YAML) {
 }
 
 TEST(DisplacementGradient, Zero) {
-  EXPECT_EQ(DisplacementGradient::Zero(),
+  EXPECT_EQ(DisplacementGradient<>::Zero(),
             DisplacementGradient(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 }
 

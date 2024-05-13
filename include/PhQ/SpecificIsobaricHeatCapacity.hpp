@@ -26,257 +26,312 @@
 
 namespace PhQ {
 
-// Forward declarations for class SpecificIsobaricHeatCapacity.
+// Forward declaration for class PhQ::SpecificIsobaricHeatCapacity.
+template <typename Number>
 class DynamicViscosity;
+
+// Forward declaration for class PhQ::SpecificIsobaricHeatCapacity.
+template <typename Number>
 class MassDensity;
+
+// Forward declaration for class PhQ::SpecificIsobaricHeatCapacity.
+template <typename Number>
 class PrandtlNumber;
+
+// Forward declaration for class PhQ::SpecificIsobaricHeatCapacity.
+template <typename Number>
 class ScalarThermalConductivity;
+
+// Forward declaration for class PhQ::SpecificIsobaricHeatCapacity.
+template <typename Number>
 class ThermalDiffusivity;
 
 // Specific isobaric heat capacity. Isobaric heat capacity per unit mass.
-class SpecificIsobaricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, double> {
+template <typename Number = double>
+class SpecificIsobaricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, Number> {
 public:
   // Default constructor. Constructs a specific isobaric heat capacity with an uninitialized value.
   SpecificIsobaricHeatCapacity() = default;
 
   // Constructor. Constructs a specific isobaric heat capacity with a given value expressed in a
   // given specific heat capacity unit.
-  SpecificIsobaricHeatCapacity(const double value, const Unit::SpecificHeatCapacity unit)
-    : DimensionalScalar<Unit::SpecificHeatCapacity>(value, unit) {}
+  SpecificIsobaricHeatCapacity(const Number value, const Unit::SpecificHeatCapacity unit)
+    : DimensionalScalar<Unit::SpecificHeatCapacity, Number>(value, unit) {}
 
   // Constructor. Constructs a specific isobaric heat capacity from a given specific gas constant
   // and specific isochoric heat capacity using Mayer's relation.
   constexpr SpecificIsobaricHeatCapacity(
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const SpecificGasConstant& specific_gas_constant);
+      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity,
+      const SpecificGasConstant<Number>& specific_gas_constant);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given specific gas constant
   // and heat capacity ratio using the definition of the heat capacity ratio and Mayer's relation.
-  constexpr SpecificIsobaricHeatCapacity(const HeatCapacityRatio& heat_capacity_ratio,
-                                         const SpecificGasConstant& specific_gas_constant);
+  constexpr SpecificIsobaricHeatCapacity(const HeatCapacityRatio<Number>& heat_capacity_ratio,
+                                         const SpecificGasConstant<Number>& specific_gas_constant);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given specific isochoric heat
   // capacity and heat capacity ratio using the definition of the heat capacity ratio.
   constexpr SpecificIsobaricHeatCapacity(
-      const HeatCapacityRatio& heat_capacity_ratio,
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-    : SpecificIsobaricHeatCapacity(
+      const HeatCapacityRatio<Number>& heat_capacity_ratio,
+      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity)
+    : SpecificIsobaricHeatCapacity<Number>(
         heat_capacity_ratio.Value() * specific_isochoric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a specific isobaric heat capacity from a given isobaric heat capacity
   // and mass using the definition of the specific isobaric heat capacity.
   constexpr SpecificIsobaricHeatCapacity(
-      const IsobaricHeatCapacity& isobaric_heat_capacity, const Mass& mass)
-    : SpecificIsobaricHeatCapacity(isobaric_heat_capacity.Value() / mass.Value()) {}
+      const IsobaricHeatCapacity<Number>& isobaric_heat_capacity, const Mass<Number>& mass)
+    : SpecificIsobaricHeatCapacity<Number>(isobaric_heat_capacity.Value() / mass.Value()) {}
 
   // Constructor. Constructs a specific isobaric heat capacity from a given scalar thermal
   // conductivity mass density, and thermal diffusivity using the definition of the specific
   // isobaric heat capacity and Fourier's law of heat conduction.
   constexpr SpecificIsobaricHeatCapacity(
-      const ScalarThermalConductivity& scalar_thermal_conductivity, const MassDensity& mass_density,
-      const ThermalDiffusivity& thermal_diffusivity);
+      const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
+      const MassDensity<Number>& mass_density,
+      const ThermalDiffusivity<Number>& thermal_diffusivity);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given Prandtl number, scalar
   // thermal conductivity, and dynamic viscosity using the definition of the Prandtl number.
   constexpr SpecificIsobaricHeatCapacity(
-      const PrandtlNumber& prandtl_number,
-      const ScalarThermalConductivity& scalar_thermal_conductivity,
-      const DynamicViscosity& dynamic_viscosity);
+      const PrandtlNumber<Number>& prandtl_number,
+      const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
+      const DynamicViscosity<Number>& dynamic_viscosity);
 
   // Destructor. Destroys this specific isobaric heat capacity.
   ~SpecificIsobaricHeatCapacity() noexcept = default;
 
   // Copy constructor. Constructs a specific isobaric heat capacity by copying another one.
-  constexpr SpecificIsobaricHeatCapacity(const SpecificIsobaricHeatCapacity& other) = default;
+  constexpr SpecificIsobaricHeatCapacity(
+      const SpecificIsobaricHeatCapacity<Number>& other) = default;
+
+  // Copy constructor. Constructs a specific isobaric heat capacity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr SpecificIsobaricHeatCapacity(
+      const SpecificIsobaricHeatCapacity<OtherNumber>& other)
+    : SpecificIsobaricHeatCapacity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a specific isobaric heat capacity by moving another one.
-  constexpr SpecificIsobaricHeatCapacity(SpecificIsobaricHeatCapacity&& other) noexcept = default;
+  constexpr SpecificIsobaricHeatCapacity(
+      SpecificIsobaricHeatCapacity<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this specific isobaric heat capacity by copying another one.
-  constexpr SpecificIsobaricHeatCapacity& operator=(
-      const SpecificIsobaricHeatCapacity& other) = default;
+  constexpr SpecificIsobaricHeatCapacity<Number>& operator=(
+      const SpecificIsobaricHeatCapacity<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this specific isobaric heat capacity by copying another one.
+  template <typename OtherNumber>
+  constexpr SpecificIsobaricHeatCapacity<Number>& operator=(
+      const SpecificIsobaricHeatCapacity<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this specific isobaric heat capacity by moving another one.
-  constexpr SpecificIsobaricHeatCapacity& operator=(
-      SpecificIsobaricHeatCapacity&& other) noexcept = default;
+  constexpr SpecificIsobaricHeatCapacity<Number>& operator=(
+      SpecificIsobaricHeatCapacity<Number>&& other) noexcept = default;
 
   // Statically creates a specific isobaric heat capacity of zero.
-  static constexpr SpecificIsobaricHeatCapacity Zero() {
-    return SpecificIsobaricHeatCapacity{0.0};
+  static constexpr SpecificIsobaricHeatCapacity<Number> Zero() {
+    return SpecificIsobaricHeatCapacity<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a specific isobaric heat capacity with a given value expressed in a given
   // specific heat capacity unit.
   template <Unit::SpecificHeatCapacity Unit>
-  static constexpr SpecificIsobaricHeatCapacity Create(const double value) {
-    return SpecificIsobaricHeatCapacity{
+  static constexpr SpecificIsobaricHeatCapacity<Number> Create(const Number value) {
+    return SpecificIsobaricHeatCapacity<Number>{
         StaticConvertCopy<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
             value)};
   }
 
-  constexpr SpecificIsobaricHeatCapacity operator+(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-    return SpecificIsobaricHeatCapacity{value + specific_isobaric_heat_capacity.value};
+  constexpr SpecificIsobaricHeatCapacity<Number> operator+(
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
+    return SpecificIsobaricHeatCapacity<Number>{
+        this->value + specific_isobaric_heat_capacity.value};
   }
 
-  constexpr SpecificIsobaricHeatCapacity operator-(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-    return SpecificIsobaricHeatCapacity{value - specific_isobaric_heat_capacity.value};
+  constexpr SpecificIsobaricHeatCapacity<Number> operator-(
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
+    return SpecificIsobaricHeatCapacity<Number>{
+        this->value - specific_isobaric_heat_capacity.value};
   }
 
-  constexpr SpecificGasConstant operator-(
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const;
+  constexpr SpecificGasConstant<Number> operator-(
+      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity) const;
 
-  constexpr SpecificIsochoricHeatCapacity operator-(
-      const SpecificGasConstant& specific_gas_constant) const;
+  constexpr SpecificIsochoricHeatCapacity<Number> operator-(
+      const SpecificGasConstant<Number>& specific_gas_constant) const;
 
-  constexpr SpecificIsobaricHeatCapacity operator*(const double number) const {
-    return SpecificIsobaricHeatCapacity{value * number};
+  constexpr SpecificIsobaricHeatCapacity<Number> operator*(const Number number) const {
+    return SpecificIsobaricHeatCapacity<Number>{this->value * number};
   }
 
-  constexpr IsobaricHeatCapacity operator*(const Mass& mass) const {
-    return {*this, mass};
+  constexpr IsobaricHeatCapacity<Number> operator*(const Mass<Number>& mass) const {
+    return IsobaricHeatCapacity<Number>{*this, mass};
   }
 
-  constexpr SpecificIsobaricHeatCapacity operator/(const double number) const {
-    return SpecificIsobaricHeatCapacity{value / number};
+  constexpr SpecificIsobaricHeatCapacity<Number> operator/(const Number number) const {
+    return SpecificIsobaricHeatCapacity<Number>{this->value / number};
   }
 
-  constexpr double operator/(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
-    return value / specific_isobaric_heat_capacity.value;
+  constexpr Number operator/(
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const noexcept {
+    return this->value / specific_isobaric_heat_capacity.value;
   }
 
-  constexpr HeatCapacityRatio operator/(
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const {
-    return {*this, specific_isochoric_heat_capacity};
+  constexpr HeatCapacityRatio<Number> operator/(
+      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity) const {
+    return HeatCapacityRatio<Number>{*this, specific_isochoric_heat_capacity};
   }
 
-  constexpr SpecificIsochoricHeatCapacity operator/(
-      const HeatCapacityRatio& heat_capacity_ratio) const {
-    return {*this, heat_capacity_ratio};
+  constexpr SpecificIsochoricHeatCapacity<Number> operator/(
+      const HeatCapacityRatio<Number>& heat_capacity_ratio) const {
+    return SpecificIsochoricHeatCapacity<Number>{*this, heat_capacity_ratio};
   }
 
   constexpr void operator+=(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept {
-    value += specific_isobaric_heat_capacity.value;
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) noexcept {
+    this->value += specific_isobaric_heat_capacity.value;
   }
 
   constexpr void operator-=(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept {
-    value -= specific_isobaric_heat_capacity.value;
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) noexcept {
+    this->value -= specific_isobaric_heat_capacity.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a specific isobaric heat capacity with a given value expressed in the
   // standard specific heat capacity unit.
-  explicit constexpr SpecificIsobaricHeatCapacity(const double value)
-    : DimensionalScalar<Unit::SpecificHeatCapacity>(value) {}
+  explicit constexpr SpecificIsobaricHeatCapacity(const Number value)
+    : DimensionalScalar<Unit::SpecificHeatCapacity, Number>(value) {}
 };
 
-inline constexpr bool operator==(
-    const SpecificIsobaricHeatCapacity& left, const SpecificIsobaricHeatCapacity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const SpecificIsobaricHeatCapacity<Number>& left,
+                                 const SpecificIsobaricHeatCapacity<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const SpecificIsobaricHeatCapacity& left, const SpecificIsobaricHeatCapacity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const SpecificIsobaricHeatCapacity<Number>& left,
+                                 const SpecificIsobaricHeatCapacity<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const SpecificIsobaricHeatCapacity& left, const SpecificIsobaricHeatCapacity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const SpecificIsobaricHeatCapacity<Number>& left,
+                                const SpecificIsobaricHeatCapacity<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const SpecificIsobaricHeatCapacity& left, const SpecificIsobaricHeatCapacity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const SpecificIsobaricHeatCapacity<Number>& left,
+                                const SpecificIsobaricHeatCapacity<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const SpecificIsobaricHeatCapacity& left, const SpecificIsobaricHeatCapacity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const SpecificIsobaricHeatCapacity<Number>& left,
+                                 const SpecificIsobaricHeatCapacity<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const SpecificIsobaricHeatCapacity& left, const SpecificIsobaricHeatCapacity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const SpecificIsobaricHeatCapacity<Number>& left,
+                                 const SpecificIsobaricHeatCapacity<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) {
+    std::ostream& stream,
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) {
   stream << specific_isobaric_heat_capacity.Print();
   return stream;
 }
 
-inline constexpr SpecificIsobaricHeatCapacity operator*(
-    const double number, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) {
+template <typename Number>
+inline constexpr SpecificIsobaricHeatCapacity<Number> operator*(
+    const Number number,
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) {
   return specific_isobaric_heat_capacity * number;
 }
 
-inline constexpr HeatCapacityRatio::HeatCapacityRatio(
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-    const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-  : HeatCapacityRatio(
+template <typename Number>
+inline constexpr HeatCapacityRatio<Number>::HeatCapacityRatio(
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
+    const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity)
+  : HeatCapacityRatio<Number>(
       specific_isobaric_heat_capacity.Value() / specific_isochoric_heat_capacity.Value()) {}
 
-inline constexpr Mass::Mass(const IsobaricHeatCapacity& isobaric_heat_capacity,
-                            const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-  : Mass(isobaric_heat_capacity.Value() / specific_isobaric_heat_capacity.Value()) {}
+template <typename Number>
+inline constexpr Mass<Number>::Mass(
+    const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity)
+  : Mass<Number>(isobaric_heat_capacity.Value() / specific_isobaric_heat_capacity.Value()) {}
 
-inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const Mass& mass)
-  : IsobaricHeatCapacity(specific_isobaric_heat_capacity.Value() * mass.Value()) {}
+template <typename Number>
+inline constexpr IsobaricHeatCapacity<Number>::IsobaricHeatCapacity(
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
+    const Mass<Number>& mass)
+  : IsobaricHeatCapacity<Number>(specific_isobaric_heat_capacity.Value() * mass.Value()) {}
 
-inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-    const HeatCapacityRatio& heat_capacity_ratio)
-  : SpecificIsochoricHeatCapacity(
+template <typename Number>
+inline constexpr SpecificIsochoricHeatCapacity<Number>::SpecificIsochoricHeatCapacity(
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
+    const HeatCapacityRatio<Number>& heat_capacity_ratio)
+  : SpecificIsochoricHeatCapacity<Number>(
       specific_isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
 
-inline constexpr IsobaricHeatCapacity Mass::operator*(
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-  return {specific_isobaric_heat_capacity, *this};
+template <typename Number>
+inline constexpr IsobaricHeatCapacity<Number> Mass<Number>::operator*(
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
+  return IsobaricHeatCapacity<Number>{specific_isobaric_heat_capacity, *this};
 }
 
-inline constexpr SpecificIsobaricHeatCapacity HeatCapacityRatio::operator*(
-    const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const {
-  return {*this, specific_isochoric_heat_capacity};
+template <typename Number>
+inline constexpr SpecificIsobaricHeatCapacity<Number> HeatCapacityRatio<Number>::operator*(
+    const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity) const {
+  return SpecificIsobaricHeatCapacity<Number>{*this, specific_isochoric_heat_capacity};
 }
 
-inline constexpr SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator*(
-    const HeatCapacityRatio& heat_capacity_ratio) const {
-  return {heat_capacity_ratio, *this};
+template <typename Number>
+inline constexpr SpecificIsobaricHeatCapacity<Number>
+SpecificIsochoricHeatCapacity<Number>::operator*(
+    const HeatCapacityRatio<Number>& heat_capacity_ratio) const {
+  return SpecificIsobaricHeatCapacity<Number>{heat_capacity_ratio, *this};
 }
 
-inline constexpr SpecificIsobaricHeatCapacity IsobaricHeatCapacity::operator/(
-    const Mass& mass) const {
-  return {*this, mass};
+template <typename Number>
+inline constexpr SpecificIsobaricHeatCapacity<Number> IsobaricHeatCapacity<Number>::operator/(
+    const Mass<Number>& mass) const {
+  return SpecificIsobaricHeatCapacity<Number>{*this, mass};
 }
 
-inline constexpr Mass IsobaricHeatCapacity::operator/(
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-  return {*this, specific_isobaric_heat_capacity};
+template <typename Number>
+inline constexpr Mass<Number> IsobaricHeatCapacity<Number>::operator/(
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
+  return Mass<Number>{*this, specific_isobaric_heat_capacity};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::SpecificIsobaricHeatCapacity> {
+template <typename Number>
+struct hash<PhQ::SpecificIsobaricHeatCapacity<Number>> {
   inline size_t operator()(
-      const PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-    return hash<double>()(specific_isobaric_heat_capacity.Value());
+      const PhQ::SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
+    return hash<Number>()(specific_isobaric_heat_capacity.Value());
   }
 };
 

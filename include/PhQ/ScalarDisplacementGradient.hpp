@@ -22,149 +22,182 @@
 
 namespace PhQ {
 
-// Forward declarations for class ScalarDisplacementGradient.
+// Forward declaration for class PhQ::ScalarDisplacementGradient.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::ScalarDisplacementGradient.
+template <typename Number>
 class ScalarVelocityGradient;
+
+// Forward declaration for class PhQ::ScalarDisplacementGradient.
+template <typename Number>
 class Time;
 
 // Scalar component or resultant of a displacement gradient tensor. See also
 // PhQ::DisplacementGradient and PhQ::ScalarVelocityGradient.
-class ScalarDisplacementGradient : public DimensionlessScalar<double> {
+template <typename Number = double>
+class ScalarDisplacementGradient : public DimensionlessScalar<Number> {
 public:
   // Default constructor. Constructs a scalar displacement gradient with an uninitialized value.
   ScalarDisplacementGradient() = default;
 
   // Constructor. Constructs a scalar displacement gradient with a given value.
-  explicit constexpr ScalarDisplacementGradient(const double value) : DimensionlessScalar(value) {}
+  explicit constexpr ScalarDisplacementGradient(const Number value)
+    : DimensionlessScalar<Number>(value) {}
 
   // Constructor. Constructs a scalar displacement gradient from a given scalar velocity gradient
   // and time using the definition of speed.
   constexpr ScalarDisplacementGradient(
-      const ScalarVelocityGradient& scalar_velocity_gradient, const Time& time);
+      const ScalarVelocityGradient<Number>& scalar_velocity_gradient, const Time<Number>& time);
 
   // Constructor. Constructs a scalar displacement gradient from a given scalar velocity gradient
   // and frequency using the definition of speed.
   constexpr ScalarDisplacementGradient(
-      const ScalarVelocityGradient& scalar_velocity_gradient, const Frequency& frequency);
+      const ScalarVelocityGradient<Number>& scalar_velocity_gradient,
+      const Frequency<Number>& frequency);
 
   // Destructor. Destroys this scalar displacement gradient.
   ~ScalarDisplacementGradient() noexcept = default;
 
   // Copy constructor. Constructs a scalar displacement gradient by copying another one.
-  constexpr ScalarDisplacementGradient(const ScalarDisplacementGradient& other) = default;
+  constexpr ScalarDisplacementGradient(const ScalarDisplacementGradient<Number>& other) = default;
+
+  // Copy constructor. Constructs a scalar displacement gradient by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr ScalarDisplacementGradient(
+      const ScalarDisplacementGradient<OtherNumber>& other)
+    : ScalarDisplacementGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar displacement gradient by moving another one.
-  constexpr ScalarDisplacementGradient(ScalarDisplacementGradient&& other) noexcept = default;
+  constexpr ScalarDisplacementGradient(
+      ScalarDisplacementGradient<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this scalar displacement gradient by copying another one.
-  constexpr ScalarDisplacementGradient& operator=(
-      const ScalarDisplacementGradient& other) = default;
+  constexpr ScalarDisplacementGradient<Number>& operator=(
+      const ScalarDisplacementGradient<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this scalar displacement gradient by copying another one.
+  template <typename OtherNumber>
+  constexpr ScalarDisplacementGradient<Number>& operator=(
+      const ScalarDisplacementGradient<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this scalar displacement gradient by moving another one.
-  constexpr ScalarDisplacementGradient& operator=(
-      ScalarDisplacementGradient&& other) noexcept = default;
+  constexpr ScalarDisplacementGradient<Number>& operator=(
+      ScalarDisplacementGradient<Number>&& other) noexcept = default;
 
   // Statically creates a scalar displacement gradient of zero.
-  static constexpr ScalarDisplacementGradient Zero() {
-    return ScalarDisplacementGradient{0.0};
+  static constexpr ScalarDisplacementGradient<Number> Zero() {
+    return ScalarDisplacementGradient<Number>{static_cast<Number>(0)};
   }
 
-  constexpr ScalarDisplacementGradient operator+(
-      const ScalarDisplacementGradient& scalar_displacement_gradient) const {
-    return ScalarDisplacementGradient{value + scalar_displacement_gradient.value};
+  constexpr ScalarDisplacementGradient<Number> operator+(
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const {
+    return ScalarDisplacementGradient<Number>{this->value + scalar_displacement_gradient.value};
   }
 
-  constexpr ScalarDisplacementGradient operator-(
-      const ScalarDisplacementGradient& scalar_displacement_gradient) const {
-    return ScalarDisplacementGradient{value - scalar_displacement_gradient.value};
+  constexpr ScalarDisplacementGradient<Number> operator-(
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const {
+    return ScalarDisplacementGradient<Number>{this->value - scalar_displacement_gradient.value};
   }
 
-  constexpr ScalarDisplacementGradient operator*(const double number) const {
-    return ScalarDisplacementGradient{value * number};
+  constexpr ScalarDisplacementGradient<Number> operator*(const Number number) const {
+    return ScalarDisplacementGradient<Number>{this->value * number};
   }
 
-  constexpr ScalarVelocityGradient operator*(const Frequency& frequency) const;
+  constexpr ScalarVelocityGradient<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr ScalarDisplacementGradient operator/(const double number) const {
-    return ScalarDisplacementGradient{value / number};
+  constexpr ScalarDisplacementGradient<Number> operator/(const Number number) const {
+    return ScalarDisplacementGradient<Number>{this->value / number};
   }
 
-  constexpr ScalarVelocityGradient operator/(const Time& time) const;
+  constexpr ScalarVelocityGradient<Number> operator/(const Time<Number>& time) const;
 
-  constexpr double operator/(
-      const ScalarDisplacementGradient& scalar_displacement_gradient) const noexcept {
-    return value / scalar_displacement_gradient.value;
+  constexpr Number operator/(
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const noexcept {
+    return this->value / scalar_displacement_gradient.value;
   }
 
   constexpr void operator+=(
-      const ScalarDisplacementGradient& scalar_displacement_gradient) noexcept {
-    value += scalar_displacement_gradient.value;
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) noexcept {
+    this->value += scalar_displacement_gradient.value;
   }
 
   constexpr void operator-=(
-      const ScalarDisplacementGradient& scalar_displacement_gradient) noexcept {
-    value -= scalar_displacement_gradient.value;
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) noexcept {
+    this->value -= scalar_displacement_gradient.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 };
 
-inline constexpr bool operator==(
-    const ScalarDisplacementGradient& left, const ScalarDisplacementGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const ScalarDisplacementGradient<Number>& left,
+                                 const ScalarDisplacementGradient<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const ScalarDisplacementGradient& left, const ScalarDisplacementGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const ScalarDisplacementGradient<Number>& left,
+                                 const ScalarDisplacementGradient<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const ScalarDisplacementGradient& left, const ScalarDisplacementGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const ScalarDisplacementGradient<Number>& left,
+                                const ScalarDisplacementGradient<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const ScalarDisplacementGradient& left, const ScalarDisplacementGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const ScalarDisplacementGradient<Number>& left,
+                                const ScalarDisplacementGradient<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const ScalarDisplacementGradient& left, const ScalarDisplacementGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const ScalarDisplacementGradient<Number>& left,
+                                 const ScalarDisplacementGradient<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const ScalarDisplacementGradient& left, const ScalarDisplacementGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const ScalarDisplacementGradient<Number>& left,
+                                 const ScalarDisplacementGradient<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarDisplacementGradient& scalar_displacement_gradient) {
+    std::ostream& stream, const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) {
   stream << scalar_displacement_gradient.Print();
   return stream;
 }
 
-inline constexpr ScalarDisplacementGradient operator*(
-    const double number, const ScalarDisplacementGradient& scalar_displacement_gradient) {
-  return ScalarDisplacementGradient{number * scalar_displacement_gradient.Value()};
+template <typename Number>
+inline constexpr ScalarDisplacementGradient<Number> operator*(
+    const Number number, const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) {
+  return ScalarDisplacementGradient<Number>{number * scalar_displacement_gradient.Value()};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::ScalarDisplacementGradient> {
+template <typename Number>
+struct hash<PhQ::ScalarDisplacementGradient<Number>> {
   inline size_t operator()(
-      const PhQ::ScalarDisplacementGradient& scalar_displacement_gradient) const {
-    return hash<double>()(scalar_displacement_gradient.Value());
+      const PhQ::ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const {
+    return hash<Number>()(scalar_displacement_gradient.Value());
   }
 };
 

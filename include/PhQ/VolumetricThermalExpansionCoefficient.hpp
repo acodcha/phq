@@ -19,15 +19,18 @@
 #include <ostream>
 
 #include "DimensionalScalar.hpp"
+#include "Strain.hpp"
 #include "TemperatureDifference.hpp"
 #include "Unit/ThermalExpansion.hpp"
 
 namespace PhQ {
 
 // Volumetric thermal expansion coefficient. Not to be confused with the linear thermal expansion
-// coefficient.
+// coefficient. For isotropic materials, the volumetric thermal expansion coefficient is usually
+// three times the linear thermal expansion coefficient.
+template <typename Number = double>
 class VolumetricThermalExpansionCoefficient
-  : public DimensionalScalar<Unit::ThermalExpansion, double> {
+  : public DimensionalScalar<Unit::ThermalExpansion, Number> {
 public:
   // Default constructor. Constructs a volumetric thermal expansion coefficient with an
   // uninitialized value.
@@ -35,156 +38,203 @@ public:
 
   // Constructor. Constructs a volumetric thermal expansion coefficient with a given value expressed
   // in a given thermal expansion unit.
-  VolumetricThermalExpansionCoefficient(const double value, const Unit::ThermalExpansion unit)
-    : DimensionalScalar<Unit::ThermalExpansion>(value, unit) {}
+  VolumetricThermalExpansionCoefficient(const Number value, const Unit::ThermalExpansion unit)
+    : DimensionalScalar<Unit::ThermalExpansion, Number>(value, unit) {}
 
   // Destructor. Destroys this volumetric thermal expansion coefficient.
   ~VolumetricThermalExpansionCoefficient() noexcept = default;
 
   // Copy constructor. Constructs a volumetric thermal expansion coefficient by copying another one.
   constexpr VolumetricThermalExpansionCoefficient(
-      const VolumetricThermalExpansionCoefficient& other) = default;
+      const VolumetricThermalExpansionCoefficient<Number>& other) = default;
+
+  // Copy constructor. Constructs a volumetric thermal expansion coefficient by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr VolumetricThermalExpansionCoefficient(
+      const VolumetricThermalExpansionCoefficient<OtherNumber>& other)
+    : VolumetricThermalExpansionCoefficient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a volumetric thermal expansion coefficient by moving another one.
   constexpr VolumetricThermalExpansionCoefficient(
-      VolumetricThermalExpansionCoefficient&& other) noexcept = default;
+      VolumetricThermalExpansionCoefficient<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this volumetric thermal expansion coefficient by copying
   // another one.
-  constexpr VolumetricThermalExpansionCoefficient& operator=(
-      const VolumetricThermalExpansionCoefficient& other) = default;
+  constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
+      const VolumetricThermalExpansionCoefficient<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this volumetric thermal expansion coefficient by copying
+  // another one.
+  template <typename OtherNumber>
+  constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
+      const VolumetricThermalExpansionCoefficient<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this volumetric thermal expansion coefficient by moving
   // another one.
-  constexpr VolumetricThermalExpansionCoefficient& operator=(
-      VolumetricThermalExpansionCoefficient&& other) noexcept = default;
+  constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
+      VolumetricThermalExpansionCoefficient<Number>&& other) noexcept = default;
 
   // Statically creates a volumetric thermal expansion coefficient of zero.
-  static constexpr VolumetricThermalExpansionCoefficient Zero() {
-    return VolumetricThermalExpansionCoefficient{0.0};
+  static constexpr VolumetricThermalExpansionCoefficient<Number> Zero() {
+    return VolumetricThermalExpansionCoefficient<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a volumetric thermal expansion coefficient with a given value expressed in a
   // given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
-  static constexpr VolumetricThermalExpansionCoefficient Create(const double value) {
-    return VolumetricThermalExpansionCoefficient{
+  static constexpr VolumetricThermalExpansionCoefficient<Number> Create(const Number value) {
+    return VolumetricThermalExpansionCoefficient<Number>{
         StaticConvertCopy<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
   }
 
-  constexpr VolumetricThermalExpansionCoefficient operator+(
-      const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
-    return VolumetricThermalExpansionCoefficient{
-        value + volumetric_thermal_expansion_coefficient.value};
+  constexpr VolumetricThermalExpansionCoefficient<Number> operator+(
+      const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
+      const {
+    return VolumetricThermalExpansionCoefficient<Number>{
+        this->value + volumetric_thermal_expansion_coefficient.value};
   }
 
-  constexpr VolumetricThermalExpansionCoefficient operator-(
-      const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
-    return VolumetricThermalExpansionCoefficient{
-        value - volumetric_thermal_expansion_coefficient.value};
+  constexpr VolumetricThermalExpansionCoefficient<Number> operator-(
+      const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
+      const {
+    return VolumetricThermalExpansionCoefficient<Number>{
+        this->value - volumetric_thermal_expansion_coefficient.value};
   }
 
-  constexpr VolumetricThermalExpansionCoefficient operator*(const double number) const {
-    return VolumetricThermalExpansionCoefficient{value * number};
+  constexpr VolumetricThermalExpansionCoefficient<Number> operator*(const Number number) const {
+    return VolumetricThermalExpansionCoefficient<Number>{this->value * number};
   }
 
-  constexpr double operator*(const TemperatureDifference& temperature_difference) const {
-    return value * temperature_difference.Value();
+  constexpr Strain<Number> operator*(
+      const TemperatureDifference<Number>& temperature_difference) const {
+    return Strain<Number>{*this, temperature_difference};
   }
 
-  constexpr VolumetricThermalExpansionCoefficient operator/(const double number) const {
-    return VolumetricThermalExpansionCoefficient{value / number};
+  constexpr VolumetricThermalExpansionCoefficient<Number> operator/(const Number number) const {
+    return VolumetricThermalExpansionCoefficient<Number>{this->value / number};
   }
 
-  constexpr double operator/(
-      const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient)
+  constexpr Number operator/(
+      const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
       const noexcept {
-    return value / volumetric_thermal_expansion_coefficient.value;
+    return this->value / volumetric_thermal_expansion_coefficient.value;
   }
 
-  constexpr void operator+=(const VolumetricThermalExpansionCoefficient&
+  constexpr void operator+=(const VolumetricThermalExpansionCoefficient<Number>&
                                 volumetric_thermal_expansion_coefficient) noexcept {
-    value += volumetric_thermal_expansion_coefficient.value;
+    this->value += volumetric_thermal_expansion_coefficient.value;
   }
 
-  constexpr void operator-=(const VolumetricThermalExpansionCoefficient&
+  constexpr void operator-=(const VolumetricThermalExpansionCoefficient<Number>&
                                 volumetric_thermal_expansion_coefficient) noexcept {
-    value -= volumetric_thermal_expansion_coefficient.value;
+    this->value -= volumetric_thermal_expansion_coefficient.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a volumetric thermal expansion coefficient with a given value expressed
   // in the standard thermal expansion unit.
-  explicit constexpr VolumetricThermalExpansionCoefficient(const double value)
-    : DimensionalScalar<Unit::ThermalExpansion>(value) {}
+  explicit constexpr VolumetricThermalExpansionCoefficient(const Number value)
+    : DimensionalScalar<Unit::ThermalExpansion, Number>(value) {}
 };
 
-inline constexpr double TemperatureDifference::operator*(
-    const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
-  return value * volumetric_thermal_expansion_coefficient.Value();
-}
-
-inline constexpr bool operator==(const VolumetricThermalExpansionCoefficient& left,
-                                 const VolumetricThermalExpansionCoefficient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const VolumetricThermalExpansionCoefficient<Number>& left,
+    const VolumetricThermalExpansionCoefficient<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const VolumetricThermalExpansionCoefficient& left,
-                                 const VolumetricThermalExpansionCoefficient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const VolumetricThermalExpansionCoefficient<Number>& left,
+    const VolumetricThermalExpansionCoefficient<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const VolumetricThermalExpansionCoefficient& left,
-                                const VolumetricThermalExpansionCoefficient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const VolumetricThermalExpansionCoefficient<Number>& left,
+    const VolumetricThermalExpansionCoefficient<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const VolumetricThermalExpansionCoefficient& left,
-                                const VolumetricThermalExpansionCoefficient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const VolumetricThermalExpansionCoefficient<Number>& left,
+    const VolumetricThermalExpansionCoefficient<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const VolumetricThermalExpansionCoefficient& left,
-                                 const VolumetricThermalExpansionCoefficient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const VolumetricThermalExpansionCoefficient<Number>& left,
+    const VolumetricThermalExpansionCoefficient<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const VolumetricThermalExpansionCoefficient& left,
-                                 const VolumetricThermalExpansionCoefficient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const VolumetricThermalExpansionCoefficient<Number>& left,
+    const VolumetricThermalExpansionCoefficient<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) {
+    const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient) {
   stream << volumetric_thermal_expansion_coefficient.Print();
   return stream;
 }
 
-inline constexpr VolumetricThermalExpansionCoefficient operator*(
-    const double number,
-    const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) {
+template <typename Number>
+inline constexpr VolumetricThermalExpansionCoefficient<Number> operator*(
+    const Number number,
+    const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient) {
   return volumetric_thermal_expansion_coefficient * number;
+}
+
+template <typename Number>
+inline constexpr PhQ::Strain<Number>::Strain(
+    const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient,
+    const TemperatureDifference<Number>& temperature_difference)
+  : Strain<Number>(
+      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+          / static_cast<Number>(3),
+      static_cast<Number>(0), static_cast<Number>(0),
+      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+          / static_cast<Number>(3),
+      static_cast<Number>(0),
+      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+          / static_cast<Number>(3)) {}
+
+template <typename Number>
+inline constexpr Strain<Number> TemperatureDifference<Number>::operator*(
+    const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
+    const {
+  return Strain<Number>{volumetric_thermal_expansion_coefficient, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
-  inline size_t operator()(
-      const PhQ::VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient)
-      const {
-    return hash<double>()(volumetric_thermal_expansion_coefficient.Value());
+template <typename Number>
+struct hash<PhQ::VolumetricThermalExpansionCoefficient<Number>> {
+  inline size_t operator()(const PhQ::VolumetricThermalExpansionCoefficient<Number>&
+                               volumetric_thermal_expansion_coefficient) const {
+    return hash<Number>()(volumetric_thermal_expansion_coefficient.Value());
   }
 };
 

@@ -26,174 +26,206 @@
 
 namespace PhQ {
 
-// Forward declaration for class ThermalDiffusivity.
+// Forward declaration for class PhQ::ThermalDiffusivity.
+template <typename Number>
 class PrandtlNumber;
 
 // Thermal diffusivity.
-class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity, double> {
+template <typename Number = double>
+class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity, Number> {
 public:
   // Default constructor. Constructs a thermal diffusivity with an uninitialized value.
   ThermalDiffusivity() = default;
 
   // Constructor. Constructs a thermal diffusivity with a given value expressed in a given
   // diffusivity unit.
-  ThermalDiffusivity(const double value, const Unit::Diffusivity unit)
-    : DimensionalScalar<Unit::Diffusivity>(value, unit) {}
+  ThermalDiffusivity(const Number value, const Unit::Diffusivity unit)
+    : DimensionalScalar<Unit::Diffusivity, Number>(value, unit) {}
 
   // Constructor. Constructs a thermal diffusivity from a given scalar thermal conductivity,
   // specific isobaric heat capacity, and mass density using the definition of the thermal
   // diffusivity.
   constexpr ThermalDiffusivity(
-      const ScalarThermalConductivity& scalar_thermal_conductivity, const MassDensity& mass_density,
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-    : ThermalDiffusivity(scalar_thermal_conductivity.Value()
-                         / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
+      const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
+      const MassDensity<Number>& mass_density,
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity)
+    : ThermalDiffusivity<Number>(
+        scalar_thermal_conductivity.Value()
+        / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
 
   // Constructor. Constructs a thermal diffusivity from a given kinematic viscosity and Prandtl
   // number using the definition of the Prandtl number.
-  constexpr ThermalDiffusivity(
-      const KinematicViscosity& kinematic_viscosity, const PrandtlNumber& prandtl_number);
+  constexpr ThermalDiffusivity(const KinematicViscosity<Number>& kinematic_viscosity,
+                               const PrandtlNumber<Number>& prandtl_number);
 
   // Destructor. Destroys this thermal diffusivity.
   ~ThermalDiffusivity() noexcept = default;
 
   // Copy constructor. Constructs a thermal diffusivity by copying another one.
-  constexpr ThermalDiffusivity(const ThermalDiffusivity& other) = default;
+  constexpr ThermalDiffusivity(const ThermalDiffusivity<Number>& other) = default;
+
+  // Copy constructor. Constructs a thermal diffusivity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr ThermalDiffusivity(const ThermalDiffusivity<OtherNumber>& other)
+    : ThermalDiffusivity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a thermal diffusivity by moving another one.
-  constexpr ThermalDiffusivity(ThermalDiffusivity&& other) noexcept = default;
+  constexpr ThermalDiffusivity(ThermalDiffusivity<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this thermal diffusivity by copying another one.
-  constexpr ThermalDiffusivity& operator=(const ThermalDiffusivity& other) = default;
+  constexpr ThermalDiffusivity<Number>& operator=(
+      const ThermalDiffusivity<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this thermal diffusivity by copying another one.
+  template <typename OtherNumber>
+  constexpr ThermalDiffusivity<Number>& operator=(const ThermalDiffusivity<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this thermal diffusivity by moving another one.
-  constexpr ThermalDiffusivity& operator=(ThermalDiffusivity&& other) noexcept = default;
+  constexpr ThermalDiffusivity<Number>& operator=(
+      ThermalDiffusivity<Number>&& other) noexcept = default;
 
   // Statically creates a thermal diffusivity of zero.
-  static constexpr ThermalDiffusivity Zero() {
-    return ThermalDiffusivity{0.0};
+  static constexpr ThermalDiffusivity<Number> Zero() {
+    return ThermalDiffusivity<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a thermal diffusivity with a given value expressed in a given diffusivity
   // unit.
   template <Unit::Diffusivity Unit>
-  static constexpr ThermalDiffusivity Create(const double value) {
-    return ThermalDiffusivity{
+  static constexpr ThermalDiffusivity<Number> Create(const Number value) {
+    return ThermalDiffusivity<Number>{
         StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }
 
-  constexpr ThermalDiffusivity operator+(const ThermalDiffusivity& thermal_diffusivity) const {
-    return ThermalDiffusivity{value + thermal_diffusivity.value};
+  constexpr ThermalDiffusivity<Number> operator+(
+      const ThermalDiffusivity<Number>& thermal_diffusivity) const {
+    return ThermalDiffusivity<Number>{this->value + thermal_diffusivity.value};
   }
 
-  constexpr ThermalDiffusivity operator-(const ThermalDiffusivity& thermal_diffusivity) const {
-    return ThermalDiffusivity{value - thermal_diffusivity.value};
+  constexpr ThermalDiffusivity<Number> operator-(
+      const ThermalDiffusivity<Number>& thermal_diffusivity) const {
+    return ThermalDiffusivity<Number>{this->value - thermal_diffusivity.value};
   }
 
-  constexpr ThermalDiffusivity operator*(const double number) const {
-    return ThermalDiffusivity{value * number};
+  constexpr ThermalDiffusivity<Number> operator*(const Number number) const {
+    return ThermalDiffusivity<Number>{this->value * number};
   }
 
-  constexpr ThermalDiffusivity operator/(const double number) const {
-    return ThermalDiffusivity{value / number};
+  constexpr ThermalDiffusivity<Number> operator/(const Number number) const {
+    return ThermalDiffusivity<Number>{this->value / number};
   }
 
-  constexpr double operator/(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
-    return value / thermal_diffusivity.value;
+  constexpr Number operator/(const ThermalDiffusivity<Number>& thermal_diffusivity) const noexcept {
+    return this->value / thermal_diffusivity.value;
   }
 
-  constexpr void operator+=(const ThermalDiffusivity& thermal_diffusivity) noexcept {
-    value += thermal_diffusivity.value;
+  constexpr void operator+=(const ThermalDiffusivity<Number>& thermal_diffusivity) noexcept {
+    this->value += thermal_diffusivity.value;
   }
 
-  constexpr void operator-=(const ThermalDiffusivity& thermal_diffusivity) noexcept {
-    value -= thermal_diffusivity.value;
+  constexpr void operator-=(const ThermalDiffusivity<Number>& thermal_diffusivity) noexcept {
+    this->value -= thermal_diffusivity.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a thermal diffusivity with a given value expressed in the standard
   // diffusivity unit.
-  explicit constexpr ThermalDiffusivity(const double value)
-    : DimensionalScalar<Unit::Diffusivity>(value) {}
+  explicit constexpr ThermalDiffusivity(const Number value)
+    : DimensionalScalar<Unit::Diffusivity, Number>(value) {}
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const ThermalDiffusivity& left, const ThermalDiffusivity& right) noexcept {
+    const ThermalDiffusivity<Number>& left, const ThermalDiffusivity<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const ThermalDiffusivity& left, const ThermalDiffusivity& right) noexcept {
+    const ThermalDiffusivity<Number>& left, const ThermalDiffusivity<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const ThermalDiffusivity& left, const ThermalDiffusivity& right) noexcept {
+    const ThermalDiffusivity<Number>& left, const ThermalDiffusivity<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const ThermalDiffusivity& left, const ThermalDiffusivity& right) noexcept {
+    const ThermalDiffusivity<Number>& left, const ThermalDiffusivity<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const ThermalDiffusivity& left, const ThermalDiffusivity& right) noexcept {
+    const ThermalDiffusivity<Number>& left, const ThermalDiffusivity<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const ThermalDiffusivity& left, const ThermalDiffusivity& right) noexcept {
+    const ThermalDiffusivity<Number>& left, const ThermalDiffusivity<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ThermalDiffusivity& thermal_diffusivity) {
+    std::ostream& stream, const ThermalDiffusivity<Number>& thermal_diffusivity) {
   stream << thermal_diffusivity.Print();
   return stream;
 }
 
-inline constexpr ThermalDiffusivity operator*(
-    const double number, const ThermalDiffusivity& thermal_diffusivity) {
+template <typename Number>
+inline constexpr ThermalDiffusivity<Number> operator*(
+    const Number number, const ThermalDiffusivity<Number>& thermal_diffusivity) {
   return thermal_diffusivity * number;
 }
 
-inline constexpr ScalarThermalConductivity::ScalarThermalConductivity(
-    const MassDensity& mass_density,
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-    const ThermalDiffusivity& thermal_diffusivity)
-  : ScalarThermalConductivity(mass_density.Value() * specific_isobaric_heat_capacity.Value()
-                              * thermal_diffusivity.Value()) {}
+template <typename Number>
+inline constexpr ScalarThermalConductivity<Number>::ScalarThermalConductivity(
+    const MassDensity<Number>& mass_density,
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
+    const ThermalDiffusivity<Number>& thermal_diffusivity)
+  : ScalarThermalConductivity<Number>(mass_density.Value() * specific_isobaric_heat_capacity.Value()
+                                      * thermal_diffusivity.Value()) {}
 
-inline constexpr MassDensity::MassDensity(
-    const ScalarThermalConductivity& scalar_thermal_conductivity,
-    const ThermalDiffusivity& thermal_diffusivity,
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-  : MassDensity(scalar_thermal_conductivity.Value()
-                / (thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value())) {}
+template <typename Number>
+inline constexpr MassDensity<Number>::MassDensity(
+    const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
+    const ThermalDiffusivity<Number>& thermal_diffusivity,
+    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity)
+  : MassDensity<Number>(scalar_thermal_conductivity.Value()
+                        / (thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value())) {
+}
 
-inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
-    const ScalarThermalConductivity& scalar_thermal_conductivity, const MassDensity& mass_density,
-    const ThermalDiffusivity& thermal_diffusivity)
-  : SpecificIsobaricHeatCapacity(
+template <typename Number>
+inline constexpr SpecificIsobaricHeatCapacity<Number>::SpecificIsobaricHeatCapacity(
+    const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
+    const MassDensity<Number>& mass_density, const ThermalDiffusivity<Number>& thermal_diffusivity)
+  : SpecificIsobaricHeatCapacity<Number>(
       scalar_thermal_conductivity.Value() / (mass_density.Value() * thermal_diffusivity.Value())) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::ThermalDiffusivity> {
-  inline size_t operator()(const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
-    return hash<double>()(thermal_diffusivity.Value());
+template <typename Number>
+struct hash<PhQ::ThermalDiffusivity<Number>> {
+  inline size_t operator()(const PhQ::ThermalDiffusivity<Number>& thermal_diffusivity) const {
+    return hash<Number>()(thermal_diffusivity.Value());
   }
 };
 

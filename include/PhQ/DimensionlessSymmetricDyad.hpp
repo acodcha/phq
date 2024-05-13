@@ -104,7 +104,7 @@ protected:
 
   // Copy constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
   // copying another one.
-  constexpr DimensionlessSymmetricDyad(const DimensionlessSymmetricDyad& other) = default;
+  constexpr DimensionlessSymmetricDyad(const DimensionlessSymmetricDyad<Number>& other) = default;
 
   // Copy constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
   // copying another one.
@@ -115,17 +115,18 @@ protected:
 
   // Move constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
   // moving another one.
-  constexpr DimensionlessSymmetricDyad(DimensionlessSymmetricDyad&& other) noexcept = default;
+  constexpr DimensionlessSymmetricDyad(
+      DimensionlessSymmetricDyad<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensionless symmetric dyadic tensor physical quantity
   // by copying another one.
-  constexpr DimensionlessSymmetricDyad& operator=(
-      const DimensionlessSymmetricDyad& other) = default;
+  constexpr DimensionlessSymmetricDyad<Number>& operator=(
+      const DimensionlessSymmetricDyad<Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensionless symmetric dyadic tensor physical quantity
   // by copying another one.
   template <typename OtherNumber>
-  constexpr DimensionlessSymmetricDyad& operator=(
+  constexpr DimensionlessSymmetricDyad<Number>& operator=(
       const DimensionlessSymmetricDyad<OtherNumber>& other) {
     value = static_cast<PhQ::SymmetricDyad<Number>>(other.Value());
     return *this;
@@ -133,8 +134,8 @@ protected:
 
   // Move assignment operator. Assigns this dimensionless symmetric dyadic tensor physical quantity
   // by moving another one.
-  constexpr DimensionlessSymmetricDyad& operator=(
-      DimensionlessSymmetricDyad&& other) noexcept = default;
+  constexpr DimensionlessSymmetricDyad<Number>& operator=(
+      DimensionlessSymmetricDyad<Number>&& other) noexcept = default;
 
   // Value of this physical quantity.
   PhQ::SymmetricDyad<Number> value;

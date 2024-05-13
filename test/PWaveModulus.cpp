@@ -87,7 +87,7 @@ TEST(PWaveModulus, ComparisonOperators) {
 
 TEST(PWaveModulus, CopyAssignmentOperator) {
   const PWaveModulus first{1.0, Unit::Pressure::Pascal};
-  PWaveModulus second = PWaveModulus::Zero();
+  PWaveModulus second = PWaveModulus<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -99,23 +99,23 @@ TEST(PWaveModulus, CopyConstructor) {
 }
 
 TEST(PWaveModulus, Create) {
-  constexpr PWaveModulus p_wave_modulus = PWaveModulus::Create<Unit::Pressure::Pascal>(1.0);
+  constexpr PWaveModulus p_wave_modulus = PWaveModulus<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(p_wave_modulus, PWaveModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(PWaveModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(PWaveModulus{});
+  EXPECT_NO_THROW(PWaveModulus<>{});
 }
 
 TEST(PWaveModulus, Dimensions) {
-  EXPECT_EQ(PWaveModulus::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(PWaveModulus<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(PWaveModulus, Hash) {
   const PWaveModulus first{1.0, Unit::Pressure::Kilopascal};
   const PWaveModulus second{1.000001, Unit::Pressure::Kilopascal};
   const PWaveModulus third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<PWaveModulus> hasher;
+  const std::hash<PWaveModulus<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -130,7 +130,7 @@ TEST(PWaveModulus, JSON) {
 
 TEST(PWaveModulus, MoveAssignmentOperator) {
   PWaveModulus first{1.0, Unit::Pressure::Pascal};
-  PWaveModulus second = PWaveModulus::Zero();
+  PWaveModulus second = PWaveModulus<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, PWaveModulus(1.0, Unit::Pressure::Pascal));
 }
@@ -161,7 +161,7 @@ TEST(PWaveModulus, SetValue) {
 }
 
 TEST(PWaveModulus, SizeOf) {
-  EXPECT_EQ(sizeof(PWaveModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(PWaveModulus<>{}), sizeof(double));
 }
 
 TEST(PWaveModulus, StandardConstructor) {
@@ -169,7 +169,7 @@ TEST(PWaveModulus, StandardConstructor) {
 }
 
 TEST(PWaveModulus, StaticValue) {
-  constexpr PWaveModulus p_wave_modulus = PWaveModulus::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr PWaveModulus p_wave_modulus = PWaveModulus<>::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = p_wave_modulus.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.0);
 }
@@ -181,7 +181,7 @@ TEST(PWaveModulus, Stream) {
 }
 
 TEST(PWaveModulus, Unit) {
-  EXPECT_EQ(PWaveModulus::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(PWaveModulus<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(PWaveModulus, Value) {
@@ -204,7 +204,7 @@ TEST(PWaveModulus, YAML) {
 }
 
 TEST(PWaveModulus, Zero) {
-  EXPECT_EQ(PWaveModulus::Zero(), PWaveModulus(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(PWaveModulus<>::Zero(), PWaveModulus(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

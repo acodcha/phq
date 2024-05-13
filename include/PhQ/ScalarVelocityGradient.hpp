@@ -28,186 +28,223 @@ namespace PhQ {
 
 // Scalar component or resultant of a velocity gradient tensor. Time rate of change of a scalar
 // displacement gradient. See also PhQ::VelocityGradient and PhQ::ScalarDisplacementGradient.
-class ScalarVelocityGradient : public DimensionalScalar<Unit::Frequency, double> {
+template <typename Number = double>
+class ScalarVelocityGradient : public DimensionalScalar<Unit::Frequency, Number> {
 public:
   // Default constructor. Constructs a scalar velocity gradient with an uninitialized value.
   ScalarVelocityGradient() = default;
 
   // Constructor. Constructs a scalar velocity gradient with a given value expressed in a given
   // frequency unit.
-  ScalarVelocityGradient(const double value, const Unit::Frequency unit)
-    : DimensionalScalar<Unit::Frequency>(value, unit) {}
+  ScalarVelocityGradient(const Number value, const Unit::Frequency unit)
+    : DimensionalScalar<Unit::Frequency, Number>(value, unit) {}
 
   // Constructor. Constructs a scalar velocity gradient from a given scalar displacement gradient
   // and time using the definition of speed.
   constexpr ScalarVelocityGradient(
-      const ScalarDisplacementGradient& scalar_displacement_gradient, const Time& time)
-    : ScalarVelocityGradient(scalar_displacement_gradient.Value() / time.Value()) {}
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient,
+      const Time<Number>& time)
+    : ScalarVelocityGradient<Number>(scalar_displacement_gradient.Value() / time.Value()) {}
 
   // Constructor. Constructs a scalar velocity gradient from a given scalar displacement gradient
   // and frequency using the definition of speed.
   constexpr ScalarVelocityGradient(
-      const ScalarDisplacementGradient& scalar_displacement_gradient, const Frequency& frequency)
-    : ScalarVelocityGradient(scalar_displacement_gradient.Value() * frequency.Value()) {}
+      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient,
+      const Frequency<Number>& frequency)
+    : ScalarVelocityGradient<Number>(scalar_displacement_gradient.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this scalar velocity gradient.
   ~ScalarVelocityGradient() noexcept = default;
 
   // Copy constructor. Constructs a scalar velocity gradient by copying another one.
-  constexpr ScalarVelocityGradient(const ScalarVelocityGradient& other) = default;
+  constexpr ScalarVelocityGradient(const ScalarVelocityGradient<Number>& other) = default;
+
+  // Copy constructor. Constructs a scalar velocity gradient by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr ScalarVelocityGradient(const ScalarVelocityGradient<OtherNumber>& other)
+    : ScalarVelocityGradient(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar velocity gradient by moving another one.
-  constexpr ScalarVelocityGradient(ScalarVelocityGradient&& other) noexcept = default;
+  constexpr ScalarVelocityGradient(ScalarVelocityGradient<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this scalar velocity gradient by copying another one.
-  constexpr ScalarVelocityGradient& operator=(const ScalarVelocityGradient& other) = default;
+  constexpr ScalarVelocityGradient<Number>& operator=(
+      const ScalarVelocityGradient<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this scalar velocity gradient by copying another one.
+  template <typename OtherNumber>
+  constexpr ScalarVelocityGradient<Number>& operator=(
+      const ScalarVelocityGradient<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this scalar velocity gradient by moving another one.
-  constexpr ScalarVelocityGradient& operator=(ScalarVelocityGradient&& other) noexcept = default;
+  constexpr ScalarVelocityGradient<Number>& operator=(
+      ScalarVelocityGradient<Number>&& other) noexcept = default;
 
   // Statically creates a scalar velocity gradient of zero.
-  static constexpr ScalarVelocityGradient Zero() {
-    return ScalarVelocityGradient{0.0};
+  static constexpr ScalarVelocityGradient<Number> Zero() {
+    return ScalarVelocityGradient<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a scalar velocity gradient with a given value expressed in a given frequency
   // unit.
   template <Unit::Frequency Unit>
-  static constexpr ScalarVelocityGradient Create(const double value) {
-    return ScalarVelocityGradient{
+  static constexpr ScalarVelocityGradient<Number> Create(const Number value) {
+    return ScalarVelocityGradient<Number>{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
-  constexpr ScalarVelocityGradient operator+(const ScalarVelocityGradient& other) const {
-    return ScalarVelocityGradient{value + other.value};
+  constexpr ScalarVelocityGradient<Number> operator+(
+      const ScalarVelocityGradient<Number>& other) const {
+    return ScalarVelocityGradient<Number>{this->value + other.value};
   }
 
-  constexpr ScalarVelocityGradient operator-(const ScalarVelocityGradient& other) const {
-    return ScalarVelocityGradient{value - other.value};
+  constexpr ScalarVelocityGradient<Number> operator-(
+      const ScalarVelocityGradient<Number>& other) const {
+    return ScalarVelocityGradient<Number>{this->value - other.value};
   }
 
-  constexpr ScalarVelocityGradient operator*(const double number) const {
-    return ScalarVelocityGradient{value * number};
+  constexpr ScalarVelocityGradient<Number> operator*(const Number number) const {
+    return ScalarVelocityGradient<Number>{this->value * number};
   }
 
-  constexpr ScalarVelocityGradient operator/(const double number) const {
-    return ScalarVelocityGradient{value / number};
+  constexpr ScalarVelocityGradient<Number> operator/(const Number number) const {
+    return ScalarVelocityGradient<Number>{this->value / number};
   }
 
-  constexpr ScalarDisplacementGradient operator*(const Time& time) const {
-    return {*this, time};
+  constexpr ScalarDisplacementGradient<Number> operator*(const Time<Number>& time) const {
+    return ScalarDisplacementGradient<Number>{*this, time};
   }
 
-  constexpr double operator/(const ScalarVelocityGradient& other) const noexcept {
-    return value / other.value;
+  constexpr Number operator/(const ScalarVelocityGradient<Number>& other) const noexcept {
+    return this->value / other.value;
   }
 
-  constexpr ScalarDisplacementGradient operator/(const Frequency& frequency) const {
-    return {*this, frequency};
+  constexpr ScalarDisplacementGradient<Number> operator/(const Frequency<Number>& frequency) const {
+    return ScalarDisplacementGradient<Number>{*this, frequency};
   }
 
-  constexpr void operator+=(const ScalarVelocityGradient& other) noexcept {
-    value += other.value;
+  constexpr void operator+=(const ScalarVelocityGradient<Number>& other) noexcept {
+    this->value += other.value;
   }
 
-  constexpr void operator-=(const ScalarVelocityGradient& other) noexcept {
-    value -= other.value;
+  constexpr void operator-=(const ScalarVelocityGradient<Number>& other) noexcept {
+    this->value -= other.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a scalar velocity gradient with a given value expressed in the standard
   // frequency unit.
-  explicit constexpr ScalarVelocityGradient(const double value)
-    : DimensionalScalar<Unit::Frequency>(value) {}
+  explicit constexpr ScalarVelocityGradient(const Number value)
+    : DimensionalScalar<Unit::Frequency, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class VelocityGradient;
 };
 
-inline constexpr bool operator==(
-    const ScalarVelocityGradient& left, const ScalarVelocityGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const ScalarVelocityGradient<Number>& left,
+                                 const ScalarVelocityGradient<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const ScalarVelocityGradient& left, const ScalarVelocityGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const ScalarVelocityGradient<Number>& left,
+                                 const ScalarVelocityGradient<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const ScalarVelocityGradient& left, const ScalarVelocityGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const ScalarVelocityGradient<Number>& left,
+                                const ScalarVelocityGradient<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const ScalarVelocityGradient& left, const ScalarVelocityGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const ScalarVelocityGradient<Number>& left,
+                                const ScalarVelocityGradient<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const ScalarVelocityGradient& left, const ScalarVelocityGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const ScalarVelocityGradient<Number>& left,
+                                 const ScalarVelocityGradient<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const ScalarVelocityGradient& left, const ScalarVelocityGradient& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const ScalarVelocityGradient<Number>& left,
+                                 const ScalarVelocityGradient<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarVelocityGradient& scalar_velocity_gradient) {
+    std::ostream& stream, const ScalarVelocityGradient<Number>& scalar_velocity_gradient) {
   stream << scalar_velocity_gradient.Print();
   return stream;
 }
 
-inline constexpr ScalarVelocityGradient operator*(
-    const double number, const ScalarVelocityGradient& scalar_velocity_gradient) {
+template <typename Number>
+inline constexpr ScalarVelocityGradient<Number> operator*(
+    const Number number, const ScalarVelocityGradient<Number>& scalar_velocity_gradient) {
   return scalar_velocity_gradient * number;
 }
 
-inline constexpr ScalarDisplacementGradient::ScalarDisplacementGradient(
-    const ScalarVelocityGradient& scalar_velocity_gradient, const Time& time)
-  : ScalarDisplacementGradient(scalar_velocity_gradient.Value() * time.Value()) {}
+template <typename Number>
+inline constexpr ScalarDisplacementGradient<Number>::ScalarDisplacementGradient(
+    const ScalarVelocityGradient<Number>& scalar_velocity_gradient, const Time<Number>& time)
+  : ScalarDisplacementGradient<Number>(scalar_velocity_gradient.Value() * time.Value()) {}
 
-inline constexpr ScalarDisplacementGradient::ScalarDisplacementGradient(
-    const ScalarVelocityGradient& scalar_velocity_gradient, const Frequency& frequency)
-  : ScalarDisplacementGradient(scalar_velocity_gradient.Value() / frequency.Value()) {}
+template <typename Number>
+inline constexpr ScalarDisplacementGradient<Number>::ScalarDisplacementGradient(
+    const ScalarVelocityGradient<Number>& scalar_velocity_gradient,
+    const Frequency<Number>& frequency)
+  : ScalarDisplacementGradient<Number>(scalar_velocity_gradient.Value() / frequency.Value()) {}
 
-inline constexpr ScalarVelocityGradient ScalarDisplacementGradient::operator*(
-    const Frequency& frequency) const {
-  return {*this, frequency};
+template <typename Number>
+inline constexpr ScalarVelocityGradient<Number> ScalarDisplacementGradient<Number>::operator*(
+    const Frequency<Number>& frequency) const {
+  return ScalarVelocityGradient<Number>{*this, frequency};
 }
 
-inline constexpr ScalarVelocityGradient ScalarDisplacementGradient::operator/(
-    const Time& time) const {
-  return {*this, time};
+template <typename Number>
+inline constexpr ScalarVelocityGradient<Number> ScalarDisplacementGradient<Number>::operator/(
+    const Time<Number>& time) const {
+  return ScalarVelocityGradient<Number>{*this, time};
 }
 
-inline constexpr ScalarDisplacementGradient Time::operator*(
-    const ScalarVelocityGradient& scalar_velocity_gradient) const {
-  return {scalar_velocity_gradient, *this};
+template <typename Number>
+inline constexpr ScalarDisplacementGradient<Number> Time<Number>::operator*(
+    const ScalarVelocityGradient<Number>& scalar_velocity_gradient) const {
+  return ScalarDisplacementGradient<Number>{scalar_velocity_gradient, *this};
 }
 
-inline constexpr ScalarVelocityGradient Frequency::operator*(
-    const ScalarDisplacementGradient& scalar_displacement_gradient) const {
-  return {scalar_displacement_gradient, *this};
+template <typename Number>
+inline constexpr ScalarVelocityGradient<Number> Frequency<Number>::operator*(
+    const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const {
+  return ScalarVelocityGradient<Number>{scalar_displacement_gradient, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::ScalarVelocityGradient> {
-  inline size_t operator()(const PhQ::ScalarVelocityGradient& scalar_velocity_gradient) const {
-    return hash<double>()(scalar_velocity_gradient.Value());
+template <typename Number>
+struct hash<PhQ::ScalarVelocityGradient<Number>> {
+  inline size_t operator()(
+      const PhQ::ScalarVelocityGradient<Number>& scalar_velocity_gradient) const {
+    return hash<Number>()(scalar_velocity_gradient.Value());
   }
 };
 

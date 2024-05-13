@@ -88,7 +88,7 @@ protected:
   ~DimensionlessVector() noexcept = default;
 
   // Copy constructor. Constructs a dimensionless vector physical quantity by copying another one.
-  constexpr DimensionlessVector(const DimensionlessVector& other) = default;
+  constexpr DimensionlessVector(const DimensionlessVector<Number>& other) = default;
 
   // Copy constructor. Constructs a dimensionless vector physical quantity by copying another one.
   template <typename OtherNumber>
@@ -96,23 +96,25 @@ protected:
     : value(static_cast<PhQ::Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensionless vector physical quantity by moving another one.
-  constexpr DimensionlessVector(DimensionlessVector&& other) noexcept = default;
+  constexpr DimensionlessVector(DimensionlessVector<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensionless vector physical quantity by copying
   // another one.
-  constexpr DimensionlessVector& operator=(const DimensionlessVector& other) = default;
+  constexpr DimensionlessVector<Number>& operator=(
+      const DimensionlessVector<Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensionless vector physical quantity by copying
   // another one.
   template <typename OtherNumber>
-  constexpr DimensionlessVector& operator=(const DimensionlessVector<OtherNumber>& other) {
+  constexpr DimensionlessVector<Number>& operator=(const DimensionlessVector<OtherNumber>& other) {
     value = static_cast<PhQ::Vector<Number>>(other.Value());
     return *this;
   }
 
   // Move assignment operator. Assigns this dimensionless vector physical quantity by moving another
   // one.
-  constexpr DimensionlessVector& operator=(DimensionlessVector&& other) noexcept = default;
+  constexpr DimensionlessVector<Number>& operator=(
+      DimensionlessVector<Number>&& other) noexcept = default;
 
   // Value of this physical quantity.
   PhQ::Vector<Number> value;

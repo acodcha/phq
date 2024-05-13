@@ -83,7 +83,7 @@ TEST(Energy, ComparisonOperators) {
 
 TEST(Energy, CopyAssignmentOperator) {
   const Energy first{1.0, Unit::Energy::Joule};
-  Energy second = Energy::Zero();
+  Energy second = Energy<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -95,23 +95,23 @@ TEST(Energy, CopyConstructor) {
 }
 
 TEST(Energy, Create) {
-  constexpr Energy energy = Energy::Create<Unit::Energy::Joule>(1.0);
+  constexpr Energy energy = Energy<>::Create<Unit::Energy::Joule>(1.0);
   EXPECT_EQ(energy, Energy(1.0, Unit::Energy::Joule));
 }
 
 TEST(Energy, DefaultConstructor) {
-  EXPECT_NO_THROW(Energy{});
+  EXPECT_NO_THROW(Energy<>{});
 }
 
 TEST(Energy, Dimensions) {
-  EXPECT_EQ(Energy::Dimensions(), RelatedDimensions<Unit::Energy>);
+  EXPECT_EQ(Energy<>::Dimensions(), RelatedDimensions<Unit::Energy>);
 }
 
 TEST(Energy, Hash) {
   const Energy first{1.0, Unit::Energy::Nanojoule};
   const Energy second{1.000001, Unit::Energy::Nanojoule};
   const Energy third{-1.0, Unit::Energy::Nanojoule};
-  const std::hash<Energy> hash;
+  const std::hash<Energy<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -126,7 +126,7 @@ TEST(Energy, JSON) {
 
 TEST(Energy, MoveAssignmentOperator) {
   Energy first{1.0, Unit::Energy::Joule};
-  Energy second = Energy::Zero();
+  Energy second = Energy<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Energy(1.0, Unit::Energy::Joule));
 }
@@ -157,7 +157,7 @@ TEST(Energy, SetValue) {
 }
 
 TEST(Energy, SizeOf) {
-  EXPECT_EQ(sizeof(Energy{}), sizeof(double));
+  EXPECT_EQ(sizeof(Energy<>{}), sizeof(double));
 }
 
 TEST(Energy, StandardConstructor) {
@@ -165,7 +165,7 @@ TEST(Energy, StandardConstructor) {
 }
 
 TEST(Energy, StaticValue) {
-  constexpr Energy energy = Energy::Create<Unit::Energy::Nanojoule>(1.0);
+  constexpr Energy energy = Energy<>::Create<Unit::Energy::Nanojoule>(1.0);
   constexpr double value = energy.StaticValue<Unit::Energy::Nanojoule>();
   EXPECT_EQ(value, 1.0);
 }
@@ -177,7 +177,7 @@ TEST(Energy, Stream) {
 }
 
 TEST(Energy, Unit) {
-  EXPECT_EQ(Energy::Unit(), Standard<Unit::Energy>);
+  EXPECT_EQ(Energy<>::Unit(), Standard<Unit::Energy>);
 }
 
 TEST(Energy, Value) {
@@ -199,7 +199,7 @@ TEST(Energy, YAML) {
 }
 
 TEST(Energy, Zero) {
-  EXPECT_EQ(Energy::Zero(), Energy(0.0, Unit::Energy::Joule));
+  EXPECT_EQ(Energy<>::Zero(), Energy(0.0, Unit::Energy::Joule));
 }
 
 }  // namespace

@@ -93,7 +93,7 @@ TEST(Area, ComparisonOperators) {
 
 TEST(Area, CopyAssignmentOperator) {
   const Area first{1.0, Unit::Area::SquareMetre};
-  Area second = Area::Zero();
+  Area second = Area<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -105,23 +105,23 @@ TEST(Area, CopyConstructor) {
 }
 
 TEST(Area, Create) {
-  constexpr Area area = Area::Create<Unit::Area::SquareMetre>(1.0);
+  constexpr Area area = Area<>::Create<Unit::Area::SquareMetre>(1.0);
   EXPECT_EQ(area, Area(1.0, Unit::Area::SquareMetre));
 }
 
 TEST(Area, DefaultConstructor) {
-  EXPECT_NO_THROW(Area{});
+  EXPECT_NO_THROW(Area<>{});
 }
 
 TEST(Area, Dimensions) {
-  EXPECT_EQ(Area::Dimensions(), RelatedDimensions<Unit::Area>);
+  EXPECT_EQ(Area<>::Dimensions(), RelatedDimensions<Unit::Area>);
 }
 
 TEST(Area, Hash) {
   const Area first{1.0, Unit::Area::SquareMetre};
   const Area second{1.000001, Unit::Area::SquareMetre};
   const Area third{-1.0, Unit::Area::SquareMetre};
-  const std::hash<Area> hash;
+  const std::hash<Area<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -136,7 +136,7 @@ TEST(Area, JSON) {
 
 TEST(Area, MoveAssignmentOperator) {
   Area first{1.0, Unit::Area::SquareMetre};
-  Area second = Area::Zero();
+  Area second = Area<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Area(1.0, Unit::Area::SquareMetre));
 }
@@ -167,7 +167,7 @@ TEST(Area, SetValue) {
 }
 
 TEST(Area, SizeOf) {
-  EXPECT_EQ(sizeof(Area{}), sizeof(double));
+  EXPECT_EQ(sizeof(Area<>{}), sizeof(double));
 }
 
 TEST(Area, StandardConstructor) {
@@ -175,7 +175,7 @@ TEST(Area, StandardConstructor) {
 }
 
 TEST(Area, StaticValue) {
-  constexpr Area area = Area::Create<Unit::Area::SquareMetre>(1.0);
+  constexpr Area area = Area<>::Create<Unit::Area::SquareMetre>(1.0);
   constexpr double value = area.StaticValue<Unit::Area::SquareMetre>();
   EXPECT_EQ(value, 1.0);
 }
@@ -187,7 +187,7 @@ TEST(Area, Stream) {
 }
 
 TEST(Area, Unit) {
-  EXPECT_EQ(Area::Unit(), Standard<Unit::Area>);
+  EXPECT_EQ(Area<>::Unit(), Standard<Unit::Area>);
 }
 
 TEST(Area, Value) {
@@ -209,7 +209,7 @@ TEST(Area, YAML) {
 }
 
 TEST(Area, Zero) {
-  EXPECT_EQ(Area::Zero(), Area(0.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(Area<>::Zero(), Area(0.0, Unit::Area::SquareMetre));
 }
 
 }  // namespace

@@ -29,306 +29,392 @@
 
 namespace PhQ {
 
-// Forward declarations for class Direction.
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Acceleration;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Area;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Displacement;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Force;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class HeatFlux;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Length;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Position;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Speed;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class ScalarAcceleration;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class ScalarForce;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class ScalarHeatFlux;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class ScalarTemperatureGradient;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class StaticPressure;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class TemperatureGradient;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Traction;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class VectorArea;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
 class Velocity;
 
 // Direction. This is guaranteed to be either a unit vector or the zero vector [0, 0, 0]. Use the
 // Valid() method to check whether the direction is a unit vector or the zero vector.
-class Direction : public DimensionlessVector<double> {
+template <typename Number = double>
+class Direction : public DimensionlessVector<Number> {
 public:
   // Default constructor. Initializes the direction to the zero vector.
-  constexpr Direction() : DimensionlessVector(Vector<>::Zero()) {}
+  constexpr Direction() : DimensionlessVector<Number>(Vector<Number>::Zero()) {}
 
   // Constructor. Constructs a direction by normalizing the given x, y, and z Cartesian components
   // to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the zero vector.
-  Direction(const double x, const double y, const double z) : DimensionlessVector() {
+  Direction(const Number x, const Number y, const Number z) : DimensionlessVector<Number>() {
     Set(x, y, z);
   }
 
   // Constructor. Constructs a direction by normalizing a given array representing x, y, and z
   // Cartesian components to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to
   // the zero vector.
-  explicit Direction(const std::array<double, 3>& x_y_z) : DimensionlessVector() {
+  explicit Direction(const std::array<Number, 3>& x_y_z) : DimensionlessVector<Number>() {
     Set(x_y_z);
   }
 
   // Constructor. Constructs a direction by normalizing the given vector to a unit vector. If the
   // given vector is a zero vector, initializes the direction to the zero vector.
-  explicit Direction(const Vector<double>& value) : DimensionlessVector() {
+  explicit Direction(const Vector<Number>& value) : DimensionlessVector<Number>() {
     Set(value);
   }
 
   // Constructor. Constructs a direction from an acceleration.
-  explicit Direction(const Acceleration& acceleration);
+  explicit Direction(const Acceleration<Number>& acceleration);
 
   // Constructor. Constructs a direction from a displacement.
-  explicit Direction(const Displacement& displacement);
+  explicit Direction(const Displacement<Number>& displacement);
 
   // Constructor. Constructs a direction from a force.
-  explicit Direction(const Force& force);
+  explicit Direction(const Force<Number>& force);
 
   // Constructor. Constructs a direction from a heat flux.
-  explicit Direction(const HeatFlux& heat_flux);
+  explicit Direction(const HeatFlux<Number>& heat_flux);
 
   // Constructor. Constructs a direction from a position.
-  explicit Direction(const Position& position);
+  explicit Direction(const Position<Number>& position);
 
   // Constructor. Constructs a direction from a temperature gradient.
-  explicit Direction(const TemperatureGradient& temperature_gradient);
+  explicit Direction(const TemperatureGradient<Number>& temperature_gradient);
 
   // Constructor. Constructs a direction from a traction.
-  explicit Direction(const Traction& traction);
+  explicit Direction(const Traction<Number>& traction);
 
   // Constructor. Constructs a direction from a vector area.
-  explicit Direction(const VectorArea& vector_area);
+  explicit Direction(const VectorArea<Number>& vector_area);
 
   // Constructor. Constructs a direction from a velocity.
-  explicit Direction(const Velocity& velocity);
+  explicit Direction(const Velocity<Number>& velocity);
 
   // Destructor. Destroys this direction.
   ~Direction() noexcept = default;
 
   // Copy constructor. Constructs a direction by copying another one.
-  constexpr Direction(const Direction& other) = default;
+  constexpr Direction(const Direction<Number>& other) = default;
+
+  // Copy constructor. Constructs a direction by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Direction(const Direction<OtherNumber>& other)
+    : Direction(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a direction by moving another one.
-  constexpr Direction(Direction&& other) noexcept = default;
+  constexpr Direction(Direction<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns the value of this direction by copying from another one.
-  constexpr Direction& operator=(const Direction& other) = default;
+  constexpr Direction<Number>& operator=(const Direction<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this direction by copying another one.
+  template <typename OtherNumber>
+  constexpr Direction<Number>& operator=(const Direction<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns the value of this direction by moving another one.
-  constexpr Direction& operator=(Direction&& other) noexcept = default;
+  constexpr Direction<Number>& operator=(Direction<Number>&& other) noexcept = default;
 
   // Statically creates a direction with a value of zero.
-  static constexpr Direction Zero() {
-    return Direction{};
+  static constexpr Direction<Number> Zero() {
+    return Direction<Number>{};
   }
 
   // Returns the x Cartesian component of this direction.
-  [[nodiscard]] constexpr double x() const noexcept {
-    return value.x();
+  [[nodiscard]] constexpr Number x() const noexcept {
+    return this->value.x();
   }
 
   // Returns the y Cartesian component of this direction.
-  [[nodiscard]] constexpr double y() const noexcept {
-    return value.y();
+  [[nodiscard]] constexpr Number y() const noexcept {
+    return this->value.y();
   }
 
   // Returns the z Cartesian component of this direction.
-  [[nodiscard]] constexpr double z() const noexcept {
-    return value.z();
+  [[nodiscard]] constexpr Number z() const noexcept {
+    return this->value.z();
   }
 
   // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
   // unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero vector.
-  constexpr void Set(const double x, const double y, const double z) {
-    const double magnitude_squared{x * x + y * y + z * z};
-    if (magnitude_squared > 0.0) {
-      const double magnitude{std::sqrt(magnitude_squared)};
-      value = Vector{x / magnitude, y / magnitude, z / magnitude};
+  constexpr void Set(const Number x, const Number y, const Number z) {
+    const Number magnitude_squared{x * x + y * y + z * z};
+    if (magnitude_squared > static_cast<Number>(0)) {
+      const Number magnitude{std::sqrt(magnitude_squared)};
+      this->value = Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value = Vector<>::Zero();
+      this->value = Vector<>::Zero();
     }
   }
 
   // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
   // unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero vector.
-  constexpr void Set(const std::array<double, 3>& x_y_z) {
-    const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
-    if (magnitude_squared > 0.0) {
-      const double magnitude{std::sqrt(magnitude_squared)};
-      value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
+  constexpr void Set(const std::array<Number, 3>& x_y_z) {
+    const Number magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
+    if (magnitude_squared > static_cast<Number>(0)) {
+      const Number magnitude{std::sqrt(magnitude_squared)};
+      this->value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value = Vector<>::Zero();
+      this->value = Vector<>::Zero();
     }
   }
 
   // Sets the value of this direction by normalizing the given vector to a unit vector. If the given
   // vector is a zero vector, sets the direction to the zero vector.
-  constexpr void Set(const Vector<double>& value) {
+  constexpr void Set(const Vector<Number>& value) {
     Set(value.x_y_z());
   }
 
   // Returns true if the direction is a unit vector, or false if it is the zero vector.
   [[nodiscard]] constexpr bool Valid() const noexcept {
-    return value.x() != 0.0 || value.y() != 0.0 || value.z() != 0.0;
+    return this->value.x() != static_cast<Number>(0) || this->value.y() != static_cast<Number>(0)
+           || this->value.z() != static_cast<Number>(0);
   }
 
   // Returns the square of the magnitude of the direction. This is guaranteed to be exactly 1 if the
   // direction is valid, or 0 if the direction is the zero vector.
-  [[nodiscard]] constexpr double MagnitudeSquared() const noexcept {
-    return value.MagnitudeSquared();
+  [[nodiscard]] constexpr Number MagnitudeSquared() const noexcept {
+    return this->value.MagnitudeSquared();
   }
 
   // Returns the magnitude of the direction. This is guaranteed to be exactly 1 if the direction is
   // valid, or 0 if the direction is the zero vector.
-  [[nodiscard]] double Magnitude() const noexcept {
-    return value.Magnitude();
+  [[nodiscard]] Number Magnitude() const noexcept {
+    return this->value.Magnitude();
   }
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given vector.
-  [[nodiscard]] constexpr double Dot(const Vector<double>& vector) const noexcept {
-    return value.Dot(vector);
+  [[nodiscard]] constexpr Number Dot(const Vector<Number>& vector) const noexcept {
+    return this->value.Dot(vector);
   }
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given other direction.
-  [[nodiscard]] constexpr double Dot(const Direction& direction) const noexcept {
-    return value.Dot(direction.value);
+  [[nodiscard]] constexpr Number Dot(const Direction<Number>& direction) const noexcept {
+    return this->value.Dot(direction.value);
   }
 
   // Returns the cross product of the direction with the given vector.
-  [[nodiscard]] constexpr Vector<double> Cross(const Vector<double>& vector) const {
-    return value.Cross(vector);
+  [[nodiscard]] constexpr Vector<Number> Cross(const Vector<Number>& vector) const {
+    return this->value.Cross(vector);
   }
 
   // Returns the cross product of the direction with the given other direction.
-  [[nodiscard]] Direction Cross(const Direction& direction) const {
-    return Direction{value.Cross(direction.value)};
+  [[nodiscard]] Direction<Number> Cross(const Direction<Number>& direction) const {
+    return Direction<Number>{this->value.Cross(direction.value)};
   }
 
   // Returns the dyadic product of the direction with the given vector.
-  [[nodiscard]] constexpr Dyad<double> Dyadic(const Vector<double>& vector) const {
-    return value.Dyadic(vector);
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const Vector<Number>& vector) const {
+    return this->value.Dyadic(vector);
   }
 
   // Returns the dyadic product of the direction with the given other direction.
-  [[nodiscard]] constexpr Dyad<double> Dyadic(const Direction& direction) const {
-    return value.Dyadic(direction.value);
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const Direction<Number>& direction) const {
+    return this->value.Dyadic(direction.value);
   }
 
   // Returns the angle between the direction and the given vector.
-  [[nodiscard]] PhQ::Angle Angle(const Vector<double>& vector) const {
-    return PhQ::Angle{*this, vector};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Vector<Number>& vector) const {
+    return PhQ::Angle<Number>{*this, vector};
   }
 
   // Returns the angle between the direction and the given other direction.
-  [[nodiscard]] PhQ::Angle Angle(const Direction& direction) const {
-    return PhQ::Angle{*this, direction};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Direction<Number>& direction) const {
+    return PhQ::Angle<Number>{*this, direction};
   }
 
-  constexpr Acceleration operator*(const ScalarAcceleration& scalar_acceleration) const;
+  constexpr Acceleration<Number> operator*(
+      const ScalarAcceleration<Number>& scalar_acceleration) const;
 
-  constexpr VectorArea operator*(const Area& area) const;
+  constexpr VectorArea<Number> operator*(const Area<Number>& area) const;
 
-  constexpr Position operator*(const Length& length) const;
+  constexpr Position<Number> operator*(const Length<Number>& length) const;
 
-  constexpr Force operator*(const ScalarForce& scalar_force) const;
+  constexpr Force<Number> operator*(const ScalarForce<Number>& scalar_force) const;
 
-  constexpr HeatFlux operator*(const ScalarHeatFlux& scalar_heat_flux) const;
+  constexpr HeatFlux<Number> operator*(const ScalarHeatFlux<Number>& scalar_heat_flux) const;
 
-  constexpr TemperatureGradient operator*(
-      const ScalarTemperatureGradient& scalar_temperature_gradient) const;
+  constexpr TemperatureGradient<Number> operator*(
+      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const;
 
-  constexpr Traction operator*(const StaticPressure& static_pressure) const;
+  constexpr Traction<Number> operator*(const StaticPressure<Number>& static_pressure) const;
 
-  constexpr Velocity operator*(const Speed& speed) const;
+  constexpr Velocity<Number> operator*(const Speed<Number>& speed) const;
 };
 
-inline constexpr bool operator==(const Direction& left, const Direction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const Direction<Number>& left, const Direction<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Direction& left, const Direction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const Direction<Number>& left, const Direction<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Direction& left, const Direction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const Direction<Number>& left, const Direction<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Direction& left, const Direction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const Direction<Number>& left, const Direction<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Direction& left, const Direction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const Direction<Number>& left, const Direction<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Direction& left, const Direction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const Direction<Number>& left, const Direction<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Direction& direction) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const PhQ::Direction<Number>& direction) {
   stream << direction.Print();
   return stream;
 }
 
 template <typename Number>
-inline constexpr Vector<Number>::Vector(const Number magnitude, const PhQ::Direction& direction)
+inline constexpr Vector<Number>::Vector(
+    const Number magnitude, const PhQ::Direction<Number>& direction)
   : x_y_z_(std::array<Number, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
 template <typename Number>
-inline PhQ::Direction Vector<Number>::Direction() const {
-  return PhQ::Direction{*this};
+inline PhQ::Direction<Number> Vector<Number>::Direction() const {
+  return PhQ::Direction<Number>{*this};
 }
 
 template <typename Number>
-inline constexpr Number Vector<Number>::Dot(const PhQ::Direction& direction) const noexcept {
+inline constexpr Number Vector<Number>::Dot(
+    const PhQ::Direction<Number>& direction) const noexcept {
   return Dot(direction.Value());
 }
 
 template <typename Number>
-inline constexpr Vector<Number> Vector<Number>::Cross(const PhQ::Direction& direction) const {
+inline constexpr Vector<Number> Vector<Number>::Cross(
+    const PhQ::Direction<Number>& direction) const {
   return Cross(direction.Value());
 }
 
 template <typename Number>
-inline constexpr Dyad<Number> Vector<Number>::Dyadic(const PhQ::Direction& direction) const {
+inline constexpr Dyad<Number> Vector<Number>::Dyadic(
+    const PhQ::Direction<Number>& direction) const {
   return Dyadic(direction.Value());
 }
 
 template <typename Number>
 inline constexpr Vector<Number> operator*(
-    const SymmetricDyad<Number>& symmetric_dyad, const Direction& direction) {
+    const SymmetricDyad<Number>& symmetric_dyad, const Direction<Number>& direction) {
   return symmetric_dyad * direction.Value();
 }
 
 template <typename Number>
-inline constexpr Vector<Number> operator*(const Dyad<Number>& dyad, const Direction& direction) {
+inline constexpr Vector<Number> operator*(
+    const Dyad<Number>& dyad, const Direction<Number>& direction) {
   return dyad * direction.Value();
 }
 
 template <typename Number>
-inline Angle Vector<Number>::Angle(const PhQ::Direction& direction) const {
-  return PhQ::Angle{*this, direction};
+inline Angle<Number> Vector<Number>::Angle(const PhQ::Direction<Number>& direction) const {
+  return PhQ::Angle<Number>{*this, direction};
 }
 
-inline Angle::Angle(const Vector<double>& vector, const Direction& direction)
+template <typename Number>
+inline Angle<Number>::Angle(const Vector<Number>& vector, const Direction<Number>& direction)
   : Angle(std::acos(vector.Dot(direction) / vector.Magnitude())) {}
 
-inline Angle::Angle(const Direction& direction, const Vector<double>& vector)
+template <typename Number>
+inline Angle<Number>::Angle(const Direction<Number>& direction, const Vector<Number>& vector)
   : Angle(std::acos(direction.Dot(vector) / vector.Magnitude())) {}
 
-inline Angle::Angle(const Direction& direction1, const Direction& direction2)
+template <typename Number>
+inline Angle<Number>::Angle(
+    const Direction<Number>& direction1, const Direction<Number>& direction2)
   : Angle(std::acos(direction1.Dot(direction2))) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Direction> {
-  inline size_t operator()(const PhQ::Direction& direction) const {
-    return hash<PhQ::Vector<double>>()(direction.Value());
+template <typename Number>
+struct hash<PhQ::Direction<Number>> {
+  inline size_t operator()(const PhQ::Direction<Number>& direction) const {
+    return hash<PhQ::Vector<Number>>()(direction.Value());
   }
 };
 

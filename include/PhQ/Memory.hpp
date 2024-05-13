@@ -23,133 +23,161 @@
 
 namespace PhQ {
 
-// Forward declarations for class Memory.
+// Forward declaration for class PhQ::Memory.
+template <typename Number>
 class Time;
+
+// Forward declaration for class PhQ::Memory.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::Memory.
+template <typename Number>
 class MemoryRate;
 
 // Computer memory.
-class Memory : public DimensionalScalar<Unit::Memory, double> {
+template <typename Number = double>
+class Memory : public DimensionalScalar<Unit::Memory, Number> {
 public:
   // Default constructor. Constructs a memory quantity with an uninitialized value.
   Memory() = default;
 
   // Constructor. Constructs a memory quantity with a given value expressed in a given memory unit.
-  Memory(const double value, const Unit::Memory unit)
-    : DimensionalScalar<Unit::Memory>(value, unit) {}
+  Memory(const Number value, const Unit::Memory unit)
+    : DimensionalScalar<Unit::Memory, Number>(value, unit) {}
 
   // Constructor. Constructs a memory quantity from a given memory rate and time duration using the
   // definition of memory rate.
-  constexpr Memory(const MemoryRate& memory_rate, const Time& time);
+  constexpr Memory(const MemoryRate<Number>& memory_rate, const Time<Number>& time);
 
   // Constructor. Constructs a memory quantity from a given memory rate and frequency using the
   // definition of memory rate.
-  constexpr Memory(const MemoryRate& memory_rate, const Frequency& frequency);
+  constexpr Memory(const MemoryRate<Number>& memory_rate, const Frequency<Number>& frequency);
 
   // Destructor. Destroys this memory quantity.
   ~Memory() noexcept = default;
 
   // Copy constructor. Constructs a memory quantity by copying another one.
-  constexpr Memory(const Memory& other) = default;
+  constexpr Memory(const Memory<Number>& other) = default;
+
+  // Copy constructor. Constructs a memory quantity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Memory(const Memory<OtherNumber>& other)
+    : Memory(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a memory quantity by moving another one.
-  constexpr Memory(Memory&& other) noexcept = default;
+  constexpr Memory(Memory<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this memory quantity by copying another one.
-  constexpr Memory& operator=(const Memory& other) = default;
+  constexpr Memory<Number>& operator=(const Memory<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this memory quantity by copying another one.
+  template <typename OtherNumber>
+  constexpr Memory<Number>& operator=(const Memory<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this memory quantity by moving another one.
-  constexpr Memory& operator=(Memory&& other) noexcept = default;
+  constexpr Memory<Number>& operator=(Memory<Number>&& other) noexcept = default;
 
   // Statically creates a memory quantity of zero.
-  static constexpr Memory Zero() {
-    return Memory{0.0};
+  static constexpr Memory<Number> Zero() {
+    return Memory<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a memory quantity with a given value expressed in a given memory unit.
   template <Unit::Memory Unit>
-  static constexpr Memory Create(const double value) {
-    return Memory{StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
+  static constexpr Memory<Number> Create(const Number value) {
+    return Memory<Number>{StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }
 
-  constexpr Memory operator+(const Memory& memory) const {
-    return Memory{value + memory.value};
+  constexpr Memory<Number> operator+(const Memory<Number>& memory) const {
+    return Memory<Number>{this->value + memory.value};
   }
 
-  constexpr Memory operator-(const Memory& memory) const {
-    return Memory{value - memory.value};
+  constexpr Memory<Number> operator-(const Memory<Number>& memory) const {
+    return Memory<Number>{this->value - memory.value};
   }
 
-  constexpr Memory operator*(const double number) const {
-    return Memory{value * number};
+  constexpr Memory<Number> operator*(const Number number) const {
+    return Memory<Number>{this->value * number};
   }
 
-  constexpr MemoryRate operator*(const Frequency& frequency) const;
+  constexpr MemoryRate<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Memory operator/(const double number) const {
-    return Memory{value / number};
+  constexpr Memory<Number> operator/(const Number number) const {
+    return Memory<Number>{this->value / number};
   }
 
-  constexpr MemoryRate operator/(const Time& time) const;
+  constexpr MemoryRate<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const MemoryRate& memory_rate) const;
+  constexpr Time<Number> operator/(const MemoryRate<Number>& memory_rate) const;
 
-  constexpr double operator/(const Memory& memory) const noexcept {
-    return value / memory.value;
+  constexpr Number operator/(const Memory<Number>& memory) const noexcept {
+    return this->value / memory.value;
   }
 
-  constexpr void operator+=(const Memory& memory) noexcept {
-    value += memory.value;
+  constexpr void operator+=(const Memory<Number>& memory) noexcept {
+    this->value += memory.value;
   }
 
-  constexpr void operator-=(const Memory& memory) noexcept {
-    value -= memory.value;
+  constexpr void operator-=(const Memory<Number>& memory) noexcept {
+    this->value -= memory.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a memory quantity with a given value expressed in the standard memory
   // unit.
-  explicit constexpr Memory(const double value) : DimensionalScalar<Unit::Memory>(value) {}
+  explicit constexpr Memory(const Number value) : DimensionalScalar<Unit::Memory, Number>(value) {}
 };
 
-inline constexpr bool operator==(const Memory& left, const Memory& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Memory<Number>& left, const Memory<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Memory& left, const Memory& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Memory<Number>& left, const Memory<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Memory& left, const Memory& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Memory<Number>& left, const Memory<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Memory& left, const Memory& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Memory<Number>& left, const Memory<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Memory& left, const Memory& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Memory<Number>& left, const Memory<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Memory& left, const Memory& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Memory<Number>& left, const Memory<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Memory& memory) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Memory<Number>& memory) {
   stream << memory.Print();
   return stream;
 }
 
-inline constexpr Memory operator*(const double number, const Memory& memory) {
+template <typename Number>
+inline constexpr Memory<Number> operator*(const Number number, const Memory<Number>& memory) {
   return memory * number;
 }
 
@@ -157,10 +185,10 @@ inline constexpr Memory operator*(const double number, const Memory& memory) {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Memory> {
-  inline size_t operator()(const PhQ::Memory& memory) const {
-    return hash<double>()(memory.Value());
+template <typename Number>
+struct hash<PhQ::Memory<Number>> {
+  inline size_t operator()(const PhQ::Memory<Number>& memory) const {
+    return hash<Number>()(memory.Value());
   }
 };
 

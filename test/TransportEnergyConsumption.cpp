@@ -125,7 +125,7 @@ TEST(TransportEnergyConsumption, ComparisonOperators) {
 
 TEST(TransportEnergyConsumption, CopyAssignmentOperator) {
   const TransportEnergyConsumption first{1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption second = TransportEnergyConsumption::Zero();
+  TransportEnergyConsumption second = TransportEnergyConsumption<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -138,17 +138,17 @@ TEST(TransportEnergyConsumption, CopyConstructor) {
 
 TEST(TransportEnergyConsumption, Create) {
   constexpr TransportEnergyConsumption transport_energy_consumption =
-      TransportEnergyConsumption::Create<Unit::TransportEnergyConsumption::JoulePerMetre>(1.0);
+      TransportEnergyConsumption<>::Create<Unit::TransportEnergyConsumption::JoulePerMetre>(1.0);
   EXPECT_EQ(transport_energy_consumption,
             TransportEnergyConsumption(1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
 TEST(TransportEnergyConsumption, DefaultConstructor) {
-  EXPECT_NO_THROW(TransportEnergyConsumption{});
+  EXPECT_NO_THROW(TransportEnergyConsumption<>{});
 }
 
 TEST(TransportEnergyConsumption, Dimensions) {
-  EXPECT_EQ(TransportEnergyConsumption::Dimensions(),
+  EXPECT_EQ(TransportEnergyConsumption<>::Dimensions(),
             RelatedDimensions<Unit::TransportEnergyConsumption>);
 }
 
@@ -157,7 +157,7 @@ TEST(TransportEnergyConsumption, Hash) {
   const TransportEnergyConsumption second{
       1.000001, Unit::TransportEnergyConsumption::JoulePerMetre};
   const TransportEnergyConsumption third{-1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const std::hash<TransportEnergyConsumption> hash;
+  const std::hash<TransportEnergyConsumption<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -190,7 +190,7 @@ TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
 
 TEST(TransportEnergyConsumption, MoveAssignmentOperator) {
   TransportEnergyConsumption first{1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption second = TransportEnergyConsumption::Zero();
+  TransportEnergyConsumption second = TransportEnergyConsumption<>::Zero();
   second = std::move(first);
   EXPECT_EQ(
       second, TransportEnergyConsumption(1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
@@ -229,7 +229,7 @@ TEST(TransportEnergyConsumption, SetValue) {
 }
 
 TEST(TransportEnergyConsumption, SizeOf) {
-  EXPECT_EQ(sizeof(TransportEnergyConsumption{}), sizeof(double));
+  EXPECT_EQ(sizeof(TransportEnergyConsumption<>{}), sizeof(double));
 }
 
 TEST(TransportEnergyConsumption, StandardConstructor) {
@@ -239,7 +239,7 @@ TEST(TransportEnergyConsumption, StandardConstructor) {
 
 TEST(TransportEnergyConsumption, StaticValue) {
   constexpr TransportEnergyConsumption transport_energy_consumption =
-      TransportEnergyConsumption::Create<
+      TransportEnergyConsumption<>::Create<
           Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(1.0);
   constexpr double value =
       transport_energy_consumption
@@ -258,7 +258,7 @@ TEST(TransportEnergyConsumption, Stream) {
 }
 
 TEST(TransportEnergyConsumption, Unit) {
-  EXPECT_EQ(TransportEnergyConsumption::Unit(), Standard<Unit::TransportEnergyConsumption>);
+  EXPECT_EQ(TransportEnergyConsumption<>::Unit(), Standard<Unit::TransportEnergyConsumption>);
 }
 
 TEST(TransportEnergyConsumption, Value) {
@@ -290,7 +290,7 @@ TEST(TransportEnergyConsumption, YAML) {
 }
 
 TEST(TransportEnergyConsumption, Zero) {
-  EXPECT_EQ(TransportEnergyConsumption::Zero(),
+  EXPECT_EQ(TransportEnergyConsumption<>::Zero(),
             TransportEnergyConsumption(0.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 

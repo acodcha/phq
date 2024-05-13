@@ -25,135 +25,171 @@
 namespace PhQ {
 
 // Mach number of a fluid flow.
-class MachNumber : public DimensionlessScalar<double> {
+template <typename Number = double>
+class MachNumber : public DimensionlessScalar<Number> {
 public:
   // Default constructor. Constructs a Mach number with an uninitialized value.
   MachNumber() = default;
 
   // Constructor. Constructs a Mach number with a given value.
-  explicit constexpr MachNumber(const double value) : DimensionlessScalar(value) {}
+  explicit constexpr MachNumber(const Number value) : DimensionlessScalar<Number>(value) {}
 
   // Constructor. Constructs a Mach number from a given speed and sound speed using the definition
   // of the Mach number.
-  constexpr MachNumber(const Speed& speed, const SoundSpeed& sound_speed)
-    : MachNumber(speed.Value() / sound_speed.Value()) {}
+  constexpr MachNumber(const Speed<Number>& speed, const SoundSpeed<Number>& sound_speed)
+    : MachNumber<Number>(speed.Value() / sound_speed.Value()) {}
 
   // Destructor. Destroys this Mach number.
   ~MachNumber() noexcept = default;
 
   // Copy constructor. Constructs a Mach number by copying another one.
-  constexpr MachNumber(const MachNumber& other) = default;
+  constexpr MachNumber(const MachNumber<Number>& other) = default;
+
+  // Copy constructor. Constructs a Mach number by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr MachNumber(const MachNumber<OtherNumber>& other)
+    : MachNumber(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Mach number by moving another one.
-  constexpr MachNumber(MachNumber&& other) noexcept = default;
+  constexpr MachNumber(MachNumber<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this Mach number by copying another one.
-  constexpr MachNumber& operator=(const MachNumber& other) = default;
+  constexpr MachNumber<Number>& operator=(const MachNumber<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this Mach number by copying another one.
+  template <typename OtherNumber>
+  constexpr MachNumber<Number>& operator=(const MachNumber<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this Mach number by moving another one.
-  constexpr MachNumber& operator=(MachNumber&& other) noexcept = default;
+  constexpr MachNumber<Number>& operator=(MachNumber<Number>&& other) noexcept = default;
 
   // Statically creates a Mach number of zero.
-  static constexpr MachNumber Zero() {
-    return MachNumber{0.0};
+  static constexpr MachNumber<Number> Zero() {
+    return MachNumber<Number>{static_cast<Number>(0)};
   }
 
-  constexpr MachNumber operator+(const MachNumber& mach_number) const {
-    return MachNumber{value + mach_number.value};
+  constexpr MachNumber<Number> operator+(const MachNumber<Number>& mach_number) const {
+    return MachNumber<Number>{this->value + mach_number.value};
   }
 
-  constexpr MachNumber operator-(const MachNumber& mach_number) const {
-    return MachNumber{value - mach_number.value};
+  constexpr MachNumber<Number> operator-(const MachNumber<Number>& mach_number) const {
+    return MachNumber<Number>{this->value - mach_number.value};
   }
 
-  constexpr MachNumber operator*(const double number) const {
-    return MachNumber{value * number};
+  constexpr MachNumber<Number> operator*(const Number number) const {
+    return MachNumber<Number>{this->value * number};
   }
 
-  constexpr Speed operator*(const SoundSpeed& sound_speed) const {
-    return Speed{sound_speed, *this};
+  constexpr Speed<Number> operator*(const SoundSpeed<Number>& sound_speed) const {
+    return Speed<Number>{sound_speed, *this};
   }
 
-  constexpr MachNumber operator/(const double number) const {
-    return MachNumber{value / number};
+  constexpr MachNumber<Number> operator/(const Number number) const {
+    return MachNumber<Number>{this->value / number};
   }
 
-  constexpr double operator/(const MachNumber& mach_number) const noexcept {
-    return value / mach_number.value;
+  constexpr Number operator/(const MachNumber<Number>& mach_number) const noexcept {
+    return this->value / mach_number.value;
   }
 
-  constexpr void operator+=(const MachNumber& mach_number) noexcept {
-    value += mach_number.value;
+  constexpr void operator+=(const MachNumber<Number>& mach_number) noexcept {
+    this->value += mach_number.value;
   }
 
-  constexpr void operator-=(const MachNumber& mach_number) noexcept {
-    value -= mach_number.value;
+  constexpr void operator-=(const MachNumber<Number>& mach_number) noexcept {
+    this->value -= mach_number.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 };
 
-inline constexpr bool operator==(const MachNumber& left, const MachNumber& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const MachNumber<Number>& left, const MachNumber<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const MachNumber& left, const MachNumber& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const MachNumber<Number>& left, const MachNumber<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const MachNumber& left, const MachNumber& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const MachNumber<Number>& left, const MachNumber<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const MachNumber& left, const MachNumber& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const MachNumber<Number>& left, const MachNumber<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const MachNumber& left, const MachNumber& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const MachNumber<Number>& left, const MachNumber<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const MachNumber& left, const MachNumber& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const MachNumber<Number>& left, const MachNumber<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const MachNumber& mach_number) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const MachNumber<Number>& mach_number) {
   stream << mach_number.Print();
   return stream;
 }
 
-inline constexpr MachNumber operator*(const double number, const MachNumber& mach_number) {
-  return MachNumber{number * mach_number.Value()};
+template <typename Number>
+inline constexpr MachNumber<Number> operator*(
+    const Number number, const MachNumber<Number>& mach_number) {
+  return MachNumber<Number>{number * mach_number.Value()};
 }
 
-constexpr SoundSpeed::SoundSpeed(const Speed& speed, const MachNumber& mach_number)
-  : SoundSpeed(speed.Value() / mach_number.Value()) {}
+template <typename Number>
+constexpr SoundSpeed<Number>::SoundSpeed(
+    const Speed<Number>& speed, const MachNumber<Number>& mach_number)
+  : SoundSpeed<Number>(speed.Value() / mach_number.Value()) {}
 
-constexpr Speed::Speed(const SoundSpeed& sound_speed, const MachNumber& mach_number)
-  : Speed(sound_speed.Value() * mach_number.Value()) {}
+template <typename Number>
+constexpr Speed<Number>::Speed(
+    const SoundSpeed<Number>& sound_speed, const MachNumber<Number>& mach_number)
+  : Speed<Number>(sound_speed.Value() * mach_number.Value()) {}
 
-inline constexpr Speed SoundSpeed::operator*(const MachNumber& mach_number) const {
-  return Speed{*this, mach_number};
+template <typename Number>
+inline constexpr Speed<Number> SoundSpeed<Number>::operator*(
+    const MachNumber<Number>& mach_number) const {
+  return Speed<Number>{*this, mach_number};
 }
 
-inline constexpr MachNumber Speed::operator/(const SoundSpeed& sound_speed) const {
-  return {*this, sound_speed};
+template <typename Number>
+inline constexpr MachNumber<Number> Speed<Number>::operator/(
+    const SoundSpeed<Number>& sound_speed) const {
+  return MachNumber<Number>{*this, sound_speed};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::MachNumber> {
-  inline size_t operator()(const PhQ::MachNumber& mach_number) const {
-    return hash<double>()(mach_number.Value());
+template <typename Number>
+struct hash<PhQ::MachNumber<Number>> {
+  inline size_t operator()(const PhQ::MachNumber<Number>& mach_number) const {
+    return hash<Number>()(mach_number.Value());
   }
 };
 

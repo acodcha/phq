@@ -23,157 +23,205 @@
 
 namespace PhQ {
 
-// Forward declarations for class TemperatureDifference.
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class Length;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class LinearThermalExpansionCoefficient;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class ScalarStrain;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class ScalarTemperatureGradient;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
+class Strain;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class Temperature;
+
+// Forward declaration for class PhQ::TemperatureDifference.
+template <typename Number>
 class VolumetricThermalExpansionCoefficient;
 
 // Temperature difference. Not to be confused with temperature. For example, a temperature
 // difference of 20 kelvin is very different from a temperature of 20 kelvin.
-class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference, double> {
+template <typename Number = double>
+class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference, Number> {
 public:
   // Default constructor. Constructs a temperature difference with an uninitialized value.
   TemperatureDifference() = default;
 
   // Constructor. Constructs a temperature difference with a given value expressed in a given
   // temperature unit.
-  TemperatureDifference(const double value, const Unit::TemperatureDifference unit)
-    : DimensionalScalar<Unit::TemperatureDifference>(value, unit) {}
+  TemperatureDifference(const Number value, const Unit::TemperatureDifference unit)
+    : DimensionalScalar<Unit::TemperatureDifference, Number>(value, unit) {}
 
   // Constructor. Constructs a temperature difference from a given scalar temperature gradient and
   // length using the definition of temperature gradient.
   constexpr TemperatureDifference(
-      const ScalarTemperatureGradient& scalar_temperature_gradient, const Length& length);
+      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
+      const Length<Number>& length);
 
   // Destructor. Destroys this temperature difference.
   ~TemperatureDifference() noexcept = default;
 
   // Copy constructor. Constructs a temperature difference by copying another one.
-  constexpr TemperatureDifference(const TemperatureDifference& other) = default;
+  constexpr TemperatureDifference(const TemperatureDifference<Number>& other) = default;
+
+  // Copy constructor. Constructs a temperature difference by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr TemperatureDifference(const TemperatureDifference<OtherNumber>& other)
+    : TemperatureDifference(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a temperature difference by moving another one.
-  constexpr TemperatureDifference(TemperatureDifference&& other) noexcept = default;
+  constexpr TemperatureDifference(TemperatureDifference<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this temperature difference by copying another one.
-  constexpr TemperatureDifference& operator=(const TemperatureDifference& other) = default;
+  constexpr TemperatureDifference<Number>& operator=(
+      const TemperatureDifference<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this temperature difference by copying another one.
+  template <typename OtherNumber>
+  constexpr TemperatureDifference<Number>& operator=(
+      const TemperatureDifference<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this temperature difference by moving another one.
-  constexpr TemperatureDifference& operator=(TemperatureDifference&& other) noexcept = default;
+  constexpr TemperatureDifference<Number>& operator=(
+      TemperatureDifference<Number>&& other) noexcept = default;
 
   // Statically creates a temperature difference of absolute zero.
-  static constexpr TemperatureDifference Zero() {
-    return TemperatureDifference{0.0};
+  static constexpr TemperatureDifference<Number> Zero() {
+    return TemperatureDifference<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a temperature difference with a given value expressed in a given temperature
   // unit.
   template <Unit::TemperatureDifference Unit>
-  static constexpr TemperatureDifference Create(const double value) {
-    return TemperatureDifference{
+  static constexpr TemperatureDifference<Number> Create(const Number value) {
+    return TemperatureDifference<Number>{
         StaticConvertCopy<Unit::TemperatureDifference, Unit, Standard<Unit::TemperatureDifference>>(
             value)};
   }
 
-  constexpr Temperature operator+(const Temperature& temperature) const;
+  constexpr Temperature<Number> operator+(const Temperature<Number>& temperature) const;
 
-  constexpr TemperatureDifference operator+(
-      const TemperatureDifference& temperature_difference) const {
-    return TemperatureDifference{value + temperature_difference.value};
+  constexpr TemperatureDifference<Number> operator+(
+      const TemperatureDifference<Number>& temperature_difference) const {
+    return TemperatureDifference<Number>{this->value + temperature_difference.value};
   }
 
-  constexpr Temperature operator-(const Temperature& temperature) const;
+  constexpr Temperature<Number> operator-(const Temperature<Number>& temperature) const;
 
-  constexpr TemperatureDifference operator-(
-      const TemperatureDifference& temperature_difference) const {
-    return TemperatureDifference{value - temperature_difference.value};
+  constexpr TemperatureDifference<Number> operator-(
+      const TemperatureDifference<Number>& temperature_difference) const {
+    return TemperatureDifference<Number>{this->value - temperature_difference.value};
   }
 
-  constexpr TemperatureDifference operator*(const double number) const {
-    return TemperatureDifference{value * number};
+  constexpr TemperatureDifference<Number> operator*(const Number number) const {
+    return TemperatureDifference<Number>{this->value * number};
   }
 
-  constexpr ScalarStrain operator*(
-      const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const;
+  constexpr ScalarStrain<Number> operator*(
+      const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const;
 
-  constexpr double operator*(
-      const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const;
+  constexpr Strain<Number> operator*(
+      const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient)
+      const;
 
-  constexpr TemperatureDifference operator/(const double number) const {
-    return TemperatureDifference{value / number};
+  constexpr TemperatureDifference<Number> operator/(const Number number) const {
+    return TemperatureDifference<Number>{this->value / number};
   }
 
-  constexpr ScalarTemperatureGradient operator/(const Length& length) const;
+  constexpr ScalarTemperatureGradient<Number> operator/(const Length<Number>& length) const;
 
-  constexpr double operator/(const TemperatureDifference& temperature_difference) const noexcept {
-    return value / temperature_difference.value;
+  constexpr Number operator/(
+      const TemperatureDifference<Number>& temperature_difference) const noexcept {
+    return this->value / temperature_difference.value;
   }
 
-  constexpr void operator+=(const TemperatureDifference& temperature_difference) noexcept {
-    value += temperature_difference.value;
+  constexpr void operator+=(const TemperatureDifference<Number>& temperature_difference) noexcept {
+    this->value += temperature_difference.value;
   }
 
-  constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept {
-    value -= temperature_difference.value;
+  constexpr void operator-=(const TemperatureDifference<Number>& temperature_difference) noexcept {
+    this->value -= temperature_difference.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a temperature difference with a given value expressed in the standard
   // temperature difference unit.
-  explicit constexpr TemperatureDifference(const double value)
-    : DimensionalScalar<Unit::TemperatureDifference>(value) {}
+  explicit constexpr TemperatureDifference(const Number value)
+    : DimensionalScalar<Unit::TemperatureDifference, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class Temperature;
 };
 
-inline constexpr bool operator==(
-    const TemperatureDifference& left, const TemperatureDifference& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const TemperatureDifference<Number>& left,
+                                 const TemperatureDifference<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const TemperatureDifference& left, const TemperatureDifference& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const TemperatureDifference<Number>& left,
+                                 const TemperatureDifference<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const TemperatureDifference& left, const TemperatureDifference& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const TemperatureDifference<Number>& left,
+                                const TemperatureDifference<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const TemperatureDifference& left, const TemperatureDifference& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const TemperatureDifference<Number>& left,
+                                const TemperatureDifference<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const TemperatureDifference& left, const TemperatureDifference& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const TemperatureDifference<Number>& left,
+                                 const TemperatureDifference<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const TemperatureDifference& left, const TemperatureDifference& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const TemperatureDifference<Number>& left,
+                                 const TemperatureDifference<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const TemperatureDifference& temperature_difference) {
+    std::ostream& stream, const TemperatureDifference<Number>& temperature_difference) {
   stream << temperature_difference.Print();
   return stream;
 }
 
-inline constexpr TemperatureDifference operator*(
-    const double number, const TemperatureDifference& temperature_difference) {
+template <typename Number>
+inline constexpr TemperatureDifference<Number> operator*(
+    const Number number, const TemperatureDifference<Number>& temperature_difference) {
   return temperature_difference * number;
 }
 
@@ -181,10 +229,10 @@ inline constexpr TemperatureDifference operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::TemperatureDifference> {
-  inline size_t operator()(const PhQ::TemperatureDifference& temperature_difference) const {
-    return hash<double>()(temperature_difference.Value());
+template <typename Number>
+struct hash<PhQ::TemperatureDifference<Number>> {
+  inline size_t operator()(const PhQ::TemperatureDifference<Number>& temperature_difference) const {
+    return hash<Number>()(temperature_difference.Value());
   }
 };
 

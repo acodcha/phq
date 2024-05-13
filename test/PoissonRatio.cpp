@@ -82,7 +82,7 @@ TEST(PoissonRatio, ComparisonOperators) {
 
 TEST(PoissonRatio, CopyAssignmentOperator) {
   const PoissonRatio first{1.0};
-  PoissonRatio second = PoissonRatio::Zero();
+  PoissonRatio second = PoissonRatio<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -94,18 +94,18 @@ TEST(PoissonRatio, CopyConstructor) {
 }
 
 TEST(PoissonRatio, DefaultConstructor) {
-  EXPECT_NO_THROW(PoissonRatio{});
+  EXPECT_NO_THROW(PoissonRatio<>{});
 }
 
 TEST(PoissonRatio, Dimensions) {
-  EXPECT_EQ(PoissonRatio::Dimensions(), Dimensionless);
+  EXPECT_EQ(PoissonRatio<>::Dimensions(), Dimensionless);
 }
 
 TEST(PoissonRatio, Hash) {
   const PoissonRatio first{1.0};
   const PoissonRatio second{1.00001};
   const PoissonRatio third{-1.0};
-  const std::hash<PoissonRatio> hash;
+  const std::hash<PoissonRatio<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -133,7 +133,7 @@ TEST(PoissonRatio, Mathematics) {
 
 TEST(PoissonRatio, MoveAssignmentOperator) {
   PoissonRatio first{1.0};
-  PoissonRatio second = PoissonRatio::Zero();
+  PoissonRatio second = PoissonRatio<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, PoissonRatio(1.0));
 }
@@ -162,7 +162,7 @@ TEST(PoissonRatio, SetValue) {
 }
 
 TEST(PoissonRatio, SizeOf) {
-  EXPECT_EQ(sizeof(PoissonRatio{}), sizeof(double));
+  EXPECT_EQ(sizeof(PoissonRatio<>{}), sizeof(double));
 }
 
 TEST(PoissonRatio, StandardConstructor) {
@@ -188,7 +188,7 @@ TEST(PoissonRatio, YAML) {
 }
 
 TEST(PoissonRatio, Zero) {
-  EXPECT_EQ(PoissonRatio::Zero(), PoissonRatio(0.0));
+  EXPECT_EQ(PoissonRatio<>::Zero(), PoissonRatio(0.0));
 }
 
 }  // namespace

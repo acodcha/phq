@@ -168,7 +168,7 @@ protected:
   ~DimensionalScalar() noexcept = default;
 
   // Copy constructor. Constructs a dimensional scalar physical quantity by copying another one.
-  constexpr DimensionalScalar(const DimensionalScalar& other) = default;
+  constexpr DimensionalScalar(const DimensionalScalar<UnitType, Number>& other) = default;
 
   // Copy constructor. Constructs a dimensional scalar physical quantity by copying another one.
   template <typename OtherNumber>
@@ -176,23 +176,26 @@ protected:
     : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional scalar physical quantity by moving another one.
-  constexpr DimensionalScalar(DimensionalScalar&& other) noexcept = default;
+  constexpr DimensionalScalar(DimensionalScalar<UnitType, Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensional scalar physical quantity by copying another
   // one.
-  constexpr DimensionalScalar& operator=(const DimensionalScalar& other) = default;
+  constexpr DimensionalScalar<UnitType, Number>& operator=(
+      const DimensionalScalar<UnitType, Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensional scalar physical quantity by copying another
   // one.
   template <typename OtherNumber>
-  constexpr DimensionalScalar& operator=(const DimensionalScalar<UnitType, OtherNumber>& other) {
+  constexpr DimensionalScalar<UnitType, Number>& operator=(
+      const DimensionalScalar<UnitType, OtherNumber>& other) {
     value = static_cast<Number>(other.Value());
     return *this;
   }
 
   // Move assignment operator. Assigns this dimensional scalar physical quantity by moving another
   // one.
-  constexpr DimensionalScalar& operator=(DimensionalScalar&& other) noexcept = default;
+  constexpr DimensionalScalar<UnitType, Number>& operator=(
+      DimensionalScalar<UnitType, Number>&& other) noexcept = default;
 
   // Value of this physical quantity expressed in its standard unit of measure.
   Number value;

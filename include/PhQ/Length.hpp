@@ -23,176 +23,242 @@
 
 namespace PhQ {
 
-// Forward declarations for class Length.
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Area;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Direction;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Displacement;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class DynamicViscosity;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Energy;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class KinematicViscosity;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class MassDensity;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Position;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class ReynoldsNumber;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Speed;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Time;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class TransportEnergyConsumption;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Volume;
 
 // Length, size, or distance. Can also represent the magnitude of a position vector or displacement
 // vector.
-class Length : public DimensionalScalar<Unit::Length, double> {
+template <typename Number = double>
+class Length : public DimensionalScalar<Unit::Length, Number> {
 public:
   // Default constructor. Constructs a length with an uninitialized value.
   Length() = default;
 
   // Constructor. Constructs a length with a given value expressed in a given length unit.
-  Length(const double value, const Unit::Length unit)
-    : DimensionalScalar<Unit::Length>(value, unit) {}
+  Length(const Number value, const Unit::Length unit)
+    : DimensionalScalar<Unit::Length, Number>(value, unit) {}
 
   // Constructor. Constructs a length from a given area and length.
-  constexpr Length(const Area& area, const Length& length);
+  constexpr Length(const Area<Number>& area, const Length<Number>& length);
 
   // Constructor. Constructs a length from a given volume and area.
-  constexpr Length(const Volume& volume, const Area& area);
+  constexpr Length(const Volume<Number>& volume, const Area<Number>& area);
 
   // Constructor. Constructs a length from a given speed and time using the definition of speed.
-  constexpr Length(const Speed& speed, const Time& time);
+  constexpr Length(const Speed<Number>& speed, const Time<Number>& time);
 
   // Constructor. Constructs a length from a given speed and frequency using the definition of
   // speed.
-  constexpr Length(const Speed& speed, const Frequency& frequency);
+  constexpr Length(const Speed<Number>& speed, const Frequency<Number>& frequency);
 
   // Constructor. Constructs a length from a given Reynolds number, dynamic viscosity, mass density,
   // and speed using the definition of the Reynolds number.
-  constexpr Length(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity,
-                   const MassDensity& mass_density, const Speed& speed);
+  constexpr Length(const ReynoldsNumber<Number>& reynolds_number,
+                   const DynamicViscosity<Number>& dynamic_viscosity,
+                   const MassDensity<Number>& mass_density, const Speed<Number>& speed);
 
   // Constructor. Constructs a length from a given Reynolds number, kinematic viscosity, and speed
   // using the definition of the Reynolds number.
-  constexpr Length(const ReynoldsNumber& reynolds_number,
-                   const KinematicViscosity& kinematic_viscosity, const Speed& speed);
+  constexpr Length(
+      const ReynoldsNumber<Number>& reynolds_number,
+      const KinematicViscosity<Number>& kinematic_viscosity, const Speed<Number>& speed);
 
   // Constructor. Constructs a length from a given energy and transport energy consumption using the
   // definition of transport energy consumption.
-  constexpr Length(
-      const Energy& energy, const TransportEnergyConsumption& transport_energy_consumption);
+  constexpr Length(const Energy<Number>& energy,
+                   const TransportEnergyConsumption<Number>& transport_energy_consumption);
 
   // Destructor. Destroys this length.
   ~Length() noexcept = default;
 
   // Copy constructor. Constructs a length by copying another one.
-  constexpr Length(const Length& other) = default;
+  constexpr Length(const Length<Number>& other) = default;
+
+  // Copy constructor. Constructs a length by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Length(const Length<OtherNumber>& other)
+    : Length(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a length by moving another one.
-  constexpr Length(Length&& other) noexcept = default;
+  constexpr Length(Length<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this length by copying another one.
-  constexpr Length& operator=(const Length& other) = default;
+  constexpr Length<Number>& operator=(const Length<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this length by copying another one.
+  template <typename OtherNumber>
+  constexpr Length<Number>& operator=(const Length<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this length by moving another one.
-  constexpr Length& operator=(Length&& other) noexcept = default;
+  constexpr Length<Number>& operator=(Length<Number>&& other) noexcept = default;
 
   // Statically creates a length of zero.
-  static constexpr Length Zero() {
-    return Length{0.0};
+  static constexpr Length<Number> Zero() {
+    return Length<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a length with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Length Create(const double value) {
-    return Length{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+  static constexpr Length<Number> Create(const Number value) {
+    return Length<Number>{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  constexpr Length operator+(const Length& length) const {
-    return Length{value + length.value};
+  constexpr Length<Number> operator+(const Length<Number>& length) const {
+    return Length<Number>{this->value + length.value};
   }
 
-  constexpr Length operator-(const Length& length) const {
-    return Length{value - length.value};
+  constexpr Length<Number> operator-(const Length<Number>& length) const {
+    return Length<Number>{this->value - length.value};
   }
 
-  constexpr Length operator*(const double number) const {
-    return Length{value * number};
+  constexpr Length<Number> operator*(const Number number) const {
+    return Length<Number>{this->value * number};
   }
 
-  constexpr Area operator*(const Length& length) const;
+  constexpr Area<Number> operator*(const Length<Number>& length) const;
 
-  constexpr Volume operator*(const Area& area) const;
+  constexpr Volume<Number> operator*(const Area<Number>& area) const;
 
-  constexpr Speed operator*(const Frequency& frequency) const;
+  constexpr Speed<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Position operator*(const Direction& direction) const;
+  constexpr Position<Number> operator*(const Direction<Number>& direction) const;
 
-  constexpr Energy operator*(const TransportEnergyConsumption& transport_energy_consumption) const;
+  constexpr Energy<Number> operator*(
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) const;
 
-  constexpr Length operator/(const double number) const {
-    return Length{value / number};
+  constexpr Length<Number> operator/(const Number number) const {
+    return Length<Number>{this->value / number};
   }
 
-  constexpr Speed operator/(const Time& time) const;
+  constexpr Speed<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const Speed& speed) const;
+  constexpr Time<Number> operator/(const Speed<Number>& speed) const;
 
-  constexpr double operator/(const Length& length) const noexcept {
-    return value / length.value;
+  constexpr Number operator/(const Length<Number>& length) const noexcept {
+    return this->value / length.value;
   }
 
-  constexpr void operator+=(const Length& length) noexcept {
-    value += length.value;
+  constexpr void operator+=(const Length<Number>& length) noexcept {
+    this->value += length.value;
   }
 
-  constexpr void operator-=(const Length& length) noexcept {
-    value -= length.value;
+  constexpr void operator-=(const Length<Number>& length) noexcept {
+    this->value -= length.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a length with a given value expressed in the standard length unit.
-  explicit constexpr Length(const double value) : DimensionalScalar<Unit::Length>(value) {}
+  explicit constexpr Length(const Number value) : DimensionalScalar<Unit::Length, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class Displacement;
 
+  template <typename OtherNumber>
   friend class Position;
 };
 
-inline constexpr bool operator==(const Length& left, const Length& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Length<Number>& left, const Length<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Length& left, const Length& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Length<Number>& left, const Length<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Length& left, const Length& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Length<Number>& left, const Length<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Length& left, const Length& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Length<Number>& left, const Length<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Length& left, const Length& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Length<Number>& left, const Length<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Length& left, const Length& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Length<Number>& left, const Length<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Length& length) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Length<Number>& length) {
   stream << length.Print();
   return stream;
 }
 
-inline constexpr Length operator*(const double number, const Length& length) {
+template <typename Number>
+inline constexpr Length<Number> operator*(const Number number, const Length<Number>& length) {
   return length * number;
 }
 
@@ -200,10 +266,10 @@ inline constexpr Length operator*(const double number, const Length& length) {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Length> {
-  inline size_t operator()(const PhQ::Length& length) const {
-    return hash<double>()(length.Value());
+template <typename Number>
+struct hash<PhQ::Length<Number>> {
+  inline size_t operator()(const PhQ::Length<Number>& length) const {
+    return hash<Number>()(length.Value());
   }
 };
 

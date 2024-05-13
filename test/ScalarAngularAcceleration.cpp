@@ -123,7 +123,7 @@ TEST(ScalarAngularAcceleration, ComparisonOperators) {
 
 TEST(ScalarAngularAcceleration, CopyAssignmentOperator) {
   const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  ScalarAngularAcceleration second = ScalarAngularAcceleration::Zero();
+  ScalarAngularAcceleration second = ScalarAngularAcceleration<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -136,17 +136,18 @@ TEST(ScalarAngularAcceleration, CopyConstructor) {
 
 TEST(ScalarAngularAcceleration, Create) {
   constexpr ScalarAngularAcceleration scalar_angular_acceleration =
-      ScalarAngularAcceleration::Create<Unit::AngularAcceleration::RadianPerSquareSecond>(1.0);
+      ScalarAngularAcceleration<>::Create<Unit::AngularAcceleration::RadianPerSquareSecond>(1.0);
   EXPECT_EQ(scalar_angular_acceleration,
             ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarAngularAcceleration{});
+  EXPECT_NO_THROW(ScalarAngularAcceleration<>{});
 }
 
 TEST(ScalarAngularAcceleration, Dimensions) {
-  EXPECT_EQ(ScalarAngularAcceleration::Dimensions(), RelatedDimensions<Unit::AngularAcceleration>);
+  EXPECT_EQ(
+      ScalarAngularAcceleration<>::Dimensions(), RelatedDimensions<Unit::AngularAcceleration>);
 }
 
 TEST(ScalarAngularAcceleration, Hash) {
@@ -154,7 +155,7 @@ TEST(ScalarAngularAcceleration, Hash) {
   const ScalarAngularAcceleration second{
       1.000001, Unit::AngularAcceleration::DegreePerSquareSecond};
   const ScalarAngularAcceleration third{-1.0, Unit::AngularAcceleration::DegreePerSquareSecond};
-  const std::hash<ScalarAngularAcceleration> hash;
+  const std::hash<ScalarAngularAcceleration<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -199,7 +200,7 @@ TEST(ScalarAngularAcceleration, MiscellaneousConstructors) {
 
 TEST(ScalarAngularAcceleration, MoveAssignmentOperator) {
   ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  ScalarAngularAcceleration second = ScalarAngularAcceleration::Zero();
+  ScalarAngularAcceleration second = ScalarAngularAcceleration<>::Zero();
   second = std::move(first);
   EXPECT_EQ(
       second, ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
@@ -237,7 +238,7 @@ TEST(ScalarAngularAcceleration, SetValue) {
 }
 
 TEST(ScalarAngularAcceleration, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarAngularAcceleration{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarAngularAcceleration<>{}), sizeof(double));
 }
 
 TEST(ScalarAngularAcceleration, StandardConstructor) {
@@ -246,7 +247,7 @@ TEST(ScalarAngularAcceleration, StandardConstructor) {
 
 TEST(ScalarAngularAcceleration, StaticValue) {
   constexpr ScalarAngularAcceleration scalar_angular_acceleration =
-      ScalarAngularAcceleration::Create<Unit::AngularAcceleration::DegreePerSquareSecond>(1.0);
+      ScalarAngularAcceleration<>::Create<Unit::AngularAcceleration::DegreePerSquareSecond>(1.0);
   constexpr double value =
       scalar_angular_acceleration.StaticValue<Unit::AngularAcceleration::DegreePerSquareSecond>();
   EXPECT_EQ(value, 1.0);
@@ -261,7 +262,7 @@ TEST(ScalarAngularAcceleration, Stream) {
 }
 
 TEST(ScalarAngularAcceleration, Unit) {
-  EXPECT_EQ(ScalarAngularAcceleration::Unit(), Standard<Unit::AngularAcceleration>);
+  EXPECT_EQ(ScalarAngularAcceleration<>::Unit(), Standard<Unit::AngularAcceleration>);
 }
 
 TEST(ScalarAngularAcceleration, Value) {
@@ -290,7 +291,7 @@ TEST(ScalarAngularAcceleration, YAML) {
 }
 
 TEST(ScalarAngularAcceleration, Zero) {
-  EXPECT_EQ(ScalarAngularAcceleration::Zero(),
+  EXPECT_EQ(ScalarAngularAcceleration<>::Zero(),
             ScalarAngularAcceleration(0.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 

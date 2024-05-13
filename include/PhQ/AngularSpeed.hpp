@@ -26,199 +26,244 @@
 
 namespace PhQ {
 
-// Forward declaration for class AngularSpeed.
+// Forward declaration for class PhQ::AngularSpeed.
+template <typename Number>
 class ScalarAngularAcceleration;
 
 // Planar angular speed component or magnitude of an angular velocity pseudovector. Time rate of
 // change of an angle. Typically measured in radians per second. Can also represent a circular
 // frequency.
-class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed, double> {
+template <typename Number = double>
+class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed, Number> {
 public:
   // Default constructor. Constructs an angular speed with an uninitialized value.
   AngularSpeed() = default;
 
   // Constructor. Constructs an angular speed with a given value expressed in a given angular speed
   // unit.
-  AngularSpeed(const double value, const Unit::AngularSpeed unit)
-    : DimensionalScalar<Unit::AngularSpeed>(value, unit) {}
+  AngularSpeed(const Number value, const Unit::AngularSpeed unit)
+    : DimensionalScalar<Unit::AngularSpeed, Number>(value, unit) {}
 
   // Constructor. Constructs an angular speed from a given angle and time using the definition of
   // angular speed.
-  constexpr AngularSpeed(const Angle& angle, const Time& time)
-    : AngularSpeed(angle.Value() / time.Value()) {}
+  constexpr AngularSpeed(const Angle<Number>& angle, const Time<Number>& time)
+    : AngularSpeed<Number>(angle.Value() / time.Value()) {}
 
   // Constructor. Constructs an angular speed from a given angle and frequency using the definition
   // of angular speed.
-  constexpr AngularSpeed(const Angle& angle, const Frequency& frequency)
-    : AngularSpeed(angle.Value() * frequency.Value()) {}
+  constexpr AngularSpeed(const Angle<Number>& angle, const Frequency<Number>& frequency)
+    : AngularSpeed<Number>(angle.Value() * frequency.Value()) {}
 
   // Constructor. Constructs an angular speed from a given scalar angular acceleration and time
   // using the definition of angular acceleration.
-  constexpr AngularSpeed(
-      const ScalarAngularAcceleration& scalar_angular_acceleration, const Time& time);
+  constexpr AngularSpeed(const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
+                         const Time<Number>& time);
 
   // Constructor. Constructs an angular speed from a given scalar angular acceleration and frequency
   // using the definition of angular acceleration.
-  constexpr AngularSpeed(
-      const ScalarAngularAcceleration& scalar_angular_acceleration, const Frequency& frequency);
+  constexpr AngularSpeed(const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
+                         const Frequency<Number>& frequency);
 
   // Destructor. Destroys this angular speed.
   ~AngularSpeed() noexcept = default;
 
   // Copy constructor. Constructs an angular speed by copying another one.
-  constexpr AngularSpeed(const AngularSpeed& other) = default;
+  constexpr AngularSpeed(const AngularSpeed<Number>& other) = default;
+
+  // Copy constructor. Constructs an angular speed by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr AngularSpeed(const AngularSpeed<OtherNumber>& other)
+    : AngularSpeed(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an angular speed by moving another one.
-  constexpr AngularSpeed(AngularSpeed&& other) noexcept = default;
+  constexpr AngularSpeed(AngularSpeed<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this angular speed by copying another one.
-  constexpr AngularSpeed& operator=(const AngularSpeed& other) = default;
+  constexpr AngularSpeed<Number>& operator=(const AngularSpeed<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this angular speed by copying another one.
+  template <typename OtherNumber>
+  constexpr AngularSpeed<Number>& operator=(const AngularSpeed<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this angular speed by moving another one.
-  constexpr AngularSpeed& operator=(AngularSpeed&& other) noexcept = default;
+  constexpr AngularSpeed<Number>& operator=(AngularSpeed<Number>&& other) noexcept = default;
 
   // Statically creates an angular speed of zero.
-  static constexpr AngularSpeed Zero() {
-    return AngularSpeed{0.0};
+  static constexpr AngularSpeed<Number> Zero() {
+    return AngularSpeed<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates an angular speed with a given value expressed in a given angular speed unit.
   template <Unit::AngularSpeed Unit>
-  static constexpr AngularSpeed Create(const double value) {
-    return AngularSpeed{
+  static constexpr AngularSpeed<Number> Create(const Number value) {
+    return AngularSpeed<Number>{
         StaticConvertCopy<Unit::AngularSpeed, Unit, Standard<Unit::AngularSpeed>>(value)};
   }
 
-  constexpr AngularSpeed operator+(const AngularSpeed& angular_speed) const {
-    return AngularSpeed{value + angular_speed.value};
+  constexpr AngularSpeed<Number> operator+(const AngularSpeed<Number>& angular_speed) const {
+    return AngularSpeed<Number>{this->value + angular_speed.value};
   }
 
-  constexpr AngularSpeed operator-(const AngularSpeed& angular_speed) const {
-    return AngularSpeed{value - angular_speed.value};
+  constexpr AngularSpeed<Number> operator-(const AngularSpeed<Number>& angular_speed) const {
+    return AngularSpeed<Number>{this->value - angular_speed.value};
   }
 
-  constexpr AngularSpeed operator*(const double number) const {
-    return AngularSpeed{value * number};
+  constexpr AngularSpeed<Number> operator*(const Number number) const {
+    return AngularSpeed<Number>{this->value * number};
   }
 
-  constexpr Angle operator*(const Time& time) const {
-    return {*this, time};
+  constexpr Angle<Number> operator*(const Time<Number>& time) const {
+    return Angle<Number>{*this, time};
   }
 
-  constexpr ScalarAngularAcceleration operator*(const Frequency& frequency) const;
+  constexpr ScalarAngularAcceleration<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr AngularSpeed operator/(const double number) const {
-    return AngularSpeed{value / number};
+  constexpr AngularSpeed<Number> operator/(const Number number) const {
+    return AngularSpeed<Number>{this->value / number};
   }
 
-  constexpr Angle operator/(const Frequency& frequency) const {
-    return {*this, frequency};
+  constexpr Angle<Number> operator/(const Frequency<Number>& frequency) const {
+    return Angle<Number>{*this, frequency};
   }
 
-  constexpr Frequency operator/(const Angle& angle) const {
-    return {*this, angle};
+  constexpr Frequency<Number> operator/(const Angle<Number>& angle) const {
+    return Frequency<Number>{*this, angle};
   }
 
-  constexpr ScalarAngularAcceleration operator/(const Time& time) const;
+  constexpr ScalarAngularAcceleration<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const ScalarAngularAcceleration& scalar_angular_acceleration) const;
+  constexpr Time<Number> operator/(
+      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const;
 
-  constexpr double operator/(const AngularSpeed& angular_speed) const noexcept {
-    return value / angular_speed.value;
+  constexpr Number operator/(const AngularSpeed<Number>& angular_speed) const noexcept {
+    return this->value / angular_speed.value;
   }
 
-  constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
-    value += angular_speed.value;
+  constexpr void operator+=(const AngularSpeed<Number>& angular_speed) noexcept {
+    this->value += angular_speed.value;
   }
 
-  constexpr void operator-=(const AngularSpeed& angular_speed) noexcept {
-    value -= angular_speed.value;
+  constexpr void operator-=(const AngularSpeed<Number>& angular_speed) noexcept {
+    this->value -= angular_speed.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs an angular speed with a given value expressed in the standard angular
   // speed unit.
-  explicit constexpr AngularSpeed(const double value)
-    : DimensionalScalar<Unit::AngularSpeed>(value) {}
+  explicit constexpr AngularSpeed(const Number value)
+    : DimensionalScalar<Unit::AngularSpeed, Number>(value) {}
 };
 
-inline constexpr bool operator==(const AngularSpeed& left, const AngularSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const AngularSpeed<Number>& left, const AngularSpeed<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const AngularSpeed& left, const AngularSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const AngularSpeed<Number>& left, const AngularSpeed<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const AngularSpeed& left, const AngularSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const AngularSpeed<Number>& left, const AngularSpeed<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const AngularSpeed& left, const AngularSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const AngularSpeed<Number>& left, const AngularSpeed<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const AngularSpeed& left, const AngularSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const AngularSpeed<Number>& left, const AngularSpeed<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const AngularSpeed& left, const AngularSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const AngularSpeed<Number>& left, const AngularSpeed<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const AngularSpeed& angular_speed) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const AngularSpeed<Number>& angular_speed) {
   stream << angular_speed.Print();
   return stream;
 }
 
-inline constexpr AngularSpeed operator*(const double number, const AngularSpeed& angular_speed) {
+template <typename Number>
+inline constexpr AngularSpeed<Number> operator*(
+    const Number number, const AngularSpeed<Number>& angular_speed) {
   return angular_speed * number;
 }
 
-inline constexpr Angle::Angle(const AngularSpeed& angular_speed, const Time& time)
-  : Angle(angular_speed.Value() * time.Value()) {}
+template <typename Number>
+inline constexpr Angle<Number>::Angle(
+    const AngularSpeed<Number>& angular_speed, const Time<Number>& time)
+  : Angle<Number>(angular_speed.Value() * time.Value()) {}
 
-inline constexpr Angle::Angle(const AngularSpeed& angular_speed, const Frequency& frequency)
-  : Angle(angular_speed.Value() / frequency.Value()) {}
+template <typename Number>
+inline constexpr Angle<Number>::Angle(
+    const AngularSpeed<Number>& angular_speed, const Frequency<Number>& frequency)
+  : Angle<Number>(angular_speed.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const Angle& angle, const AngularSpeed& angular_speed)
-  : Time(angle.Value() / angular_speed.Value()) {}
+template <typename Number>
+inline constexpr Time<Number>::Time(
+    const Angle<Number>& angle, const AngularSpeed<Number>& angular_speed)
+  : Time<Number>(angle.Value() / angular_speed.Value()) {}
 
-inline constexpr Frequency::Frequency(const AngularSpeed& angular_speed, const Angle& angle)
-  : Frequency(angular_speed.Value() / angle.Value()) {}
+template <typename Number>
+inline constexpr Frequency<Number>::Frequency(
+    const AngularSpeed<Number>& angular_speed, const Angle<Number>& angle)
+  : Frequency<Number>(angular_speed.Value() / angle.Value()) {}
 
-inline constexpr AngularSpeed Angle::operator*(const Frequency& frequency) const {
-  return {*this, frequency};
+template <typename Number>
+inline constexpr AngularSpeed<Number> Angle<Number>::operator*(
+    const Frequency<Number>& frequency) const {
+  return AngularSpeed<Number>{*this, frequency};
 }
 
-inline constexpr AngularSpeed Frequency::operator*(const Angle& angle) const {
-  return {angle, *this};
+template <typename Number>
+inline constexpr AngularSpeed<Number> Frequency<Number>::operator*(
+    const Angle<Number>& angle) const {
+  return AngularSpeed<Number>{angle, *this};
 }
 
-inline constexpr AngularSpeed Angle::operator/(const Time& time) const {
-  return {*this, time};
+template <typename Number>
+inline constexpr AngularSpeed<Number> Angle<Number>::operator/(const Time<Number>& time) const {
+  return AngularSpeed<Number>{*this, time};
 }
 
-inline constexpr Time Angle::operator/(const AngularSpeed& angular_speed) const {
-  return {*this, angular_speed};
+template <typename Number>
+inline constexpr Time<Number> Angle<Number>::operator/(
+    const AngularSpeed<Number>& angular_speed) const {
+  return Time<Number>{*this, angular_speed};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::AngularSpeed> {
-  inline size_t operator()(const PhQ::AngularSpeed& angular_speed) const {
-    return hash<double>()(angular_speed.Value());
+template <typename Number>
+struct hash<PhQ::AngularSpeed<Number>> {
+  inline size_t operator()(const PhQ::AngularSpeed<Number>& angular_speed) const {
+    return hash<Number>()(angular_speed.Value());
   }
 };
 

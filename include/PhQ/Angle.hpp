@@ -25,188 +25,246 @@
 
 namespace PhQ {
 
-// Forward declarations for class Angle.
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Acceleration;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class AngularSpeed;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Direction;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Displacement;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Time;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Force;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class HeatFlux;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Position;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class TemperatureGradient;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Traction;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class VectorArea;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Velocity;
 
 // Planar angle.
-class Angle : public DimensionalScalar<Unit::Angle, double> {
+template <typename Number = double>
+class Angle : public DimensionalScalar<Unit::Angle, Number> {
 public:
   // Default constructor. Constructs an angle with an uninitialized value.
   Angle() = default;
 
   // Constructor. Constructs an angle with a given value expressed in a given angle unit.
-  Angle(const double value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
+  Angle(const Number value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
 
   // Constructor. Constructs an angle by computing the angle between two given vector values.
-  Angle(const Vector<double>& vector1, const Vector<double>& vector2)
+  Angle(const Vector<Number>& vector1, const Vector<Number>& vector2)
     : Angle(std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
   // Constructor. Constructs an angle by computing the angle between a given vector and direction.
-  Angle(const Vector<double>& vector, const Direction& direction);
+  Angle(const Vector<Number>& vector, const Direction<Number>& direction);
 
   // Constructor. Constructs an angle by computing the angle between a given direction and vector.
-  Angle(const Direction& direction, const Vector<double>& vector);
+  Angle(const Direction<Number>& direction, const Vector<Number>& vector);
 
   // Constructor. Constructs an angle by computing the angle between two given directions.
-  Angle(const Direction& direction1, const Direction& direction2);
+  Angle(const Direction<Number>& direction1, const Direction<Number>& direction2);
 
   // Constructor. Constructs an angle from a given angular speed and time using the definition of
   // angular speed.
-  constexpr Angle(const AngularSpeed& angular_speed, const Time& time);
+  constexpr Angle(const AngularSpeed<Number>& angular_speed, const Time<Number>& time);
 
   // Constructor. Constructs an angle from a given angular speed and frequency using the definition
   // of angular speed.
-  constexpr Angle(const AngularSpeed& angular_speed, const Frequency& frequency);
+  constexpr Angle(const AngularSpeed<Number>& angular_speed, const Frequency<Number>& frequency);
 
   // Constructor. Constructs an angle by computing the angle between two given acceleration vectors.
-  Angle(const Acceleration& acceleration1, const Acceleration& acceleration2);
+  Angle(const Acceleration<Number>& acceleration1, const Acceleration<Number>& acceleration2);
 
   // Constructor. Constructs an angle by computing the angle between two given vector areas.
-  Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2);
+  Angle(const VectorArea<Number>& vector_area_1, const VectorArea<Number>& vector_area_2);
 
   // Constructor. Constructs an angle by computing the angle between two given displacements.
-  Angle(const Displacement& displacement1, const Displacement& displacement2);
+  Angle(const Displacement<Number>& displacement1, const Displacement<Number>& displacement2);
 
   // Constructor. Constructs an angle by computing the angle between two given forces.
-  Angle(const Force& force1, const Force& force2);
+  Angle(const Force<Number>& force1, const Force<Number>& force2);
 
   // Constructor. Constructs an angle by computing the angle between two given heat fluxes.
-  Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2);
+  Angle(const HeatFlux<Number>& heat_flux_1, const HeatFlux<Number>& heat_flux_2);
 
   // Constructor. Constructs an angle by computing the angle between two given positions.
-  Angle(const Position& position1, const Position& position2);
+  Angle(const Position<Number>& position1, const Position<Number>& position2);
 
   // Constructor. Constructs an angle by computing the angle between two given temperature
   // gradients.
-  Angle(const TemperatureGradient& temperature_gradient_1,
-        const TemperatureGradient& temperature_gradient_2);
+  Angle(const TemperatureGradient<Number>& temperature_gradient_1,
+        const TemperatureGradient<Number>& temperature_gradient_2);
 
   // Constructor. Constructs an angle by computing the angle between two given tractions.
-  Angle(const Traction& traction1, const Traction& traction2);
+  Angle(const Traction<Number>& traction1, const Traction<Number>& traction2);
 
   // Constructor. Constructs an angle by computing the angle between two given velocities.
-  Angle(const Velocity& velocity1, const Velocity& velocity2);
+  Angle(const Velocity<Number>& velocity1, const Velocity<Number>& velocity2);
 
   // Destructor. Destroys this angle.
   ~Angle() noexcept = default;
 
   // Copy constructor. Constructs an angle by copying another one.
-  constexpr Angle(const Angle& other) = default;
+  constexpr Angle(const Angle<Number>& other) = default;
+
+  // Copy constructor. Constructs an angle by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Angle(const Angle<OtherNumber>& other)
+    : Angle(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an angle by moving another one.
-  constexpr Angle(Angle&& other) noexcept = default;
+  constexpr Angle(Angle<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this angle by copying another one.
-  constexpr Angle& operator=(const Angle& other) = default;
+  constexpr Angle<Number>& operator=(const Angle<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this angle by copying another one.
+  template <typename OtherNumber>
+  constexpr Angle<Number>& operator=(const Angle<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this angle by moving another one.
-  constexpr Angle& operator=(Angle&& other) noexcept = default;
+  constexpr Angle<Number>& operator=(Angle<Number>&& other) noexcept = default;
 
   // Statically creates an angle of zero.
-  static constexpr Angle Zero() {
-    return Angle{0.0};
+  static constexpr Angle<Number> Zero() {
+    return Angle<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates an angle with a given value expressed in a given angle unit.
   template <Unit::Angle Unit>
-  static constexpr Angle Create(const double value) {
-    return Angle{StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
+  static constexpr Angle<Number> Create(const Number value) {
+    return Angle<Number>{StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 
-  constexpr Angle operator+(const Angle& other) const {
-    return Angle{value + other.value};
+  constexpr Angle<Number> operator+(const Angle<Number>& other) const {
+    return Angle<Number>{this->value + other.value};
   }
 
-  constexpr Angle operator-(const Angle& other) const {
-    return Angle{value - other.value};
+  constexpr Angle<Number> operator-(const Angle<Number>& other) const {
+    return Angle<Number>{this->value - other.value};
   }
 
-  constexpr Angle operator*(const double number) const {
-    return Angle{value * number};
+  constexpr Angle<Number> operator*(const Number number) const {
+    return Angle<Number>{this->value * number};
   }
 
-  constexpr AngularSpeed operator*(const Frequency& frequency) const;
+  constexpr AngularSpeed<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Angle operator/(const double number) const {
-    return Angle{value / number};
+  constexpr Angle<Number> operator/(const Number number) const {
+    return Angle<Number>{this->value / number};
   }
 
-  constexpr AngularSpeed operator/(const Time& time) const;
+  constexpr AngularSpeed<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const AngularSpeed& angular_speed) const;
+  constexpr Time<Number> operator/(const AngularSpeed<Number>& angular_speed) const;
 
-  constexpr double operator/(const Angle& angle) const noexcept {
-    return value / angle.value;
+  constexpr Number operator/(const Angle<Number>& other) const noexcept {
+    return this->value / other.value;
   }
 
-  constexpr void operator+=(const Angle& angle) noexcept {
-    value += angle.value;
+  constexpr void operator+=(const Angle<Number>& other) noexcept {
+    this->value += other.value;
   }
 
-  constexpr void operator-=(const Angle& angle) noexcept {
-    value -= angle.value;
+  constexpr void operator-=(const Angle<Number>& other) noexcept {
+    this->value -= other.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs an angle with a given value expressed in the standard angle unit.
-  explicit constexpr Angle(const double value) : DimensionalScalar<Unit::Angle>(value) {}
+  explicit constexpr Angle(const Number value) : DimensionalScalar<Unit::Angle, Number>(value) {}
 };
 
-inline constexpr bool operator==(const Angle& left, const Angle& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Angle<Number>& left, const Angle<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Angle& left, const Angle& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Angle<Number>& left, const Angle<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Angle& left, const Angle& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Angle<Number>& left, const Angle<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Angle& left, const Angle& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Angle<Number>& left, const Angle<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Angle& left, const Angle& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Angle<Number>& left, const Angle<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Angle& left, const Angle& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Angle<Number>& left, const Angle<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Angle& angle) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Angle<Number>& angle) {
   stream << angle.Print();
   return stream;
 }
 
-inline constexpr Angle operator*(const double number, const Angle& angle) {
+template <typename Number>
+inline constexpr Angle<Number> operator*(const Number number, const Angle<Number>& angle) {
   return angle * number;
 }
 
 template <typename Number>
-inline PhQ::Angle Vector<Number>::Angle(const Vector<Number>& vector) const {
+inline PhQ::Angle<Number> Vector<Number>::Angle(const Vector<Number>& vector) const {
   return PhQ::Angle{*this, vector};
 }
 
@@ -214,10 +272,10 @@ inline PhQ::Angle Vector<Number>::Angle(const Vector<Number>& vector) const {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Angle> {
-  inline size_t operator()(const PhQ::Angle& angle) const {
-    return hash<double>()(angle.Value());
+template <typename Number>
+struct hash<PhQ::Angle<Number>> {
+  inline size_t operator()(const PhQ::Angle<Number>& angle) const {
+    return hash<Number>()(angle.Value());
   }
 };
 

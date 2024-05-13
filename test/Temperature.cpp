@@ -118,7 +118,7 @@ TEST(Temperature, ComparisonOperators) {
 
 TEST(Temperature, CopyAssignmentOperator) {
   const Temperature first{1.0, Unit::Temperature::Kelvin};
-  Temperature second = Temperature::Zero();
+  Temperature second = Temperature<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -130,23 +130,23 @@ TEST(Temperature, CopyConstructor) {
 }
 
 TEST(Temperature, Create) {
-  constexpr Temperature temperature = Temperature::Create<Unit::Temperature::Kelvin>(1.0);
+  constexpr Temperature temperature = Temperature<>::Create<Unit::Temperature::Kelvin>(1.0);
   EXPECT_EQ(temperature, Temperature(1.0, Unit::Temperature::Kelvin));
 }
 
 TEST(Temperature, DefaultConstructor) {
-  EXPECT_NO_THROW(Temperature{});
+  EXPECT_NO_THROW(Temperature<>{});
 }
 
 TEST(Temperature, Dimensions) {
-  EXPECT_EQ(Temperature::Dimensions(), RelatedDimensions<Unit::Temperature>);
+  EXPECT_EQ(Temperature<>::Dimensions(), RelatedDimensions<Unit::Temperature>);
 }
 
 TEST(Temperature, Hash) {
   const Temperature first{1.0, Unit::Temperature::Kelvin};
   const Temperature second{1.000001, Unit::Temperature::Kelvin};
   const Temperature third{-1.0, Unit::Temperature::Kelvin};
-  const std::hash<Temperature> hash;
+  const std::hash<Temperature<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -161,7 +161,7 @@ TEST(Temperature, JSON) {
 
 TEST(Temperature, MoveAssignmentOperator) {
   Temperature first{1.0, Unit::Temperature::Kelvin};
-  Temperature second = Temperature::Zero();
+  Temperature second = Temperature<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Temperature(1.0, Unit::Temperature::Kelvin));
 }
@@ -192,7 +192,7 @@ TEST(Temperature, SetValue) {
 }
 
 TEST(Temperature, SizeOf) {
-  EXPECT_EQ(sizeof(Temperature{}), sizeof(double));
+  EXPECT_EQ(sizeof(Temperature<>{}), sizeof(double));
 }
 
 TEST(Temperature, StandardConstructor) {
@@ -200,7 +200,7 @@ TEST(Temperature, StandardConstructor) {
 }
 
 TEST(Temperature, StaticValue) {
-  constexpr Temperature temperature = Temperature::Create<Unit::Temperature::Rankine>(1.0);
+  constexpr Temperature temperature = Temperature<>::Create<Unit::Temperature::Rankine>(1.0);
   constexpr double value = temperature.StaticValue<Unit::Temperature::Rankine>();
   EXPECT_EQ(value, 1.0);
 }
@@ -212,7 +212,7 @@ TEST(Temperature, Stream) {
 }
 
 TEST(Temperature, Unit) {
-  EXPECT_EQ(Temperature::Unit(), Standard<Unit::Temperature>);
+  EXPECT_EQ(Temperature<>::Unit(), Standard<Unit::Temperature>);
 }
 
 TEST(Temperature, Value) {
@@ -235,7 +235,7 @@ TEST(Temperature, YAML) {
 }
 
 TEST(Temperature, Zero) {
-  EXPECT_EQ(Temperature::Zero(), Temperature(0.0, Unit::Temperature::Kelvin));
+  EXPECT_EQ(Temperature<>::Zero(), Temperature(0.0, Unit::Temperature::Kelvin));
 }
 
 }  // namespace

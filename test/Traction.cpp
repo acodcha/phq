@@ -109,7 +109,7 @@ TEST(Traction, ComparisonOperators) {
 
 TEST(Traction, CopyAssignmentOperator) {
   const Traction first({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
-  Traction second = Traction::Zero();
+  Traction second = Traction<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -122,26 +122,27 @@ TEST(Traction, CopyConstructor) {
 
 TEST(Traction, Create) {
   {
-    constexpr Traction traction = Traction::Create<Unit::Pressure::Pascal>(1.0, -2.0, 3.0);
+    constexpr Traction traction = Traction<>::Create<Unit::Pressure::Pascal>(1.0, -2.0, 3.0);
     EXPECT_EQ(traction, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
   }
   {
     constexpr Traction traction =
-        Traction::Create<Unit::Pressure::Pascal>(std::array<double, 3>{1.0, -2.0, 3.0});
+        Traction<>::Create<Unit::Pressure::Pascal>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(traction, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
   }
   {
-    constexpr Traction traction = Traction::Create<Unit::Pressure::Pascal>(Vector{1.0, -2.0, 3.0});
+    constexpr Traction traction =
+        Traction<>::Create<Unit::Pressure::Pascal>(Vector{1.0, -2.0, 3.0});
     EXPECT_EQ(traction, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
   }
 }
 
 TEST(Traction, DefaultConstructor) {
-  EXPECT_NO_THROW(Traction{});
+  EXPECT_NO_THROW(Traction<>{});
 }
 
 TEST(Traction, Dimensions) {
-  EXPECT_EQ(Traction::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(Traction<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(Traction, Direction) {
@@ -153,7 +154,7 @@ TEST(Traction, Hash) {
   const Traction first({1.0, -2.0, 3.0}, Unit::Pressure::Kilopascal);
   const Traction second({1.0, -2.0, 3.000001}, Unit::Pressure::Kilopascal);
   const Traction third({1.0, 2.0, 3.0}, Unit::Pressure::Kilopascal);
-  const std::hash<Traction> hash;
+  const std::hash<Traction<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -189,7 +190,7 @@ TEST(Traction, MiscellaneousConstructors) {
 
 TEST(Traction, MoveAssignmentOperator) {
   Traction first({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
-  Traction second = Traction::Zero();
+  Traction second = Traction<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 }
@@ -222,7 +223,7 @@ TEST(Traction, SetValue) {
 }
 
 TEST(Traction, SizeOf) {
-  EXPECT_EQ(sizeof(Traction{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Traction<>{}), 3 * sizeof(double));
 }
 
 TEST(Traction, StandardConstructor) {
@@ -230,7 +231,7 @@ TEST(Traction, StandardConstructor) {
 }
 
 TEST(Traction, StaticValue) {
-  constexpr Traction traction = Traction::Create<Unit::Pressure::Kilopascal>(1.0, -2.0, 3.0);
+  constexpr Traction traction = Traction<>::Create<Unit::Pressure::Kilopascal>(1.0, -2.0, 3.0);
   constexpr Vector value = traction.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
@@ -242,7 +243,7 @@ TEST(Traction, Stream) {
 }
 
 TEST(Traction, Unit) {
-  EXPECT_EQ(Traction::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(Traction<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(Traction, Value) {
@@ -280,7 +281,7 @@ TEST(Traction, YAML) {
 }
 
 TEST(Traction, Zero) {
-  EXPECT_EQ(Traction::Zero(), Traction({0.0, 0.0, 0.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Traction<>::Zero(), Traction({0.0, 0.0, 0.0}, Unit::Pressure::Pascal));
 }
 
 }  // namespace

@@ -109,7 +109,7 @@ TEST(StrainRate, ComparisonOperators) {
 
 TEST(StrainRate, CopyAssignmentOperator) {
   const StrainRate first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
-  StrainRate second = StrainRate::Zero();
+  StrainRate second = StrainRate<>::Zero();
   second = first;
   EXPECT_EQ(second, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
 }
@@ -123,34 +123,34 @@ TEST(StrainRate, CopyConstructor) {
 TEST(StrainRate, Create) {
   {
     constexpr StrainRate strain_rate =
-        StrainRate::Create<Unit::Frequency::Hertz>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+        StrainRate<>::Create<Unit::Frequency::Hertz>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
     EXPECT_EQ(strain_rate, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
   }
   {
-    constexpr StrainRate strain_rate = StrainRate::Create<Unit::Frequency::Hertz>(
+    constexpr StrainRate strain_rate = StrainRate<>::Create<Unit::Frequency::Hertz>(
         std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
     EXPECT_EQ(strain_rate, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
   }
   {
-    constexpr StrainRate strain_rate =
-        StrainRate::Create<Unit::Frequency::Hertz>(SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
+    constexpr StrainRate strain_rate = StrainRate<>::Create<Unit::Frequency::Hertz>(
+        SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
     EXPECT_EQ(strain_rate, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
   }
 }
 
 TEST(StrainRate, DefaultConstructor) {
-  EXPECT_NO_THROW(StrainRate{});
+  EXPECT_NO_THROW(StrainRate<>{});
 }
 
 TEST(StrainRate, Dimensions) {
-  EXPECT_EQ(StrainRate::Dimensions(), RelatedDimensions<Unit::Frequency>);
+  EXPECT_EQ(StrainRate<>::Dimensions(), RelatedDimensions<Unit::Frequency>);
 }
 
 TEST(StrainRate, Hash) {
   const StrainRate first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Kilohertz);
   const StrainRate second({1.0, -2.0, 3.0, -4.0, 5.0, -6.000001}, Unit::Frequency::Kilohertz);
   const StrainRate third({1.0, -2.0, 3.0, 4.0, 5.0, -6.0}, Unit::Frequency::Kilohertz);
-  const std::hash<StrainRate> hash;
+  const std::hash<StrainRate<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -187,7 +187,7 @@ TEST(StrainRate, MiscellaneousConstructors) {
 
 TEST(StrainRate, MoveAssignmentOperator) {
   StrainRate first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
-  StrainRate second = StrainRate::Zero();
+  StrainRate second = StrainRate<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
 }
@@ -222,7 +222,7 @@ TEST(StrainRate, SetValue) {
 }
 
 TEST(StrainRate, SizeOf) {
-  EXPECT_EQ(sizeof(StrainRate{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(StrainRate<>{}), 6 * sizeof(double));
 }
 
 TEST(StrainRate, StandardConstructor) {
@@ -231,7 +231,7 @@ TEST(StrainRate, StandardConstructor) {
 
 TEST(StrainRate, StaticValue) {
   constexpr StrainRate strain_rate =
-      StrainRate::Create<Unit::Frequency::Kilohertz>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+      StrainRate<>::Create<Unit::Frequency::Kilohertz>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
   constexpr SymmetricDyad value = strain_rate.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
@@ -295,7 +295,8 @@ TEST(StrainRate, YAML) {
 }
 
 TEST(StrainRate, Zero) {
-  EXPECT_EQ(StrainRate::Zero(), StrainRate({0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      StrainRate<>::Zero(), StrainRate({0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, Unit::Frequency::Hertz));
 }
 
 }  // namespace

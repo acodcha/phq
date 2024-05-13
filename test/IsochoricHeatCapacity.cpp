@@ -94,7 +94,7 @@ TEST(IsochoricHeatCapacity, ComparisonOperators) {
 
 TEST(IsochoricHeatCapacity, CopyAssignmentOperator) {
   const IsochoricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  IsochoricHeatCapacity second = IsochoricHeatCapacity::Zero();
+  IsochoricHeatCapacity second = IsochoricHeatCapacity<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -107,24 +107,24 @@ TEST(IsochoricHeatCapacity, CopyConstructor) {
 
 TEST(IsochoricHeatCapacity, Create) {
   constexpr IsochoricHeatCapacity isochoric_heat_capacity =
-      IsochoricHeatCapacity::Create<Unit::HeatCapacity::JoulePerKelvin>(1.0);
+      IsochoricHeatCapacity<>::Create<Unit::HeatCapacity::JoulePerKelvin>(1.0);
   EXPECT_EQ(
       isochoric_heat_capacity, IsochoricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsochoricHeatCapacity, DefaultConstructor) {
-  EXPECT_NO_THROW(IsochoricHeatCapacity{});
+  EXPECT_NO_THROW(IsochoricHeatCapacity<>{});
 }
 
 TEST(IsochoricHeatCapacity, Dimensions) {
-  EXPECT_EQ(IsochoricHeatCapacity::Dimensions(), RelatedDimensions<Unit::HeatCapacity>);
+  EXPECT_EQ(IsochoricHeatCapacity<>::Dimensions(), RelatedDimensions<Unit::HeatCapacity>);
 }
 
 TEST(IsochoricHeatCapacity, Hash) {
   const IsochoricHeatCapacity first{1.0, Unit::HeatCapacity::NanojoulePerKelvin};
   const IsochoricHeatCapacity second{1.00001, Unit::HeatCapacity::NanojoulePerKelvin};
   const IsochoricHeatCapacity third{-1.0, Unit::HeatCapacity::NanojoulePerKelvin};
-  const std::hash<IsochoricHeatCapacity> hash;
+  const std::hash<IsochoricHeatCapacity<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -140,7 +140,7 @@ TEST(IsochoricHeatCapacity, JSON) {
 
 TEST(IsochoricHeatCapacity, MoveAssignmentOperator) {
   IsochoricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  IsochoricHeatCapacity second = IsochoricHeatCapacity::Zero();
+  IsochoricHeatCapacity second = IsochoricHeatCapacity<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, IsochoricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
@@ -173,7 +173,7 @@ TEST(IsochoricHeatCapacity, SetValue) {
 }
 
 TEST(IsochoricHeatCapacity, SizeOf) {
-  EXPECT_EQ(sizeof(IsochoricHeatCapacity{}), sizeof(double));
+  EXPECT_EQ(sizeof(IsochoricHeatCapacity<>{}), sizeof(double));
 }
 
 TEST(IsochoricHeatCapacity, StandardConstructor) {
@@ -182,7 +182,7 @@ TEST(IsochoricHeatCapacity, StandardConstructor) {
 
 TEST(IsochoricHeatCapacity, StaticValue) {
   constexpr IsochoricHeatCapacity isochoric_heat_capacity =
-      IsochoricHeatCapacity::Create<Unit::HeatCapacity::NanojoulePerKelvin>(2.0);
+      IsochoricHeatCapacity<>::Create<Unit::HeatCapacity::NanojoulePerKelvin>(2.0);
   constexpr double value =
       isochoric_heat_capacity.StaticValue<Unit::HeatCapacity::NanojoulePerKelvin>();
   EXPECT_EQ(value, 2.0);
@@ -195,7 +195,7 @@ TEST(IsochoricHeatCapacity, Stream) {
 }
 
 TEST(IsochoricHeatCapacity, Unit) {
-  EXPECT_EQ(IsochoricHeatCapacity::Unit(), Standard<Unit::HeatCapacity>);
+  EXPECT_EQ(IsochoricHeatCapacity<>::Unit(), Standard<Unit::HeatCapacity>);
 }
 
 TEST(IsochoricHeatCapacity, Value) {
@@ -222,7 +222,7 @@ TEST(IsochoricHeatCapacity, YAML) {
 }
 
 TEST(IsochoricHeatCapacity, Zero) {
-  EXPECT_EQ(IsochoricHeatCapacity::Zero(),
+  EXPECT_EQ(IsochoricHeatCapacity<>::Zero(),
             IsochoricHeatCapacity(0.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 

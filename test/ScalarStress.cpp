@@ -87,7 +87,7 @@ TEST(ScalarStress, ComparisonOperators) {
 
 TEST(ScalarStress, CopyAssignmentOperator) {
   const ScalarStress first{1.0, Unit::Pressure::Pascal};
-  ScalarStress second = ScalarStress::Zero();
+  ScalarStress second = ScalarStress<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -99,23 +99,23 @@ TEST(ScalarStress, CopyConstructor) {
 }
 
 TEST(ScalarStress, Create) {
-  constexpr ScalarStress quantity = ScalarStress::Create<Unit::Pressure::Pascal>(1.0);
+  constexpr ScalarStress quantity = ScalarStress<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(quantity, ScalarStress(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(ScalarStress, DefaultConstructor) {
-  EXPECT_NO_THROW(ScalarStress{});
+  EXPECT_NO_THROW(ScalarStress<>{});
 }
 
 TEST(ScalarStress, Dimensions) {
-  EXPECT_EQ(ScalarStress::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(ScalarStress<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(ScalarStress, Hash) {
   const ScalarStress first{1.0, Unit::Pressure::Kilopascal};
   const ScalarStress second{1.00001, Unit::Pressure::Kilopascal};
   const ScalarStress third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<ScalarStress> hash;
+  const std::hash<ScalarStress<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -130,7 +130,7 @@ TEST(ScalarStress, JSON) {
 
 TEST(ScalarStress, MoveAssignmentOperator) {
   ScalarStress first{1.0, Unit::Pressure::Pascal};
-  ScalarStress second = ScalarStress::Zero();
+  ScalarStress second = ScalarStress<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ScalarStress(1.0, Unit::Pressure::Pascal));
 }
@@ -161,7 +161,7 @@ TEST(ScalarStress, SetValue) {
 }
 
 TEST(ScalarStress, SizeOf) {
-  EXPECT_EQ(sizeof(ScalarStress{}), sizeof(double));
+  EXPECT_EQ(sizeof(ScalarStress<>{}), sizeof(double));
 }
 
 TEST(ScalarStress, StandardConstructor) {
@@ -169,7 +169,7 @@ TEST(ScalarStress, StandardConstructor) {
 }
 
 TEST(ScalarStress, StaticValue) {
-  constexpr ScalarStress quantity = ScalarStress::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr ScalarStress quantity = ScalarStress<>::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.0);
 }
@@ -181,7 +181,7 @@ TEST(ScalarStress, Stream) {
 }
 
 TEST(ScalarStress, Unit) {
-  EXPECT_EQ(ScalarStress::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(ScalarStress<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(ScalarStress, Value) {
@@ -204,7 +204,7 @@ TEST(ScalarStress, YAML) {
 }
 
 TEST(ScalarStress, Zero) {
-  EXPECT_EQ(ScalarStress::Zero(), ScalarStress(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(ScalarStress<>::Zero(), ScalarStress(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

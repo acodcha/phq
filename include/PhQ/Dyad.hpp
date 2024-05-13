@@ -65,7 +65,7 @@ public:
   ~Dyad() noexcept = default;
 
   // Copy constructor. Constructs a three-dimensional dyadic tensor by copying another one.
-  constexpr Dyad(const Dyad& other) = default;
+  constexpr Dyad(const Dyad<Number>& other) = default;
 
   // Copy constructor. Constructs a three-dimensional dyadic tensor by copying another one.
   template <typename OtherNumber>
@@ -78,16 +78,16 @@ public:
          static_cast<Number>(other.zz())}) {}
 
   // Move constructor. Constructs a three-dimensional dyadic tensor by moving another one.
-  constexpr Dyad(Dyad&& other) noexcept = default;
+  constexpr Dyad(Dyad<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this three-dimensional dyadic tensor by copying another
   // one.
-  constexpr Dyad& operator=(const Dyad& other) = default;
+  constexpr Dyad<Number>& operator=(const Dyad<Number>& other) = default;
 
   // Copy assignment operator. Assigns this three-dimensional dyadic tensor by copying another
   // one.
   template <typename OtherNumber>
-  constexpr Dyad& operator=(const Dyad<OtherNumber>& other) {
+  constexpr Dyad<Number>& operator=(const Dyad<OtherNumber>& other) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = static_cast<Number>(other.xx());
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = static_cast<Number>(other.xy());
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = static_cast<Number>(other.xz());
@@ -102,11 +102,11 @@ public:
 
   // Move assignment operator. Assigns this three-dimensional dyadic tensor by moving another
   // one.
-  constexpr Dyad& operator=(Dyad&& other) noexcept = default;
+  constexpr Dyad<Number>& operator=(Dyad<Number>&& other) noexcept = default;
 
   // Assignment operator. Assigns this three-dimensional dyadic tensor by copying a
   // three-dimensional symmetric dyadic tensor.
-  constexpr Dyad& operator=(const SymmetricDyad<Number>& other) {
+  constexpr Dyad<Number>& operator=(const SymmetricDyad<Number>& other) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = other.xx();
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = other.xy();
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = other.xz();
@@ -121,16 +121,19 @@ public:
 
   // Assignment operator. Assigns this three-dimensional dyadic tensor by copying a given array
   // representing its xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
-  constexpr Dyad& operator=(const std::array<Number, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
+  constexpr Dyad<Number>& operator=(const std::array<Number, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
     return *this;
   }
 
   // Statically creates a three-dimensional dyadic tensor with its xx, xy, xz, yx, yy, yz, zx, zy,
   // and zz Cartesian components initialized to zero.
-  static constexpr Dyad Zero() {
-    return Dyad{
-        std::array<Number, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+  static constexpr Dyad<Number> Zero() {
+    return Dyad<Number>{
+        std::array<Number, 9>{
+                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0),
+                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0),
+                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0)}
     };
   }
 
@@ -321,12 +324,12 @@ public:
   }
 
   // Returns the transpose of this three-dimensional dyadic tensor.
-  [[nodiscard]] constexpr Dyad Transpose() const {
-    return {xx(), yx(), zx(), xy(), yy(), zy(), xz(), yz(), zz()};
+  [[nodiscard]] constexpr Dyad<Number> Transpose() const {
+    return Dyad<Number>{xx(), yx(), zx(), xy(), yy(), zy(), xz(), yz(), zz()};
   }
 
   // Returns the cofactors of this three-dimensional dyadic tensor.
-  [[nodiscard]] constexpr Dyad Cofactors() const {
+  [[nodiscard]] constexpr Dyad<Number> Cofactors() const {
     const Number cofactor_xx{yy() * zz() - yz() * zy()};
     const Number cofactor_xy{yz() * zx() - yx() * zz()};
     const Number cofactor_xz{yx() * zy() - yy() * zx()};
@@ -336,18 +339,18 @@ public:
     const Number cofactor_zx{xy() * yz() - xz() * yy()};
     const Number cofactor_zy{xz() * yx() - xx() * yz()};
     const Number cofactor_zz{xx() * yy() - xy() * yx()};
-    return {cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yx, cofactor_yy,
-            cofactor_yz, cofactor_zx, cofactor_zy, cofactor_zz};
+    return Dyad<Number>{cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yx, cofactor_yy,
+                        cofactor_yz, cofactor_zx, cofactor_zy, cofactor_zz};
   }
 
   // Returns the adjugate of this three-dimensional dyadic tensor.
-  [[nodiscard]] constexpr Dyad Adjugate() const {
+  [[nodiscard]] constexpr Dyad<Number> Adjugate() const {
     return Cofactors().Transpose();
   }
 
   // Returns the inverse of this three-dimensional dyadic tensor if it exists, or std::nullopt
   // otherwise.
-  [[nodiscard]] constexpr std::optional<Dyad> Inverse() const;
+  [[nodiscard]] constexpr std::optional<Dyad<Number>> Inverse() const;
 
   // Prints this three-dimensional dyadic tensor as a string.
   [[nodiscard]] std::string Print() const {
@@ -380,7 +383,7 @@ public:
            + "}";
   }
 
-  constexpr void operator+=(const Dyad& dyad) noexcept {
+  constexpr void operator+=(const Dyad<Number>& dyad) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
@@ -392,7 +395,7 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  constexpr void operator-=(const Dyad& dyad) noexcept {
+  constexpr void operator-=(const Dyad<Number>& dyad) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
@@ -519,57 +522,59 @@ inline constexpr bool operator>=(const Dyad<Number>& left, const Dyad<Number>& r
 
 template <typename Number>
 inline constexpr Dyad<Number> operator+(const Dyad<Number>& left, const Dyad<Number>& right) {
-  return {left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
-          left.yx() + right.yx(), left.yy() + right.yy(), left.yz() + right.yz(),
-          left.zx() + right.zx(), left.zy() + right.zy(), left.zz() + right.zz()};
+  return Dyad<Number>{left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
+                      left.yx() + right.yx(), left.yy() + right.yy(), left.yz() + right.yz(),
+                      left.zx() + right.zx(), left.zy() + right.zy(), left.zz() + right.zz()};
 }
 
 template <typename Number>
 inline constexpr Dyad<Number> operator-(const Dyad<Number>& left, const Dyad<Number>& right) {
-  return {left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
-          left.yx() - right.yx(), left.yy() - right.yy(), left.yz() - right.yz(),
-          left.zx() - right.zx(), left.zy() - right.zy(), left.zz() - right.zz()};
+  return Dyad<Number>{left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
+                      left.yx() - right.yx(), left.yy() - right.yy(), left.yz() - right.yz(),
+                      left.zx() - right.zx(), left.zy() - right.zy(), left.zz() - right.zz()};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr Dyad<Number> operator*(const Dyad<Number>& dyad, const OtherNumber number) {
-  return {dyad.xx() * static_cast<Number>(number), dyad.xy() * static_cast<Number>(number),
-          dyad.xz() * static_cast<Number>(number), dyad.yx() * static_cast<Number>(number),
-          dyad.yy() * static_cast<Number>(number), dyad.yz() * static_cast<Number>(number),
-          dyad.zx() * static_cast<Number>(number), dyad.zy() * static_cast<Number>(number),
-          dyad.zz() * static_cast<Number>(number)};
+  return Dyad<Number>{
+      dyad.xx() * static_cast<Number>(number), dyad.xy() * static_cast<Number>(number),
+      dyad.xz() * static_cast<Number>(number), dyad.yx() * static_cast<Number>(number),
+      dyad.yy() * static_cast<Number>(number), dyad.yz() * static_cast<Number>(number),
+      dyad.zx() * static_cast<Number>(number), dyad.zy() * static_cast<Number>(number),
+      dyad.zz() * static_cast<Number>(number)};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr Dyad<Number> operator*(const OtherNumber number, const Dyad<Number>& dyad) {
-  return {dyad * number};
+  return Dyad<Number>{dyad * number};
 }
 
 template <typename Number>
 inline constexpr Vector<Number> operator*(const Dyad<Number>& dyad, const Vector<Number>& vector) {
-  return {dyad.xx() * vector.x() + dyad.xy() * vector.y() + dyad.xz() * vector.z(),
-          dyad.yx() * vector.x() + dyad.yy() * vector.y() + dyad.yz() * vector.z(),
-          dyad.zx() * vector.x() + dyad.zy() * vector.y() + dyad.zz() * vector.z()};
+  return Vector<Number>{dyad.xx() * vector.x() + dyad.xy() * vector.y() + dyad.xz() * vector.z(),
+                        dyad.yx() * vector.x() + dyad.yy() * vector.y() + dyad.yz() * vector.z(),
+                        dyad.zx() * vector.x() + dyad.zy() * vector.y() + dyad.zz() * vector.z()};
 }
 
 template <typename Number>
 inline constexpr Dyad<Number> operator*(
     const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) {
-  return {left.xx() * right.xx() + left.xy() * right.xy() + left.xz() * right.xz(),
-          left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.yz(),
-          left.xx() * right.xz() + left.xy() * right.yz() + left.xz() * right.zz(),
-          left.xy() * right.xx() + left.yy() * right.xy() + left.yz() * right.xz(),
-          left.xy() * right.xy() + left.yy() * right.yy() + left.yz() * right.yz(),
-          left.xy() * right.xz() + left.yy() * right.yz() + left.yz() * right.zz(),
-          left.xz() * right.xx() + left.yz() * right.xy() + left.zz() * right.xz(),
-          left.xz() * right.xy() + left.yz() * right.yy() + left.zz() * right.yz(),
-          left.xz() * right.xz() + left.yz() * right.yz() + left.zz() * right.zz()};
+  return Dyad<Number>{
+      left.xx() * right.xx() + left.xy() * right.xy() + left.xz() * right.xz(),
+      left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.yz(),
+      left.xx() * right.xz() + left.xy() * right.yz() + left.xz() * right.zz(),
+      left.xy() * right.xx() + left.yy() * right.xy() + left.yz() * right.xz(),
+      left.xy() * right.xy() + left.yy() * right.yy() + left.yz() * right.yz(),
+      left.xy() * right.xz() + left.yy() * right.yz() + left.yz() * right.zz(),
+      left.xz() * right.xx() + left.yz() * right.xy() + left.zz() * right.xz(),
+      left.xz() * right.xy() + left.yz() * right.yy() + left.zz() * right.yz(),
+      left.xz() * right.xz() + left.yz() * right.yz() + left.zz() * right.zz()};
 }
 
 template <typename Number>
 inline constexpr Dyad<Number> operator*(
     const SymmetricDyad<Number>& symmetric_dyad, const Dyad<Number>& dyad) {
-  return {
+  return Dyad<Number>{
       symmetric_dyad.xx() * dyad.xx() + symmetric_dyad.xy() * dyad.yx()
           + symmetric_dyad.xz() * dyad.zx(),
       symmetric_dyad.xx() * dyad.xy() + symmetric_dyad.xy() * dyad.yy()
@@ -593,7 +598,7 @@ inline constexpr Dyad<Number> operator*(
 template <typename Number>
 inline constexpr Dyad<Number> operator*(
     const Dyad<Number>& dyad, const SymmetricDyad<Number>& symmetric_dyad) {
-  return {
+  return Dyad<Number>{
       dyad.xx() * symmetric_dyad.xx() + dyad.xy() * symmetric_dyad.yx()
           + dyad.xz() * symmetric_dyad.zx(),
       dyad.xx() * symmetric_dyad.xy() + dyad.xy() * symmetric_dyad.yy()
@@ -616,24 +621,26 @@ inline constexpr Dyad<Number> operator*(
 
 template <typename Number>
 inline constexpr Dyad<Number> operator*(const Dyad<Number>& left, const Dyad<Number>& right) {
-  return {left.xx() * right.xx() + left.xy() * right.yx() + left.xz() * right.zx(),
-          left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.zy(),
-          left.xx() * right.xz() + left.xy() * right.yz() + left.xz() * right.zz(),
-          left.yx() * right.xx() + left.yy() * right.yx() + left.yz() * right.zx(),
-          left.yx() * right.xy() + left.yy() * right.yy() + left.yz() * right.zy(),
-          left.yx() * right.xz() + left.yy() * right.yz() + left.yz() * right.zz(),
-          left.zx() * right.xx() + left.zy() * right.yx() + left.zz() * right.zx(),
-          left.zx() * right.xy() + left.zy() * right.yy() + left.zz() * right.zy(),
-          left.zx() * right.xz() + left.zy() * right.yz() + left.zz() * right.zz()};
+  return Dyad<Number>{
+      left.xx() * right.xx() + left.xy() * right.yx() + left.xz() * right.zx(),
+      left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.zy(),
+      left.xx() * right.xz() + left.xy() * right.yz() + left.xz() * right.zz(),
+      left.yx() * right.xx() + left.yy() * right.yx() + left.yz() * right.zx(),
+      left.yx() * right.xy() + left.yy() * right.yy() + left.yz() * right.zy(),
+      left.yx() * right.xz() + left.yy() * right.yz() + left.yz() * right.zz(),
+      left.zx() * right.xx() + left.zy() * right.yx() + left.zz() * right.zx(),
+      left.zx() * right.xy() + left.zy() * right.yy() + left.zz() * right.zy(),
+      left.zx() * right.xz() + left.zy() * right.yz() + left.zz() * right.zz()};
 }
 
 template <typename Number, typename OtherNumber>
 inline constexpr Dyad<Number> operator/(const Dyad<Number>& dyad, const OtherNumber number) {
-  return {dyad.xx() / static_cast<Number>(number), dyad.xy() / static_cast<Number>(number),
-          dyad.xz() / static_cast<Number>(number), dyad.yx() / static_cast<Number>(number),
-          dyad.yy() / static_cast<Number>(number), dyad.yz() / static_cast<Number>(number),
-          dyad.zx() / static_cast<Number>(number), dyad.zy() / static_cast<Number>(number),
-          dyad.zz() / static_cast<Number>(number)};
+  return Dyad<Number>{
+      dyad.xx() / static_cast<Number>(number), dyad.xy() / static_cast<Number>(number),
+      dyad.xz() / static_cast<Number>(number), dyad.yx() / static_cast<Number>(number),
+      dyad.yy() / static_cast<Number>(number), dyad.yz() / static_cast<Number>(number),
+      dyad.zx() / static_cast<Number>(number), dyad.zy() / static_cast<Number>(number),
+      dyad.zz() / static_cast<Number>(number)};
 }
 
 template <typename Number>
@@ -645,7 +652,7 @@ inline std::ostream& operator<<(std::ostream& stream, const Dyad<Number>& dyad) 
 template <typename Number>
 inline constexpr std::optional<Dyad<Number>> Dyad<Number>::Inverse() const {
   const Number determinant_{Determinant()};
-  if (determinant_ != 0.0) {
+  if (determinant_ != static_cast<Number>(0)) {
     return std::optional<Dyad<Number>>{Adjugate() / determinant_};
   }
   return std::nullopt;
@@ -653,9 +660,10 @@ inline constexpr std::optional<Dyad<Number>> Dyad<Number>::Inverse() const {
 
 template <typename Number>
 inline constexpr Dyad<Number> Vector<Number>::Dyadic(const Vector<Number>& vector) const {
-  return {x_y_z_[0] * vector.x_y_z_[0], x_y_z_[0] * vector.x_y_z_[1], x_y_z_[0] * vector.x_y_z_[2],
-          x_y_z_[1] * vector.x_y_z_[0], x_y_z_[1] * vector.x_y_z_[1], x_y_z_[1] * vector.x_y_z_[2],
-          x_y_z_[2] * vector.x_y_z_[0], x_y_z_[2] * vector.x_y_z_[1], x_y_z_[2] * vector.x_y_z_[2]};
+  return Dyad<Number>{
+      x_y_z_[0] * vector.x_y_z_[0], x_y_z_[0] * vector.x_y_z_[1], x_y_z_[0] * vector.x_y_z_[2],
+      x_y_z_[1] * vector.x_y_z_[0], x_y_z_[1] * vector.x_y_z_[1], x_y_z_[1] * vector.x_y_z_[2],
+      x_y_z_[2] * vector.x_y_z_[0], x_y_z_[2] * vector.x_y_z_[1], x_y_z_[2] * vector.x_y_z_[2]};
 }
 
 }  // namespace PhQ

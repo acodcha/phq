@@ -91,7 +91,7 @@ TEST(MachNumber, ComparisonOperators) {
 
 TEST(MachNumber, CopyAssignmentOperator) {
   const MachNumber first{1.0};
-  MachNumber second = MachNumber::Zero();
+  MachNumber second = MachNumber<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -103,18 +103,18 @@ TEST(MachNumber, CopyConstructor) {
 }
 
 TEST(MachNumber, DefaultConstructor) {
-  EXPECT_NO_THROW(MachNumber{});
+  EXPECT_NO_THROW(MachNumber<>{});
 }
 
 TEST(MachNumber, Dimensions) {
-  EXPECT_EQ(MachNumber::Dimensions(), Dimensionless);
+  EXPECT_EQ(MachNumber<>::Dimensions(), Dimensionless);
 }
 
 TEST(MachNumber, Hash) {
   const MachNumber first{1.0};
   const MachNumber second{1.00001};
   const MachNumber third{-1.0};
-  const std::hash<MachNumber> hash;
+  const std::hash<MachNumber<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -152,7 +152,7 @@ TEST(MachNumber, MiscellaneousConstructors) {
 
 TEST(MachNumber, MoveAssignmentOperator) {
   MachNumber first{1.0};
-  MachNumber second = MachNumber::Zero();
+  MachNumber second = MachNumber<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, MachNumber(1.0));
 }
@@ -181,7 +181,7 @@ TEST(MachNumber, SetValue) {
 }
 
 TEST(MachNumber, SizeOf) {
-  EXPECT_EQ(sizeof(MachNumber{}), sizeof(double));
+  EXPECT_EQ(sizeof(MachNumber<>{}), sizeof(double));
 }
 
 TEST(MachNumber, StandardConstructor) {
@@ -207,7 +207,7 @@ TEST(MachNumber, YAML) {
 }
 
 TEST(MachNumber, Zero) {
-  EXPECT_EQ(MachNumber::Zero(), MachNumber(0.0));
+  EXPECT_EQ(MachNumber<>::Zero(), MachNumber(0.0));
 }
 
 }  // namespace

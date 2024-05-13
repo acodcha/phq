@@ -24,127 +24,152 @@
 namespace PhQ {
 
 // Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
-class IsothermalBulkModulus : public DimensionalScalar<Unit::Pressure, double> {
+template <typename Number = double>
+class IsothermalBulkModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
   // Default constructor. Constructs an isothermal bulk modulus with an uninitialized value.
   IsothermalBulkModulus() = default;
 
   // Constructor. Constructs an isothermal bulk modulus with a given value expressed in a given
   // pressure unit.
-  IsothermalBulkModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure>(value, unit) {}
+  IsothermalBulkModulus(const Number value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
   // Destructor. Destroys this isothermal bulk modulus.
   ~IsothermalBulkModulus() noexcept = default;
 
   // Copy constructor. Constructs an isothermal bulk modulus by copying another one.
-  constexpr IsothermalBulkModulus(const IsothermalBulkModulus& other) = default;
+  constexpr IsothermalBulkModulus(const IsothermalBulkModulus<Number>& other) = default;
+
+  // Copy constructor. Constructs a isothermal bulk modulus by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr IsothermalBulkModulus(const IsothermalBulkModulus<OtherNumber>& other)
+    : IsothermalBulkModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs an isothermal bulk modulus by moving another one.
-  constexpr IsothermalBulkModulus(IsothermalBulkModulus&& other) noexcept = default;
+  constexpr IsothermalBulkModulus(IsothermalBulkModulus<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this isothermal bulk modulus by copying another one.
-  constexpr IsothermalBulkModulus& operator=(const IsothermalBulkModulus& other) = default;
+  constexpr IsothermalBulkModulus<Number>& operator=(
+      const IsothermalBulkModulus<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this isothermal bulk modulus by copying another one.
+  template <typename OtherNumber>
+  constexpr IsothermalBulkModulus<Number>& operator=(
+      const IsothermalBulkModulus<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this isothermal bulk modulus by moving another one.
-  constexpr IsothermalBulkModulus& operator=(IsothermalBulkModulus&& other) noexcept = default;
+  constexpr IsothermalBulkModulus<Number>& operator=(
+      IsothermalBulkModulus<Number>&& other) noexcept = default;
 
   // Statically creates an isothermal bulk modulus of zero.
-  static constexpr IsothermalBulkModulus Zero() {
-    return IsothermalBulkModulus{0.0};
+  static constexpr IsothermalBulkModulus<Number> Zero() {
+    return IsothermalBulkModulus<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates an isothermal bulk modulus with a given value expressed in a given pressure
   // unit.
   template <Unit::Pressure Unit>
-  static constexpr IsothermalBulkModulus Create(const double value) {
-    return IsothermalBulkModulus{
+  static constexpr IsothermalBulkModulus<Number> Create(const Number value) {
+    return IsothermalBulkModulus<Number>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr IsothermalBulkModulus operator+(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return IsothermalBulkModulus{value + isothermal_bulk_modulus.value};
+  constexpr IsothermalBulkModulus<Number> operator+(
+      const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const {
+    return IsothermalBulkModulus<Number>{this->value + isothermal_bulk_modulus.value};
   }
 
-  constexpr IsothermalBulkModulus operator-(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return IsothermalBulkModulus{value - isothermal_bulk_modulus.value};
+  constexpr IsothermalBulkModulus<Number> operator-(
+      const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const {
+    return IsothermalBulkModulus<Number>{this->value - isothermal_bulk_modulus.value};
   }
 
-  constexpr IsothermalBulkModulus operator*(const double number) const {
-    return IsothermalBulkModulus{value * number};
+  constexpr IsothermalBulkModulus<Number> operator*(const Number number) const {
+    return IsothermalBulkModulus<Number>{this->value * number};
   }
 
-  constexpr IsothermalBulkModulus operator/(const double number) const {
-    return IsothermalBulkModulus{value / number};
+  constexpr IsothermalBulkModulus<Number> operator/(const Number number) const {
+    return IsothermalBulkModulus<Number>{this->value / number};
   }
 
-  constexpr double operator/(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
-    return value / isothermal_bulk_modulus.value;
+  constexpr Number operator/(
+      const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const noexcept {
+    return this->value / isothermal_bulk_modulus.value;
   }
 
-  constexpr void operator+=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
-    value += isothermal_bulk_modulus.value;
+  constexpr void operator+=(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) noexcept {
+    this->value += isothermal_bulk_modulus.value;
   }
 
-  constexpr void operator-=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
-    value -= isothermal_bulk_modulus.value;
+  constexpr void operator-=(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) noexcept {
+    this->value -= isothermal_bulk_modulus.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs an isothermal bulk modulus with a given value expressed in the standard
   // pressure unit.
-  explicit constexpr IsothermalBulkModulus(const double value)
-    : DimensionalScalar<Unit::Pressure>(value) {}
+  explicit constexpr IsothermalBulkModulus(const Number value)
+    : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };
 
-inline constexpr bool operator==(
-    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const IsothermalBulkModulus<Number>& left,
+                                 const IsothermalBulkModulus<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const IsothermalBulkModulus<Number>& left,
+                                 const IsothermalBulkModulus<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const IsothermalBulkModulus<Number>& left,
+                                const IsothermalBulkModulus<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const IsothermalBulkModulus<Number>& left,
+                                const IsothermalBulkModulus<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const IsothermalBulkModulus<Number>& left,
+                                 const IsothermalBulkModulus<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const IsothermalBulkModulus<Number>& left,
+                                 const IsothermalBulkModulus<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const IsothermalBulkModulus& isothermal_bulk_modulus) {
+    std::ostream& stream, const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) {
   stream << isothermal_bulk_modulus.Print();
   return stream;
 }
 
-inline constexpr IsothermalBulkModulus operator*(
-    const double number, const IsothermalBulkModulus& isothermal_bulk_modulus) {
+template <typename Number>
+inline constexpr IsothermalBulkModulus<Number> operator*(
+    const Number number, const IsothermalBulkModulus<Number>& isothermal_bulk_modulus) {
   return isothermal_bulk_modulus * number;
 }
 
@@ -152,10 +177,11 @@ inline constexpr IsothermalBulkModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::IsothermalBulkModulus> {
-  inline size_t operator()(const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return hash<double>()(isothermal_bulk_modulus.Value());
+template <typename Number>
+struct hash<PhQ::IsothermalBulkModulus<Number>> {
+  inline size_t operator()(
+      const PhQ::IsothermalBulkModulus<Number>& isothermal_bulk_modulus) const {
+    return hash<Number>()(isothermal_bulk_modulus.Value());
   }
 };
 

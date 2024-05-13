@@ -149,7 +149,7 @@ TEST(VelocityGradient, ComparisonOperators) {
 TEST(VelocityGradient, CopyAssignmentOperator) {
   const VelocityGradient first(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
-  VelocityGradient second = VelocityGradient::Zero();
+  VelocityGradient second = VelocityGradient<>::Zero();
   second = first;
   EXPECT_EQ(second, VelocityGradient(
                         {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
@@ -165,31 +165,34 @@ TEST(VelocityGradient, CopyConstructor) {
 
 TEST(VelocityGradient, Create) {
   {
-    constexpr VelocityGradient velocity_gradient = VelocityGradient::Create<Unit::Frequency::Hertz>(
-        1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    constexpr VelocityGradient velocity_gradient =
+        VelocityGradient<>::Create<Unit::Frequency::Hertz>(
+            1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
     EXPECT_EQ(velocity_gradient, VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                                                   Unit::Frequency::Hertz));
   }
   {
-    constexpr VelocityGradient velocity_gradient = VelocityGradient::Create<Unit::Frequency::Hertz>(
-        std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
+    constexpr VelocityGradient velocity_gradient =
+        VelocityGradient<>::Create<Unit::Frequency::Hertz>(
+            std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
     EXPECT_EQ(velocity_gradient, VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                                                   Unit::Frequency::Hertz));
   }
   {
-    constexpr VelocityGradient velocity_gradient = VelocityGradient::Create<Unit::Frequency::Hertz>(
-        Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
+    constexpr VelocityGradient velocity_gradient =
+        VelocityGradient<>::Create<Unit::Frequency::Hertz>(
+            Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
     EXPECT_EQ(velocity_gradient, VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                                                   Unit::Frequency::Hertz));
   }
 }
 
 TEST(VelocityGradient, DefaultConstructor) {
-  EXPECT_NO_THROW(VelocityGradient{});
+  EXPECT_NO_THROW(VelocityGradient<>{});
 }
 
 TEST(VelocityGradient, Dimensions) {
-  EXPECT_EQ(VelocityGradient::Dimensions(), RelatedDimensions<Unit::Frequency>);
+  EXPECT_EQ(VelocityGradient<>::Dimensions(), RelatedDimensions<Unit::Frequency>);
 }
 
 TEST(VelocityGradient, Hash) {
@@ -199,7 +202,7 @@ TEST(VelocityGradient, Hash) {
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.000001}, Unit::Frequency::Kilohertz);
   const VelocityGradient third(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, 8.0, 9.0}, Unit::Frequency::Kilohertz);
-  const std::hash<VelocityGradient> hash;
+  const std::hash<VelocityGradient<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -254,7 +257,7 @@ TEST(VelocityGradient, MiscellaneousMethods) {
 
 TEST(VelocityGradient, MoveAssignmentOperator) {
   VelocityGradient first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
-  VelocityGradient second = VelocityGradient::Zero();
+  VelocityGradient second = VelocityGradient<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, VelocityGradient(
                         {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
@@ -301,7 +304,7 @@ TEST(VelocityGradient, SetValue) {
 }
 
 TEST(VelocityGradient, SizeOf) {
-  EXPECT_EQ(sizeof(VelocityGradient{}), 9 * sizeof(double));
+  EXPECT_EQ(sizeof(VelocityGradient<>{}), 9 * sizeof(double));
 }
 
 TEST(VelocityGradient, StandardConstructor) {
@@ -311,7 +314,7 @@ TEST(VelocityGradient, StandardConstructor) {
 
 TEST(VelocityGradient, StaticValue) {
   constexpr VelocityGradient velocity_gradient =
-      VelocityGradient::Create<Unit::Frequency::Kilohertz>(
+      VelocityGradient<>::Create<Unit::Frequency::Kilohertz>(
           1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   constexpr Dyad value = velocity_gradient.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
@@ -411,7 +414,7 @@ TEST(VelocityGradient, YAML) {
 
 TEST(VelocityGradient, Zero) {
   EXPECT_EQ(
-      VelocityGradient::Zero(),
+      VelocityGradient<>::Zero(),
       VelocityGradient({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, Unit::Frequency::Hertz));
 }
 

@@ -25,195 +25,263 @@
 
 namespace PhQ {
 
-// Forward declarations for class MassDensity.
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class DynamicPressure;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class DynamicViscosity;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class IsentropicBulkModulus;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class KinematicViscosity;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class ReynoldsNumber;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class ScalarThermalConductivity;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class SoundSpeed;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class SpecificIsobaricHeatCapacity;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class Speed;
+
+// Forward declaration for class PhQ::MassDensity.
+template <typename Number>
 class ThermalDiffusivity;
 
 // Mass density.
-class MassDensity : public DimensionalScalar<Unit::MassDensity, double> {
+template <typename Number = double>
+class MassDensity : public DimensionalScalar<Unit::MassDensity, Number> {
 public:
   // Default constructor. Constructs a mass density with an uninitialized value.
   MassDensity() = default;
 
   // Constructor. Constructs a mass density with a given value expressed in a given mass density
   // unit.
-  MassDensity(const double value, const Unit::MassDensity unit)
-    : DimensionalScalar<Unit::MassDensity>(value, unit) {}
+  MassDensity(const Number value, const Unit::MassDensity unit)
+    : DimensionalScalar<Unit::MassDensity, Number>(value, unit) {}
 
   // Constructor. Constructs a mass density from a given mass and volume using the definition of
   // mass density.
-  constexpr MassDensity(const Mass& mass, const Volume& volume)
-    : MassDensity(mass.Value() / volume.Value()) {}
+  constexpr MassDensity(const Mass<Number>& mass, const Volume<Number>& volume)
+    : MassDensity<Number>(mass.Value() / volume.Value()) {}
 
   // Constructor. Constructs a mass density from a given dynamic viscosity and kinematic viscosity
   // using the definition of kinematic viscosity.
-  constexpr MassDensity(
-      const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity);
+  constexpr MassDensity(const DynamicViscosity<Number>& dynamic_viscosity,
+                        const KinematicViscosity<Number>& kinematic_viscosity);
 
   // Constructor. Constructs a mass density from a given scalar thermal conductivity, thermal
   // diffusivity, and specific isobaric heat capacity using the definition of thermal diffusivity.
-  constexpr MassDensity(const ScalarThermalConductivity& scalar_thermal_conductivity,
-                        const ThermalDiffusivity& thermal_diffusivity,
-                        const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
+  constexpr MassDensity(
+      const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
+      const ThermalDiffusivity<Number>& thermal_diffusivity,
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity);
 
   // Constructor. Constructs a mass density from a given dynamic pressure and speed using the
   // definition of dynamic pressure.
-  constexpr MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed);
+  constexpr MassDensity(
+      const DynamicPressure<Number>& dynamic_pressure, const Speed<Number>& speed);
 
   // Constructor. Constructs a mass density from a given Reynolds number, dynamic viscosity, speed,
   // and length using the definition of the Reynolds number.
-  constexpr MassDensity(
-      const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity,
-      const Speed& speed, const Length& length);
+  constexpr MassDensity(const ReynoldsNumber<Number>& reynolds_number,
+                        const DynamicViscosity<Number>& dynamic_viscosity,
+                        const Speed<Number>& speed, const Length<Number>& length);
 
   // Constructor. Constructs a mass density from a given isentropic bulk modulus and sound speed
   // using the definition of the isentropic bulk modulus.
-  constexpr MassDensity(
-      const IsentropicBulkModulus& isentropic_bulk_modulus, const SoundSpeed& sound_speed);
+  constexpr MassDensity(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
+                        const SoundSpeed<Number>& sound_speed);
 
   // Destructor. Destroys this mass density.
   ~MassDensity() noexcept = default;
 
   // Copy constructor. Constructs a mass density by copying another one.
-  constexpr MassDensity(const MassDensity& other) = default;
+  constexpr MassDensity(const MassDensity<Number>& other) = default;
+
+  // Copy constructor. Constructs a mass density by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr MassDensity(const MassDensity<OtherNumber>& other)
+    : MassDensity(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a mass density by moving another one.
-  constexpr MassDensity(MassDensity&& other) noexcept = default;
+  constexpr MassDensity(MassDensity<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this mass density by copying another one.
-  constexpr MassDensity& operator=(const MassDensity& other) = default;
+  constexpr MassDensity<Number>& operator=(const MassDensity<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this mass density by copying another one.
+  template <typename OtherNumber>
+  constexpr MassDensity<Number>& operator=(const MassDensity<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this mass density by moving another one.
-  constexpr MassDensity& operator=(MassDensity&& other) noexcept = default;
+  constexpr MassDensity<Number>& operator=(MassDensity<Number>&& other) noexcept = default;
 
   // Statically creates a mass density of zero.
-  static constexpr MassDensity Zero() {
-    return MassDensity{0.0};
+  static constexpr MassDensity<Number> Zero() {
+    return MassDensity<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a mass density with a given value expressed in a given mass density unit.
   template <Unit::MassDensity Unit>
-  static constexpr MassDensity Create(const double value) {
-    return MassDensity{
+  static constexpr MassDensity<Number> Create(const Number value) {
+    return MassDensity<Number>{
         StaticConvertCopy<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(value)};
   }
 
-  constexpr MassDensity operator+(const MassDensity& mass_density) const {
-    return MassDensity{value + mass_density.value};
+  constexpr MassDensity<Number> operator+(const MassDensity<Number>& mass_density) const {
+    return MassDensity<Number>{this->value + mass_density.value};
   }
 
-  constexpr MassDensity operator-(const MassDensity& mass_density) const {
-    return MassDensity{value - mass_density.value};
+  constexpr MassDensity<Number> operator-(const MassDensity<Number>& mass_density) const {
+    return MassDensity<Number>{this->value - mass_density.value};
   }
 
-  constexpr MassDensity operator*(const double number) const {
-    return MassDensity{value * number};
+  constexpr MassDensity<Number> operator*(const Number number) const {
+    return MassDensity<Number>{this->value * number};
   }
 
-  constexpr Mass operator*(const Volume& volume) const {
-    return Mass{*this, volume};
+  constexpr Mass<Number> operator*(const Volume<Number>& volume) const {
+    return Mass<Number>{*this, volume};
   }
 
-  constexpr DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const;
+  constexpr DynamicViscosity<Number> operator*(
+      const KinematicViscosity<Number>& kinematic_viscosity) const;
 
-  constexpr MassDensity operator/(const double number) const {
-    return MassDensity{value / number};
+  constexpr MassDensity<Number> operator/(const Number number) const {
+    return MassDensity<Number>{this->value / number};
   }
 
-  constexpr double operator/(const MassDensity& mass_density) const noexcept {
-    return value / mass_density.value;
+  constexpr Number operator/(const MassDensity<Number>& mass_density) const noexcept {
+    return this->value / mass_density.value;
   }
 
-  constexpr void operator+=(const MassDensity& mass_density) noexcept {
-    value += mass_density.value;
+  constexpr void operator+=(const MassDensity<Number>& mass_density) noexcept {
+    this->value += mass_density.value;
   }
 
-  constexpr void operator-=(const MassDensity& mass_density) noexcept {
-    value -= mass_density.value;
+  constexpr void operator-=(const MassDensity<Number>& mass_density) noexcept {
+    this->value -= mass_density.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a mass density with a given value expressed in the standard mass
   // density unit.
-  explicit constexpr MassDensity(const double value)
-    : DimensionalScalar<Unit::MassDensity>(value) {}
+  explicit constexpr MassDensity(const Number value)
+    : DimensionalScalar<Unit::MassDensity, Number>(value) {}
 };
 
-inline constexpr bool operator==(const MassDensity& left, const MassDensity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const MassDensity<Number>& left, const MassDensity<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const MassDensity& left, const MassDensity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const MassDensity<Number>& left, const MassDensity<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const MassDensity& left, const MassDensity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const MassDensity<Number>& left, const MassDensity<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const MassDensity& left, const MassDensity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const MassDensity<Number>& left, const MassDensity<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const MassDensity& left, const MassDensity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const MassDensity<Number>& left, const MassDensity<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const MassDensity& left, const MassDensity& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const MassDensity<Number>& left, const MassDensity<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const MassDensity& mass_density) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const MassDensity<Number>& mass_density) {
   stream << mass_density.Print();
   return stream;
 }
 
-inline constexpr MassDensity operator*(const double number, const MassDensity& mass_density) {
+template <typename Number>
+inline constexpr MassDensity<Number> operator*(
+    const Number number, const MassDensity<Number>& mass_density) {
   return mass_density * number;
 }
 
-inline constexpr Volume::Volume(const Mass& mass, const MassDensity& mass_density)
-  : Volume(mass.Value() / mass_density.Value()) {}
+template <typename Number>
+inline constexpr Volume<Number>::Volume(
+    const Mass<Number>& mass, const MassDensity<Number>& mass_density)
+  : Volume<Number>(mass.Value() / mass_density.Value()) {}
 
-inline constexpr Mass::Mass(const MassDensity& mass_density, const Volume& volume)
-  : Mass(mass_density.Value() * volume.Value()) {}
+template <typename Number>
+inline constexpr Mass<Number>::Mass(
+    const MassDensity<Number>& mass_density, const Volume<Number>& volume)
+  : Mass<Number>(mass_density.Value() * volume.Value()) {}
 
-inline constexpr MassDensity Mass::operator/(const Volume& volume) const {
-  return MassDensity{*this, volume};
+template <typename Number>
+inline constexpr MassDensity<Number> Mass<Number>::operator/(const Volume<Number>& volume) const {
+  return MassDensity<Number>{*this, volume};
 }
 
-inline constexpr Volume Mass::operator/(const MassDensity& mass_density) const {
-  return Volume{*this, mass_density};
+template <typename Number>
+inline constexpr Volume<Number> Mass<Number>::operator/(
+    const MassDensity<Number>& mass_density) const {
+  return Volume<Number>{*this, mass_density};
 }
 
-inline constexpr Mass Volume::operator*(const MassDensity& mass_density) const {
-  return Mass{mass_density, *this};
+template <typename Number>
+inline constexpr Mass<Number> Volume<Number>::operator*(
+    const MassDensity<Number>& mass_density) const {
+  return Mass<Number>{mass_density, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::MassDensity> {
-  inline size_t operator()(const PhQ::MassDensity& mass_density) const {
-    return hash<double>()(mass_density.Value());
+template <typename Number>
+struct hash<PhQ::MassDensity<Number>> {
+  inline size_t operator()(const PhQ::MassDensity<Number>& mass_density) const {
+    return hash<Number>()(mass_density.Value());
   }
 };
 

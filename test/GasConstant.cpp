@@ -105,7 +105,7 @@ TEST(GasConstant, ComparisonOperators) {
 
 TEST(GasConstant, CopyAssignmentOperator) {
   const GasConstant first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  GasConstant second = GasConstant::Zero();
+  GasConstant second = GasConstant<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -117,23 +117,24 @@ TEST(GasConstant, CopyConstructor) {
 }
 
 TEST(GasConstant, Create) {
-  constexpr GasConstant gas_constant = GasConstant::Create<Unit::HeatCapacity::JoulePerKelvin>(1.0);
+  constexpr GasConstant gas_constant =
+      GasConstant<>::Create<Unit::HeatCapacity::JoulePerKelvin>(1.0);
   EXPECT_EQ(gas_constant, GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(GasConstant, DefaultConstructor) {
-  EXPECT_NO_THROW(GasConstant{});
+  EXPECT_NO_THROW(GasConstant<>{});
 }
 
 TEST(GasConstant, Dimensions) {
-  EXPECT_EQ(GasConstant::Dimensions(), RelatedDimensions<Unit::HeatCapacity>);
+  EXPECT_EQ(GasConstant<>::Dimensions(), RelatedDimensions<Unit::HeatCapacity>);
 }
 
 TEST(GasConstant, Hash) {
   const GasConstant first{1.0, Unit::HeatCapacity::NanojoulePerKelvin};
   const GasConstant second{1.000001, Unit::HeatCapacity::NanojoulePerKelvin};
   const GasConstant third{-1.0, Unit::HeatCapacity::NanojoulePerKelvin};
-  const std::hash<GasConstant> hash;
+  const std::hash<GasConstant<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -179,7 +180,7 @@ TEST(GasConstant, MiscellaneousConstructors) {
 
 TEST(GasConstant, MoveAssignmentOperator) {
   GasConstant first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  GasConstant second = GasConstant::Zero();
+  GasConstant second = GasConstant<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
@@ -211,7 +212,7 @@ TEST(GasConstant, SetValue) {
 }
 
 TEST(GasConstant, SizeOf) {
-  EXPECT_EQ(sizeof(GasConstant{}), sizeof(double));
+  EXPECT_EQ(sizeof(GasConstant<>{}), sizeof(double));
 }
 
 TEST(GasConstant, StandardConstructor) {
@@ -220,7 +221,7 @@ TEST(GasConstant, StandardConstructor) {
 
 TEST(GasConstant, StaticValue) {
   constexpr GasConstant gas_constant =
-      GasConstant::Create<Unit::HeatCapacity::NanojoulePerKelvin>(1.0);
+      GasConstant<>::Create<Unit::HeatCapacity::NanojoulePerKelvin>(1.0);
   constexpr double value = gas_constant.StaticValue<Unit::HeatCapacity::NanojoulePerKelvin>();
   EXPECT_EQ(value, 1.0);
 }
@@ -232,7 +233,7 @@ TEST(GasConstant, Stream) {
 }
 
 TEST(GasConstant, Unit) {
-  EXPECT_EQ(GasConstant::Unit(), Standard<Unit::HeatCapacity>);
+  EXPECT_EQ(GasConstant<>::Unit(), Standard<Unit::HeatCapacity>);
 }
 
 TEST(GasConstant, Value) {
@@ -259,7 +260,7 @@ TEST(GasConstant, YAML) {
 }
 
 TEST(GasConstant, Zero) {
-  EXPECT_EQ(GasConstant::Zero(), GasConstant(0.0, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(GasConstant<>::Zero(), GasConstant(0.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 }  // namespace

@@ -30,216 +30,256 @@
 namespace PhQ {
 
 // Position vector. Not to be confused with displacement vector.
-class Position : public DimensionalVector<Unit::Length, double> {
+template <typename Number = double>
+class Position : public DimensionalVector<Unit::Length, Number> {
 public:
   // Default constructor. Constructs a position vector with an uninitialized value.
   Position() = default;
 
   // Constructor. Constructs a position vector with a given value expressed in a given length unit.
-  Position(const Vector<double>& value, const Unit::Length unit)
-    : DimensionalVector<Unit::Length>(value, unit) {}
+  Position(const Vector<Number>& value, const Unit::Length unit)
+    : DimensionalVector<Unit::Length, Number>(value, unit) {}
 
   // Constructor. Constructs a position vector from a given length and direction.
-  constexpr Position(const Length& length, const Direction& direction)
-    : Position(length.Value() * direction.Value()) {}
+  constexpr Position(const Length<Number>& length, const Direction<Number>& direction)
+    : Position<Number>(length.Value() * direction.Value()) {}
 
   // Constructor. Constructs a position vector from a given displacement vector from the origin.
-  explicit constexpr Position(const Displacement& displacement) : Position(displacement.Value()) {}
+  explicit constexpr Position(const Displacement<Number>& displacement)
+    : Position<Number>(displacement.Value()) {}
 
   // Destructor. Destroys this position vector.
   ~Position() noexcept = default;
 
   // Copy constructor. Constructs a position vector by copying another one.
-  constexpr Position(const Position& other) = default;
+  constexpr Position(const Position<Number>& other) = default;
+
+  // Copy constructor. Constructs a position by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Position(const Position<OtherNumber>& other)
+    : Position(static_cast<Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a position vector by moving another one.
-  constexpr Position(Position&& other) noexcept = default;
+  constexpr Position(Position<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this position vector by copying another one.
-  constexpr Position& operator=(const Position& other) = default;
+  constexpr Position<Number>& operator=(const Position<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this position by copying another one.
+  template <typename OtherNumber>
+  constexpr Position<Number>& operator=(const Position<OtherNumber>& other) {
+    this->value = static_cast<Vector<Number>>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this position vector by moving another one.
-  constexpr Position& operator=(Position&& other) noexcept = default;
+  constexpr Position<Number>& operator=(Position<Number>&& other) noexcept = default;
 
   // Statically creates a position vector of zero.
-  static constexpr Position Zero() {
-    return Position{Vector<>::Zero()};
+  static constexpr Position<Number> Zero() {
+    return Position<Number>{Vector<Number>::Zero()};
   }
 
   // Statically creates a position vector from the given x, y, and z Cartesian components expressed
   // in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Position Create(const double x, const double y, const double z) {
-    return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x, y, z})};
+  static constexpr Position<Number> Create(const Number x, const Number y, const Number z) {
+    return Position<Number>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<Number>{x, y, z})};
   }
 
   // Statically creates a position vector from the given x, y, and z Cartesian components expressed
   // in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Position Create(const std::array<double, 3>& x_y_z) {
-    return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x_y_z})};
+  static constexpr Position<Number> Create(const std::array<Number, 3>& x_y_z) {
+    return Position<Number>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<Number>{x_y_z})};
   }
 
   // Statically creates a position vector with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Position Create(const Vector<double>& value) {
-    return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+  static constexpr Position<Number> Create(const Vector<Number>& value) {
+    return Position<Number>{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   // Returns the x Cartesian component of this position vector.
-  [[nodiscard]] constexpr Length x() const noexcept {
-    return Length{value.x()};
+  [[nodiscard]] constexpr Length<Number> x() const noexcept {
+    return Length<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this position vector.
-  [[nodiscard]] constexpr Length y() const noexcept {
-    return Length{value.y()};
+  [[nodiscard]] constexpr Length<Number> y() const noexcept {
+    return Length<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this position vector.
-  [[nodiscard]] constexpr Length z() const noexcept {
-    return Length{value.z()};
+  [[nodiscard]] constexpr Length<Number> z() const noexcept {
+    return Length<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this position vector.
-  [[nodiscard]] Length Magnitude() const {
-    return Length{value.Magnitude()};
+  [[nodiscard]] Length<Number> Magnitude() const {
+    return Length<Number>{this->value.Magnitude()};
   }
 
   // Returns the direction of this position vector.
-  [[nodiscard]] PhQ::Direction Direction() const {
-    return value.Direction();
+  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+    return this->value.Direction();
   }
 
   // Returns the angle between this position vector and another one.
-  [[nodiscard]] PhQ::Angle Angle(const Position& position) const {
-    return {*this, position};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Position<Number>& position) const {
+    return PhQ::Angle<Number>{*this, position};
   }
 
-  constexpr Position operator+(const Position& position) const {
-    return Position{value + position.value};
+  constexpr Position<Number> operator+(const Position<Number>& position) const {
+    return Position<Number>{this->value + position.value};
   }
 
-  constexpr Position operator+(const Displacement& displacement) const {
-    return Position{value + displacement.Value()};
+  constexpr Position<Number> operator+(const Displacement<Number>& displacement) const {
+    return Position<Number>{this->value + displacement.Value()};
   }
 
-  constexpr Displacement operator-(const Position& position) const {
-    return Displacement{value - position.value};
+  constexpr Displacement<Number> operator-(const Position<Number>& position) const {
+    return Displacement<Number>{this->value - position.value};
   }
 
-  constexpr Position operator-(const Displacement& displacement) const {
-    return Position{value - displacement.Value()};
+  constexpr Position<Number> operator-(const Displacement<Number>& displacement) const {
+    return Position<Number>{this->value - displacement.Value()};
   }
 
-  constexpr Position operator*(const double number) const {
-    return Position{value * number};
+  constexpr Position<Number> operator*(const Number number) const {
+    return Position<Number>{this->value * number};
   }
 
-  constexpr Position operator/(const double number) const {
-    return Position{value / number};
+  constexpr Position<Number> operator/(const Number number) const {
+    return Position<Number>{this->value / number};
   }
 
-  constexpr void operator+=(const Position& position) noexcept {
-    value += position.value;
+  constexpr void operator+=(const Position<Number>& position) noexcept {
+    this->value += position.value;
   }
 
-  constexpr void operator+=(const Displacement& displacement) noexcept {
-    value += displacement.Value();
+  constexpr void operator+=(const Displacement<Number>& displacement) noexcept {
+    this->value += displacement.Value();
   }
 
-  constexpr void operator-=(const Position& position) noexcept {
-    value -= position.value;
+  constexpr void operator-=(const Position<Number>& position) noexcept {
+    this->value -= position.value;
   }
 
-  constexpr void operator-=(const Displacement& displacement) noexcept {
-    value -= displacement.Value();
+  constexpr void operator-=(const Displacement<Number>& displacement) noexcept {
+    this->value -= displacement.Value();
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a position vector with a given value expressed in the standard length
   // unit.
-  explicit constexpr Position(const Vector<double>& value)
-    : DimensionalVector<Unit::Length>(value) {}
+  explicit constexpr Position(const Vector<Number>& value)
+    : DimensionalVector<Unit::Length, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class Displacement;
 };
 
-inline constexpr bool operator==(const Position& left, const Position& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const Position<Number>& left, const Position<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Position& left, const Position& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const Position<Number>& left, const Position<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Position& left, const Position& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const Position<Number>& left, const Position<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Position& left, const Position& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const Position<Number>& left, const Position<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Position& left, const Position& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const Position<Number>& left, const Position<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Position& left, const Position& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const Position<Number>& left, const Position<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Position& position) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Position<Number>& position) {
   stream << position.Print();
   return stream;
 }
 
-inline constexpr Position operator*(const double number, const Position& position) {
+template <typename Number>
+inline constexpr Position<Number> operator*(const Number number, const Position<Number>& position) {
   return position * number;
 }
 
-inline Direction::Direction(const Position& position) : Direction(position.Value()) {}
+template <typename Number>
+inline Direction<Number>::Direction(const Position<Number>& position)
+  : Direction<Number>(position.Value()) {}
 
-inline Angle::Angle(const Position& position1, const Position& position2)
-  : Angle(position1.Value(), position2.Value()) {}
+template <typename Number>
+inline Angle<Number>::Angle(const Position<Number>& position1, const Position<Number>& position2)
+  : Angle<Number>(position1.Value(), position2.Value()) {}
 
-inline constexpr Displacement::Displacement(const Position& position)
-  : Displacement(position.Value()) {}
+template <typename Number>
+inline constexpr Displacement<Number>::Displacement(const Position<Number>& position)
+  : Displacement<Number>(position.Value()) {}
 
-inline constexpr Position Displacement::operator+(const Position& position) const {
-  return Position{value + position.Value()};
+template <typename Number>
+inline constexpr Position<Number> Displacement<Number>::operator+(
+    const Position<Number>& position) const {
+  return Position<Number>{this->value + position.Value()};
 }
 
-inline constexpr Position Displacement::operator-(const Position& position) const {
-  return Position{value - position.Value()};
+template <typename Number>
+inline constexpr Position<Number> Displacement<Number>::operator-(
+    const Position<Number>& position) const {
+  return Position<Number>{this->value - position.Value()};
 }
 
-inline constexpr Position Direction::operator*(const Length& length) const {
-  return {length, *this};
+template <typename Number>
+inline constexpr Position<Number> Direction<Number>::operator*(const Length<Number>& length) const {
+  return Position<Number>{length, *this};
 }
 
-inline constexpr Position Length::operator*(const Direction& direction) const {
-  return {*this, direction};
+template <typename Number>
+inline constexpr Position<Number> Length<Number>::operator*(
+    const Direction<Number>& direction) const {
+  return Position<Number>{*this, direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Position> {
-  inline size_t operator()(const PhQ::Position& position) const {
-    return hash<PhQ::Vector<double>>()(position.Value());
+template <typename Number>
+struct hash<PhQ::Position<Number>> {
+  inline size_t operator()(const PhQ::Position<Number>& position) const {
+    return hash<PhQ::Vector<Number>>()(position.Value());
   }
 };
 

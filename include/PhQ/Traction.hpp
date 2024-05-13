@@ -30,208 +30,246 @@
 namespace PhQ {
 
 // Traction vector.
-class Traction : public DimensionalVector<Unit::Pressure, double> {
+template <typename Number = double>
+class Traction : public DimensionalVector<Unit::Pressure, Number> {
 public:
   // Default constructor. Constructs a traction vector with an uninitialized value.
   Traction() = default;
 
   // Constructor. Constructs a traction vector with a given value expressed in a given pressure
   // unit.
-  Traction(const Vector<double>& value, const Unit::Pressure unit)
-    : DimensionalVector<Unit::Pressure>(value, unit) {}
+  Traction(const Vector<Number>& value, const Unit::Pressure unit)
+    : DimensionalVector<Unit::Pressure, Number>(value, unit) {}
 
   // Constructor. Constructs a traction vector from a given static pressure and direction. Since
   // pressure is compressive, the negative of the static pressure contributes to the traction
   // vector.
-  constexpr Traction(const StaticPressure& static_pressure, const Direction& direction)
-    : Traction(-static_pressure.Value() * direction.Value()) {}
+  constexpr Traction(
+      const StaticPressure<Number>& static_pressure, const Direction<Number>& direction)
+    : Traction<Number>(-static_pressure.Value() * direction.Value()) {}
 
   // Constructor. Constructs a traction vector from a given force and area using the definition of
   // traction.
-  constexpr Traction(const Force& force, const Area& area)
-    : Traction(force.Value() / area.Value()) {}
+  constexpr Traction(const Force<Number>& force, const Area<Number>& area)
+    : Traction<Number>(force.Value() / area.Value()) {}
 
   // Constructor. Constructs a traction vector from a given stress and direction using the
   // definition of traction.
-  constexpr Traction(const Stress& stress, const Direction& direction);
+  constexpr Traction(const Stress<Number>& stress, const Direction<Number>& direction);
 
   // Destructor. Destroys this traction vector.
   ~Traction() noexcept = default;
 
   // Copy constructor. Constructs a traction vector by copying another one.
-  constexpr Traction(const Traction& other) = default;
+  constexpr Traction(const Traction<Number>& other) = default;
+
+  // Copy constructor. Constructs a traction vector by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Traction(const Traction<OtherNumber>& other)
+    : Traction(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a traction vector by moving another one.
-  constexpr Traction(Traction&& other) noexcept = default;
+  constexpr Traction(Traction<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this traction vector by copying another one.
-  constexpr Traction& operator=(const Traction& other) = default;
+  constexpr Traction<Number>& operator=(const Traction<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this traction vector by copying another one.
+  template <typename OtherNumber>
+  constexpr Traction<Number>& operator=(const Traction<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this traction vector by moving another one.
-  constexpr Traction& operator=(Traction&& other) noexcept = default;
+  constexpr Traction<Number>& operator=(Traction<Number>&& other) noexcept = default;
 
   // Statically creates a traction vector of zero.
-  static constexpr Traction Zero() {
-    return Traction{Vector<>::Zero()};
+  static constexpr Traction<Number> Zero() {
+    return Traction<Number>{Vector<Number>::Zero()};
   }
 
   // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
   // in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction Create(const double x, const double y, const double z) {
-    return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<double>{x, y, z})};
+  static constexpr Traction<Number> Create(const Number x, const Number y, const Number z) {
+    return Traction<Number>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<Number>{x, y, z})};
   }
 
   // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
   // in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction Create(const std::array<double, 3>& x_y_z) {
-    return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<double>{x_y_z})};
+  static constexpr Traction<Number> Create(const std::array<Number, 3>& x_y_z) {
+    return Traction<Number>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<Number>{x_y_z})};
   }
 
   // Statically creates a traction vector with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction Create(const Vector<double>& value) {
-    return Traction{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+  static constexpr Traction<Number> Create(const Vector<Number>& value) {
+    return Traction<Number>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   // Returns the x Cartesian component of this traction vector.
-  [[nodiscard]] constexpr StaticPressure x() const noexcept {
-    return StaticPressure{value.x()};
+  [[nodiscard]] constexpr StaticPressure<Number> x() const noexcept {
+    return StaticPressure<Number>{this->value.x()};
   }
 
   // Returns the y Cartesian component of this traction vector.
-  [[nodiscard]] constexpr StaticPressure y() const noexcept {
-    return StaticPressure{value.y()};
+  [[nodiscard]] constexpr StaticPressure<Number> y() const noexcept {
+    return StaticPressure<Number>{this->value.y()};
   }
 
   // Returns the z Cartesian component of this traction vector.
-  [[nodiscard]] constexpr StaticPressure z() const noexcept {
-    return StaticPressure{value.z()};
+  [[nodiscard]] constexpr StaticPressure<Number> z() const noexcept {
+    return StaticPressure<Number>{this->value.z()};
   }
 
   // Returns the magnitude of this traction vector. Since pressure is compressive, the static
   // pressure that corresponds to the magnitude of this traction vector is negative.
-  [[nodiscard]] StaticPressure Magnitude() const {
-    return StaticPressure{-value.Magnitude()};
+  [[nodiscard]] StaticPressure<Number> Magnitude() const {
+    return StaticPressure<Number>{-this->value.Magnitude()};
   }
 
   // Returns the direction of this traction vector.
-  [[nodiscard]] PhQ::Direction Direction() const {
-    return value.Direction();
+  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+    return this->value.Direction();
   }
 
   // Returns the angle between this traction vector and another one.
-  [[nodiscard]] PhQ::Angle Angle(const Traction& traction) const {
-    return {*this, traction};
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Traction<Number>& traction) const {
+    return PhQ::Angle<Number>{*this, traction};
   }
 
-  constexpr Traction operator+(const Traction& traction) const {
-    return Traction{value + traction.value};
+  constexpr Traction<Number> operator+(const Traction<Number>& traction) const {
+    return Traction<Number>{this->value + traction.value};
   }
 
-  constexpr Traction operator-(const Traction& traction) const {
-    return Traction{value - traction.value};
+  constexpr Traction<Number> operator-(const Traction<Number>& traction) const {
+    return Traction<Number>{this->value - traction.value};
   }
 
-  constexpr Traction operator*(const double number) const {
-    return Traction{value * number};
+  constexpr Traction<Number> operator*(const Number number) const {
+    return Traction<Number>{this->value * number};
   }
 
-  constexpr Force operator*(const Area& area) const {
-    return {*this, area};
+  constexpr Force<Number> operator*(const Area<Number>& area) const {
+    return Force<Number>{*this, area};
   }
 
-  constexpr Traction operator/(const double number) const {
-    return Traction{value / number};
+  constexpr Traction<Number> operator/(const Number number) const {
+    return Traction<Number>{this->value / number};
   }
 
-  constexpr void operator+=(const Traction& traction) noexcept {
-    value += traction.value;
+  constexpr void operator+=(const Traction<Number>& traction) noexcept {
+    this->value += traction.value;
   }
 
-  constexpr void operator-=(const Traction& traction) noexcept {
-    value -= traction.value;
+  constexpr void operator-=(const Traction<Number>& traction) noexcept {
+    this->value -= traction.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a traction vector with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr Traction(const Vector<double>& value)
-    : DimensionalVector<Unit::Pressure>(value) {}
+  explicit constexpr Traction(const Vector<Number>& value)
+    : DimensionalVector<Unit::Pressure, Number>(value) {}
 };
 
-inline constexpr bool operator==(const Traction& left, const Traction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const Traction<Number>& left, const Traction<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Traction& left, const Traction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const Traction<Number>& left, const Traction<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Traction& left, const Traction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const Traction<Number>& left, const Traction<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Traction& left, const Traction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const Traction<Number>& left, const Traction<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Traction& left, const Traction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const Traction<Number>& left, const Traction<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Traction& left, const Traction& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const Traction<Number>& left, const Traction<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Traction& traction) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Traction<Number>& traction) {
   stream << traction.Print();
   return stream;
 }
 
-inline constexpr Traction operator*(const double number, const Traction& traction) {
+template <typename Number>
+inline constexpr Traction<Number> operator*(const Number number, const Traction<Number>& traction) {
   return traction * number;
 }
 
-inline Direction::Direction(const Traction& traction) : Direction(traction.Value()) {}
+template <typename Number>
+inline Direction<Number>::Direction(const Traction<Number>& traction)
+  : Direction<Number>(traction.Value()) {}
 
-inline Angle::Angle(const Traction& traction1, const Traction& traction2)
-  : Angle(traction1.Value(), traction2.Value()) {}
+template <typename Number>
+inline Angle<Number>::Angle(const Traction<Number>& traction1, const Traction<Number>& traction2)
+  : Angle<Number>(traction1.Value(), traction2.Value()) {}
 
-inline constexpr Force::Force(const Traction& traction, const Area& area)
-  : Force(traction.Value() * area.Value()) {}
+template <typename Number>
+inline constexpr Force<Number>::Force(const Traction<Number>& traction, const Area<Number>& area)
+  : Force<Number>(traction.Value() * area.Value()) {}
 
-inline constexpr Traction Direction::operator*(const StaticPressure& static_pressure) const {
-  return {static_pressure, *this};
+template <typename Number>
+inline constexpr Traction<Number> Direction<Number>::operator*(
+    const StaticPressure<Number>& static_pressure) const {
+  return Traction<Number>{static_pressure, *this};
 }
 
-inline constexpr Traction StaticPressure::operator*(const Direction& direction) const {
-  return {*this, direction};
+template <typename Number>
+inline constexpr Traction<Number> StaticPressure<Number>::operator*(
+    const Direction<Number>& direction) const {
+  return Traction<Number>{*this, direction};
 }
 
-inline constexpr Traction Force::operator/(const Area& area) const {
-  return {*this, area};
+template <typename Number>
+inline constexpr Traction<Number> Force<Number>::operator/(const Area<Number>& area) const {
+  return Traction<Number>{*this, area};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Traction> {
-  inline size_t operator()(const PhQ::Traction& traction) const {
-    return hash<PhQ::Vector<double>>()(traction.Value());
+template <typename Number>
+struct hash<PhQ::Traction<Number>> {
+  inline size_t operator()(const PhQ::Traction<Number>& traction) const {
+    return hash<PhQ::Vector<Number>>()(traction.Value());
   }
 };
 

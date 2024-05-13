@@ -25,113 +25,143 @@ namespace PhQ {
 
 // P-wave modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class PWaveModulus : public DimensionalScalar<Unit::Pressure, double> {
+template <typename Number = double>
+class PWaveModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
   // Default constructor. Constructs a P-wave modulus with an uninitialized value.
   PWaveModulus() = default;
 
   // Constructor. Constructs a P-wave modulus with a given value expressed in a given pressure unit.
-  PWaveModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure>(value, unit) {}
+  PWaveModulus(const Number value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
   // Destructor. Destroys this P-wave modulus.
   ~PWaveModulus() noexcept = default;
 
   // Copy constructor. Constructs a P-wave modulus by copying another one.
-  constexpr PWaveModulus(const PWaveModulus& other) = default;
+  constexpr PWaveModulus(const PWaveModulus<Number>& other) = default;
+
+  // Copy constructor. Constructs a P-wave modulus by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr PWaveModulus(const PWaveModulus<OtherNumber>& other)
+    : PWaveModulus(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a P-wave modulus by moving another one.
-  constexpr PWaveModulus(PWaveModulus&& other) noexcept = default;
+  constexpr PWaveModulus(PWaveModulus<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this P-wave modulus by copying another one.
-  constexpr PWaveModulus& operator=(const PWaveModulus& other) = default;
+  constexpr PWaveModulus<Number>& operator=(const PWaveModulus<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this P-wave modulus by copying another one.
+  template <typename OtherNumber>
+  constexpr PWaveModulus<Number>& operator=(const PWaveModulus<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this P-wave modulus by moving another one.
-  constexpr PWaveModulus& operator=(PWaveModulus&& other) noexcept = default;
+  constexpr PWaveModulus<Number>& operator=(PWaveModulus<Number>&& other) noexcept = default;
 
   // Statically creates a P-wave modulus of zero.
-  static constexpr PWaveModulus Zero() {
-    return PWaveModulus{0.0};
+  static constexpr PWaveModulus<Number> Zero() {
+    return PWaveModulus<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a P-wave modulus with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PWaveModulus Create(const double value) {
-    return PWaveModulus{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+  static constexpr PWaveModulus<Number> Create(const Number value) {
+    return PWaveModulus<Number>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr PWaveModulus operator+(const PWaveModulus& p_wave_modulus) const {
-    return PWaveModulus{value + p_wave_modulus.value};
+  constexpr PWaveModulus<Number> operator+(const PWaveModulus<Number>& p_wave_modulus) const {
+    return PWaveModulus<Number>{this->value + p_wave_modulus.value};
   }
 
-  constexpr PWaveModulus operator-(const PWaveModulus& p_wave_modulus) const {
-    return PWaveModulus{value - p_wave_modulus.value};
+  constexpr PWaveModulus<Number> operator-(const PWaveModulus<Number>& p_wave_modulus) const {
+    return PWaveModulus<Number>{this->value - p_wave_modulus.value};
   }
 
-  constexpr PWaveModulus operator*(const double number) const {
-    return PWaveModulus{value * number};
+  constexpr PWaveModulus<Number> operator*(const Number number) const {
+    return PWaveModulus<Number>{this->value * number};
   }
 
-  constexpr PWaveModulus operator/(const double number) const {
-    return PWaveModulus{value / number};
+  constexpr PWaveModulus<Number> operator/(const Number number) const {
+    return PWaveModulus<Number>{this->value / number};
   }
 
-  constexpr double operator/(const PWaveModulus& p_wave_modulus) const noexcept {
-    return value / p_wave_modulus.value;
+  constexpr Number operator/(const PWaveModulus<Number>& p_wave_modulus) const noexcept {
+    return this->value / p_wave_modulus.value;
   }
 
-  constexpr void operator+=(const PWaveModulus& p_wave_modulus) noexcept {
-    value += p_wave_modulus.value;
+  constexpr void operator+=(const PWaveModulus<Number>& p_wave_modulus) noexcept {
+    this->value += p_wave_modulus.value;
   }
 
-  constexpr void operator-=(const PWaveModulus& p_wave_modulus) noexcept {
-    value -= p_wave_modulus.value;
+  constexpr void operator-=(const PWaveModulus<Number>& p_wave_modulus) noexcept {
+    this->value -= p_wave_modulus.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a P-wave modulus with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr PWaveModulus(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
+  explicit constexpr PWaveModulus(const Number value)
+    : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };
 
-inline constexpr bool operator==(const PWaveModulus& left, const PWaveModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const PWaveModulus<Number>& left, const PWaveModulus<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const PWaveModulus& left, const PWaveModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const PWaveModulus<Number>& left, const PWaveModulus<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const PWaveModulus& left, const PWaveModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const PWaveModulus<Number>& left, const PWaveModulus<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const PWaveModulus& left, const PWaveModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const PWaveModulus<Number>& left, const PWaveModulus<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const PWaveModulus& left, const PWaveModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const PWaveModulus<Number>& left, const PWaveModulus<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const PWaveModulus& left, const PWaveModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const PWaveModulus<Number>& left, const PWaveModulus<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const PWaveModulus& p_wave_modulus) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const PWaveModulus<Number>& p_wave_modulus) {
   stream << p_wave_modulus.Print();
   return stream;
 }
 
-inline constexpr PWaveModulus operator*(const double number, const PWaveModulus& p_wave_modulus) {
+template <typename Number>
+inline constexpr PWaveModulus<Number> operator*(
+    const Number number, const PWaveModulus<Number>& p_wave_modulus) {
   return p_wave_modulus * number;
 }
 
@@ -139,10 +169,10 @@ inline constexpr PWaveModulus operator*(const double number, const PWaveModulus&
 
 namespace std {
 
-template <>
-struct hash<PhQ::PWaveModulus> {
-  inline size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
-    return hash<double>()(p_wave_modulus.Value());
+template <typename Number>
+struct hash<PhQ::PWaveModulus<Number>> {
+  inline size_t operator()(const PhQ::PWaveModulus<Number>& p_wave_modulus) const {
+    return hash<Number>()(p_wave_modulus.Value());
   }
 };
 

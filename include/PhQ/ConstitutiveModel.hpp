@@ -30,7 +30,19 @@ namespace PhQ {
 // relationship between the stress and the strain and strain rate at any point in the material.
 class ConstitutiveModel {
 public:
-  // Constitutive model type of a material.
+  // Forward declaration for class PhQ::ConstitutiveModel.
+  template <typename Number = double>
+  class CompressibleNewtonianFluid;
+
+  // Forward declaration for class PhQ::ConstitutiveModel.
+  template <typename Number = double>
+  class ElasticIsotropicSolid;
+
+  // Forward declaration for class PhQ::ConstitutiveModel.
+  template <typename Number = double>
+  class IncompressibleNewtonianFluid;
+
+  // Type of a material's constitutive model.
   enum class Type : int8_t {
     // Compressible Newtonian fluid constitutive model
     CompressibleNewtonianFluid,
@@ -42,10 +54,8 @@ public:
     IncompressibleNewtonianFluid,
   };
 
-  // Forward declarations for class PhQ::ConstitutiveModel.
-  class CompressibleNewtonianFluid;
-  class ElasticIsotropicSolid;
-  class IncompressibleNewtonianFluid;
+  // Default constructor. Constructs this constitutive model.
+  constexpr ConstitutiveModel() = default;
 
   // Destructor. Destroys this constitutive model.
   virtual ~ConstitutiveModel() noexcept = default;
@@ -66,20 +76,65 @@ public:
   [[nodiscard]] virtual inline Type GetType() const noexcept = 0;
 
   // Returns the stress resulting from a given strain and strain rate.
-  [[nodiscard]] virtual inline PhQ::Stress Stress(
-      const PhQ::Strain& strain, const PhQ::StrainRate& strain_rate) const = 0;
+  [[nodiscard]] virtual inline PhQ::Stress<float> Stress(
+      const PhQ::Strain<float>& strain, const PhQ::StrainRate<float>& strain_rate) const = 0;
+
+  // Returns the stress resulting from a given strain and strain rate.
+  [[nodiscard]] virtual inline PhQ::Stress<double> Stress(
+      const PhQ::Strain<double>& strain, const PhQ::StrainRate<double>& strain_rate) const = 0;
+
+  // Returns the stress resulting from a given strain and strain rate.
+  [[nodiscard]] virtual inline PhQ::Stress<long double> Stress(
+      const PhQ::Strain<long double>& strain,
+      const PhQ::StrainRate<long double>& strain_rate) const = 0;
 
   // Returns the stress resulting from a given strain.
-  [[nodiscard]] virtual inline PhQ::Stress Stress(const PhQ::Strain& strain) const = 0;
+  [[nodiscard]] virtual inline PhQ::Stress<float> Stress(
+      const PhQ::Strain<float>& strain) const = 0;
+
+  // Returns the stress resulting from a given strain.
+  [[nodiscard]] virtual inline PhQ::Stress<double> Stress(
+      const PhQ::Strain<double>& strain) const = 0;
+
+  // Returns the stress resulting from a given strain.
+  [[nodiscard]] virtual inline PhQ::Stress<long double> Stress(
+      const PhQ::Strain<long double>& strain) const = 0;
 
   // Returns the stress resulting from a given strain rate.
-  [[nodiscard]] virtual inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const = 0;
+  [[nodiscard]] virtual inline PhQ::Stress<float> Stress(
+      const PhQ::StrainRate<float>& strain_rate) const = 0;
+
+  // Returns the stress resulting from a given strain rate.
+  [[nodiscard]] virtual inline PhQ::Stress<double> Stress(
+      const PhQ::StrainRate<double>& strain_rate) const = 0;
+
+  // Returns the stress resulting from a given strain rate.
+  [[nodiscard]] virtual inline PhQ::Stress<long double> Stress(
+      const PhQ::StrainRate<long double>& strain_rate) const = 0;
 
   // Returns the strain resulting from a given stress.
-  [[nodiscard]] virtual inline PhQ::Strain Strain(const PhQ::Stress& stress) const = 0;
+  [[nodiscard]] virtual inline PhQ::Strain<float> Strain(
+      const PhQ::Stress<float>& stress) const = 0;
+
+  // Returns the strain resulting from a given stress.
+  [[nodiscard]] virtual inline PhQ::Strain<double> Strain(
+      const PhQ::Stress<double>& stress) const = 0;
+
+  // Returns the strain resulting from a given stress.
+  [[nodiscard]] virtual inline PhQ::Strain<long double> Strain(
+      const PhQ::Stress<long double>& stress) const = 0;
 
   // Returns the strain rate resulting from a given stress.
-  [[nodiscard]] virtual inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const = 0;
+  [[nodiscard]] virtual inline PhQ::StrainRate<float> StrainRate(
+      const PhQ::Stress<float>& stress) const = 0;
+
+  // Returns the strain rate resulting from a given stress.
+  [[nodiscard]] virtual inline PhQ::StrainRate<double> StrainRate(
+      const PhQ::Stress<double>& stress) const = 0;
+
+  // Returns the strain rate resulting from a given stress.
+  [[nodiscard]] virtual inline PhQ::StrainRate<long double> StrainRate(
+      const PhQ::Stress<long double>& stress) const = 0;
 
   // Prints this constitutive model as a string.
   [[nodiscard]] virtual inline std::string Print() const = 0;
@@ -92,34 +147,36 @@ public:
 
   // Serializes this constitutive model as a YAML message.
   [[nodiscard]] virtual inline std::string YAML() const = 0;
-
-protected:
-  // Default constructor. Constructs this constitutive model.
-  constexpr ConstitutiveModel() = default;
 };
 
 template <>
-inline const std::map<ConstitutiveModel::Type, std::string_view>
-    Internal::Abbreviations<ConstitutiveModel::Type>{
+inline const std::map<typename ConstitutiveModel::Type, std::string_view>
+    Internal::Abbreviations<typename ConstitutiveModel::Type>{
         {ConstitutiveModel::Type::ElasticIsotropicSolid,        "Elastic Isotropic Solid"       },
         {ConstitutiveModel::Type::IncompressibleNewtonianFluid, "Incompressible Newtonian Fluid"},
         {ConstitutiveModel::Type::CompressibleNewtonianFluid,   "Compressible Newtonian Fluid"  },
 };
 
 template <>
-inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
-    Internal::Spellings<ConstitutiveModel::Type>{
+inline const std::unordered_map<std::string_view, typename ConstitutiveModel::Type>
+    Internal::Spellings<typename ConstitutiveModel::Type>{
         {"Elastic Isotropic Solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"ElasticIsotropicSolid",          ConstitutiveModel::Type::ElasticIsotropicSolid       },
+        {"ELASTIC ISOTROPIC SOLID",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"elastic isotropic solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
+        {"ElasticIsotropicSolid",          ConstitutiveModel::Type::ElasticIsotropicSolid       },
+        {"ELASTIC_ISOTROPIC_SOLID",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"elastic_isotropic_solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"Incompressible Newtonian Fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"IncompressibleNewtonianFluid",   ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+        {"INCOMPRESSIBLE NEWTONIAN FLUID", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
         {"incompressible newtonian fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+        {"IncompressibleNewtonianFluid",   ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+        {"INCOMPRESSIBLE_NEWTONIAN_FLUID", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
         {"incompressible_newtonian_fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
         {"Compressible Newtonian Fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
-        {"CompressibleNewtonianFluid",     ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+        {"COMPRESSIBLE NEWTONIAN FLUID",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
         {"compressible newtonian fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+        {"CompressibleNewtonianFluid",     ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+        {"COMPRESSIBLE_NEWTONIAN_FLUID",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
         {"compressible_newtonian_fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
 };
 

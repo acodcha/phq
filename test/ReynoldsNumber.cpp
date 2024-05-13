@@ -92,7 +92,7 @@ TEST(ReynoldsNumber, ComparisonOperators) {
 
 TEST(ReynoldsNumber, CopyAssignmentOperator) {
   const ReynoldsNumber first{1.0};
-  ReynoldsNumber second = ReynoldsNumber::Zero();
+  ReynoldsNumber second = ReynoldsNumber<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -104,18 +104,18 @@ TEST(ReynoldsNumber, CopyConstructor) {
 }
 
 TEST(ReynoldsNumber, DefaultConstructor) {
-  EXPECT_NO_THROW(ReynoldsNumber{});
+  EXPECT_NO_THROW(ReynoldsNumber<>{});
 }
 
 TEST(ReynoldsNumber, Dimensions) {
-  EXPECT_EQ(ReynoldsNumber::Dimensions(), Dimensionless);
+  EXPECT_EQ(ReynoldsNumber<>::Dimensions(), Dimensionless);
 }
 
 TEST(ReynoldsNumber, Hash) {
   const ReynoldsNumber first{1.0};
   const ReynoldsNumber second{1.000001};
   const ReynoldsNumber third{-1.0};
-  const std::hash<ReynoldsNumber> hash;
+  const std::hash<ReynoldsNumber<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -213,7 +213,7 @@ TEST(ReynoldsNumber, MiscellaneousMethods) {
 
 TEST(ReynoldsNumber, MoveAssignmentOperator) {
   ReynoldsNumber first{1.0};
-  ReynoldsNumber second = ReynoldsNumber::Zero();
+  ReynoldsNumber second = ReynoldsNumber<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, ReynoldsNumber(1.0));
 }
@@ -242,7 +242,7 @@ TEST(ReynoldsNumber, SetValue) {
 }
 
 TEST(ReynoldsNumber, SizeOf) {
-  EXPECT_EQ(sizeof(ReynoldsNumber{}), sizeof(double));
+  EXPECT_EQ(sizeof(ReynoldsNumber<>{}), sizeof(double));
 }
 
 TEST(ReynoldsNumber, StandardConstructor) {
@@ -268,7 +268,7 @@ TEST(ReynoldsNumber, YAML) {
 }
 
 TEST(ReynoldsNumber, Zero) {
-  EXPECT_EQ(ReynoldsNumber::Zero(), ReynoldsNumber(0.0));
+  EXPECT_EQ(ReynoldsNumber<>::Zero(), ReynoldsNumber(0.0));
 }
 
 }  // namespace

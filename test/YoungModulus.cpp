@@ -87,7 +87,7 @@ TEST(YoungModulus, ComparisonOperators) {
 
 TEST(YoungModulus, CopyAssignmentOperator) {
   const YoungModulus first{1.0, Unit::Pressure::Pascal};
-  YoungModulus second = YoungModulus::Zero();
+  YoungModulus second = YoungModulus<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -99,23 +99,23 @@ TEST(YoungModulus, CopyConstructor) {
 }
 
 TEST(YoungModulus, Create) {
-  constexpr YoungModulus young_modulus = YoungModulus::Create<Unit::Pressure::Pascal>(1.0);
+  constexpr YoungModulus young_modulus = YoungModulus<>::Create<Unit::Pressure::Pascal>(1.0);
   EXPECT_EQ(young_modulus, YoungModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, DefaultConstructor) {
-  EXPECT_NO_THROW(YoungModulus{});
+  EXPECT_NO_THROW(YoungModulus<>{});
 }
 
 TEST(YoungModulus, Dimensions) {
-  EXPECT_EQ(YoungModulus::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(YoungModulus<>::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(YoungModulus, Hash) {
   const YoungModulus first{1.0, Unit::Pressure::Kilopascal};
   const YoungModulus second{1.000001, Unit::Pressure::Kilopascal};
   const YoungModulus third{-1.0, Unit::Pressure::Kilopascal};
-  const std::hash<YoungModulus> hasher;
+  const std::hash<YoungModulus<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -130,7 +130,7 @@ TEST(YoungModulus, JSON) {
 
 TEST(YoungModulus, MoveAssignmentOperator) {
   YoungModulus first{1.0, Unit::Pressure::Pascal};
-  YoungModulus second = YoungModulus::Zero();
+  YoungModulus second = YoungModulus<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, YoungModulus(1.0, Unit::Pressure::Pascal));
 }
@@ -161,7 +161,7 @@ TEST(YoungModulus, SetValue) {
 }
 
 TEST(YoungModulus, SizeOf) {
-  EXPECT_EQ(sizeof(YoungModulus{}), sizeof(double));
+  EXPECT_EQ(sizeof(YoungModulus<>{}), sizeof(double));
 }
 
 TEST(YoungModulus, StandardConstructor) {
@@ -169,7 +169,7 @@ TEST(YoungModulus, StandardConstructor) {
 }
 
 TEST(YoungModulus, StaticValue) {
-  constexpr YoungModulus young_modulus = YoungModulus::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr YoungModulus young_modulus = YoungModulus<>::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = young_modulus.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.0);
 }
@@ -181,7 +181,7 @@ TEST(YoungModulus, Stream) {
 }
 
 TEST(YoungModulus, Unit) {
-  EXPECT_EQ(YoungModulus::Unit(), Standard<Unit::Pressure>);
+  EXPECT_EQ(YoungModulus<>::Unit(), Standard<Unit::Pressure>);
 }
 
 TEST(YoungModulus, Value) {
@@ -204,7 +204,7 @@ TEST(YoungModulus, YAML) {
 }
 
 TEST(YoungModulus, Zero) {
-  EXPECT_EQ(YoungModulus::Zero(), YoungModulus(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(YoungModulus<>::Zero(), YoungModulus(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

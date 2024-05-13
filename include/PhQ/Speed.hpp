@@ -25,241 +25,317 @@
 
 namespace PhQ {
 
-// Forward declarations for class Speed.
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class Direction;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class DynamicKinematicPressure;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class DynamicPressure;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class DynamicViscosity;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class KinematicViscosity;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class MachNumber;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class MassDensity;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class Power;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class ReynoldsNumber;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class ScalarAcceleration;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class SoundSpeed;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class TransportEnergyConsumption;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class Velocity;
 
 // Speed scalar. Magnitude of the velocity vector.
-class Speed : public DimensionalScalar<Unit::Speed, double> {
+template <typename Number = double>
+class Speed : public DimensionalScalar<Unit::Speed, Number> {
 public:
   // Default constructor. Constructs a speed with an uninitialized value.
   Speed() = default;
 
   // Constructor. Constructs a speed with a given value expressed in a given speed unit.
-  Speed(const double value, const Unit::Speed unit) : DimensionalScalar<Unit::Speed>(value, unit) {}
+  Speed(const Number value, const Unit::Speed unit)
+    : DimensionalScalar<Unit::Speed, Number>(value, unit) {}
 
   // Constructor. Constructs a speed from a given length and time duration using the definition of
   // speed.
-  constexpr Speed(const Length& length, const Time& time) : Speed(length.Value() / time.Value()) {}
+  constexpr Speed(const Length<Number>& length, const Time<Number>& time)
+    : Speed<Number>(length.Value() / time.Value()) {}
 
   // Constructor. Constructs a speed from a given length and frequency using the definition of
   // speed.
-  constexpr Speed(const Length& length, const Frequency& frequency)
-    : Speed(length.Value() * frequency.Value()) {}
+  constexpr Speed(const Length<Number>& length, const Frequency<Number>& frequency)
+    : Speed<Number>(length.Value() * frequency.Value()) {}
 
   // Constructor. Constructs a speed from a given scalar acceleration and time duration using the
   // definition of acceleration.
-  constexpr Speed(const ScalarAcceleration& scalar_acceleration, const Time& time);
+  constexpr Speed(const ScalarAcceleration<Number>& scalar_acceleration, const Time<Number>& time);
 
   // Constructor. Constructs a speed from a given scalar acceleration and frequency using the
   // definition of acceleration.
-  constexpr Speed(const ScalarAcceleration& scalar_acceleration, const Frequency& frequency);
+  constexpr Speed(
+      const ScalarAcceleration<Number>& scalar_acceleration, const Frequency<Number>& frequency);
 
   // Constructor. Constructs a speed from a given dynamic pressure and mass density using the
   // definition of dynamic pressure.
-  Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density);
+  Speed(const DynamicPressure<Number>& dynamic_pressure, const MassDensity<Number>& mass_density);
 
   // Constructor. Constructs a speed from a given dynamic kinematic pressure using the definition of
   // dynamic kinematic pressure.
-  explicit Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure);
+  explicit Speed(const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure);
 
   // Constructor. Constructs a speed from a given Reynolds number, dynamic viscosity, mass density,
   // and length using the definition of the Reynolds number.
-  constexpr Speed(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity,
-                  const MassDensity& mass_density, const Length& length);
+  constexpr Speed(const ReynoldsNumber<Number>& reynolds_number,
+                  const DynamicViscosity<Number>& dynamic_viscosity,
+                  const MassDensity<Number>& mass_density, const Length<Number>& length);
 
   // Constructor. Constructs a speed from a given Reynolds number, kinematic viscosity, and length
   // using the definition of the Reynolds number.
-  constexpr Speed(const ReynoldsNumber& reynolds_number,
-                  const KinematicViscosity& kinematic_viscosity, const Length& length);
+  constexpr Speed(
+      const ReynoldsNumber<Number>& reynolds_number,
+      const KinematicViscosity<Number>& kinematic_viscosity, const Length<Number>& length);
 
   // Constructor. Constructs a speed from a given sound speed and Mach number using the definition
   // of the Mach number.
-  constexpr Speed(const SoundSpeed& sound_speed, const MachNumber& mach_number);
+  constexpr Speed(const SoundSpeed<Number>& sound_speed, const MachNumber<Number>& mach_number);
 
   // Destructor. Destroys this speed.
   ~Speed() noexcept = default;
 
   // Copy constructor. Constructs a speed by copying another one.
-  constexpr Speed(const Speed& other) = default;
+  constexpr Speed(const Speed<Number>& other) = default;
+
+  // Copy constructor. Constructs a speed by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Speed(const Speed<OtherNumber>& other)
+    : Speed(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a speed by moving another one.
-  constexpr Speed(Speed&& other) noexcept = default;
+  constexpr Speed(Speed<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this speed by copying another one.
-  constexpr Speed& operator=(const Speed& other) = default;
+  constexpr Speed<Number>& operator=(const Speed<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this speed by copying another one.
+  template <typename OtherNumber>
+  constexpr Speed<Number>& operator=(const Speed<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this speed by moving another one.
-  constexpr Speed& operator=(Speed&& other) noexcept = default;
+  constexpr Speed<Number>& operator=(Speed<Number>&& other) noexcept = default;
 
   // Statically creates a speed of zero.
-  static constexpr Speed Zero() {
-    return Speed{0.0};
+  static constexpr Speed<Number> Zero() {
+    return Speed<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a speed with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Speed Create(const double value) {
-    return Speed{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+  static constexpr Speed<Number> Create(const Number value) {
+    return Speed<Number>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  constexpr Speed operator+(const Speed& speed) const {
-    return Speed{value + speed.value};
+  constexpr Speed<Number> operator+(const Speed<Number>& speed) const {
+    return Speed<Number>{this->value + speed.value};
   }
 
-  constexpr Speed operator+(const SoundSpeed& sound_speed) const;
+  constexpr Speed<Number> operator+(const SoundSpeed<Number>& sound_speed) const;
 
-  constexpr Speed operator-(const Speed& speed) const {
-    return Speed{value - speed.value};
+  constexpr Speed<Number> operator-(const Speed<Number>& speed) const {
+    return Speed<Number>{this->value - speed.value};
   }
 
-  constexpr Speed operator-(const SoundSpeed& sound_speed) const;
+  constexpr Speed<Number> operator-(const SoundSpeed<Number>& sound_speed) const;
 
-  constexpr Speed operator*(const double number) const {
-    return Speed{value * number};
+  constexpr Speed<Number> operator*(const Number number) const {
+    return Speed<Number>{this->value * number};
   }
 
-  constexpr Length operator*(const Time& time) const {
-    return {*this, time};
+  constexpr Length<Number> operator*(const Time<Number>& time) const {
+    return Length<Number>{*this, time};
   }
 
-  constexpr ScalarAcceleration operator*(const Frequency& frequency) const;
+  constexpr ScalarAcceleration<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Velocity operator*(const Direction& direction) const;
+  constexpr Velocity<Number> operator*(const Direction<Number>& direction) const;
 
-  constexpr Power operator*(const TransportEnergyConsumption& transport_energy_consumption) const;
+  constexpr Power<Number> operator*(
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) const;
 
-  constexpr Speed operator/(const double number) const {
-    return Speed{value / number};
+  constexpr Speed<Number> operator/(const Number number) const {
+    return Speed<Number>{this->value / number};
   }
 
-  constexpr Length operator/(const Frequency& frequency) const {
-    return {*this, frequency};
+  constexpr Length<Number> operator/(const Frequency<Number>& frequency) const {
+    return Length<Number>{*this, frequency};
   }
 
-  constexpr Frequency operator/(const Length& length) const {
-    return {*this, length};
+  constexpr Frequency<Number> operator/(const Length<Number>& length) const {
+    return Frequency<Number>{*this, length};
   }
 
-  constexpr ScalarAcceleration operator/(const Time& time) const;
+  constexpr ScalarAcceleration<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const ScalarAcceleration& scalar_acceleration) const;
+  constexpr Time<Number> operator/(const ScalarAcceleration<Number>& scalar_acceleration) const;
 
-  constexpr MachNumber operator/(const SoundSpeed& sound_speed) const;
+  constexpr MachNumber<Number> operator/(const SoundSpeed<Number>& sound_speed) const;
 
-  constexpr double operator/(const Speed& speed) const noexcept {
-    return value / speed.value;
+  constexpr Number operator/(const Speed<Number>& speed) const noexcept {
+    return this->value / speed.value;
   }
 
-  constexpr void operator+=(const Speed& speed) noexcept {
-    value += speed.value;
+  constexpr void operator+=(const Speed<Number>& speed) noexcept {
+    this->value += speed.value;
   }
 
-  constexpr void operator+=(const SoundSpeed& speed) noexcept;
+  constexpr void operator+=(const SoundSpeed<Number>& speed) noexcept;
 
-  constexpr void operator-=(const Speed& speed) noexcept {
-    value -= speed.value;
+  constexpr void operator-=(const Speed<Number>& speed) noexcept {
+    this->value -= speed.value;
   }
 
-  constexpr void operator-=(const SoundSpeed& speed) noexcept;
+  constexpr void operator-=(const SoundSpeed<Number>& speed) noexcept;
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a speed with a given value expressed in the standard speed unit.
-  explicit constexpr Speed(const double value) : DimensionalScalar<Unit::Speed>(value) {}
+  explicit constexpr Speed(const Number value) : DimensionalScalar<Unit::Speed, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class SoundSpeed;
 
+  template <typename OtherNumber>
   friend class Velocity;
 };
 
-inline constexpr bool operator==(const Speed& left, const Speed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Speed<Number>& left, const Speed<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Speed& left, const Speed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Speed<Number>& left, const Speed<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Speed& left, const Speed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Speed<Number>& left, const Speed<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Speed& left, const Speed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Speed<Number>& left, const Speed<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Speed& left, const Speed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Speed<Number>& left, const Speed<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Speed& left, const Speed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Speed<Number>& left, const Speed<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Speed& speed) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Speed<Number>& speed) {
   stream << speed.Print();
   return stream;
 }
 
-inline constexpr Speed operator*(const double number, const Speed& speed) {
+template <typename Number>
+inline constexpr Speed<Number> operator*(const Number number, const Speed<Number>& speed) {
   return speed * number;
 }
 
-inline constexpr Length::Length(const Speed& speed, const Time& time)
-  : Length(speed.Value() * time.Value()) {}
+template <typename Number>
+inline constexpr Length<Number>::Length(const Speed<Number>& speed, const Time<Number>& time)
+  : Length<Number>(speed.Value() * time.Value()) {}
 
-inline constexpr Length::Length(const Speed& speed, const Frequency& frequency)
-  : Length(speed.Value() / frequency.Value()) {}
+template <typename Number>
+inline constexpr Length<Number>::Length(
+    const Speed<Number>& speed, const Frequency<Number>& frequency)
+  : Length<Number>(speed.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const Length& length, const Speed& speed)
-  : Time(length.Value() / speed.Value()) {}
+template <typename Number>
+inline constexpr Time<Number>::Time(const Length<Number>& length, const Speed<Number>& speed)
+  : Time<Number>(length.Value() / speed.Value()) {}
 
-inline constexpr Frequency::Frequency(const Speed& speed, const Length& length)
-  : Frequency(speed.Value() / length.Value()) {}
+template <typename Number>
+inline constexpr Frequency<Number>::Frequency(
+    const Speed<Number>& speed, const Length<Number>& length)
+  : Frequency<Number>(speed.Value() / length.Value()) {}
 
-inline constexpr Speed Length::operator*(const Frequency& frequency) const {
-  return {*this, frequency};
+template <typename Number>
+inline constexpr Speed<Number> Length<Number>::operator*(const Frequency<Number>& frequency) const {
+  return Speed<Number>{*this, frequency};
 }
 
-inline constexpr Time Length::operator/(const Speed& speed) const {
-  return {*this, speed};
+template <typename Number>
+inline constexpr Time<Number> Length<Number>::operator/(const Speed<Number>& speed) const {
+  return Time<Number>{*this, speed};
 }
 
-inline constexpr Speed Length::operator/(const Time& time) const {
-  return {*this, time};
+template <typename Number>
+inline constexpr Speed<Number> Length<Number>::operator/(const Time<Number>& time) const {
+  return Speed<Number>{*this, time};
 }
 
-inline constexpr Speed Frequency::operator*(const Length& length) const {
-  return {length, *this};
+template <typename Number>
+inline constexpr Speed<Number> Frequency<Number>::operator*(const Length<Number>& length) const {
+  return Speed<Number>{length, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Speed> {
-  inline size_t operator()(const PhQ::Speed& speed) const {
-    return hash<double>()(speed.Value());
+template <typename Number>
+struct hash<PhQ::Speed<Number>> {
+  inline size_t operator()(const PhQ::Speed<Number>& speed) const {
+    return hash<Number>()(speed.Value());
   }
 };
 

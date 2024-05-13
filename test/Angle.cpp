@@ -84,7 +84,7 @@ TEST(Angle, ComparisonOperators) {
 
 TEST(Angle, CopyAssignmentOperator) {
   const Angle first{1.0, Unit::Angle::Radian};
-  Angle second = Angle::Zero();
+  Angle second = Angle<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -96,23 +96,23 @@ TEST(Angle, CopyConstructor) {
 }
 
 TEST(Angle, Create) {
-  constexpr Angle angle = Angle::Create<Unit::Angle::Radian>(1.0);
+  constexpr Angle angle = Angle<>::Create<Unit::Angle::Radian>(1.0);
   EXPECT_EQ(angle, Angle(1.0, Unit::Angle::Radian));
 }
 
 TEST(Angle, DefaultConstructor) {
-  EXPECT_NO_THROW(Angle{});
+  EXPECT_NO_THROW(Angle<>{});
 }
 
 TEST(Angle, Dimensions) {
-  EXPECT_EQ(Angle::Dimensions(), RelatedDimensions<Unit::Angle>);
+  EXPECT_EQ(Angle<>::Dimensions(), RelatedDimensions<Unit::Angle>);
 }
 
 TEST(Angle, Hash) {
   const Angle first{1.0, Unit::Angle::Degree};
   const Angle second{1.000001, Unit::Angle::Degree};
   const Angle third{-1.0, Unit::Angle::Degree};
-  const std::hash<Angle> hash;
+  const std::hash<Angle<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -139,7 +139,7 @@ TEST(Angle, MiscellaneousMethods) {
 
 TEST(Angle, MoveAssignmentOperator) {
   Angle first{1.0, Unit::Angle::Radian};
-  Angle second = Angle::Zero();
+  Angle second = Angle<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Angle(1.0, Unit::Angle::Radian));
 }
@@ -169,7 +169,7 @@ TEST(Angle, SetValue) {
 }
 
 TEST(Angle, SizeOf) {
-  EXPECT_EQ(sizeof(Angle{}), sizeof(double));
+  EXPECT_EQ(sizeof(Angle<>{}), sizeof(double));
 }
 
 TEST(Angle, StandardConstructor) {
@@ -177,7 +177,7 @@ TEST(Angle, StandardConstructor) {
 }
 
 TEST(Angle, StaticValue) {
-  constexpr Angle angle = Angle::Create<Unit::Angle::Degree>(1.0);
+  constexpr Angle angle = Angle<>::Create<Unit::Angle::Degree>(1.0);
   constexpr double value = angle.StaticValue<Unit::Angle::Degree>();
   EXPECT_EQ(value, 1.0);
 }
@@ -189,7 +189,7 @@ TEST(Angle, Stream) {
 }
 
 TEST(Angle, Unit) {
-  EXPECT_EQ(Angle::Unit(), Standard<Unit::Angle>);
+  EXPECT_EQ(Angle<>::Unit(), Standard<Unit::Angle>);
 }
 
 TEST(Angle, Value) {
@@ -211,7 +211,7 @@ TEST(Angle, YAML) {
 }
 
 TEST(Angle, Zero) {
-  EXPECT_EQ(Angle::Zero(), Angle(0.0, Unit::Angle::Radian));
+  EXPECT_EQ(Angle<>::Zero(), Angle(0.0, Unit::Angle::Radian));
 }
 
 }  // namespace

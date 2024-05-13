@@ -28,174 +28,213 @@
 
 namespace PhQ {
 
-// Forward declaration for class SpecificEnergy.
+// Forward declaration for class PhQ::SpecificEnergy.
+template <typename Number>
 class SpecificPower;
 
 // Specific energy. Energy per unit mass.
-class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy, double> {
+template <typename Number = double>
+class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:
   // Default constructor. Constructs a specific energy quantity with an uninitialized value.
   SpecificEnergy() = default;
 
   // Constructor. Constructs a specific energy quantity with a given value expressed in a given
   // specific energy unit.
-  SpecificEnergy(const double value, const Unit::SpecificEnergy unit)
-    : DimensionalScalar<Unit::SpecificEnergy>(value, unit) {}
+  SpecificEnergy(const Number value, const Unit::SpecificEnergy unit)
+    : DimensionalScalar<Unit::SpecificEnergy, Number>(value, unit) {}
 
   // Constructor. Constructs a specific energy quantity from a given energy and mass using the
   // definition of specific energy.
-  constexpr SpecificEnergy(const Energy& energy, const Mass& mass)
-    : SpecificEnergy(energy.Value() / mass.Value()) {}
+  constexpr SpecificEnergy(const Energy<Number>& energy, const Mass<Number>& mass)
+    : SpecificEnergy<Number>(energy.Value() / mass.Value()) {}
 
   // Constructor. Constructs a specific energy quantity from a given specific power and time
   // duration using the definition of specific power.
-  constexpr SpecificEnergy(const SpecificPower& specific_power, const Time& time);
+  constexpr SpecificEnergy(const SpecificPower<Number>& specific_power, const Time<Number>& time);
 
   // Constructor. Constructs a specific energy quantity from a given specific power and frequency
   // using the definition of specific power.
-  constexpr SpecificEnergy(const SpecificPower& specific_power, const Frequency& frequency);
+  constexpr SpecificEnergy(
+      const SpecificPower<Number>& specific_power, const Frequency<Number>& frequency);
 
   // Destructor. Destroys this specific energy quantity.
   ~SpecificEnergy() noexcept = default;
 
   // Copy constructor. Constructs a specific energy quantity by copying another one.
-  constexpr SpecificEnergy(const SpecificEnergy& other) = default;
+  constexpr SpecificEnergy(const SpecificEnergy<Number>& other) = default;
+
+  // Copy constructor. Constructs a specific energy quantity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr SpecificEnergy(const SpecificEnergy<OtherNumber>& other)
+    : SpecificEnergy(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a specific energy quantity by moving another one.
-  constexpr SpecificEnergy(SpecificEnergy&& other) noexcept = default;
+  constexpr SpecificEnergy(SpecificEnergy<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this specific energy quantity by copying another one.
-  constexpr SpecificEnergy& operator=(const SpecificEnergy& other) = default;
+  constexpr SpecificEnergy<Number>& operator=(const SpecificEnergy<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this specific energy quantity by copying another one.
+  template <typename OtherNumber>
+  constexpr SpecificEnergy<Number>& operator=(const SpecificEnergy<OtherNumber>& other) {
+    this->value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this specific energy quantity by moving another one.
-  constexpr SpecificEnergy& operator=(SpecificEnergy&& other) noexcept = default;
+  constexpr SpecificEnergy<Number>& operator=(SpecificEnergy<Number>&& other) noexcept = default;
 
   // Statically creates a specific energy quantity of zero.
-  static constexpr SpecificEnergy Zero() {
-    return SpecificEnergy{0.0};
+  static constexpr SpecificEnergy<Number> Zero() {
+    return SpecificEnergy<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a specific energy quantity with a given value expressed in a given specific
   // energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr SpecificEnergy Create(const double value) {
-    return SpecificEnergy{
+  static constexpr SpecificEnergy<Number> Create(const Number value) {
+    return SpecificEnergy<Number>{
         StaticConvertCopy<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  constexpr SpecificEnergy operator+(const SpecificEnergy& specific_energy) const {
-    return SpecificEnergy{value + specific_energy.value};
+  constexpr SpecificEnergy<Number> operator+(const SpecificEnergy<Number>& specific_energy) const {
+    return SpecificEnergy<Number>{this->value + specific_energy.value};
   }
 
-  constexpr SpecificEnergy operator-(const SpecificEnergy& specific_energy) const {
-    return SpecificEnergy{value - specific_energy.value};
+  constexpr SpecificEnergy<Number> operator-(const SpecificEnergy<Number>& specific_energy) const {
+    return SpecificEnergy<Number>{this->value - specific_energy.value};
   }
 
-  constexpr SpecificEnergy operator*(const double number) const {
-    return SpecificEnergy{value * number};
+  constexpr SpecificEnergy<Number> operator*(const Number number) const {
+    return SpecificEnergy<Number>{this->value * number};
   }
 
-  constexpr Energy operator*(const Mass& mass) const {
-    return {*this, mass};
+  constexpr Energy<Number> operator*(const Mass<Number>& mass) const {
+    return Energy<Number>{*this, mass};
   }
 
-  constexpr SpecificPower operator*(const Frequency& frequency) const;
+  constexpr SpecificPower<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr SpecificEnergy operator/(const double number) const {
-    return SpecificEnergy{value / number};
+  constexpr SpecificEnergy<Number> operator/(const Number number) const {
+    return SpecificEnergy<Number>{this->value / number};
   }
 
-  constexpr SpecificPower operator/(const Time& time) const;
+  constexpr SpecificPower<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const SpecificPower& specific_power) const;
+  constexpr Time<Number> operator/(const SpecificPower<Number>& specific_power) const;
 
-  constexpr double operator/(const SpecificEnergy& specific_energy) const noexcept {
-    return value / specific_energy.value;
+  constexpr Number operator/(const SpecificEnergy<Number>& specific_energy) const noexcept {
+    return this->value / specific_energy.value;
   }
 
-  constexpr void operator+=(const SpecificEnergy& specific_energy) noexcept {
-    value += specific_energy.value;
+  constexpr void operator+=(const SpecificEnergy<Number>& specific_energy) noexcept {
+    this->value += specific_energy.value;
   }
 
-  constexpr void operator-=(const SpecificEnergy& specific_energy) noexcept {
-    value -= specific_energy.value;
+  constexpr void operator-=(const SpecificEnergy<Number>& specific_energy) noexcept {
+    this->value -= specific_energy.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    value *= number;
+  constexpr void operator*=(const Number number) noexcept {
+    this->value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    value /= number;
+  constexpr void operator/=(const Number number) noexcept {
+    this->value /= number;
   }
 
 private:
   // Constructor. Constructs a specific energy quantity with a given value expressed in the standard
   // specific energy unit.
-  explicit constexpr SpecificEnergy(const double value)
-    : DimensionalScalar<Unit::SpecificEnergy>(value) {}
+  explicit constexpr SpecificEnergy(const Number value)
+    : DimensionalScalar<Unit::SpecificEnergy, Number>(value) {}
 };
 
-inline constexpr bool operator==(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const SpecificEnergy<Number>& left, const SpecificEnergy<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const SpecificEnergy<Number>& left, const SpecificEnergy<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const SpecificEnergy<Number>& left, const SpecificEnergy<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const SpecificEnergy<Number>& left, const SpecificEnergy<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const SpecificEnergy<Number>& left, const SpecificEnergy<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const SpecificEnergy<Number>& left, const SpecificEnergy<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const SpecificEnergy& specific_energy) {
+template <typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream, const SpecificEnergy<Number>& specific_energy) {
   stream << specific_energy.Print();
   return stream;
 }
 
-inline constexpr SpecificEnergy operator*(
-    const double number, const SpecificEnergy& specific_energy) {
+template <typename Number>
+inline constexpr SpecificEnergy<Number> operator*(
+    const Number number, const SpecificEnergy<Number>& specific_energy) {
   return specific_energy * number;
 }
 
-inline constexpr Mass::Mass(const Energy& energy, const SpecificEnergy& specific_energy)
-  : Mass(energy.Value() / specific_energy.Value()) {}
+template <typename Number>
+inline constexpr Mass<Number>::Mass(
+    const Energy<Number>& energy, const SpecificEnergy<Number>& specific_energy)
+  : Mass<Number>(energy.Value() / specific_energy.Value()) {}
 
-inline constexpr Energy::Energy(const SpecificEnergy& specific_energy, const Mass& mass)
-  : Energy(specific_energy.Value() * mass.Value()) {}
+template <typename Number>
+inline constexpr Energy<Number>::Energy(
+    const SpecificEnergy<Number>& specific_energy, const Mass<Number>& mass)
+  : Energy<Number>(specific_energy.Value() * mass.Value()) {}
 
-inline constexpr Energy Mass::operator*(const SpecificEnergy& specific_energy) const {
-  return {specific_energy, *this};
+template <typename Number>
+inline constexpr Energy<Number> Mass<Number>::operator*(
+    const SpecificEnergy<Number>& specific_energy) const {
+  return Energy<Number>{specific_energy, *this};
 }
 
-inline constexpr Mass Energy::operator/(const SpecificEnergy& specific_energy) const {
-  return {*this, specific_energy};
+template <typename Number>
+inline constexpr Mass<Number> Energy<Number>::operator/(
+    const SpecificEnergy<Number>& specific_energy) const {
+  return Mass<Number>{*this, specific_energy};
 }
 
-inline constexpr SpecificEnergy Energy::operator/(const Mass& mass) const {
-  return {*this, mass};
+template <typename Number>
+inline constexpr SpecificEnergy<Number> Energy<Number>::operator/(const Mass<Number>& mass) const {
+  return SpecificEnergy<Number>{*this, mass};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::SpecificEnergy> {
-  inline size_t operator()(const PhQ::SpecificEnergy& specific_energy) const {
-    return hash<double>()(specific_energy.Value());
+template <typename Number>
+struct hash<PhQ::SpecificEnergy<Number>> {
+  inline size_t operator()(const PhQ::SpecificEnergy<Number>& specific_energy) const {
+    return hash<Number>()(specific_energy.Value());
   }
 };
 

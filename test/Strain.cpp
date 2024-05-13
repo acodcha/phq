@@ -87,7 +87,7 @@ TEST(Strain, ComparisonOperators) {
 
 TEST(Strain, CopyAssignmentOperator) {
   constexpr Strain first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  Strain second = Strain::Zero();
+  Strain second = Strain<>::Zero();
   second = first;
   EXPECT_EQ(second, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
@@ -99,18 +99,18 @@ TEST(Strain, CopyConstructor) {
 }
 
 TEST(Strain, DefaultConstructor) {
-  EXPECT_NO_THROW(Strain{});
+  EXPECT_NO_THROW(Strain<>{});
 }
 
 TEST(Strain, Dimensions) {
-  EXPECT_EQ(Strain::Dimensions(), Dimensionless);
+  EXPECT_EQ(Strain<>::Dimensions(), Dimensionless);
 }
 
 TEST(Strain, Hash) {
   constexpr Strain first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
   constexpr Strain second(1.0, -2.0, 3.0, -4.0, 5.0, -6.000001);
   constexpr Strain third(1.0, -2.0, 3.0, 4.0, 5.0, -6.0);
-  const std::hash<Strain> hash;
+  const std::hash<Strain<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -125,7 +125,7 @@ TEST(Strain, JSON) {
 
 TEST(Strain, MoveAssignmentOperator) {
   Strain first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  Strain second = Strain::Zero();
+  Strain second = Strain<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
@@ -156,7 +156,7 @@ TEST(Strain, SetValue) {
 }
 
 TEST(Strain, SizeOf) {
-  EXPECT_EQ(sizeof(Strain{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(Strain<>{}), 6 * sizeof(double));
 }
 
 TEST(Strain, StandardConstructor) {
@@ -202,7 +202,7 @@ TEST(Strain, YAML) {
 }
 
 TEST(Strain, Zero) {
-  EXPECT_EQ(Strain::Zero(), Strain(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Strain<>::Zero(), Strain(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 }
 
 }  // namespace
