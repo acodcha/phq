@@ -1,6 +1,6 @@
 # Physical Quantities
 
-[![build and test](https://github.com/acodcha/physical-quantities/actions/workflows/build_and_test.yaml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/build_and_test.yaml)
+[![tests](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml)
 
 C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
