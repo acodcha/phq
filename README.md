@@ -2,19 +2,26 @@
 
 [![tests](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml)
 
-C++ library of physical quantities, physical models, and units of measure for scientific computation.
-
-Example:
+Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
 ```C++
-const PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
-const PhQ::Speed speed = velocity.Magnitude();
-const PhQ::Direction direction = velocity.Direction();
-std::cout << "Speed and direction: " << speed << " and " << direction << "." << std::endl;
+PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
 
-const PhQ::Time time{0.5, PhQ::Unit::Time::Minute};
-const PhQ::Displacement displacement = velocity * time;
-std::cout << "During " << time << ", the displacement is " << displacement << "." << std::endl;
+PhQ::Speed speed = velocity.Magnitude();
+std::cout << "Speed: " << speed.Print(PhQ::Unit::Speed::FootPerSecond) << std::endl;
+// Speed: 22.9658792650918606 ft/s
+
+PhQ::Direction direction = velocity.Direction();
+std::cout << "Direction: " << direction << std::endl;
+// Direction: (0.857142857142857095, -0.428571428571428548, 0.285714285714285698)
+
+PhQ::Time time{0.5, PhQ::Unit::Time::Minute};
+std::cout << "Time: " << time << std::endl;
+// Time: 30.0000000000000000 s
+
+PhQ::Displacement displacement = velocity * time;
+std::cout << "Displacement: " << displacement.Print(PhQ::Unit::Length::Centimetre) << std::endl;
+// Displacement: (1.80000000000000000e+04, -9000.00000000000000, 6000.00000000000000) cm
 ```
 
 If you have ever made a unit conversion error, or if you have ever asked yourself questions such as _"what is the correct unit of mass density in the foot-pound-second system?"_, _"how do I compute a stress field given a strain field?"_, or _"what is a slug unit?"_, then this library is for you!
@@ -22,10 +29,10 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 - Physical quantities have no memory overhead compared to using raw floating point numbers to represent the same data.
 - Mathematical operations between physical quantities have no runtime overhead compared to using raw floating point numbers to perform the same operations.
 - Unit conversions are handled automatically. No more unit conversion errors!
-- Physical models enable tedious mathematical computations to be performed easily. No more tensor-vector multiplication errors!
+- Physical models enable tedious mathematical computations involving physical quantities to be performed easily. No more tensor-vector multiplication errors when computing stresses!
 - Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
 
-Contents:
+## Contents
 
 - [Requirements](#requirements)
 - [Configuration](#configuration)
@@ -105,10 +112,11 @@ Physical quantities are constructed from a value and a unit and support standard
 PhQ::Temperature low{10.0, PhQ::Unit::Temperature::Celsius};
 PhQ::Temperature high{68.0, PhQ::Unit::Temperature::Fahrenheit};
 PhQ::Temperature average = 0.5 * (low + high);
-std::cout << "Average temperature: " << average << std::endl;
+std::cout << "Average: " << average.Print(PhQ::Unit::Temperature::Celsius) << std::endl;
+// Average: 15.0000000000000000 °C
 ```
 
-The above example creates two temperature quantities, computes their average, and prints the result, which is 15 °C, or 59 °F.
+The above example creates two temperature quantities, computes their average, and prints the result.
 
 Physical quantities support the `float`, `double`, and `long double` floating-point number types. A physical quantity's type is inferred from its constructor arguments and can also be explicitly specified. If no type is explicitly specified and the default constructor is used, the `double` type is used by default. For example:
 
@@ -158,8 +166,9 @@ Values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors ar
 ```C++
 PhQ::Force force{{/*x=*/300.0, /*y=*/0.0, /*z=*/-400.0}, PhQ::Unit::Force::Pound};
 force /= 5.0;
-PhQ::ForceMagnitude magnitude = force.Magnitude();
+PhQ::ScalarForce magnitude = force.Magnitude();
 std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::Force::Pound) << std::endl;
+// Magnitude: 100.000000000000000 lbf
 ```
 
 The above example creates a force quantity of (300, 0, -400) lbf, divides it by 5, computes its magnitude, and prints the magnitude in pounds, which results in 100 lbf.
@@ -172,6 +181,7 @@ PhQ::Stress stress{
     PhQ::Unit::Pressure::Megapascal};
 assert(stress.Value().xy() == stress.Value().yx());
 std::cout << "Equivalent von Mises stress: " << stress.VonMises() << std::endl;
+// Equivalent von Mises stress: 2.26053091109146290e+07 Pa
 ```
 
 The above example creates a stress quantity and computes and prints its equivalent von Mises stress.
@@ -187,6 +197,7 @@ PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
 PhQ::Time time{10.0, PhQ::Unit::Time::Second};
 PhQ::Acceleration acceleration = velocity / time;
 std::cout << "Acceleration: " << acceleration << std::endl;
+// Acceleration: (5.00000000000000000, -1.00000000000000000, 2.00000000000000000) m/s^2
 ```
 
 The above example creates a velocity quantity of (50, -10, 20) m/s and a time quantity of 10 s, then divides the velocity by the time to produce an acceleration quantity of (5, -1, 2) m/s^2.
@@ -197,11 +208,13 @@ Similarly, other meaningful mathematical operations are supported via member met
 PhQ::Displacement displacement{{0.0, 6.0, 0.0}, PhQ::Unit::Length::Inch};
 PhQ::Length length = displacement.Magnitude();
 PhQ::Direction direction = displacement.Direction();
-std::cout << "Length: " << length << ", direction: " << direction << std::endl;
+std::cout << "Length and direction: " << length << " and " << direction << std::endl;
+// Length and direction: 0.152399999999999980 m and (0, 1.00000000000000000, 0)
 
 PhQ::Displacement other_displacement{{0.0, 0.0, -3.0}, PhQ::Unit::Length::Foot};
 PhQ::Angle angle{displacement, other_displacement};
 std::cout << "Angle: " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
+// Angle: 90.0000000000000000 deg
 ```
 
 The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
@@ -223,13 +236,15 @@ PhQ::Mass mass{10.0, PhQ::Unit::Mass::Pound};
 
 double standard_value = mass.Value();
 PhQ::Unit::Mass standard_unit = PhQ::Mass<>::Unit();
-std::string standard_abbreviation = PhQ::Abbreviation(standard_unit);
-std::cout << standard_value << " " << standard_abbreviation << std::endl;
+std::string_view standard_abbreviation = PhQ::Abbreviation(standard_unit);
+std::cout << "Mass: " << standard_value << " " << standard_abbreviation << std::endl;
+// Mass: 4.53592 kg
 
 PhQ::Unit::Mass other_unit = PhQ::Unit::Mass::Gram;
-std::string other_abbreviation = PhQ::Abbreviation(other_unit);
+std::string_view other_abbreviation = PhQ::Abbreviation(other_unit);
 double other_value = mass.Value(other_unit);
-std::cout << other_value << " " << other_abbreviation << std::endl;
+std::cout << "Mass: " << other_value << " " << other_abbreviation << std::endl;
+// Mass: 4535.92 g
 ```
 
 The above example creates a 10 lbm mass and prints its value as 4.535924 kg and 4535.924 g.
@@ -237,13 +252,14 @@ The above example creates a 10 lbm mass and prints its value as 4.535924 kg and 
 A physical quantity can be expressed in any unit of measure through its `Print` method. For example:
 
 ```C++
-PhQ::Frequency frequency{10.0, PhQ::Unit::Frequency::Hertz};
+PhQ::Frequency frequency{1234.56789, PhQ::Unit::Frequency::Hertz};
 std::string standard = frequency.Print();
 std::string kilohertz = frequency.Print(PhQ::Unit::Frequency::Kilohertz);
-std::cout << standard << " = " << kilohertz << std::endl;
+std::cout << "Frequency: " << standard << " = " << kilohertz << std::endl;
+// Frequency: 1234.56789000000003 Hz = 1.23456789000000011 kHz
 ```
 
-The above example creates a 10 Hz frequency and prints it both in hertz and in kilohertz.
+The above example creates a 1234.56789 Hz frequency and prints it both in hertz and in kilohertz.
 
 Unit conversions can also be performed explicitly on raw floating point numbers without the use of physical quantities through the `PhQ::Convert` function, which takes one or more floating point values, an original unit, and a new unit. For example:
 
@@ -253,20 +269,28 @@ PhQ::Convert(values, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound);
 for (const double value : values) {
   std::cout << value << std::endl;
 }
+// 7.37562
+// 14.7512
+// 22.1269
+// 29.5025
 ```
 
 The above example converts a collection of values from joules to foot-pounds. The same can also be achieved with:
 
 ```C++
-const std::vector<PhQ::Energy> quantities = {
-  {10.0, PhQ::Unit::Energy::Joule},
-  {20.0, PhQ::Unit::Energy::Joule},
-  {30.0, PhQ::Unit::Energy::Joule},
-  {40.0, PhQ::Unit::Energy::Joule},
+const std::vector<PhQ::Energy<>> quantities = {
+    {10.0, PhQ::Unit::Energy::Joule},
+    {20.0, PhQ::Unit::Energy::Joule},
+    {30.0, PhQ::Unit::Energy::Joule},
+    {40.0, PhQ::Unit::Energy::Joule},
 };
-for (const PhQ::Energy& quantity : quantities) {
+for (const PhQ::Energy<>& quantity : quantities) {
   std::cout << quantity.Value(PhQ::Unit::Energy::FootPound) << std::endl;
 }
+// 7.37562
+// 14.7512
+// 22.1269
+// 29.5025
 ```
 
 In general, it is easier to use the member methods of physical quantities rather than explicitly invoking the `PhQ::Convert` function.
@@ -285,12 +309,15 @@ Internally, physical quantities store their values in the metre-kilogram-second-
 Data can be expressed in the consistent units of any of these unit systems. The unit of measure of a given type that corresponds to a given unit system can be obtained with the `PhQ::ConsistentUnit` function. For example:
 
 ```C++
-PhQ::SpecificEnergy specific_energy{10.0, PhQ::Unit::SpecificEnergy::JoulePerKilogram};
 PhQ::UnitSystem system = PhQ::UnitSystem::FootPoundSecondRankine;
 PhQ::Unit::SpecificEnergy unit = PhQ::ConsistentUnit<PhQ::Unit::SpecificEnergy>(system);
-std::cout << unit << std::endl;  // ft·lbf/slug
-double value = energy.Value(unit);
+std::cout << unit << std::endl;
+// ft·lbf/slug
+
+PhQ::SpecificEnergy specific_energy{10.0, PhQ::Unit::SpecificEnergy::JoulePerKilogram};
+double value = specific_energy.Value(unit);
 std::cout << value << std::endl;
+// 107.639
 ```
 
 The above example creates a mass-specific energy quantity of 10 J/kg. Then, the mass-specific energy unit corresponding to the foot-pound-second-rankine (ft·lbf·s·°R) system is obtained, and the mass-specific energy value is expressed in this unit of measure.
@@ -301,7 +328,8 @@ Given a unit, it is also possible to obtain its related unit system, if any, wit
 PhQ::Unit::Mass unit = PhQ::Unit::Mass::Slug;
 std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
 assert(optional_system.has_value());
-std::cout << optional_system.value() << std::endl;  // ft·lbf·s·°R
+std::cout << optional_system.value() << std::endl;
+// ft·lbf·s·°R
 ```
 
 The above example obtains the related unit system of the slug mass unit, which is the foot-pound-second-rankine (ft·lbf·s·°R) system.
@@ -329,10 +357,12 @@ const std::unique_ptr<const ConstitutiveModel> constitutive_model =
         PhQ::PoissonRatio<double>{0.33});
 
 PhQ::Strain<double> strain{
-    {/*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0}};
+    /*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0};
 
 PhQ::Stress<double> stress = constitutive_model->Stress(strain);
 std::cout << stress << std::endl;
+// (4.54489164086687305e+12, -2.10526315789473663e+11, -1.05263157894736832e+11;
+//     3.70278637770897803e+12, -5.26315789473684158e+10; 3.28173374613003076e+12) Pa
 ```
 
 The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
@@ -352,31 +382,33 @@ The Physical Quantities library organizes units of measure into types, where eac
 The physical dimension set of a unit of measure can be obtained with the `PhQ::RelatedDimensions` global variable. For example:
 
 ```C++
-const PhQ::Dimensions dimensions = PhQ::RelatedDimensions<Unit::Speed>;
-assert(dimensions.Time(), PhQ::Dimension::Time(-1));
-assert(dimensions.Length(), PhQ::Dimension::Length(1));
-assert(dimensions.Mass(), PhQ::Dimension::Mass(0));
-assert(dimensions.ElectricCurrent(), PhQ::Dimension::ElectricCurrent(0));
-assert(dimensions.Temperature(), PhQ::Dimension::Temperature(0));
-assert(dimensions.SubstanceAmount(), PhQ::Dimension::SubstanceAmount(0));
-assert(dimensions.LuminousIntensity(), PhQ::Dimension::LuminousIntensity(0));
+const PhQ::Dimensions dimensions = PhQ::RelatedDimensions<Unit::HeatCapacity>;
+assert(dimensions.Time() == PhQ::Dimension::Time(-2));
+assert(dimensions.Length() == PhQ::Dimension::Length(2));
+assert(dimensions.Mass() == PhQ::Dimension::Mass(1));
+assert(dimensions.ElectricCurrent() == PhQ::Dimension::ElectricCurrent(0));
+assert(dimensions.Temperature() == PhQ::Dimension::Temperature(-1));
+assert(dimensions.SubstanceAmount() == PhQ::Dimension::SubstanceAmount(0));
+assert(dimensions.LuminousIntensity() == PhQ::Dimension::LuminousIntensity(0));
 std::cout << dimensions << std::endl;
+// T^(-2)·L^2·M·Θ^(-1)
 ```
 
-The above example obtains the physical dimension set of speed, which is T^(-1)·L.
+The above example obtains the physical dimension set of heat capacity, which is T^(-2)·L^2·M·Θ^(-1).
 
 The physical dimension set of a physical quantity is simply the physical dimension set of its unit of measure and can be obtained with the `Dimensions` method. For example:
 
 ```C++
-const PhQ::Dimensions dimensions = PhQ::MassDensity::Dimensions();
-assert(dimensions.Time(), PhQ::Dimension::Time(0));
-assert(dimensions.Length(), PhQ::Dimension::Length(-3));
-assert(dimensions.Mass(), PhQ::Dimension::Mass(1));
-assert(dimensions.ElectricCurrent(), PhQ::Dimension::ElectricCurrent(0));
-assert(dimensions.Temperature(), PhQ::Dimension::Temperature(0));
-assert(dimensions.SubstanceAmount(), PhQ::Dimension::SubstanceAmount(0));
-assert(dimensions.LuminousIntensity(), PhQ::Dimension::LuminousIntensity(0));
+const PhQ::Dimensions dimensions = PhQ::MassDensity<>::Dimensions();
+assert(dimensions.Time() == PhQ::Dimension::Time(0));
+assert(dimensions.Length() == PhQ::Dimension::Length(-3));
+assert(dimensions.Mass() == PhQ::Dimension::Mass(1));
+assert(dimensions.ElectricCurrent() == PhQ::Dimension::ElectricCurrent(0));
+assert(dimensions.Temperature() == PhQ::Dimension::Temperature(0));
+assert(dimensions.SubstanceAmount() == PhQ::Dimension::SubstanceAmount(0));
+assert(dimensions.LuminousIntensity() == PhQ::Dimension::LuminousIntensity(0));
 std::cout << dimensions << std::endl;
+// L^(-3)·M
 ```
 
 The above example obtains the physical dimension set of mass density, which is L^(-3)·M.
@@ -447,7 +479,7 @@ make test
 
 Copyright © 2020-2024 Alexandre Coderre-Chabot
 
-Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation. Physical Quantities (PhQ) is hosted at: <https://github.com/acodcha/physical-quantities>. Physical Quantities (PhQ) is licensed under the MIT License: <https://mit-license.org>.
+Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation. Physical Quantities (PhQ) is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>). Physical Quantities (PhQ) is hosted at <https://github.com/acodcha/physical-quantities>. Physical Quantities (PhQ) is licensed under the MIT License; see the `LICENSE` file or <https://mit-license.org>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
