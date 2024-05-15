@@ -431,13 +431,13 @@ template <>
 struct hash<PhQ::Dimensions> {
   inline size_t operator()(const PhQ::Dimensions& dimensions) const {
     size_t result{17};
-    result = 31 * result + dimensions.Time().Value();
-    result = 31 * result + dimensions.Length().Value();
-    result = 31 * result + dimensions.Mass().Value();
-    result = 31 * result + dimensions.ElectricCurrent().Value();
-    result = 31 * result + dimensions.Temperature().Value();
-    result = 31 * result + dimensions.SubstanceAmount().Value();
-    result = 31 * result + dimensions.LuminousIntensity().Value();
+    result = static_cast<size_t>(31) * result + dimensions.Time().Value();
+    result = static_cast<size_t>(31) * result + dimensions.Length().Value();
+    result = static_cast<size_t>(31) * result + dimensions.Mass().Value();
+    result = static_cast<size_t>(31) * result + dimensions.ElectricCurrent().Value();
+    result = static_cast<size_t>(31) * result + dimensions.Temperature().Value();
+    result = static_cast<size_t>(31) * result + dimensions.SubstanceAmount().Value();
+    result = static_cast<size_t>(31) * result + dimensions.LuminousIntensity().Value();
     return result;
   }
 };
