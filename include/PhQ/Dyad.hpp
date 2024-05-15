@@ -687,15 +687,15 @@ template <typename Number>
 struct hash<PhQ::Dyad<Number>> {
   inline size_t operator()(const PhQ::Dyad<Number>& dyad) const {
     size_t result{17};
-    result = 31 * result + hash<Number>()(dyad.xx());
-    result = 31 * result + hash<Number>()(dyad.xy());
-    result = 31 * result + hash<Number>()(dyad.xz());
-    result = 31 * result + hash<Number>()(dyad.yx());
-    result = 31 * result + hash<Number>()(dyad.yy());
-    result = 31 * result + hash<Number>()(dyad.yz());
-    result = 31 * result + hash<Number>()(dyad.zx());
-    result = 31 * result + hash<Number>()(dyad.zy());
-    result = 31 * result + hash<Number>()(dyad.zz());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.xx());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.xy());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.xz());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.yx());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.yy());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.yz());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.zx());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.zy());
+    result = static_cast<size_t>(31) * result + hash<Number>()(dyad.zz());
     return result;
   }
 };

@@ -377,9 +377,9 @@ template <typename Number>
 struct hash<PhQ::Vector<Number>> {
   inline size_t operator()(const PhQ::Vector<Number>& vector) const {
     size_t result{17};
-    result = 31 * result + hash<Number>()(vector.x());
-    result = 31 * result + hash<Number>()(vector.y());
-    result = 31 * result + hash<Number>()(vector.z());
+    result = static_cast<size_t>(31) * result + hash<Number>()(vector.x());
+    result = static_cast<size_t>(31) * result + hash<Number>()(vector.y());
+    result = static_cast<size_t>(31) * result + hash<Number>()(vector.z());
     return result;
   }
 };

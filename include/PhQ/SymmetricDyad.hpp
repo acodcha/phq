@@ -413,8 +413,6 @@ public:
 private:
   // Cartesian components of this three-dimensional symmetric dyadic tensor.
   std::array<Number, 6> xx_xy_xz_yy_yz_zz_;
-
-  friend class Dyad<Number>;
 };
 
 template <typename Number>
@@ -574,12 +572,12 @@ template <typename Number>
 struct hash<PhQ::SymmetricDyad<Number>> {
   inline size_t operator()(const PhQ::SymmetricDyad<Number>& symmetric) const {
     size_t result{17};
-    result = 31 * result + hash<Number>()(symmetric.xx());
-    result = 31 * result + hash<Number>()(symmetric.xy());
-    result = 31 * result + hash<Number>()(symmetric.xz());
-    result = 31 * result + hash<Number>()(symmetric.yy());
-    result = 31 * result + hash<Number>()(symmetric.yz());
-    result = 31 * result + hash<Number>()(symmetric.zz());
+    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.xx());
+    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.xy());
+    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.xz());
+    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.yy());
+    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.yz());
+    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.zz());
     return result;
   }
 };
