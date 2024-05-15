@@ -8,8 +8,8 @@ Physical Quantities (PhQ) is a C++ library of physical quantities, physical mode
 PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
 
 PhQ::Speed speed = velocity.Magnitude();
-std::cout << "Speed: " << speed.Print(PhQ::Unit::Speed::FootPerSecond) << std::endl;
-// Speed: 22.9658792650918606 ft/s
+std::cout << "Speed: " << speed << std::endl;
+// Speed: 7.00000000000000000 m/s
 
 PhQ::Direction direction = velocity.Direction();
 std::cout << "Direction: " << direction << std::endl;
