@@ -36,6 +36,8 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 
 - [Requirements](#requirements)
 - [Configuration](#configuration)
+  - [CMake](#configuration-cmake)
+  - [Bazel](#configuration-bazel)
 - [Usage](#usage)
   - [Basics](#usage-basics)
   - [Vectors and Tensors](#usage-vectors-and-tensors)
@@ -52,43 +54,146 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 
 ## Requirements
 
-This library requires the following packages:
+The Physical Quantities library requires the following packages:
 
-- **C++17 Compiler:** Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
-- **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`.
+- **C++17 Compiler:** A C++ compiler with support for the C++17 standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
+- **CMake** or **Bazel:** Either the CMake or Bazel build system is needed.
+  - CMake: On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative installation means.
+  - Bazel: Follow the instructions at <https://bazel.build/install> to install Bazel on your system.
 
 [(Back to Top)](#physical-quantities)
 
 ## Configuration
 
-To use the Physical Quantities library in one of your CMake projects, add the following to your `CMakeLists.txt` file:
+- [CMake](#configuration-cmake)
+- [Bazel](#configuration-bazel)
+
+[(Back to Top)](#physical-quantities)
+
+### Configuration: CMake
+
+To use the Physical Quantities library in one of your CMake C++ projects, choose one of the following three options.
+
+Then, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+
+#### Configuration: CMake: Option 1
+
+To use the Physical Quantities library in one of your CMake projects, add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
+set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 FetchContent_Declare(
-  PhQ
-  GIT_REPOSITORY https://github.com/acodcha/physical-quantities.git
-  GIT_TAG main
+    PhQ
+    GIT_REPOSITORY https://github.com/acodcha/physical-quantities.git
+    GIT_TAG main
 )
 FetchContent_MakeAvailable(PhQ)
+message(STATUS "The PhQ library was fetched from https://github.com/acodcha/physical-quantities.git")
 
 [...]
 
-target_link_libraries(your-target-name [other-options] PhQ)
+target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-This automatically downloads, builds, and links the Physical Quantities library to your target.
+The above code automatically downloads the Physical Quantities library and links it to your CMake target.
 
-Alternatively, if you have installed the Physical Quantities library on your system as described in the [Installation](#installation) section, you can instead simply add the following to your `CMakeLists.txt` file:
+#### Configuration: CMake: Option 2
+
+Alternatively, if you have installed the Physical Quantities library on your system as described in the [Installation](#installation) section, you can instead simply add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
+set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(PhQ CONFIG REQUIRED)
-target_link_libraries(your-target-name [other-options] PhQ)
+message(STATUS "The PhQ library was found at ${PhQ_CONFIG}")
+
+[...]
+
+target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-To use the Physical Quantities library in your source code, simply include this library's headers in your project's source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+The above code locates the Physical Quantities library installed on your system and links it to your CMake target. If the Physical Quantities library is not found on your system, CMake exits with an error.
 
-[(Back to Top)](#physical-quantities)
+#### Configuration: CMake: Option 3
+
+The previous two options can be combined. To do so, add the following code to your project's `CMakeLists.txt` file:
+
+```cmake
+set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+include(FetchContent)
+find_package(PhQ CONFIG QUIET)
+if(PhQ_FOUND)
+    message(STATUS "The PhQ library was found at ${PhQ_CONFIG}")
+else()
+    FetchContent_Declare(
+        PhQ
+        GIT_REPOSITORY https://github.com/acodcha/physical-quantities.git
+        GIT_TAG main
+    )
+    FetchContent_MakeAvailable(PhQ)
+    message(STATUS "The PhQ library was fetched from https://github.com/acodcha/physical-quantities.git")
+endif()
+
+[...]
+
+target_link_libraries(your_target_name [your_other_options] PhQ)
+```
+
+The above code first checks whether the Physical Quantities library is installed on your system; if not, it instead downloads it. Then, the above code links the Physical Quantities library to your CMake target.
+
+[(Back to Configuration)](#configuration)
+
+### Configuration: Bazel
+
+To use the Physical Quantities library in one of your Bazel C++ projects, do the following.
+
+Add the following code to your project's `WORKSPACE.bazel` file:
+
+```bazel
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+git_repository(
+    name = "PhQ",
+    remote = "https://github.com/acodcha/physical-quantities.git",
+    branch = "main",
+)
+```
+
+The above code automatically downloads the Physical Quantities library and makes it available to your Bazel targets.
+
+Next, add the following code to your project's `BUILD.bazel` file:
+
+```bazel
+cc_library(
+    name = "your_library_name",
+    hdrs = [
+        "your_library_header_file_1.hpp",
+        "your_library_header_file_2.hpp",
+    ],
+    srcs = [
+        "your_library_source_file_1.cpp",
+        "your_library_source_file_2.cpp",
+    ],
+    deps = [
+        ":your_other_dependency_1",
+        ":your_other_dependency_2",
+        "@PhQ//:Position",
+        "@PhQ//:ConstitutiveModel/ElasticIsotropicSolid",
+    ],
+    copts = [
+        "-your-other-parameters",
+        "-std=c++17"  # Or any more recent C++ standard.
+    ],
+)
+```
+
+The above code adds the dependencies for the `PhQ::Position` and `PhQ::ConstitutiveModel::ElasticIsotropicSolid` classes to your Bazel C++ library.
+
+Finally, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+
+[(Back to Configuration)](#configuration)
 
 ## Usage
 
@@ -435,7 +540,7 @@ If maintaining a strong exception guarantee is a concern, use `try` and `catch` 
 
 ## Installation
 
-You may optionally install the Physical Quantities library on your system to use it in your projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
+If using CMake, you may optionally install the Physical Quantities library on your system to use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
 
 First, clone the Physical Quantities library's repository and configure it with:
 
@@ -463,14 +568,21 @@ On most systems, this installs the Physical Quantities library's headers to `/us
 
 Testing is optional, disabled by default, and requires the following additional package:
 
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your system, it is automatically downloaded, built, and linked with the Physical Quantities library.
+- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your system, it is automatically downloaded and linked with the Physical Quantities library.
 
-You can manually test the Physical Quantities library on your system from the `build` directory with:
+If using CMake, you can manually test the Physical Quantities library on your system from the `build` directory with:
 
 ```bash
 cmake .. -DTEST_PHQ_LIBRARY=ON
 make --jobs=16
 make test
+```
+
+If using Bazel, you can manually test the Physical Quantities library on your system from the Physical Quantities repository's base directory with:
+
+```bash
+bazel build //:all
+bazel test //:all
 ```
 
 [(Back to Top)](#physical-quantities)
