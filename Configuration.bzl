@@ -24,50 +24,58 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+"""
+Defines the Bazel macros used in the Physical Quantities (PhQ) library.
+"""
+
 def phq_library(name, hdrs, deps = [], **kwargs):
-  """A C++ header-only library used in the Physical Quantities (PhQ) library.
-  Args:
-    name: Required. Name of the library target.
-    hdrs: Required. List of header files.
-    deps: Optional. List of dependencies.
-    **kwargs: Additional arguments passed to the native cc_library rule.
-  """
-  native.cc_library(
-    name = name,
-    hdrs = hdrs,
-    deps = deps,
-    copts = [
-      "-ffast-math",
-      "-O3",
-      "-Wall",
-      "-Wextra",
-      "-Wno-return-type",
-      "-Wpedantic",
-      "-std=c++17"
-    ],
-    **kwargs,
-  )
+    """
+    C++ header-only library used in the Physical Quantities (PhQ) library.
+
+    Args:
+      name: Required. Name of the library target.
+      hdrs: Required. List of header files.
+      deps: Optional. List of dependencies.
+      **kwargs: Additional arguments passed to the native cc_library rule.
+    """
+    native.cc_library(
+        name = name,
+        hdrs = hdrs,
+        deps = deps,
+        copts = [
+            "-ffast-math",
+            "-O3",
+            "-Wall",
+            "-Wextra",
+            "-Wno-return-type",
+            "-Wpedantic",
+            "-std=c++17",
+        ],
+        **kwargs
+    )
 
 def phq_test(name, srcs, deps = [], **kwargs):
-  """A C++ test used in the Physical Quantities (PhQ) library.
-  Args:
-    name: Required. Name of the library target.
-    srcs: Required. List of source files.
-    deps: Optional. List of dependencies.
-    **kwargs: Additional arguments passed to the native cc_test rule.
-  """
-  native.cc_test(
-    name = name,
-    srcs = srcs,
-    deps = deps + ["@gtest//:gtest_main"],
-    copts = [
-      "-ffast-math",
-      "-O3",
-      "-Wall",
-      "-Wextra",
-      "-Wno-return-type",
-      "-Wpedantic",
-      "-std=c++17"
-    ],
-    **kwargs,
-  )
+    """
+    C++ test used in the Physical Quantities (PhQ) library.
+
+    Args:
+      name: Required. Name of the library target.
+      srcs: Required. List of source files.
+      deps: Optional. List of dependencies.
+      **kwargs: Additional arguments passed to the native cc_test rule.
+    """
+    native.cc_test(
+        name = name,
+        srcs = srcs,
+        deps = deps + ["@gtest//:gtest_main"],
+        copts = [
+            "-ffast-math",
+            "-O3",
+            "-Wall",
+            "-Wextra",
+            "-Wno-return-type",
+            "-Wpedantic",
+            "-std=c++17",
+        ],
+        **kwargs
+    )

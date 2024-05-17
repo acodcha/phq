@@ -27,24 +27,24 @@
 load("//:Configuration.bzl", "phq_library", "phq_test")
 
 phq_library(
-  name = "Base",
-  hdrs = ["include/PhQ/Base.hpp"],
+    name = "Base",
+    hdrs = ["include/PhQ/Base.hpp"],
 )
 
 phq_test(
-  name = "test/Base",
-  srcs = ["test/Base.cpp"],
-  deps = [":Base"],
+    name = "test/Base",
+    srcs = ["test/Base.cpp"],
+    deps = [":Base"],
 )
 
 phq_library(
-  name = "Dimension/ElectricCurrent",
-  hdrs = ["include/PhQ/Dimension/ElectricCurrent.hpp"],
-  deps = [":Base"],
+    name = "Dimension/ElectricCurrent",
+    hdrs = ["include/PhQ/Dimension/ElectricCurrent.hpp"],
+    deps = [":Base"],
 )
 
 phq_test(
-  name = "test/Dimension/ElectricCurrent",
-  srcs = ["test/Dimension/ElectricCurrent.cpp"],
-  deps = [":Dimension/ElectricCurrent"],
+    name = "test/Dimension/ElectricCurrent",
+    srcs = ["test/Dimension/ElectricCurrent.cpp"],
+    deps = [":Dimension/ElectricCurrent"],
 )
