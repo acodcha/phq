@@ -37,7 +37,6 @@
 #include "DimensionlessVector.hpp"
 #include "Dyad.hpp"
 #include "SymmetricDyad.hpp"
-#include "Unit/Angle.hpp"
 #include "Vector.hpp"
 
 namespace PhQ {
