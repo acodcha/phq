@@ -92,7 +92,8 @@ TEST(UnitThermalConductivity, Parse) {
 TEST(UnitThermalConductivity, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<ThermalConductivity>,
             Dimensions(Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
-                       Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitThermalConductivity, RelatedUnitSystem) {

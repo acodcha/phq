@@ -36,6 +36,12 @@
 #include <unordered_map>
 
 #include "../Base.hpp"
+#include "../Dimension/ElectricCurrent.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/LuminousIntensity.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/SubstanceAmount.hpp"
+#include "../Dimension/Temperature.hpp"
 #include "../Dimension/Time.hpp"
 #include "../Dimensions.hpp"
 #include "../Unit.hpp"
@@ -103,7 +109,10 @@ inline constexpr const Unit::AngularAcceleration Standard<Unit::AngularAccelerat
 // Physical dimension set of angular acceleration units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::AngularAcceleration>{
-    Dimensions{Dimension::Time{-2}}};
+    Dimensions{Dimension::Time{-2}, Dimension::Length{0}, Dimension::Mass{0},
+               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+};
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::AngularAcceleration unit) {
   stream << Abbreviation(unit);
@@ -157,21 +166,21 @@ inline const std::unordered_map<std::string_view, Unit::AngularAcceleration> Spe
     {"rad/hr^2",       Unit::AngularAcceleration::RadianPerSquareHour      },
     {"rad/hr2",        Unit::AngularAcceleration::RadianPerSquareHour      },
     {"rad/hr/hr",      Unit::AngularAcceleration::RadianPerSquareHour      },
-    {"°/s^2",         Unit::AngularAcceleration::DegreePerSquareSecond    },
-    {"°/s2",          Unit::AngularAcceleration::DegreePerSquareSecond    },
-    {"°/s/s",         Unit::AngularAcceleration::DegreePerSquareSecond    },
+    {"°/s^2",          Unit::AngularAcceleration::DegreePerSquareSecond    },
+    {"°/s2",           Unit::AngularAcceleration::DegreePerSquareSecond    },
+    {"°/s/s",          Unit::AngularAcceleration::DegreePerSquareSecond    },
     {"deg/s^2",        Unit::AngularAcceleration::DegreePerSquareSecond    },
     {"deg/s2",         Unit::AngularAcceleration::DegreePerSquareSecond    },
     {"deg/s/s",        Unit::AngularAcceleration::DegreePerSquareSecond    },
-    {"°/min^2",       Unit::AngularAcceleration::DegreePerSquareMinute    },
-    {"°/min2",        Unit::AngularAcceleration::DegreePerSquareMinute    },
-    {"°/min/min",     Unit::AngularAcceleration::DegreePerSquareMinute    },
+    {"°/min^2",        Unit::AngularAcceleration::DegreePerSquareMinute    },
+    {"°/min2",         Unit::AngularAcceleration::DegreePerSquareMinute    },
+    {"°/min/min",      Unit::AngularAcceleration::DegreePerSquareMinute    },
     {"deg/min^2",      Unit::AngularAcceleration::DegreePerSquareMinute    },
     {"deg/min2",       Unit::AngularAcceleration::DegreePerSquareMinute    },
     {"deg/min/min",    Unit::AngularAcceleration::DegreePerSquareMinute    },
-    {"°/hr^2",        Unit::AngularAcceleration::DegreePerSquareHour      },
-    {"°/hr2",         Unit::AngularAcceleration::DegreePerSquareHour      },
-    {"°/hr/hr",       Unit::AngularAcceleration::DegreePerSquareHour      },
+    {"°/hr^2",         Unit::AngularAcceleration::DegreePerSquareHour      },
+    {"°/hr2",          Unit::AngularAcceleration::DegreePerSquareHour      },
+    {"°/hr/hr",        Unit::AngularAcceleration::DegreePerSquareHour      },
     {"deg/hr^2",       Unit::AngularAcceleration::DegreePerSquareHour      },
     {"deg/hr2",        Unit::AngularAcceleration::DegreePerSquareHour      },
     {"deg/hr/hr",      Unit::AngularAcceleration::DegreePerSquareHour      },

@@ -97,7 +97,7 @@ TEST(UnitSubstanceAmount, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<SubstanceAmount>,
             Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
                        Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-                       Dimension::SubstanceAmount{1}));
+                       Dimension::SubstanceAmount{1}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitSubstanceAmount, RelatedUnitSystem) {

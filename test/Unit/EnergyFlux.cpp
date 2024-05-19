@@ -93,7 +93,9 @@ TEST(UnitEnergyFlux, Parse) {
 
 TEST(UnitEnergyFlux, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<EnergyFlux>,
-            Dimensions(Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitEnergyFlux, RelatedUnitSystem) {

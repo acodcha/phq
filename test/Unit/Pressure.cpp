@@ -110,7 +110,9 @@ TEST(UnitPressure, Parse) {
 
 TEST(UnitPressure, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<Pressure>,
-            Dimensions(Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitPressure, RelatedUnitSystem) {

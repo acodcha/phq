@@ -36,6 +36,13 @@
 #include <unordered_map>
 
 #include "../Base.hpp"
+#include "../Dimension/ElectricCurrent.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/LuminousIntensity.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/SubstanceAmount.hpp"
+#include "../Dimension/Temperature.hpp"
+#include "../Dimension/Time.hpp"
 #include "../Dimensions.hpp"
 #include "../Unit.hpp"
 #include "../UnitSystem.hpp"

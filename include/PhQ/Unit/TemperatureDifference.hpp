@@ -38,7 +38,9 @@
 #include "../Base.hpp"
 #include "../Dimension/ElectricCurrent.hpp"
 #include "../Dimension/Length.hpp"
+#include "../Dimension/LuminousIntensity.hpp"
 #include "../Dimension/Mass.hpp"
+#include "../Dimension/SubstanceAmount.hpp"
 #include "../Dimension/Temperature.hpp"
 #include "../Dimension/Time.hpp"
 #include "../Dimensions.hpp"
@@ -76,8 +78,9 @@ inline constexpr const Unit::TemperatureDifference Standard<Unit::TemperatureDif
 // Physical dimension set of temperature difference units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureDifference>{
-    Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-               Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+               Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
+               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::TemperatureDifference unit) {

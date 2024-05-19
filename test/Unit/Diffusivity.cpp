@@ -157,7 +157,10 @@ TEST(UnitDiffusivity, Parse) {
 }
 
 TEST(UnitDiffusivity, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Diffusivity>, Dimensions(Dimension::Time{-1}, Dimension::Length{2}));
+  EXPECT_EQ(RelatedDimensions<Diffusivity>,
+            Dimensions(Dimension::Time{-1}, Dimension::Length{2}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitDiffusivity, RelatedUnitSystem) {

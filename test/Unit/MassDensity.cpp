@@ -103,7 +103,9 @@ TEST(UnitMassDensity, Parse) {
 
 TEST(UnitMassDensity, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<MassDensity>,
-            Dimensions(Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{0}, Dimension::Length{-3}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitMassDensity, RelatedUnitSystem) {

@@ -91,8 +91,10 @@ TEST(UnitSpecificPower, Parse) {
 }
 
 TEST(UnitSpecificPower, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<SpecificPower>, Dimensions(Dimension::Time{-3}, Dimension::Length{2}));
+  EXPECT_EQ(RelatedDimensions<SpecificPower>,
+            Dimensions(Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitSpecificPower, RelatedUnitSystem) {

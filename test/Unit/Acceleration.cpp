@@ -301,7 +301,10 @@ TEST(UnitAcceleration, Parse) {
 }
 
 TEST(UnitAcceleration, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Acceleration>, Dimensions(Dimension::Time{-2}, Dimension::Length{1}));
+  EXPECT_EQ(RelatedDimensions<Acceleration>,
+            Dimensions(Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitAcceleration, RelatedUnitSystem) {

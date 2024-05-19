@@ -59,12 +59,11 @@ public:
 
   // Constructor. Constructs a physical dimension set from the given base physical dimensions.
   // Omitted base physical dimensions are initialized to a value of zero.
-  explicit constexpr Dimensions(
-      const Dimension::Time& time, const Dimension::Length& length = {},
-      const Dimension::Mass& mass = {}, const Dimension::ElectricCurrent& electric_current = {},
-      const Dimension::Temperature& temperature = {},
-      const Dimension::SubstanceAmount& substance_amount = {},
-      const Dimension::LuminousIntensity& luminous_intensity = {})
+  constexpr Dimensions(
+      const Dimension::Time& time, const Dimension::Length& length, const Dimension::Mass& mass,
+      const Dimension::ElectricCurrent& electric_current, const Dimension::Temperature& temperature,
+      const Dimension::SubstanceAmount& substance_amount,
+      const Dimension::LuminousIntensity& luminous_intensity)
     : time(time), length(length), mass(mass), electric_current(electric_current),
       temperature(temperature), substance_amount(substance_amount),
       luminous_intensity(luminous_intensity) {}

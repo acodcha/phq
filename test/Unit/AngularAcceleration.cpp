@@ -155,7 +155,10 @@ TEST(UnitAngularAcceleration, Parse) {
 }
 
 TEST(UnitAngularAcceleration, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<AngularAcceleration>, Dimensions{Dimension::Time{-2}});
+  EXPECT_EQ(RelatedDimensions<AngularAcceleration>,
+            Dimensions(Dimension::Time{-2}, Dimension::Length{0}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitAngularAcceleration, RelatedUnitSystem) {

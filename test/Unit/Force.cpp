@@ -102,7 +102,9 @@ TEST(UnitForce, Parse) {
 
 TEST(UnitForce, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<Force>,
-            Dimensions(Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitForce, RelatedUnitSystem) {
