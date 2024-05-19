@@ -349,7 +349,22 @@ phq_test(
     deps = [":Displacement"],
 )
 
-# TODO: DisplacementGradient
+phq_library(
+    name = "DisplacementGradient",
+    hdrs = ["include/PhQ/DisplacementGradient.hpp"],
+    deps = [
+        ":DimensionlessDyad",
+        ":Dyad",
+        ":ScalarDisplacementGradient",
+        ":Strain",
+    ],
+)
+
+phq_test(
+    name = "test/DisplacementGradient",
+    srcs = ["test/DisplacementGradient.cpp"],
+    deps = [":DisplacementGradient"],
+)
 
 phq_library(
     name = "Dyad",
@@ -373,9 +388,39 @@ phq_test(
 
 # TODO: DynamicViscosity
 
-# TODO: Energy
+phq_library(
+    name = "Energy",
+    hdrs = ["include/PhQ/Energy.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Energy",
+    ],
+)
 
-# TODO: Force
+phq_test(
+    name = "test/Energy",
+    srcs = ["test/Energy.cpp"],
+    deps = [":Energy"],
+)
+
+phq_library(
+    name = "Force",
+    hdrs = ["include/PhQ/Force.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":ScalarForce",
+        ":Unit/Force",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Force",
+    srcs = ["test/Force.cpp"],
+    deps = [":Force"],
+)
 
 phq_library(
     name = "Frequency",
@@ -611,7 +656,23 @@ phq_test(
     deps = [":Position"],
 )
 
-# TODO: Power
+phq_library(
+    name = "Power",
+    hdrs = ["include/PhQ/Power.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Energy",
+        ":Frequency",
+        ":Time",
+        ":Unit/Power",
+    ],
+)
+
+phq_test(
+    name = "test/Power",
+    srcs = ["test/Power.cpp"],
+    deps = [":Power"],
+)
 
 # TODO: PrandtlNumber
 
@@ -698,7 +759,22 @@ phq_test(
     deps = [":ScalarForce"],
 )
 
-# TODO: ScalarHeatFlux
+phq_library(
+    name = "ScalarHeatFlux",
+    hdrs = ["include/PhQ/ScalarHeatFlux.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":ScalarTemperatureGradient",
+        ":ScalarThermalConductivity",
+        ":Unit/EnergyFlux",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarHeatFlux",
+    srcs = ["test/ScalarHeatFlux.cpp"],
+    deps = [":ScalarHeatFlux"],
+)
 
 phq_library(
     name = "ScalarStrain",
@@ -842,15 +918,94 @@ phq_test(
     deps = [":Speed"],
 )
 
-# TODO: StaticKinematicPressure
+phq_library(
+    name = "StaticKinematicPressure",
+    hdrs = ["include/PhQ/StaticKinematicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":MassDensity",
+        ":StaticPressure",
+        ":Unit/SpecificEnergy",
+    ],
+)
 
-# TODO: StaticPressure
+phq_test(
+    name = "test/StaticKinematicPressure",
+    srcs = ["test/StaticKinematicPressure.cpp"],
+    deps = [":StaticKinematicPressure"],
+)
 
-# TODO: Strain
+phq_library(
+    name = "StaticPressure",
+    hdrs = ["include/PhQ/StaticPressure.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalScalar",
+        ":ScalarForce",
+        ":Unit/Pressure",
+    ],
+)
 
-# TODO: StrainRate
+phq_test(
+    name = "test/StaticPressure",
+    srcs = ["test/StaticPressure.cpp"],
+    deps = [":StaticPressure"],
+)
 
-# TODO: Stress
+phq_library(
+    name = "Strain",
+    hdrs = ["include/PhQ/Strain.hpp"],
+    deps = [
+        ":DimensionlessSymmetricDyad",
+        ":ScalarStrain",
+        ":SymmetricDyad",
+    ],
+)
+
+phq_test(
+    name = "test/Strain",
+    srcs = ["test/Strain.cpp"],
+    deps = [":Strain"],
+)
+
+phq_library(
+    name = "StrainRate",
+    hdrs = ["include/PhQ/StrainRate.hpp"],
+    deps = [
+        ":DimensionalSymmetricDyad",
+        ":Frequency",
+        ":ScalarStrainRate",
+        ":Strain",
+        ":SymmetricDyad",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/StrainRate",
+    srcs = ["test/StrainRate.cpp"],
+    deps = [":StrainRate"],
+)
+
+phq_library(
+    name = "Stress",
+    hdrs = ["include/PhQ/Stress.hpp"],
+    deps = [
+        ":DimensionalSymmetricDyad",
+        ":Direction",
+        ":ScalarStress",
+        ":StaticPressure",
+        ":SymmetricDyad",
+        ":Traction",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/Stress",
+    srcs = ["test/Stress.cpp"],
+    deps = [":Stress"],
+)
 
 phq_library(
     name = "SubstanceAmount",
@@ -955,9 +1110,43 @@ phq_test(
 
 # TODO: TotalPressure
 
-# TODO: Traction
+phq_library(
+    name = "Traction",
+    hdrs = ["include/PhQ/Traction.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalVector",
+        ":Direction",
+        ":Force",
+        ":StaticPressure",
+        ":Unit/Pressure",
+        ":Vector",
+    ],
+)
 
-# TODO: TransportEnergyConsumption
+phq_test(
+    name = "test/Traction",
+    srcs = ["test/Traction.cpp"],
+    deps = [":Traction"],
+)
+
+phq_library(
+    name = "TransportEnergyConsumption",
+    hdrs = ["include/PhQ/TransportEnergyConsumption.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Length",
+        ":Power",
+        ":Speed",
+        ":Unit/TransportEnergyConsumption",
+    ],
+)
+
+phq_test(
+    name = "test/TransportEnergyConsumption",
+    srcs = ["test/TransportEnergyConsumption.cpp"],
+    deps = [":TransportEnergyConsumption"],
+)
 
 phq_library(
     name = "Unit",
@@ -1965,7 +2154,26 @@ phq_test(
     deps = [":Velocity"],
 )
 
-# TODO: VelocityGradient
+phq_library(
+    name = "VelocityGradient",
+    hdrs = ["include/PhQ/VelocityGradient.hpp"],
+    deps = [
+        ":DimensionalDyad",
+        ":DisplacementGradient",
+        ":Dyad",
+        ":Frequency",
+        ":ScalarVelocityGradient",
+        ":StrainRate",
+        ":Time",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/VelocityGradient",
+    srcs = ["test/VelocityGradient.cpp"],
+    deps = [":VelocityGradient"],
+)
 
 phq_library(
     name = "Volume",

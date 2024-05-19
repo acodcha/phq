@@ -67,6 +67,7 @@ def phq_test(name, srcs, deps = [], **kwargs):
     native.cc_test(
         name = name,
         srcs = srcs,
+        size = "small",
         deps = deps + ["@gtest//:gtest_main"],
         copts = [
             "-ffast-math",
