@@ -26,9 +26,9 @@ std::cout << "Displacement: " << displacement.Print(PhQ::Unit::Length::Centimetr
 
 If you have ever made a unit conversion error, or if you have ever asked yourself questions such as _"what is the correct unit of mass density in the foot-pound-second system?"_, _"how do I compute a stress field given a strain field?"_, or _"what is a slug unit?"_, then this library is for you!
 
-- Physical quantities have no memory overhead compared to using raw floating point numbers to represent the same data.
-- Mathematical operations between physical quantities have no runtime overhead compared to using raw floating point numbers to perform the same operations.
-- Unit conversions are handled automatically. No more unit conversion errors!
+- Physical quantities have no memory overhead compared to using raw floating-point numbers to represent the same data.
+- Mathematical operations between physical quantities have no runtime overhead compared to using raw floating-point numbers to perform the same operations.
+- Unit conversions are handled automatically when physical quantities are constructed, so physical quantities are guaranteed to always be in a consistent state. No more unit conversion errors!
 - Physical models enable tedious mathematical computations involving physical quantities to be performed easily. No more tensor-vector multiplication errors when computing stresses!
 - Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
 
@@ -252,7 +252,15 @@ PhQ::MachNumber mach_number_zero = PhQ::MachNumber<>::Zero();
 PhQ::Position<float> position_zero = PhQ::Position<float>::Zero();
 ```
 
-Physical quantities are implemented efficiently with no memory overhead compared to using raw floating point numbers to represent the same data. For example:
+Physical quantities can be constructed statically with the `Create` static method. For example:
+
+```C++
+constexpr PhQ::Power<float> power = PhQ::Power<float>::Create<PhQ::Unit::Power::Kilowatt>(5.0F);
+std::cout << "Power: " << power << std::endl;
+// Power: 5000.000000 W
+```
+
+Physical quantities are implemented efficiently with no memory overhead compared to using raw floating-point numbers to represent the same data. For example:
 
 ```C++
 PhQ::Volume<double> volume{10.0, PhQ::Unit::Volume::Litre};
@@ -295,7 +303,7 @@ The above example creates a stress quantity and computes and prints its equivale
 
 ### Usage: Operations
 
-Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating point numbers to represent the same data. For example:
+Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating-point numbers to represent the same data. For example:
 
 ```C++
 PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
@@ -328,7 +336,7 @@ The above example creates a displacement quantity of (0, 6, 0) in, computes and 
 
 ### Usage: Units
 
-The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating point arithmetic precision.
+The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
 
 When a physical quantity object is constructed, its value is immediately converted to the standard unit of measure in a standard unit system: the metre-kilogram-second-kelvin (m·kg·s·K) system. This way, all physical quantities maintain their values in a consistent system of units. This approach greatly minimizes the number of unit conversions during program execution; when arithmetic operations are performed between physical quantities, no unit conversion is needed.
 
@@ -366,7 +374,7 @@ std::cout << "Frequency: " << standard << " = " << kilohertz << std::endl;
 
 The above example creates a 1234.56789 Hz frequency and prints it both in hertz and in kilohertz.
 
-Unit conversions can also be performed explicitly on raw floating point numbers without the use of physical quantities through the `PhQ::Convert` function, which takes one or more floating point values, an original unit, and a new unit. For example:
+Unit conversions can also be performed explicitly on raw floating-point numbers without the use of physical quantities through the `PhQ::Convert` function, which takes one or more floating-point values, an original unit, and a new unit. For example:
 
 ```C++
 std::vector<double> values = {10.0, 20.0, 30.0, 40.0};
@@ -524,9 +532,9 @@ The above example obtains the physical dimension set of mass density, which is L
 
 The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
 
-However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
+However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
 
-Similarly, floating point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating point environment with `std::fetestexcept`.
+Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
 
 [(Back to Usage)](#usage)
 
