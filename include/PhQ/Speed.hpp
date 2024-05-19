@@ -34,6 +34,7 @@
 #include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Length.hpp"
+#include "Time.hpp"
 #include "Unit/Speed.hpp"
 
 namespace PhQ {

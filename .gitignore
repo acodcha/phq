@@ -1,4 +1,5 @@
 .vscode/*
+bazel-*
 build/*
 docs/html/*
-
+MODULE.bazel*

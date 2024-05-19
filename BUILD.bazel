@@ -1,0 +1,2663 @@
+# Copyright © 2020-2024 Alexandre Coderre-Chabot
+#
+# This file is part of Physical Quantities (PhQ), a C++ library of physical quantities, physical
+# models, and units of measure for scientific computation.
+#
+# Physical Quantities (PhQ) is hosted at:
+#     https://github.com/acodcha/physical-quantities
+#
+# Physical Quantities (PhQ) is licensed under the MIT License:
+#     https://mit-license.org
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+# associated documentation files (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge, publish, distribute,
+# sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+# NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT
+# OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+load("//:Configuration.bzl", "phq_library", "phq_test")
+
+phq_library(
+    name = "Acceleration",
+    hdrs = ["include/PhQ/Acceleration.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":Frequency",
+        ":ScalarAcceleration",
+        ":Time",
+        ":Unit/Acceleration",
+        ":Vector",
+        ":Velocity",
+    ],
+)
+
+phq_test(
+    name = "test/Acceleration",
+    srcs = ["test/Acceleration.cpp"],
+    deps = [":Acceleration"],
+)
+
+phq_library(
+    name = "Angle",
+    hdrs = ["include/PhQ/Angle.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Angle",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Angle",
+    srcs = ["test/Angle.cpp"],
+    deps = [":Angle"],
+)
+
+phq_library(
+    name = "AngularSpeed",
+    hdrs = ["include/PhQ/AngularSpeed.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Time",
+        ":Unit/AngularSpeed",
+    ],
+)
+
+phq_test(
+    name = "test/AngularSpeed",
+    srcs = ["test/AngularSpeed.cpp"],
+    deps = [":AngularSpeed"],
+)
+
+phq_library(
+    name = "Area",
+    hdrs = ["include/PhQ/Area.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Length",
+        ":Unit/Area",
+    ],
+)
+
+phq_test(
+    name = "test/Area",
+    srcs = ["test/Area.cpp"],
+    deps = [":Area"],
+)
+
+phq_library(
+    name = "Base",
+    hdrs = ["include/PhQ/Base.hpp"],
+)
+
+phq_test(
+    name = "test/Base",
+    srcs = ["test/Base.cpp"],
+    deps = [":Base"],
+)
+
+phq_library(
+    name = "BulkDynamicViscosity",
+    hdrs = ["include/PhQ/BulkDynamicViscosity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/DynamicViscosity",
+    ],
+)
+
+phq_test(
+    name = "test/BulkDynamicViscosity",
+    srcs = ["test/BulkDynamicViscosity.cpp"],
+    deps = [":BulkDynamicViscosity"],
+)
+
+phq_library(
+    name = "ConstitutiveModel",
+    hdrs = ["include/PhQ/ConstitutiveModel.hpp"],
+    deps = [
+        ":Base",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+    ],
+)
+
+phq_library(
+    name = "ConstitutiveModel/CompressibleNewtonianFluid",
+    hdrs = ["include/PhQ/ConstitutiveModel/CompressibleNewtonianFluid.hpp"],
+    deps = [
+        ":Base",
+        ":BulkDynamicViscosity",
+        ":ConstitutiveModel",
+        ":DynamicViscosity",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+        ":SymmetricDyad",
+        ":Unit/Frequency",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/ConstitutiveModel/CompressibleNewtonianFluid",
+    srcs = ["test/ConstitutiveModel/CompressibleNewtonianFluid.cpp"],
+    deps = [":ConstitutiveModel/CompressibleNewtonianFluid"],
+)
+
+phq_library(
+    name = "ConstitutiveModel/ElasticIsotropicSolid",
+    hdrs = ["include/PhQ/ConstitutiveModel/ElasticIsotropicSolid.hpp"],
+    deps = [
+        ":Base",
+        ":BulkDynamicViscosity",
+        ":ConstitutiveModel",
+        ":DynamicViscosity",
+        ":IsentropicBulkModulus",
+        ":IsothermalBulkModulus",
+        ":LameFirstModulus",
+        ":PWaveModulus",
+        ":PoissonRatio",
+        ":ShearModulus",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+        ":SymmetricDyad",
+        ":Unit/Pressure",
+        ":YoungModulus",
+    ],
+)
+
+phq_test(
+    name = "test/ConstitutiveModel/ElasticIsotropicSolid",
+    srcs = ["test/ConstitutiveModel/ElasticIsotropicSolid.cpp"],
+    deps = [":ConstitutiveModel/ElasticIsotropicSolid"],
+)
+
+phq_library(
+    name = "ConstitutiveModel/IncompressibleNewtonianFluid",
+    hdrs = ["include/PhQ/ConstitutiveModel/IncompressibleNewtonianFluid.hpp"],
+    deps = [
+        ":Base",
+        ":ConstitutiveModel",
+        ":DynamicViscosity",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+        ":SymmetricDyad",
+        ":Unit/Frequency",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/ConstitutiveModel/IncompressibleNewtonianFluid",
+    srcs = ["test/ConstitutiveModel/IncompressibleNewtonianFluid.cpp"],
+    deps = [":ConstitutiveModel/IncompressibleNewtonianFluid"],
+)
+
+phq_library(
+    name = "Dimension/ElectricCurrent",
+    hdrs = ["include/PhQ/Dimension/ElectricCurrent.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/ElectricCurrent",
+    srcs = ["test/Dimension/ElectricCurrent.cpp"],
+    deps = [":Dimension/ElectricCurrent"],
+)
+
+phq_library(
+    name = "Dimension/Length",
+    hdrs = ["include/PhQ/Dimension/Length.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/Length",
+    srcs = ["test/Dimension/Length.cpp"],
+    deps = [":Dimension/Length"],
+)
+
+phq_library(
+    name = "Dimension/LuminousIntensity",
+    hdrs = ["include/PhQ/Dimension/LuminousIntensity.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/LuminousIntensity",
+    srcs = ["test/Dimension/LuminousIntensity.cpp"],
+    deps = [":Dimension/LuminousIntensity"],
+)
+
+phq_library(
+    name = "Dimension/Mass",
+    hdrs = ["include/PhQ/Dimension/Mass.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/Mass",
+    srcs = ["test/Dimension/Mass.cpp"],
+    deps = [":Dimension/Mass"],
+)
+
+phq_library(
+    name = "Dimension/SubstanceAmount",
+    hdrs = ["include/PhQ/Dimension/SubstanceAmount.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/SubstanceAmount",
+    srcs = ["test/Dimension/SubstanceAmount.cpp"],
+    deps = [":Dimension/SubstanceAmount"],
+)
+
+phq_library(
+    name = "Dimension/Temperature",
+    hdrs = ["include/PhQ/Dimension/Temperature.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/Temperature",
+    srcs = ["test/Dimension/Temperature.cpp"],
+    deps = [":Dimension/Temperature"],
+)
+
+phq_library(
+    name = "Dimension/Time",
+    hdrs = ["include/PhQ/Dimension/Time.hpp"],
+)
+
+phq_test(
+    name = "test/Dimension/Time",
+    srcs = ["test/Dimension/Time.cpp"],
+    deps = [":Dimension/Time"],
+)
+
+phq_library(
+    name = "DimensionalDyad",
+    hdrs = ["include/PhQ/DimensionalDyad.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":Dyad",
+        ":Unit",
+    ],
+)
+
+phq_library(
+    name = "DimensionalScalar",
+    hdrs = ["include/PhQ/DimensionalScalar.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":Unit",
+    ],
+)
+
+phq_library(
+    name = "DimensionalSymmetricDyad",
+    hdrs = ["include/PhQ/DimensionalSymmetricDyad.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":SymmetricDyad",
+        ":Unit",
+    ],
+)
+
+phq_library(
+    name = "DimensionalVector",
+    hdrs = ["include/PhQ/DimensionalVector.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":Unit",
+        ":Vector",
+    ],
+)
+
+phq_library(
+    name = "DimensionlessDyad",
+    hdrs = ["include/PhQ/DimensionlessDyad.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":Dyad",
+    ],
+)
+
+phq_library(
+    name = "DimensionlessScalar",
+    hdrs = ["include/PhQ/DimensionlessScalar.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+    ],
+)
+
+phq_library(
+    name = "DimensionlessSymmetricDyad",
+    hdrs = ["include/PhQ/DimensionlessSymmetricDyad.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":SymmetricDyad",
+    ],
+)
+
+phq_library(
+    name = "DimensionlessVector",
+    hdrs = ["include/PhQ/DimensionlessVector.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":Vector",
+    ],
+)
+
+phq_library(
+    name = "Dimensions",
+    hdrs = ["include/PhQ/Dimensions.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+    ],
+)
+
+phq_test(
+    name = "test/Dimensions",
+    srcs = ["test/Dimensions.cpp"],
+    deps = [":Dimensions"],
+)
+
+phq_library(
+    name = "Direction",
+    hdrs = ["include/PhQ/Direction.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionlessVector",
+        ":Dyad",
+        ":SymmetricDyad",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Direction",
+    srcs = ["test/Direction.cpp"],
+    deps = [":Direction"],
+)
+
+phq_library(
+    name = "Displacement",
+    hdrs = ["include/PhQ/Displacement.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":Length",
+        ":Unit/Length",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Displacement",
+    srcs = ["test/Displacement.cpp"],
+    deps = [":Displacement"],
+)
+
+phq_library(
+    name = "DisplacementGradient",
+    hdrs = ["include/PhQ/DisplacementGradient.hpp"],
+    deps = [
+        ":DimensionlessDyad",
+        ":Dyad",
+        ":ScalarDisplacementGradient",
+        ":Strain",
+    ],
+)
+
+phq_test(
+    name = "test/DisplacementGradient",
+    srcs = ["test/DisplacementGradient.cpp"],
+    deps = [":DisplacementGradient"],
+)
+
+phq_library(
+    name = "Dyad",
+    hdrs = ["include/PhQ/Dyad.hpp"],
+    deps = [
+        ":Base",
+        ":SymmetricDyad",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Dyad",
+    srcs = ["test/Dyad.cpp"],
+    deps = [":Dyad"],
+)
+
+phq_library(
+    name = "DynamicKinematicPressure",
+    hdrs = ["include/PhQ/DynamicKinematicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":DynamicPressure",
+        ":MassDensity",
+        ":Speed",
+        ":StaticKinematicPressure",
+        ":Unit/SpecificEnergy",
+    ],
+)
+
+phq_test(
+    name = "test/DynamicKinematicPressure",
+    srcs = ["test/DynamicKinematicPressure.cpp"],
+    deps = [":DynamicKinematicPressure"],
+)
+
+phq_library(
+    name = "DynamicPressure",
+    hdrs = ["include/PhQ/DynamicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":MassDensity",
+        ":Speed",
+        ":StaticPressure",
+    ],
+)
+
+phq_test(
+    name = "test/DynamicPressure",
+    srcs = ["test/DynamicPressure.cpp"],
+    deps = [":DynamicPressure"],
+)
+
+phq_library(
+    name = "DynamicViscosity",
+    hdrs = ["include/PhQ/DynamicViscosity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":KinematicViscosity",
+        ":MassDensity",
+        ":Unit/DynamicViscosity",
+    ],
+)
+
+phq_test(
+    name = "test/DynamicViscosity",
+    srcs = ["test/DynamicViscosity.cpp"],
+    deps = [":DynamicViscosity"],
+)
+
+phq_library(
+    name = "Energy",
+    hdrs = ["include/PhQ/Energy.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Energy",
+    ],
+)
+
+phq_test(
+    name = "test/Energy",
+    srcs = ["test/Energy.cpp"],
+    deps = [":Energy"],
+)
+
+phq_library(
+    name = "Force",
+    hdrs = ["include/PhQ/Force.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":ScalarForce",
+        ":Unit/Force",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Force",
+    srcs = ["test/Force.cpp"],
+    deps = [":Force"],
+)
+
+phq_library(
+    name = "Frequency",
+    hdrs = ["include/PhQ/Frequency.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Time",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/Frequency",
+    srcs = ["test/Frequency.cpp"],
+    deps = [":Frequency"],
+)
+
+phq_library(
+    name = "GasConstant",
+    hdrs = ["include/PhQ/GasConstant.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsobaricHeatCapacity",
+        ":IsochoricHeatCapacity",
+        ":Unit/HeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/GasConstant",
+    srcs = ["test/GasConstant.cpp"],
+    deps = [":GasConstant"],
+)
+
+phq_library(
+    name = "HeatCapacityRatio",
+    hdrs = ["include/PhQ/HeatCapacityRatio.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+    ],
+)
+
+phq_test(
+    name = "test/HeatCapacityRatio",
+    srcs = ["test/HeatCapacityRatio.cpp"],
+    deps = [":HeatCapacityRatio"],
+)
+
+phq_library(
+    name = "HeatFlux",
+    hdrs = ["include/PhQ/HeatFlux.hpp"],
+    deps = [
+        ":DimensionalVector",
+        ":Direction",
+        ":ScalarHeatFlux",
+        ":ScalarThermalConductivity",
+        ":TemperatureGradient",
+        ":ThermalConductivity",
+        ":Unit/EnergyFlux",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/HeatFlux",
+    srcs = ["test/HeatFlux.cpp"],
+    deps = [":HeatFlux"],
+)
+
+phq_library(
+    name = "IsentropicBulkModulus",
+    hdrs = ["include/PhQ/IsentropicBulkModulus.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/IsentropicBulkModulus",
+    srcs = ["test/IsentropicBulkModulus.cpp"],
+    deps = [":IsentropicBulkModulus"],
+)
+
+phq_library(
+    name = "IsobaricHeatCapacity",
+    hdrs = ["include/PhQ/IsobaricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsochoricHeatCapacity",
+        ":Unit/HeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/IsobaricHeatCapacity",
+    srcs = ["test/IsobaricHeatCapacity.cpp"],
+    deps = [":IsobaricHeatCapacity"],
+)
+
+phq_library(
+    name = "IsochoricHeatCapacity",
+    hdrs = ["include/PhQ/IsochoricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":Unit/HeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/IsochoricHeatCapacity",
+    srcs = ["test/IsochoricHeatCapacity.cpp"],
+    deps = [":IsochoricHeatCapacity"],
+)
+
+phq_library(
+    name = "IsothermalBulkModulus",
+    hdrs = ["include/PhQ/IsothermalBulkModulus.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/IsothermalBulkModulus",
+    srcs = ["test/IsothermalBulkModulus.cpp"],
+    deps = [":IsothermalBulkModulus"],
+)
+
+phq_library(
+    name = "KinematicViscosity",
+    hdrs = ["include/PhQ/KinematicViscosity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Diffusivity",
+    ],
+)
+
+phq_test(
+    name = "test/KinematicViscosity",
+    srcs = ["test/KinematicViscosity.cpp"],
+    deps = [":KinematicViscosity"],
+)
+
+phq_library(
+    name = "LameFirstModulus",
+    hdrs = ["include/PhQ/LameFirstModulus.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/LameFirstModulus",
+    srcs = ["test/LameFirstModulus.cpp"],
+    deps = [":LameFirstModulus"],
+)
+
+phq_library(
+    name = "Length",
+    hdrs = ["include/PhQ/Length.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Length",
+    ],
+)
+
+phq_test(
+    name = "test/Length",
+    srcs = ["test/Length.cpp"],
+    deps = [":Length"],
+)
+
+phq_library(
+    name = "LinearThermalExpansionCoefficient",
+    hdrs = ["include/PhQ/LinearThermalExpansionCoefficient.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":ScalarStrain",
+        ":TemperatureDifference",
+        ":Unit/ThermalExpansion",
+    ],
+)
+
+phq_test(
+    name = "test/LinearThermalExpansionCoefficient",
+    srcs = ["test/LinearThermalExpansionCoefficient.cpp"],
+    deps = [":LinearThermalExpansionCoefficient"],
+)
+
+phq_library(
+    name = "MachNumber",
+    hdrs = ["include/PhQ/MachNumber.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+        ":SoundSpeed",
+        ":Speed",
+    ],
+)
+
+phq_test(
+    name = "test/MachNumber",
+    srcs = ["test/MachNumber.cpp"],
+    deps = [":MachNumber"],
+)
+
+phq_library(
+    name = "Mass",
+    hdrs = ["include/PhQ/Mass.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Mass",
+    ],
+)
+
+phq_test(
+    name = "test/Mass",
+    srcs = ["test/Mass.cpp"],
+    deps = [":Mass"],
+)
+
+phq_library(
+    name = "MassDensity",
+    hdrs = ["include/PhQ/MassDensity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Mass",
+        ":Unit/MassDensity",
+        ":Volume",
+    ],
+)
+
+phq_test(
+    name = "test/MassDensity",
+    srcs = ["test/MassDensity.cpp"],
+    deps = [":MassDensity"],
+)
+
+phq_library(
+    name = "MassRate",
+    hdrs = ["include/PhQ/MassRate.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Mass",
+        ":Time",
+        ":Unit/MassRate",
+    ],
+)
+
+phq_test(
+    name = "test/MassRate",
+    srcs = ["test/MassRate.cpp"],
+    deps = [":MassRate"],
+)
+
+phq_library(
+    name = "PoissonRatio",
+    hdrs = ["include/PhQ/PoissonRatio.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+    ],
+)
+
+phq_library(
+    name = "Memory",
+    hdrs = ["include/PhQ/Memory.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Memory",
+    ],
+)
+
+phq_test(
+    name = "test/Memory",
+    srcs = ["test/Memory.cpp"],
+    deps = [":Memory"],
+)
+
+phq_library(
+    name = "MemoryRate",
+    hdrs = ["include/PhQ/MemoryRate.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Memory",
+        ":Time",
+        ":Unit/MemoryRate",
+    ],
+)
+
+phq_test(
+    name = "test/MemoryRate",
+    srcs = ["test/MemoryRate.cpp"],
+    deps = [":MemoryRate"],
+)
+
+phq_test(
+    name = "test/PoissonRatio",
+    srcs = ["test/PoissonRatio.cpp"],
+    deps = [":PoissonRatio"],
+)
+
+phq_library(
+    name = "Position",
+    hdrs = ["include/PhQ/Position.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":Displacement",
+        ":Length",
+        ":Unit/Length",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Position",
+    srcs = ["test/Position.cpp"],
+    deps = [":Position"],
+)
+
+phq_library(
+    name = "Power",
+    hdrs = ["include/PhQ/Power.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Energy",
+        ":Frequency",
+        ":Time",
+        ":Unit/Power",
+    ],
+)
+
+phq_test(
+    name = "test/Power",
+    srcs = ["test/Power.cpp"],
+    deps = [":Power"],
+)
+
+phq_library(
+    name = "PrandtlNumber",
+    hdrs = ["include/PhQ/PrandtlNumber.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+        ":DynamicViscosity",
+        ":KinematicViscosity",
+        ":ScalarThermalConductivity",
+        ":SpecificIsobaricHeatCapacity",
+        ":ThermalDiffusivity",
+    ],
+)
+
+phq_test(
+    name = "test/PrandtlNumber",
+    srcs = ["test/PrandtlNumber.cpp"],
+    deps = [":PrandtlNumber"],
+)
+
+phq_library(
+    name = "PWaveModulus",
+    hdrs = ["include/PhQ/PWaveModulus.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/PWaveModulus",
+    srcs = ["test/PWaveModulus.cpp"],
+    deps = [":PWaveModulus"],
+)
+
+phq_library(
+    name = "ReynoldsNumber",
+    hdrs = ["include/PhQ/ReynoldsNumber.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+        ":DynamicViscosity",
+        ":KinematicViscosity",
+        ":Length",
+        ":MassDensity",
+        ":Speed",
+    ],
+)
+
+phq_test(
+    name = "test/ReynoldsNumber",
+    srcs = ["test/ReynoldsNumber.cpp"],
+    deps = [":ReynoldsNumber"],
+)
+
+phq_library(
+    name = "ScalarAcceleration",
+    hdrs = ["include/PhQ/ScalarAcceleration.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Speed",
+        ":Time",
+        ":Unit/Acceleration",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarAcceleration",
+    srcs = ["test/ScalarAcceleration.cpp"],
+    deps = [":ScalarAcceleration"],
+)
+
+phq_library(
+    name = "ScalarAngularAcceleration",
+    hdrs = ["include/PhQ/ScalarAngularAcceleration.hpp"],
+    deps = [
+        ":AngularSpeed",
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Time",
+        ":Unit/AngularAcceleration",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarAngularAcceleration",
+    srcs = ["test/ScalarAngularAcceleration.cpp"],
+    deps = [":ScalarAngularAcceleration"],
+)
+
+phq_library(
+    name = "ScalarDisplacementGradient",
+    hdrs = ["include/PhQ/ScalarDisplacementGradient.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarDisplacementGradient",
+    srcs = ["test/ScalarDisplacementGradient.cpp"],
+    deps = [":ScalarDisplacementGradient"],
+)
+
+phq_library(
+    name = "ScalarForce",
+    hdrs = ["include/PhQ/ScalarForce.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalScalar",
+        ":Unit/Force",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarForce",
+    srcs = ["test/ScalarForce.cpp"],
+    deps = [":ScalarForce"],
+)
+
+phq_library(
+    name = "ScalarHeatFlux",
+    hdrs = ["include/PhQ/ScalarHeatFlux.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":ScalarTemperatureGradient",
+        ":ScalarThermalConductivity",
+        ":Unit/EnergyFlux",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarHeatFlux",
+    srcs = ["test/ScalarHeatFlux.cpp"],
+    deps = [":ScalarHeatFlux"],
+)
+
+phq_library(
+    name = "ScalarStrain",
+    hdrs = ["include/PhQ/ScalarStrain.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarStrain",
+    srcs = ["test/ScalarStrain.cpp"],
+    deps = [":ScalarStrain"],
+)
+
+phq_library(
+    name = "ScalarStrainRate",
+    hdrs = ["include/PhQ/ScalarStrainRate.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":ScalarStrain",
+        ":Time",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarStrainRate",
+    srcs = ["test/ScalarStrainRate.cpp"],
+    deps = [":ScalarStrainRate"],
+)
+
+phq_library(
+    name = "ScalarStress",
+    hdrs = ["include/PhQ/ScalarStress.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarStress",
+    srcs = ["test/ScalarStress.cpp"],
+    deps = [":ScalarStress"],
+)
+
+phq_library(
+    name = "ScalarTemperatureGradient",
+    hdrs = ["include/PhQ/ScalarTemperatureGradient.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Length",
+        ":TemperatureDifference",
+        ":Unit/TemperatureGradient",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarTemperatureGradient",
+    srcs = ["test/ScalarTemperatureGradient.cpp"],
+    deps = [":ScalarTemperatureGradient"],
+)
+
+phq_library(
+    name = "ScalarThermalConductivity",
+    hdrs = ["include/PhQ/ScalarThermalConductivity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/ThermalConductivity",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarThermalConductivity",
+    srcs = ["test/ScalarThermalConductivity.cpp"],
+    deps = [":ScalarThermalConductivity"],
+)
+
+phq_library(
+    name = "ScalarVelocityGradient",
+    hdrs = ["include/PhQ/ScalarVelocityGradient.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":ScalarDisplacementGradient",
+        ":Time",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarVelocityGradient",
+    srcs = ["test/ScalarVelocityGradient.cpp"],
+    deps = [":ScalarVelocityGradient"],
+)
+
+phq_library(
+    name = "ShearModulus",
+    hdrs = ["include/PhQ/ShearModulus.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/ShearModulus",
+    srcs = ["test/ShearModulus.cpp"],
+    deps = [":ShearModulus"],
+)
+
+phq_library(
+    name = "SoundSpeed",
+    hdrs = ["include/PhQ/SoundSpeed.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsentropicBulkModulus",
+        ":MassDensity",
+        ":SpecificGasConstant",
+        ":Speed",
+        ":StaticPressure",
+        ":Temperature",
+    ],
+)
+
+phq_test(
+    name = "test/SoundSpeed",
+    srcs = ["test/SoundSpeed.cpp"],
+    deps = [":SoundSpeed"],
+)
+
+phq_library(
+    name = "SpecificEnergy",
+    hdrs = ["include/PhQ/SpecificEnergy.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Energy",
+        ":Frequency",
+        ":Mass",
+        ":Power",
+        ":Time",
+        ":Unit/SpecificEnergy",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificEnergy",
+    srcs = ["test/SpecificEnergy.cpp"],
+    deps = [":SpecificEnergy"],
+)
+
+phq_library(
+    name = "SpecificGasConstant",
+    hdrs = ["include/PhQ/SpecificGasConstant.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":GasConstant",
+        ":HeatCapacityRatio",
+        ":Mass",
+        ":SpecificIsobaricHeatCapacity",
+        ":SpecificIsochoricHeatCapacity",
+        ":Unit/SpecificHeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificGasConstant",
+    srcs = ["test/SpecificGasConstant.cpp"],
+    deps = [":SpecificGasConstant"],
+)
+
+phq_library(
+    name = "SpecificIsobaricHeatCapacity",
+    hdrs = ["include/PhQ/SpecificIsobaricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsobaricHeatCapacity",
+        ":SpecificIsochoricHeatCapacity",
+        ":Unit/SpecificHeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificIsobaricHeatCapacity",
+    srcs = ["test/SpecificIsobaricHeatCapacity.cpp"],
+    deps = [":SpecificIsobaricHeatCapacity"],
+)
+
+phq_library(
+    name = "SpecificIsochoricHeatCapacity",
+    hdrs = ["include/PhQ/SpecificIsochoricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsochoricHeatCapacity",
+        ":Mass",
+        ":Unit/SpecificHeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificIsochoricHeatCapacity",
+    srcs = ["test/SpecificIsochoricHeatCapacity.cpp"],
+    deps = [":SpecificIsochoricHeatCapacity"],
+)
+
+phq_library(
+    name = "SpecificPower",
+    hdrs = ["include/PhQ/SpecificPower.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Mass",
+        ":Power",
+        ":SpecificEnergy",
+        ":Time",
+        ":Unit/SpecificPower",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificPower",
+    srcs = ["test/SpecificPower.cpp"],
+    deps = [":SpecificPower"],
+)
+
+phq_library(
+    name = "Speed",
+    hdrs = ["include/PhQ/Speed.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Length",
+        ":Time",
+        ":Unit/Speed",
+    ],
+)
+
+phq_test(
+    name = "test/Speed",
+    srcs = ["test/Speed.cpp"],
+    deps = [":Speed"],
+)
+
+phq_library(
+    name = "StaticKinematicPressure",
+    hdrs = ["include/PhQ/StaticKinematicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":MassDensity",
+        ":StaticPressure",
+        ":Unit/SpecificEnergy",
+    ],
+)
+
+phq_test(
+    name = "test/StaticKinematicPressure",
+    srcs = ["test/StaticKinematicPressure.cpp"],
+    deps = [":StaticKinematicPressure"],
+)
+
+phq_library(
+    name = "StaticPressure",
+    hdrs = ["include/PhQ/StaticPressure.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalScalar",
+        ":ScalarForce",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/StaticPressure",
+    srcs = ["test/StaticPressure.cpp"],
+    deps = [":StaticPressure"],
+)
+
+phq_library(
+    name = "Strain",
+    hdrs = ["include/PhQ/Strain.hpp"],
+    deps = [
+        ":DimensionlessSymmetricDyad",
+        ":ScalarStrain",
+        ":SymmetricDyad",
+    ],
+)
+
+phq_test(
+    name = "test/Strain",
+    srcs = ["test/Strain.cpp"],
+    deps = [":Strain"],
+)
+
+phq_library(
+    name = "StrainRate",
+    hdrs = ["include/PhQ/StrainRate.hpp"],
+    deps = [
+        ":DimensionalSymmetricDyad",
+        ":Frequency",
+        ":ScalarStrainRate",
+        ":Strain",
+        ":SymmetricDyad",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/StrainRate",
+    srcs = ["test/StrainRate.cpp"],
+    deps = [":StrainRate"],
+)
+
+phq_library(
+    name = "Stress",
+    hdrs = ["include/PhQ/Stress.hpp"],
+    deps = [
+        ":DimensionalSymmetricDyad",
+        ":Direction",
+        ":ScalarStress",
+        ":StaticPressure",
+        ":SymmetricDyad",
+        ":Traction",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/Stress",
+    srcs = ["test/Stress.cpp"],
+    deps = [":Stress"],
+)
+
+phq_library(
+    name = "SubstanceAmount",
+    hdrs = ["include/PhQ/SubstanceAmount.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/SubstanceAmount",
+    ],
+)
+
+phq_test(
+    name = "test/SubstanceAmount",
+    srcs = ["test/SubstanceAmount.cpp"],
+    deps = [":SubstanceAmount"],
+)
+
+phq_library(
+    name = "SymmetricDyad",
+    hdrs = ["include/PhQ/SymmetricDyad.hpp"],
+    deps = [
+        ":Base",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/SymmetricDyad",
+    srcs = ["test/SymmetricDyad.cpp"],
+    deps = [":SymmetricDyad"],
+)
+
+phq_library(
+    name = "Temperature",
+    hdrs = ["include/PhQ/Temperature.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":TemperatureDifference",
+        ":Unit/Temperature",
+    ],
+)
+
+phq_test(
+    name = "test/Temperature",
+    srcs = ["test/Temperature.cpp"],
+    deps = [":Temperature"],
+)
+
+phq_library(
+    name = "TemperatureDifference",
+    hdrs = ["include/PhQ/TemperatureDifference.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/TemperatureDifference",
+    ],
+)
+
+phq_test(
+    name = "test/TemperatureDifference",
+    srcs = ["test/TemperatureDifference.cpp"],
+    deps = [":TemperatureDifference"],
+)
+
+phq_library(
+    name = "TemperatureGradient",
+    hdrs = ["include/PhQ/TemperatureGradient.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":ScalarTemperatureGradient",
+        ":Unit/TemperatureGradient",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/TemperatureGradient",
+    srcs = ["test/TemperatureGradient.cpp"],
+    deps = [":TemperatureGradient"],
+)
+
+phq_library(
+    name = "ThermalConductivity",
+    hdrs = ["include/PhQ/ThermalConductivity.hpp"],
+    deps = [
+        ":DimensionalSymmetricDyad",
+        ":ScalarThermalConductivity",
+        ":SymmetricDyad",
+        ":Unit/ThermalConductivity",
+    ],
+)
+
+phq_test(
+    name = "test/ThermalConductivity",
+    srcs = ["test/ThermalConductivity.cpp"],
+    deps = [":ThermalConductivity"],
+)
+
+phq_library(
+    name = "ThermalDiffusivity",
+    hdrs = ["include/PhQ/ThermalDiffusivity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":MassDensity",
+        ":ScalarThermalConductivity",
+        ":SpecificIsobaricHeatCapacity",
+        ":Unit/Diffusivity",
+    ],
+)
+
+phq_test(
+    name = "test/ThermalDiffusivity",
+    srcs = ["test/ThermalDiffusivity.cpp"],
+    deps = [":ThermalDiffusivity"],
+)
+
+phq_library(
+    name = "Time",
+    hdrs = ["include/PhQ/Time.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Time",
+    ],
+)
+
+phq_test(
+    name = "test/Time",
+    srcs = ["test/Time.cpp"],
+    deps = [":Time"],
+)
+
+phq_library(
+    name = "TotalKinematicPressure",
+    hdrs = ["include/PhQ/TotalKinematicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":DynamicKinematicPressure",
+        ":MassDensity",
+        ":StaticKinematicPressure",
+        ":TotalPressure",
+        ":Unit/SpecificEnergy",
+    ],
+)
+
+phq_test(
+    name = "test/TotalKinematicPressure",
+    srcs = ["test/TotalKinematicPressure.cpp"],
+    deps = [":TotalKinematicPressure"],
+)
+
+phq_library(
+    name = "TotalPressure",
+    hdrs = ["include/PhQ/TotalPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":DynamicPressure",
+        ":MassDensity",
+        ":StaticPressure",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/TotalPressure",
+    srcs = ["test/TotalPressure.cpp"],
+    deps = [":TotalPressure"],
+)
+
+phq_library(
+    name = "Traction",
+    hdrs = ["include/PhQ/Traction.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalVector",
+        ":Direction",
+        ":Force",
+        ":StaticPressure",
+        ":Unit/Pressure",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Traction",
+    srcs = ["test/Traction.cpp"],
+    deps = [":Traction"],
+)
+
+phq_library(
+    name = "TransportEnergyConsumption",
+    hdrs = ["include/PhQ/TransportEnergyConsumption.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Length",
+        ":Power",
+        ":Speed",
+        ":Unit/TransportEnergyConsumption",
+    ],
+)
+
+phq_test(
+    name = "test/TransportEnergyConsumption",
+    srcs = ["test/TransportEnergyConsumption.cpp"],
+    deps = [":TransportEnergyConsumption"],
+)
+
+phq_library(
+    name = "Unit",
+    hdrs = ["include/PhQ/Unit.hpp"],
+    deps = [
+        ":Dimensions",
+        ":Dyad",
+        ":SymmetricDyad",
+        ":UnitSystem",
+        ":Vector",
+    ],
+)
+
+phq_library(
+    name = "test/Unit",
+    hdrs = ["test/Unit.hpp"],
+    deps = [
+        ":Dyad",
+        ":SymmetricDyad",
+        ":Unit",
+        ":Vector",
+    ],
+)
+
+phq_library(
+    name = "Unit/Acceleration",
+    hdrs = ["include/PhQ/Unit/Acceleration.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Acceleration",
+    srcs = ["test/Unit/Acceleration.cpp"],
+    deps = [
+        ":Unit/Acceleration",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Angle",
+    hdrs = ["include/PhQ/Unit/Angle.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Angle",
+    srcs = ["test/Unit/Angle.cpp"],
+    deps = [
+        ":Unit/Angle",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/AngularAcceleration",
+    hdrs = ["include/PhQ/Unit/AngularAcceleration.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/AngularAcceleration",
+    srcs = ["test/Unit/AngularAcceleration.cpp"],
+    deps = [
+        ":Unit/AngularAcceleration",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/AngularSpeed",
+    hdrs = ["include/PhQ/Unit/AngularSpeed.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/AngularSpeed",
+    srcs = ["test/Unit/AngularSpeed.cpp"],
+    deps = [
+        ":Unit/AngularSpeed",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Area",
+    hdrs = ["include/PhQ/Unit/Area.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Area",
+    srcs = ["test/Unit/Area.cpp"],
+    deps = [
+        ":Unit/Area",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Diffusivity",
+    hdrs = ["include/PhQ/Unit/Diffusivity.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Diffusivity",
+    srcs = ["test/Unit/Diffusivity.cpp"],
+    deps = [
+        ":Unit/Diffusivity",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/DynamicViscosity",
+    hdrs = ["include/PhQ/Unit/DynamicViscosity.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/DynamicViscosity",
+    srcs = ["test/Unit/DynamicViscosity.cpp"],
+    deps = [
+        ":Unit/DynamicViscosity",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Energy",
+    hdrs = ["include/PhQ/Unit/Energy.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Energy",
+    srcs = ["test/Unit/Energy.cpp"],
+    deps = [
+        ":Unit/Energy",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/EnergyFlux",
+    hdrs = ["include/PhQ/Unit/EnergyFlux.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/EnergyFlux",
+    srcs = ["test/Unit/EnergyFlux.cpp"],
+    deps = [
+        ":Unit/EnergyFlux",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Force",
+    hdrs = ["include/PhQ/Unit/Force.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Force",
+    srcs = ["test/Unit/Force.cpp"],
+    deps = [
+        ":Unit/Force",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Frequency",
+    hdrs = ["include/PhQ/Unit/Frequency.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Frequency",
+    srcs = ["test/Unit/Frequency.cpp"],
+    deps = [
+        ":Unit/Frequency",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/HeatCapacity",
+    hdrs = ["include/PhQ/Unit/HeatCapacity.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/HeatCapacity",
+    srcs = ["test/Unit/HeatCapacity.cpp"],
+    deps = [
+        ":Unit/HeatCapacity",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Length",
+    hdrs = ["include/PhQ/Unit/Length.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Length",
+    srcs = ["test/Unit/Length.cpp"],
+    deps = [
+        ":Unit/Length",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Mass",
+    hdrs = ["include/PhQ/Unit/Mass.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Mass",
+    srcs = ["test/Unit/Mass.cpp"],
+    deps = [
+        ":Unit/Mass",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/MassDensity",
+    hdrs = ["include/PhQ/Unit/MassDensity.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/MassDensity",
+    srcs = ["test/Unit/MassDensity.cpp"],
+    deps = [
+        ":Unit/MassDensity",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/MassRate",
+    hdrs = ["include/PhQ/Unit/MassRate.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/MassRate",
+    srcs = ["test/Unit/MassRate.cpp"],
+    deps = [
+        ":Unit/MassRate",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Memory",
+    hdrs = ["include/PhQ/Unit/Memory.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Memory",
+    srcs = ["test/Unit/Memory.cpp"],
+    deps = [
+        ":Unit/Memory",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/MemoryRate",
+    hdrs = ["include/PhQ/Unit/MemoryRate.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/MemoryRate",
+    srcs = ["test/Unit/MemoryRate.cpp"],
+    deps = [
+        ":Unit/MemoryRate",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Power",
+    hdrs = ["include/PhQ/Unit/Power.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Power",
+    srcs = ["test/Unit/Power.cpp"],
+    deps = [
+        ":Unit/Power",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Pressure",
+    hdrs = ["include/PhQ/Unit/Pressure.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Pressure",
+    srcs = ["test/Unit/Pressure.cpp"],
+    deps = [
+        ":Unit/Pressure",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/SpecificEnergy",
+    hdrs = ["include/PhQ/Unit/SpecificEnergy.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/SpecificEnergy",
+    srcs = ["test/Unit/SpecificEnergy.cpp"],
+    deps = [
+        ":Unit/SpecificEnergy",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/SpecificHeatCapacity",
+    hdrs = ["include/PhQ/Unit/SpecificHeatCapacity.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/SpecificHeatCapacity",
+    srcs = ["test/Unit/SpecificHeatCapacity.cpp"],
+    deps = [
+        ":Unit/SpecificHeatCapacity",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/SpecificPower",
+    hdrs = ["include/PhQ/Unit/SpecificPower.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/SpecificPower",
+    srcs = ["test/Unit/SpecificPower.cpp"],
+    deps = [
+        ":Unit/SpecificPower",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Speed",
+    hdrs = ["include/PhQ/Unit/Speed.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Speed",
+    srcs = ["test/Unit/Speed.cpp"],
+    deps = [
+        ":Unit/Speed",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/SubstanceAmount",
+    hdrs = ["include/PhQ/Unit/SubstanceAmount.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/SubstanceAmount",
+    srcs = ["test/Unit/SubstanceAmount.cpp"],
+    deps = [
+        ":Unit/SubstanceAmount",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Temperature",
+    hdrs = ["include/PhQ/Unit/Temperature.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Temperature",
+    srcs = ["test/Unit/Temperature.cpp"],
+    deps = [
+        ":Unit/Temperature",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/TemperatureDifference",
+    hdrs = ["include/PhQ/Unit/TemperatureDifference.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/TemperatureDifference",
+    srcs = ["test/Unit/TemperatureDifference.cpp"],
+    deps = [
+        ":Unit/TemperatureDifference",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/TemperatureGradient",
+    hdrs = ["include/PhQ/Unit/TemperatureGradient.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/TemperatureGradient",
+    srcs = ["test/Unit/TemperatureGradient.cpp"],
+    deps = [
+        ":Unit/TemperatureGradient",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/ThermalConductivity",
+    hdrs = ["include/PhQ/Unit/ThermalConductivity.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/ThermalConductivity",
+    srcs = ["test/Unit/ThermalConductivity.cpp"],
+    deps = [
+        ":Unit/ThermalConductivity",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/ThermalExpansion",
+    hdrs = ["include/PhQ/Unit/ThermalExpansion.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/ThermalExpansion",
+    srcs = ["test/Unit/ThermalExpansion.cpp"],
+    deps = [
+        ":Unit/ThermalExpansion",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Time",
+    hdrs = ["include/PhQ/Unit/Time.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Time",
+    srcs = ["test/Unit/Time.cpp"],
+    deps = [
+        ":Unit/Time",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/TransportEnergyConsumption",
+    hdrs = ["include/PhQ/Unit/TransportEnergyConsumption.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/TransportEnergyConsumption",
+    srcs = ["test/Unit/TransportEnergyConsumption.cpp"],
+    deps = [
+        ":Unit/TransportEnergyConsumption",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/Volume",
+    hdrs = ["include/PhQ/Unit/Volume.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/Volume",
+    srcs = ["test/Unit/Volume.cpp"],
+    deps = [
+        ":Unit/Volume",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/VolumeRate",
+    hdrs = ["include/PhQ/Unit/VolumeRate.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/VolumeRate",
+    srcs = ["test/Unit/VolumeRate.cpp"],
+    deps = [
+        ":Unit/VolumeRate",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "UnitSystem",
+    hdrs = ["include/PhQ/UnitSystem.hpp"],
+    deps = [":Base"],
+)
+
+phq_test(
+    name = "test/UnitSystem",
+    srcs = ["test/UnitSystem.cpp"],
+    deps = [":UnitSystem"],
+)
+
+phq_library(
+    name = "Vector",
+    hdrs = ["include/PhQ/Vector.hpp"],
+    deps = [":Base"],
+)
+
+phq_test(
+    name = "test/Vector",
+    srcs = ["test/Vector.cpp"],
+    deps = [":Vector"],
+)
+
+phq_library(
+    name = "VectorArea",
+    hdrs = ["include/PhQ/VectorArea.hpp"],
+    deps = [
+        ":Angle",
+        ":Area",
+        ":DimensionalVector",
+        ":Direction",
+        ":Unit/Area",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/VectorArea",
+    srcs = ["test/VectorArea.cpp"],
+    deps = [":VectorArea"],
+)
+
+phq_library(
+    name = "Velocity",
+    hdrs = ["include/PhQ/Velocity.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalVector",
+        ":Direction",
+        ":Displacement",
+        ":Frequency",
+        ":Speed",
+        ":Time",
+        ":Unit/Speed",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/Velocity",
+    srcs = ["test/Velocity.cpp"],
+    deps = [":Velocity"],
+)
+
+phq_library(
+    name = "VelocityGradient",
+    hdrs = ["include/PhQ/VelocityGradient.hpp"],
+    deps = [
+        ":DimensionalDyad",
+        ":DisplacementGradient",
+        ":Dyad",
+        ":Frequency",
+        ":ScalarVelocityGradient",
+        ":StrainRate",
+        ":Time",
+        ":Unit/Frequency",
+    ],
+)
+
+phq_test(
+    name = "test/VelocityGradient",
+    srcs = ["test/VelocityGradient.cpp"],
+    deps = [":VelocityGradient"],
+)
+
+phq_library(
+    name = "Volume",
+    hdrs = ["include/PhQ/Volume.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalScalar",
+        ":Length",
+        ":Unit/Volume",
+    ],
+)
+
+phq_test(
+    name = "test/Volume",
+    srcs = ["test/Volume.cpp"],
+    deps = [":Volume"],
+)
+
+phq_library(
+    name = "VolumeRate",
+    hdrs = ["include/PhQ/VolumeRate.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Time",
+        ":Unit/VolumeRate",
+        ":Volume",
+    ],
+)
+
+phq_test(
+    name = "test/VolumeRate",
+    srcs = ["test/VolumeRate.cpp"],
+    deps = [":VolumeRate"],
+)
+
+phq_library(
+    name = "VolumetricThermalExpansionCoefficient",
+    hdrs = ["include/PhQ/VolumetricThermalExpansionCoefficient.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Strain",
+        ":TemperatureDifference",
+        ":Unit/ThermalExpansion",
+    ],
+)
+
+phq_test(
+    name = "test/VolumetricThermalExpansionCoefficient",
+    srcs = ["test/VolumetricThermalExpansionCoefficient.cpp"],
+    deps = [":VolumetricThermalExpansionCoefficient"],
+)
+
+phq_library(
+    name = "YoungModulus",
+    hdrs = ["include/PhQ/YoungModulus.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/YoungModulus",
+    srcs = ["test/YoungModulus.cpp"],
+    deps = [":YoungModulus"],
+)

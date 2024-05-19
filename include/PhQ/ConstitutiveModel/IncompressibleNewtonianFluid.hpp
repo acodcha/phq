@@ -38,6 +38,7 @@
 #include "../Strain.hpp"
 #include "../StrainRate.hpp"
 #include "../Stress.hpp"
+#include "../SymmetricDyad.hpp"
 #include "../Unit/Frequency.hpp"
 #include "../Unit/Pressure.hpp"
 
