@@ -124,13 +124,90 @@ phq_test(
     deps = [":BulkDynamicViscosity"],
 )
 
-# TODO: ConstitutiveModel
+phq_library(
+    name = "ConstitutiveModel",
+    hdrs = ["include/PhQ/ConstitutiveModel.hpp"],
+    deps = [
+        ":Base",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+    ],
+)
 
-# TODO: ConstitutiveModel/CompressibleNewtonianFluid
+phq_library(
+    name = "ConstitutiveModel/CompressibleNewtonianFluid",
+    hdrs = ["include/PhQ/ConstitutiveModel/CompressibleNewtonianFluid.hpp"],
+    deps = [
+        ":Base",
+        ":BulkDynamicViscosity",
+        ":ConstitutiveModel",
+        ":DynamicViscosity",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+        ":SymmetricDyad",
+        ":Unit/Frequency",
+        ":Unit/Pressure",
+    ],
+)
 
-# TODO: ConstitutiveModel/ElasticIsotropicSolid
+phq_test(
+    name = "test/ConstitutiveModel/CompressibleNewtonianFluid",
+    srcs = ["test/ConstitutiveModel/CompressibleNewtonianFluid.cpp"],
+    deps = [":ConstitutiveModel/CompressibleNewtonianFluid"],
+)
 
-# TODO: ConstitutiveModel/IncompressibleNewtonianFluid
+phq_library(
+    name = "ConstitutiveModel/ElasticIsotropicSolid",
+    hdrs = ["include/PhQ/ConstitutiveModel/ElasticIsotropicSolid.hpp"],
+    deps = [
+        ":Base",
+        ":BulkDynamicViscosity",
+        ":ConstitutiveModel",
+        ":DynamicViscosity",
+        ":IsentropicBulkModulus",
+        ":IsothermalBulkModulus",
+        ":LameFirstModulus",
+        ":PWaveModulus",
+        ":PoissonRatio",
+        ":ShearModulus",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+        ":SymmetricDyad",
+        ":Unit/Pressure",
+        ":YoungModulus",
+    ],
+)
+
+phq_test(
+    name = "test/ConstitutiveModel/ElasticIsotropicSolid",
+    srcs = ["test/ConstitutiveModel/ElasticIsotropicSolid.cpp"],
+    deps = [":ConstitutiveModel/ElasticIsotropicSolid"],
+)
+
+phq_library(
+    name = "ConstitutiveModel/IncompressibleNewtonianFluid",
+    hdrs = ["include/PhQ/ConstitutiveModel/IncompressibleNewtonianFluid.hpp"],
+    deps = [
+        ":Base",
+        ":ConstitutiveModel",
+        ":DynamicViscosity",
+        ":Strain",
+        ":StrainRate",
+        ":Stress",
+        ":SymmetricDyad",
+        ":Unit/Frequency",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/ConstitutiveModel/IncompressibleNewtonianFluid",
+    srcs = ["test/ConstitutiveModel/IncompressibleNewtonianFluid.cpp"],
+    deps = [":ConstitutiveModel/IncompressibleNewtonianFluid"],
+)
 
 phq_library(
     name = "Dimension/ElectricCurrent",
@@ -382,11 +459,58 @@ phq_test(
     deps = [":Dyad"],
 )
 
-# TODO: DynamicKinematicPressure
+phq_library(
+    name = "DynamicKinematicPressure",
+    hdrs = ["include/PhQ/DynamicKinematicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":DynamicPressure",
+        ":MassDensity",
+        ":Speed",
+        ":StaticKinematicPressure",
+        ":Unit/SpecificEnergy",
+    ],
+)
 
-# TODO: DynamicPressure
+phq_test(
+    name = "test/DynamicKinematicPressure",
+    srcs = ["test/DynamicKinematicPressure.cpp"],
+    deps = [":DynamicKinematicPressure"],
+)
 
-# TODO: DynamicViscosity
+phq_library(
+    name = "DynamicPressure",
+    hdrs = ["include/PhQ/DynamicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":MassDensity",
+        ":Speed",
+        ":StaticPressure",
+    ],
+)
+
+phq_test(
+    name = "test/DynamicPressure",
+    srcs = ["test/DynamicPressure.cpp"],
+    deps = [":DynamicPressure"],
+)
+
+phq_library(
+    name = "DynamicViscosity",
+    hdrs = ["include/PhQ/DynamicViscosity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":KinematicViscosity",
+        ":MassDensity",
+        ":Unit/DynamicViscosity",
+    ],
+)
+
+phq_test(
+    name = "test/DynamicViscosity",
+    srcs = ["test/DynamicViscosity.cpp"],
+    deps = [":DynamicViscosity"],
+)
 
 phq_library(
     name = "Energy",
@@ -438,7 +562,23 @@ phq_test(
     deps = [":Frequency"],
 )
 
-# TODO: GasConstant
+phq_library(
+    name = "GasConstant",
+    hdrs = ["include/PhQ/GasConstant.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsobaricHeatCapacity",
+        ":IsochoricHeatCapacity",
+        ":Unit/HeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/GasConstant",
+    srcs = ["test/GasConstant.cpp"],
+    deps = [":GasConstant"],
+)
 
 phq_library(
     name = "HeatCapacityRatio",
@@ -454,7 +594,26 @@ phq_test(
     deps = [":HeatCapacityRatio"],
 )
 
-# TODO: HeatFlux
+phq_library(
+    name = "HeatFlux",
+    hdrs = ["include/PhQ/HeatFlux.hpp"],
+    deps = [
+        ":DimensionalVector",
+        ":Direction",
+        ":ScalarHeatFlux",
+        ":ScalarThermalConductivity",
+        ":TemperatureGradient",
+        ":ThermalConductivity",
+        ":Unit/EnergyFlux",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/HeatFlux",
+    srcs = ["test/HeatFlux.cpp"],
+    deps = [":HeatFlux"],
+)
 
 phq_library(
     name = "IsentropicBulkModulus",
@@ -471,9 +630,38 @@ phq_test(
     deps = [":IsentropicBulkModulus"],
 )
 
-# TODO: IsobaricHeatCapacity
+phq_library(
+    name = "IsobaricHeatCapacity",
+    hdrs = ["include/PhQ/IsobaricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsochoricHeatCapacity",
+        ":Unit/HeatCapacity",
+    ],
+)
 
-# TODO: IsochoricHeatCapacity
+phq_test(
+    name = "test/IsobaricHeatCapacity",
+    srcs = ["test/IsobaricHeatCapacity.cpp"],
+    deps = [":IsobaricHeatCapacity"],
+)
+
+phq_library(
+    name = "IsochoricHeatCapacity",
+    hdrs = ["include/PhQ/IsochoricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":Unit/HeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/IsochoricHeatCapacity",
+    srcs = ["test/IsochoricHeatCapacity.cpp"],
+    deps = [":IsochoricHeatCapacity"],
+)
 
 phq_library(
     name = "IsothermalBulkModulus",
@@ -535,9 +723,38 @@ phq_test(
     deps = [":Length"],
 )
 
-# TODO: LinearThermalExpansionCoefficient
+phq_library(
+    name = "LinearThermalExpansionCoefficient",
+    hdrs = ["include/PhQ/LinearThermalExpansionCoefficient.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":ScalarStrain",
+        ":TemperatureDifference",
+        ":Unit/ThermalExpansion",
+    ],
+)
 
-# TODO: MachNumber
+phq_test(
+    name = "test/LinearThermalExpansionCoefficient",
+    srcs = ["test/LinearThermalExpansionCoefficient.cpp"],
+    deps = [":LinearThermalExpansionCoefficient"],
+)
+
+phq_library(
+    name = "MachNumber",
+    hdrs = ["include/PhQ/MachNumber.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+        ":SoundSpeed",
+        ":Speed",
+    ],
+)
+
+phq_test(
+    name = "test/MachNumber",
+    srcs = ["test/MachNumber.cpp"],
+    deps = [":MachNumber"],
+)
 
 phq_library(
     name = "Mass",
@@ -674,7 +891,24 @@ phq_test(
     deps = [":Power"],
 )
 
-# TODO: PrandtlNumber
+phq_library(
+    name = "PrandtlNumber",
+    hdrs = ["include/PhQ/PrandtlNumber.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+        ":DynamicViscosity",
+        ":KinematicViscosity",
+        ":ScalarThermalConductivity",
+        ":SpecificIsobaricHeatCapacity",
+        ":ThermalDiffusivity",
+    ],
+)
+
+phq_test(
+    name = "test/PrandtlNumber",
+    srcs = ["test/PrandtlNumber.cpp"],
+    deps = [":PrandtlNumber"],
+)
 
 phq_library(
     name = "PWaveModulus",
@@ -691,7 +925,24 @@ phq_test(
     deps = [":PWaveModulus"],
 )
 
-# TODO: ReynoldsNumber
+phq_library(
+    name = "ReynoldsNumber",
+    hdrs = ["include/PhQ/ReynoldsNumber.hpp"],
+    deps = [
+        ":DimensionlessScalar",
+        ":DynamicViscosity",
+        ":KinematicViscosity",
+        ":Length",
+        ":MassDensity",
+        ":Speed",
+    ],
+)
+
+phq_test(
+    name = "test/ReynoldsNumber",
+    srcs = ["test/ReynoldsNumber.cpp"],
+    deps = [":ReynoldsNumber"],
+)
 
 phq_library(
     name = "ScalarAcceleration",
@@ -888,17 +1139,122 @@ phq_test(
     deps = [":ShearModulus"],
 )
 
-# TODO: SoundSpeed
+phq_library(
+    name = "SoundSpeed",
+    hdrs = ["include/PhQ/SoundSpeed.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsentropicBulkModulus",
+        ":MassDensity",
+        ":SpecificGasConstant",
+        ":Speed",
+        ":StaticPressure",
+        ":Temperature",
+    ],
+)
 
-# TODO: SpecificEnergy
+phq_test(
+    name = "test/SoundSpeed",
+    srcs = ["test/SoundSpeed.cpp"],
+    deps = [":SoundSpeed"],
+)
 
-# TODO: SpecificGasConstant
+phq_library(
+    name = "SpecificEnergy",
+    hdrs = ["include/PhQ/SpecificEnergy.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Energy",
+        ":Frequency",
+        ":Mass",
+        ":Power",
+        ":Time",
+        ":Unit/SpecificEnergy",
+    ],
+)
 
-# TODO: SpecificIsobaricHeatCapacity
+phq_test(
+    name = "test/SpecificEnergy",
+    srcs = ["test/SpecificEnergy.cpp"],
+    deps = [":SpecificEnergy"],
+)
 
-# TODO: SpecificIsochoricHeatCapacity
+phq_library(
+    name = "SpecificGasConstant",
+    hdrs = ["include/PhQ/SpecificGasConstant.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":GasConstant",
+        ":HeatCapacityRatio",
+        ":Mass",
+        ":SpecificIsobaricHeatCapacity",
+        ":SpecificIsochoricHeatCapacity",
+        ":Unit/SpecificHeatCapacity",
+    ],
+)
 
-# TODO: SpecificPower
+phq_test(
+    name = "test/SpecificGasConstant",
+    srcs = ["test/SpecificGasConstant.cpp"],
+    deps = [":SpecificGasConstant"],
+)
+
+phq_library(
+    name = "SpecificIsobaricHeatCapacity",
+    hdrs = ["include/PhQ/SpecificIsobaricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsobaricHeatCapacity",
+        ":SpecificIsochoricHeatCapacity",
+        ":Unit/SpecificHeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificIsobaricHeatCapacity",
+    srcs = ["test/SpecificIsobaricHeatCapacity.cpp"],
+    deps = [":SpecificIsobaricHeatCapacity"],
+)
+
+phq_library(
+    name = "SpecificIsochoricHeatCapacity",
+    hdrs = ["include/PhQ/SpecificIsochoricHeatCapacity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":HeatCapacityRatio",
+        ":IsochoricHeatCapacity",
+        ":Mass",
+        ":Unit/SpecificHeatCapacity",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificIsochoricHeatCapacity",
+    srcs = ["test/SpecificIsochoricHeatCapacity.cpp"],
+    deps = [":SpecificIsochoricHeatCapacity"],
+)
+
+phq_library(
+    name = "SpecificPower",
+    hdrs = ["include/PhQ/SpecificPower.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Frequency",
+        ":Mass",
+        ":Power",
+        ":SpecificEnergy",
+        ":Time",
+        ":Unit/SpecificPower",
+    ],
+)
+
+phq_test(
+    name = "test/SpecificPower",
+    srcs = ["test/SpecificPower.cpp"],
+    deps = [":SpecificPower"],
+)
 
 phq_library(
     name = "Speed",
@@ -1087,9 +1443,40 @@ phq_test(
     deps = [":TemperatureGradient"],
 )
 
-# TODO: ThermalConductivity
+phq_library(
+    name = "ThermalConductivity",
+    hdrs = ["include/PhQ/ThermalConductivity.hpp"],
+    deps = [
+        ":DimensionalSymmetricDyad",
+        ":ScalarThermalConductivity",
+        ":SymmetricDyad",
+        ":Unit/ThermalConductivity",
+    ],
+)
 
-# TODO: ThermalDiffusivity
+phq_test(
+    name = "test/ThermalConductivity",
+    srcs = ["test/ThermalConductivity.cpp"],
+    deps = [":ThermalConductivity"],
+)
+
+phq_library(
+    name = "ThermalDiffusivity",
+    hdrs = ["include/PhQ/ThermalDiffusivity.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":MassDensity",
+        ":ScalarThermalConductivity",
+        ":SpecificIsobaricHeatCapacity",
+        ":Unit/Diffusivity",
+    ],
+)
+
+phq_test(
+    name = "test/ThermalDiffusivity",
+    srcs = ["test/ThermalDiffusivity.cpp"],
+    deps = [":ThermalDiffusivity"],
+)
 
 phq_library(
     name = "Time",
@@ -1106,9 +1493,42 @@ phq_test(
     deps = [":Time"],
 )
 
-# TODO: TotalKinematicPressure
+phq_library(
+    name = "TotalKinematicPressure",
+    hdrs = ["include/PhQ/TotalKinematicPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":DynamicKinematicPressure",
+        ":MassDensity",
+        ":StaticKinematicPressure",
+        ":TotalPressure",
+        ":Unit/SpecificEnergy",
+    ],
+)
 
-# TODO: TotalPressure
+phq_test(
+    name = "test/TotalKinematicPressure",
+    srcs = ["test/TotalKinematicPressure.cpp"],
+    deps = [":TotalKinematicPressure"],
+)
+
+phq_library(
+    name = "TotalPressure",
+    hdrs = ["include/PhQ/TotalPressure.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":DynamicPressure",
+        ":MassDensity",
+        ":StaticPressure",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/TotalPressure",
+    srcs = ["test/TotalPressure.cpp"],
+    deps = [":TotalPressure"],
+)
 
 phq_library(
     name = "Traction",
@@ -2210,7 +2630,22 @@ phq_test(
     deps = [":VolumeRate"],
 )
 
-# TODO: VolumetricThermalExpansionCoefficient
+phq_library(
+    name = "VolumetricThermalExpansionCoefficient",
+    hdrs = ["include/PhQ/VolumetricThermalExpansionCoefficient.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Strain",
+        ":TemperatureDifference",
+        ":Unit/ThermalExpansion",
+    ],
+)
+
+phq_test(
+    name = "test/VolumetricThermalExpansionCoefficient",
+    srcs = ["test/VolumetricThermalExpansionCoefficient.cpp"],
+    deps = [":VolumetricThermalExpansionCoefficient"],
+)
 
 phq_library(
     name = "YoungModulus",
