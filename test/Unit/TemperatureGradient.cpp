@@ -114,8 +114,9 @@ TEST(UnitTemperatureGradient, Parse) {
 
 TEST(UnitTemperatureGradient, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<TemperatureGradient>,
-            Dimensions(Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},
-                       Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
+            Dimensions(Dimension::Time{0}, Dimension::Length{-1}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitTemperatureGradient, RelatedUnitSystem) {

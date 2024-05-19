@@ -109,7 +109,9 @@ TEST(UnitDynamicViscosity, Parse) {
 
 TEST(UnitDynamicViscosity, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<DynamicViscosity>,
-            Dimensions(Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitDynamicViscosity, RelatedUnitSystem) {

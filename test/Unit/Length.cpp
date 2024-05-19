@@ -116,7 +116,10 @@ TEST(UnitLength, Parse) {
 }
 
 TEST(UnitLength, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Length>, Dimensions(Dimension::Time{0}, Dimension::Length{1}));
+  EXPECT_EQ(RelatedDimensions<Length>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{1}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitLength, RelatedUnitSystem) {

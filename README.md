@@ -406,7 +406,7 @@ for (const PhQ::Energy<>& quantity : quantities) {
 // 29.5025
 ```
 
-In general, it is easier to use the member methods of physical quantities rather than explicitly invoking the `PhQ::Convert` function.
+In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than explicitly invoking the `PhQ::Convert` function.
 
 [(Back to Usage)](#usage)
 
@@ -455,7 +455,7 @@ std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
 assert(!optional_system.has_value());
 ```
 
-The above example shows that the pound (lbm) mass unit does not belong to any unit system.
+The above example shows that the pound (lbm) mass unit does not relate to any particular unit system.
 
 [(Back to Usage)](#usage)
 

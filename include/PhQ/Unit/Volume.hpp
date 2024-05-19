@@ -36,7 +36,12 @@
 #include <unordered_map>
 
 #include "../Base.hpp"
+#include "../Dimension/ElectricCurrent.hpp"
 #include "../Dimension/Length.hpp"
+#include "../Dimension/LuminousIntensity.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/SubstanceAmount.hpp"
+#include "../Dimension/Temperature.hpp"
 #include "../Dimension/Time.hpp"
 #include "../Dimensions.hpp"
 #include "../Unit.hpp"
@@ -103,7 +108,9 @@ inline constexpr const Unit::Volume Standard<Unit::Volume>{Unit::Volume::CubicMe
 // Physical dimension set of volume units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Volume>{
-    Dimensions{Dimension::Time{}, Dimension::Length{3}}
+    Dimensions{Dimension::Time{0}, Dimension::Length{3}, Dimension::Mass{0},
+               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Volume unit) {

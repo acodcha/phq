@@ -92,8 +92,9 @@ TEST(UnitTemperatureDifference, Parse) {
 
 TEST(UnitTemperatureDifference, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<TemperatureDifference>,
-            Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                       Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
+            Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitTemperatureDifference, RelatedUnitSystem) {

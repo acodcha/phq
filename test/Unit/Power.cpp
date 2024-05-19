@@ -102,7 +102,9 @@ TEST(UnitPower, Parse) {
 
 TEST(UnitPower, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<Power>,
-            Dimensions(Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitPower, RelatedUnitSystem) {

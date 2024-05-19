@@ -225,7 +225,9 @@ TEST(UnitEnergy, Parse) {
 
 TEST(UnitEnergy, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<Energy>,
-            Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitEnergy, RelatedUnitSystem) {

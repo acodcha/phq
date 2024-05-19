@@ -95,7 +95,8 @@ TEST(UnitHeatCapacity, Parse) {
 TEST(UnitHeatCapacity, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<HeatCapacity>,
             Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                       Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
+                       Dimension::ElectricCurrent{}, Dimension::Temperature{-1},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitHeatCapacity, RelatedUnitSystem) {

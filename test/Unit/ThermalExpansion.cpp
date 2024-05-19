@@ -92,8 +92,9 @@ TEST(UnitThermalExpansion, Parse) {
 
 TEST(UnitThermalExpansion, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<ThermalExpansion>,
-            Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                       Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
+            Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitThermalExpansion, RelatedUnitSystem) {

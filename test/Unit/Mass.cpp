@@ -85,7 +85,9 @@ TEST(UnitMass, Parse) {
 
 TEST(UnitMass, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<Mass>,
-            Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitMass, RelatedUnitSystem) {

@@ -130,7 +130,10 @@ TEST(UnitVolume, Parse) {
 }
 
 TEST(UnitVolume, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Volume>, Dimensions(Dimension::Time{0}, Dimension::Length{3}));
+  EXPECT_EQ(RelatedDimensions<Volume>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{3}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitVolume, RelatedUnitSystem) {

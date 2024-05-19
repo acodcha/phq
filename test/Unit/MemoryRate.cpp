@@ -398,7 +398,10 @@ TEST(UnitMemoryRate, Parse) {
 }
 
 TEST(UnitMemoryRate, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<MemoryRate>, Dimensions(Dimension::Time{-1}));
+  EXPECT_EQ(RelatedDimensions<MemoryRate>,
+            Dimensions(Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitMemoryRate, RelatedUnitSystem) {

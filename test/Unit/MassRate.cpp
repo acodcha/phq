@@ -140,7 +140,9 @@ TEST(UnitMassRate, Parse) {
 
 TEST(UnitMassRate, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<MassRate>,
-            Dimensions(Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}));
 }
 
 TEST(UnitMassRate, RelatedUnitSystem) {
