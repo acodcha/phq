@@ -1,22 +1,52 @@
 name: tests
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
-  build:
-    name: tests
+  cmake:
+    name: Build and test with CMake
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
-    - name: install packages
-      run: sudo apt-get update && sudo apt-get install --yes cmake g++
-    - name: configure
-      run: mkdir --parents build && cd build && cmake .. -DTEST_PHQ_LIBRARY=ON
-    - name: build
-      run: cd build && make --jobs=16
-    - name: test
-      run: cd build && make test
-    - name: install
-      run: cd build && sudo make install
+      - uses: actions/checkout@main
+      - name: Install the C++ and CMake packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes g++ cmake
+      - name: Configure the PhQ library
+        run: |
+          mkdir --parents build
+          cd build
+          cmake .. -DTEST_PHQ_LIBRARY=ON
+      - name: Build the PhQ tests
+        run: |
+          cd build
+          make --jobs=16
+      - name: Run the PhQ tests
+        run: |
+          cd build
+          make test
+      - name: Install the PhQ library
+        run: |
+          cd build
+          sudo make install
+  bazel:
+    name: Build and test with Bazel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Install the C++ and Curl packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes g++ curl
+      - name: Install the Bazel package
+        run: |
+          curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+          echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+          sudo apt-get update
+          sudo apt-get install --yes bazel
+      - name: Build the PhQ tests
+        run: bazel build //:all
+      - name: Run the PhQ tests
+        run: bazel test //:all
