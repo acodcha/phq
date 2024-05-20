@@ -56,10 +56,10 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 
 The Physical Quantities library requires the following packages:
 
-- **C++17 Compiler:** A C++ compiler with support for the C++17 standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
-- **CMake** or **Bazel:** Either the CMake or Bazel build system is needed.
+- **C++ Compiler:** Physical Quantities is a C++ library. A C++ compiler with support for the C++17 standard or any more recent standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
+- **CMake** or **Bazel:** The Physical Quantities library requires either the CMake build system or the Bazel build system; either of these can be used.
   - CMake: On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative installation means.
-  - Bazel: Follow the instructions at <https://bazel.build/install> to install Bazel on your system.
+  - Bazel: Follow the instructions at <https://bazel.build/install> to install Bazel on your computer.
 
 [(Back to Top)](#physical-quantities)
 
@@ -72,9 +72,9 @@ The Physical Quantities library requires the following packages:
 
 ### Configuration: CMake
 
-To use the Physical Quantities library in one of your CMake C++ projects, choose one of the following three options.
+To use the Physical Quantities library in one of your CMake C++ projects, choose one of the following three options to link it to your project.
 
-Then, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+Then, simply include the Physical Quantities library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
 
 #### Configuration: CMake: Option 1
 
@@ -101,7 +101,7 @@ The above code automatically downloads the Physical Quantities library and links
 
 #### Configuration: CMake: Option 2
 
-Alternatively, if you have installed the Physical Quantities library on your system as described in the [Installation](#installation) section, you can instead simply add the following code to your project's `CMakeLists.txt` file:
+Alternatively, if you have installed the Physical Quantities library on your computer as described in the [Installation](#installation) section, you can instead simply add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
 set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
@@ -114,7 +114,7 @@ message(STATUS "The PhQ library was found at ${PhQ_CONFIG}")
 target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-The above code locates the Physical Quantities library installed on your system and links it to your CMake target. If the Physical Quantities library is not found on your system, CMake exits with an error.
+The above code locates the Physical Quantities library installed on your computer and links it to your CMake target. If the Physical Quantities library is not found on your computer, CMake exits with an error.
 
 #### Configuration: CMake: Option 3
 
@@ -142,7 +142,7 @@ endif()
 target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-The above code first checks whether the Physical Quantities library is installed on your system; if not, it instead downloads it. Then, the above code links the Physical Quantities library to your CMake target.
+The above code first checks whether the Physical Quantities library is installed on your computer; if not, it instead downloads it. Then, the above code links the Physical Quantities library to your CMake target.
 
 [(Back to Configuration)](#configuration)
 
@@ -338,7 +338,7 @@ The above example creates a displacement quantity of (0, 6, 0) in, computes and 
 
 The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
 
-When a physical quantity object is constructed, its value is immediately converted to the standard unit of measure in a standard unit system: the metre-kilogram-second-kelvin (m·kg·s·K) system. This way, all physical quantities maintain their values in a consistent system of units. This approach greatly minimizes the number of unit conversions during program execution; when arithmetic operations are performed between physical quantities, no unit conversion is needed.
+When a physical quantity object is constructed, its value is immediately converted to the standard unit of measure in the standard system of units: the metre-kilogram-second-kelvin (m·kg·s·K) system. This way, all physical quantities maintain their values in a consistent system of units. This approach greatly minimizes the number of unit conversions during program execution; when arithmetic operations are performed between physical quantities, no unit conversion is needed.
 
 The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure. These cases are illustrated in the following examples.
 
@@ -419,7 +419,7 @@ Internally, physical quantities store their values in the metre-kilogram-second-
 - Foot-pound-second-rankine (ft·lbf·s·°R) system
 - Inch-pound-second-rankine (in·lbf·s·°R) system
 
-Data can be expressed in the consistent units of any of these unit systems. The unit of measure of a given type that corresponds to a given unit system can be obtained with the `PhQ::ConsistentUnit` function. For example:
+Data can be expressed in the consistent units of any of these unit systems. The unit of measure of a given type that corresponds to a given system of units can be obtained with the `PhQ::ConsistentUnit` function. For example:
 
 ```C++
 PhQ::UnitSystem system = PhQ::UnitSystem::FootPoundSecondRankine;
@@ -435,7 +435,7 @@ std::cout << value << std::endl;
 
 The above example creates a mass-specific energy quantity of 10 J/kg. Then, the mass-specific energy unit corresponding to the foot-pound-second-rankine (ft·lbf·s·°R) system is obtained, and the mass-specific energy value is expressed in this unit of measure.
 
-Given a unit, it is also possible to obtain its related unit system, if any, with the `PhQ::RelatedUnitSystem` function. For example:
+Given a unit, it is also possible to obtain its related system of units, if any, with the `PhQ::RelatedUnitSystem` function. For example:
 
 ```C++
 PhQ::Unit::Mass unit = PhQ::Unit::Mass::Slug;
@@ -445,9 +445,9 @@ std::cout << optional_system.value() << std::endl;
 // ft·lbf·s·°R
 ```
 
-The above example obtains the related unit system of the slug mass unit, which is the foot-pound-second-rankine (ft·lbf·s·°R) system.
+The above example obtains the system of units related to the slug mass unit, which is the foot-pound-second-rankine (ft·lbf·s·°R) system.
 
-However, not all units have a corresponding unit system. For example:
+However, not all units of measure have a corresponding system of units. For example:
 
 ```C++
 PhQ::Unit::Mass unit = PhQ::Unit::Mass::Pound;
@@ -455,7 +455,7 @@ std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
 assert(!optional_system.has_value());
 ```
 
-The above example shows that the pound (lbm) mass unit does not relate to any particular unit system.
+The above example shows that the pound (lbm) mass unit does not relate to any particular system of units.
 
 [(Back to Usage)](#usage)
 
@@ -540,7 +540,7 @@ Similarly, floating-point overflows and underflows can occur during arithmetic o
 
 ### Usage: Exceptions
 
-The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new object. In this case, C++ throws a `std::bad_alloc` exception.
+The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your computer when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
 
 If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
 
@@ -548,7 +548,7 @@ If maintaining a strong exception guarantee is a concern, use `try` and `catch` 
 
 ## Installation
 
-If using CMake, you may optionally install the Physical Quantities library on your system to use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
+If using the CMake build system, you may optionally install the Physical Quantities library on your computer to use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
 
 First, clone the Physical Quantities library's repository and configure it with:
 
@@ -562,7 +562,7 @@ cmake ..
 
 This is a header-only library, so no compilation is needed.
 
-Second, install the Physical Quantities library on your system from the `build` directory with:
+Second, install the Physical Quantities library on your computer from the `build` directory with:
 
 ```bash
 sudo make install
@@ -574,11 +574,11 @@ On most systems, this installs the Physical Quantities library's headers to `/us
 
 ## Testing
 
-Testing is optional, disabled by default, and requires the following additional package:
+Testing is optional and requires the following additional package:
 
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your system, it is automatically downloaded and linked with the Physical Quantities library.
+- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your computer, it is automatically downloaded and linked with the Physical Quantities library.
 
-If using CMake, you can manually test the Physical Quantities library on your system from the `build` directory with:
+If using the CMake build system, you can manually test the Physical Quantities library on your computer from the `build` directory with:
 
 ```bash
 cmake .. -DTEST_PHQ_LIBRARY=ON
@@ -586,7 +586,7 @@ make --jobs=16
 make test
 ```
 
-If using Bazel, you can manually test the Physical Quantities library on your system from the Physical Quantities repository's base directory with:
+If using the Bazel build system, you can manually test the Physical Quantities library on your computer from the Physical Quantities repository's base directory with:
 
 ```bash
 bazel build //:all
