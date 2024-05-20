@@ -31,8 +31,8 @@
 #     doxygen Doxyfile
 #
 # The documentation is generated as a collection of HTML files in the docs/html/ directory of the
-# Physical Quantities (PhQ) repository. Open docs/html/index.html file in a web browser to view the
-# generated documentation.
+# Physical Quantities (PhQ) repository. Open the docs/html/index.html file in a web browser to view
+# the generated documentation.
 
 ####################################################################################################
 # Doxygen Project Setup
