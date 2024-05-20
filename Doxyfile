@@ -24,13 +24,15 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-# This is a configuration file for use with the Doxygen automatic source code documentation
-# generator:
+# This is a configuration file for use with the Doxygen automatic code documentation generator:
 #     https://www.doxygen.nl/index.html
 #
-# This file is compatible with Doxygen version 1.9.1 or any later version. To generate documentation
-# for source code files in the Physical Quantities (PhQ) repository, run:
+# To generate documentation for source code files in the Physical Quantities (PhQ) repository, run:
 #     doxygen Doxyfile
+#
+# The documentation is generated as a collection of HTML files in the docs/html/ directory of the
+# Physical Quantities (PhQ) repository. Open docs/html/index.html file in a web browser to view the
+# generated documentation.
 
 ####################################################################################################
 # Doxygen Project Setup
