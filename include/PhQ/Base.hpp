@@ -68,6 +68,9 @@ inline constexpr double Pi<double>{3.14159265358979323846};
 template <>
 inline constexpr const long double Pi<long double>{3.141592653589793238462643383279502884L};
 
+/// @brief Namespace that contains base physical dimensions.
+namespace Dimension {}
+
 /// \brief Namespace that contains internal implementation details of the Physical Quantities
 /// library. Contents within this namespace are not meant to be used except by the the Physical
 /// Quantities library's own functions and classes.
