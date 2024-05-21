@@ -39,7 +39,7 @@
 
 namespace PhQ {
 
-// Namespace that contains units of measure.
+/// \brief Namespace that contains units of measure.
 namespace Unit {}
 
 // Physical dimension set of a given type of unit of measure. Units of measure are organized into
@@ -49,34 +49,34 @@ inline constexpr Dimensions RelatedDimensions;
 
 namespace Internal {
 
-// Abstract class for converting a value expressed in a unit of measure to or from the standard unit
-// of measure of that type. Internal implementation detail not intended to be used outside of the
-// PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+/// \brief Abstract class for converting a value expressed in a unit of measure to or from the
+/// standard unit of measure of that type. Internal implementation detail not intended to be used
+/// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
 template <typename Unit, Unit UnitValue>
 class Conversion {
 public:
-  // Converts a value expressed in the standard unit of measure of a given unit type to any given
-  // unit of measure of that type. Internal implementation detail not intended to be used outside of
-  // the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// \brief Converts a value expressed in the standard unit of measure of a given unit type to any
+  /// given unit of measure of that type. Internal implementation detail not intended to be used
+  /// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
   template <typename Number>
   static inline constexpr void FromStandard(Number& value) noexcept;
 
-  // Converts a value expressed in any given unit of measure of a given unit type to the standard
-  // unit of measure of that type. Internal implementation detail not intended to be used outside of
-  // the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// \brief Converts a value expressed in any given unit of measure of a given unit type to the
+  /// standard unit of measure of that type. Internal implementation detail not intended to be used
+  /// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
   template <typename Number>
   static inline constexpr void ToStandard(Number& value) noexcept;
 };
 
-// Abstract class for converting a series of values expressed in a unit of measure to or from the
-// standard unit of measure of that type. Internal implementation detail not intended to be used
-// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+/// \brief Abstract class for converting a series of values expressed in a unit of measure to or
+/// from the standard unit of measure of that type. Internal implementation detail not intended to
+/// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
 template <typename Unit, Unit UnitValue>
 class Conversions {
 public:
-  // Converts a series of values expressed in the standard unit of measure of a given unit type to
-  // any given unit of measure of that type. Internal implementation detail not intended to be used
-  // outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// \brief Converts a series of values expressed in the standard unit of measure of a given unit
+  /// type to any given unit of measure of that type. Internal implementation detail not intended to
+  /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
   template <typename Number>
   static inline constexpr void FromStandard(Number* values, const std::size_t size) noexcept {
     static_assert(std::is_floating_point<Number>::value,
@@ -88,9 +88,9 @@ public:
     }
   }
 
-  // Converts a series of values expressed in any given unit of measure of a given unit type to the
-  // standard unit of measure of that type. Internal implementation detail not intended to be used
-  // outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// \brief Converts a series of values expressed in any given unit of measure of a given unit type
+  /// to the standard unit of measure of that type. Internal implementation detail not intended to
+  /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
   template <typename Number>
   static inline constexpr void ToStandard(Number* values, const std::size_t size) noexcept {
     static_assert(std::is_floating_point<Number>::value,
@@ -103,26 +103,26 @@ public:
   }
 };
 
-// Abstract map of functions for converting a series of values expressed in the standard unit of
-// measure of a given type to any given unit of measure of that type. Internal implementation detail
-// not intended to be used outside of the functions: PhQ::Convert, PhQ::ConvertCopy, and
-// PhQ::StaticConvertCopy.
+/// \brief Abstract map of functions for converting a series of values expressed in the standard
+/// unit of measure of a given type to any given unit of measure of that type. Internal
+/// implementation detail not intended to be used outside of the functions: PhQ::Convert,
+/// PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
 template <typename Unit, typename Number>
 inline const std::map<Unit, std::function<void(Number* values, const std::size_t size)>>
     MapOfConversionsFromStandard;
 
-// Abstract map of functions for converting a series of values expressed in any given unit of
-// measure of a given type to the standard unit of measure of that type. Internal implementation
-// detail not intended to be used outside of the functions: PhQ::Convert, PhQ::ConvertCopy, and
-// PhQ::StaticConvertCopy.
+/// \brief Abstract map of functions for converting a series of values expressed in any given unit
+/// of measure of a given type to the standard unit of measure of that type. Internal implementation
+/// detail not intended to be used outside of the functions: PhQ::Convert, PhQ::ConvertCopy, and
+/// PhQ::StaticConvertCopy.
 template <typename Unit, typename Number>
 inline const std::map<Unit, std::function<void(Number* values, const std::size_t size)>>
     MapOfConversionsToStandard;
 
 }  // namespace Internal
 
-// Converts a value expressed in a given unit of measure to a new unit of measure. The conversion is
-// performed in-place.
+/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. The
+/// conversion is performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(Number& value, const Unit original_unit, const Unit new_unit) {
   static_assert(
@@ -136,8 +136,8 @@ inline void Convert(Number& value, const Unit original_unit, const Unit new_unit
   }
 }
 
-// Converts an array of values expressed in a given unit of measure to a new unit of measure. The
-// conversion is performed in-place.
+/// \brief Converts an array of values expressed in a given unit of measure to a new unit of
+/// measure. The conversion is performed in-place.
 template <typename Unit, std::size_t Size, typename Number>
 inline void Convert(
     std::array<Number, Size>& values, const Unit original_unit, const Unit new_unit) {
@@ -153,8 +153,8 @@ inline void Convert(
   }
 }
 
-// Converts a vector of values expressed in a given unit of measure to a new unit of measure. The
-// conversion is performed in-place.
+/// \brief Converts a vector of values expressed in a given unit of measure to a new unit of
+/// measure. The conversion is performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(std::vector<Number>& values, const Unit original_unit, const Unit new_unit) {
   static_assert(
@@ -169,29 +169,29 @@ inline void Convert(std::vector<Number>& values, const Unit original_unit, const
   }
 }
 
-// Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
-// measure. The conversion is performed in-place.
+/// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
+/// measure. The conversion is performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(Vector<Number>& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 3, Number>(value.Mutable_x_y_z(), original_unit, new_unit);
 }
 
-// Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
-// new unit of measure. The conversion is performed in-place.
+/// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
+/// to a new unit of measure. The conversion is performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(SymmetricDyad<Number>& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 6, Number>(value.Mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
 }
 
-// Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new unit of
-// measure. The conversion is performed in-place.
+/// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
+/// unit of measure. The conversion is performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(Dyad<Number>& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 9, Number>(value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
 }
 
-// Converts a value expressed in a given unit of measure to a new unit of measure. Returns a copy of
-// the converted value. The original value remains unchanged.
+/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns a
+/// copy of the converted value. The original value remains unchanged.
 template <typename Unit, typename Number>
 inline Number ConvertCopy(const Number value, const Unit original_unit, const Unit new_unit) {
   Number result{value};
@@ -199,8 +199,8 @@ inline Number ConvertCopy(const Number value, const Unit original_unit, const Un
   return result;
 }
 
-// Converts an array of values expressed in a given unit of measure to a new unit of measure.
-// Returns a copy of the converted values. The original values remain unchanged.
+/// \brief Converts an array of values expressed in a given unit of measure to a new unit of
+/// measure. Returns a copy of the converted values. The original values remain unchanged.
 template <typename Unit, std::size_t Size, typename Number>
 inline std::array<Number, Size> ConvertCopy(
     const std::array<Number, Size>& values, const Unit original_unit, const Unit new_unit) {
@@ -209,8 +209,8 @@ inline std::array<Number, Size> ConvertCopy(
   return result;
 }
 
-// Converts a vector of values expressed in a given unit of measure to a new unit of measure.
-// Returns a copy of the converted values. The original values remain unchanged.
+/// \brief Converts a vector of values expressed in a given unit of measure to a new unit of
+/// measure. Returns a copy of the converted values. The original values remain unchanged.
 template <typename Unit, typename Number>
 inline std::vector<Number> ConvertCopy(
     const std::vector<Number>& values, const Unit original_unit, const Unit new_unit) {
@@ -219,16 +219,17 @@ inline std::vector<Number> ConvertCopy(
   return result;
 }
 
-// Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
-// measure. Returns a copy of the converted value. The original value remains unchanged.
+/// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
+/// measure. Returns a copy of the converted value. The original value remains unchanged.
 template <typename Unit, typename Number>
 inline Vector<Number> ConvertCopy(
     const Vector<Number>& value, const Unit original_unit, const Unit new_unit) {
   return Vector{ConvertCopy<Unit, 3, Number>(value.x_y_z(), original_unit, new_unit)};
 }
 
-// Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
-// new unit of measure. Returns a copy of the converted value. The original value remains unchanged.
+/// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
+/// to a new unit of measure. Returns a copy of the converted value. The original value remains
+/// unchanged.
 template <typename Unit, typename Number>
 inline SymmetricDyad<Number> ConvertCopy(
     const SymmetricDyad<Number>& value, const Unit original_unit, const Unit new_unit) {
@@ -236,8 +237,8 @@ inline SymmetricDyad<Number> ConvertCopy(
       ConvertCopy<Unit, 6, Number>(value.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
 }
 
-// Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new unit of
-// measure. Returns a copy of the converted value. The original value remains unchanged.
+/// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
+/// unit of measure. Returns a copy of the converted value. The original value remains unchanged.
 template <typename Unit, typename Number>
 inline Dyad<Number> ConvertCopy(
     const Dyad<Number>& value, const Unit original_unit, const Unit new_unit) {
@@ -245,9 +246,9 @@ inline Dyad<Number> ConvertCopy(
       ConvertCopy<Unit, 9, Number>(value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
 }
 
-// Converts a value expressed in a given unit of measure to a new unit of measure. Returns a copy of
-// the converted value. The original value remains unchanged. This function can be evaluated at
-// compile time.
+/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns a
+/// copy of the converted value. The original value remains unchanged. This function can be
+/// evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename Number>
 inline constexpr Number StaticConvertCopy(const Number value) {
   static_assert(std::is_floating_point<Number>::value,
@@ -259,9 +260,9 @@ inline constexpr Number StaticConvertCopy(const Number value) {
   return result;
 }
 
-// Converts an array of values expressed in a given unit of measure to a new unit of measure.
-// Returns a copy of the converted values. The original values remain unchanged. This function can
-// be evaluated at compile time.
+/// \brief Converts an array of values expressed in a given unit of measure to a new unit of
+/// measure. Returns a copy of the converted values. The original values remain unchanged. This
+/// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size, typename Number>
 inline constexpr std::array<Number, Size> StaticConvertCopy(
     const std::array<Number, Size>& values) {
@@ -274,26 +275,26 @@ inline constexpr std::array<Number, Size> StaticConvertCopy(
   return result;
 }
 
-// Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
-// measure. Returns a copy of the converted value. The original value remains unchanged. This
-// function can be evaluated at compile time.
+/// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
+/// measure. Returns a copy of the converted value. The original value remains unchanged. This
+/// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename Number>
 inline constexpr Vector<Number> StaticConvertCopy(const Vector<Number>& value) {
   return Vector{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 3, Number>(value.x_y_z())};
 }
 
-// Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
-// new unit of measure. Returns a copy of the converted value. The original value remains unchanged.
-// This function can be evaluated at compile time.
+/// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
+/// to a new unit of measure. Returns a copy of the converted value. The original value remains
+/// unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename Number>
 inline constexpr SymmetricDyad<Number> StaticConvertCopy(const SymmetricDyad<Number>& value) {
   return SymmetricDyad{
       StaticConvertCopy<Unit, OriginalUnit, NewUnit, 6, Number>(value.xx_xy_xz_yy_yz_zz())};
 }
 
-// Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new unit of
-// measure. Returns a copy of the converted value. The original value remains unchanged. This
-// function can be evaluated at compile time.
+/// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
+/// unit of measure. Returns a copy of the converted value. The original value remains unchanged.
+/// This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename Number>
 inline constexpr Dyad<Number> StaticConvertCopy(const Dyad<Number>& value) {
   return Dyad{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 9, Number>(

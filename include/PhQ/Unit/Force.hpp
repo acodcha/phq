@@ -51,43 +51,43 @@ namespace PhQ {
 
 namespace Unit {
 
-// Force units.
+/// \brief Force units.
 enum class Force : int8_t {
-  // Newton (N) force unit.
+  /// \brief Newton (N) force unit.
   Newton,
 
-  // Kilonewton (kN) force unit.
+  /// \brief Kilonewton (kN) force unit.
   Kilonewton,
 
-  // Meganewton (MN) force unit.
+  /// \brief Meganewton (MN) force unit.
   Meganewton,
 
-  // Giganewton (GN) force unit.
+  /// \brief Giganewton (GN) force unit.
   Giganewton,
 
-  // Millinewton (mN) force unit.
+  /// \brief Millinewton (mN) force unit.
   Millinewton,
 
-  // Micronewton (μN) force unit.
+  /// \brief Micronewton (μN) force unit.
   Micronewton,
 
-  // Nanonewton (nN) force unit.
+  /// \brief Nanonewton (nN) force unit.
   Nanonewton,
 
-  // Dyne (dyn) force unit.
+  /// \brief Dyne (dyn) force unit.
   Dyne,
 
-  // Pound (lbf) force unit.
+  /// \brief Pound (lbf) force unit.
   Pound,
 };
 
 }  // namespace Unit
 
-// Standard force unit: newton (N).
+/// \brief Standard force unit: newton (N).
 template <>
 inline constexpr const Unit::Force Standard<Unit::Force>{Unit::Force::Newton};
 
-// Physical dimension set of force units.
+/// \brief Physical dimension set of force units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Force>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1},

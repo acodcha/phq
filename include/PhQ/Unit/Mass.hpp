@@ -51,31 +51,31 @@ namespace PhQ {
 
 namespace Unit {
 
-// Mass units.
+/// \brief Mass units.
 enum class Mass : int8_t {
-  // Kilogram (kg) mass unit.
+  /// \brief Kilogram (kg) mass unit.
   Kilogram,
 
-  // Gram (g) mass unit.
+  /// \brief Gram (g) mass unit.
   Gram,
 
-  // Slug (slug) mass unit.
+  /// \brief Slug (slug) mass unit.
   Slug,
 
-  // Slinch (slinch) mass unit.
+  /// \brief Slinch (slinch) mass unit.
   Slinch,
 
-  // Pound (lbm) mass unit.
+  /// \brief Pound (lbm) mass unit.
   Pound,
 };
 
 }  // namespace Unit
 
-// Standard mass unit: kilogram (kg).
+/// \brief Standard mass unit: kilogram (kg).
 template <>
 inline constexpr const Unit::Mass Standard<Unit::Mass>{Unit::Mass::Kilogram};
 
-// Physical dimension set of mass units.
+/// \brief Physical dimension set of mass units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Mass>{
     Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},

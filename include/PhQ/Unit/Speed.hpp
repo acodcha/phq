@@ -51,133 +51,133 @@ namespace PhQ {
 
 namespace Unit {
 
-// Speed units.
+/// \brief Speed units.
 enum class Speed : int8_t {
-  // Nautical mile per second (nmi/s) speed unit.
+  /// \brief Nautical mile per second (nmi/s) speed unit.
   NauticalMilePerSecond,
 
-  // Nautical mile per minute (nmi/min) speed unit.
+  /// \brief Nautical mile per minute (nmi/min) speed unit.
   NauticalMilePerMinute,
 
-  // Knot (kn) speed unit, also known as nautical mile per hour.
+  /// \brief Knot (kn) speed unit, also known as nautical mile per hour.
   Knot,
 
-  // Mile per second (mi/s) speed unit.
+  /// \brief Mile per second (mi/s) speed unit.
   MilePerSecond,
 
-  // Mile per minute (mi/min) speed unit.
+  /// \brief Mile per minute (mi/min) speed unit.
   MilePerMinute,
 
-  // Mile per hour (mi/hr) speed unit.
+  /// \brief Mile per hour (mi/hr) speed unit.
   MilePerHour,
 
-  // Kilometre per second (km/s) speed unit.
+  /// \brief Kilometre per second (km/s) speed unit.
   KilometrePerSecond,
 
-  // Kilometre per minute (km/min) speed unit.
+  /// \brief Kilometre per minute (km/min) speed unit.
   KilometrePerMinute,
 
-  // Kilometre per hour (km/hr) speed unit.
+  /// \brief Kilometre per hour (km/hr) speed unit.
   KilometrePerHour,
 
-  // Metre per second (m/s) speed unit.
+  /// \brief Metre per second (m/s) speed unit.
   MetrePerSecond,
 
-  // Metre per minute (m/min) speed unit.
+  /// \brief Metre per minute (m/min) speed unit.
   MetrePerMinute,
 
-  // Metre per hour (m/hr) speed unit.
+  /// \brief Metre per hour (m/hr) speed unit.
   MetrePerHour,
 
-  // Yard per second (yd/s) speed unit.
+  /// \brief Yard per second (yd/s) speed unit.
   YardPerSecond,
 
-  // Yard per minute (yd/min) speed unit.
+  /// \brief Yard per minute (yd/min) speed unit.
   YardPerMinute,
 
-  // Yard per hour (yd/hr) speed unit.
+  /// \brief Yard per hour (yd/hr) speed unit.
   YardPerHour,
 
-  // Foot per second (ft/s) speed unit.
+  /// \brief Foot per second (ft/s) speed unit.
   FootPerSecond,
 
-  // Foot per minute (ft/min) speed unit.
+  /// \brief Foot per minute (ft/min) speed unit.
   FootPerMinute,
 
-  // Foot per hour (ft/hr) speed unit.
+  /// \brief Foot per hour (ft/hr) speed unit.
   FootPerHour,
 
-  // Decimetre per second (dm/s) speed unit.
+  /// \brief Decimetre per second (dm/s) speed unit.
   DecimetrePerSecond,
 
-  // Decimetre per minute (dm/min) speed unit.
+  /// \brief Decimetre per minute (dm/min) speed unit.
   DecimetrePerMinute,
 
-  // Decimetre per hour (dm/hr) speed unit.
+  /// \brief Decimetre per hour (dm/hr) speed unit.
   DecimetrePerHour,
 
-  // Inch per second (in/s) speed unit.
+  /// \brief Inch per second (in/s) speed unit.
   InchPerSecond,
 
-  // Inch per minute (in/min) speed unit.
+  /// \brief Inch per minute (in/min) speed unit.
   InchPerMinute,
 
-  // Inch per hour (in/hr) speed unit.
+  /// \brief Inch per hour (in/hr) speed unit.
   InchPerHour,
 
-  // Centimetre per second (cm/s) speed unit.
+  /// \brief Centimetre per second (cm/s) speed unit.
   CentimetrePerSecond,
 
-  // Centimetre per minute (cm/min) speed unit.
+  /// \brief Centimetre per minute (cm/min) speed unit.
   CentimetrePerMinute,
 
-  // Centimetre per hour (cm/hr) speed unit.
+  /// \brief Centimetre per hour (cm/hr) speed unit.
   CentimetrePerHour,
 
-  // Millimetre per second (mm/s) speed unit.
+  /// \brief Millimetre per second (mm/s) speed unit.
   MillimetrePerSecond,
 
-  // Millimetre per minute (mm/min) speed unit.
+  /// \brief Millimetre per minute (mm/min) speed unit.
   MillimetrePerMinute,
 
-  // Millimetre per hour (mm/hr) speed unit.
+  /// \brief Millimetre per hour (mm/hr) speed unit.
   MillimetrePerHour,
 
-  // Milliinch per second (mil/s) speed unit.
+  /// \brief Milliinch per second (mil/s) speed unit.
   MilliinchPerSecond,
 
-  // Milliinch per minute (mil/min) speed unit.
+  /// \brief Milliinch per minute (mil/min) speed unit.
   MilliinchPerMinute,
 
-  // Milliinch per hour (mil/hr) speed unit.
+  /// \brief Milliinch per hour (mil/hr) speed unit.
   MilliinchPerHour,
 
-  // Micrometre per second (μm/s) speed unit.
+  /// \brief Micrometre per second (μm/s) speed unit.
   MicrometrePerSecond,
 
-  // Micrometre per minute (μm/min) speed unit.
+  /// \brief Micrometre per minute (μm/min) speed unit.
   MicrometrePerMinute,
 
-  // Micrometre per hour (μm/hr) speed unit.
+  /// \brief Micrometre per hour (μm/hr) speed unit.
   MicrometrePerHour,
 
-  // Microinch per second (μin/s) speed unit.
+  /// \brief Microinch per second (μin/s) speed unit.
   MicroinchPerSecond,
 
-  // Microinch per minute (μin/min) speed unit.
+  /// \brief Microinch per minute (μin/min) speed unit.
   MicroinchPerMinute,
 
-  // Microinch per hour (μin/hr) speed unit.
+  /// \brief Microinch per hour (μin/hr) speed unit.
   MicroinchPerHour,
 };
 
 }  // namespace Unit
 
-// Standard speed unit: metre per second (m/s).
+/// \brief Standard speed unit: metre per second (m/s).
 template <>
 inline constexpr const Unit::Speed Standard<Unit::Speed>{Unit::Speed::MetrePerSecond};
 
-// Physical dimension set of speed units.
+/// \brief Physical dimension set of speed units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Speed>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{1}, Dimension::Mass{0},

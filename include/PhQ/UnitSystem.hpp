@@ -38,10 +38,10 @@
 
 namespace PhQ {
 
-// Systems of units of measure. All units of measure in a unit system are standard units of measure.
-// When a physical quantity is expressed in terms of a standard unit of measure, its value does not
-// need to be converted when used in mathematical expressions with other physical quantities
-// expressed in standard units of measure.
+/// \brief Systems of units of measure. All units of measure in a unit system are standard units of
+/// measure. When a physical quantity is expressed in terms of a standard unit of measure, its value
+/// does not need to be converted when used in mathematical expressions with other physical
+/// quantities expressed in standard units of measure.
 enum class UnitSystem : int8_t {
   // Metre-kilogram-second-kelvin (m·kg·s·K) system
   MetreKilogramSecondKelvin,
@@ -56,22 +56,21 @@ enum class UnitSystem : int8_t {
   InchPoundSecondRankine,
 };
 
-// Standard unit of measure of a given type. Standard units of measure of different types can be
-// combined with each other without the need for conversions. When a physical quantity is expressed
-// in terms of a standard unit of measure, its value does not need to be converted when used in
-// mathematical expressions with other physical quantities expressed in standard units of measure.
-//
-// For example, the standard unit of time is the second and the standard unit of length is the
-// metre. Correspondingly, the standard unit of speed is the metre per second. Thus, when forming a
-// speed quantity from a length quantity and a time quantity, if all quantities are expressed in
-// these standard units, no unit conversions are needed.
+/// \brief Standard unit of measure of a given type. Standard units of measure of different types
+/// can be combined with each other without the need for conversions. When a physical quantity is
+/// expressed in terms of a standard unit of measure, its value does not need to be converted when
+/// used in mathematical expressions with other physical quantities expressed in standard units of
+/// measure. For example, the standard unit of time is the second and the standard unit of length is
+/// the metre. Correspondingly, the standard unit of speed is the metre per second. Thus, when
+/// forming a speed quantity from a length quantity and a time quantity, if all quantities are
+/// expressed in these standard units, no unit conversions are needed.
 template <typename Type>
 inline constexpr const Type Standard;
 
-// The standard unit system: the International System of Units (SI). It uses the following standard
-// units: second (s) for time, metre (m) for length, kilogram (kg) for mass, ampere (A) for electric
-// current, kelvin (K) for temperature, mole (mol) for substance amount, and candela (cd) for
-// luminous intensity.
+/// \brief The standard unit system: the International System of Units (SI). It uses the following
+/// standard units: second (s) for time, metre (m) for length, kilogram (kg) for mass, ampere (A)
+/// for electric current, kelvin (K) for temperature, mole (mol) for substance amount, and candela
+/// (cd) for luminous intensity.
 template <>
 inline constexpr const UnitSystem Standard<UnitSystem>{UnitSystem::MetreKilogramSecondKelvin};
 
@@ -205,29 +204,29 @@ inline const std::unordered_map<std::string_view, UnitSystem> Spellings<UnitSyst
     {"in",             UnitSystem::InchPoundSecondRankine    },
 };
 
-// Map of unit systems to their corresponding units. This is an internal implementation detail and
-// is not intended to be used except by the PhQ::ConsistentUnit function.
+/// \brief Map of unit systems to their corresponding units. This is an internal implementation
+/// detail and is not intended to be used except by the PhQ::ConsistentUnit function.
 template <typename Unit>
 inline const std::map<UnitSystem, Unit> ConsistentUnits;
 
-// Map of units to their corresponding unit systems. This is an internal implementation detail and
-// is not intended to be used except by the PhQ::RelatedUnitSystem function.
+/// \brief Map of units to their corresponding unit systems. This is an internal implementation
+/// detail and is not intended to be used except by the PhQ::RelatedUnitSystem function.
 template <typename Unit>
 inline const std::map<Unit, UnitSystem> RelatedUnitSystems;
 
 }  // namespace Internal
 
-// Returns the unit of a given type that corresponds to a given unit system. For example,
-// PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin) returns
-// PhQ::Unit::Force::Newton.
+/// \brief Returns the unit of a given type that corresponds to a given unit system. For example,
+/// PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin) returns
+/// PhQ::Unit::Force::Newton.
 template <typename Unit>
 inline Unit ConsistentUnit(const UnitSystem& system) {
   return Internal::ConsistentUnits<Unit>.at(system);
 }
 
-// Returns the unit system, if any, that corresponds to a given unit, or std::nullptr otherwise. For
-// example, PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre) returns
-// PhQ::UnitSystem::MillimetreGramSecondKelvin.
+/// \brief Returns the unit system, if any, that corresponds to a given unit, or std::nullptr
+/// otherwise. For example, PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre) returns
+/// PhQ::UnitSystem::MillimetreGramSecondKelvin.
 template <typename Unit>
 inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) {
   const typename std::map<Unit, UnitSystem>::const_iterator system{

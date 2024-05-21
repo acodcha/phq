@@ -52,17 +52,17 @@
 
 namespace PhQ {
 
-// Constitutive model for an elastic isotropic solid. This is the simplest constitutive model for a
-// deformable solid material.
+/// \brief Constitutive model for an elastic isotropic solid. This is the simplest constitutive
+/// model for a deformable solid material.
 template <typename Number = double>
 class ConstitutiveModel::ElasticIsotropicSolid : public ConstitutiveModel {
 public:
-  // Default constructor. Constructs an elastic isotropic solid constitutive model with an
-  // uninitialized value.
+  /// \brief Default constructor. Constructs an elastic isotropic solid constitutive model with an
+  /// uninitialized value.
   ElasticIsotropicSolid() : ConstitutiveModel() {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
-  // modulus and Poisson's ratio.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Young's modulus and Poisson's ratio.
   ElasticIsotropicSolid(
       const YoungModulus<Number>& young_modulus, const PoissonRatio<Number>& poisson_ratio)
     : ConstitutiveModel(),
@@ -73,8 +73,8 @@ public:
           / ((static_cast<Number>(1) + poisson_ratio.Value())
              * (static_cast<Number>(1) - static_cast<Number>(2) * poisson_ratio.Value()))) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
-  // modulus and shear modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Young's modulus and shear modulus.
   constexpr ElasticIsotropicSolid(
       const YoungModulus<Number>& young_modulus, const ShearModulus<Number>& shear_modulus)
     : ConstitutiveModel(), shear_modulus(shear_modulus),
@@ -83,8 +83,8 @@ public:
            * (young_modulus.Value() - static_cast<Number>(2) * shear_modulus.Value()))
           / (static_cast<Number>(3) * shear_modulus.Value() - young_modulus.Value())) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
-  // modulus and isentropic bulk modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Young's modulus and isentropic bulk modulus.
   ElasticIsotropicSolid(const YoungModulus<Number>& young_modulus,
                         const IsentropicBulkModulus<Number>& isentropic_bulk_modulus)
     : ConstitutiveModel(),
@@ -96,8 +96,8 @@ public:
           * (static_cast<Number>(3) * isentropic_bulk_modulus.Value() - young_modulus.Value())
           / (static_cast<Number>(9) * isentropic_bulk_modulus.Value() - young_modulus.Value())) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
-  // modulus and isothermal bulk modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Young's modulus and isothermal bulk modulus.
   ElasticIsotropicSolid(const YoungModulus<Number>& young_modulus,
                         const IsothermalBulkModulus<Number>& isothermal_bulk_modulus)
     : ConstitutiveModel(),
@@ -109,8 +109,8 @@ public:
           * (static_cast<Number>(3) * isothermal_bulk_modulus.Value() - young_modulus.Value())
           / (static_cast<Number>(9) * isothermal_bulk_modulus.Value() - young_modulus.Value())) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
-  // modulus and Lamé's first modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Young's modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(
       const YoungModulus<Number>& young_modulus, const LameFirstModulus<Number>& lame_first_modulus)
     : ConstitutiveModel(),
@@ -123,8 +123,8 @@ public:
                  + static_cast<Number>(2) * young_modulus.Value() * lame_first_modulus.Value()))),
       lame_first_modulus(lame_first_modulus) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
-  // modulus and P-wave modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Young's modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const YoungModulus<Number>& young_modulus, const PWaveModulus<Number>& p_wave_modulus)
     : ConstitutiveModel(),
@@ -143,8 +143,8 @@ public:
                  + static_cast<Number>(9) * ::std::pow(p_wave_modulus.Value(), 2)
                  - static_cast<Number>(10) * young_modulus.Value() * p_wave_modulus.Value()))) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
-  // modulus and Poisson's ratio.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// shear modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const ShearModulus<Number>& shear_modulus, const PoissonRatio<Number>& poisson_ratio)
     : ConstitutiveModel(), shear_modulus(shear_modulus),
@@ -152,8 +152,8 @@ public:
           (static_cast<Number>(2) * shear_modulus.Value() * poisson_ratio.Value())
           / (static_cast<Number>(1) - static_cast<Number>(2) * poisson_ratio.Value())) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
-  // modulus and isentropic bulk modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// shear modulus and isentropic bulk modulus.
   constexpr ElasticIsotropicSolid(const ShearModulus<Number>& shear_modulus,
                                   const IsentropicBulkModulus<Number>& isentropic_bulk_modulus)
     : ConstitutiveModel(), shear_modulus(shear_modulus),
@@ -161,8 +161,8 @@ public:
           isentropic_bulk_modulus.Value()
           - static_cast<Number>(2) / static_cast<Number>(3) * shear_modulus.Value()) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
-  // modulus and isothermal bulk modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// shear modulus and isothermal bulk modulus.
   constexpr ElasticIsotropicSolid(const ShearModulus<Number>& shear_modulus,
                                   const IsothermalBulkModulus<Number>& isothermal_bulk_modulus)
     : ConstitutiveModel(), shear_modulus(shear_modulus),
@@ -170,21 +170,21 @@ public:
           isothermal_bulk_modulus.Value()
           - static_cast<Number>(2) / static_cast<Number>(3) * shear_modulus.Value()) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
-  // modulus and Lamé's first modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// shear modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(
       const ShearModulus<Number>& shear_modulus, const LameFirstModulus<Number>& lame_first_modulus)
     : ConstitutiveModel(), shear_modulus(shear_modulus), lame_first_modulus(lame_first_modulus) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
-  // modulus and P-wave modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// shear modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const ShearModulus<Number>& shear_modulus, const PWaveModulus<Number>& p_wave_modulus)
     : ConstitutiveModel(), shear_modulus(shear_modulus),
       lame_first_modulus(p_wave_modulus.Value() - static_cast<Number>(2) * shear_modulus.Value()) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
-  // bulk modulus and Lamé's first modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// isentropic bulk modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
                                   const LameFirstModulus<Number>& lame_first_modulus)
     : ConstitutiveModel(),
@@ -192,8 +192,8 @@ public:
                     * (isentropic_bulk_modulus.Value() - lame_first_modulus.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
-  // bulk modulus and Lamé's first modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// isothermal bulk modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus,
                                   const LameFirstModulus<Number>& lame_first_modulus)
     : ConstitutiveModel(),
@@ -201,8 +201,8 @@ public:
                     * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
-  // bulk modulus and P-wave modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// isentropic bulk modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
                                   const PWaveModulus<Number>& p_wave_modulus)
     : ConstitutiveModel(),
@@ -211,8 +211,8 @@ public:
       lame_first_modulus(static_cast<Number>(1.5) * isentropic_bulk_modulus.Value()
                          - static_cast<Number>(0.5) * p_wave_modulus.Value()) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
-  // bulk modulus and P-wave modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// isothermal bulk modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus,
                                   const PWaveModulus<Number>& p_wave_modulus)
     : ConstitutiveModel(),
@@ -221,8 +221,8 @@ public:
       lame_first_modulus(static_cast<Number>(1.5) * isothermal_bulk_modulus.Value()
                          - static_cast<Number>(0.5) * p_wave_modulus.Value()) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
-  // bulk modulus and Poisson's ratio.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// isentropic bulk modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
                                   const PoissonRatio<Number>& poisson_ratio)
     : ConstitutiveModel(),
@@ -233,8 +233,8 @@ public:
           static_cast<Number>(3) * isentropic_bulk_modulus.Value() * poisson_ratio.Value()
           / (static_cast<Number>(1) + poisson_ratio.Value())) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
-  // bulk modulus and Poisson's ratio.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// isothermal bulk modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(const IsothermalBulkModulus<Number>& isothermal_bulk_modulus,
                                   const PoissonRatio<Number>& poisson_ratio)
     : ConstitutiveModel(),
@@ -245,8 +245,8 @@ public:
           static_cast<Number>(3) * isothermal_bulk_modulus.Value() * poisson_ratio.Value()
           / (static_cast<Number>(1) + poisson_ratio.Value())) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Lamé's first
-  // modulus and P-wave modulus.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Lamé's first modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(const LameFirstModulus<Number>& lame_first_modulus,
                                   const PWaveModulus<Number>& p_wave_modulus)
     : ConstitutiveModel(),
@@ -254,8 +254,8 @@ public:
           static_cast<Number>(0.5) * (p_wave_modulus.Value() - lame_first_modulus.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given Lamé's first
-  // modulus and Poisson's ratio.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// Lamé's first modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const LameFirstModulus<Number>& lame_first_modulus, const PoissonRatio<Number>& poisson_ratio)
     : ConstitutiveModel(),
@@ -264,8 +264,8 @@ public:
                     / (static_cast<Number>(2) * poisson_ratio.Value())),
       lame_first_modulus(lame_first_modulus) {}
 
-  // Constructor. Constructs an elastic isotropic solid constitutive model from a given P-wave
-  // modulus and Poisson's ratio.
+  /// \brief Constructor. Constructs an elastic isotropic solid constitutive model from a given
+  /// P-wave modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const PWaveModulus<Number>& p_wave_modulus, const PoissonRatio<Number>& poisson_ratio)
     : ConstitutiveModel(),
@@ -275,37 +275,37 @@ public:
       lame_first_modulus(p_wave_modulus.Value() * poisson_ratio.Value()
                          / (static_cast<Number>(1) - poisson_ratio.Value())) {}
 
-  // Destructor. Destroys this elastic isotropic solid constitutive model.
+  /// \brief Destructor. Destroys this elastic isotropic solid constitutive model.
   ~ElasticIsotropicSolid() noexcept override = default;
 
-  // Copy constructor. Constructs an elastic isotropic solid constitutive model by copying another
-  // one.
+  /// \brief Copy constructor. Constructs an elastic isotropic solid constitutive model by copying
+  /// another one.
   constexpr ElasticIsotropicSolid(const ElasticIsotropicSolid& other) = default;
 
-  // Move constructor. Constructs an elastic isotropic solid constitutive model by moving another
-  // one.
+  /// \brief Move constructor. Constructs an elastic isotropic solid constitutive model by moving
+  /// another one.
   constexpr ElasticIsotropicSolid(ElasticIsotropicSolid&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this elastic isotropic solid constitutive model by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this elastic isotropic solid constitutive model by
+  /// copying another one.
   ElasticIsotropicSolid& operator=(const ElasticIsotropicSolid& other) = default;
 
-  // Move assignment operator. Assigns this elastic isotropic solid constitutive model by moving
-  // another one.
+  /// \brief Move assignment operator. Assigns this elastic isotropic solid constitutive model by
+  /// moving another one.
   ElasticIsotropicSolid& operator=(ElasticIsotropicSolid&& other) noexcept = default;
 
-  // Shear modulus of this elastic isotropic solid constitutive model.
+  /// \brief Shear modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::ShearModulus<Number>& ShearModulus() const noexcept {
     return shear_modulus;
   }
 
-  // Lamé's first modulus of this elastic isotropic solid constitutive model.
+  /// \brief Lamé's first modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::LameFirstModulus<Number>&
   LameFirstModulus() const noexcept {
     return lame_first_modulus;
   }
 
-  // Young's modulus of this elastic isotropic solid constitutive model.
+  /// \brief Young's modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::YoungModulus<Number> YoungModulus() const {
     const Number numerator{shear_modulus.Value()
                            * (static_cast<Number>(3) * lame_first_modulus.Value()
@@ -314,7 +314,7 @@ public:
     return PhQ::YoungModulus<Number>{numerator / denominator, Standard<Unit::Pressure>};
   }
 
-  // Isentropic bulk modulus of this elastic isotropic solid constitutive model.
+  /// \brief Isentropic bulk modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::IsentropicBulkModulus<Number> IsentropicBulkModulus() const {
     return PhQ::IsentropicBulkModulus<Number>{
         lame_first_modulus.Value()
@@ -322,7 +322,7 @@ public:
         Standard<Unit::Pressure>};
   }
 
-  // Isothermal bulk modulus of this elastic isotropic solid constitutive model.
+  /// \brief Isothermal bulk modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::IsothermalBulkModulus<Number> IsothermalBulkModulus() const {
     return PhQ::IsothermalBulkModulus<Number>{
         lame_first_modulus.Value()
@@ -330,53 +330,53 @@ public:
         Standard<Unit::Pressure>};
   }
 
-  // P-wave modulus of this elastic isotropic solid constitutive model.
+  /// \brief P-wave modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::PWaveModulus<Number> PWaveModulus() const {
     return PhQ::PWaveModulus<Number>{
         lame_first_modulus.Value() + static_cast<Number>(2) * shear_modulus.Value(),
         Standard<Unit::Pressure>};
   }
 
-  // Poisson's ratio of this elastic isotropic solid constitutive model.
+  /// \brief Poisson's ratio of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::PoissonRatio<Number> PoissonRatio() const {
     const Number numerator{static_cast<Number>(0.5) * lame_first_modulus.Value()};
     const Number denominator{shear_modulus.Value() + lame_first_modulus.Value()};
     return PhQ::PoissonRatio<Number>{numerator / denominator};
   }
 
-  // Returns this constitutive model's type.
+  /// \brief Returns this constitutive model's type.
   [[nodiscard]] inline ConstitutiveModel::Type GetType() const noexcept override {
     return ConstitutiveModel::Type::ElasticIsotropicSolid;
   }
 
-  // Returns the stress resulting from a given strain and strain rate. Since this is an elastic
-  // isotropic solid constitutive model, the strain rate does not contribute to the stress and is
-  // ignored.
+  /// \brief Returns the stress resulting from a given strain and strain rate. Since this is an
+  /// elastic isotropic solid constitutive model, the strain rate does not contribute to the stress
+  /// and is ignored.
   [[nodiscard]] inline PhQ::Stress<float> Stress(
       const PhQ::Strain<float>& strain,
       const PhQ::StrainRate<float>& /*strain_rate*/) const override {
     return this->Stress(strain);
   }
 
-  // Returns the stress resulting from a given strain and strain rate. Since this is an elastic
-  // isotropic solid constitutive model, the strain rate does not contribute to the stress and is
-  // ignored.
+  /// \brief Returns the stress resulting from a given strain and strain rate. Since this is an
+  /// elastic isotropic solid constitutive model, the strain rate does not contribute to the stress
+  /// and is ignored.
   [[nodiscard]] inline PhQ::Stress<double> Stress(
       const PhQ::Strain<double>& strain,
       const PhQ::StrainRate<double>& /*strain_rate*/) const override {
     return this->Stress(strain);
   }
 
-  // Returns the stress resulting from a given strain and strain rate. Since this is an elastic
-  // isotropic solid constitutive model, the strain rate does not contribute to the stress and is
-  // ignored.
+  /// \brief Returns the stress resulting from a given strain and strain rate. Since this is an
+  /// elastic isotropic solid constitutive model, the strain rate does not contribute to the stress
+  /// and is ignored.
   [[nodiscard]] inline PhQ::Stress<long double> Stress(
       const PhQ::Strain<long double>& strain,
       const PhQ::StrainRate<long double>& /*strain_rate*/) const override {
     return this->Stress(strain);
   }
 
-  // Returns the stress resulting from a given strain.
+  /// \brief Returns the stress resulting from a given strain.
   [[nodiscard]] inline PhQ::Stress<float> Stress(const PhQ::Strain<float>& strain) const override {
     // stress = a * strain + b * trace(strain) * identity_matrix
     // a = 2 * shear_modulus
@@ -392,7 +392,7 @@ public:
     };
   }
 
-  // Returns the stress resulting from a given strain.
+  /// \brief Returns the stress resulting from a given strain.
   [[nodiscard]] inline PhQ::Stress<double> Stress(
       const PhQ::Strain<double>& strain) const override {
     // stress = a * strain + b * trace(strain) * identity_matrix
@@ -409,7 +409,7 @@ public:
     };
   }
 
-  // Returns the stress resulting from a given strain.
+  /// \brief Returns the stress resulting from a given strain.
   [[nodiscard]] inline PhQ::Stress<long double> Stress(
       const PhQ::Strain<long double>& strain) const override {
     // stress = a * strain + b * trace(strain) * identity_matrix
@@ -427,31 +427,31 @@ public:
     };
   }
 
-  // Returns the stress resulting from a given strain rate. Since this is an elastic isotropic solid
-  // constitutive model, the strain rate does not contribute to the stress, so this always returns a
-  // stress of zero.
+  /// \brief Returns the stress resulting from a given strain rate. Since this is an elastic
+  /// isotropic solid constitutive model, the strain rate does not contribute to the stress, so this
+  /// always returns a stress of zero.
   [[nodiscard]] inline PhQ::Stress<float> Stress(
       const PhQ::StrainRate<float>& /*strain_rate*/) const override {
     return PhQ::Stress<float>::Zero();
   }
 
-  // Returns the stress resulting from a given strain rate. Since this is an elastic isotropic solid
-  // constitutive model, the strain rate does not contribute to the stress, so this always returns a
-  // stress of zero.
+  /// \brief Returns the stress resulting from a given strain rate. Since this is an elastic
+  /// isotropic solid constitutive model, the strain rate does not contribute to the stress, so this
+  /// always returns a stress of zero.
   [[nodiscard]] inline PhQ::Stress<double> Stress(
       const PhQ::StrainRate<double>& /*strain_rate*/) const override {
     return PhQ::Stress<double>::Zero();
   }
 
-  // Returns the stress resulting from a given strain rate. Since this is an elastic isotropic solid
-  // constitutive model, the strain rate does not contribute to the stress, so this always returns a
-  // stress of zero.
+  /// \brief Returns the stress resulting from a given strain rate. Since this is an elastic
+  /// isotropic solid constitutive model, the strain rate does not contribute to the stress, so this
+  /// always returns a stress of zero.
   [[nodiscard]] inline PhQ::Stress<long double> Stress(
       const PhQ::StrainRate<long double>& /*strain_rate*/) const override {
     return PhQ::Stress<long double>::Zero();
   }
 
-  // Returns the strain resulting from a given stress.
+  /// \brief Returns the strain resulting from a given stress.
   [[nodiscard]] inline PhQ::Strain<float> Strain(const PhQ::Stress<float>& stress) const override {
     // strain = a * stress + b * trace(stress) * identity_matrix
     // a = 1 / (2 * shear_modulus)
@@ -471,7 +471,7 @@ public:
     };
   }
 
-  // Returns the strain resulting from a given stress.
+  /// \brief Returns the strain resulting from a given stress.
   [[nodiscard]] inline PhQ::Strain<double> Strain(
       const PhQ::Stress<double>& stress) const override {
     // strain = a * stress + b * trace(stress) * identity_matrix
@@ -493,7 +493,7 @@ public:
     };
   }
 
-  // Returns the strain resulting from a given stress.
+  /// \brief Returns the strain resulting from a given stress.
   [[nodiscard]] inline PhQ::Strain<long double> Strain(
       const PhQ::Stress<long double>& stress) const override {
     // strain = a * stress + b * trace(stress) * identity_matrix
@@ -517,58 +517,60 @@ public:
     };
   }
 
-  // Returns the strain rate resulting from a given stress. Since this is an elastic isotropic solid
-  // constitutive model, stress does not depend on strain rate, so this always returns a strain rate
-  // of zero.
+  /// \brief Returns the strain rate resulting from a given stress. Since this is an elastic
+  /// isotropic solid constitutive model, stress does not depend on strain rate, so this always
+  /// returns a strain rate of zero.
   [[nodiscard]] inline PhQ::StrainRate<float> StrainRate(
       const PhQ::Stress<float>& /*stress*/) const override {
     return PhQ::StrainRate<float>::Zero();
   }
 
-  // Returns the strain rate resulting from a given stress. Since this is an elastic isotropic solid
-  // constitutive model, stress does not depend on strain rate, so this always returns a strain rate
-  // of zero.
+  /// \brief Returns the strain rate resulting from a given stress. Since this is an elastic
+  /// isotropic solid constitutive model, stress does not depend on strain rate, so this always
+  /// returns a strain rate of zero.
   [[nodiscard]] inline PhQ::StrainRate<double> StrainRate(
       const PhQ::Stress<double>& /*stress*/) const override {
     return PhQ::StrainRate<double>::Zero();
   }
 
-  // Returns the strain rate resulting from a given stress. Since this is an elastic isotropic solid
-  // constitutive model, stress does not depend on strain rate, so this always returns a strain rate
-  // of zero.
+  /// \brief Returns the strain rate resulting from a given stress. Since this is an elastic
+  /// isotropic solid constitutive model, stress does not depend on strain rate, so this always
+  /// returns a strain rate of zero.
   [[nodiscard]] inline PhQ::StrainRate<long double> StrainRate(
       const PhQ::Stress<long double>& /*stress*/) const override {
     return PhQ::StrainRate<long double>::Zero();
   }
 
-  // Prints this elastic isotropic solid constitutive model as a string.
+  /// \brief Prints this elastic isotropic solid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(this->GetType())} + ", Shear Modulus = "
             + shear_modulus.Print() + ", Lamé's First Modulus = " + lame_first_modulus.Print()};
   }
 
-  // Serializes this elastic isotropic solid constitutive model as a JSON message.
+  /// \brief Serializes this elastic isotropic solid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
     return {R"({"type":")" + SnakeCaseCopy(Abbreviation(this->GetType())) + R"(","shear_modulus":)"
             + shear_modulus.JSON() + ",\"lame_first_modulus\":" + lame_first_modulus.JSON() + "}"};
   }
 
-  // Serializes this elastic isotropic solid constitutive model as an XML message.
+  /// \brief Serializes this elastic isotropic solid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(this->GetType())) + "</type><shear_modulus>"
             + shear_modulus.XML() + "</shear_modulus><lame_first_modulus>"
             + lame_first_modulus.XML() + "</lame_first_modulus>"};
   }
 
-  // Serializes this elastic isotropic solid constitutive model as a YAML message.
+  /// \brief Serializes this elastic isotropic solid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(this->GetType())) + "\",shear_modulus:"
             + shear_modulus.YAML() + ",lame_first_modulus:" + lame_first_modulus.YAML() + "}"};
   }
 
 private:
+  /// \brief Shear modulus of this elastic isotropic solid constitutive model.
   PhQ::ShearModulus<Number> shear_modulus;
 
+  /// \brief Lamé's first modulus of this elastic isotropic solid constitutive model.
   PhQ::LameFirstModulus<Number> lame_first_modulus;
 };
 

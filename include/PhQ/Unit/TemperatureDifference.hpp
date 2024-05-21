@@ -51,31 +51,31 @@ namespace PhQ {
 
 namespace Unit {
 
-// Temperature difference units. Not to be confused with temperature units. For example, a
-// temperature difference of +20 °C corresponds to a temperature difference of +36 °F, whereas a
-// temperature of 20 °C corresponds to a temperature of 68 °F.
+/// \brief Temperature difference units. Not to be confused with temperature units. For example, a
+/// temperature difference of +20 °C corresponds to a temperature difference of +36 °F, whereas a
+/// temperature of 20 °C corresponds to a temperature of 68 °F.
 enum class TemperatureDifference : int8_t {
-  // Kelvin (K) temperature difference unit.
+  /// \brief Kelvin (K) temperature difference unit.
   Kelvin,
 
-  // Degree Celsius (°C) temperature difference unit.
+  /// \brief Degree Celsius (°C) temperature difference unit.
   Celsius,
 
-  // Degree Rankine (°R) temperature difference unit.
+  /// \brief Degree Rankine (°R) temperature difference unit.
   Rankine,
 
-  // Degree Fahrenheit (°F) temperature difference unit.
+  /// \brief Degree Fahrenheit (°F) temperature difference unit.
   Fahrenheit,
 };
 
 }  // namespace Unit
 
-// Standard temperature difference unit: kelvin (K).
+/// \brief Standard temperature difference unit: kelvin (K).
 template <>
 inline constexpr const Unit::TemperatureDifference Standard<Unit::TemperatureDifference>{
     Unit::TemperatureDifference::Kelvin};
 
-// Physical dimension set of temperature difference units.
+/// \brief Physical dimension set of temperature difference units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureDifference>{
     Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},

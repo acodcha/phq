@@ -36,53 +36,54 @@
 
 namespace PhQ::Dimension {
 
-// Base physical dimension of amount of substance. Typically denoted "N". One of seven independent
-// base physical dimensions that form the physical dimension set of any unit of measure or physical
-// quantity.
+/// \brief Base physical dimension of amount of substance. Typically denoted "N". One of seven
+/// independent base physical dimensions that form the physical dimension set of any unit of measure
+/// or physical quantity.
 class SubstanceAmount {
 public:
-  // Default constructor. Constructs a base physical dimension of amount of substance with a value
-  // of zero.
+  /// \brief Default constructor. Constructs a base physical dimension of amount of substance with a
+  /// value of zero.
   constexpr SubstanceAmount() = default;
 
-  // Constructor. Constructs a base physical dimension of amount of substance with a given value.
+  /// \brief Constructor. Constructs a base physical dimension of amount of substance with a given
+  /// value.
   explicit constexpr SubstanceAmount(const int8_t value) : value(value) {}
 
-  // Destructor. Destroys this base physical dimension of amount of substance.
+  /// \brief Destructor. Destroys this base physical dimension of amount of substance.
   ~SubstanceAmount() noexcept = default;
 
-  // Copy constructor. Constructs a base physical dimension of amount of substance by copying
-  // another one.
+  /// \brief Copy constructor. Constructs a base physical dimension of amount of substance by
+  /// copying another one.
   constexpr SubstanceAmount(const SubstanceAmount& other) = default;
 
-  // Copy assignment operator. Assigns the value of this base physical dimension of amount of
-  // substance by copying from another one.
+  /// \brief Copy assignment operator. Assigns the value of this base physical dimension of amount
+  /// of substance by copying from another one.
   constexpr SubstanceAmount& operator=(const SubstanceAmount& other) = default;
 
-  // Move constructor. Constructs a base physical dimension of amount of substance by moving another
-  // one.
+  /// \brief Move constructor. Constructs a base physical dimension of amount of substance by moving
+  /// another one.
   constexpr SubstanceAmount(SubstanceAmount&& other) noexcept = default;
 
-  // Move assignment operator. Assigns the value of this base physical dimension of amount of
-  // substance by moving another one.
+  /// \brief Move assignment operator. Assigns the value of this base physical dimension of amount
+  /// of substance by moving another one.
   constexpr SubstanceAmount& operator=(SubstanceAmount&& other) noexcept = default;
 
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   [[nodiscard]] constexpr int8_t Value() const noexcept {
     return value;
   }
 
-  // Abbreviation of this base physical dimension.
+  /// \brief Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept {
     return "N";
   }
 
-  // Label of this base physical dimension.
+  /// \brief Label of this base physical dimension.
   static std::string_view Label() noexcept {
     return "Substance Amount";
   }
 
-  // Prints this base physical dimension as a string.
+  /// \brief Prints this base physical dimension as a string.
   [[nodiscard]] std::string Print() const noexcept {
     if (value == 0) {
       return {};
@@ -97,7 +98,7 @@ public:
   }
 
 private:
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   int8_t value{0};
 };
 

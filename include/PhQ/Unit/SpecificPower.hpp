@@ -51,29 +51,29 @@ namespace PhQ {
 
 namespace Unit {
 
-// Mass-specific power units.
+/// \brief Mass-specific power units.
 enum class SpecificPower : int8_t {
-  // Watt per kilogram (W/kg) specific power unit.
+  /// \brief Watt per kilogram (W/kg) specific power unit.
   WattPerKilogram,
 
-  // Nanowatt per gram (nW/g) specific power unit.
+  /// \brief Nanowatt per gram (nW/g) specific power unit.
   NanowattPerGram,
 
-  // Foot-pound per slug per second (ft·lbf/slug/s) specific power unit.
+  /// \brief Foot-pound per slug per second (ft·lbf/slug/s) specific power unit.
   FootPoundPerSlugPerSecond,
 
-  // Inch-pound per slinch per second (in·lbf/slinch/s) specific power unit.
+  /// \brief Inch-pound per slinch per second (in·lbf/slinch/s) specific power unit.
   InchPoundPerSlinchPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard mass-specific power unit: watt per kilogram (W/kg).
+/// \brief Standard mass-specific power unit: watt per kilogram (W/kg).
 template <>
 inline constexpr const Unit::SpecificPower Standard<Unit::SpecificPower>{
     Unit::SpecificPower::WattPerKilogram};
 
-// Physical dimension set of mass-specific power units.
+/// \brief Physical dimension set of mass-specific power units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SpecificPower>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{0},

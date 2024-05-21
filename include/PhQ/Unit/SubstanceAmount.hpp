@@ -51,32 +51,32 @@ namespace PhQ {
 
 namespace Unit {
 
-// Amount of substance units.
+/// \brief Amount of substance units.
 enum class SubstanceAmount : int8_t {
-  // Mole (mol) substance amount unit.
+  /// \brief Mole (mol) substance amount unit.
   Mole,
 
-  // Kilomole (kmol) substance amount unit.
+  /// \brief Kilomole (kmol) substance amount unit.
   Kilomole,
 
-  // Megamole (Mmol) substance amount unit.
+  /// \brief Megamole (Mmol) substance amount unit.
   Megamole,
 
-  // Gigamole (Gmol) substance amount unit.
+  /// \brief Gigamole (Gmol) substance amount unit.
   Gigamole,
 
-  // Particles (particles) substance amount unit.
+  /// \brief Particles (particles) substance amount unit.
   Particles,
 };
 
 }  // namespace Unit
 
-// Standard amount of substance unit: mole (mol).
+/// \brief Standard amount of substance unit: mole (mol).
 template <>
 inline constexpr const Unit::SubstanceAmount Standard<Unit::SubstanceAmount>{
     Unit::SubstanceAmount::Mole};
 
-// Physical dimension set of amount of substance units.
+/// \brief Physical dimension set of amount of substance units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SubstanceAmount>{
     Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},

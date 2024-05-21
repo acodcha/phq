@@ -38,27 +38,24 @@
 
 namespace PhQ {
 
-// Physical dimension set of a unit of measure or physical quantity. Composed of the seven
-// independent base physical dimensions: time (T), length (L), mass (M), electric current (I),
-// temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that share
-// the same physical dimension set are of the same type and can be converted between one another.
-//
-// For example, the metre per second and the mile per hour are both units of measure that have the
-// same physical dimension set of T^(-1)·L, which is the physical dimension set of speed, so these
-// two units of measure can be converted between one another.
-//
-// On the other hand, the kilogram per cubic metre is a unit of measure with physical dimension set
-// L^(-3)·M, which is the physical dimension set of mass density, so this unit of measure cannot be
-// converted to either the metre per second or the mile per hour, which have a different physical
-// dimension set.
+/// \brief Physical dimension set of a unit of measure or physical quantity. Composed of the seven
+/// independent base physical dimensions: time (T), length (L), mass (M), electric current (I),
+/// temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that
+/// share the same physical dimension set are of the same type and can be converted between one
+/// another. For example, the metre per second and the mile per hour are both units of measure that
+/// have the same physical dimension set of T^(-1)·L, which is the physical dimension set of speed,
+/// so these two units of measure can be converted between one another. On the other hand, the
+/// kilogram per cubic metre is a unit of measure with physical dimension set L^(-3)·M, which is the
+/// physical dimension set of mass density, so this unit of measure cannot be converted to either
+/// the metre per second or the mile per hour, which have a different physical dimension set.
 class Dimensions {
 public:
-  // Default constructor. Constructs a dimensionless physical dimension set where all base physical
-  // dimensions are zero.
+  /// \brief Default constructor. Constructs a dimensionless physical dimension set where all base
+  /// physical dimensions are zero.
   constexpr Dimensions() = default;
 
-  // Constructor. Constructs a physical dimension set from the given base physical dimensions.
-  // Omitted base physical dimensions are initialized to a value of zero.
+  /// \brief Constructor. Constructs a physical dimension set from the given base physical
+  /// dimensions.
   constexpr Dimensions(
       const Dimension::Time& time, const Dimension::Length& length, const Dimension::Mass& mass,
       const Dimension::ElectricCurrent& electric_current, const Dimension::Temperature& temperature,
@@ -68,59 +65,59 @@ public:
       temperature(temperature), substance_amount(substance_amount),
       luminous_intensity(luminous_intensity) {}
 
-  // Destructor. Destroys this physical dimension set.
+  /// \brief Destructor. Destroys this physical dimension set.
   ~Dimensions() noexcept = default;
 
-  // Copy constructor. Constructs a physical dimension set by copying another one.
+  /// \brief Copy constructor. Constructs a physical dimension set by copying another one.
   constexpr Dimensions(const Dimensions& other) = default;
 
-  // Move constructor. Constructs a physical dimension set by moving another one.
+  /// \brief Move constructor. Constructs a physical dimension set by moving another one.
   constexpr Dimensions(Dimensions&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns the base physical dimensions of this physical dimension set
-  // by copying from another one.
+  /// \brief Copy assignment operator. Assigns the base physical dimensions of this physical
+  /// dimension set by copying from another one.
   constexpr Dimensions& operator=(const Dimensions& other) = default;
 
-  // Move assignment operator. Assigns the base physical dimensions of this physical dimension set
-  // by moving another one.
+  /// \brief Move assignment operator. Assigns the base physical dimensions of this physical
+  /// dimension set by moving another one.
   constexpr Dimensions& operator=(Dimensions&& other) noexcept = default;
 
-  // Base physical dimension of time of this physical dimension set.
+  /// \brief Base physical dimension of time of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Time& Time() const noexcept {
     return time;
   }
 
-  // Base physical dimension of length of this physical dimension set.
+  /// \brief Base physical dimension of length of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Length& Length() const noexcept {
     return length;
   }
 
-  // Base physical dimension of mass of this physical dimension set.
+  /// \brief Base physical dimension of mass of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Mass& Mass() const noexcept {
     return mass;
   }
 
-  // Base physical dimension of electric current of this physical dimension set.
+  /// \brief Base physical dimension of electric current of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::ElectricCurrent& ElectricCurrent() const noexcept {
     return electric_current;
   }
 
-  // Base physical dimension of temperature of this physical dimension set.
+  /// \brief Base physical dimension of temperature of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Temperature& Temperature() const noexcept {
     return temperature;
   }
 
-  // Base physical dimension of amount of substance of this physical dimension set.
+  /// \brief Base physical dimension of amount of substance of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::SubstanceAmount& SubstanceAmount() const noexcept {
     return substance_amount;
   }
 
-  // Base physical dimension of luminous intensity of this physical dimension set.
+  /// \brief Base physical dimension of luminous intensity of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::LuminousIntensity& LuminousIntensity() const noexcept {
     return luminous_intensity;
   }
 
-  // Prints this physical dimension set as a string.
+  /// \brief Prints this physical dimension set as a string.
   [[nodiscard]] std::string Print() const {
     std::string text;
     text.append(time.Print());
@@ -184,7 +181,7 @@ public:
     return text;
   }
 
-  // Serializes this physical dimension set as a JSON message.
+  /// \brief Serializes this physical dimension set as a JSON message.
   [[nodiscard]] std::string JSON() const {
     std::string text;
     if (time.Value() != 0) {
@@ -236,7 +233,7 @@ public:
     return "{" + text + "}";
   }
 
-  // Serializes this physical dimension set as an XML message.
+  /// \brief Serializes this physical dimension set as an XML message.
   [[nodiscard]] std::string XML() const {
     std::string text;
     if (time.Value() != 0) {
@@ -273,7 +270,7 @@ public:
     return text;
   }
 
-  // Serializes this physical dimension set as a YAML message.
+  /// \brief Serializes this physical dimension set as a YAML message.
   [[nodiscard]] std::string YAML() const {
     std::string text;
     if (time.Value() != 0) {
@@ -323,25 +320,25 @@ public:
   }
 
 private:
-  // Base physical dimension of time of this physical dimension set.
+  /// \brief Base physical dimension of time of this physical dimension set.
   Dimension::Time time;
 
-  // Base physical dimension of length of this physical dimension set.
+  /// \brief Base physical dimension of length of this physical dimension set.
   Dimension::Length length;
 
-  // Base physical dimension of mass of this physical dimension set.
+  /// \brief Base physical dimension of mass of this physical dimension set.
   Dimension::Mass mass;
 
-  // Base physical dimension of electric current of this physical dimension set.
+  /// \brief Base physical dimension of electric current of this physical dimension set.
   Dimension::ElectricCurrent electric_current;
 
-  // Base physical dimension of temperature of this physical dimension set.
+  /// \brief Base physical dimension of temperature of this physical dimension set.
   Dimension::Temperature temperature;
 
-  // Base physical dimension of amount of substance of this physical dimension set.
+  /// \brief Base physical dimension of amount of substance of this physical dimension set.
   Dimension::SubstanceAmount substance_amount;
 
-  // Base physical dimension of luminous intensity of this physical dimension set.
+  /// \brief Base physical dimension of luminous intensity of this physical dimension set.
   Dimension::LuminousIntensity luminous_intensity;
 };
 
@@ -418,8 +415,8 @@ inline std::ostream& operator<<(std::ostream& stream, const Dimensions& dimensio
   return stream;
 }
 
-// Dimensionless physical dimension set. This dimension set has all base dimensions of zero. Applies
-// to all dimensionless units of measure and dimensionless physical quantities.
+/// \brief Dimensionless physical dimension set. This dimension set has all base dimensions of zero.
+/// Applies to all dimensionless units of measure and dimensionless physical quantities.
 inline constexpr Dimensions Dimensionless;
 
 }  // namespace PhQ

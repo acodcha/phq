@@ -51,61 +51,61 @@ namespace PhQ {
 
 namespace Unit {
 
-// Volume units.
+/// \brief Volume units.
 enum class Volume : int8_t {
-  // Cubic nautical mile (nmi^3) volume unit.
+  /// \brief Cubic nautical mile (nmi^3) volume unit.
   CubicNauticalMile,
 
-  // Cubic mile (mi^3) volume unit.
+  /// \brief Cubic mile (mi^3) volume unit.
   CubicMile,
 
-  // Cubic kilometre (km^3) volume unit.
+  /// \brief Cubic kilometre (km^3) volume unit.
   CubicKilometre,
 
-  // Cubic metre (m^3) volume unit.
+  /// \brief Cubic metre (m^3) volume unit.
   CubicMetre,
 
-  // Cubic yard (yd^3) volume unit.
+  /// \brief Cubic yard (yd^3) volume unit.
   CubicYard,
 
-  // Cubic foot (ft^3) volume unit.
+  /// \brief Cubic foot (ft^3) volume unit.
   CubicFoot,
 
-  // Cubic decimetre (dm^3) volume unit.
+  /// \brief Cubic decimetre (dm^3) volume unit.
   CubicDecimetre,
 
-  // Litre (L) volume unit.
+  /// \brief Litre (L) volume unit.
   Litre,
 
-  // Cubic inch (in^3) volume unit.
+  /// \brief Cubic inch (in^3) volume unit.
   CubicInch,
 
-  // Cubic centimetre (cm^3) volume unit.
+  /// \brief Cubic centimetre (cm^3) volume unit.
   CubicCentimetre,
 
-  // Millilitre (mL) volume unit.
+  /// \brief Millilitre (mL) volume unit.
   Millilitre,
 
-  // Cubic millimetre (mm^3) volume unit.
+  /// \brief Cubic millimetre (mm^3) volume unit.
   CubicMillimetre,
 
-  // Cubic milliinch (mil^3) volume unit.
+  /// \brief Cubic milliinch (mil^3) volume unit.
   CubicMilliinch,
 
-  // Cubic micrometre (μm^3) volume unit.
+  /// \brief Cubic micrometre (μm^3) volume unit.
   CubicMicrometre,
 
-  // Cubic microinch (μin^3) volume unit.
+  /// \brief Cubic microinch (μin^3) volume unit.
   CubicMicroinch,
 };
 
 }  // namespace Unit
 
-// Standard volume unit: cubic metre (m^3).
+/// \brief Standard volume unit: cubic metre (m^3).
 template <>
 inline constexpr const Unit::Volume Standard<Unit::Volume>{Unit::Volume::CubicMetre};
 
-// Physical dimension set of volume units.
+/// \brief Physical dimension set of volume units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Volume>{
     Dimensions{Dimension::Time{0}, Dimension::Length{3}, Dimension::Mass{0},

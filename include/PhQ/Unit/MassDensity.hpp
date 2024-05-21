@@ -52,35 +52,35 @@ namespace PhQ {
 
 namespace Unit {
 
-// Mass density units.
+/// \brief Mass density units.
 enum class MassDensity : int8_t {
-  // Kilogram per cubic metre (kg/m^3) mass density unit.
+  /// \brief Kilogram per cubic metre (kg/m^3) mass density unit.
   KilogramPerCubicMetre,
 
-  // Gram per cubic millimetre (g/mm^3) mass density unit.
+  /// \brief Gram per cubic millimetre (g/mm^3) mass density unit.
   GramPerCubicMillimetre,
 
-  // Slug per cubic foot (slug/ft^3) mass density unit.
+  /// \brief Slug per cubic foot (slug/ft^3) mass density unit.
   SlugPerCubicFoot,
 
-  // Slinch per cubic inch (slinch/in^3) mass density unit.
+  /// \brief Slinch per cubic inch (slinch/in^3) mass density unit.
   SlinchPerCubicInch,
 
-  // Pound per cubic foot (lbm/ft^3) mass density unit.
+  /// \brief Pound per cubic foot (lbm/ft^3) mass density unit.
   PoundPerCubicFoot,
 
-  // Pound per cubic inch (lbm/in^3) mass density unit.
+  /// \brief Pound per cubic inch (lbm/in^3) mass density unit.
   PoundPerCubicInch,
 };
 
 }  // namespace Unit
 
-// Standard mass density unit: kilogram per cubic metre (kg/m^3).
+/// \brief Standard mass density unit: kilogram per cubic metre (kg/m^3).
 template <>
 inline constexpr const Unit::MassDensity Standard<Unit::MassDensity>{
     Unit::MassDensity::KilogramPerCubicMetre};
 
-// Physical dimension set of mass density units.
+/// \brief Physical dimension set of mass density units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MassDensity>{
     Dimensions{Dimension::Time{0}, Dimension::Length{-3}, Dimension::Mass{1},

@@ -45,43 +45,43 @@
 #include <utility>
 #include <vector>
 
-// Namespace that encompasses all of the Physical Quantities library's content.
+/// \brief Namespace that encompasses all of the Physical Quantities library's content.
 namespace PhQ {
 
-// The mathematical constant π = 3.14...
+/// \brief The mathematical constant π = 3.14...
 template <typename Number = double>
 inline constexpr Number Pi;
 
-// The mathematical constant π = 3.14... expressed as a single-precision 32-bit binary
-// floating-point number.
+/// \brief The mathematical constant π = 3.14... expressed as a single-precision 32-bit binary
+/// floating-point number.
 template <>
 inline constexpr float Pi<float>{3.1415927F};
 
-// The mathematical constant π = 3.14... expressed as a double-precision 64-bit binary
-// floating-point number.
+/// \brief The mathematical constant π = 3.14... expressed as a double-precision 64-bit binary
+/// floating-point number.
 template <>
 inline constexpr double Pi<double>{3.14159265358979323846};
 
-// The mathematical constant π = 3.14... expressed as a "long double". The exact implementation of
-// the "long double" type varies by system; the most common implementations are 64-bit, 80-bit, or
-// 128-bit binary floating-point numbers.
+/// \brief The mathematical constant π = 3.14... expressed as a "long double". The exact
+/// implementation of the "long double" type varies by system; the most common implementations are
+/// 64-bit, 80-bit, 96-bit, or 128-bit binary floating-point numbers.
 template <>
 inline constexpr const long double Pi<long double>{3.141592653589793238462643383279502884L};
 
-// Namespace that contains internal implementation details of the Physical Quantities library.
-// Contents within this namespace are not meant to be used except by the the Physical Quantities
-// library's own functions and classes.
+/// \brief Namespace that contains internal implementation details of the Physical Quantities
+/// library. Contents within this namespace are not meant to be used except by the the Physical
+/// Quantities library's own functions and classes.
 namespace Internal {
 
-// Map of enumerations to their corresponding abbreviations. This is an internal implementation
-// detail and is not intended to be used except by the PhQ::Abbreviation function.
+/// \brief Map of enumerations to their corresponding abbreviations. This is an internal
+/// implementation detail and is not intended to be used except by the PhQ::Abbreviation function.
 template <typename Enumeration>
 inline const std::map<Enumeration, std::string_view> Abbreviations;
 
 }  // namespace Internal
 
-// Returns the abbreviation of a given enumeration value. For example,
-// PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
+/// \brief Returns the abbreviation of a given enumeration value. For example,
+/// PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
 template <typename Enumeration>
 inline std::string_view Abbreviation(const Enumeration enumeration) {
   return Internal::Abbreviations<Enumeration>.find(enumeration)->second;
@@ -89,16 +89,16 @@ inline std::string_view Abbreviation(const Enumeration enumeration) {
 
 namespace Internal {
 
-// Map of spellings to their corresponding enumeration values. This is an internal implementation
-// detail and is not intended to be used except by the PhQ::Parse function.
+/// \brief Map of spellings to their corresponding enumeration values. This is an internal
+/// implementation detail and is not intended to be used except by the PhQ::Parse function.
 template <typename Enumeration>
 inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 
 }  // namespace Internal
 
-// Attempts to parse some given text into an enumeration. Returns the enumeration if one is found,
-// or std::nullopt otherwise. For example, PhQ::Parse<PhQ::Unit::Time>("hr") returns
-// PhQ::Unit::Time::Hour.
+/// \brief Attempts to parse some given text into an enumeration. Returns the enumeration if one is
+/// found, or std::nullopt otherwise. For example, PhQ::Parse<PhQ::Unit::Time>("hr") returns
+/// PhQ::Unit::Time::Hour.
 template <typename Enumeration>
 std::optional<Enumeration> Parse(const std::string_view spelling) {
   const typename std::unordered_map<std::string_view, Enumeration>::const_iterator found{
@@ -109,14 +109,14 @@ std::optional<Enumeration> Parse(const std::string_view spelling) {
   return std::nullopt;
 }
 
-// Transforms a given string such that all of its characters are lowercase.
+/// \brief Transforms a given string such that all of its characters are lowercase.
 inline void Lowercase(std::string& text) {
   std::transform(text.begin(), text.end(), text.begin(), [](int character) {
     return std::tolower(character);
   });
 }
 
-// Returns a copy of a given string where all characters are lowercase.
+/// \brief Returns a copy of a given string where all characters are lowercase.
 [[nodiscard]] inline std::string LowercaseCopy(const std::string_view text) {
   std::string result{text};
   std::transform(result.begin(), result.end(), result.begin(), [](int character) {
@@ -161,8 +161,8 @@ template <>
   return number;
 }
 
-// Prints a given floating-point number as a string. Prints enough digits to represent the number
-// exactly. The printed number of digits depends on the type of the floating-point number.
+/// \brief Prints a given floating-point number as a string. Prints enough digits to represent the
+/// number exactly. The printed number of digits depends on the type of the floating-point number.
 template <typename Number>
 [[nodiscard]] inline std::string Print(const Number value) {
   static_assert(
@@ -237,13 +237,14 @@ template <typename Number>
   return stream.str();
 }
 
-// Replaces all occurrences of a given character in a given string with a different given character.
+/// \brief Replaces all occurrences of a given character in a given string with a different given
+/// character.
 inline void Replace(std::string& text, const char from, const char to) {
   std::replace(text.begin(), text.end(), from, to);
 }
 
-// Returns a copy of a given string where all occurrences of a given character have been replaced
-// with a different given character.
+/// \brief Returns a copy of a given string where all occurrences of a given character have been
+/// replaced with a different given character.
 [[nodiscard]] inline std::string ReplaceCopy(
     const std::string_view text, const char from, const char to) {
   std::string result{text};
@@ -251,20 +252,20 @@ inline void Replace(std::string& text, const char from, const char to) {
   return result;
 }
 
-// Transforms a given string into snake case; that is, all characters are lowercase and all spaces
-// are replaced with underscores.
+/// \brief Transforms a given string into snake case; that is, all characters are lowercase and all
+/// spaces are replaced with underscores.
 inline void SnakeCase(std::string& text) {
   Lowercase(text);
   Replace(text, ' ', '_');
 }
 
-// Returns a copy of a given string in snake case; that is, all characters are lowercase and all
-// spaces are replaced with underscores.
+/// \brief Returns a copy of a given string in snake case; that is, all characters are lowercase and
+/// all spaces are replaced with underscores.
 [[nodiscard]] inline std::string SnakeCaseCopy(const std::string_view text) {
   return LowercaseCopy(ReplaceCopy(text, ' ', '_'));
 }
 
-// Splits a given string by whitespace and returns the collection of resulting strings.
+/// \brief Splits a given string by whitespace and returns the collection of resulting strings.
 [[nodiscard]] inline std::vector<std::string> SplitByWhitespace(const std::string& text) {
   std::istringstream stream{text};
   std::vector<std::string> words{
@@ -272,14 +273,14 @@ inline void SnakeCase(std::string& text) {
   return words;
 }
 
-// Transforms a given string such that all of its characters are uppercase.
+/// \brief Transforms a given string such that all of its characters are uppercase.
 inline void Uppercase(std::string& text) {
   std::transform(text.begin(), text.end(), text.begin(), [](int character) {
     return std::toupper(character);
   });
 }
 
-// Returns a copy of a given string where all characters are uppercase.
+/// \brief Returns a copy of a given string where all characters are uppercase.
 [[nodiscard]] inline std::string UppercaseCopy(const std::string_view text) {
   std::string result{text};
   std::transform(result.begin(), result.end(), result.begin(), [](int character) {

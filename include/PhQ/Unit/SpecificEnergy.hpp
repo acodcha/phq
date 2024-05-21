@@ -51,29 +51,29 @@ namespace PhQ {
 
 namespace Unit {
 
-// Mass-specific energy units.
+/// \brief Mass-specific energy units.
 enum class SpecificEnergy : int8_t {
-  // Joule per kilogram (J/kg) specific energy unit.
+  /// \brief Joule per kilogram (J/kg) specific energy unit.
   JoulePerKilogram,
 
-  // Nanojoule per gram (nJ/g) specific energy unit.
+  /// \brief Nanojoule per gram (nJ/g) specific energy unit.
   NanojoulePerGram,
 
-  // Foot-pound per slug (ft·lbf/slug) specific energy unit.
+  /// \brief Foot-pound per slug (ft·lbf/slug) specific energy unit.
   FootPoundPerSlug,
 
-  // Inch-pound per slinch (in·lbf/slinch) specific energy unit.
+  /// \brief Inch-pound per slinch (in·lbf/slinch) specific energy unit.
   InchPoundPerSlinch,
 };
 
 }  // namespace Unit
 
-// Standard mass-specific energy unit: joule per kilogram (J/kg).
+/// \brief Standard mass-specific energy unit: joule per kilogram (J/kg).
 template <>
 inline constexpr const Unit::SpecificEnergy Standard<Unit::SpecificEnergy>{
     Unit::SpecificEnergy::JoulePerKilogram};
 
-// Physical dimension set of mass-specific energy units.
+/// \brief Physical dimension set of mass-specific energy units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SpecificEnergy>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{0},

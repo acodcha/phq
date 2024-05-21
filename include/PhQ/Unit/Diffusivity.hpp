@@ -51,62 +51,62 @@ namespace PhQ {
 
 namespace Unit {
 
-// Diffusivity units.
+/// \brief Diffusivity units.
 enum class Diffusivity : int8_t {
-  // Square nautical mile per second (nmi^2/s) diffusivity unit.
+  /// \brief Square nautical mile per second (nmi^2/s) diffusivity unit.
   SquareNauticalMilePerSecond,
 
-  // Square mile per second (mi^2/s) diffusivity unit.
+  /// \brief Square mile per second (mi^2/s) diffusivity unit.
   SquareMilePerSecond,
 
-  // Square kilometre per second (km^2/s) diffusivity unit.
+  /// \brief Square kilometre per second (km^2/s) diffusivity unit.
   SquareKilometrePerSecond,
 
-  // Hectare per second (ha/s) diffusivity unit.
+  /// \brief Hectare per second (ha/s) diffusivity unit.
   HectarePerSecond,
 
-  // Acre per second (ac/s) diffusivity unit.
+  /// \brief Acre per second (ac/s) diffusivity unit.
   AcrePerSecond,
 
-  // Square metre per second (m^2/s) diffusivity unit.
+  /// \brief Square metre per second (m^2/s) diffusivity unit.
   SquareMetrePerSecond,
 
-  // Square yard per second (yd^2/s) diffusivity unit.
+  /// \brief Square yard per second (yd^2/s) diffusivity unit.
   SquareYardPerSecond,
 
-  // Square foot per second (ft^2/s) diffusivity unit.
+  /// \brief Square foot per second (ft^2/s) diffusivity unit.
   SquareFootPerSecond,
 
-  // Square decimetre per second (dm^2/s) diffusivity unit.
+  /// \brief Square decimetre per second (dm^2/s) diffusivity unit.
   SquareDecimetrePerSecond,
 
-  // Square inch per second (in^2/s) diffusivity unit.
+  /// \brief Square inch per second (in^2/s) diffusivity unit.
   SquareInchPerSecond,
 
-  // Square centimetre per second (cm^2/s) diffusivity unit.
+  /// \brief Square centimetre per second (cm^2/s) diffusivity unit.
   SquareCentimetrePerSecond,
 
-  // Square millimetre per second (mm^2/s) diffusivity unit.
+  /// \brief Square millimetre per second (mm^2/s) diffusivity unit.
   SquareMillimetrePerSecond,
 
-  // Square milliinch per second (mil^2/s) diffusivity unit.
+  /// \brief Square milliinch per second (mil^2/s) diffusivity unit.
   SquareMilliinchPerSecond,
 
-  // Square micrometre per second (μm^2/s) diffusivity unit.
+  /// \brief Square micrometre per second (μm^2/s) diffusivity unit.
   SquareMicrometrePerSecond,
 
-  // Square microinch per second (μin^2/s) diffusivity unit.
+  /// \brief Square microinch per second (μin^2/s) diffusivity unit.
   SquareMicroinchPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard diffusivity unit: square metre per second (m^2/s).
+/// \brief Standard diffusivity unit: square metre per second (m^2/s).
 template <>
 inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
     Unit::Diffusivity::SquareMetrePerSecond};
 
-// Physical dimension set of diffusivity units.
+/// \brief Physical dimension set of diffusivity units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Diffusivity>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{2}, Dimension::Mass{0},

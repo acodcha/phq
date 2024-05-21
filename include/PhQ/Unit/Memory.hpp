@@ -51,82 +51,82 @@ namespace PhQ {
 
 namespace Unit {
 
-// Computer memory units.
+/// \brief Computer memory units.
 enum class Memory : int8_t {
-  // Bit (b) memory unit.
+  /// \brief Bit (b) memory unit.
   Bit,
 
-  // Byte (B) memory unit.
+  /// \brief Byte (B) memory unit.
   Byte,
 
-  // Kilobit (kb) memory unit.
+  /// \brief Kilobit (kb) memory unit.
   Kilobit,
 
-  // Kibibit (kib) memory unit.
+  /// \brief Kibibit (kib) memory unit.
   Kibibit,
 
-  // Kilobyte (kB) memory unit.
+  /// \brief Kilobyte (kB) memory unit.
   Kilobyte,
 
-  // Kibibyte (kiB) memory unit.
+  /// \brief Kibibyte (kiB) memory unit.
   Kibibyte,
 
-  // Megabit (Mb) memory unit.
+  /// \brief Megabit (Mb) memory unit.
   Megabit,
 
-  // Mebibit (Mib) memory unit.
+  /// \brief Mebibit (Mib) memory unit.
   Mebibit,
 
-  // Megabyte (MB) memory unit.
+  /// \brief Megabyte (MB) memory unit.
   Megabyte,
 
-  // Mebibyte (MiB) memory unit.
+  /// \brief Mebibyte (MiB) memory unit.
   Mebibyte,
 
-  // Gigabit (Gb) memory unit.
+  /// \brief Gigabit (Gb) memory unit.
   Gigabit,
 
-  // Gibibit (Gib) memory unit.
+  /// \brief Gibibit (Gib) memory unit.
   Gibibit,
 
-  // Gigabyte (GB) memory unit.
+  /// \brief Gigabyte (GB) memory unit.
   Gigabyte,
 
-  // Gibibyte (GiB) memory unit.
+  /// \brief Gibibyte (GiB) memory unit.
   Gibibyte,
 
-  // Terabit (Tb) memory unit.
+  /// \brief Terabit (Tb) memory unit.
   Terabit,
 
-  // Tebibit (Tib) memory unit.
+  /// \brief Tebibit (Tib) memory unit.
   Tebibit,
 
-  // Terabyte (TB) memory unit.
+  /// \brief Terabyte (TB) memory unit.
   Terabyte,
 
-  // Tebibyte (TiB) memory unit.
+  /// \brief Tebibyte (TiB) memory unit.
   Tebibyte,
 
-  // Petabit (Pb) memory unit.
+  /// \brief Petabit (Pb) memory unit.
   Petabit,
 
-  // Pebibit (Pib) memory unit.
+  /// \brief Pebibit (Pib) memory unit.
   Pebibit,
 
-  // Petabyte (PB) memory unit.
+  /// \brief Petabyte (PB) memory unit.
   Petabyte,
 
-  // Pebibyte (PiB) memory unit.
+  /// \brief Pebibyte (PiB) memory unit.
   Pebibyte,
 };
 
 }  // namespace Unit
 
-// Standard computer memory unit: bit (b).
+/// \brief Standard computer memory unit: bit (b).
 template <>
 inline constexpr const Unit::Memory Standard<Unit::Memory>{Unit::Memory::Bit};
 
-// Physical dimension set of computer memory units.
+/// \brief Physical dimension set of computer memory units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Memory>{Dimensionless};
 

@@ -51,62 +51,61 @@ namespace PhQ {
 
 namespace Unit {
 
-// Mass rate units. Can represent the time rate of change of a mass or a mass
-// flow rate.
+/// \brief Mass rate units. Can represent the time rate of change of a mass or a mass flow rate.
 enum class MassRate : int8_t {
-  // Kilogram per second (kg/s) mass rate unit.
+  /// \brief Kilogram per second (kg/s) mass rate unit.
   KilogramPerSecond,
 
-  // Gram per second (g/s) mass rate unit.
+  /// \brief Gram per second (g/s) mass rate unit.
   GramPerSecond,
 
-  // Slug per second (slug/s) mass rate unit.
+  /// \brief Slug per second (slug/s) mass rate unit.
   SlugPerSecond,
 
-  // Slinch per second (slinch/s) mass rate unit.
+  /// \brief Slinch per second (slinch/s) mass rate unit.
   SlinchPerSecond,
 
-  // Pound per second (lbm/s) mass rate unit.
+  /// \brief Pound per second (lbm/s) mass rate unit.
   PoundPerSecond,
 
-  // Kilogram per minute (kg/min) mass rate unit.
+  /// \brief Kilogram per minute (kg/min) mass rate unit.
   KilogramPerMinute,
 
-  // Gram per minute (g/min) mass rate unit.
+  /// \brief Gram per minute (g/min) mass rate unit.
   GramPerMinute,
 
-  // Slug per minute (slug/min) mass rate unit.
+  /// \brief Slug per minute (slug/min) mass rate unit.
   SlugPerMinute,
 
-  // Slinch per minute (slinch/min) mass rate unit.
+  /// \brief Slinch per minute (slinch/min) mass rate unit.
   SlinchPerMinute,
 
-  // Pound per minute (lbm/min) mass rate unit.
+  /// \brief Pound per minute (lbm/min) mass rate unit.
   PoundPerMinute,
 
-  // Kilogram per hour (kg/hr) mass rate unit.
+  /// \brief Kilogram per hour (kg/hr) mass rate unit.
   KilogramPerHour,
 
-  // Gram per hour (g/hr) mass rate unit.
+  /// \brief Gram per hour (g/hr) mass rate unit.
   GramPerHour,
 
-  // Slug per hour (slug/hr) mass rate unit.
+  /// \brief Slug per hour (slug/hr) mass rate unit.
   SlugPerHour,
 
-  // Slinch per hour (slinch/hr) mass rate unit.
+  /// \brief Slinch per hour (slinch/hr) mass rate unit.
   SlinchPerHour,
 
-  // Pound per hour (lbm/hr) mass rate unit.
+  /// \brief Pound per hour (lbm/hr) mass rate unit.
   PoundPerHour,
 };
 
 }  // namespace Unit
 
-// Standard time rate of mass unit: kilogram per second (kg/s).
+/// \brief Standard time rate of mass unit: kilogram per second (kg/s).
 template <>
 inline constexpr const Unit::MassRate Standard<Unit::MassRate>{Unit::MassRate::KilogramPerSecond};
 
-// Physical dimension set of time rate of mass units.
+/// \brief Physical dimension set of time rate of mass units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MassRate>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1},

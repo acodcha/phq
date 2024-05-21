@@ -51,32 +51,30 @@ namespace PhQ {
 
 namespace Unit {
 
-// Mass-specific heat capacity units.
+/// \brief Mass-specific heat capacity units.
 enum class SpecificHeatCapacity : int8_t {
-  // Joule per kilogram per kelvin (J/kg/K) specific heat capacity unit.
+  /// \brief Joule per kilogram per kelvin (J/kg/K) specific heat capacity unit.
   JoulePerKilogramPerKelvin,
 
-  // Nanojoule per gram per kelvin (nJ/g/K) specific heat capacity unit.
+  /// \brief Nanojoule per gram per kelvin (nJ/g/K) specific heat capacity unit.
   NanojoulePerGramPerKelvin,
 
-  // Foot-pound per slug per degree Rankine (ft·lbf/slug/°R) specific heat
-  // capacity unit.
+  /// \brief Foot-pound per slug per degree Rankine (ft·lbf/slug/°R) specific heat capacity unit.
   FootPoundPerSlugPerRankine,
 
-  // Inch-pound per slinch per degree Rankine (in·lbf/slinch/°R) specific heat
-  // capacity unit.
+  /// \brief Inch-pound per slinch per degree Rankine (in·lbf/slinch/°R) specific heat capacity
+  /// unit.
   InchPoundPerSlinchPerRankine,
 };
 
 }  // namespace Unit
 
-// Standard mass-specific heat capacity unit: joule per kilogram per kelvin
-// (J/kg/K).
+/// \brief Standard mass-specific heat capacity unit: joule per kilogram per kelvin (J/kg/K).
 template <>
 inline constexpr const Unit::SpecificHeatCapacity Standard<Unit::SpecificHeatCapacity>{
     Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
 
-// Physical dimension set of mass-specific heat capacity units.
+/// \brief Physical dimension set of mass-specific heat capacity units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SpecificHeatCapacity>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{0},

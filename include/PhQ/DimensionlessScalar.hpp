@@ -40,9 +40,9 @@
 
 namespace PhQ {
 
-// Abstract base class that represents any dimensionless scalar physical quantity. Such a physical
-// quantity is composed only of a value where the value is a scalar number. Such a physical quantity
-// has no unit of measure and no dimension set.
+/// \brief Abstract base class that represents any dimensionless scalar physical quantity. Such a
+/// physical quantity is composed only of a value where the value is a scalar number. Such a
+/// physical quantity has no unit of measure and no dimension set.
 template <typename Number = double>
 class DimensionlessScalar {
   static_assert(
@@ -50,88 +50,91 @@ class DimensionlessScalar {
       "The Number template parameter of a physical quantity must be a floating-point number type.");
 
 public:
-  // Physical dimension set of this physical quantity. Since this physical quantity is
-  // dimensionless, its physical dimension set is simply the null set.
+  /// \brief Physical dimension set of this physical quantity. Since this physical quantity is
+  /// dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
     return PhQ::Dimensionless;
   }
 
-  // Value of this physical quantity.
+  /// \brief Value of this physical quantity.
   [[nodiscard]] inline constexpr Number Value() const noexcept {
     return value;
   }
 
-  // Returns the value of this physical quantity as a mutable value.
+  /// \brief Returns the value of this physical quantity as a mutable value.
   inline constexpr Number& MutableValue() noexcept {
     return value;
   }
 
-  // Sets the value of this physical quantity to the given value.
+  /// \brief Sets the value of this physical quantity to the given value.
   inline constexpr void SetValue(const Number value) noexcept {
     this->value = value;
   }
 
-  // Prints this physical quantity as a string.
+  /// \brief Prints this physical quantity as a string.
   [[nodiscard]] std::string Print() const {
     return PhQ::Print(value);
   }
 
-  // Serializes this physical quantity as a JSON message.
+  /// \brief Serializes this physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return PhQ::Print(value);
   }
 
-  // Serializes this physical quantity as an XML message.
+  /// \brief Serializes this physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
     return PhQ::Print(value);
   }
 
-  // Serializes this physical quantity as a YAML message.
+  /// \brief Serializes this physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
     return PhQ::Print(value);
   }
 
 protected:
-  // Default constructor. Constructs a dimensionless scalar physical quantity with an uninitialized
-  // value.
+  /// \brief Default constructor. Constructs a dimensionless scalar physical quantity with an
+  /// uninitialized value.
   DimensionlessScalar() = default;
 
-  // Constructor. Constructs a dimensionless scalar physical quantity with a given value.
+  /// \brief Constructor. Constructs a dimensionless scalar physical quantity with a given value.
   explicit constexpr DimensionlessScalar(const Number value) : value(value) {}
 
-  // Destructor. Destroys this dimensionless scalar physical quantity.
+  /// \brief Destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalar() noexcept = default;
 
-  // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
+  /// \brief Copy constructor. Constructs a dimensionless scalar physical quantity by copying
+  /// another one.
   constexpr DimensionlessScalar(const DimensionlessScalar<Number>& other) = default;
 
-  // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
+  /// \brief Copy constructor. Constructs a dimensionless scalar physical quantity by copying
+  /// another one.
   template <typename OtherNumber>
   explicit constexpr DimensionlessScalar(const DimensionlessScalar<OtherNumber>& other)
     : value(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a dimensionless scalar physical quantity by moving another one.
+  /// \brief Move constructor. Constructs a dimensionless scalar physical quantity by moving another
+  /// one.
   constexpr DimensionlessScalar(DimensionlessScalar<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this dimensionless scalar physical quantity by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this dimensionless scalar physical quantity by
+  /// copying another one.
   constexpr DimensionlessScalar<Number>& operator=(
       const DimensionlessScalar<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this dimensionless scalar physical quantity by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this dimensionless scalar physical quantity by
+  /// copying another one.
   template <typename OtherNumber>
   constexpr DimensionlessScalar<Number>& operator=(const DimensionlessScalar<OtherNumber>& other) {
     value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this dimensionless scalar physical quantity by moving another
-  // one.
+  /// \brief Move assignment operator. Assigns this dimensionless scalar physical quantity by moving
+  /// another one.
   constexpr DimensionlessScalar<Number>& operator=(
       DimensionlessScalar<Number>&& other) noexcept = default;
 
-  // Value of this physical quantity.
+  /// \brief Value of this physical quantity.
   Number value;
 };
 

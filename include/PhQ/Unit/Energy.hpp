@@ -51,112 +51,112 @@ namespace PhQ {
 
 namespace Unit {
 
-// Energy units.
+/// \brief Energy units.
 enum class Energy : int8_t {
-  // Joule (J) energy unit.
+  /// \brief Joule (J) energy unit.
   Joule,
 
-  // Millijoule (mJ) energy unit.
+  /// \brief Millijoule (mJ) energy unit.
   Millijoule,
 
-  // Microjoule (μJ) energy unit.
+  /// \brief Microjoule (μJ) energy unit.
   Microjoule,
 
-  // Nanojoule (nJ) energy unit.
+  /// \brief Nanojoule (nJ) energy unit.
   Nanojoule,
 
-  // Kilojoule (kJ) energy unit.
+  /// \brief Kilojoule (kJ) energy unit.
   Kilojoule,
 
-  // Megajoule (MJ) energy unit.
+  /// \brief Megajoule (MJ) energy unit.
   Megajoule,
 
-  // Gigajoule (GJ) energy unit.
+  /// \brief Gigajoule (GJ) energy unit.
   Gigajoule,
 
-  // Watt-minute (W·min) energy unit.
+  /// \brief Watt-minute (W·min) energy unit.
   WattMinute,
 
-  // Watt-hour (W·hr) energy unit.
+  /// \brief Watt-hour (W·hr) energy unit.
   WattHour,
 
-  // Kilowatt-minute (kW·min) energy unit.
+  /// \brief Kilowatt-minute (kW·min) energy unit.
   KilowattMinute,
 
-  // Kilowatt-hour (kW·hr) energy unit.
+  /// \brief Kilowatt-hour (kW·hr) energy unit.
   KilowattHour,
 
-  // Megawatt-minute (MW·min) energy unit.
+  /// \brief Megawatt-minute (MW·min) energy unit.
   MegawattMinute,
 
-  // Megawatt-hour (MW·hr) energy unit.
+  /// \brief Megawatt-hour (MW·hr) energy unit.
   MegawattHour,
 
-  // Gigawatt-minute (GW·min) energy unit.
+  /// \brief Gigawatt-minute (GW·min) energy unit.
   GigawattMinute,
 
-  // Gigawatt-hour (GW·hr) energy unit.
+  /// \brief Gigawatt-hour (GW·hr) energy unit.
   GigawattHour,
 
-  // Foot-pound (ft·lbf) energy unit.
+  /// \brief Foot-pound (ft·lbf) energy unit.
   FootPound,
 
-  // Inch-pound (in·lbf) energy unit.
+  /// \brief Inch-pound (in·lbf) energy unit.
   InchPound,
 
-  // Calorie (cal) energy unit.
+  /// \brief Calorie (cal) energy unit.
   Calorie,
 
-  // Millicalorie (mcal) energy unit.
+  /// \brief Millicalorie (mcal) energy unit.
   Millicalorie,
 
-  // Microcalorie (μcal) energy unit.
+  /// \brief Microcalorie (μcal) energy unit.
   Microcalorie,
 
-  // Nanocalorie (ncal) energy unit.
+  /// \brief Nanocalorie (ncal) energy unit.
   Nanocalorie,
 
-  // Kilocalorie (kcal) energy unit.
+  /// \brief Kilocalorie (kcal) energy unit.
   Kilocalorie,
 
-  // Megacalorie (Mcal) energy unit.
+  /// \brief Megacalorie (Mcal) energy unit.
   Megacalorie,
 
-  // Gigacalorie (Gcal) energy unit.
+  /// \brief Gigacalorie (Gcal) energy unit.
   Gigacalorie,
 
-  // Electronvolt (eV) energy unit.
+  /// \brief Electronvolt (eV) energy unit.
   Electronvolt,
 
-  // Millielectronvolt (meV) energy unit.
+  /// \brief Millielectronvolt (meV) energy unit.
   Millielectronvolt,
 
-  // Microelectronvolt (μeV) energy unit.
+  /// \brief Microelectronvolt (μeV) energy unit.
   Microelectronvolt,
 
-  // Nanoelectronvolt (neV) energy unit.
+  /// \brief Nanoelectronvolt (neV) energy unit.
   Nanoelectronvolt,
 
-  // Kiloelectronvolt (keV) energy unit.
+  /// \brief Kiloelectronvolt (keV) energy unit.
   Kiloelectronvolt,
 
-  // Megaelectronvolt (MeV) energy unit.
+  /// \brief Megaelectronvolt (MeV) energy unit.
   Megaelectronvolt,
 
-  // Gigaelectronvolt (GeV) energy unit.
+  /// \brief Gigaelectronvolt (GeV) energy unit.
   Gigaelectronvolt,
 
-  // British thermal unit (BTU) energy unit.
+  /// \brief British thermal unit (BTU) energy unit.
   BritishThermalUnit,
 };
 
 }  // namespace Unit
 
-// Standard energy unit: joule (J).
+/// \brief Standard energy unit: joule (J).
 template <>
 inline constexpr const Unit::Energy Standard<Unit::Energy>{Unit::Energy::Joule};
 
-// Physical dimension set of energy units.
+/// \brief Physical dimension set of energy units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Energy>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},

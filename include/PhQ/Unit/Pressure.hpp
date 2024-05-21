@@ -51,40 +51,40 @@ namespace PhQ {
 
 namespace Unit {
 
-// Pressure units.
+/// \brief Pressure units.
 enum class Pressure : int8_t {
-  // Pascal (Pa) pressure unit.
+  /// \brief Pascal (Pa) pressure unit.
   Pascal,
 
-  // Kilopascal (kPa) pressure unit.
+  /// \brief Kilopascal (kPa) pressure unit.
   Kilopascal,
 
-  // Megapascal (MPa) pressure unit.
+  /// \brief Megapascal (MPa) pressure unit.
   Megapascal,
 
-  // Gigapascal (GPa) pressure unit.
+  /// \brief Gigapascal (GPa) pressure unit.
   Gigapascal,
 
-  // Bar (bar) pressure unit.
+  /// \brief Bar (bar) pressure unit.
   Bar,
 
-  // Atmosphere (atm) pressure unit.
+  /// \brief Atmosphere (atm) pressure unit.
   Atmosphere,
 
-  // Pound per square foot (lbf/ft^2) pressure unit.
+  /// \brief Pound per square foot (lbf/ft^2) pressure unit.
   PoundPerSquareFoot,
 
-  // Pound per square inch (lbf/in^2) pressure unit.
+  /// \brief Pound per square inch (lbf/in^2) pressure unit.
   PoundPerSquareInch,
 };
 
 }  // namespace Unit
 
-// Standard pressure unit: pascal (Pa).
+/// \brief Standard pressure unit: pascal (Pa).
 template <>
 inline constexpr const Unit::Pressure Standard<Unit::Pressure>{Unit::Pressure::Pascal};
 
-// Physical dimension set of pressure units.
+/// \brief Physical dimension set of pressure units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Pressure>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1},

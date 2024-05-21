@@ -36,53 +36,54 @@
 
 namespace PhQ::Dimension {
 
-// Base physical dimension of electric current. Typically denoted "I". One of seven independent base
-// physical dimensions that form the physical dimension set of any unit of measure or physical
-// quantity.
+/// \brief Base physical dimension of electric current. Typically denoted "I". One of seven
+/// independent base physical dimensions that form the physical dimension set of any unit of measure
+/// or physical quantity.
 class ElectricCurrent {
 public:
-  // Default constructor. Constructs a base physical dimension of electric current with a value of
-  // zero.
+  /// \brief Default constructor. Constructs a base physical dimension of electric current with a
+  /// value of zero.
   constexpr ElectricCurrent() = default;
 
-  // Constructor. Constructs a base physical dimension of electric current with a given value.
+  /// \brief Constructor. Constructs a base physical dimension of electric current with a given
+  /// value.
   explicit constexpr ElectricCurrent(const int8_t value) : value(value) {}
 
-  // Destructor. Destroys this base physical dimension of electric current.
+  /// \brief Destructor. Destroys this base physical dimension of electric current.
   ~ElectricCurrent() noexcept = default;
 
-  // Copy constructor. Constructs a base physical dimension of electric current by copying another
-  // one.
+  /// \brief Copy constructor. Constructs a base physical dimension of electric current by copying
+  /// another one.
   constexpr ElectricCurrent(const ElectricCurrent& other) = default;
 
-  // Copy assignment operator. Assigns the value of this base physical dimension of electric current
-  // by copying from another one.
+  /// \brief Copy assignment operator. Assigns the value of this base physical dimension of electric
+  /// current by copying from another one.
   constexpr ElectricCurrent& operator=(const ElectricCurrent& other) = default;
 
-  // Move constructor. Constructs a base physical dimension of electric current by moving another
-  // one.
+  /// \brief Move constructor. Constructs a base physical dimension of electric current by moving
+  /// another one.
   constexpr ElectricCurrent(ElectricCurrent&& other) noexcept = default;
 
-  // Move assignment operator. Assigns the value of this base physical dimension of electric current
-  // by moving another one.
+  /// \brief Move assignment operator. Assigns the value of this base physical dimension of electric
+  /// current by moving another one.
   constexpr ElectricCurrent& operator=(ElectricCurrent&& other) noexcept = default;
 
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   [[nodiscard]] constexpr int8_t Value() const noexcept {
     return value;
   }
 
-  // Abbreviation of this base physical dimension.
+  /// \brief Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept {
     return "I";
   }
 
-  // Label of this base physical dimension.
+  /// \brief Label of this base physical dimension.
   static std::string_view Label() noexcept {
     return "Electric Current";
   }
 
-  // Prints this base physical dimension as a string.
+  /// \brief Prints this base physical dimension as a string.
   [[nodiscard]] std::string Print() const noexcept {
     if (value == 0) {
       return {};
@@ -97,7 +98,7 @@ public:
   }
 
 private:
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   int8_t value{0};
 };
 
