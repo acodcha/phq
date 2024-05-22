@@ -1,4 +1,4 @@
-# Physical Quantities
+# Physical Quantities (PhQ)
 
 [![tests](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml)
 
@@ -57,29 +57,31 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 
 The Physical Quantities library requires the following packages:
 
-- **C++ Compiler:** Physical Quantities is a C++ library. A C++ compiler with support for the C++17 standard or any more recent standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
-- **CMake** or **Bazel:** The Physical Quantities library requires either the CMake build system or the Bazel build system; either of these can be used.
-  - CMake: On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative installation means.
-  - Bazel: Follow the instructions at <https://bazel.build/install> to install Bazel on your computer.
+- **C++ Compiler:** A C++ compiler with support for the C++17 standard or any more recent standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
+- **CMake** or **Bazel:** Either the CMake build system or the Bazel build system is required.
+  - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative means of installation.
+  - **Bazel:** Follow the instructions at <https://bazel.build/install> to install Bazel on your computer.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Top)](#physical-quantities-phq)
 
 ## Configuration
+
+The Physical Quantities library can be configured with either the CMake build system or the Bazel build system:
 
 - [CMake](#configuration-cmake)
 - [Bazel](#configuration-bazel)
 
-[(Back to Top)](#physical-quantities)
+[(Back to Top)](#physical-quantities-phq)
 
 ### Configuration: CMake
 
-To use the Physical Quantities library in one of your CMake C++ projects, choose one of the following three options to link it to your project.
+To use this library in one of your CMake C++ projects, choose one of the following three options.
 
-Then, simply include the Physical Quantities library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+Then, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
 
 #### Configuration: CMake: Option 1
 
-To use the Physical Quantities library in one of your CMake projects, add the following code to your project's `CMakeLists.txt` file:
+To use this library in one of your CMake projects, add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
 set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
@@ -102,7 +104,7 @@ The above code automatically downloads the Physical Quantities library and links
 
 #### Configuration: CMake: Option 2
 
-Alternatively, if you have installed the Physical Quantities library on your computer as described in the [Installation](#installation) section, you can instead simply add the following code to your project's `CMakeLists.txt` file:
+Alternatively, if you have installed this library on your computer as described in the [Installation](#installation) section, you can instead simply add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
 set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
@@ -115,7 +117,7 @@ message(STATUS "The PhQ library was found at ${PhQ_CONFIG}")
 target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-The above code locates the Physical Quantities library installed on your computer and links it to your CMake target. If the Physical Quantities library is not found on your computer, CMake exits with an error.
+The above code locates the Physical Quantities library installed on your computer and links it to your CMake target.
 
 #### Configuration: CMake: Option 3
 
@@ -143,13 +145,13 @@ endif()
 target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-The above code first checks whether the Physical Quantities library is installed on your computer; if not, it instead downloads it. Then, the above code links the Physical Quantities library to your CMake target.
+The above code first checks whether the Physical Quantities library is installed on your computer; if not, it downloads it. Then, the library is linked to your CMake target.
 
 [(Back to Configuration)](#configuration)
 
 ### Configuration: Bazel
 
-To use the Physical Quantities library in one of your Bazel C++ projects, do the following.
+To use this library in one of your Bazel C++ projects, do the following.
 
 Add the following code to your project's `WORKSPACE.bazel` file:
 
@@ -192,15 +194,9 @@ cc_library(
 
 The above code adds the dependencies for the `PhQ::Position` and `PhQ::ConstitutiveModel::ElasticIsotropicSolid` classes to your Bazel C++ library.
 
-Finally, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+Finally, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of this library's contents.
 
 [(Back to Configuration)](#configuration)
-
-## Documentation
-
-The full documentation of the Physical Quantities (PhQ) library is hosted at <https://acodcha.github.io/physical-quantities>.
-
-[(Back to Top)](#physical-quantities)
 
 ## Usage
 
@@ -214,7 +210,7 @@ The full documentation of the Physical Quantities (PhQ) library is hosted at <ht
 - [Divisions by Zero](#usage-divisions-by-zero)
 - [Exceptions](#usage-exceptions)
 
-[(Back to Top)](#physical-quantities)
+[(Back to Top)](#physical-quantities-phq)
 
 ### Usage: Basics
 
@@ -553,54 +549,88 @@ If maintaining a strong exception guarantee is a concern, use `try` and `catch` 
 
 [(Back to Usage)](#usage)
 
-## Installation
+## Documentation
 
-If using the CMake build system, you may optionally install the Physical Quantities library on your computer to use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
+The full documentation of the Physical Quantities library is hosted at <https://acodcha.github.io/phq-docs>.
 
-First, clone the Physical Quantities library's repository and configure it with:
+Alternatively, the documentation can be built locally on your computer. Doing so requires the following additional package:
+
+- **Doxygen**: The Doxygen library (<https://www.doxygen.nl/index.html>) is used for building documentation. On Ubuntu, install it with `sudo apt install doxygen`.
+
+Clone the Physical Quantities library's repository and build its documentation with:
 
 ```bash
-git clone git@github.com:acodcha/physical-quantities.git
-cd physical-quantities
+git clone git@github.com:acodcha/physical-quantities.git PhQ
+cd PhQ
+doxygen Doxyfile
+```
+
+This builds HTML documentation pages in the `PhQ/docs/html/` directory. Browse the documentation by opening the `PhQ/docs/html/index.html` file in a web browser.
+
+[(Back to Top)](#physical-quantities-phq)
+
+## Installation
+
+If using the CMake build system, the Physical Quantities library can optionally be installed on your computer to easily use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
+
+Clone this library's repository, configure it, and install it with:
+
+```bash
+git clone git@github.com:acodcha/physical-quantities.git PhQ
+cd PhQ
 mkdir build
 cd build
 cmake ..
-```
-
-This is a header-only library, so no compilation is needed.
-
-Second, install the Physical Quantities library on your computer from the `build` directory with:
-
-```bash
 sudo make install
 ```
 
-On most systems, this installs the Physical Quantities library's headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the Physical Quantities library by simply deleting these directories.
+This is a header-only library, so no compilation is needed. On most systems, the above code installs this library's headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Top)](#physical-quantities-phq)
 
 ## Testing
 
-Testing is optional and requires the following additional package:
+The Physical Quantities library is automatically tested whenever it is updated.
 
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your computer, it is automatically downloaded and linked with the Physical Quantities library.
+Testing can optionally be performed locally on your computer. Doing so requires the following additional package:
 
-If using the CMake build system, you can manually test the Physical Quantities library on your computer from the `build` directory with:
+- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your computer, it is automatically downloaded and linked with this library.
+
+Testing instructions differ depending on your build system:
+
+- [CMake](#testing-cmake)
+- [Bazel](#testing-bazel)
+
+[(Back to Top)](#physical-quantities-phq)
+
+### Testing: CMake
+
+If using the CMake build system, you can manually test the Physical Quantities library on your computer with:
 
 ```bash
+git clone git@github.com:acodcha/physical-quantities.git PhQ
+cd PhQ
+mkdir build
+cd build
 cmake .. -DTEST_PHQ_LIBRARY=ON
 make --jobs=16
 make test
 ```
 
-If using the Bazel build system, you can manually test the Physical Quantities library on your computer from the Physical Quantities repository's base directory with:
+[(Back to Testing)](#testing)
+
+### Testing: Bazel
+
+If using the Bazel build system, you can manually test the Physical Quantities library on your computer with:
 
 ```bash
+git clone git@github.com:acodcha/physical-quantities.git PhQ
+cd PhQ
 bazel build //:all
 bazel test //:all
 ```
 
-[(Back to Top)](#physical-quantities)
+[(Back to Testing)](#testing)
 
 ## License
 
@@ -608,13 +638,13 @@ Copyright © 2020-2024 Alexandre Coderre-Chabot
 
 Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
-The Physical Quantities (PhQ) library is hosted at <https://github.com/acodcha/physical-quantities> and its documentation is hosted at <https://acodcha.github.io/physical-quantities>.
+The Physical Quantities library is hosted at <https://github.com/acodcha/physical-quantities> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
-Physical Quantities (PhQ) is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
+Physical Quantities is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 - The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Top)](#physical-quantities-phq)
