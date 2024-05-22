@@ -39,61 +39,62 @@
 
 namespace PhQ {
 
-// Mass rate. Can represent the time rate of change of a mass or a mass flow
-// rate.
+/// \brief Mass rate. Can represent the time rate of change of a mass or a mass flow
+/// rate.
 template <typename Number = double>
 class MassRate : public DimensionalScalar<Unit::MassRate, Number> {
 public:
-  // Default constructor. Constructs a mass rate with an uninitialized value.
+  /// \brief Default constructor. Constructs a mass rate with an uninitialized value.
   MassRate() = default;
 
-  // Constructor. Constructs a mass rate with a given value expressed in a given mass rate unit.
+  /// \brief Constructor. Constructs a mass rate with a given value expressed in a given mass rate
+  /// unit.
   MassRate(const Number value, const Unit::MassRate unit)
     : DimensionalScalar<Unit::MassRate, Number>(value, unit) {}
 
-  // Constructor. Constructs a mass rate from a given mass and time using the definition of mass
-  // rate.
+  /// \brief Constructor. Constructs a mass rate from a given mass and time using the definition of
+  /// mass rate.
   constexpr MassRate(const Mass<Number>& mass, const Time<Number>& time)
     : MassRate<Number>(mass.Value() / time.Value()) {}
 
-  // Constructor. Constructs a mass rate from a given mass and frequency using the definition of
-  // mass rate.
+  /// \brief Constructor. Constructs a mass rate from a given mass and frequency using the
+  /// definition of mass rate.
   constexpr MassRate(const Mass<Number>& mass, const Frequency<Number>& frequency)
     : MassRate<Number>(mass.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this mass rate.
+  /// \brief Destructor. Destroys this mass rate.
   ~MassRate() noexcept = default;
 
-  // Copy constructor. Constructs a mass rate by copying another one.
+  /// \brief Copy constructor. Constructs a mass rate by copying another one.
   constexpr MassRate(const MassRate<Number>& other) = default;
 
-  // Copy constructor. Constructs a mass rate by copying another one.
+  /// \brief Copy constructor. Constructs a mass rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr MassRate(const MassRate<OtherNumber>& other)
     : MassRate(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a mass rate by moving another one.
+  /// \brief Move constructor. Constructs a mass rate by moving another one.
   constexpr MassRate(MassRate<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this mass rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this mass rate by copying another one.
   constexpr MassRate<Number>& operator=(const MassRate<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this mass rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this mass rate by copying another one.
   template <typename OtherNumber>
   constexpr MassRate<Number>& operator=(const MassRate<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this mass rate by moving another one.
+  /// \brief Move assignment operator. Assigns this mass rate by moving another one.
   constexpr MassRate<Number>& operator=(MassRate<Number>&& other) noexcept = default;
 
-  // Statically creates a mass rate of zero.
+  /// \brief Statically creates a mass rate of zero.
   static constexpr MassRate<Number> Zero() {
     return MassRate<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a mass rate with a given value expressed in a given mass rate unit.
+  /// \brief Statically creates a mass rate with a given value expressed in a given mass rate unit.
   template <Unit::MassRate Unit>
   static constexpr MassRate<Number> Create(const Number value) {
     return MassRate<Number>{
@@ -149,8 +150,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a mass rate with a given value expressed in the standard mass rate
-  // unit.
+  /// \brief Constructor. Constructs a mass rate with a given value expressed in the standard mass
+  /// rate unit.
   explicit constexpr MassRate(const Number value)
     : DimensionalScalar<Unit::MassRate, Number>(value) {}
 };

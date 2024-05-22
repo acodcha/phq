@@ -37,49 +37,49 @@
 
 namespace PhQ {
 
-// Mach number of a fluid flow.
+/// \brief Mach number of a fluid flow.
 template <typename Number = double>
 class MachNumber : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a Mach number with an uninitialized value.
+  /// \brief Default constructor. Constructs a Mach number with an uninitialized value.
   MachNumber() = default;
 
-  // Constructor. Constructs a Mach number with a given value.
+  /// \brief Constructor. Constructs a Mach number with a given value.
   explicit constexpr MachNumber(const Number value) : DimensionlessScalar<Number>(value) {}
 
-  // Constructor. Constructs a Mach number from a given speed and sound speed using the definition
-  // of the Mach number.
+  /// \brief Constructor. Constructs a Mach number from a given speed and sound speed using the
+  /// definition of the Mach number.
   constexpr MachNumber(const Speed<Number>& speed, const SoundSpeed<Number>& sound_speed)
     : MachNumber<Number>(speed.Value() / sound_speed.Value()) {}
 
-  // Destructor. Destroys this Mach number.
+  /// \brief Destructor. Destroys this Mach number.
   ~MachNumber() noexcept = default;
 
-  // Copy constructor. Constructs a Mach number by copying another one.
+  /// \brief Copy constructor. Constructs a Mach number by copying another one.
   constexpr MachNumber(const MachNumber<Number>& other) = default;
 
-  // Copy constructor. Constructs a Mach number by copying another one.
+  /// \brief Copy constructor. Constructs a Mach number by copying another one.
   template <typename OtherNumber>
   explicit constexpr MachNumber(const MachNumber<OtherNumber>& other)
     : MachNumber(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a Mach number by moving another one.
+  /// \brief Move constructor. Constructs a Mach number by moving another one.
   constexpr MachNumber(MachNumber<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Mach number by copying another one.
+  /// \brief Copy assignment operator. Assigns this Mach number by copying another one.
   constexpr MachNumber<Number>& operator=(const MachNumber<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this Mach number by copying another one.
+  /// \brief Copy assignment operator. Assigns this Mach number by copying another one.
   template <typename OtherNumber>
   constexpr MachNumber<Number>& operator=(const MachNumber<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this Mach number by moving another one.
+  /// \brief Move assignment operator. Assigns this Mach number by moving another one.
   constexpr MachNumber<Number>& operator=(MachNumber<Number>&& other) noexcept = default;
 
-  // Statically creates a Mach number of zero.
+  /// \brief Statically creates a Mach number of zero.
   static constexpr MachNumber<Number> Zero() {
     return MachNumber<Number>{static_cast<Number>(0)};
   }

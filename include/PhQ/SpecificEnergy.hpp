@@ -45,66 +45,66 @@ namespace PhQ {
 template <typename Number>
 class SpecificPower;
 
-// Specific energy. Energy per unit mass.
+/// \brief Specific energy. Energy per unit mass.
 template <typename Number = double>
 class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:
-  // Default constructor. Constructs a specific energy quantity with an uninitialized value.
+  /// \brief Default constructor. Constructs a specific energy quantity with an uninitialized value.
   SpecificEnergy() = default;
 
-  // Constructor. Constructs a specific energy quantity with a given value expressed in a given
-  // specific energy unit.
+  /// \brief Constructor. Constructs a specific energy quantity with a given value expressed in a
+  /// given specific energy unit.
   SpecificEnergy(const Number value, const Unit::SpecificEnergy unit)
     : DimensionalScalar<Unit::SpecificEnergy, Number>(value, unit) {}
 
-  // Constructor. Constructs a specific energy quantity from a given energy and mass using the
-  // definition of specific energy.
+  /// \brief Constructor. Constructs a specific energy quantity from a given energy and mass using
+  /// the definition of specific energy.
   constexpr SpecificEnergy(const Energy<Number>& energy, const Mass<Number>& mass)
     : SpecificEnergy<Number>(energy.Value() / mass.Value()) {}
 
-  // Constructor. Constructs a specific energy quantity from a given specific power and time
-  // duration using the definition of specific power.
+  /// \brief Constructor. Constructs a specific energy quantity from a given specific power and time
+  /// duration using the definition of specific power.
   constexpr SpecificEnergy(const SpecificPower<Number>& specific_power, const Time<Number>& time);
 
-  // Constructor. Constructs a specific energy quantity from a given specific power and frequency
-  // using the definition of specific power.
+  /// \brief Constructor. Constructs a specific energy quantity from a given specific power and
+  /// frequency using the definition of specific power.
   constexpr SpecificEnergy(
       const SpecificPower<Number>& specific_power, const Frequency<Number>& frequency);
 
-  // Destructor. Destroys this specific energy quantity.
+  /// \brief Destructor. Destroys this specific energy quantity.
   ~SpecificEnergy() noexcept = default;
 
-  // Copy constructor. Constructs a specific energy quantity by copying another one.
+  /// \brief Copy constructor. Constructs a specific energy quantity by copying another one.
   constexpr SpecificEnergy(const SpecificEnergy<Number>& other) = default;
 
-  // Copy constructor. Constructs a specific energy quantity by copying another one.
+  /// \brief Copy constructor. Constructs a specific energy quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr SpecificEnergy(const SpecificEnergy<OtherNumber>& other)
     : SpecificEnergy(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a specific energy quantity by moving another one.
+  /// \brief Move constructor. Constructs a specific energy quantity by moving another one.
   constexpr SpecificEnergy(SpecificEnergy<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this specific energy quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific energy quantity by copying another one.
   constexpr SpecificEnergy<Number>& operator=(const SpecificEnergy<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this specific energy quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific energy quantity by copying another one.
   template <typename OtherNumber>
   constexpr SpecificEnergy<Number>& operator=(const SpecificEnergy<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this specific energy quantity by moving another one.
+  /// \brief Move assignment operator. Assigns this specific energy quantity by moving another one.
   constexpr SpecificEnergy<Number>& operator=(SpecificEnergy<Number>&& other) noexcept = default;
 
-  // Statically creates a specific energy quantity of zero.
+  /// \brief Statically creates a specific energy quantity of zero.
   static constexpr SpecificEnergy<Number> Zero() {
     return SpecificEnergy<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a specific energy quantity with a given value expressed in a given specific
-  // energy unit.
+  /// \brief Statically creates a specific energy quantity with a given value expressed in a given
+  /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
   static constexpr SpecificEnergy<Number> Create(const Number value) {
     return SpecificEnergy<Number>{
@@ -158,8 +158,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a specific energy quantity with a given value expressed in the standard
-  // specific energy unit.
+  /// \brief Constructor. Constructs a specific energy quantity with a given value expressed in the
+  /// standard specific energy unit.
   explicit constexpr SpecificEnergy(const Number value)
     : DimensionalScalar<Unit::SpecificEnergy, Number>(value) {}
 };

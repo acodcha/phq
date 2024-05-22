@@ -42,59 +42,60 @@ namespace PhQ {
 template <typename Number>
 class HeatFlux;
 
-// Scalar heat flux component or magnitude of a heat flux vector. See also PhQ::HeatFlux.
+/// \brief Scalar heat flux component or magnitude of a heat flux vector. See also PhQ::HeatFlux.
 template <typename Number = double>
 class ScalarHeatFlux : public DimensionalScalar<Unit::EnergyFlux, Number> {
 public:
-  // Default constructor. Constructs a scalar heat flux with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar heat flux with an uninitialized value.
   ScalarHeatFlux() = default;
 
-  // Constructor. Constructs a scalar heat flux with a given value expressed in a given energy flux
-  // unit.
+  /// \brief Constructor. Constructs a scalar heat flux with a given value expressed in a given
+  /// energy flux unit.
   ScalarHeatFlux(const Number value, const Unit::EnergyFlux unit)
     : DimensionalScalar<Unit::EnergyFlux, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar heat flux from a given scalar thermal conductivity and scalar
-  // temperature gradient using Fourier's law of heat conduction. Since heat flows opposite the
-  // temperature gradient, the resulting scalar heat flux is negative.
+  /// \brief Constructor. Constructs a scalar heat flux from a given scalar thermal conductivity and
+  /// scalar temperature gradient using Fourier's law of heat conduction. Since heat flows opposite
+  /// the temperature gradient, the resulting scalar heat flux is negative.
   constexpr ScalarHeatFlux(const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
                            const ScalarTemperatureGradient<Number>& scalar_temperature_gradient)
     : ScalarHeatFlux<Number>(
         -scalar_thermal_conductivity.Value() * scalar_temperature_gradient.Value()) {}
 
-  // Destructor. Destroys this scalar heat flux.
+  /// \brief Destructor. Destroys this scalar heat flux.
   ~ScalarHeatFlux() noexcept = default;
 
-  // Copy constructor. Constructs a scalar heat flux by copying another one.
+  /// \brief Copy constructor. Constructs a scalar heat flux by copying another one.
   constexpr ScalarHeatFlux(const ScalarHeatFlux<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar heat flux by copying another one.
+  /// \brief Copy constructor. Constructs a scalar heat flux by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarHeatFlux(const ScalarHeatFlux<OtherNumber>& other)
     : ScalarHeatFlux(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar heat flux by moving another one.
+  /// \brief Move constructor. Constructs a scalar heat flux by moving another one.
   constexpr ScalarHeatFlux(ScalarHeatFlux<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar heat flux by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar heat flux by copying another one.
   constexpr ScalarHeatFlux<Number>& operator=(const ScalarHeatFlux<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar heat flux by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar heat flux by copying another one.
   template <typename OtherNumber>
   constexpr ScalarHeatFlux<Number>& operator=(const ScalarHeatFlux<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar heat flux by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar heat flux by moving another one.
   constexpr ScalarHeatFlux<Number>& operator=(ScalarHeatFlux<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar heat flux of zero.
+  /// \brief Statically creates a scalar heat flux of zero.
   static constexpr ScalarHeatFlux<Number> Zero() {
     return ScalarHeatFlux<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar heat flux with a given value expressed in a given energy flux unit.
+  /// \brief Statically creates a scalar heat flux with a given value expressed in a given energy
+  /// flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr ScalarHeatFlux<Number> Create(const Number value) {
     return ScalarHeatFlux<Number>{
@@ -140,8 +141,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar heat flux with a given value expressed in the standard energy
-  // flux unit.
+  /// \brief Constructor. Constructs a scalar heat flux with a given value expressed in the standard
+  /// energy flux unit.
   explicit constexpr ScalarHeatFlux(const Number value)
     : DimensionalScalar<Unit::EnergyFlux, Number>(value) {}
 

@@ -36,37 +36,38 @@
 
 namespace PhQ {
 
-// Bulk dynamic viscosity, also known as volume dynamic viscosity or dilatational dynamic viscosity.
+/// \brief Bulk dynamic viscosity, also known as volume dynamic viscosity or dilatational dynamic
+/// viscosity.
 template <typename Number = double>
 class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, Number> {
 public:
-  // Default constructor. Constructs a bulk dynamic viscosity with an uninitialized value.
+  /// \brief Default constructor. Constructs a bulk dynamic viscosity with an uninitialized value.
   BulkDynamicViscosity() = default;
 
-  // Constructor. Constructs a bulk dynamic viscosity with a given value expressed in a given
-  // dynamic viscosity unit.
+  /// \brief Constructor. Constructs a bulk dynamic viscosity with a given value expressed in a
+  /// given dynamic viscosity unit.
   BulkDynamicViscosity(const Number value, const Unit::DynamicViscosity unit)
     : DimensionalScalar<Unit::DynamicViscosity, Number>(value, unit) {}
 
-  // Destructor. Destroys this bulk dynamic viscosity.
+  /// \brief Destructor. Destroys this bulk dynamic viscosity.
   ~BulkDynamicViscosity() noexcept = default;
 
-  // Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
+  /// \brief Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
   constexpr BulkDynamicViscosity(const BulkDynamicViscosity<Number>& other) = default;
 
-  // Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
+  /// \brief Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
   template <typename OtherNumber>
   explicit constexpr BulkDynamicViscosity(const BulkDynamicViscosity<OtherNumber>& other)
     : BulkDynamicViscosity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a bulk dynamic viscosity by moving another one.
+  /// \brief Move constructor. Constructs a bulk dynamic viscosity by moving another one.
   constexpr BulkDynamicViscosity(BulkDynamicViscosity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this bulk dynamic viscosity by copying another one.
+  /// \brief Copy assignment operator. Assigns this bulk dynamic viscosity by copying another one.
   constexpr BulkDynamicViscosity<Number>& operator=(
       const BulkDynamicViscosity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this bulk dynamic viscosity by copying another one.
+  /// \brief Copy assignment operator. Assigns this bulk dynamic viscosity by copying another one.
   template <typename OtherNumber>
   constexpr BulkDynamicViscosity<Number>& operator=(
       const BulkDynamicViscosity<OtherNumber>& other) {
@@ -74,17 +75,17 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this bulk dynamic viscosity by moving another one.
+  /// \brief Move assignment operator. Assigns this bulk dynamic viscosity by moving another one.
   constexpr BulkDynamicViscosity<Number>& operator=(
       BulkDynamicViscosity<Number>&& other) noexcept = default;
 
-  // Statically creates a bulk dynamic viscosity of zero.
+  /// \brief Statically creates a bulk dynamic viscosity of zero.
   static constexpr BulkDynamicViscosity<Number> Zero() {
     return BulkDynamicViscosity<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a bulk dynamic viscosity with a given value expressed in a given dynamic
-  // viscosity unit.
+  /// \brief Statically creates a bulk dynamic viscosity with a given value expressed in a given
+  /// dynamic viscosity unit.
   template <Unit::DynamicViscosity Unit>
   static constexpr BulkDynamicViscosity<Number> Create(const Number value) {
     return BulkDynamicViscosity<Number>{
@@ -131,8 +132,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a bulk dynamic viscosity with a given value expressed in the standard
-  // dynamic viscosity unit.
+  /// \brief Constructor. Constructs a bulk dynamic viscosity with a given value expressed in the
+  /// standard dynamic viscosity unit.
   explicit constexpr BulkDynamicViscosity(const Number value)
     : DimensionalScalar<Unit::DynamicViscosity, Number>(value) {}
 

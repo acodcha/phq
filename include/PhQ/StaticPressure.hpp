@@ -66,69 +66,70 @@ class TotalPressure;
 template <typename Number>
 class Traction;
 
-// Static pressure. Pressure of a fluid at rest. Not to be confused with dynamic pressure, which is
-// the additional pressure resulting from the kinetic energy of a flowing fluid, or total pressure,
-// which is the sum of static pressure and dynamic pressure. Can represent either an absolute static
-// pressure or a static pressure difference relative to another static pressure.
+/// \brief Static pressure. Pressure of a fluid at rest. Not to be confused with dynamic pressure,
+/// which is the additional pressure resulting from the kinetic energy of a flowing fluid, or total
+/// pressure, which is the sum of static pressure and dynamic pressure. Can represent either an
+/// absolute static pressure or a static pressure difference relative to another static pressure.
 template <typename Number = double>
 class StaticPressure : public DimensionalScalar<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a static pressure with an uninitialized value.
+  /// \brief Default constructor. Constructs a static pressure with an uninitialized value.
   StaticPressure() = default;
 
-  // Constructor. Constructs a static pressure with a given value expressed in a given pressure
-  // unit.
+  /// \brief Constructor. Constructs a static pressure with a given value expressed in a given
+  /// pressure unit.
   StaticPressure(const Number value, const Unit::Pressure unit)
     : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
-  // Constructor. Constructs a static pressure from a given scalar force magnitude and area using
-  // the definition of pressure.
+  /// \brief Constructor. Constructs a static pressure from a given scalar force magnitude and area
+  /// using the definition of pressure.
   constexpr StaticPressure(const ScalarForce<Number>& scalar_force, const Area<Number>& area)
     : StaticPressure<Number>(scalar_force.Value() / area.Value()) {}
 
-  // Constructor. Constructs a static pressure from a given total pressure and dynamic pressure
-  // using the definition of total pressure.
+  /// \brief Constructor. Constructs a static pressure from a given total pressure and dynamic
+  /// pressure using the definition of total pressure.
   constexpr StaticPressure(
       const TotalPressure<Number>& total_pressure, const DynamicPressure<Number>& dynamic_pressure);
 
-  // Constructor. Constructs a static pressure from a given mass density and static kinematic
-  // pressure using the definition of static kinematic pressure.
+  /// \brief Constructor. Constructs a static pressure from a given mass density and static
+  /// kinematic pressure using the definition of static kinematic pressure.
   constexpr StaticPressure(const MassDensity<Number>& mass_density,
                            const StaticKinematicPressure<Number>& static_kinematic_pressure);
 
-  // Destructor. Destroys this static pressure.
+  /// \brief Destructor. Destroys this static pressure.
   ~StaticPressure() noexcept = default;
 
-  // Copy constructor. Constructs a static pressure by copying another one.
+  /// \brief Copy constructor. Constructs a static pressure by copying another one.
   constexpr StaticPressure(const StaticPressure<Number>& other) = default;
 
-  // Copy constructor. Constructs a static pressure by copying another one.
+  /// \brief Copy constructor. Constructs a static pressure by copying another one.
   template <typename OtherNumber>
   explicit constexpr StaticPressure(const StaticPressure<OtherNumber>& other)
     : StaticPressure(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a static pressure by moving another one.
+  /// \brief Move constructor. Constructs a static pressure by moving another one.
   constexpr StaticPressure(StaticPressure<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this static pressure by copying another one.
+  /// \brief Copy assignment operator. Assigns this static pressure by copying another one.
   constexpr StaticPressure<Number>& operator=(const StaticPressure<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this static pressure by copying another one.
+  /// \brief Copy assignment operator. Assigns this static pressure by copying another one.
   template <typename OtherNumber>
   constexpr StaticPressure<Number>& operator=(const StaticPressure<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this static pressure by moving another one.
+  /// \brief Move assignment operator. Assigns this static pressure by moving another one.
   constexpr StaticPressure<Number>& operator=(StaticPressure<Number>&& other) noexcept = default;
 
-  // Statically creates a static pressure of zero.
+  /// \brief Statically creates a static pressure of zero.
   static constexpr StaticPressure<Number> Zero() {
     return StaticPressure<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a static pressure with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a static pressure with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr StaticPressure<Number> Create(const Number value) {
     return StaticPressure<Number>{
@@ -155,8 +156,8 @@ public:
     return ScalarForce<Number>{*this, area};
   }
 
-  // Since pressure is compressive, the negative of this static pressure contributes to the
-  // traction.
+  /// \brief Since pressure is compressive, the negative of this static pressure contributes to the
+  /// traction.
   constexpr Traction<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr StaticPressure<Number> operator/(const Number number) const {
@@ -187,8 +188,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a static pressure with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a static pressure with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr StaticPressure(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 

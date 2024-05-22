@@ -42,116 +42,117 @@
 
 namespace PhQ {
 
-// Traction vector.
+/// \brief Traction vector.
 template <typename Number = double>
 class Traction : public DimensionalVector<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a traction vector with an uninitialized value.
+  /// \brief Default constructor. Constructs a traction vector with an uninitialized value.
   Traction() = default;
 
-  // Constructor. Constructs a traction vector with a given value expressed in a given pressure
-  // unit.
+  /// \brief Constructor. Constructs a traction vector with a given value expressed in a given
+  /// pressure unit.
   Traction(const Vector<Number>& value, const Unit::Pressure unit)
     : DimensionalVector<Unit::Pressure, Number>(value, unit) {}
 
-  // Constructor. Constructs a traction vector from a given static pressure and direction. Since
-  // pressure is compressive, the negative of the static pressure contributes to the traction
-  // vector.
+  /// \brief Constructor. Constructs a traction vector from a given static pressure and direction.
+  /// Since pressure is compressive, the negative of the static pressure contributes to the traction
+  /// vector.
   constexpr Traction(
       const StaticPressure<Number>& static_pressure, const Direction<Number>& direction)
     : Traction<Number>(-static_pressure.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a traction vector from a given force and area using the definition of
-  // traction.
+  /// \brief Constructor. Constructs a traction vector from a given force and area using the
+  /// definition of traction.
   constexpr Traction(const Force<Number>& force, const Area<Number>& area)
     : Traction<Number>(force.Value() / area.Value()) {}
 
-  // Constructor. Constructs a traction vector from a given stress and direction using the
-  // definition of traction.
+  /// \brief Constructor. Constructs a traction vector from a given stress and direction using the
+  /// definition of traction.
   constexpr Traction(const Stress<Number>& stress, const Direction<Number>& direction);
 
-  // Destructor. Destroys this traction vector.
+  /// \brief Destructor. Destroys this traction vector.
   ~Traction() noexcept = default;
 
-  // Copy constructor. Constructs a traction vector by copying another one.
+  /// \brief Copy constructor. Constructs a traction vector by copying another one.
   constexpr Traction(const Traction<Number>& other) = default;
 
-  // Copy constructor. Constructs a traction vector by copying another one.
+  /// \brief Copy constructor. Constructs a traction vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Traction(const Traction<OtherNumber>& other)
     : Traction(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a traction vector by moving another one.
+  /// \brief Move constructor. Constructs a traction vector by moving another one.
   constexpr Traction(Traction<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this traction vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this traction vector by copying another one.
   constexpr Traction<Number>& operator=(const Traction<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this traction vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this traction vector by copying another one.
   template <typename OtherNumber>
   constexpr Traction<Number>& operator=(const Traction<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this traction vector by moving another one.
+  /// \brief Move assignment operator. Assigns this traction vector by moving another one.
   constexpr Traction<Number>& operator=(Traction<Number>&& other) noexcept = default;
 
-  // Statically creates a traction vector of zero.
+  /// \brief Statically creates a traction vector of zero.
   static constexpr Traction<Number> Zero() {
     return Traction<Number>{Vector<Number>::Zero()};
   }
 
-  // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
-  // in a given pressure unit.
+  /// \brief Statically creates a traction vector from the given x, y, and z Cartesian components
+  /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction<Number> Create(const Number x, const Number y, const Number z) {
     return Traction<Number>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<Number>{x, y, z})};
   }
 
-  // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
-  // in a given pressure unit.
+  /// \brief Statically creates a traction vector from the given x, y, and z Cartesian components
+  /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction<Number> Create(const std::array<Number, 3>& x_y_z) {
     return Traction<Number>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<Number>{x_y_z})};
   }
 
-  // Statically creates a traction vector with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a traction vector with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr Traction<Number> Create(const Vector<Number>& value) {
     return Traction<Number>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  // Returns the x Cartesian component of this traction vector.
+  /// \brief Returns the x Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure<Number> x() const noexcept {
     return StaticPressure<Number>{this->value.x()};
   }
 
-  // Returns the y Cartesian component of this traction vector.
+  /// \brief Returns the y Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure<Number> y() const noexcept {
     return StaticPressure<Number>{this->value.y()};
   }
 
-  // Returns the z Cartesian component of this traction vector.
+  /// \brief Returns the z Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure<Number> z() const noexcept {
     return StaticPressure<Number>{this->value.z()};
   }
 
-  // Returns the magnitude of this traction vector. Since pressure is compressive, the static
-  // pressure that corresponds to the magnitude of this traction vector is negative.
+  /// \brief Returns the magnitude of this traction vector. Since pressure is compressive, the
+  /// static pressure that corresponds to the magnitude of this traction vector is negative.
   [[nodiscard]] StaticPressure<Number> Magnitude() const {
     return StaticPressure<Number>{-this->value.Magnitude()};
   }
 
-  // Returns the direction of this traction vector.
+  /// \brief Returns the direction of this traction vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
     return this->value.Direction();
   }
 
-  // Returns the angle between this traction vector and another one.
+  /// \brief Returns the angle between this traction vector and another one.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Traction<Number>& traction) const {
     return PhQ::Angle<Number>{*this, traction};
   }
@@ -193,8 +194,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a traction vector with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a traction vector with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr Traction(const Vector<Number>& value)
     : DimensionalVector<Unit::Pressure, Number>(value) {}
 };

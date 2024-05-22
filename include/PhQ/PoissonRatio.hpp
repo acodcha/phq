@@ -35,44 +35,44 @@
 
 namespace PhQ {
 
-// Poisson's ratio of a deformable solid material.
+/// \brief Poisson's ratio of a deformable solid material.
 template <typename Number = double>
 class PoissonRatio : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a Poisson's ratio with an uninitialized value.
+  /// \brief Default constructor. Constructs a Poisson's ratio with an uninitialized value.
   PoissonRatio() = default;
 
-  // Constructor. Constructs a Poisson's ratio with a given value.
+  /// \brief Constructor. Constructs a Poisson's ratio with a given value.
   explicit constexpr PoissonRatio(const Number value) : DimensionlessScalar<Number>(value) {}
 
-  // Destructor. Destroys this Poisson's ratio.
+  /// \brief Destructor. Destroys this Poisson's ratio.
   ~PoissonRatio() noexcept = default;
 
-  // Copy constructor. Constructs a Poisson's ratio by copying another one.
+  /// \brief Copy constructor. Constructs a Poisson's ratio by copying another one.
   constexpr PoissonRatio(const PoissonRatio<Number>& other) = default;
 
-  // Copy constructor. Constructs a Poisson's ratio by copying another one.
+  /// \brief Copy constructor. Constructs a Poisson's ratio by copying another one.
   template <typename OtherNumber>
   explicit constexpr PoissonRatio(const PoissonRatio<OtherNumber>& other)
     : PoissonRatio(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a Poisson's ratio by moving another one.
+  /// \brief Move constructor. Constructs a Poisson's ratio by moving another one.
   constexpr PoissonRatio(PoissonRatio<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Poisson's ratio by copying another one.
+  /// \brief Copy assignment operator. Assigns this Poisson's ratio by copying another one.
   constexpr PoissonRatio<Number>& operator=(const PoissonRatio<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this Poisson's ratio by copying another one.
+  /// \brief Copy assignment operator. Assigns this Poisson's ratio by copying another one.
   template <typename OtherNumber>
   constexpr PoissonRatio<Number>& operator=(const PoissonRatio<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this Poisson's ratio by moving another one.
+  /// \brief Move assignment operator. Assigns this Poisson's ratio by moving another one.
   constexpr PoissonRatio<Number>& operator=(PoissonRatio<Number>&& other) noexcept = default;
 
-  // Statically creates a Poisson's ratio of zero.
+  /// \brief Statically creates a Poisson's ratio of zero.
   static constexpr PoissonRatio<Number> Zero() {
     return PoissonRatio<Number>{static_cast<Number>(0)};
   }

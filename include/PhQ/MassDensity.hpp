@@ -78,84 +78,86 @@ class Speed;
 template <typename Number>
 class ThermalDiffusivity;
 
-// Mass density.
+/// \brief Mass density.
 template <typename Number = double>
 class MassDensity : public DimensionalScalar<Unit::MassDensity, Number> {
 public:
-  // Default constructor. Constructs a mass density with an uninitialized value.
+  /// \brief Default constructor. Constructs a mass density with an uninitialized value.
   MassDensity() = default;
 
-  // Constructor. Constructs a mass density with a given value expressed in a given mass density
-  // unit.
+  /// \brief Constructor. Constructs a mass density with a given value expressed in a given mass
+  /// density unit.
   MassDensity(const Number value, const Unit::MassDensity unit)
     : DimensionalScalar<Unit::MassDensity, Number>(value, unit) {}
 
-  // Constructor. Constructs a mass density from a given mass and volume using the definition of
-  // mass density.
+  /// \brief Constructor. Constructs a mass density from a given mass and volume using the
+  /// definition of mass density.
   constexpr MassDensity(const Mass<Number>& mass, const Volume<Number>& volume)
     : MassDensity<Number>(mass.Value() / volume.Value()) {}
 
-  // Constructor. Constructs a mass density from a given dynamic viscosity and kinematic viscosity
-  // using the definition of kinematic viscosity.
+  /// \brief Constructor. Constructs a mass density from a given dynamic viscosity and kinematic
+  /// viscosity using the definition of kinematic viscosity.
   constexpr MassDensity(const DynamicViscosity<Number>& dynamic_viscosity,
                         const KinematicViscosity<Number>& kinematic_viscosity);
 
-  // Constructor. Constructs a mass density from a given scalar thermal conductivity, thermal
-  // diffusivity, and specific isobaric heat capacity using the definition of thermal diffusivity.
+  /// \brief Constructor. Constructs a mass density from a given scalar thermal conductivity,
+  /// thermal diffusivity, and specific isobaric heat capacity using the definition of thermal
+  /// diffusivity.
   constexpr MassDensity(
       const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
       const ThermalDiffusivity<Number>& thermal_diffusivity,
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity);
 
-  // Constructor. Constructs a mass density from a given dynamic pressure and speed using the
-  // definition of dynamic pressure.
+  /// \brief Constructor. Constructs a mass density from a given dynamic pressure and speed using
+  /// the definition of dynamic pressure.
   constexpr MassDensity(
       const DynamicPressure<Number>& dynamic_pressure, const Speed<Number>& speed);
 
-  // Constructor. Constructs a mass density from a given Reynolds number, dynamic viscosity, speed,
-  // and length using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a mass density from a given Reynolds number, dynamic viscosity,
+  /// speed, and length using the definition of the Reynolds number.
   constexpr MassDensity(const ReynoldsNumber<Number>& reynolds_number,
                         const DynamicViscosity<Number>& dynamic_viscosity,
                         const Speed<Number>& speed, const Length<Number>& length);
 
-  // Constructor. Constructs a mass density from a given isentropic bulk modulus and sound speed
-  // using the definition of the isentropic bulk modulus.
+  /// \brief Constructor. Constructs a mass density from a given isentropic bulk modulus and sound
+  /// speed using the definition of the isentropic bulk modulus.
   constexpr MassDensity(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
                         const SoundSpeed<Number>& sound_speed);
 
-  // Destructor. Destroys this mass density.
+  /// \brief Destructor. Destroys this mass density.
   ~MassDensity() noexcept = default;
 
-  // Copy constructor. Constructs a mass density by copying another one.
+  /// \brief Copy constructor. Constructs a mass density by copying another one.
   constexpr MassDensity(const MassDensity<Number>& other) = default;
 
-  // Copy constructor. Constructs a mass density by copying another one.
+  /// \brief Copy constructor. Constructs a mass density by copying another one.
   template <typename OtherNumber>
   explicit constexpr MassDensity(const MassDensity<OtherNumber>& other)
     : MassDensity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a mass density by moving another one.
+  /// \brief Move constructor. Constructs a mass density by moving another one.
   constexpr MassDensity(MassDensity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this mass density by copying another one.
+  /// \brief Copy assignment operator. Assigns this mass density by copying another one.
   constexpr MassDensity<Number>& operator=(const MassDensity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this mass density by copying another one.
+  /// \brief Copy assignment operator. Assigns this mass density by copying another one.
   template <typename OtherNumber>
   constexpr MassDensity<Number>& operator=(const MassDensity<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this mass density by moving another one.
+  /// \brief Move assignment operator. Assigns this mass density by moving another one.
   constexpr MassDensity<Number>& operator=(MassDensity<Number>&& other) noexcept = default;
 
-  // Statically creates a mass density of zero.
+  /// \brief Statically creates a mass density of zero.
   static constexpr MassDensity<Number> Zero() {
     return MassDensity<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a mass density with a given value expressed in a given mass density unit.
+  /// \brief Statically creates a mass density with a given value expressed in a given mass density
+  /// unit.
   template <Unit::MassDensity Unit>
   static constexpr MassDensity<Number> Create(const Number value) {
     return MassDensity<Number>{
@@ -206,8 +208,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a mass density with a given value expressed in the standard mass
-  // density unit.
+  /// \brief Constructor. Constructs a mass density with a given value expressed in the standard
+  /// mass density unit.
   explicit constexpr MassDensity(const Number value)
     : DimensionalScalar<Unit::MassDensity, Number>(value) {}
 };

@@ -49,54 +49,55 @@ class Force;
 template <typename Number>
 class StaticPressure;
 
-// Scalar force component or magnitude of a force vector. See also PhQ::Force.
+/// \brief Scalar force component or magnitude of a force vector. See also PhQ::Force.
 template <typename Number = double>
 class ScalarForce : public DimensionalScalar<Unit::Force, Number> {
 public:
-  // Default constructor. Constructs a scalar force with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar force with an uninitialized value.
   ScalarForce() = default;
 
-  // Constructor. Constructs a scalar force with a given value expressed in a given force unit.
+  /// \brief Constructor. Constructs a scalar force with a given value expressed in a given force
+  /// unit.
   ScalarForce(const Number value, const Unit::Force unit)
     : DimensionalScalar<Unit::Force, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar force from a given static pressure and area using the
-  // definition of pressure.
+  /// \brief Constructor. Constructs a scalar force from a given static pressure and area using the
+  /// definition of pressure.
   constexpr ScalarForce(const StaticPressure<Number>& static_pressure, const Area<Number>& area);
 
-  // Destructor. Destroys this scalar force.
+  /// \brief Destructor. Destroys this scalar force.
   ~ScalarForce() noexcept = default;
 
-  // Copy constructor. Constructs a scalar force by copying another one.
+  /// \brief Copy constructor. Constructs a scalar force by copying another one.
   constexpr ScalarForce(const ScalarForce<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar force by copying another one.
+  /// \brief Copy constructor. Constructs a scalar force by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarForce(const ScalarForce<OtherNumber>& other)
     : ScalarForce(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar force by moving another one.
+  /// \brief Move constructor. Constructs a scalar force by moving another one.
   constexpr ScalarForce(ScalarForce<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar force by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar force by copying another one.
   constexpr ScalarForce<Number>& operator=(const ScalarForce<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar force by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar force by copying another one.
   template <typename OtherNumber>
   constexpr ScalarForce<Number>& operator=(const ScalarForce<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar force by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar force by moving another one.
   constexpr ScalarForce<Number>& operator=(ScalarForce<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar force of zero.
+  /// \brief Statically creates a scalar force of zero.
   static constexpr ScalarForce<Number> Zero() {
     return ScalarForce<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar force with a given value expressed in a given force unit.
+  /// \brief Statically creates a scalar force with a given value expressed in a given force unit.
   template <Unit::Force Unit>
   static constexpr ScalarForce<Number> Create(const Number value) {
     return ScalarForce<Number>{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
@@ -143,8 +144,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar force with a given value expressed in the standard force
-  // unit.
+  /// \brief Constructor. Constructs a scalar force with a given value expressed in the standard
+  /// force unit.
   explicit constexpr ScalarForce(const Number value)
     : DimensionalScalar<Unit::Force, Number>(value) {}
 

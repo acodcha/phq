@@ -96,85 +96,85 @@ class SpecificPower;
 template <typename Number>
 class Volume;
 
-// Mass.
+/// \brief Mass.
 template <typename Number = double>
 class Mass : public DimensionalScalar<Unit::Mass, Number> {
 public:
-  // Default constructor. Constructs a mass with an uninitialized value.
+  /// \brief Default constructor. Constructs a mass with an uninitialized value.
   Mass() = default;
 
-  // Constructor. Constructs a mass with a given value expressed in a given mass unit.
+  /// \brief Constructor. Constructs a mass with a given value expressed in a given mass unit.
   Mass(const Number value, const Unit::Mass unit)
     : DimensionalScalar<Unit::Mass, Number>(value, unit) {}
 
-  // Constructor. Constructs a mass from a given mass density and volume using the definition of
-  // mass density.
+  /// \brief Constructor. Constructs a mass from a given mass density and volume using the
+  /// definition of mass density.
   constexpr Mass(const MassDensity<Number>& mass_density, const Volume<Number>& volume);
 
-  // Constructor. Constructs a mass from a given mass rate and time using the definition of mass
-  // rate.
+  /// \brief Constructor. Constructs a mass from a given mass rate and time using the definition of
+  /// mass rate.
   constexpr Mass(const MassRate<Number>& mass_rate, const Time<Number>& time);
 
-  // Constructor. Constructs a mass from a given mass rate and frequency using the definition of
-  // mass rate.
+  /// \brief Constructor. Constructs a mass from a given mass rate and frequency using the
+  /// definition of mass rate.
   constexpr Mass(const MassRate<Number>& mass_rate, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs a mass from a given energy and specific energy using the definition of
-  // specific energy.
+  /// \brief Constructor. Constructs a mass from a given energy and specific energy using the
+  /// definition of specific energy.
   constexpr Mass(const Energy<Number>& energy, const SpecificEnergy<Number>& specific_energy);
 
-  // Constructor. Constructs a mass from a given power and specific power using the definition of
-  // specific power.
+  /// \brief Constructor. Constructs a mass from a given power and specific power using the
+  /// definition of specific power.
   constexpr Mass(const Power<Number>& power, const SpecificPower<Number>& specific_power);
 
-  // Constructor. Constructs a mass from a given gas constant and specific gas constant using the
-  // definition of the specific gas constant.
+  /// \brief Constructor. Constructs a mass from a given gas constant and specific gas constant
+  /// using the definition of the specific gas constant.
   constexpr Mass(const GasConstant<Number>& gas_constant,
                  const SpecificGasConstant<Number>& specific_gas_constant);
 
-  // Constructor. Constructs a mass from a given isobaric heat capacity and specific isobaric heat
-  // capacity using the definition of the specific isobaric heat capacity.
+  /// \brief Constructor. Constructs a mass from a given isobaric heat capacity and specific
+  /// isobaric heat capacity using the definition of the specific isobaric heat capacity.
   constexpr Mass(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
                  const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity);
 
-  // Constructor. Constructs a mass from a given isochoric heat capacity and specific isochoric heat
-  // capacity using the definition of the specific isochoric heat capacity.
+  /// \brief Constructor. Constructs a mass from a given isochoric heat capacity and specific
+  /// isochoric heat capacity using the definition of the specific isochoric heat capacity.
   constexpr Mass(const IsochoricHeatCapacity<Number>& isochoric_heat_capacity,
                  const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity);
 
-  // Destructor. Destroys this mass.
+  /// \brief Destructor. Destroys this mass.
   ~Mass() noexcept = default;
 
-  // Copy constructor. Constructs a mass by copying another one.
+  /// \brief Copy constructor. Constructs a mass by copying another one.
   constexpr Mass(const Mass<Number>& other) = default;
 
-  // Copy constructor. Constructs a mass by copying another one.
+  /// \brief Copy constructor. Constructs a mass by copying another one.
   template <typename OtherNumber>
   explicit constexpr Mass(const Mass<OtherNumber>& other)
     : Mass(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a mass by moving another one.
+  /// \brief Move constructor. Constructs a mass by moving another one.
   constexpr Mass(Mass<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this mass by copying another one.
+  /// \brief Copy assignment operator. Assigns this mass by copying another one.
   constexpr Mass<Number>& operator=(const Mass<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this mass by copying another one.
+  /// \brief Copy assignment operator. Assigns this mass by copying another one.
   template <typename OtherNumber>
   constexpr Mass<Number>& operator=(const Mass<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this mass by moving another one.
+  /// \brief Move assignment operator. Assigns this mass by moving another one.
   constexpr Mass<Number>& operator=(Mass<Number>&& other) noexcept = default;
 
-  // Statically creates a mass of zero.
+  /// \brief Statically creates a mass of zero.
   static constexpr Mass<Number> Zero() {
     return Mass<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a mass with a given value expressed in a given mass unit.
+  /// \brief Statically creates a mass with a given value expressed in a given mass unit.
   template <Unit::Mass Unit>
   static constexpr Mass<Number> Create(const Number value) {
     return Mass<Number>{StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
@@ -240,7 +240,7 @@ public:
   }
 
 private:
-  // Constructor. Constructs a mass with a given value expressed in the standard mass unit.
+  /// \brief Constructor. Constructs a mass with a given value expressed in the standard mass unit.
   explicit constexpr Mass(const Number value) : DimensionalScalar<Unit::Mass, Number>(value) {}
 };
 

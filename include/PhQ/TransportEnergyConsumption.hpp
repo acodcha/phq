@@ -39,47 +39,50 @@
 
 namespace PhQ {
 
-// Transport energy consumption, also known as energy consumption in transport. A measure of energy
-// use per distance traveled. Energy consumption in transport is often measured in joules per metre
-// (J/m), kilowatt-hours per kilometre (kW·hr/km), or kilowatt-hours per mile (kW·hr/mi).
+/// \brief Transport energy consumption, also known as energy consumption in transport. A measure of
+/// energy use per distance traveled. Energy consumption in transport is often measured in joules
+/// per metre (J/m), kilowatt-hours per kilometre (kW·hr/km), or kilowatt-hours per mile (kW·hr/mi).
 template <typename Number = double>
 class TransportEnergyConsumption
   : public DimensionalScalar<Unit::TransportEnergyConsumption, Number> {
 public:
-  // Default constructor. Constructs a transport energy consumption with an uninitialized value.
+  /// \brief Default constructor. Constructs a transport energy consumption with an uninitialized
+  /// value.
   TransportEnergyConsumption() = default;
 
-  // Constructor. Constructs a transport energy consumption with a given value expressed in a given
-  // transport energy consumption unit.
+  /// \brief Constructor. Constructs a transport energy consumption with a given value expressed in
+  /// a given transport energy consumption unit.
   TransportEnergyConsumption(const Number value, const Unit::TransportEnergyConsumption unit)
     : DimensionalScalar<Unit::TransportEnergyConsumption, Number>(value, unit) {}
 
-  // Constructor. Constructs a transport energy consumption from a given energy and length using the
-  // definition of transport energy consumption.
+  /// \brief Constructor. Constructs a transport energy consumption from a given energy and length
+  /// using the definition of transport energy consumption.
   constexpr TransportEnergyConsumption(const Energy<Number>& energy, const Length<Number>& length)
     : TransportEnergyConsumption<Number>(energy.Value() / length.Value()) {}
 
-  // Destructor. Destroys this transport energy consumption.
+  /// \brief Destructor. Destroys this transport energy consumption.
   ~TransportEnergyConsumption() noexcept = default;
 
-  // Copy constructor. Constructs a transport energy consumption by copying another one.
+  /// \brief Copy constructor. Constructs a transport energy consumption by copying another one.
   constexpr TransportEnergyConsumption(const TransportEnergyConsumption<Number>& other) = default;
 
-  // Copy constructor. Constructs a transport energy consumption by copying another one.
+  /// \brief Copy constructor. Constructs a transport energy consumption by copying another one.
   template <typename OtherNumber>
   explicit constexpr TransportEnergyConsumption(
       const TransportEnergyConsumption<OtherNumber>& other)
     : TransportEnergyConsumption(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a transport energy consumption by moving another one.
+  /// \brief Move constructor. Constructs a transport energy consumption by moving another one.
   constexpr TransportEnergyConsumption(
       TransportEnergyConsumption<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this transport energy consumption by copying another one.
+  /// \brief Copy assignment operator. Assigns this transport energy consumption by copying another
+  /// one.
   constexpr TransportEnergyConsumption<Number>& operator=(
       const TransportEnergyConsumption<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this transport energy consumption by copying another one.
+  /// \brief Copy assignment operator. Assigns this transport energy consumption by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr TransportEnergyConsumption<Number>& operator=(
       const TransportEnergyConsumption<OtherNumber>& other) {
@@ -87,17 +90,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this transport energy consumption by moving another one.
+  /// \brief Move assignment operator. Assigns this transport energy consumption by moving another
+  /// one.
   constexpr TransportEnergyConsumption<Number>& operator=(
       TransportEnergyConsumption<Number>&& other) noexcept = default;
 
-  // Statically creates a transport energy consumption of zero.
+  /// \brief Statically creates a transport energy consumption of zero.
   static constexpr TransportEnergyConsumption<Number> Zero() {
     return TransportEnergyConsumption<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a transport energy consumption with a given value expressed in a given
-  // transport energy consumption unit.
+  /// \brief Statically creates a transport energy consumption with a given value expressed in a
+  /// given transport energy consumption unit.
   template <Unit::TransportEnergyConsumption Unit>
   static constexpr TransportEnergyConsumption<Number> Create(const Number value) {
     return TransportEnergyConsumption<Number>{
@@ -155,8 +159,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a transport energy consumption with a given value expressed in the
-  // standard transport energy consumption unit.
+  /// \brief Constructor. Constructs a transport energy consumption with a given value expressed in
+  /// the standard transport energy consumption unit.
   explicit constexpr TransportEnergyConsumption(const Number value)
     : DimensionalScalar<Unit::TransportEnergyConsumption, Number>(value) {}
 };

@@ -37,99 +37,101 @@
 
 namespace PhQ {
 
-// Frequency.
+/// \brief Frequency. Inverse of a time duration. See also PhQ::Time.
 template <typename Number = double>
 class Frequency : public DimensionalScalar<Unit::Frequency, Number> {
 public:
-  // Default constructor. Constructs a frequency with an uninitialized value.
+  /// \brief Default constructor. Constructs a frequency with an uninitialized value.
   Frequency() = default;
 
-  // Constructor. Constructs a frequency with a given value expressed in a given frequency unit.
+  /// \brief Constructor. Constructs a frequency with a given value expressed in a given frequency
+  /// unit.
   Frequency(const Number value, const Unit::Frequency unit)
     : DimensionalScalar<Unit::Frequency, Number>(value, unit) {}
 
-  // Constructor. Constructs a frequency from a given time period using the definition of frequency.
+  /// \brief Constructor. Constructs a frequency from a given time period using the definition of
+  /// frequency.
   constexpr explicit Frequency(const Time<Number>& time) : Frequency<Number>(1.0 / time.Value()) {}
 
-  // Constructor. Constructs a frequency from a given scalar acceleration and speed using the
-  // definitions of acceleration and frequency.
+  /// \brief Constructor. Constructs a frequency from a given scalar acceleration and speed using
+  /// the definitions of acceleration and frequency.
   constexpr Frequency(
       const ScalarAcceleration<Number>& scalar_acceleration, const Speed<Number>& speed);
 
-  // Constructor. Constructs a frequency from a given scalar angular acceleration and angular speed
-  // using the definitions of angular acceleration and frequency.
+  /// \brief Constructor. Constructs a frequency from a given scalar angular acceleration and
+  /// angular speed using the definitions of angular acceleration and frequency.
   constexpr Frequency(const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
                       const AngularSpeed<Number>& angular_speed);
 
-  // Constructor. Constructs a frequency from a given angular speed and angle using the definitions
-  // of angular speed and frequency.
+  /// \brief Constructor. Constructs a frequency from a given angular speed and angle using the
+  /// definitions of angular speed and frequency.
   constexpr Frequency(const AngularSpeed<Number>& angular_speed, const Angle<Number>& angle);
 
-  // Constructor. Constructs a frequency from a given mass rate and mass using the definitions of
-  // mass rate and frequency.
+  /// \brief Constructor. Constructs a frequency from a given mass rate and mass using the
+  /// definitions of mass rate and frequency.
   constexpr Frequency(const MassRate<Number>& mass_rate, const Mass<Number>& mass);
 
-  // Constructor. Constructs a frequency from a given memory rate and memory using the definitions
-  // of memory rate and frequency.
+  /// \brief Constructor. Constructs a frequency from a given memory rate and memory using the
+  /// definitions of memory rate and frequency.
   constexpr Frequency(const MemoryRate<Number>& memory_rate, const Memory<Number>& memory);
 
-  // Constructor. Constructs a frequency from a given power and energy using the definitions of
-  // power and frequency.
+  /// \brief Constructor. Constructs a frequency from a given power and energy using the definitions
+  /// of power and frequency.
   constexpr Frequency(const Power<Number>& power, const Energy<Number>& energy);
 
-  // Constructor. Constructs a frequency from a given specific power and specific energy using the
-  // definitions of specific power and frequency.
+  /// \brief Constructor. Constructs a frequency from a given specific power and specific energy
+  /// using the definitions of specific power and frequency.
   constexpr Frequency(
       const SpecificPower<Number>& specific_power, const SpecificEnergy<Number>& specific_energy);
 
-  // Constructor. Constructs a frequency from a given speed and length using the definitions of
-  // speed and frequency.
+  /// \brief Constructor. Constructs a frequency from a given speed and length using the definitions
+  /// of speed and frequency.
   constexpr Frequency(const Speed<Number>& speed, const Length<Number>& length);
 
-  // Constructor. Constructs a frequency from a given volume rate and volume using the definitions
-  // of volume rate and frequency.
+  /// \brief Constructor. Constructs a frequency from a given volume rate and volume using the
+  /// definitions of volume rate and frequency.
   constexpr Frequency(const VolumeRate<Number>& volume_rate, const Volume<Number>& volume);
 
-  // Destructor. Destroys this frequency.
+  /// \brief Destructor. Destroys this frequency.
   ~Frequency() noexcept = default;
 
-  // Copy constructor. Constructs a frequency by copying another one.
+  /// \brief Copy constructor. Constructs a frequency by copying another one.
   constexpr Frequency(const Frequency<Number>& other) = default;
 
-  // Copy constructor. Constructs a frequency by copying another one.
+  /// \brief Copy constructor. Constructs a frequency by copying another one.
   template <typename OtherNumber>
   explicit constexpr Frequency(const Frequency<OtherNumber>& other)
     : Frequency(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a frequency by moving another one.
+  /// \brief Move constructor. Constructs a frequency by moving another one.
   constexpr Frequency(Frequency<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this frequency by copying another one.
+  /// \brief Copy assignment operator. Assigns this frequency by copying another one.
   constexpr Frequency<Number>& operator=(const Frequency<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this frequency by copying another one.
+  /// \brief Copy assignment operator. Assigns this frequency by copying another one.
   template <typename OtherNumber>
   constexpr Frequency<Number>& operator=(const Frequency<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this frequency by moving another one.
+  /// \brief Move assignment operator. Assigns this frequency by moving another one.
   constexpr Frequency<Number>& operator=(Frequency<Number>&& other) noexcept = default;
 
-  // Statically creates a frequency of zero.
+  /// \brief Statically creates a frequency of zero.
   static constexpr Frequency<Number> Zero() {
     return Frequency<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a frequency with a given value expressed in a given frequency unit.
+  /// \brief Statically creates a frequency with a given value expressed in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr Frequency<Number> Create(const Number value) {
     return Frequency<Number>{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
-  // Time period that corresponds to this frequency.
+  /// \brief Time period that corresponds to this frequency.
   [[nodiscard]] constexpr Time<Number> Period() const {
     return Time<Number>{*this};
   }
@@ -206,8 +208,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a frequency with a given value expressed in the standard frequency
-  // unit.
+  /// \brief Constructor. Constructs a frequency with a given value expressed in the standard
+  /// frequency unit.
   explicit constexpr Frequency(const Number value)
     : DimensionalScalar<Unit::Frequency, Number>(value) {}
 };

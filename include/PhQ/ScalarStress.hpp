@@ -40,50 +40,52 @@ namespace PhQ {
 template <typename Number>
 class Stress;
 
-// Scalar component or resultant of a Cauchy stress tensor. See also PhQ::Stress.
+/// \brief Scalar component or resultant of a Cauchy stress tensor. See also PhQ::Stress.
 template <typename Number = double>
 class ScalarStress : public DimensionalScalar<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a scalar stress with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar stress with an uninitialized value.
   ScalarStress() = default;
 
-  // Constructor. Constructs a scalar stress with a given value expressed in a given pressure unit.
+  /// \brief Constructor. Constructs a scalar stress with a given value expressed in a given
+  /// pressure unit.
   ScalarStress(const Number value, const Unit::Pressure unit)
     : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
-  // Destructor. Destroys this scalar stress.
+  /// \brief Destructor. Destroys this scalar stress.
   ~ScalarStress() noexcept = default;
 
-  // Copy constructor. Constructs a scalar stress by copying another one.
+  /// \brief Copy constructor. Constructs a scalar stress by copying another one.
   constexpr ScalarStress(const ScalarStress<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar stress by copying another one.
+  /// \brief Copy constructor. Constructs a scalar stress by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarStress(const ScalarStress<OtherNumber>& other)
     : ScalarStress(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar stress by moving another one.
+  /// \brief Move constructor. Constructs a scalar stress by moving another one.
   constexpr ScalarStress(ScalarStress<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar stress by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar stress by copying another one.
   constexpr ScalarStress<Number>& operator=(const ScalarStress<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar stress by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar stress by copying another one.
   template <typename OtherNumber>
   constexpr ScalarStress<Number>& operator=(const ScalarStress<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar stress by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar stress by moving another one.
   constexpr ScalarStress<Number>& operator=(ScalarStress<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar stress of zero.
+  /// \brief Statically creates a scalar stress of zero.
   static constexpr ScalarStress<Number> Zero() {
     return ScalarStress<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar stress with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a scalar stress with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr ScalarStress<Number> Create(const Number value) {
     return ScalarStress<Number>{
@@ -127,8 +129,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar stress with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a scalar stress with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr ScalarStress(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 

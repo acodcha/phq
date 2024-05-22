@@ -41,61 +41,65 @@
 
 namespace PhQ {
 
-// Temperature gradient vector. See also PhQ::ScalarTemperatureGradient.
+/// \brief Temperature gradient vector. See also PhQ::ScalarTemperatureGradient.
 template <typename Number = double>
 class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient, Number> {
 public:
-  // Default constructor. Constructs a temperature gradient vector with an uninitialized value.
+  /// \brief Default constructor. Constructs a temperature gradient vector with an uninitialized
+  /// value.
   TemperatureGradient() = default;
 
-  // Constructor. Constructs a temperature gradient vector with a given value expressed in a given
-  // temperature gradient unit.
+  /// \brief Constructor. Constructs a temperature gradient vector with a given value expressed in a
+  /// given temperature gradient unit.
   TemperatureGradient(const Vector<Number>& value, const Unit::TemperatureGradient unit)
     : DimensionalVector<Unit::TemperatureGradient, Number>(value, unit) {}
 
-  // Constructor. Constructs a temperature gradient vector from a given scalar temperature gradient
-  // magnitude and direction.
+  /// \brief Constructor. Constructs a temperature gradient vector from a given scalar temperature
+  /// gradient magnitude and direction.
   constexpr TemperatureGradient(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
       const Direction<Number>& direction)
     : TemperatureGradient<Number>(scalar_temperature_gradient.Value() * direction.Value()) {}
 
-  // Destructor. Destroys this temperature gradient vector.
+  /// \brief Destructor. Destroys this temperature gradient vector.
   ~TemperatureGradient() noexcept = default;
 
-  // Copy constructor. Constructs a temperature gradient vector by copying another one.
+  /// \brief Copy constructor. Constructs a temperature gradient vector by copying another one.
   constexpr TemperatureGradient(const TemperatureGradient<Number>& other) = default;
 
-  // Copy constructor. Constructs a temperature gradient vector by copying another one.
+  /// \brief Copy constructor. Constructs a temperature gradient vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr TemperatureGradient(const TemperatureGradient<OtherNumber>& other)
     : TemperatureGradient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a temperature gradient vector by moving another one.
+  /// \brief Move constructor. Constructs a temperature gradient vector by moving another one.
   constexpr TemperatureGradient(TemperatureGradient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this temperature gradient vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this temperature gradient vector by copying another
+  /// one.
   constexpr TemperatureGradient<Number>& operator=(
       const TemperatureGradient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this temperature gradient vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this temperature gradient vector by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr TemperatureGradient<Number>& operator=(const TemperatureGradient<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this temperature gradient vector by moving another one.
+  /// \brief Move assignment operator. Assigns this temperature gradient vector by moving another
+  /// one.
   constexpr TemperatureGradient<Number>& operator=(
       TemperatureGradient<Number>&& other) noexcept = default;
 
-  // Statically creates a temperature gradient vector of zero.
+  /// \brief Statically creates a temperature gradient vector of zero.
   static constexpr TemperatureGradient<Number> Zero() {
     return TemperatureGradient<Number>{Vector<Number>::Zero()};
   }
 
-  // Statically creates a temperature gradient vector from the given x, y, and z Cartesian
-  // components expressed in a given temperature gradient unit.
+  /// \brief Statically creates a temperature gradient vector from the given x, y, and z Cartesian
+  /// components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradient<Number> Create(
       const Number x, const Number y, const Number z) {
@@ -104,8 +108,8 @@ public:
             Vector<Number>{x, y, z})};
   }
 
-  // Statically creates a temperature gradient vector from the given x, y, and z Cartesian
-  // components expressed in a given temperature gradient unit.
+  /// \brief Statically creates a temperature gradient vector from the given x, y, and z Cartesian
+  /// components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradient<Number> Create(const std::array<Number, 3>& x_y_z) {
     return TemperatureGradient<Number>{
@@ -113,8 +117,8 @@ public:
             Vector<Number>{x_y_z})};
   }
 
-  // Statically creates a temperature gradient vector with a given value expressed in a given
-  // temperature gradient unit.
+  /// \brief Statically creates a temperature gradient vector with a given value expressed in a
+  /// given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradient<Number> Create(const Vector<Number>& value) {
     return TemperatureGradient<Number>{
@@ -122,32 +126,32 @@ public:
             value)};
   }
 
-  // Returns the x Cartesian component of this temperature gradient vector.
+  /// \brief Returns the x Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient<Number> x() const noexcept {
     return ScalarTemperatureGradient<Number>{this->value.x()};
   }
 
-  // Returns the y Cartesian component of this temperature gradient vector.
+  /// \brief Returns the y Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient<Number> y() const noexcept {
     return ScalarTemperatureGradient<Number>{this->value.y()};
   }
 
-  // Returns the z Cartesian component of this temperature gradient vector.
+  /// \brief Returns the z Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient<Number> z() const noexcept {
     return ScalarTemperatureGradient<Number>{this->value.z()};
   }
 
-  // Returns the magnitude of this temperature gradient vector.
+  /// \brief Returns the magnitude of this temperature gradient vector.
   [[nodiscard]] ScalarTemperatureGradient<Number> Magnitude() const {
     return ScalarTemperatureGradient<Number>{this->value.Magnitude()};
   }
 
-  // Returns the direction of this temperature gradient vector.
+  /// \brief Returns the direction of this temperature gradient vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
     return this->value.Direction();
   }
 
-  // Returns the angle between this temperature gradient vector and another one.
+  /// \brief Returns the angle between this temperature gradient vector and another one.
   [[nodiscard]] PhQ::Angle<Number> Angle(
       const TemperatureGradient<Number>& temperature_gradient) const {
     return PhQ::Angle<Number>{*this, temperature_gradient};
@@ -188,8 +192,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a temperature gradient vector with a given value expressed in the
-  // standard temperature gradient unit.
+  /// \brief Constructor. Constructs a temperature gradient vector with a given value expressed in
+  /// the standard temperature gradient unit.
   explicit constexpr TemperatureGradient(const Vector<Number>& value)
     : DimensionalVector<Unit::TemperatureGradient, Number>(value) {}
 };

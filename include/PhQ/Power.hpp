@@ -47,69 +47,70 @@ class Speed;
 template <typename Number>
 class TransportEnergyConsumption;
 
-// Power. Time rate of change of energy. Can also represent an energy transfer rate.
+/// \brief Power. Time rate of change of energy. Can also represent an energy transfer rate.
 template <typename Number = double>
 class Power : public DimensionalScalar<Unit::Power, Number> {
 public:
-  // Default constructor. Constructs a power quantity with an uninitialized value.
+  /// \brief Default constructor. Constructs a power quantity with an uninitialized value.
   Power() = default;
 
-  // Constructor. Constructs a power quantity with a given value expressed in a given power unit.
+  /// \brief Constructor. Constructs a power quantity with a given value expressed in a given power
+  /// unit.
   Power(const Number value, const Unit::Power unit)
     : DimensionalScalar<Unit::Power, Number>(value, unit) {}
 
-  // Constructor. Constructs a power quantity from a given energy and time duration using the
-  // definition of power.
+  /// \brief Constructor. Constructs a power quantity from a given energy and time duration using
+  /// the definition of power.
   constexpr Power(const Energy<Number>& energy, const Time<Number>& time)
     : Power<Number>(energy.Value() / time.Value()) {}
 
-  // Constructor. Constructs a power quantity from a given energy and frequency using the definition
-  // of power.
+  /// \brief Constructor. Constructs a power quantity from a given energy and frequency using the
+  /// definition of power.
   constexpr Power(const Energy<Number>& energy, const Frequency<Number>& frequency)
     : Power<Number>(energy.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs a power quantity from a given specific power and mass using the
-  // definition of specific power.
+  /// \brief Constructor. Constructs a power quantity from a given specific power and mass using the
+  /// definition of specific power.
   constexpr Power(const SpecificPower<Number>& specific_power, const Mass<Number>& mass);
 
-  // Constructor. Constructs a power quantity from a given transport energy consumption and speed
-  // using the definition of transport energy consumption.
+  /// \brief Constructor. Constructs a power quantity from a given transport energy consumption and
+  /// speed using the definition of transport energy consumption.
   constexpr Power(const TransportEnergyConsumption<Number>& transport_energy_consumption,
                   const Speed<Number>& speed);
 
-  // Destructor. Destroys this power quantity.
+  /// \brief Destructor. Destroys this power quantity.
   ~Power() noexcept = default;
 
-  // Copy constructor. Constructs a power quantity by copying another one.
+  /// \brief Copy constructor. Constructs a power quantity by copying another one.
   constexpr Power(const Power<Number>& other) = default;
 
-  // Copy constructor. Constructs a power quantity by copying another one.
+  /// \brief Copy constructor. Constructs a power quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Power(const Power<OtherNumber>& other)
     : Power(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a power quantity by moving another one.
+  /// \brief Move constructor. Constructs a power quantity by moving another one.
   constexpr Power(Power<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this power quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this power quantity by copying another one.
   constexpr Power<Number>& operator=(const Power<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this power quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this power quantity by copying another one.
   template <typename OtherNumber>
   constexpr Power<Number>& operator=(const Power<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this power quantity by moving another one.
+  /// \brief Move assignment operator. Assigns this power quantity by moving another one.
   constexpr Power<Number>& operator=(Power<Number>&& other) noexcept = default;
 
-  // Statically creates a power quantity of zero.
+  /// \brief Statically creates a power quantity of zero.
   static constexpr Power<Number> Zero() {
     return Power<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a power quantity with a given value expressed in a given power unit.
+  /// \brief Statically creates a power quantity with a given value expressed in a given power unit.
   template <Unit::Power Unit>
   static constexpr Power<Number> Create(const Number value) {
     return Power<Number>{StaticConvertCopy<Unit::Power, Unit, Standard<Unit::Power>>(value)};
@@ -168,8 +169,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a power quantity with a given value expressed in the standard power
-  // unit.
+  /// \brief Constructor. Constructs a power quantity with a given value expressed in the standard
+  /// power unit.
   explicit constexpr Power(const Number value) : DimensionalScalar<Unit::Power, Number>(value) {}
 };
 

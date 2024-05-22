@@ -43,16 +43,16 @@ namespace PhQ {
 /// does not need to be converted when used in mathematical expressions with other physical
 /// quantities expressed in standard units of measure.
 enum class UnitSystem : int8_t {
-  // Metre-kilogram-second-kelvin (m·kg·s·K) system
+  /// \brief Metre-kilogram-second-kelvin (m·kg·s·K) system
   MetreKilogramSecondKelvin,
 
-  // Millimetre-gram-second-kelvin (mm·g·s·K) system
+  /// \brief Millimetre-gram-second-kelvin (mm·g·s·K) system
   MillimetreGramSecondKelvin,
 
-  // Foot-pound-second-rankine (ft·lbf·s·°R) system
+  /// \brief Foot-pound-second-rankine (ft·lbf·s·°R) system
   FootPoundSecondRankine,
 
-  // Inch-pound-second-rankine (in·lbf·s·°R) system
+  /// \brief Inch-pound-second-rankine (in·lbf·s·°R) system
   InchPoundSecondRankine,
 };
 

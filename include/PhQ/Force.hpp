@@ -45,105 +45,107 @@ namespace PhQ {
 template <typename Number>
 class Traction;
 
-// Force vector. See also PhQ::ScalarForce.
+/// \brief Force vector. See also PhQ::ScalarForce.
 template <typename Number = double>
 class Force : public DimensionalVector<Unit::Force, Number> {
 public:
-  // Default constructor. Constructs a force vector with an uninitialized value.
+  /// \brief Default constructor. Constructs a force vector with an uninitialized value.
   Force() = default;
 
-  // Constructor. Constructs a force vector with a given value expressed in a given force unit.
+  /// \brief Constructor. Constructs a force vector with a given value expressed in a given force
+  /// unit.
   Force(const Vector<Number>& value, const Unit::Force unit)
     : DimensionalVector<Unit::Force, Number>(value, unit) {}
 
-  // Constructor. Constructs a force vector from a given scalar force magnitude and direction.
+  /// \brief Constructor. Constructs a force vector from a given scalar force magnitude and
+  /// direction.
   constexpr Force(const ScalarForce<Number>& scalar_force, const Direction<Number>& direction)
     : Force<Number>(scalar_force.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a force vector from a given traction and area using the definition of
-  // traction.
+  /// \brief Constructor. Constructs a force vector from a given traction and area using the
+  /// definition of traction.
   constexpr Force(const Traction<Number>& traction, const Area<Number>& area);
 
-  // Destructor. Destroys this force vector.
+  /// \brief Destructor. Destroys this force vector.
   ~Force() noexcept = default;
 
-  // Copy constructor. Constructs a force vector by copying another one.
+  /// \brief Copy constructor. Constructs a force vector by copying another one.
   constexpr Force(const Force<Number>& other) = default;
 
-  // Copy constructor. Constructs a force vector by copying another one.
+  /// \brief Copy constructor. Constructs a force vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Force(const Force<OtherNumber>& other)
     : Force(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a force vector by moving another one.
+  /// \brief Move constructor. Constructs a force vector by moving another one.
   constexpr Force(Force<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this force vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this force vector by copying another one.
   constexpr Force<Number>& operator=(const Force<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this force vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this force vector by copying another one.
   template <typename OtherNumber>
   constexpr Force<Number>& operator=(const Force<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this force vector by moving another one.
+  /// \brief Move assignment operator. Assigns this force vector by moving another one.
   constexpr Force<Number>& operator=(Force<Number>&& other) noexcept = default;
 
-  // Statically creates a force vector of zero.
+  /// \brief Statically creates a force vector of zero.
   static constexpr Force<Number> Zero() {
     return Force<Number>{Vector<Number>::Zero()};
   }
 
-  // Statically creates a force vector from the given x, y, and z Cartesian components expressed in
-  // a given force unit.
+  /// \brief Statically creates a force vector from the given x, y, and z Cartesian components
+  /// expressed in a given force unit.
   template <Unit::Force Unit>
   static constexpr Force<Number> Create(const Number x, const Number y, const Number z) {
     return Force<Number>{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<Number>{x, y, z})};
   }
 
-  // Statically creates a force vector from the given x, y, and z Cartesian components expressed in
-  // a given force unit.
+  /// \brief Statically creates a force vector from the given x, y, and z Cartesian components
+  /// expressed in a given force unit.
   template <Unit::Force Unit>
   static constexpr Force<Number> Create(const std::array<Number, 3>& x_y_z) {
     return Force<Number>{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<Number>{x_y_z})};
   }
 
-  // Statically creates a force vector with a given value expressed in a given force unit.
+  /// \brief Statically creates a force vector with a given value expressed in a given force unit.
   template <Unit::Force Unit>
   static constexpr Force<Number> Create(const Vector<Number>& value) {
     return Force<Number>{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  // Returns the x Cartesian component of this force vector.
+  /// \brief Returns the x Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce<Number> x() const noexcept {
     return ScalarForce<Number>{this->value.x()};
   }
 
-  // Returns the y Cartesian component of this force vector.
+  /// \brief Returns the y Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce<Number> y() const noexcept {
     return ScalarForce<Number>{this->value.y()};
   }
 
-  // Returns the z Cartesian component of this force vector.
+  /// \brief Returns the z Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce<Number> z() const noexcept {
     return ScalarForce<Number>{this->value.z()};
   }
 
-  // Returns the magnitude of this force vector.
+  /// \brief Returns the magnitude of this force vector.
   [[nodiscard]] ScalarForce<Number> Magnitude() const {
     return ScalarForce<Number>{this->value.Magnitude()};
   }
 
-  // Returns the direction of this force vector.
+  /// \brief Returns the direction of this force vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
     return this->value.Direction();
   }
 
-  // Returns the angle between this force vector and another one.
+  /// \brief Returns the angle between this force vector and another one.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Force<Number>& force) const {
     return PhQ::Angle<Number>{*this, force};
   }
@@ -183,7 +185,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a force vector with a given value expressed in the standard force unit.
+  /// \brief Constructor. Constructs a force vector with a given value expressed in the standard
+  /// force unit.
   explicit constexpr Force(const Vector<Number>& value)
     : DimensionalVector<Unit::Force, Number>(value) {}
 };

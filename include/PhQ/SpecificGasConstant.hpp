@@ -41,83 +41,85 @@
 
 namespace PhQ {
 
-// Specific gas constant of a gas. Gas constant per unit mass.
+/// \brief Specific gas constant of a gas. Gas constant per unit mass.
 template <typename Number = double>
 class SpecificGasConstant : public DimensionalScalar<Unit::SpecificHeatCapacity, Number> {
 public:
-  // Default constructor. Constructs a specific gas constant with an uninitialized value.
+  /// \brief Default constructor. Constructs a specific gas constant with an uninitialized value.
   SpecificGasConstant() = default;
 
-  // Constructor. Constructs a specific gas constant with a given value expressed in a given
-  // specific heat capacity unit.
+  /// \brief Constructor. Constructs a specific gas constant with a given value expressed in a given
+  /// specific heat capacity unit.
   SpecificGasConstant(const Number value, const Unit::SpecificHeatCapacity unit)
     : DimensionalScalar<Unit::SpecificHeatCapacity, Number>(value, unit) {}
 
-  // Constructor. Constructs a specific gas constant from a given specific isobaric heat capacity
-  // and specific isochoric heat capacity using Mayer's relation.
+  /// \brief Constructor. Constructs a specific gas constant from a given specific isobaric heat
+  /// capacity and specific isochoric heat capacity using Mayer's relation.
   constexpr SpecificGasConstant(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity)
     : SpecificGasConstant<Number>(
         specific_isobaric_heat_capacity.Value() - specific_isochoric_heat_capacity.Value()) {}
 
-  // Constructor. Constructs a specific gas constant from a given specific isobaric heat capacity
-  // and heat capacity ratio using the definition of the heat capacity ratio and Mayer's relation.
+  /// \brief Constructor. Constructs a specific gas constant from a given specific isobaric heat
+  /// capacity and heat capacity ratio using the definition of the heat capacity ratio and Mayer's
+  /// relation.
   constexpr SpecificGasConstant(
       const HeatCapacityRatio<Number>& heat_capacity_ratio,
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity)
     : SpecificGasConstant<Number>(
         (1.0 - 1.0 / heat_capacity_ratio.Value()) * specific_isobaric_heat_capacity.Value()) {}
 
-  // Constructor. Constructs a specific gas constant from a given specific isochoric heat capacity
-  // and heat capacity ratio using the definition of the heat capacity ratio and Mayer's relation.
+  /// \brief Constructor. Constructs a specific gas constant from a given specific isochoric heat
+  /// capacity and heat capacity ratio using the definition of the heat capacity ratio and Mayer's
+  /// relation.
   constexpr SpecificGasConstant(
       const HeatCapacityRatio<Number>& heat_capacity_ratio,
       const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity)
     : SpecificGasConstant<Number>(
         (heat_capacity_ratio.Value() - 1.0) * specific_isochoric_heat_capacity.Value()) {}
 
-  // Constructor. Constructs a specific gas constant from a given gas constant and mass using the
-  // definition of the specific gas constant.
+  /// \brief Constructor. Constructs a specific gas constant from a given gas constant and mass
+  /// using the definition of the specific gas constant.
   constexpr SpecificGasConstant(const GasConstant<Number>& gas_constant, const Mass<Number>& mass)
     : SpecificGasConstant<Number>(gas_constant.Value() / mass.Value()) {}
 
-  // Destructor. Destroys this specific gas constant.
+  /// \brief Destructor. Destroys this specific gas constant.
   ~SpecificGasConstant() noexcept = default;
 
-  // Copy constructor. Constructs a specific gas constant by copying another one.
+  /// \brief Copy constructor. Constructs a specific gas constant by copying another one.
   constexpr SpecificGasConstant(const SpecificGasConstant<Number>& other) = default;
 
-  // Copy constructor. Constructs a specific gas constant by copying another one.
+  /// \brief Copy constructor. Constructs a specific gas constant by copying another one.
   template <typename OtherNumber>
   explicit constexpr SpecificGasConstant(const SpecificGasConstant<OtherNumber>& other)
     : SpecificGasConstant(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a specific gas constant by moving another one.
+  /// \brief Move constructor. Constructs a specific gas constant by moving another one.
   constexpr SpecificGasConstant(SpecificGasConstant<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this specific gas constant by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific gas constant by copying another one.
   constexpr SpecificGasConstant<Number>& operator=(
       const SpecificGasConstant<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this specific gas constant by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific gas constant by copying another one.
   template <typename OtherNumber>
   constexpr SpecificGasConstant<Number>& operator=(const SpecificGasConstant<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this specific gas constant by moving another one.
+  /// \brief Move assignment operator. Assigns this specific gas constant by moving another one.
   constexpr SpecificGasConstant<Number>& operator=(
       SpecificGasConstant<Number>&& other) noexcept = default;
 
-  // Statically creates a specific gas constant of zero.
+  /// \brief Statically creates a specific gas constant of zero.
   static constexpr SpecificGasConstant<Number> Zero() {
     return SpecificGasConstant<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a specific gas constant with a given value expressed in a given specific
-  // heat capacity unit.
+  /// \brief Statically creates a specific gas constant with a given value expressed in a given
+  /// specific heat capacity unit.
   template <Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificGasConstant<Number> Create(const Number value) {
     return SpecificGasConstant<Number>{
@@ -174,8 +176,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a specific gas constant with a given value expressed in the standard
-  // specific heat capacity unit.
+  /// \brief Constructor. Constructs a specific gas constant with a given value expressed in the
+  /// standard specific heat capacity unit.
   explicit constexpr SpecificGasConstant(const Number value)
     : DimensionalScalar<Unit::SpecificHeatCapacity, Number>(value) {}
 };

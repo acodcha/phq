@@ -92,81 +92,82 @@ class TransportEnergyConsumption;
 template <typename Number>
 class Volume;
 
-// Length, size, or distance. Can also represent the magnitude of a position vector or displacement
-// vector.
+/// \brief Length, size, or distance. Can also represent the magnitude of a position vector or
+/// displacement vector.
 template <typename Number = double>
 class Length : public DimensionalScalar<Unit::Length, Number> {
 public:
-  // Default constructor. Constructs a length with an uninitialized value.
+  /// \brief Default constructor. Constructs a length with an uninitialized value.
   Length() = default;
 
-  // Constructor. Constructs a length with a given value expressed in a given length unit.
+  /// \brief Constructor. Constructs a length with a given value expressed in a given length unit.
   Length(const Number value, const Unit::Length unit)
     : DimensionalScalar<Unit::Length, Number>(value, unit) {}
 
-  // Constructor. Constructs a length from a given area and length.
+  /// \brief Constructor. Constructs a length from a given area and length.
   constexpr Length(const Area<Number>& area, const Length<Number>& length);
 
-  // Constructor. Constructs a length from a given volume and area.
+  /// \brief Constructor. Constructs a length from a given volume and area.
   constexpr Length(const Volume<Number>& volume, const Area<Number>& area);
 
-  // Constructor. Constructs a length from a given speed and time using the definition of speed.
+  /// \brief Constructor. Constructs a length from a given speed and time using the definition of
+  /// speed.
   constexpr Length(const Speed<Number>& speed, const Time<Number>& time);
 
-  // Constructor. Constructs a length from a given speed and frequency using the definition of
-  // speed.
+  /// \brief Constructor. Constructs a length from a given speed and frequency using the definition
+  /// of speed.
   constexpr Length(const Speed<Number>& speed, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs a length from a given Reynolds number, dynamic viscosity, mass density,
-  // and speed using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a length from a given Reynolds number, dynamic viscosity, mass
+  /// density, and speed using the definition of the Reynolds number.
   constexpr Length(const ReynoldsNumber<Number>& reynolds_number,
                    const DynamicViscosity<Number>& dynamic_viscosity,
                    const MassDensity<Number>& mass_density, const Speed<Number>& speed);
 
-  // Constructor. Constructs a length from a given Reynolds number, kinematic viscosity, and speed
-  // using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a length from a given Reynolds number, kinematic viscosity, and
+  /// speed using the definition of the Reynolds number.
   constexpr Length(
       const ReynoldsNumber<Number>& reynolds_number,
       const KinematicViscosity<Number>& kinematic_viscosity, const Speed<Number>& speed);
 
-  // Constructor. Constructs a length from a given energy and transport energy consumption using the
-  // definition of transport energy consumption.
+  /// \brief Constructor. Constructs a length from a given energy and transport energy consumption
+  /// using the definition of transport energy consumption.
   constexpr Length(const Energy<Number>& energy,
                    const TransportEnergyConsumption<Number>& transport_energy_consumption);
 
-  // Destructor. Destroys this length.
+  /// \brief Destructor. Destroys this length.
   ~Length() noexcept = default;
 
-  // Copy constructor. Constructs a length by copying another one.
+  /// \brief Copy constructor. Constructs a length by copying another one.
   constexpr Length(const Length<Number>& other) = default;
 
-  // Copy constructor. Constructs a length by copying another one.
+  /// \brief Copy constructor. Constructs a length by copying another one.
   template <typename OtherNumber>
   explicit constexpr Length(const Length<OtherNumber>& other)
     : Length(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a length by moving another one.
+  /// \brief Move constructor. Constructs a length by moving another one.
   constexpr Length(Length<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this length by copying another one.
+  /// \brief Copy assignment operator. Assigns this length by copying another one.
   constexpr Length<Number>& operator=(const Length<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this length by copying another one.
+  /// \brief Copy assignment operator. Assigns this length by copying another one.
   template <typename OtherNumber>
   constexpr Length<Number>& operator=(const Length<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this length by moving another one.
+  /// \brief Move assignment operator. Assigns this length by moving another one.
   constexpr Length<Number>& operator=(Length<Number>&& other) noexcept = default;
 
-  // Statically creates a length of zero.
+  /// \brief Statically creates a length of zero.
   static constexpr Length<Number> Zero() {
     return Length<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a length with a given value expressed in a given length unit.
+  /// \brief Statically creates a length with a given value expressed in a given length unit.
   template <Unit::Length Unit>
   static constexpr Length<Number> Create(const Number value) {
     return Length<Number>{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
@@ -224,7 +225,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a length with a given value expressed in the standard length unit.
+  /// \brief Constructor. Constructs a length with a given value expressed in the standard length
+  /// unit.
   explicit constexpr Length(const Number value) : DimensionalScalar<Unit::Length, Number>(value) {}
 
   template <typename OtherNumber>

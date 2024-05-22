@@ -39,63 +39,68 @@
 
 namespace PhQ {
 
-// Specific isochoric heat capacity. Isochoric heat capacity per unit mass.
+/// \brief Specific isochoric heat capacity. Isochoric heat capacity per unit mass.
 template <typename Number = double>
 class SpecificIsochoricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, Number> {
 public:
-  // Default constructor. Constructs a specific isochoric heat capacity with an uninitialized value.
+  /// \brief Default constructor. Constructs a specific isochoric heat capacity with an
+  /// uninitialized value.
   SpecificIsochoricHeatCapacity() = default;
 
-  // Constructor. Constructs a specific isochoric heat capacity with a given value expressed in a
-  // given specific heat capacity unit.
+  /// \brief Constructor. Constructs a specific isochoric heat capacity with a given value expressed
+  /// in a given specific heat capacity unit.
   SpecificIsochoricHeatCapacity(const Number value, const Unit::SpecificHeatCapacity unit)
     : DimensionalScalar<Unit::SpecificHeatCapacity, Number>(value, unit) {}
 
-  // Constructor. Constructs a specific isochoric heat capacity from a given specific gas constant
-  // and specific isobaric heat capacity using Mayer's relation.
+  /// \brief Constructor. Constructs a specific isochoric heat capacity from a given specific gas
+  /// constant and specific isobaric heat capacity using Mayer's relation.
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const SpecificGasConstant<Number>& specific_gas_constant);
 
-  // Constructor. Constructs a specific isochoric heat capacity from a given specific gas constant
-  // and heat capacity ratio using the definition of the heat capacity ratio and Mayer's relation.
+  /// \brief Constructor. Constructs a specific isochoric heat capacity from a given specific gas
+  /// constant and heat capacity ratio using the definition of the heat capacity ratio and Mayer's
+  /// relation.
   constexpr SpecificIsochoricHeatCapacity(const SpecificGasConstant<Number>& specific_gas_constant,
                                           const HeatCapacityRatio<Number>& heat_capacity_ratio);
 
-  // Constructor. Constructs a specific isochoric heat capacity from a given specific isobaric heat
-  // capacity and heat capacity ratio using the definition of the heat capacity ratio.
+  /// \brief Constructor. Constructs a specific isochoric heat capacity from a given specific
+  /// isobaric heat capacity and heat capacity ratio using the definition of the heat capacity
+  /// ratio.
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const HeatCapacityRatio<Number>& heat_capacity_ratio);
 
-  // Constructor. Constructs a specific isochoric heat capacity from a given isochoric heat capacity
-  // and mass using the definition of the specific isochoric heat capacity.
+  /// \brief Constructor. Constructs a specific isochoric heat capacity from a given isochoric heat
+  /// capacity and mass using the definition of the specific isochoric heat capacity.
   constexpr SpecificIsochoricHeatCapacity(
       const IsochoricHeatCapacity<Number>& isochoric_heat_capacity, const Mass<Number>& mass)
     : SpecificIsochoricHeatCapacity<Number>(isochoric_heat_capacity.Value() / mass.Value()) {}
 
-  // Destructor. Destroys this specific isochoric heat capacity.
+  /// \brief Destructor. Destroys this specific isochoric heat capacity.
   ~SpecificIsochoricHeatCapacity() noexcept = default;
 
-  // Copy constructor. Constructs a specific isochoric heat capacity by copying another one.
+  /// \brief Copy constructor. Constructs a specific isochoric heat capacity by copying another one.
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificIsochoricHeatCapacity<Number>& other) = default;
 
-  // Copy constructor. Constructs a specific isochoric heat capacity by copying another one.
+  /// \brief Copy constructor. Constructs a specific isochoric heat capacity by copying another one.
   template <typename OtherNumber>
   explicit constexpr SpecificIsochoricHeatCapacity(
       const SpecificIsochoricHeatCapacity<OtherNumber>& other)
     : SpecificIsochoricHeatCapacity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a specific isochoric heat capacity by moving another one.
+  /// \brief Move constructor. Constructs a specific isochoric heat capacity by moving another one.
   constexpr SpecificIsochoricHeatCapacity(
       SpecificIsochoricHeatCapacity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this specific isochoric heat capacity by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific isochoric heat capacity by copying
+  /// another one.
   constexpr SpecificIsochoricHeatCapacity<Number>& operator=(
       const SpecificIsochoricHeatCapacity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this specific isochoric heat capacity by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific isochoric heat capacity by copying
+  /// another one.
   template <typename OtherNumber>
   constexpr SpecificIsochoricHeatCapacity<Number>& operator=(
       const SpecificIsochoricHeatCapacity<OtherNumber>& other) {
@@ -103,17 +108,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this specific isochoric heat capacity by moving another one.
+  /// \brief Move assignment operator. Assigns this specific isochoric heat capacity by moving
+  /// another one.
   constexpr SpecificIsochoricHeatCapacity<Number>& operator=(
       SpecificIsochoricHeatCapacity<Number>&& other) noexcept = default;
 
-  // Statically creates a specific isochoric heat capacity of zero.
+  /// \brief Statically creates a specific isochoric heat capacity of zero.
   static constexpr SpecificIsochoricHeatCapacity<Number> Zero() {
     return SpecificIsochoricHeatCapacity<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a specific isochoric heat capacity with a given value expressed in a given
-  // specific heat capacity unit.
+  /// \brief Statically creates a specific isochoric heat capacity with a given value expressed in a
+  /// given specific heat capacity unit.
   template <Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificIsochoricHeatCapacity<Number> Create(const Number value) {
     return SpecificIsochoricHeatCapacity<Number>{
@@ -176,8 +182,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a specific isochoric heat capacity with a given value expressed in the
-  // standard specific heat capacity unit.
+  /// \brief Constructor. Constructs a specific isochoric heat capacity with a given value expressed
+  /// in the standard specific heat capacity unit.
   explicit constexpr SpecificIsochoricHeatCapacity(const Number value)
     : DimensionalScalar<Unit::SpecificHeatCapacity, Number>(value) {}
 };

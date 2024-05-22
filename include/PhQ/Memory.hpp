@@ -48,58 +48,60 @@ class Frequency;
 template <typename Number>
 class MemoryRate;
 
-// Computer memory.
+/// \brief Computer memory.
 template <typename Number = double>
 class Memory : public DimensionalScalar<Unit::Memory, Number> {
 public:
-  // Default constructor. Constructs a memory quantity with an uninitialized value.
+  /// \brief Default constructor. Constructs a memory quantity with an uninitialized value.
   Memory() = default;
 
-  // Constructor. Constructs a memory quantity with a given value expressed in a given memory unit.
+  /// \brief Constructor. Constructs a memory quantity with a given value expressed in a given
+  /// memory unit.
   Memory(const Number value, const Unit::Memory unit)
     : DimensionalScalar<Unit::Memory, Number>(value, unit) {}
 
-  // Constructor. Constructs a memory quantity from a given memory rate and time duration using the
-  // definition of memory rate.
+  /// \brief Constructor. Constructs a memory quantity from a given memory rate and time duration
+  /// using the definition of memory rate.
   constexpr Memory(const MemoryRate<Number>& memory_rate, const Time<Number>& time);
 
-  // Constructor. Constructs a memory quantity from a given memory rate and frequency using the
-  // definition of memory rate.
+  /// \brief Constructor. Constructs a memory quantity from a given memory rate and frequency using
+  /// the definition of memory rate.
   constexpr Memory(const MemoryRate<Number>& memory_rate, const Frequency<Number>& frequency);
 
-  // Destructor. Destroys this memory quantity.
+  /// \brief Destructor. Destroys this memory quantity.
   ~Memory() noexcept = default;
 
-  // Copy constructor. Constructs a memory quantity by copying another one.
+  /// \brief Copy constructor. Constructs a memory quantity by copying another one.
   constexpr Memory(const Memory<Number>& other) = default;
 
-  // Copy constructor. Constructs a memory quantity by copying another one.
+  /// \brief Copy constructor. Constructs a memory quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Memory(const Memory<OtherNumber>& other)
     : Memory(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a memory quantity by moving another one.
+  /// \brief Move constructor. Constructs a memory quantity by moving another one.
   constexpr Memory(Memory<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this memory quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this memory quantity by copying another one.
   constexpr Memory<Number>& operator=(const Memory<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this memory quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this memory quantity by copying another one.
   template <typename OtherNumber>
   constexpr Memory<Number>& operator=(const Memory<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this memory quantity by moving another one.
+  /// \brief Move assignment operator. Assigns this memory quantity by moving another one.
   constexpr Memory<Number>& operator=(Memory<Number>&& other) noexcept = default;
 
-  // Statically creates a memory quantity of zero.
+  /// \brief Statically creates a memory quantity of zero.
   static constexpr Memory<Number> Zero() {
     return Memory<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a memory quantity with a given value expressed in a given memory unit.
+  /// \brief Statically creates a memory quantity with a given value expressed in a given memory
+  /// unit.
   template <Unit::Memory Unit>
   static constexpr Memory<Number> Create(const Number value) {
     return Memory<Number>{StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
@@ -148,8 +150,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a memory quantity with a given value expressed in the standard memory
-  // unit.
+  /// \brief Constructor. Constructs a memory quantity with a given value expressed in the standard
+  /// memory unit.
   explicit constexpr Memory(const Number value) : DimensionalScalar<Unit::Memory, Number>(value) {}
 };
 

@@ -42,8 +42,8 @@ namespace PhQ {
 /// \brief Namespace that contains units of measure.
 namespace Unit {}
 
-// Physical dimension set of a given type of unit of measure. Units of measure are organized into
-// types that share the same physical dimension set.
+/// \brief Physical dimension set of a given type of unit of measure. Units of measure are organized
+/// into types that share the same physical dimension set.
 template <typename Unit>
 inline constexpr Dimensions RelatedDimensions;
 

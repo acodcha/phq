@@ -39,51 +39,54 @@
 
 namespace PhQ {
 
-// Planar scalar angular acceleration component or magnitude of an angular acceleration
-// pseudovector. Time rate of change of angular speed. Typically measured in radians per square
-// second.
+/// \brief Planar scalar angular acceleration component or magnitude of an angular acceleration
+/// pseudovector. Time rate of change of angular speed. Typically measured in radians per square
+/// second.
 template <typename Number = double>
 class ScalarAngularAcceleration : public DimensionalScalar<Unit::AngularAcceleration, Number> {
 public:
-  // Default constructor. Constructs a scalar angular acceleration with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar angular acceleration with an uninitialized
+  /// value.
   ScalarAngularAcceleration() = default;
 
-  // Constructor. Constructs a scalar angular acceleration with a given value expressed in a given
-  // angular acceleration unit.
+  /// \brief Constructor. Constructs a scalar angular acceleration with a given value expressed in a
+  /// given angular acceleration unit.
   ScalarAngularAcceleration(const Number value, const Unit::AngularAcceleration unit)
     : DimensionalScalar<Unit::AngularAcceleration, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar angular acceleration from a given angular speed and time using
-  // the definition of angular acceleration.
+  /// \brief Constructor. Constructs a scalar angular acceleration from a given angular speed and
+  /// time using the definition of angular acceleration.
   constexpr ScalarAngularAcceleration(
       const AngularSpeed<Number>& angular_speed, const Time<Number>& time)
     : ScalarAngularAcceleration<Number>(angular_speed.Value() / time.Value()) {}
 
-  // Constructor. Constructs a scalar angular acceleration from a given angular speed and frequency
-  // using the definition of angular acceleration.
+  /// \brief Constructor. Constructs a scalar angular acceleration from a given angular speed and
+  /// frequency using the definition of angular acceleration.
   constexpr ScalarAngularAcceleration(
       const AngularSpeed<Number>& angular_speed, const Frequency<Number>& frequency)
     : ScalarAngularAcceleration<Number>(angular_speed.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this scalar angular acceleration.
+  /// \brief Destructor. Destroys this scalar angular acceleration.
   ~ScalarAngularAcceleration() noexcept = default;
 
-  // Copy constructor. Constructs a scalar angular acceleration by copying another one.
+  /// \brief Copy constructor. Constructs a scalar angular acceleration by copying another one.
   constexpr ScalarAngularAcceleration(const ScalarAngularAcceleration<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar angular acceleration by copying another one.
+  /// \brief Copy constructor. Constructs a scalar angular acceleration by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarAngularAcceleration(const ScalarAngularAcceleration<OtherNumber>& other)
     : ScalarAngularAcceleration(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar angular acceleration by moving another one.
+  /// \brief Move constructor. Constructs a scalar angular acceleration by moving another one.
   constexpr ScalarAngularAcceleration(ScalarAngularAcceleration<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar angular acceleration by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar angular acceleration by copying another
+  /// one.
   constexpr ScalarAngularAcceleration<Number>& operator=(
       const ScalarAngularAcceleration<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar angular acceleration by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar angular acceleration by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr ScalarAngularAcceleration<Number>& operator=(
       const ScalarAngularAcceleration<OtherNumber>& other) {
@@ -91,17 +94,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar angular acceleration by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar angular acceleration by moving another
+  /// one.
   constexpr ScalarAngularAcceleration<Number>& operator=(
       ScalarAngularAcceleration<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar angular acceleration of zero.
+  /// \brief Statically creates a scalar angular acceleration of zero.
   static constexpr ScalarAngularAcceleration<Number> Zero() {
     return ScalarAngularAcceleration<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar angular acceleration with a given value expressed in a given
-  // angular acceleration unit.
+  /// \brief Statically creates a scalar angular acceleration with a given value expressed in a
+  /// given angular acceleration unit.
   template <Unit::AngularAcceleration Unit>
   static constexpr ScalarAngularAcceleration<Number> Create(const Number value) {
     return ScalarAngularAcceleration<Number>{
@@ -163,8 +167,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar angular acceleration with a given value expressed in the
-  // standard angular acceleration unit.
+  /// \brief Constructor. Constructs a scalar angular acceleration with a given value expressed in
+  /// the standard angular acceleration unit.
   explicit constexpr ScalarAngularAcceleration(const Number value)
     : DimensionalScalar<Unit::AngularAcceleration, Number>(value) {}
 };

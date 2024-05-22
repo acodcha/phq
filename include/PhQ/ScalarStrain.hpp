@@ -55,60 +55,62 @@ class TemperatureDifference;
 template <typename Number>
 class Time;
 
-// Scalar component or resultant of a strain tensor. See also PhQ::Strain and PhQ::ScalarStrainRate.
+/// \brief Scalar component or resultant of a strain tensor. See also PhQ::Strain and
+/// PhQ::ScalarStrainRate.
 template <typename Number = double>
 class ScalarStrain : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a scalar strain with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar strain with an uninitialized value.
   ScalarStrain() = default;
 
-  // Constructor. Constructs a scalar strain with a given value.
+  /// \brief Constructor. Constructs a scalar strain with a given value.
   explicit constexpr ScalarStrain(const Number value) : DimensionlessScalar<Number>(value) {}
 
-  // Constructor. Constructs a scalar strain from a given scalar strain rate and time using the
-  // definition of strain rate.
+  /// \brief Constructor. Constructs a scalar strain from a given scalar strain rate and time using
+  /// the definition of strain rate.
   constexpr ScalarStrain(
       const ScalarStrainRate<Number>& scalar_strain_rate, const Time<Number>& time);
 
-  // Constructor. Constructs a scalar strain from a given scalar strain rate and frequency using the
-  // definition of strain rate.
+  /// \brief Constructor. Constructs a scalar strain from a given scalar strain rate and frequency
+  /// using the definition of strain rate.
   constexpr ScalarStrain(
       const ScalarStrainRate<Number>& scalar_strain_rate, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs a scalar strain from a given linear thermal expansion coefficient and
-  // temperature difference using the definition of the linear thermal expansion coefficient.
+  /// \brief Constructor. Constructs a scalar strain from a given linear thermal expansion
+  /// coefficient and temperature difference using the definition of the linear thermal expansion
+  /// coefficient.
   constexpr ScalarStrain(
       const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient,
       const TemperatureDifference<Number>& temperature_difference);
 
-  // Destructor. Destroys this scalar strain.
+  /// \brief Destructor. Destroys this scalar strain.
   ~ScalarStrain() noexcept = default;
 
-  // Copy constructor. Constructs a scalar strain by copying another one.
+  /// \brief Copy constructor. Constructs a scalar strain by copying another one.
   constexpr ScalarStrain(const ScalarStrain<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar strain by copying another one.
+  /// \brief Copy constructor. Constructs a scalar strain by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarStrain(const ScalarStrain<OtherNumber>& other)
     : ScalarStrain(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar strain by moving another one.
+  /// \brief Move constructor. Constructs a scalar strain by moving another one.
   constexpr ScalarStrain(ScalarStrain<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar strain by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar strain by copying another one.
   constexpr ScalarStrain<Number>& operator=(const ScalarStrain<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar strain by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar strain by copying another one.
   template <typename OtherNumber>
   constexpr ScalarStrain<Number>& operator=(const ScalarStrain<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar strain by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar strain by moving another one.
   constexpr ScalarStrain<Number>& operator=(ScalarStrain<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar strain of zero.
+  /// \brief Statically creates a scalar strain of zero.
   static constexpr ScalarStrain<Number> Zero() {
     return ScalarStrain<Number>{static_cast<Number>(0)};
   }

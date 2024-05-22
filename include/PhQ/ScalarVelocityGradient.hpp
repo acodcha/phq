@@ -39,52 +39,53 @@
 
 namespace PhQ {
 
-// Scalar component or resultant of a velocity gradient tensor. Time rate of change of a scalar
-// displacement gradient. See also PhQ::VelocityGradient and PhQ::ScalarDisplacementGradient.
+/// \brief Scalar component or resultant of a velocity gradient tensor. Time rate of change of a
+/// scalar displacement gradient. See also PhQ::VelocityGradient and
+/// PhQ::ScalarDisplacementGradient.
 template <typename Number = double>
 class ScalarVelocityGradient : public DimensionalScalar<Unit::Frequency, Number> {
 public:
-  // Default constructor. Constructs a scalar velocity gradient with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar velocity gradient with an uninitialized value.
   ScalarVelocityGradient() = default;
 
-  // Constructor. Constructs a scalar velocity gradient with a given value expressed in a given
-  // frequency unit.
+  /// \brief Constructor. Constructs a scalar velocity gradient with a given value expressed in a
+  /// given frequency unit.
   ScalarVelocityGradient(const Number value, const Unit::Frequency unit)
     : DimensionalScalar<Unit::Frequency, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar velocity gradient from a given scalar displacement gradient
-  // and time using the definition of speed.
+  /// \brief Constructor. Constructs a scalar velocity gradient from a given scalar displacement
+  /// gradient and time using the definition of speed.
   constexpr ScalarVelocityGradient(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient,
       const Time<Number>& time)
     : ScalarVelocityGradient<Number>(scalar_displacement_gradient.Value() / time.Value()) {}
 
-  // Constructor. Constructs a scalar velocity gradient from a given scalar displacement gradient
-  // and frequency using the definition of speed.
+  /// \brief Constructor. Constructs a scalar velocity gradient from a given scalar displacement
+  /// gradient and frequency using the definition of speed.
   constexpr ScalarVelocityGradient(
       const ScalarDisplacementGradient<Number>& scalar_displacement_gradient,
       const Frequency<Number>& frequency)
     : ScalarVelocityGradient<Number>(scalar_displacement_gradient.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this scalar velocity gradient.
+  /// \brief Destructor. Destroys this scalar velocity gradient.
   ~ScalarVelocityGradient() noexcept = default;
 
-  // Copy constructor. Constructs a scalar velocity gradient by copying another one.
+  /// \brief Copy constructor. Constructs a scalar velocity gradient by copying another one.
   constexpr ScalarVelocityGradient(const ScalarVelocityGradient<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar velocity gradient by copying another one.
+  /// \brief Copy constructor. Constructs a scalar velocity gradient by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarVelocityGradient(const ScalarVelocityGradient<OtherNumber>& other)
     : ScalarVelocityGradient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar velocity gradient by moving another one.
+  /// \brief Move constructor. Constructs a scalar velocity gradient by moving another one.
   constexpr ScalarVelocityGradient(ScalarVelocityGradient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar velocity gradient by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar velocity gradient by copying another one.
   constexpr ScalarVelocityGradient<Number>& operator=(
       const ScalarVelocityGradient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar velocity gradient by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar velocity gradient by copying another one.
   template <typename OtherNumber>
   constexpr ScalarVelocityGradient<Number>& operator=(
       const ScalarVelocityGradient<OtherNumber>& other) {
@@ -92,17 +93,17 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar velocity gradient by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar velocity gradient by moving another one.
   constexpr ScalarVelocityGradient<Number>& operator=(
       ScalarVelocityGradient<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar velocity gradient of zero.
+  /// \brief Statically creates a scalar velocity gradient of zero.
   static constexpr ScalarVelocityGradient<Number> Zero() {
     return ScalarVelocityGradient<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar velocity gradient with a given value expressed in a given frequency
-  // unit.
+  /// \brief Statically creates a scalar velocity gradient with a given value expressed in a given
+  /// frequency unit.
   template <Unit::Frequency Unit>
   static constexpr ScalarVelocityGradient<Number> Create(const Number value) {
     return ScalarVelocityGradient<Number>{
@@ -156,8 +157,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar velocity gradient with a given value expressed in the standard
-  // frequency unit.
+  /// \brief Constructor. Constructs a scalar velocity gradient with a given value expressed in the
+  /// standard frequency unit.
   explicit constexpr ScalarVelocityGradient(const Number value)
     : DimensionalScalar<Unit::Frequency, Number>(value) {}
 

@@ -41,68 +41,68 @@
 
 namespace PhQ {
 
-// Specific power. Power per unit mass.
+/// \brief Specific power. Power per unit mass.
 template <typename Number = double>
 class SpecificPower : public DimensionalScalar<Unit::SpecificPower, Number> {
 public:
-  // Default constructor. Constructs a specific power quantity with an uninitialized value.
+  /// \brief Default constructor. Constructs a specific power quantity with an uninitialized value.
   SpecificPower() = default;
 
-  // Constructor. Constructs a specific power quantity with a given value expressed in a given
-  // specific power unit.
+  /// \brief Constructor. Constructs a specific power quantity with a given value expressed in a
+  /// given specific power unit.
   SpecificPower(const Number value, const Unit::SpecificPower unit)
     : DimensionalScalar<Unit::SpecificPower, Number>(value, unit) {}
 
-  // Constructor. Constructs a specific power quantity from a given specific energy and time
-  // duration using the definition of specific power.
+  /// \brief Constructor. Constructs a specific power quantity from a given specific energy and time
+  /// duration using the definition of specific power.
   constexpr SpecificPower(const SpecificEnergy<Number>& specific_energy, const Time<Number>& time)
     : SpecificPower<Number>(specific_energy.Value() / time.Value()) {}
 
-  // Constructor. Constructs a specific power quantity from a given specific energy and frequency
-  // using the definition of specific power.
+  /// \brief Constructor. Constructs a specific power quantity from a given specific energy and
+  /// frequency using the definition of specific power.
   constexpr SpecificPower(
       const SpecificEnergy<Number>& specific_energy, const Frequency<Number>& frequency)
     : SpecificPower<Number>(specific_energy.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs a specific power quantity from a given power and mass using the
-  // definition of specific power.
+  /// \brief Constructor. Constructs a specific power quantity from a given power and mass using the
+  /// definition of specific power.
   constexpr SpecificPower(const Power<Number>& power, const Mass<Number>& mass)
     : SpecificPower<Number>(power.Value() / mass.Value()) {}
 
-  // Destructor. Destroys this specific power quantity.
+  /// \brief Destructor. Destroys this specific power quantity.
   ~SpecificPower() noexcept = default;
 
-  // Copy constructor. Constructs a specific power quantity by copying another one.
+  /// \brief Copy constructor. Constructs a specific power quantity by copying another one.
   constexpr SpecificPower(const SpecificPower<Number>& other) = default;
 
-  // Copy constructor. Constructs a specific power quantity by copying another one.
+  /// \brief Copy constructor. Constructs a specific power quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr SpecificPower(const SpecificPower<OtherNumber>& other)
     : SpecificPower(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a specific power quantity by moving another one.
+  /// \brief Move constructor. Constructs a specific power quantity by moving another one.
   constexpr SpecificPower(SpecificPower<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this specific power quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific power quantity by copying another one.
   constexpr SpecificPower<Number>& operator=(const SpecificPower<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this specific power quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this specific power quantity by copying another one.
   template <typename OtherNumber>
   constexpr SpecificPower<Number>& operator=(const SpecificPower<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this specific power quantity by moving another one.
+  /// \brief Move assignment operator. Assigns this specific power quantity by moving another one.
   constexpr SpecificPower<Number>& operator=(SpecificPower<Number>&& other) noexcept = default;
 
-  // Statically creates a specific power quantity of zero.
+  /// \brief Statically creates a specific power quantity of zero.
   static constexpr SpecificPower<Number> Zero() {
     return SpecificPower<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a specific power quantity with a given value expressed in a given specific
-  // power unit.
+  /// \brief Statically creates a specific power quantity with a given value expressed in a given
+  /// specific power unit.
   template <Unit::SpecificPower Unit>
   static constexpr SpecificPower<Number> Create(const Number value) {
     return SpecificPower<Number>{
@@ -162,8 +162,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a specific power quantity with a given value expressed in the standard
-  // specific power unit.
+  /// \brief Constructor. Constructs a specific power quantity with a given value expressed in the
+  /// standard specific power unit.
   explicit constexpr SpecificPower(const Number value)
     : DimensionalScalar<Unit::SpecificPower, Number>(value) {}
 };

@@ -39,64 +39,65 @@
 
 namespace PhQ {
 
-// Scalar component or resultant of a strain rate tensor. Time rate of change of a scalar strain.
-// See also PhQ::StrainRate and PhQ::ScalarStrain.
+/// \brief Scalar component or resultant of a strain rate tensor. Time rate of change of a scalar
+/// strain. See also PhQ::StrainRate and PhQ::ScalarStrain.
 template <typename Number = double>
 class ScalarStrainRate : public DimensionalScalar<Unit::Frequency, Number> {
 public:
-  // Default constructor. Constructs a scalar strain rate with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar strain rate with an uninitialized value.
   ScalarStrainRate() = default;
 
-  // Constructor. Constructs a scalar strain rate with a given value expressed in a given frequency
-  // unit.
+  /// \brief Constructor. Constructs a scalar strain rate with a given value expressed in a given
+  /// frequency unit.
   ScalarStrainRate(const Number value, const Unit::Frequency unit)
     : DimensionalScalar<Unit::Frequency, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar strain rate from a given scalar strain and time using the
-  // definition of strain rate.
+  /// \brief Constructor. Constructs a scalar strain rate from a given scalar strain and time using
+  /// the definition of strain rate.
   constexpr ScalarStrainRate(const ScalarStrain<Number>& scalar_strain, const Time<Number>& time)
     : ScalarStrainRate<Number>(scalar_strain.Value() / time.Value()) {}
 
-  // Constructor. Constructs a scalar strain rate from a given scalar strain and frequency using the
-  // definition of strain rate.
+  /// \brief Constructor. Constructs a scalar strain rate from a given scalar strain and frequency
+  /// using the definition of strain rate.
   constexpr ScalarStrainRate(
       const ScalarStrain<Number>& scalar_strain, const Frequency<Number>& frequency)
     : ScalarStrainRate<Number>(scalar_strain.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this scalar strain rate.
+  /// \brief Destructor. Destroys this scalar strain rate.
   ~ScalarStrainRate() noexcept = default;
 
-  // Copy constructor. Constructs a scalar strain rate by copying another one.
+  /// \brief Copy constructor. Constructs a scalar strain rate by copying another one.
   constexpr ScalarStrainRate(const ScalarStrainRate<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar strain rate by copying another one.
+  /// \brief Copy constructor. Constructs a scalar strain rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarStrainRate(const ScalarStrainRate<OtherNumber>& other)
     : ScalarStrainRate(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar strain rate by moving another one.
+  /// \brief Move constructor. Constructs a scalar strain rate by moving another one.
   constexpr ScalarStrainRate(ScalarStrainRate<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar strain rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar strain rate by copying another one.
   constexpr ScalarStrainRate<Number>& operator=(const ScalarStrainRate<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar strain rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar strain rate by copying another one.
   template <typename OtherNumber>
   constexpr ScalarStrainRate<Number>& operator=(const ScalarStrainRate<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar strain rate by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar strain rate by moving another one.
   constexpr ScalarStrainRate<Number>& operator=(
       ScalarStrainRate<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar strain rate of zero.
+  /// \brief Statically creates a scalar strain rate of zero.
   static constexpr ScalarStrainRate<Number> Zero() {
     return ScalarStrainRate<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar strain rate with a given value expressed in a given frequency unit.
+  /// \brief Statically creates a scalar strain rate with a given value expressed in a given
+  /// frequency unit.
   template <Unit::Frequency Unit>
   static constexpr ScalarStrainRate<Number> Create(const Number value) {
     return ScalarStrainRate<Number>{
@@ -148,8 +149,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar strain rate with a given value expressed in the standard
-  // frequency unit.
+  /// \brief Constructor. Constructs a scalar strain rate with a given value expressed in the
+  /// standard frequency unit.
   explicit constexpr ScalarStrainRate(const Number value)
     : DimensionalScalar<Unit::Frequency, Number>(value) {}
 

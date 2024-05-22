@@ -43,58 +43,61 @@
 
 namespace PhQ {
 
-// Cauchy stress symmetric dyadic tensor. See also PhQ::ScalarStress.
+/// \brief Cauchy stress symmetric dyadic tensor. See also PhQ::ScalarStress.
 template <typename Number = double>
 class Stress : public DimensionalSymmetricDyad<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a stress tensor with an uninitialized value.
+  /// \brief Default constructor. Constructs a stress tensor with an uninitialized value.
   Stress() = default;
 
-  // Constructor. Constructs a stress tensor with a given value expressed in a given pressure unit.
+  /// \brief Constructor. Constructs a stress tensor with a given value expressed in a given
+  /// pressure unit.
   Stress(const SymmetricDyad<Number>& value, const Unit::Pressure unit)
     : DimensionalSymmetricDyad<Unit::Pressure, Number>(value, unit) {}
 
-  // Constructor. Constructs a stress tensor from a given static pressure using the definition of
-  // stress due to pressure. Since pressure is compressive, the negative of the static pressure
-  // contributes to the stress.
+  /// \brief Constructor. Constructs a stress tensor from a given static pressure using the
+  /// definition of stress due to pressure. Since pressure is compressive, the negative of the
+  /// static pressure contributes to the stress.
   constexpr explicit Stress(const StaticPressure<Number>& static_pressure)
-    : Stress<Number>({-1.0 * static_pressure.Value(), 0.0, 0.0, -1.0 * static_pressure.Value(), 0.0,
-                      -1.0 * static_pressure.Value()}) {}
+    : Stress<Number>(
+        {static_cast<Number>(-1.0) * static_pressure.Value(), static_cast<Number>(0.0),
+         static_cast<Number>(0.0), static_cast<Number>(-1.0) * static_pressure.Value(),
+         static_cast<Number>(0.0), static_cast<Number>(-1.0) * static_pressure.Value()}) {}
 
-  // Destructor. Destroys this stress tensor.
+  /// \brief Destructor. Destroys this stress tensor.
   ~Stress() noexcept = default;
 
-  // Copy constructor. Constructs a stress tensor by copying another one.
+  /// \brief Copy constructor. Constructs a stress tensor by copying another one.
   constexpr Stress(const Stress<Number>& other) = default;
 
-  // Copy constructor. Constructs a stress tensor by copying another one.
+  /// \brief Copy constructor. Constructs a stress tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr Stress(const Stress<OtherNumber>& other)
     : Stress(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a stress tensor by moving another one.
+  /// \brief Move constructor. Constructs a stress tensor by moving another one.
   constexpr Stress(Stress<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this stress tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this stress tensor by copying another one.
   constexpr Stress<Number>& operator=(const Stress<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this stress tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this stress tensor by copying another one.
   template <typename OtherNumber>
   constexpr Stress<Number>& operator=(const Stress<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this stress tensor by moving another one.
+  /// \brief Move assignment operator. Assigns this stress tensor by moving another one.
   constexpr Stress<Number>& operator=(Stress<Number>&& other) noexcept = default;
 
-  // Statically creates a stress tensor of zero.
+  /// \brief Statically creates a stress tensor of zero.
   static constexpr Stress<Number> Zero() {
     return Stress<Number>{SymmetricDyad<Number>::Zero()};
   }
 
-  // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
-  // components expressed in a given pressure unit.
+  /// \brief Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
+  /// components expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Stress<Number> Create(const Number xx, const Number xy, const Number xz,
                                          const Number yy, const Number yz, const Number zz) {
@@ -102,71 +105,73 @@ public:
         SymmetricDyad<Number>{xx, xy, xz, yy, yz, zz})};
   }
 
-  // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
-  // components expressed in a given pressure unit.
+  /// \brief Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
+  /// components expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Stress<Number> Create(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
     return Stress<Number>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
         SymmetricDyad<Number>{xx_xy_xz_yy_yz_zz})};
   }
 
-  // Statically creates a stress tensor with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a stress tensor with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr Stress<Number> Create(const SymmetricDyad<Number>& value) {
     return Stress<Number>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  // Returns the xx Cartesian component of this stress tensor.
+  /// \brief Returns the xx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> xx() const noexcept {
     return ScalarStress<Number>{this->value.xx()};
   }
 
-  // Returns the xy = yx Cartesian component of this stress tensor.
+  /// \brief Returns the xy = yx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> xy() const noexcept {
     return ScalarStress<Number>{this->value.xy()};
   }
 
-  // Returns the xz = zx Cartesian component of this stress tensor.
+  /// \brief Returns the xz = zx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> xz() const noexcept {
     return ScalarStress<Number>{this->value.xz()};
   }
 
-  // Returns the yx = xy Cartesian component of this stress tensor.
+  /// \brief Returns the yx = xy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> yx() const noexcept {
     return ScalarStress<Number>{this->value.yx()};
   }
 
-  // Returns the yy Cartesian component of this stress tensor.
+  /// \brief Returns the yy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> yy() const noexcept {
     return ScalarStress<Number>{this->value.yy()};
   }
 
-  // Returns the yz = zy Cartesian component of this stress tensor.
+  /// \brief Returns the yz = zy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> yz() const noexcept {
     return ScalarStress<Number>{this->value.yz()};
   }
 
-  // Returns the zx = xz Cartesian component of this stress tensor.
+  /// \brief Returns the zx = xz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> zx() const noexcept {
     return ScalarStress<Number>{this->value.zx()};
   }
 
-  // Returns the zy = yz Cartesian component of this stress tensor.
+  /// \brief Returns the zy = yz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> zy() const noexcept {
     return ScalarStress<Number>{this->value.zy()};
   }
 
-  // Returns the zz Cartesian component of this stress tensor.
+  /// \brief Returns the zz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress<Number> zz() const noexcept {
     return ScalarStress<Number>{this->value.zz()};
   }
 
-  // Creates a traction from this stress tensor using the definition of traction.
+  /// \brief Creates a traction from this stress tensor using the definition of traction.
   [[nodiscard]] constexpr PhQ::Traction<Number> Traction(const Direction<Number>& direction) const {
     return PhQ::Traction<Number>{*this, direction};
   }
 
-  // Computes the von Mises stress of this stress tensor using the von Mises yield criterion.
+  /// \brief Computes the von Mises stress of this stress tensor using the von Mises yield
+  /// criterion.
   [[nodiscard]] constexpr ScalarStress<Number> VonMises() const {
     return ScalarStress<Number>{std::sqrt(
         0.5
@@ -211,8 +216,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a stress tensor with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a stress tensor with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr Stress(const SymmetricDyad<Number>& value)
     : DimensionalSymmetricDyad<Unit::Pressure, Number>(value) {}
 };

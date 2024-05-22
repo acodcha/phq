@@ -47,64 +47,65 @@ class Acceleration;
 template <typename Number>
 class Direction;
 
-// Scalar acceleration component or magnitude of an acceleration vector. See also PhQ::Acceleration.
+/// \brief Scalar acceleration component or magnitude of an acceleration vector. See also
+/// PhQ::Acceleration.
 template <typename Number = double>
 class ScalarAcceleration : public DimensionalScalar<Unit::Acceleration, Number> {
 public:
-  // Default constructor. Constructs a scalar acceleration with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar acceleration with an uninitialized value.
   ScalarAcceleration() = default;
 
-  // Constructor. Constructs a scalar acceleration with a given value expressed in a given
-  // acceleration unit.
+  /// \brief Constructor. Constructs a scalar acceleration with a given value expressed in a given
+  /// acceleration unit.
   ScalarAcceleration(const Number value, const Unit::Acceleration unit)
     : DimensionalScalar<Unit::Acceleration, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar acceleration from a given speed and time using the definition
-  // of acceleration.
+  /// \brief Constructor. Constructs a scalar acceleration from a given speed and time using the
+  /// definition of acceleration.
   constexpr ScalarAcceleration(const Speed<Number>& speed, const Time<Number>& time)
     : ScalarAcceleration<Number>(speed.Value() / time.Value()) {}
 
-  // Constructor. Constructs a scalar acceleration from a given speed and frequency using the
-  // definition of acceleration.
+  /// \brief Constructor. Constructs a scalar acceleration from a given speed and frequency using
+  /// the definition of acceleration.
   constexpr ScalarAcceleration(const Speed<Number>& speed, const Frequency<Number>& frequency)
     : ScalarAcceleration<Number>(speed.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this acceleration scalar.
+  /// \brief Destructor. Destroys this acceleration scalar.
   ~ScalarAcceleration() noexcept = default;
 
-  // Copy constructor. Constructs a scalar acceleration by copying another one.
+  /// \brief Copy constructor. Constructs a scalar acceleration by copying another one.
   constexpr ScalarAcceleration(const ScalarAcceleration<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar acceleration by copying another one.
+  /// \brief Copy constructor. Constructs a scalar acceleration by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarAcceleration(const ScalarAcceleration<OtherNumber>& other)
     : ScalarAcceleration(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar acceleration by moving another one.
+  /// \brief Move constructor. Constructs a scalar acceleration by moving another one.
   constexpr ScalarAcceleration(ScalarAcceleration<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar acceleration by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar acceleration by copying another one.
   constexpr ScalarAcceleration<Number>& operator=(
       const ScalarAcceleration<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar acceleration by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar acceleration by copying another one.
   template <typename OtherNumber>
   constexpr ScalarAcceleration<Number>& operator=(const ScalarAcceleration<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar acceleration by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar acceleration by moving another one.
   constexpr ScalarAcceleration<Number>& operator=(
       ScalarAcceleration<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar acceleration of zero.
+  /// \brief Statically creates a scalar acceleration of zero.
   static constexpr ScalarAcceleration<Number> Zero() {
     return ScalarAcceleration<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar acceleration with a given value expressed in a given acceleration
-  // unit.
+  /// \brief Statically creates a scalar acceleration with a given value expressed in a given
+  /// acceleration unit.
   template <Unit::Acceleration Unit>
   static constexpr ScalarAcceleration<Number> Create(const Number value) {
     return ScalarAcceleration<Number>{
@@ -164,8 +165,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar acceleration with a given value expressed in the standard
-  // acceleration unit.
+  /// \brief Constructor. Constructs a scalar acceleration with a given value expressed in the
+  /// standard acceleration unit.
   explicit constexpr ScalarAcceleration(const Number value)
     : DimensionalScalar<Unit::Acceleration, Number>(value) {}
 

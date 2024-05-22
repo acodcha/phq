@@ -39,60 +39,63 @@
 
 namespace PhQ {
 
-// Computer memory rate. Can represent the time rate of change of memory or a memory transfer speed.
+/// \brief Computer memory rate. Can represent the time rate of change of memory or a memory
+/// transfer speed.
 template <typename Number = double>
 class MemoryRate : public DimensionalScalar<Unit::MemoryRate, Number> {
 public:
-  // Default constructor. Constructs a memory rate with an uninitialized value.
+  /// \brief Default constructor. Constructs a memory rate with an uninitialized value.
   MemoryRate() = default;
 
-  // Constructor. Constructs a memory rate with a given value expressed in a given memory rate unit.
+  /// \brief Constructor. Constructs a memory rate with a given value expressed in a given memory
+  /// rate unit.
   MemoryRate(const Number value, const Unit::MemoryRate unit)
     : DimensionalScalar<Unit::MemoryRate, Number>(value, unit) {}
 
-  // Constructor. Constructs a memory rate from a given memory and time duration using the
-  // definition of memory rate.
+  /// \brief Constructor. Constructs a memory rate from a given memory and time duration using the
+  /// definition of memory rate.
   constexpr MemoryRate(const Memory<Number>& memory, const Time<Number>& time)
     : MemoryRate<Number>(memory.Value() / time.Value()) {}
 
-  // Constructor. Constructs a memory rate from a given memory and frequency using the definition of
-  // memory rate.
+  /// \brief Constructor. Constructs a memory rate from a given memory and frequency using the
+  /// definition of memory rate.
   constexpr MemoryRate(const Memory<Number>& memory, const Frequency<Number>& frequency)
     : MemoryRate<Number>(memory.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this memory rate.
+  /// \brief Destructor. Destroys this memory rate.
   ~MemoryRate() noexcept = default;
 
-  // Copy constructor. Constructs a memory rate by copying another one.
+  /// \brief Copy constructor. Constructs a memory rate by copying another one.
   constexpr MemoryRate(const MemoryRate<Number>& other) = default;
 
-  // Copy constructor. Constructs a memory rate by copying another one.
+  /// \brief Copy constructor. Constructs a memory rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr MemoryRate(const MemoryRate<OtherNumber>& other)
     : MemoryRate(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a memory rate by moving another one.
+  /// \brief Move constructor. Constructs a memory rate by moving another one.
   constexpr MemoryRate(MemoryRate<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this memory rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this memory rate by copying another one.
   constexpr MemoryRate<Number>& operator=(const MemoryRate<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this memory rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this memory rate by copying another one.
   template <typename OtherNumber>
   constexpr MemoryRate<Number>& operator=(const MemoryRate<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this memory rate by moving another one.
+  /// \brief Move assignment operator. Assigns this memory rate by moving another one.
   constexpr MemoryRate<Number>& operator=(MemoryRate<Number>&& other) noexcept = default;
 
-  // Statically creates a memory rate of zero.
+  /// \brief Statically creates a memory rate of zero.
   static constexpr MemoryRate<Number> Zero() {
     return MemoryRate<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a memory rate with a given value expressed in a given memory rate unit.
+  /// \brief Statically creates a memory rate with a given value expressed in a given memory rate
+  /// unit.
   template <Unit::MemoryRate Unit>
   static constexpr MemoryRate<Number> Create(const Number value) {
     return MemoryRate<Number>{
@@ -148,8 +151,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a memory rate quantity with a given value expressed in the standard
-  // memory rate unit.
+  /// \brief Constructor. Constructs a memory rate quantity with a given value expressed in the
+  /// standard memory rate unit.
   explicit constexpr MemoryRate(const Number value)
     : DimensionalScalar<Unit::MemoryRate, Number>(value) {}
 };

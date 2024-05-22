@@ -46,44 +46,47 @@ class Direction;
 template <typename Number>
 class TemperatureGradient;
 
-// Scalar temperature gradient component or magnitude of a temperature gradient vector. See also
-// PhQ::TemperatureGradient.
+/// \brief Scalar temperature gradient component or magnitude of a temperature gradient vector. See
+/// also PhQ::TemperatureGradient.
 template <typename Number = double>
 class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient, Number> {
 public:
-  // Default constructor. Constructs a scalar temperature gradient with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar temperature gradient with an uninitialized
+  /// value.
   ScalarTemperatureGradient() = default;
 
-  // Constructor. Constructs a scalar temperature gradient with a given value expressed in a given
-  // temperature gradient unit.
+  /// \brief Constructor. Constructs a scalar temperature gradient with a given value expressed in a
+  /// given temperature gradient unit.
   ScalarTemperatureGradient(const Number value, const Unit::TemperatureGradient unit)
     : DimensionalScalar<Unit::TemperatureGradient, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar temperature gradient from a given temperature difference and
-  // length using the definition of temperature gradient.
+  /// \brief Constructor. Constructs a scalar temperature gradient from a given temperature
+  /// difference and length using the definition of temperature gradient.
   constexpr ScalarTemperatureGradient(
       const TemperatureDifference<Number>& temperature_difference, const Length<Number>& length)
     : ScalarTemperatureGradient<Number>(temperature_difference.Value() / length.Value()) {}
 
-  // Destructor. Destroys this scalar temperature gradient.
+  /// \brief Destructor. Destroys this scalar temperature gradient.
   ~ScalarTemperatureGradient() noexcept = default;
 
-  // Copy constructor. Constructs a scalar temperature gradient by copying another one.
+  /// \brief Copy constructor. Constructs a scalar temperature gradient by copying another one.
   constexpr ScalarTemperatureGradient(const ScalarTemperatureGradient<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar temperature gradient by copying another one.
+  /// \brief Copy constructor. Constructs a scalar temperature gradient by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarTemperatureGradient(const ScalarTemperatureGradient<OtherNumber>& other)
     : ScalarTemperatureGradient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar temperature gradient by moving another one.
+  /// \brief Move constructor. Constructs a scalar temperature gradient by moving another one.
   constexpr ScalarTemperatureGradient(ScalarTemperatureGradient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar temperature gradient by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar temperature gradient by copying another
+  /// one.
   constexpr ScalarTemperatureGradient<Number>& operator=(
       const ScalarTemperatureGradient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar temperature gradient by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar temperature gradient by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr ScalarTemperatureGradient<Number>& operator=(
       const ScalarTemperatureGradient<OtherNumber>& other) {
@@ -91,17 +94,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar temperature gradient by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar temperature gradient by moving another
+  /// one.
   constexpr ScalarTemperatureGradient<Number>& operator=(
       ScalarTemperatureGradient<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar temperature gradient of zero.
+  /// \brief Statically creates a scalar temperature gradient of zero.
   static constexpr ScalarTemperatureGradient<Number> Zero() {
     return ScalarTemperatureGradient<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar temperature gradient with a given value expressed in a given
-  // temperature gradient unit.
+  /// \brief Statically creates a scalar temperature gradient with a given value expressed in a
+  /// given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
   static constexpr ScalarTemperatureGradient<Number> Create(const Number value) {
     return ScalarTemperatureGradient<Number>{
@@ -157,8 +161,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar temperature gradient with a given value expressed in the
-  // standard temperature gradient unit.
+  /// \brief Constructor. Constructs a scalar temperature gradient with a given value expressed in
+  /// the standard temperature gradient unit.
   explicit constexpr ScalarTemperatureGradient(const Number value)
     : DimensionalScalar<Unit::TemperatureGradient, Number>(value) {}
 

@@ -36,52 +36,53 @@
 
 namespace PhQ {
 
-// Young's modulus of elasticity of a deformable solid material. A measure of a deformable solid
-// material's elastic modulus.
+/// \brief Young's modulus of elasticity of a deformable solid material. A measure of a deformable
+/// solid material's elastic modulus.
 template <typename Number = double>
 class YoungModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a Young's modulus with an uninitialized value.
+  /// \brief Default constructor. Constructs a Young's modulus with an uninitialized value.
   YoungModulus() = default;
 
-  // Constructor. Constructs a Young's modulus with a given value expressed in a given pressure
-  // unit.
+  /// \brief Constructor. Constructs a Young's modulus with a given value expressed in a given
+  /// pressure unit.
   YoungModulus(const Number value, const Unit::Pressure unit)
     : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
-  // Destructor. Destroys this Young's modulus.
+  /// \brief Destructor. Destroys this Young's modulus.
   ~YoungModulus() noexcept = default;
 
-  // Copy constructor. Constructs a Young's modulus by copying another one.
+  /// \brief Copy constructor. Constructs a Young's modulus by copying another one.
   constexpr YoungModulus(const YoungModulus<Number>& other) = default;
 
-  // Copy constructor. Constructs a Young's modulus by copying another one.
+  /// \brief Copy constructor. Constructs a Young's modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr YoungModulus(const YoungModulus<OtherNumber>& other)
     : YoungModulus(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a Young's modulus by moving another one.
+  /// \brief Move constructor. Constructs a Young's modulus by moving another one.
   constexpr YoungModulus(YoungModulus<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Young's modulus by copying another one.
+  /// \brief Copy assignment operator. Assigns this Young's modulus by copying another one.
   constexpr YoungModulus<Number>& operator=(const YoungModulus<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this Young's modulus by copying another one.
+  /// \brief Copy assignment operator. Assigns this Young's modulus by copying another one.
   template <typename OtherNumber>
   constexpr YoungModulus<Number>& operator=(const YoungModulus<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this Young's modulus by moving another one.
+  /// \brief Move assignment operator. Assigns this Young's modulus by moving another one.
   constexpr YoungModulus<Number>& operator=(YoungModulus<Number>&& other) noexcept = default;
 
-  // Statically creates a Young's modulus of zero.
+  /// \brief Statically creates a Young's modulus of zero.
   static constexpr YoungModulus<Number> Zero() {
     return YoungModulus<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a Young's modulus with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a Young's modulus with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr YoungModulus<Number> Create(const Number value) {
     return YoungModulus<Number>{
@@ -125,8 +126,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a Young's modulus with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a Young's modulus with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr YoungModulus(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };

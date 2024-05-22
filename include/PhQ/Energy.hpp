@@ -68,68 +68,70 @@ class Time;
 template <typename Number>
 class TransportEnergyConsumption;
 
-// Energy physical quantity. Can represent any kind of energy, such as kinetic energy, potential
-// energy, internal energy, and so on.
+/// \brief Energy physical quantity. Can represent any kind of energy, such as kinetic energy,
+/// potential energy, internal energy, and so on.
 template <typename Number = double>
 class Energy : public DimensionalScalar<Unit::Energy, Number> {
 public:
-  // Default constructor. Constructs an energy quantity with an uninitialized value.
+  /// \brief Default constructor. Constructs an energy quantity with an uninitialized value.
   Energy() = default;
 
-  // Constructor. Constructs an energy quantity with a given value expressed in a given energy unit.
+  /// \brief Constructor. Constructs an energy quantity with a given value expressed in a given
+  /// energy unit.
   Energy(const Number value, const Unit::Energy unit)
     : DimensionalScalar<Unit::Energy, Number>(value, unit) {}
 
-  // Constructor. Constructs an energy quantity from a given power and time using the definition of
-  // power.
+  /// \brief Constructor. Constructs an energy quantity from a given power and time using the
+  /// definition of power.
   constexpr Energy(const Power<Number>& power, const Time<Number>& time);
 
-  // Constructor. Constructs an energy quantity from a given power and frequency using the
-  // definition of power.
+  /// \brief Constructor. Constructs an energy quantity from a given power and frequency using the
+  /// definition of power.
   constexpr Energy(const Power<Number>& power, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs an energy quantity from a given specific energy quantity and mass using
-  // the definition of specific energy.
+  /// \brief Constructor. Constructs an energy quantity from a given specific energy quantity and
+  /// mass using the definition of specific energy.
   constexpr Energy(const SpecificEnergy<Number>& specific_energy, const Mass<Number>& mass);
 
-  // Constructor. Constructs an energy quantity from a given transport energy consumption and length
-  // using the definition of transport energy consumption.
+  /// \brief Constructor. Constructs an energy quantity from a given transport energy consumption
+  /// and length using the definition of transport energy consumption.
   constexpr Energy(const TransportEnergyConsumption<Number>& transport_energy_consumption,
                    const Length<Number>& length);
 
-  // Destructor. Destroys this energy quantity.
+  /// \brief Destructor. Destroys this energy quantity.
   ~Energy() noexcept = default;
 
-  // Copy constructor. Constructs an energy quantity by copying another one.
+  /// \brief Copy constructor. Constructs an energy quantity by copying another one.
   constexpr Energy(const Energy<Number>& other) = default;
 
-  // Copy constructor. Constructs an energy quantity by copying another one.
+  /// \brief Copy constructor. Constructs an energy quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Energy(const Energy<OtherNumber>& other)
     : Energy(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs an energy quantity by moving another one.
+  /// \brief Move constructor. Constructs an energy quantity by moving another one.
   constexpr Energy(Energy<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this energy quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this energy quantity by copying another one.
   constexpr Energy<Number>& operator=(const Energy<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this energy quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this energy quantity by copying another one.
   template <typename OtherNumber>
   constexpr Energy<Number>& operator=(const Energy<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this energy quantity by moving another one.
+  /// \brief Move assignment operator. Assigns this energy quantity by moving another one.
   constexpr Energy<Number>& operator=(Energy<Number>&& other) noexcept = default;
 
-  // Statically creates an energy quantity of zero.
+  /// \brief Statically creates an energy quantity of zero.
   static constexpr Energy<Number> Zero() {
     return Energy<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates an energy quantity with a given value expressed in a given energy unit.
+  /// \brief Statically creates an energy quantity with a given value expressed in a given energy
+  /// unit.
   template <Unit::Energy Unit>
   static constexpr Energy<Number> Create(const Number value) {
     return Energy<Number>{StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
@@ -187,8 +189,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs an energy quantity with a given value expressed in the standard energy
-  // unit.
+  /// \brief Constructor. Constructs an energy quantity with a given value expressed in the standard
+  /// energy unit.
   explicit constexpr Energy(const Number value) : DimensionalScalar<Unit::Energy, Number>(value) {}
 };
 

@@ -43,59 +43,62 @@ namespace PhQ {
 template <typename Number>
 class VelocityGradient;
 
-// Displacement gradient dyadic tensor. Gradient of the displacement vector. In general, this dyadic
-// tensor is asymmetric. See also PhQ::ScalarDisplacementGradient.
+/// \brief Displacement gradient dyadic tensor. Gradient of the displacement vector. In general,
+/// this dyadic tensor is asymmetric. See also PhQ::ScalarDisplacementGradient.
 template <typename Number = double>
 class DisplacementGradient : public DimensionlessDyad<Number> {
 public:
-  // Default constructor. Constructs a displacement gradient tensor with an uninitialized value.
+  /// \brief Default constructor. Constructs a displacement gradient tensor with an uninitialized
+  /// value.
   DisplacementGradient() = default;
 
-  // Constructor. Constructs a displacement gradient tensor whose value has the given xx, xy, xz,
-  // yx, yy, yz, zx, zy, and zz Cartesian components.
+  /// \brief Constructor. Constructs a displacement gradient tensor whose value has the given xx,
+  /// xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr DisplacementGradient(
       const Number xx, const Number xy, const Number xz, const Number yx, const Number yy,
       const Number yz, const Number zx, const Number zy, const Number zz)
     : DimensionlessDyad<Number>(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
 
-  // Constructor. Constructs a displacement gradient tensor from a given array representing its
-  // value's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
+  /// \brief Constructor. Constructs a displacement gradient tensor from a given array representing
+  /// its value's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   explicit constexpr DisplacementGradient(const std::array<Number, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
     : DimensionlessDyad<Number>(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
-  // Constructor. Constructs a displacement gradient tensor with a given value.
+  /// \brief Constructor. Constructs a displacement gradient tensor with a given value.
   explicit constexpr DisplacementGradient(const Dyad<Number>& value)
     : DimensionlessDyad<Number>(value) {}
 
-  // Constructor. Constructs a displacement gradient tensor from a given velocity gradient tensor
-  // and time using the definition of speed.
+  /// \brief Constructor. Constructs a displacement gradient tensor from a given velocity gradient
+  /// tensor and time using the definition of speed.
   constexpr DisplacementGradient(
       const VelocityGradient<Number>& velocity_gradient, const Time<Number>& time);
 
-  // Constructor. Constructs a displacement gradient tensor from a given velocity gradient tensor
-  // and frequency using the definition of speed.
+  /// \brief Constructor. Constructs a displacement gradient tensor from a given velocity gradient
+  /// tensor and frequency using the definition of speed.
   constexpr DisplacementGradient(
       const VelocityGradient<Number>& velocity_gradient, const Frequency<Number>& frequency);
 
-  // Destructor. Destroys this displacement gradient tensor.
+  /// \brief Destructor. Destroys this displacement gradient tensor.
   ~DisplacementGradient() noexcept = default;
 
-  // Copy constructor. Constructs a displacement gradient tensor by copying another one.
+  /// \brief Copy constructor. Constructs a displacement gradient tensor by copying another one.
   constexpr DisplacementGradient(const DisplacementGradient<Number>& other) = default;
 
-  // Copy constructor. Constructs a displacement gradient tensor by copying another one.
+  /// \brief Copy constructor. Constructs a displacement gradient tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr DisplacementGradient(const DisplacementGradient<OtherNumber>& other)
     : DisplacementGradient(static_cast<Dyad<Number>>(other.Value())) {}
 
-  // Move constructor. Constructs a displacement gradient tensor by moving another one.
+  /// \brief Move constructor. Constructs a displacement gradient tensor by moving another one.
   constexpr DisplacementGradient(DisplacementGradient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this displacement gradient tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this displacement gradient tensor by copying another
+  /// one.
   constexpr DisplacementGradient<Number>& operator=(
       const DisplacementGradient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this displacement gradient tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this displacement gradient tensor by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr DisplacementGradient<Number>& operator=(
       const DisplacementGradient<OtherNumber>& other) {
@@ -103,62 +106,63 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this displacement gradient tensor by moving another one.
+  /// \brief Move assignment operator. Assigns this displacement gradient tensor by moving another
+  /// one.
   constexpr DisplacementGradient<Number>& operator=(
       DisplacementGradient<Number>&& other) noexcept = default;
 
-  // Statically creates a displacement gradient tensor of zero.
+  /// \brief Statically creates a displacement gradient tensor of zero.
   static constexpr DisplacementGradient<Number> Zero() {
     return DisplacementGradient<Number>{Dyad<Number>::Zero()};
   }
 
-  // Returns the xx Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the xx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xx() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.xx()};
   }
 
-  // Returns the xy Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the xy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xy() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.xy()};
   }
 
-  // Returns the xz Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the xz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xz() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.xz()};
   }
 
-  // Returns the yx Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the yx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yx() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.yx()};
   }
 
-  // Returns the yy Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the yy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yy() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.yy()};
   }
 
-  // Returns the yz Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the yz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yz() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.yz()};
   }
 
-  // Returns the zx Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the zx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zx() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.zx()};
   }
 
-  // Returns the zy Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the zy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zy() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.zy()};
   }
 
-  // Returns the zz Cartesian component of this displacement gradient tensor.
+  /// \brief Returns the zz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zz() const noexcept {
     return ScalarDisplacementGradient<Number>{this->value.zz()};
   }
 
-  // Creates a strain tensor from this displacement gradient tensor using the definition of the
-  // strain tensor.
+  /// \brief Creates a strain tensor from this displacement gradient tensor using the definition of
+  /// the strain tensor.
   [[nodiscard]] constexpr PhQ::Strain<Number> Strain() const {
     return PhQ::Strain<Number>{*this};
   }

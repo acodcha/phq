@@ -45,67 +45,67 @@ namespace PhQ {
 template <typename Number>
 class VelocityGradient;
 
-// Strain rate symmetric dyadic tensor. Time rate of change of the strain symmetric dyadic tensor.
-// See also PhQ::Strain and PhQ::ScalarStrainRate.
+/// \brief Strain rate symmetric dyadic tensor. Time rate of change of the strain symmetric dyadic
+/// tensor. See also PhQ::Strain and PhQ::ScalarStrainRate.
 template <typename Number = double>
 class StrainRate : public DimensionalSymmetricDyad<Unit::Frequency, Number> {
 public:
-  // Default constructor. Constructs a strain rate tensor with an uninitialized value.
+  /// \brief Default constructor. Constructs a strain rate tensor with an uninitialized value.
   StrainRate() = default;
 
-  // Constructor. Constructs a strain rate tensor with a given value expressed in a given frequency
-  // unit.
+  /// \brief Constructor. Constructs a strain rate tensor with a given value expressed in a given
+  /// frequency unit.
   StrainRate(const SymmetricDyad<Number>& value, Unit::Frequency unit)
     : DimensionalSymmetricDyad<Unit::Frequency, Number>(value, unit) {}
 
-  // Constructor. Constructs a strain rate tensor from a given strain tensor and time using the
-  // definition of the strain rate tensor.
+  /// \brief Constructor. Constructs a strain rate tensor from a given strain tensor and time using
+  /// the definition of the strain rate tensor.
   constexpr StrainRate(const Strain<Number>& strain, const Time<Number>& time)
     : StrainRate<Number>(strain.Value() / time.Value()) {}
 
-  // Constructor. Constructs a strain rate tensor from a given strain tensor and frequency using the
-  // definition of the strain rate tensor.
+  /// \brief Constructor. Constructs a strain rate tensor from a given strain tensor and frequency
+  /// using the definition of the strain rate tensor.
   constexpr StrainRate(const Strain<Number>& strain, const Frequency<Number>& frequency)
     : StrainRate<Number>(strain.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs a strain rate tensor from a given velocity gradient using the
-  // definition of the strain rate tensor.
+  /// \brief Constructor. Constructs a strain rate tensor from a given velocity gradient using the
+  /// definition of the strain rate tensor.
   explicit constexpr StrainRate(const VelocityGradient<Number>& velocity_gradient);
 
-  // Destructor. Destroys this strain rate tensor.
+  /// \brief Destructor. Destroys this strain rate tensor.
   ~StrainRate() noexcept = default;
 
-  // Copy constructor. Constructs a strain rate tensor by copying another one.
+  /// \brief Copy constructor. Constructs a strain rate tensor by copying another one.
   constexpr StrainRate(const StrainRate<Number>& other) = default;
 
-  // Copy constructor. Constructs a strain rate tensor by copying another one.
+  /// \brief Copy constructor. Constructs a strain rate tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr StrainRate(const StrainRate<OtherNumber>& other)
     : StrainRate(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a strain rate tensor by moving another one.
+  /// \brief Move constructor. Constructs a strain rate tensor by moving another one.
   constexpr StrainRate(StrainRate<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this strain rate tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this strain rate tensor by copying another one.
   constexpr StrainRate<Number>& operator=(const StrainRate<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this strain rate tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this strain rate tensor by copying another one.
   template <typename OtherNumber>
   constexpr StrainRate<Number>& operator=(const StrainRate<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this strain rate tensor by moving another one.
+  /// \brief Move assignment operator. Assigns this strain rate tensor by moving another one.
   constexpr StrainRate<Number>& operator=(StrainRate<Number>&& other) noexcept = default;
 
-  // Statically creates a strain rate tensor of zero.
+  /// \brief Statically creates a strain rate tensor of zero.
   static constexpr StrainRate<Number> Zero() {
     return StrainRate<Number>{SymmetricDyad<Number>::Zero()};
   }
 
-  // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
-  // components expressed in a given frequency unit.
+  /// \brief Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz
+  /// Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr StrainRate<Number> Create(const Number xx, const Number xy, const Number xz,
                                              const Number yy, const Number yz, const Number zz) {
@@ -113,62 +113,63 @@ public:
         SymmetricDyad<Number>{xx, xy, xz, yy, yz, zz})};
   }
 
-  // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
-  // components expressed in a given frequency unit.
+  /// \brief Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz
+  /// Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr StrainRate<Number> Create(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
     return StrainRate<Number>{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
         SymmetricDyad<Number>{xx_xy_xz_yy_yz_zz})};
   }
 
-  // Statically creates a strain rate tensor with a given value expressed in a given frequency unit.
+  /// \brief Statically creates a strain rate tensor with a given value expressed in a given
+  /// frequency unit.
   template <Unit::Frequency Unit>
   static constexpr StrainRate<Number> Create(const SymmetricDyad<Number>& value) {
     return StrainRate<Number>{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
-  // Returns the xx Cartesian component of this strain rate tensor.
+  /// \brief Returns the xx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> xx() const noexcept {
     return ScalarStrainRate<Number>{this->value.xx()};
   }
 
-  // Returns the xy = yx Cartesian component of this strain rate tensor.
+  /// \brief Returns the xy = yx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> xy() const noexcept {
     return ScalarStrainRate<Number>{this->value.xy()};
   }
 
-  // Returns the xz = zx Cartesian component of this strain rate tensor.
+  /// \brief Returns the xz = zx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> xz() const noexcept {
     return ScalarStrainRate<Number>{this->value.xz()};
   }
 
-  // Returns the yx = xy Cartesian component of this strain rate tensor.
+  /// \brief Returns the yx = xy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> yx() const noexcept {
     return ScalarStrainRate<Number>{this->value.yx()};
   }
 
-  // Returns the yy Cartesian component of this strain rate tensor.
+  /// \brief Returns the yy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> yy() const noexcept {
     return ScalarStrainRate<Number>{this->value.yy()};
   }
 
-  // Returns the yz = zy Cartesian component of this strain rate tensor.
+  /// \brief Returns the yz = zy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> yz() const noexcept {
     return ScalarStrainRate<Number>{this->value.yz()};
   }
 
-  // Returns the zx = xz Cartesian component of this strain rate tensor.
+  /// \brief Returns the zx = xz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> zx() const noexcept {
     return ScalarStrainRate<Number>{this->value.zx()};
   }
 
-  // Returns the zy = yz Cartesian component of this strain rate tensor.
+  /// \brief Returns the zy = yz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> zy() const noexcept {
     return ScalarStrainRate<Number>{this->value.zy()};
   }
 
-  // Returns the zz Cartesian component of this strain rate tensor.
+  /// \brief Returns the zz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate<Number> zz() const noexcept {
     return ScalarStrainRate<Number>{this->value.zz()};
   }
@@ -214,8 +215,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a strain rate tensor with a given value expressed in the standard
-  // frequency unit.
+  /// \brief Constructor. Constructs a strain rate tensor with a given value expressed in the
+  /// standard frequency unit.
   explicit constexpr StrainRate(const SymmetricDyad<Number>& value)
     : DimensionalSymmetricDyad<Unit::Frequency, Number>(value) {}
 };

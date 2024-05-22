@@ -36,51 +36,53 @@
 
 namespace PhQ {
 
-// P-wave modulus of elasticity of a deformable solid material. A measure of a deformable solid
-// material's elastic modulus.
+/// \brief P-wave modulus of elasticity of a deformable solid material. A measure of a deformable
+/// solid material's elastic modulus.
 template <typename Number = double>
 class PWaveModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a P-wave modulus with an uninitialized value.
+  /// \brief Default constructor. Constructs a P-wave modulus with an uninitialized value.
   PWaveModulus() = default;
 
-  // Constructor. Constructs a P-wave modulus with a given value expressed in a given pressure unit.
+  /// \brief Constructor. Constructs a P-wave modulus with a given value expressed in a given
+  /// pressure unit.
   PWaveModulus(const Number value, const Unit::Pressure unit)
     : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
-  // Destructor. Destroys this P-wave modulus.
+  /// \brief Destructor. Destroys this P-wave modulus.
   ~PWaveModulus() noexcept = default;
 
-  // Copy constructor. Constructs a P-wave modulus by copying another one.
+  /// \brief Copy constructor. Constructs a P-wave modulus by copying another one.
   constexpr PWaveModulus(const PWaveModulus<Number>& other) = default;
 
-  // Copy constructor. Constructs a P-wave modulus by copying another one.
+  /// \brief Copy constructor. Constructs a P-wave modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr PWaveModulus(const PWaveModulus<OtherNumber>& other)
     : PWaveModulus(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a P-wave modulus by moving another one.
+  /// \brief Move constructor. Constructs a P-wave modulus by moving another one.
   constexpr PWaveModulus(PWaveModulus<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this P-wave modulus by copying another one.
+  /// \brief Copy assignment operator. Assigns this P-wave modulus by copying another one.
   constexpr PWaveModulus<Number>& operator=(const PWaveModulus<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this P-wave modulus by copying another one.
+  /// \brief Copy assignment operator. Assigns this P-wave modulus by copying another one.
   template <typename OtherNumber>
   constexpr PWaveModulus<Number>& operator=(const PWaveModulus<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this P-wave modulus by moving another one.
+  /// \brief Move assignment operator. Assigns this P-wave modulus by moving another one.
   constexpr PWaveModulus<Number>& operator=(PWaveModulus<Number>&& other) noexcept = default;
 
-  // Statically creates a P-wave modulus of zero.
+  /// \brief Statically creates a P-wave modulus of zero.
   static constexpr PWaveModulus<Number> Zero() {
     return PWaveModulus<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a P-wave modulus with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a P-wave modulus with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr PWaveModulus<Number> Create(const Number value) {
     return PWaveModulus<Number>{
@@ -124,8 +126,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a P-wave modulus with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a P-wave modulus with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr PWaveModulus(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };

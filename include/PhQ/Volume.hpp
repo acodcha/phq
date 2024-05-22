@@ -58,66 +58,66 @@ class MassDensity;
 template <typename Number>
 class VolumeRate;
 
-// Volume.
+/// \brief Volume.
 template <typename Number = double>
 class Volume : public DimensionalScalar<Unit::Volume, Number> {
 public:
-  // Default constructor. Constructs a volume with an uninitialized value.
+  /// \brief Default constructor. Constructs a volume with an uninitialized value.
   Volume() = default;
 
-  // Constructor. Constructs a volume with a given value expressed in a given volume unit.
+  /// \brief Constructor. Constructs a volume with a given value expressed in a given volume unit.
   Volume(const Number value, const Unit::Volume unit)
     : DimensionalScalar<Unit::Volume, Number>(value, unit) {}
 
-  // Constructor. Constructs a volume from a given area and length.
+  /// \brief Constructor. Constructs a volume from a given area and length.
   constexpr Volume(const Area<Number>& area, const Length<Number>& length)
     : Volume<Number>(area.Value() * length.Value()) {}
 
-  // Constructor. Constructs a volume from a given volume rate and time using the definition of
-  // volume rate.
+  /// \brief Constructor. Constructs a volume from a given volume rate and time using the definition
+  /// of volume rate.
   constexpr Volume(const VolumeRate<Number>& volume_rate, const Time<Number>& time);
 
-  // Constructor. Constructs a volume from a given volume rate and frequency using the definition of
-  // volume rate.
+  /// \brief Constructor. Constructs a volume from a given volume rate and frequency using the
+  /// definition of volume rate.
   constexpr Volume(const VolumeRate<Number>& volume_rate, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs a volume from a given mass and mass density using the definition of
-  // volume.
+  /// \brief Constructor. Constructs a volume from a given mass and mass density using the
+  /// definition of volume.
   constexpr Volume(const Mass<Number>& mass, const MassDensity<Number>& mass_density);
 
-  // Destructor. Destroys this volume.
+  /// \brief Destructor. Destroys this volume.
   ~Volume() noexcept = default;
 
-  // Copy constructor. Constructs a volume by copying another one.
+  /// \brief Copy constructor. Constructs a volume by copying another one.
   constexpr Volume(const Volume<Number>& other) = default;
 
-  // Copy constructor. Constructs a volume by copying another one.
+  /// \brief Copy constructor. Constructs a volume by copying another one.
   template <typename OtherNumber>
   explicit constexpr Volume(const Volume<OtherNumber>& other)
     : Volume(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a volume by moving another one.
+  /// \brief Move constructor. Constructs a volume by moving another one.
   constexpr Volume(Volume<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this volume by copying another one.
+  /// \brief Copy assignment operator. Assigns this volume by copying another one.
   constexpr Volume<Number>& operator=(const Volume<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this volume by copying another one.
+  /// \brief Copy assignment operator. Assigns this volume by copying another one.
   template <typename OtherNumber>
   constexpr Volume<Number>& operator=(const Volume<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this volume by moving another one.
+  /// \brief Move assignment operator. Assigns this volume by moving another one.
   constexpr Volume<Number>& operator=(Volume<Number>&& other) noexcept = default;
 
-  // Statically creates a volume of zero.
+  /// \brief Statically creates a volume of zero.
   static constexpr Volume<Number> Zero() {
     return Volume<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a volume with a given value expressed in a given volume unit.
+  /// \brief Statically creates a volume with a given value expressed in a given volume unit.
   template <Unit::Volume Unit>
   static constexpr Volume<Number> Create(const Number value) {
     return Volume<Number>{StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
@@ -176,7 +176,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a volume with a given value expressed in the standard volume unit.
+  /// \brief Constructor. Constructs a volume with a given value expressed in the standard volume
+  /// unit.
   explicit constexpr Volume(const Number value) : DimensionalScalar<Unit::Volume, Number>(value) {}
 };
 
