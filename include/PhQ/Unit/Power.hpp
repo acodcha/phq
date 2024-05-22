@@ -51,43 +51,43 @@ namespace PhQ {
 
 namespace Unit {
 
-// Power units.
+/// \brief Power units.
 enum class Power : int8_t {
-  // Watt (W) power unit.
+  /// \brief Watt (W) power unit.
   Watt,
 
-  // Milliwatt (mW) power unit.
+  /// \brief Milliwatt (mW) power unit.
   Milliwatt,
 
-  // Microwatt (μW) power unit.
+  /// \brief Microwatt (μW) power unit.
   Microwatt,
 
-  // Nanowatt (nW) power unit.
+  /// \brief Nanowatt (nW) power unit.
   Nanowatt,
 
-  // Kilowatt (kW) power unit.
+  /// \brief Kilowatt (kW) power unit.
   Kilowatt,
 
-  // Megawatt (MW) power unit.
+  /// \brief Megawatt (MW) power unit.
   Megawatt,
 
-  // Gigawatt (GW) power unit.
+  /// \brief Gigawatt (GW) power unit.
   Gigawatt,
 
-  // Foot-pound per second (ft·lbf/s) power unit.
+  /// \brief Foot-pound per second (ft·lbf/s) power unit.
   FootPoundPerSecond,
 
-  // Inch-pound per second (in·lbf/s) power unit.
+  /// \brief Inch-pound per second (in·lbf/s) power unit.
   InchPoundPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard power unit: watt (W).
+/// \brief Standard power unit: watt (W).
 template <>
 inline constexpr const Unit::Power Standard<Unit::Power>{Unit::Power::Watt};
 
-// Physical dimension set of power units.
+/// \brief Physical dimension set of power units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Power>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1},

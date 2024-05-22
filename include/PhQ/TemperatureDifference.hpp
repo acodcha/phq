@@ -64,44 +64,44 @@ class Temperature;
 template <typename Number>
 class VolumetricThermalExpansionCoefficient;
 
-// Temperature difference. Not to be confused with temperature. For example, a temperature
-// difference of 20 kelvin is very different from a temperature of 20 kelvin.
+/// \brief Temperature difference. Not to be confused with temperature. For example, a temperature
+/// difference of 20 kelvin is very different from a temperature of 20 kelvin.
 template <typename Number = double>
 class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference, Number> {
 public:
-  // Default constructor. Constructs a temperature difference with an uninitialized value.
+  /// \brief Default constructor. Constructs a temperature difference with an uninitialized value.
   TemperatureDifference() = default;
 
-  // Constructor. Constructs a temperature difference with a given value expressed in a given
-  // temperature unit.
+  /// \brief Constructor. Constructs a temperature difference with a given value expressed in a
+  /// given temperature unit.
   TemperatureDifference(const Number value, const Unit::TemperatureDifference unit)
     : DimensionalScalar<Unit::TemperatureDifference, Number>(value, unit) {}
 
-  // Constructor. Constructs a temperature difference from a given scalar temperature gradient and
-  // length using the definition of temperature gradient.
+  /// \brief Constructor. Constructs a temperature difference from a given scalar temperature
+  /// gradient and length using the definition of temperature gradient.
   constexpr TemperatureDifference(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
       const Length<Number>& length);
 
-  // Destructor. Destroys this temperature difference.
+  /// \brief Destructor. Destroys this temperature difference.
   ~TemperatureDifference() noexcept = default;
 
-  // Copy constructor. Constructs a temperature difference by copying another one.
+  /// \brief Copy constructor. Constructs a temperature difference by copying another one.
   constexpr TemperatureDifference(const TemperatureDifference<Number>& other) = default;
 
-  // Copy constructor. Constructs a temperature difference by copying another one.
+  /// \brief Copy constructor. Constructs a temperature difference by copying another one.
   template <typename OtherNumber>
   explicit constexpr TemperatureDifference(const TemperatureDifference<OtherNumber>& other)
     : TemperatureDifference(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a temperature difference by moving another one.
+  /// \brief Move constructor. Constructs a temperature difference by moving another one.
   constexpr TemperatureDifference(TemperatureDifference<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this temperature difference by copying another one.
+  /// \brief Copy assignment operator. Assigns this temperature difference by copying another one.
   constexpr TemperatureDifference<Number>& operator=(
       const TemperatureDifference<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this temperature difference by copying another one.
+  /// \brief Copy assignment operator. Assigns this temperature difference by copying another one.
   template <typename OtherNumber>
   constexpr TemperatureDifference<Number>& operator=(
       const TemperatureDifference<OtherNumber>& other) {
@@ -109,17 +109,17 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this temperature difference by moving another one.
+  /// \brief Move assignment operator. Assigns this temperature difference by moving another one.
   constexpr TemperatureDifference<Number>& operator=(
       TemperatureDifference<Number>&& other) noexcept = default;
 
-  // Statically creates a temperature difference of absolute zero.
+  /// \brief Statically creates a temperature difference of absolute zero.
   static constexpr TemperatureDifference<Number> Zero() {
     return TemperatureDifference<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a temperature difference with a given value expressed in a given temperature
-  // unit.
+  /// \brief Statically creates a temperature difference with a given value expressed in a given
+  /// temperature unit.
   template <Unit::TemperatureDifference Unit>
   static constexpr TemperatureDifference<Number> Create(const Number value) {
     return TemperatureDifference<Number>{
@@ -180,8 +180,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a temperature difference with a given value expressed in the standard
-  // temperature difference unit.
+  /// \brief Constructor. Constructs a temperature difference with a given value expressed in the
+  /// standard temperature difference unit.
   explicit constexpr TemperatureDifference(const Number value)
     : DimensionalScalar<Unit::TemperatureDifference, Number>(value) {}
 

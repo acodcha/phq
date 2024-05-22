@@ -51,38 +51,38 @@ namespace PhQ {
 
 namespace Unit {
 
-// Dynamic viscosity units.
+/// \brief Dynamic viscosity units.
 enum class DynamicViscosity : int8_t {
-  // Pascal-second (Pa·s) dynamic viscosity unit.
+  /// \brief Pascal-second (Pa·s) dynamic viscosity unit.
   PascalSecond,
 
-  // Kilopascal-second (kPa·s) dynamic viscosity unit.
+  /// \brief Kilopascal-second (kPa·s) dynamic viscosity unit.
   KilopascalSecond,
 
-  // Megapascal-second (MPa·s) dynamic viscosity unit.
+  /// \brief Megapascal-second (MPa·s) dynamic viscosity unit.
   MegapascalSecond,
 
-  // Gigapascal-second (GPa·s) dynamic viscosity unit.
+  /// \brief Gigapascal-second (GPa·s) dynamic viscosity unit.
   GigapascalSecond,
 
-  // Poise (P) dynamic viscosity unit.
+  /// \brief Poise (P) dynamic viscosity unit.
   Poise,
 
-  // Pound-second per square foot (lbf·s/ft^2) dynamic viscosity unit.
+  /// \brief Pound-second per square foot (lbf·s/ft^2) dynamic viscosity unit.
   PoundSecondPerSquareFoot,
 
-  // Pound-second per square inch (lbf·s/in^2) dynamic viscosity unit.
+  /// \brief Pound-second per square inch (lbf·s/in^2) dynamic viscosity unit.
   PoundSecondPerSquareInch,
 };
 
 }  // namespace Unit
 
-// Standard dynamic viscosity unit: pascal-second (Pa·s).
+/// \brief Standard dynamic viscosity unit: pascal-second (Pa·s).
 template <>
 inline constexpr const Unit::DynamicViscosity Standard<Unit::DynamicViscosity>{
     Unit::DynamicViscosity::PascalSecond};
 
-// Physical dimension set of dynamic viscosity units.
+/// \brief Physical dimension set of dynamic viscosity units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::DynamicViscosity>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1},

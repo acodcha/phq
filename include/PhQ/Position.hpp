@@ -42,105 +42,109 @@
 
 namespace PhQ {
 
-// Position vector. Not to be confused with displacement vector.
+/// \brief Position vector. Not to be confused with the displacement vector. See also
+/// PhQ::Displacement.
 template <typename Number = double>
 class Position : public DimensionalVector<Unit::Length, Number> {
 public:
-  // Default constructor. Constructs a position vector with an uninitialized value.
+  /// \brief Default constructor. Constructs a position vector with an uninitialized value.
   Position() = default;
 
-  // Constructor. Constructs a position vector with a given value expressed in a given length unit.
+  /// \brief Constructor. Constructs a position vector with a given value expressed in a given
+  /// length unit.
   Position(const Vector<Number>& value, const Unit::Length unit)
     : DimensionalVector<Unit::Length, Number>(value, unit) {}
 
-  // Constructor. Constructs a position vector from a given length and direction.
+  /// \brief Constructor. Constructs a position vector from a given length and direction.
   constexpr Position(const Length<Number>& length, const Direction<Number>& direction)
     : Position<Number>(length.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a position vector from a given displacement vector from the origin.
+  /// \brief Constructor. Constructs a position vector from a given displacement vector from the
+  /// origin.
   explicit constexpr Position(const Displacement<Number>& displacement)
     : Position<Number>(displacement.Value()) {}
 
-  // Destructor. Destroys this position vector.
+  /// \brief Destructor. Destroys this position vector.
   ~Position() noexcept = default;
 
-  // Copy constructor. Constructs a position vector by copying another one.
+  /// \brief Copy constructor. Constructs a position vector by copying another one.
   constexpr Position(const Position<Number>& other) = default;
 
-  // Copy constructor. Constructs a position by copying another one.
+  /// \brief Copy constructor. Constructs a position by copying another one.
   template <typename OtherNumber>
   explicit constexpr Position(const Position<OtherNumber>& other)
     : Position(static_cast<Vector<Number>>(other.Value())) {}
 
-  // Move constructor. Constructs a position vector by moving another one.
+  /// \brief Move constructor. Constructs a position vector by moving another one.
   constexpr Position(Position<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this position vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this position vector by copying another one.
   constexpr Position<Number>& operator=(const Position<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this position by copying another one.
+  /// \brief Copy assignment operator. Assigns this position by copying another one.
   template <typename OtherNumber>
   constexpr Position<Number>& operator=(const Position<OtherNumber>& other) {
     this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this position vector by moving another one.
+  /// \brief Move assignment operator. Assigns this position vector by moving another one.
   constexpr Position<Number>& operator=(Position<Number>&& other) noexcept = default;
 
-  // Statically creates a position vector of zero.
+  /// \brief Statically creates a position vector of zero.
   static constexpr Position<Number> Zero() {
     return Position<Number>{Vector<Number>::Zero()};
   }
 
-  // Statically creates a position vector from the given x, y, and z Cartesian components expressed
-  // in a given length unit.
+  /// \brief Statically creates a position vector from the given x, y, and z Cartesian components
+  /// expressed in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position<Number> Create(const Number x, const Number y, const Number z) {
     return Position<Number>{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<Number>{x, y, z})};
   }
 
-  // Statically creates a position vector from the given x, y, and z Cartesian components expressed
-  // in a given length unit.
+  /// \brief Statically creates a position vector from the given x, y, and z Cartesian components
+  /// expressed in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position<Number> Create(const std::array<Number, 3>& x_y_z) {
     return Position<Number>{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<Number>{x_y_z})};
   }
 
-  // Statically creates a position vector with a given value expressed in a given length unit.
+  /// \brief Statically creates a position vector with a given value expressed in a given length
+  /// unit.
   template <Unit::Length Unit>
   static constexpr Position<Number> Create(const Vector<Number>& value) {
     return Position<Number>{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  // Returns the x Cartesian component of this position vector.
+  /// \brief Returns the x Cartesian component of this position vector.
   [[nodiscard]] constexpr Length<Number> x() const noexcept {
     return Length<Number>{this->value.x()};
   }
 
-  // Returns the y Cartesian component of this position vector.
+  /// \brief Returns the y Cartesian component of this position vector.
   [[nodiscard]] constexpr Length<Number> y() const noexcept {
     return Length<Number>{this->value.y()};
   }
 
-  // Returns the z Cartesian component of this position vector.
+  /// \brief Returns the z Cartesian component of this position vector.
   [[nodiscard]] constexpr Length<Number> z() const noexcept {
     return Length<Number>{this->value.z()};
   }
 
-  // Returns the magnitude of this position vector.
+  /// \brief Returns the magnitude of this position vector.
   [[nodiscard]] Length<Number> Magnitude() const {
     return Length<Number>{this->value.Magnitude()};
   }
 
-  // Returns the direction of this position vector.
+  /// \brief Returns the direction of this position vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
     return this->value.Direction();
   }
 
-  // Returns the angle between this position vector and another one.
+  /// \brief Returns the angle between this position vector and another one.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Position<Number>& position) const {
     return PhQ::Angle<Number>{*this, position};
   }
@@ -194,8 +198,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a position vector with a given value expressed in the standard length
-  // unit.
+  /// \brief Constructor. Constructs a position vector with a given value expressed in the standard
+  /// length unit.
   explicit constexpr Position(const Vector<Number>& value)
     : DimensionalVector<Unit::Length, Number>(value) {}
 

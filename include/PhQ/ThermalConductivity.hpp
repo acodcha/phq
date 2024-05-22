@@ -39,61 +39,66 @@
 
 namespace PhQ {
 
-// Thermal conductivity symmetric dyadic tensor. See also PhQ::ScalarThermalConductivity.
+/// \brief Thermal conductivity symmetric dyadic tensor. See also PhQ::ScalarThermalConductivity.
 template <typename Number = double>
 class ThermalConductivity : public DimensionalSymmetricDyad<Unit::ThermalConductivity, Number> {
 public:
-  // Default constructor. Constructs a thermal conductivity tensor with an uninitialized value.
+  /// \brief Default constructor. Constructs a thermal conductivity tensor with an uninitialized
+  /// value.
   ThermalConductivity() = default;
 
-  // Constructor. Constructs a thermal conductivity tensor with a given value expressed in a given
-  // thermal conductivity unit.
+  /// \brief Constructor. Constructs a thermal conductivity tensor with a given value expressed in a
+  /// given thermal conductivity unit.
   ThermalConductivity(const SymmetricDyad<Number>& value, const Unit::ThermalConductivity unit)
     : DimensionalSymmetricDyad<Unit::ThermalConductivity, Number>(value, unit) {}
 
-  // Constructor. Constructs a thermal conductivity tensor from a given scalar thermal conductivity.
+  /// \brief Constructor. Constructs a thermal conductivity tensor from a given scalar thermal
+  /// conductivity.
   explicit constexpr ThermalConductivity(
       const ScalarThermalConductivity<Number>& scalar_thermal_conductivity)
     : ThermalConductivity<Number>(
         {scalar_thermal_conductivity.Value(), 0.0, 0.0, scalar_thermal_conductivity.Value(), 0.0,
          scalar_thermal_conductivity.Value()}) {}
 
-  // Destructor. Destroys this thermal conductivity tensor.
+  /// \brief Destructor. Destroys this thermal conductivity tensor.
   ~ThermalConductivity() noexcept = default;
 
-  // Copy constructor. Constructs a thermal conductivity tensor by copying another one.
+  /// \brief Copy constructor. Constructs a thermal conductivity tensor by copying another one.
   constexpr ThermalConductivity(const ThermalConductivity<Number>& other) = default;
 
-  // Copy constructor. Constructs a thermal conductivity tensor by copying another one.
+  /// \brief Copy constructor. Constructs a thermal conductivity tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr ThermalConductivity(const ThermalConductivity<OtherNumber>& other)
     : ThermalConductivity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a thermal conductivity tensor by moving another one.
+  /// \brief Move constructor. Constructs a thermal conductivity tensor by moving another one.
   constexpr ThermalConductivity(ThermalConductivity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this thermal conductivity tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this thermal conductivity tensor by copying another
+  /// one.
   constexpr ThermalConductivity<Number>& operator=(
       const ThermalConductivity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this thermal conductivity tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this thermal conductivity tensor by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr ThermalConductivity<Number>& operator=(const ThermalConductivity<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this thermal conductivity tensor by moving another one.
+  /// \brief Move assignment operator. Assigns this thermal conductivity tensor by moving another
+  /// one.
   constexpr ThermalConductivity<Number>& operator=(
       ThermalConductivity<Number>&& other) noexcept = default;
 
-  // Statically creates a thermal conductivity tensor of zero.
+  /// \brief Statically creates a thermal conductivity tensor of zero.
   static constexpr ThermalConductivity<Number> Zero() {
     return ThermalConductivity<Number>{SymmetricDyad<Number>::Zero()};
   }
 
-  // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz
-  // Cartesian components expressed in a given pressure unit.
+  /// \brief Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and
+  /// zz Cartesian components expressed in a given pressure unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivity<Number> Create(
       const Number xx, const Number xy, const Number xz, const Number yy, const Number yz,
@@ -103,8 +108,8 @@ public:
             SymmetricDyad<Number>{xx, xy, xz, yy, yz, zz})};
   }
 
-  // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz
-  // Cartesian components expressed in a given pressure unit.
+  /// \brief Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and
+  /// zz Cartesian components expressed in a given pressure unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivity<Number> Create(
       const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
@@ -113,8 +118,8 @@ public:
             SymmetricDyad<Number>{xx_xy_xz_yy_yz_zz})};
   }
 
-  // Statically creates a thermal conductivity tensor with a given value expressed in a given
-  // thermal conductivity unit.
+  /// \brief Statically creates a thermal conductivity tensor with a given value expressed in a
+  /// given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivity<Number> Create(const SymmetricDyad<Number>& value) {
     return ThermalConductivity<Number>{
@@ -122,47 +127,47 @@ public:
             value)};
   }
 
-  // Returns the xx Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the xx Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> xx() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.xx()};
   }
 
-  // Returns the xy = yx Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the xy = yx Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> xy() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.xy()};
   }
 
-  // Returns the xz = zx Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the xz = zx Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> xz() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.xz()};
   }
 
-  // Returns the yx = xy Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the yx = xy Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> yx() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.yx()};
   }
 
-  // Returns the yy Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the yy Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> yy() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.yy()};
   }
 
-  // Returns the yz = zy Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the yz = zy Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> yz() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.yz()};
   }
 
-  // Returns the zx = xz Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the zx = xz Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> zx() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.zx()};
   }
 
-  // Returns the zy = yz Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the zy = yz Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> zy() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.zy()};
   }
 
-  // Returns the zz Cartesian component of this thermal conductivity tensor.
+  /// \brief Returns the zz Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity<Number> zz() const noexcept {
     return ScalarThermalConductivity<Number>{this->value.zz()};
   }
@@ -202,8 +207,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a thermal conductivity tensor with a given value expressed in the
-  // standard thermal conductivity unit.
+  /// \brief Constructor. Constructs a thermal conductivity tensor with a given value expressed in
+  /// the standard thermal conductivity unit.
   explicit constexpr ThermalConductivity(const SymmetricDyad<Number>& value)
     : DimensionalSymmetricDyad<Unit::ThermalConductivity, Number>(value) {}
 };

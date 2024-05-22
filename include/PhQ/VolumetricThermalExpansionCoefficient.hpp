@@ -38,46 +38,49 @@
 
 namespace PhQ {
 
-// Volumetric thermal expansion coefficient. Not to be confused with the linear thermal expansion
-// coefficient. For isotropic materials, the volumetric thermal expansion coefficient is usually
-// three times the linear thermal expansion coefficient.
+/// \brief Volumetric thermal expansion coefficient. Not to be confused with the linear thermal
+/// expansion coefficient. For isotropic materials, the volumetric thermal expansion coefficient is
+/// usually three times the linear thermal expansion coefficient.
 template <typename Number = double>
 class VolumetricThermalExpansionCoefficient
   : public DimensionalScalar<Unit::ThermalExpansion, Number> {
 public:
-  // Default constructor. Constructs a volumetric thermal expansion coefficient with an
-  // uninitialized value.
+  /// \brief Default constructor. Constructs a volumetric thermal expansion coefficient with an
+  /// uninitialized value.
   VolumetricThermalExpansionCoefficient() = default;
 
-  // Constructor. Constructs a volumetric thermal expansion coefficient with a given value expressed
-  // in a given thermal expansion unit.
+  /// \brief Constructor. Constructs a volumetric thermal expansion coefficient with a given value
+  /// expressed in a given thermal expansion unit.
   VolumetricThermalExpansionCoefficient(const Number value, const Unit::ThermalExpansion unit)
     : DimensionalScalar<Unit::ThermalExpansion, Number>(value, unit) {}
 
-  // Destructor. Destroys this volumetric thermal expansion coefficient.
+  /// \brief Destructor. Destroys this volumetric thermal expansion coefficient.
   ~VolumetricThermalExpansionCoefficient() noexcept = default;
 
-  // Copy constructor. Constructs a volumetric thermal expansion coefficient by copying another one.
+  /// \brief Copy constructor. Constructs a volumetric thermal expansion coefficient by copying
+  /// another one.
   constexpr VolumetricThermalExpansionCoefficient(
       const VolumetricThermalExpansionCoefficient<Number>& other) = default;
 
-  // Copy constructor. Constructs a volumetric thermal expansion coefficient by copying another one.
+  /// \brief Copy constructor. Constructs a volumetric thermal expansion coefficient by copying
+  /// another one.
   template <typename OtherNumber>
   explicit constexpr VolumetricThermalExpansionCoefficient(
       const VolumetricThermalExpansionCoefficient<OtherNumber>& other)
     : VolumetricThermalExpansionCoefficient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a volumetric thermal expansion coefficient by moving another one.
+  /// \brief Move constructor. Constructs a volumetric thermal expansion coefficient by moving
+  /// another one.
   constexpr VolumetricThermalExpansionCoefficient(
       VolumetricThermalExpansionCoefficient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this volumetric thermal expansion coefficient by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this volumetric thermal expansion coefficient by
+  /// copying another one.
   constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
       const VolumetricThermalExpansionCoefficient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this volumetric thermal expansion coefficient by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this volumetric thermal expansion coefficient by
+  /// copying another one.
   template <typename OtherNumber>
   constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
       const VolumetricThermalExpansionCoefficient<OtherNumber>& other) {
@@ -85,18 +88,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this volumetric thermal expansion coefficient by moving
-  // another one.
+  /// \brief Move assignment operator. Assigns this volumetric thermal expansion coefficient by
+  /// moving another one.
   constexpr VolumetricThermalExpansionCoefficient<Number>& operator=(
       VolumetricThermalExpansionCoefficient<Number>&& other) noexcept = default;
 
-  // Statically creates a volumetric thermal expansion coefficient of zero.
+  /// \brief Statically creates a volumetric thermal expansion coefficient of zero.
   static constexpr VolumetricThermalExpansionCoefficient<Number> Zero() {
     return VolumetricThermalExpansionCoefficient<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a volumetric thermal expansion coefficient with a given value expressed in a
-  // given thermal expansion unit.
+  /// \brief Statically creates a volumetric thermal expansion coefficient with a given value
+  /// expressed in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
   static constexpr VolumetricThermalExpansionCoefficient<Number> Create(const Number value) {
     return VolumetricThermalExpansionCoefficient<Number>{
@@ -155,8 +158,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a volumetric thermal expansion coefficient with a given value expressed
-  // in the standard thermal expansion unit.
+  /// \brief Constructor. Constructs a volumetric thermal expansion coefficient with a given value
+  /// expressed in the standard thermal expansion unit.
   explicit constexpr VolumetricThermalExpansionCoefficient(const Number value)
     : DimensionalScalar<Unit::ThermalExpansion, Number>(value) {}
 };

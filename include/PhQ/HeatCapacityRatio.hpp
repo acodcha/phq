@@ -63,80 +63,83 @@ class SpecificIsobaricHeatCapacity;
 template <typename Number>
 class SpecificIsochoricHeatCapacity;
 
-// Heat capacity ratio, also known as ratio of specific heats, adiabatic index, or Laplace's
-// coefficient. The heat capacity ratio is the ratio of the isobaric heat capacity of a material to
-// its isochoric heat capacity.
+/// \brief Heat capacity ratio, also known as ratio of specific heats, adiabatic index, or Laplace's
+/// coefficient. The heat capacity ratio is the ratio of the isobaric heat capacity of a material to
+/// its isochoric heat capacity.
 template <typename Number = double>
 class HeatCapacityRatio : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a heat capacity ratio ratio with an uninitialized value.
+  /// \brief Default constructor. Constructs a heat capacity ratio ratio with an uninitialized
+  /// value.
   HeatCapacityRatio() = default;
 
-  // Constructor. Constructs a heat capacity ratio with a given value.
+  /// \brief Constructor. Constructs a heat capacity ratio with a given value.
   explicit constexpr HeatCapacityRatio(const Number value) : DimensionlessScalar<Number>(value) {}
 
-  // Constructor. Constructs a heat capacity ratio from a given specific gas constant and specific
-  // isobaric heat capacity using Mayer's relation and the definition of the heat capacity ratio.
+  /// \brief Constructor. Constructs a heat capacity ratio from a given specific gas constant and
+  /// specific isobaric heat capacity using Mayer's relation and the definition of the heat capacity
+  /// ratio.
   constexpr HeatCapacityRatio(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const SpecificGasConstant<Number>& specific_gas_constant);
 
-  // Constructor. Constructs a heat capacity ratio from a given specific gas constant and specific
-  // isochoric heat capacity using Mayer's relation and the definition of the heat capacity ratio.
+  /// \brief Constructor. Constructs a heat capacity ratio from a given specific gas constant and
+  /// specific isochoric heat capacity using Mayer's relation and the definition of the heat
+  /// capacity ratio.
   constexpr HeatCapacityRatio(
       const SpecificGasConstant<Number>& specific_gas_constant,
       const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity);
 
-  // Constructor. Constructs a heat capacity ratio from a given specific isobaric heat capacity and
-  // specific isochoric heat capacity using the definition of the heat capacity ratio.
+  /// \brief Constructor. Constructs a heat capacity ratio from a given specific isobaric heat
+  /// capacity and specific isochoric heat capacity using the definition of the heat capacity ratio.
   constexpr HeatCapacityRatio(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity);
 
-  // Constructor. Constructs a heat capacity ratio from a given gas constant and isobaric heat
-  // capacity using Mayer's relation and the definition of the heat capacity ratio.
+  /// \brief Constructor. Constructs a heat capacity ratio from a given gas constant and isobaric
+  /// heat capacity using Mayer's relation and the definition of the heat capacity ratio.
   constexpr HeatCapacityRatio(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
                               const GasConstant<Number>& gas_constant);
 
-  // Constructor. Constructs a heat capacity ratio from a given gas constant and isochoric heat
-  // capacity using Mayer's relation and the definition of the heat capacity ratio.
+  /// \brief Constructor. Constructs a heat capacity ratio from a given gas constant and isochoric
+  /// heat capacity using Mayer's relation and the definition of the heat capacity ratio.
   constexpr HeatCapacityRatio(const GasConstant<Number>& gas_constant,
                               const IsochoricHeatCapacity<Number>& isochoric_heat_capacity);
 
-  // Constructor. Constructs a heat capacity ratio from a given isobaric heat capacity and isochoric
-  // heat capacity using the definition of the specific heat ratio.
+  /// \brief Constructor. Constructs a heat capacity ratio from a given isobaric heat capacity and
+  /// isochoric heat capacity using the definition of the specific heat ratio.
   constexpr HeatCapacityRatio(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
                               const IsochoricHeatCapacity<Number>& isochoric_heat_capacity);
 
-  // Destructor. Destroys this heat capacity ratio.
+  /// \brief Destructor. Destroys this heat capacity ratio.
   ~HeatCapacityRatio() noexcept = default;
 
-  // Copy constructor. Constructs a heat capacity ratio by copying another one.
+  /// \brief Copy constructor. Constructs a heat capacity ratio by copying another one.
   constexpr HeatCapacityRatio(const HeatCapacityRatio<Number>& other) = default;
 
-  // Copy constructor. Constructs a heat capacity ratio by copying another one.
+  /// \brief Copy constructor. Constructs a heat capacity ratio by copying another one.
   template <typename OtherNumber>
   explicit constexpr HeatCapacityRatio(const HeatCapacityRatio<OtherNumber>& other)
     : HeatCapacityRatio(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a heat capacity ratio by moving another one.
+  /// \brief Move constructor. Constructs a heat capacity ratio by moving another one.
   constexpr HeatCapacityRatio(HeatCapacityRatio<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this heat capacity ratio by copying another one.
+  /// \brief Copy assignment operator. Assigns this heat capacity ratio by copying another one.
   constexpr HeatCapacityRatio<Number>& operator=(const HeatCapacityRatio<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this heat capacity ratio by copying another one.
+  /// \brief Copy assignment operator. Assigns this heat capacity ratio by copying another one.
   template <typename OtherNumber>
   constexpr HeatCapacityRatio<Number>& operator=(const HeatCapacityRatio<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this heat capacity ratio by moving another one.
+  /// \brief Move assignment operator. Assigns this heat capacity ratio by moving another one.
   constexpr HeatCapacityRatio<Number>& operator=(
       HeatCapacityRatio<Number>&& other) noexcept = default;
 
-  // Statically creates a heat capacity ratio of zero.
+  /// \brief Statically creates a heat capacity ratio of zero.
   static constexpr HeatCapacityRatio<Number> Zero() {
     return HeatCapacityRatio<Number>{static_cast<Number>(0)};
   }

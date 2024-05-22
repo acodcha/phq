@@ -39,8 +39,8 @@
 
 namespace PhQ {
 
-// Abstract base class for a material's constitutive model, which is a model that defines the
-// relationship between the stress and the strain and strain rate at any point in the material.
+/// \brief Abstract base class for a material's constitutive model, which is a model that defines
+/// the relationship between the stress and the strain and strain rate at any point in the material.
 class ConstitutiveModel {
 public:
   // Forward declaration for class PhQ::ConstitutiveModel.
@@ -55,110 +55,110 @@ public:
   template <typename Number = double>
   class IncompressibleNewtonianFluid;
 
-  // Type of a material's constitutive model.
+  /// \brief Type of a material's constitutive model.
   enum class Type : int8_t {
-    // Compressible Newtonian fluid constitutive model
+    /// \brief Compressible Newtonian fluid constitutive model
     CompressibleNewtonianFluid,
 
-    // Elastic isotropic solid constitutive model
+    /// \brief Elastic isotropic solid constitutive model
     ElasticIsotropicSolid,
 
-    // Incompressible Newtonian fluid constitutive model
+    /// \brief Incompressible Newtonian fluid constitutive model
     IncompressibleNewtonianFluid,
   };
 
-  // Default constructor. Constructs this constitutive model.
+  /// \brief Default constructor. Constructs this constitutive model.
   constexpr ConstitutiveModel() = default;
 
-  // Destructor. Destroys this constitutive model.
+  /// \brief Destructor. Destroys this constitutive model.
   virtual ~ConstitutiveModel() noexcept = default;
 
-  // Copy constructor. Constructs a constitutive model by copying another one.
+  /// \brief Copy constructor. Constructs a constitutive model by copying another one.
   constexpr ConstitutiveModel(const ConstitutiveModel& other) = default;
 
-  // Move constructor. Constructs a constitutive model by moving another one.
+  /// \brief Move constructor. Constructs a constitutive model by moving another one.
   constexpr ConstitutiveModel(ConstitutiveModel&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this constitutive model by copying another one.
+  /// \brief Copy assignment operator. Assigns this constitutive model by copying another one.
   ConstitutiveModel& operator=(const ConstitutiveModel& other) = default;
 
-  // Move assignment operator. Assigns this constitutive model by moving another one.
+  /// \brief Move assignment operator. Assigns this constitutive model by moving another one.
   ConstitutiveModel& operator=(ConstitutiveModel&& other) noexcept = default;
 
-  // Returns this constitutive model's type.
+  /// \brief Returns this constitutive model's type.
   [[nodiscard]] virtual inline Type GetType() const noexcept = 0;
 
-  // Returns the stress resulting from a given strain and strain rate.
+  /// \brief Returns the stress resulting from a given strain and strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<float> Stress(
       const PhQ::Strain<float>& strain, const PhQ::StrainRate<float>& strain_rate) const = 0;
 
-  // Returns the stress resulting from a given strain and strain rate.
+  /// \brief Returns the stress resulting from a given strain and strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<double> Stress(
       const PhQ::Strain<double>& strain, const PhQ::StrainRate<double>& strain_rate) const = 0;
 
-  // Returns the stress resulting from a given strain and strain rate.
+  /// \brief Returns the stress resulting from a given strain and strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<long double> Stress(
       const PhQ::Strain<long double>& strain,
       const PhQ::StrainRate<long double>& strain_rate) const = 0;
 
-  // Returns the stress resulting from a given strain.
+  /// \brief Returns the stress resulting from a given strain.
   [[nodiscard]] virtual inline PhQ::Stress<float> Stress(
       const PhQ::Strain<float>& strain) const = 0;
 
-  // Returns the stress resulting from a given strain.
+  /// \brief Returns the stress resulting from a given strain.
   [[nodiscard]] virtual inline PhQ::Stress<double> Stress(
       const PhQ::Strain<double>& strain) const = 0;
 
-  // Returns the stress resulting from a given strain.
+  /// \brief Returns the stress resulting from a given strain.
   [[nodiscard]] virtual inline PhQ::Stress<long double> Stress(
       const PhQ::Strain<long double>& strain) const = 0;
 
-  // Returns the stress resulting from a given strain rate.
+  /// \brief Returns the stress resulting from a given strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<float> Stress(
       const PhQ::StrainRate<float>& strain_rate) const = 0;
 
-  // Returns the stress resulting from a given strain rate.
+  /// \brief Returns the stress resulting from a given strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<double> Stress(
       const PhQ::StrainRate<double>& strain_rate) const = 0;
 
-  // Returns the stress resulting from a given strain rate.
+  /// \brief Returns the stress resulting from a given strain rate.
   [[nodiscard]] virtual inline PhQ::Stress<long double> Stress(
       const PhQ::StrainRate<long double>& strain_rate) const = 0;
 
-  // Returns the strain resulting from a given stress.
+  /// \brief Returns the strain resulting from a given stress.
   [[nodiscard]] virtual inline PhQ::Strain<float> Strain(
       const PhQ::Stress<float>& stress) const = 0;
 
-  // Returns the strain resulting from a given stress.
+  /// \brief Returns the strain resulting from a given stress.
   [[nodiscard]] virtual inline PhQ::Strain<double> Strain(
       const PhQ::Stress<double>& stress) const = 0;
 
-  // Returns the strain resulting from a given stress.
+  /// \brief Returns the strain resulting from a given stress.
   [[nodiscard]] virtual inline PhQ::Strain<long double> Strain(
       const PhQ::Stress<long double>& stress) const = 0;
 
-  // Returns the strain rate resulting from a given stress.
+  /// \brief Returns the strain rate resulting from a given stress.
   [[nodiscard]] virtual inline PhQ::StrainRate<float> StrainRate(
       const PhQ::Stress<float>& stress) const = 0;
 
-  // Returns the strain rate resulting from a given stress.
+  /// \brief Returns the strain rate resulting from a given stress.
   [[nodiscard]] virtual inline PhQ::StrainRate<double> StrainRate(
       const PhQ::Stress<double>& stress) const = 0;
 
-  // Returns the strain rate resulting from a given stress.
+  /// \brief Returns the strain rate resulting from a given stress.
   [[nodiscard]] virtual inline PhQ::StrainRate<long double> StrainRate(
       const PhQ::Stress<long double>& stress) const = 0;
 
-  // Prints this constitutive model as a string.
+  /// \brief Prints this constitutive model as a string.
   [[nodiscard]] virtual inline std::string Print() const = 0;
 
-  // Serializes this constitutive model as a JSON message.
+  /// \brief Serializes this constitutive model as a JSON message.
   [[nodiscard]] virtual inline std::string JSON() const = 0;
 
-  // Serializes this constitutive model as an XML message.
+  /// \brief Serializes this constitutive model as an XML message.
   [[nodiscard]] virtual inline std::string XML() const = 0;
 
-  // Serializes this constitutive model as a YAML message.
+  /// \brief Serializes this constitutive model as a YAML message.
   [[nodiscard]] virtual inline std::string YAML() const = 0;
 };
 

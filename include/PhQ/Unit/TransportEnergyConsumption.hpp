@@ -51,75 +51,74 @@ namespace PhQ {
 
 namespace Unit {
 
-// Energy consumption in transport units.
+/// \brief Energy consumption in transport units.
 enum class TransportEnergyConsumption : int8_t {
-  // Joule per mile (J/mi) transport energy consumption unit.
+  /// \brief Joule per mile (J/mi) transport energy consumption unit.
   JoulePerMile,
 
-  // Joule per kilometre (J/km) transport energy consumption unit.
+  /// \brief Joule per kilometre (J/km) transport energy consumption unit.
   JoulePerKilometre,
 
-  // Joule per metre (J/m) transport energy consumption unit.
+  /// \brief Joule per metre (J/m) transport energy consumption unit.
   JoulePerMetre,
 
-  // Nanojoule per millimetre (nJ/mm) transport energy consumption unit.
+  /// \brief Nanojoule per millimetre (nJ/mm) transport energy consumption unit.
   NanojoulePerMillimetre,
 
-  // Kilojoule per mile (kJ/mi) transport energy consumption unit.
+  /// \brief Kilojoule per mile (kJ/mi) transport energy consumption unit.
   KilojoulePerMile,
 
-  // Watt-minute per mile (W·min/mi) transport energy consumption unit.
+  /// \brief Watt-minute per mile (W·min/mi) transport energy consumption unit.
   WattMinutePerMile,
 
-  // Watt-hour per mile (W·hr/mi) transport energy consumption unit.
+  /// \brief Watt-hour per mile (W·hr/mi) transport energy consumption unit.
   WattHourPerMile,
 
-  // Watt-minute per kilometre (W·min/km) transport energy consumption unit.
+  /// \brief Watt-minute per kilometre (W·min/km) transport energy consumption unit.
   WattMinutePerKilometre,
 
-  // Watt-hour per kilometre (W·hr/km) transport energy consumption unit.
+  /// \brief Watt-hour per kilometre (W·hr/km) transport energy consumption unit.
   WattHourPerKilometre,
 
-  // Watt-minute per metre (W·min/m) transport energy consumption unit.
+  /// \brief Watt-minute per metre (W·min/m) transport energy consumption unit.
   WattMinutePerMetre,
 
-  // Watt-hour per metre (W·hr/m) transport energy consumption unit.
+  /// \brief Watt-hour per metre (W·hr/m) transport energy consumption unit.
   WattHourPerMetre,
 
-  // Kilowatt-minute per mile (kW·min/mi) transport energy consumption unit.
+  /// \brief Kilowatt-minute per mile (kW·min/mi) transport energy consumption unit.
   KilowattMinutePerMile,
 
-  // Kilowatt-hour per mile (kW·hr/mi) transport energy consumption unit.
+  /// \brief Kilowatt-hour per mile (kW·hr/mi) transport energy consumption unit.
   KilowattHourPerMile,
 
-  // Kilowatt-minute per kilometre (kW·min/km) transport energy consumption
-  // unit.
+  /// \brief Kilowatt-minute per kilometre (kW·min/km) transport energy consumption unit.
   KilowattMinutePerKilometre,
 
-  // Kilowatt-hour per kilometre (kW·hr/km) transport energy consumption unit.
+  /// \brief Kilowatt-hour per kilometre (kW·hr/km) transport energy consumption unit.
   KilowattHourPerKilometre,
 
-  // Kilowatt-minute per metre (kW·min/m) transport energy consumption unit.
+  /// \brief Kilowatt-minute per metre (kW·min/m) transport energy consumption unit.
   KilowattMinutePerMetre,
 
-  // Kilowatt-hour per metre (kW·hr/m) transport energy consumption unit.
+  /// \brief Kilowatt-hour per metre (kW·hr/m) transport energy consumption unit.
   KilowattHourPerMetre,
 
-  // Foot-pound per foot (ft·lbf/ft) transport energy consumption unit.
+  /// \brief Foot-pound per foot (ft·lbf/ft) transport energy consumption unit.
   FootPoundPerFoot,
 
-  // Inch-pound per inch (in·lbf/in) transport energy consumption unit.
+  /// \brief Inch-pound per inch (in·lbf/in) transport energy consumption unit.
   InchPoundPerInch,
 };
 
 }  // namespace Unit
 
-// Standard transport energy consumption unit: joule per metre (J/m).
+/// \brief Standard transport energy consumption unit: joule per metre (J/m).
 template <>
 inline constexpr const Unit::TransportEnergyConsumption Standard<Unit::TransportEnergyConsumption>{
     Unit::TransportEnergyConsumption::JoulePerMetre};
 
-// Physical dimension set of transport energy consumption units.
+/// \brief Physical dimension set of transport energy consumption units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::TransportEnergyConsumption>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1},

@@ -51,55 +51,55 @@ namespace PhQ {
 
 namespace Unit {
 
-// Length units.
+/// \brief Length units.
 enum class Length : int8_t {
-  // Nautical mile (nmi) length unit.
+  /// \brief Nautical mile (nmi) length unit.
   NauticalMile,
 
-  // Mile (mi) length unit.
+  /// \brief Mile (mi) length unit.
   Mile,
 
-  // Kilometre (km) length unit.
+  /// \brief Kilometre (km) length unit.
   Kilometre,
 
-  // Metre (m) length unit.
+  /// \brief Metre (m) length unit.
   Metre,
 
-  // Yard (yd) length unit.
+  /// \brief Yard (yd) length unit.
   Yard,
 
-  // Foot (ft) length unit.
+  /// \brief Foot (ft) length unit.
   Foot,
 
-  // Decimetre (dm) length unit.
+  /// \brief Decimetre (dm) length unit.
   Decimetre,
 
-  // Inch (in) length unit.
+  /// \brief Inch (in) length unit.
   Inch,
 
-  // Centimetre (cm) length unit.
+  /// \brief Centimetre (cm) length unit.
   Centimetre,
 
-  // Millimetre (mm) length unit.
+  /// \brief Millimetre (mm) length unit.
   Millimetre,
 
-  // Milliinch (mil) length unit.
+  /// \brief Milliinch (mil) length unit.
   Milliinch,
 
-  // Micrometre (μm) length unit.
+  /// \brief Micrometre (μm) length unit.
   Micrometre,
 
-  // Microinch (μin) length unit.
+  /// \brief Microinch (μin) length unit.
   Microinch,
 };
 
 }  // namespace Unit
 
-// Standard length unit: metre (m).
+/// \brief Standard length unit: metre (m).
 template <>
 inline constexpr const Unit::Length Standard<Unit::Length>{Unit::Length::Metre};
 
-// Physical dimension set of length units.
+/// \brief Physical dimension set of length units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Length>{
     Dimensions{Dimension::Time{0}, Dimension::Length{1}, Dimension::Mass{0},

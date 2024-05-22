@@ -48,119 +48,121 @@ namespace PhQ {
 template <typename Number>
 class Acceleration;
 
-// Velocity vector.
+/// \brief Velocity vector.
 template <typename Number = double>
 class Velocity : public DimensionalVector<Unit::Speed, Number> {
 public:
-  // Default constructor. Constructs a velocity vector with an uninitialized value.
+  /// \brief Default constructor. Constructs a velocity vector with an uninitialized value.
   Velocity() = default;
 
-  // Constructor. Constructs a velocity vector with a given value expressed in a given speed unit.
+  /// \brief Constructor. Constructs a velocity vector with a given value expressed in a given speed
+  /// unit.
   Velocity(const Vector<Number>& value, const Unit::Speed unit)
     : DimensionalVector<Unit::Speed, Number>(value, unit) {}
 
-  // Constructor. Constructs a velocity vector from a given speed and direction.
+  /// \brief Constructor. Constructs a velocity vector from a given speed and direction.
   constexpr Velocity(const Speed<Number>& speed, const Direction<Number>& direction)
     : Velocity<Number>(speed.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a velocity vector from a given displacement vector and time using the
-  // definition of velocity.
+  /// \brief Constructor. Constructs a velocity vector from a given displacement vector and time
+  /// using the definition of velocity.
   constexpr Velocity(const Displacement<Number>& displacement, const Time<Number>& time)
     : Velocity<Number>(displacement.Value() / time.Value()) {}
 
-  // Constructor. Constructs a velocity vector from a given displacement vector and frequency using
-  // the definition of velocity.
+  /// \brief Constructor. Constructs a velocity vector from a given displacement vector and
+  /// frequency using the definition of velocity.
   constexpr Velocity(const Displacement<Number>& displacement, const Frequency<Number>& frequency)
     : Velocity<Number>(displacement.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs a velocity vector from a given acceleration vector and time using the
-  // definition of acceleration.
+  /// \brief Constructor. Constructs a velocity vector from a given acceleration vector and time
+  /// using the definition of acceleration.
   constexpr Velocity(const Acceleration<Number>& acceleration, const Time<Number>& time);
 
-  // Constructor. Constructs a velocity vector from a given acceleration vector and frequency using
-  // the definition of acceleration.
+  /// \brief Constructor. Constructs a velocity vector from a given acceleration vector and
+  /// frequency using the definition of acceleration.
   constexpr Velocity(const Acceleration<Number>& acceleration, const Frequency<Number>& frequency);
 
-  // Destructor. Destroys this velocity vector.
+  /// \brief Destructor. Destroys this velocity vector.
   ~Velocity() noexcept = default;
 
-  // Copy constructor. Constructs a velocity vector by copying another one.
+  /// \brief Copy constructor. Constructs a velocity vector by copying another one.
   constexpr Velocity(const Velocity<Number>& other) = default;
 
-  // Copy constructor. Constructs a velocity by copying another one.
+  /// \brief Copy constructor. Constructs a velocity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Velocity(const Velocity<OtherNumber>& other)
     : Velocity(static_cast<Vector<Number>>(other.Value())) {}
 
-  // Move constructor. Constructs a velocity vector by moving another one.
+  /// \brief Move constructor. Constructs a velocity vector by moving another one.
   constexpr Velocity(Velocity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this velocity vector by copying another one.
+  /// \brief Copy assignment operator. Assigns this velocity vector by copying another one.
   constexpr Velocity<Number>& operator=(const Velocity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this velocity by copying another one.
+  /// \brief Copy assignment operator. Assigns this velocity by copying another one.
   template <typename OtherNumber>
   constexpr Velocity<Number>& operator=(const Velocity<OtherNumber>& other) {
     this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this velocity vector by moving another one.
+  /// \brief Move assignment operator. Assigns this velocity vector by moving another one.
   constexpr Velocity<Number>& operator=(Velocity<Number>&& other) noexcept = default;
 
-  // Statically creates a velocity vector of zero.
+  /// \brief Statically creates a velocity vector of zero.
   static constexpr Velocity<Number> Zero() {
     return Velocity<Number>{Vector<Number>::Zero()};
   }
 
-  // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed
-  // in a given speed unit.
+  /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
+  /// expressed in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity<Number> Create(const Number x, const Number y, const Number z) {
     return Velocity<Number>{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<Number>{x, y, z})};
   }
 
-  // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed
-  // in a given speed unit.
+  /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
+  /// expressed in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity<Number> Create(const std::array<Number, 3>& x_y_z) {
     return Velocity<Number>{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<Number>{x_y_z})};
   }
 
-  // Statically creates a velocity vector with a given value expressed in a given speed unit.
+  /// \brief Statically creates a velocity vector with a given value expressed in a given speed
+  /// unit.
   template <Unit::Speed Unit>
   static constexpr Velocity<Number> Create(const Vector<Number>& value) {
     return Velocity<Number>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  // Returns the x Cartesian component of this velocity vector.
+  /// \brief Returns the x Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed<Number> x() const noexcept {
     return Speed<Number>{this->value.x()};
   }
 
-  // Returns the y Cartesian component of this velocity vector.
+  /// \brief Returns the y Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed<Number> y() const noexcept {
     return Speed<Number>{this->value.y()};
   }
 
-  // Returns the z Cartesian component of this velocity vector.
+  /// \brief Returns the z Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed<Number> z() const noexcept {
     return Speed<Number>{this->value.z()};
   }
 
-  // Returns the magnitude of this velocity vector.
+  /// \brief Returns the magnitude of this velocity vector.
   [[nodiscard]] Speed<Number> Magnitude() const {
     return Speed<Number>{this->value.Magnitude()};
   }
 
-  // Returns the direction of this velocity vector.
+  /// \brief Returns the direction of this velocity vector.
   [[nodiscard]] PhQ::Direction<Number> Direction() const {
     return this->value.Direction();
   }
 
-  // Returns the angle between this velocity vector and another one.
+  /// \brief Returns the angle between this velocity vector and another one.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Velocity<Number>& velocity) const {
     return PhQ::Angle<Number>{*this, velocity};
   }
@@ -210,8 +212,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a velocity vector with a given value expressed in the standard speed
-  // unit.
+  /// \brief Constructor. Constructs a velocity vector with a given value expressed in the standard
+  /// speed unit.
   explicit constexpr Velocity(const Vector<Number>& value)
     : DimensionalVector<Unit::Speed, Number>(value) {}
 };

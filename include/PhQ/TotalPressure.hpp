@@ -43,61 +43,63 @@ namespace PhQ {
 template <typename Number>
 class TotalKinematicPressure;
 
-// Total pressure, which is the sum of static pressure and dynamic pressure.
+/// \brief Total pressure, which is the sum of static pressure and dynamic pressure.
 template <typename Number = double>
 class TotalPressure : public DimensionalScalar<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a total pressure with an uninitialized value.
+  /// \brief Default constructor. Constructs a total pressure with an uninitialized value.
   TotalPressure() = default;
 
-  // Constructor. Constructs a total pressure with a given value expressed in a given pressure unit.
+  /// \brief Constructor. Constructs a total pressure with a given value expressed in a given
+  /// pressure unit.
   TotalPressure(const Number value, const Unit::Pressure unit)
     : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
-  // Constructor. Constructs a total pressure from a given static pressure and dynamic pressure
-  // using the definition of total pressure.
+  /// \brief Constructor. Constructs a total pressure from a given static pressure and dynamic
+  /// pressure using the definition of total pressure.
   constexpr TotalPressure(const StaticPressure<Number>& static_pressure,
                           const DynamicPressure<Number>& dynamic_pressure)
     : TotalPressure<Number>(static_pressure.Value() + dynamic_pressure.Value()) {}
 
-  // Constructor. Constructs a total pressure from a given mass density and total kinematic pressure
-  // using the definition of total kinematic pressure.
+  /// \brief Constructor. Constructs a total pressure from a given mass density and total kinematic
+  /// pressure using the definition of total kinematic pressure.
   constexpr TotalPressure(const MassDensity<Number>& mass_density,
                           const TotalKinematicPressure<Number>& total_kinematic_pressure);
 
-  // Destructor. Destroys this total pressure.
+  /// \brief Destructor. Destroys this total pressure.
   ~TotalPressure() noexcept = default;
 
-  // Copy constructor. Constructs a total pressure by copying another one.
+  /// \brief Copy constructor. Constructs a total pressure by copying another one.
   constexpr TotalPressure(const TotalPressure<Number>& other) = default;
 
-  // Copy constructor. Constructs a total pressure by copying another one.
+  /// \brief Copy constructor. Constructs a total pressure by copying another one.
   template <typename OtherNumber>
   explicit constexpr TotalPressure(const TotalPressure<OtherNumber>& other)
     : TotalPressure(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a total pressure by moving another one.
+  /// \brief Move constructor. Constructs a total pressure by moving another one.
   constexpr TotalPressure(TotalPressure<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this total pressure by copying another one.
+  /// \brief Copy assignment operator. Assigns this total pressure by copying another one.
   constexpr TotalPressure<Number>& operator=(const TotalPressure<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this total pressure by copying another one.
+  /// \brief Copy assignment operator. Assigns this total pressure by copying another one.
   template <typename OtherNumber>
   constexpr TotalPressure<Number>& operator=(const TotalPressure<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this total pressure by moving another one.
+  /// \brief Move assignment operator. Assigns this total pressure by moving another one.
   constexpr TotalPressure<Number>& operator=(TotalPressure<Number>&& other) noexcept = default;
 
-  // Statically creates a total pressure of zero.
+  /// \brief Statically creates a total pressure of zero.
   static constexpr TotalPressure<Number> Zero() {
     return TotalPressure<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a total pressure with a given value expressed in a given pressure unit.
+  /// \brief Statically creates a total pressure with a given value expressed in a given pressure
+  /// unit.
   template <Unit::Pressure Unit>
   static constexpr TotalPressure<Number> Create(const Number value) {
     return TotalPressure<Number>{
@@ -152,8 +154,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a total pressure with a given value expressed in the standard pressure
-  // unit.
+  /// \brief Constructor. Constructs a total pressure with a given value expressed in the standard
+  /// pressure unit.
   explicit constexpr TotalPressure(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };

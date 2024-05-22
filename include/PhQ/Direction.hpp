@@ -109,109 +109,112 @@ class VectorArea;
 template <typename Number>
 class Velocity;
 
-// Direction. This is guaranteed to be either a unit vector or the zero vector [0, 0, 0]. Use the
-// Valid() method to check whether the direction is a unit vector or the zero vector.
+/// \brief Direction. This is guaranteed to be either a unit vector or the zero vector (0, 0, 0).
+/// Use the IsZero() method to check whether the direction is a unit vector or the zero vector.
 template <typename Number = double>
 class Direction : public DimensionlessVector<Number> {
 public:
-  // Default constructor. Initializes the direction to the zero vector.
+  /// \brief Default constructor. Initializes a direction to the zero vector.
   constexpr Direction() : DimensionlessVector<Number>(Vector<Number>::Zero()) {}
 
-  // Constructor. Constructs a direction by normalizing the given x, y, and z Cartesian components
-  // to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the zero vector.
+  /// \brief Constructor. Constructs a direction by normalizing the given x, y, and z Cartesian
+  /// components to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the zero
+  /// vector.
   Direction(const Number x, const Number y, const Number z) : DimensionlessVector<Number>() {
     Set(x, y, z);
   }
 
-  // Constructor. Constructs a direction by normalizing a given array representing x, y, and z
-  // Cartesian components to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to
-  // the zero vector.
+  /// \brief Constructor. Constructs a direction by normalizing a given array representing x, y, and
+  /// z Cartesian components to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction
+  /// to the zero vector.
   explicit Direction(const std::array<Number, 3>& x_y_z) : DimensionlessVector<Number>() {
     Set(x_y_z);
   }
 
-  // Constructor. Constructs a direction by normalizing the given vector to a unit vector. If the
-  // given vector is a zero vector, initializes the direction to the zero vector.
+  /// \brief Constructor. Constructs a direction by normalizing the given vector to a unit vector.
+  /// If the given vector is a zero vector, initializes the direction to the zero vector.
   explicit Direction(const Vector<Number>& value) : DimensionlessVector<Number>() {
     Set(value);
   }
 
-  // Constructor. Constructs a direction from an acceleration.
+  /// \brief Constructor. Constructs a direction from an acceleration.
   explicit Direction(const Acceleration<Number>& acceleration);
 
-  // Constructor. Constructs a direction from a displacement.
+  /// \brief Constructor. Constructs a direction from a displacement.
   explicit Direction(const Displacement<Number>& displacement);
 
-  // Constructor. Constructs a direction from a force.
+  /// \brief Constructor. Constructs a direction from a force.
   explicit Direction(const Force<Number>& force);
 
-  // Constructor. Constructs a direction from a heat flux.
+  /// \brief Constructor. Constructs a direction from a heat flux.
   explicit Direction(const HeatFlux<Number>& heat_flux);
 
-  // Constructor. Constructs a direction from a position.
+  /// \brief Constructor. Constructs a direction from a position.
   explicit Direction(const Position<Number>& position);
 
-  // Constructor. Constructs a direction from a temperature gradient.
+  /// \brief Constructor. Constructs a direction from a temperature gradient.
   explicit Direction(const TemperatureGradient<Number>& temperature_gradient);
 
-  // Constructor. Constructs a direction from a traction.
+  /// \brief Constructor. Constructs a direction from a traction.
   explicit Direction(const Traction<Number>& traction);
 
-  // Constructor. Constructs a direction from a vector area.
+  /// \brief Constructor. Constructs a direction from a vector area.
   explicit Direction(const VectorArea<Number>& vector_area);
 
-  // Constructor. Constructs a direction from a velocity.
+  /// \brief Constructor. Constructs a direction from a velocity.
   explicit Direction(const Velocity<Number>& velocity);
 
-  // Destructor. Destroys this direction.
+  /// \brief Destructor. Destroys this direction.
   ~Direction() noexcept = default;
 
-  // Copy constructor. Constructs a direction by copying another one.
+  /// \brief Copy constructor. Constructs a direction by copying another one.
   constexpr Direction(const Direction<Number>& other) = default;
 
-  // Copy constructor. Constructs a direction by copying another one.
+  /// \brief Copy constructor. Constructs a direction by copying another one.
   template <typename OtherNumber>
   explicit constexpr Direction(const Direction<OtherNumber>& other)
     : Direction(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a direction by moving another one.
+  /// \brief Move constructor. Constructs a direction by moving another one.
   constexpr Direction(Direction<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this direction by copying from another one.
+  /// \brief Copy assignment operator. Assigns the value of this direction by copying from another
+  /// one.
   constexpr Direction<Number>& operator=(const Direction<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this direction by copying another one.
+  /// \brief Copy assignment operator. Assigns this direction by copying another one.
   template <typename OtherNumber>
   constexpr Direction<Number>& operator=(const Direction<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns the value of this direction by moving another one.
+  /// \brief Move assignment operator. Assigns the value of this direction by moving another one.
   constexpr Direction<Number>& operator=(Direction<Number>&& other) noexcept = default;
 
-  // Statically creates a direction with a value of zero.
+  /// \brief Statically creates a direction whose value is the zero vector.
   static constexpr Direction<Number> Zero() {
     return Direction<Number>{};
   }
 
-  // Returns the x Cartesian component of this direction.
+  /// \brief Returns the x Cartesian component of this direction.
   [[nodiscard]] constexpr Number x() const noexcept {
     return this->value.x();
   }
 
-  // Returns the y Cartesian component of this direction.
+  /// \brief Returns the y Cartesian component of this direction.
   [[nodiscard]] constexpr Number y() const noexcept {
     return this->value.y();
   }
 
-  // Returns the z Cartesian component of this direction.
+  /// \brief Returns the z Cartesian component of this direction.
   [[nodiscard]] constexpr Number z() const noexcept {
     return this->value.z();
   }
 
-  // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
-  // unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero vector.
+  /// \brief Sets the value of this direction by normalizing the given x, y, and z Cartesian
+  /// components to a unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero
+  /// vector.
   constexpr void Set(const Number x, const Number y, const Number z) {
     const Number magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > static_cast<Number>(0)) {
@@ -222,8 +225,9 @@ public:
     }
   }
 
-  // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
-  // unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero vector.
+  /// \brief Sets the value of this direction by normalizing the given x, y, and z Cartesian
+  /// components to a unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero
+  /// vector.
   constexpr void Set(const std::array<Number, 3>& x_y_z) {
     const Number magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > static_cast<Number>(0)) {
@@ -234,68 +238,68 @@ public:
     }
   }
 
-  // Sets the value of this direction by normalizing the given vector to a unit vector. If the given
-  // vector is a zero vector, sets the direction to the zero vector.
+  /// \brief Sets the value of this direction by normalizing the given vector to a unit vector. If
+  /// the given vector is a zero vector, sets the direction to the zero vector.
   constexpr void Set(const Vector<Number>& value) {
     Set(value.x_y_z());
   }
 
-  // Returns true if the direction is a unit vector, or false if it is the zero vector.
-  [[nodiscard]] constexpr bool Valid() const noexcept {
-    return this->value.x() != static_cast<Number>(0) || this->value.y() != static_cast<Number>(0)
-           || this->value.z() != static_cast<Number>(0);
+  /// \brief Returns true if this direction is the zero vector, or false if it is a unit vector.
+  [[nodiscard]] constexpr bool IsZero() const noexcept {
+    return this->value.x() == static_cast<Number>(0) && this->value.y() == static_cast<Number>(0)
+           && this->value.z() == static_cast<Number>(0);
   }
 
-  // Returns the square of the magnitude of the direction. This is guaranteed to be exactly 1 if the
-  // direction is valid, or 0 if the direction is the zero vector.
+  /// \brief Returns the square of the magnitude of this direction. This is guaranteed to be exactly
+  /// 1 if the direction is valid, or 0 if the direction is the zero vector.
   [[nodiscard]] constexpr Number MagnitudeSquared() const noexcept {
     return this->value.MagnitudeSquared();
   }
 
-  // Returns the magnitude of the direction. This is guaranteed to be exactly 1 if the direction is
-  // valid, or 0 if the direction is the zero vector.
+  /// \brief Returns the magnitude of this direction. This is guaranteed to be exactly 1 if the
+  /// direction is valid, or 0 if the direction is the zero vector.
   [[nodiscard]] Number Magnitude() const noexcept {
     return this->value.Magnitude();
   }
 
-  // Returns the dot product (also known as the scalar product or the inner product) of the
-  // direction with the given vector.
+  /// \brief Returns the dot product (also known as the scalar product or the inner product) of this
+  /// direction with the given vector.
   [[nodiscard]] constexpr Number Dot(const Vector<Number>& vector) const noexcept {
     return this->value.Dot(vector);
   }
 
-  // Returns the dot product (also known as the scalar product or the inner product) of the
-  // direction with the given other direction.
+  /// \brief Returns the dot product (also known as the scalar product or the inner product) of this
+  /// direction with the given other direction.
   [[nodiscard]] constexpr Number Dot(const Direction<Number>& direction) const noexcept {
     return this->value.Dot(direction.value);
   }
 
-  // Returns the cross product of the direction with the given vector.
+  /// \brief Returns the cross product of this direction with the given vector.
   [[nodiscard]] constexpr Vector<Number> Cross(const Vector<Number>& vector) const {
     return this->value.Cross(vector);
   }
 
-  // Returns the cross product of the direction with the given other direction.
+  /// \brief Returns the cross product of this direction with the given other direction.
   [[nodiscard]] Direction<Number> Cross(const Direction<Number>& direction) const {
     return Direction<Number>{this->value.Cross(direction.value)};
   }
 
-  // Returns the dyadic product of the direction with the given vector.
+  /// \brief Returns the dyadic product of this direction with the given vector.
   [[nodiscard]] constexpr Dyad<Number> Dyadic(const Vector<Number>& vector) const {
     return this->value.Dyadic(vector);
   }
 
-  // Returns the dyadic product of the direction with the given other direction.
+  /// \brief Returns the dyadic product of this direction with the given other direction.
   [[nodiscard]] constexpr Dyad<Number> Dyadic(const Direction<Number>& direction) const {
     return this->value.Dyadic(direction.value);
   }
 
-  // Returns the angle between the direction and the given vector.
+  /// \brief Returns the angle between this direction and the given vector.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Vector<Number>& vector) const {
     return PhQ::Angle<Number>{*this, vector};
   }
 
-  // Returns the angle between the direction and the given other direction.
+  /// \brief Returns the angle between this direction and the given other direction.
   [[nodiscard]] PhQ::Angle<Number> Angle(const Direction<Number>& direction) const {
     return PhQ::Angle<Number>{*this, direction};
   }

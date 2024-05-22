@@ -51,34 +51,34 @@ namespace PhQ {
 
 namespace Unit {
 
-// Time units.
+/// \brief Time units.
 enum class Time : int8_t {
-  // Nanosecond (ns) time unit.
+  /// \brief Nanosecond (ns) time unit.
   Nanosecond,
 
-  // Microsecond (μs) time unit.
+  /// \brief Microsecond (μs) time unit.
   Microsecond,
 
-  // Millisecond (ms) time unit.
+  /// \brief Millisecond (ms) time unit.
   Millisecond,
 
-  // Second (s) time unit.
+  /// \brief Second (s) time unit.
   Second,
 
-  // Minute (min) time unit.
+  /// \brief Minute (min) time unit.
   Minute,
 
-  // Hour (hr) time unit.
+  /// \brief Hour (hr) time unit.
   Hour,
 };
 
 }  // namespace Unit
 
-// Standard time unit: second (s).
+/// \brief Standard time unit: second (s).
 template <>
 inline constexpr const Unit::Time Standard<Unit::Time>{Unit::Time::Second};
 
-// Physical dimension set of time units.
+/// \brief Physical dimension set of time units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Time>{
     Dimensions{Dimension::Time{1}, Dimension::Length{0}, Dimension::Mass{0},

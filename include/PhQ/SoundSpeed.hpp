@@ -50,74 +50,74 @@ class MachNumber;
 template <typename Number>
 class Speed;
 
-// Speed of sound. Applies to any deformable medium, including fluids and elastic solids.
+/// \brief Speed of sound. Applies to any deformable medium, including fluids and elastic solids.
 template <typename Number = double>
 class SoundSpeed : public DimensionalScalar<Unit::Speed, Number> {
 public:
-  // Default constructor. Constructs a sound speed with an uninitialized value.
+  /// \brief Default constructor. Constructs a sound speed with an uninitialized value.
   SoundSpeed() = default;
 
-  // Constructs a sound speed from a given value and speed unit.
+  /// \brief Constructs a sound speed from a given value and speed unit.
   SoundSpeed(const Number value, const Unit::Speed unit)
     : DimensionalScalar<Unit::Speed, Number>(value, unit) {}
 
-  // Constructs a sound speed from an isentropic bulk modulus and a mass density. This is the
-  // definition of the sound speed; this relation always holds true.
+  /// \brief Constructs a sound speed from an isentropic bulk modulus and a mass density. This is
+  /// the definition of the sound speed; this relation always holds true.
   SoundSpeed(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
              const MassDensity<Number>& mass_density)
     : SoundSpeed<Number>(std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
 
-  // Constructs a sound speed from a heat capacity ratio, a static pressure, and a mass density.
-  // This relation applies only to an ideal gas.
+  /// \brief Constructs a sound speed from a heat capacity ratio, a static pressure, and a mass
+  /// density. This relation applies only to an ideal gas.
   SoundSpeed(const HeatCapacityRatio<Number>& heat_capacity_ratio,
              const StaticPressure<Number>& static_pressure, const MassDensity<Number>& mass_density)
     : SoundSpeed<Number>(
         std::sqrt(heat_capacity_ratio.Value() * static_pressure.Value() / mass_density.Value())) {}
 
-  // Constructs a sound speed from a heat capacity ratio, a specific gas constant, and a
-  // temperature. This relation applies only to an ideal gas.
+  /// \brief Constructs a sound speed from a heat capacity ratio, a specific gas constant, and a
+  /// temperature. This relation applies only to an ideal gas.
   SoundSpeed(const HeatCapacityRatio<Number>& heat_capacity_ratio,
              const SpecificGasConstant<Number>& specific_gas_constant,
              const Temperature<Number>& temperature)
     : SoundSpeed<Number>(std::sqrt(
         heat_capacity_ratio.Value() * specific_gas_constant.Value() * temperature.Value())) {}
 
-  // Constructs a sound speed from a speed and a Mach number. This uses the definition of the Mach
-  // number; this relation always holds true.
+  /// \brief Constructs a sound speed from a speed and a Mach number. This uses the definition of
+  /// the Mach number; this relation always holds true.
   constexpr SoundSpeed(const Speed<Number>& speed, const MachNumber<Number>& mach_number);
 
-  // Destructor. Destroys this sound speed.
+  /// \brief Destructor. Destroys this sound speed.
   ~SoundSpeed() noexcept = default;
 
-  // Copy constructor. Constructs a sound speed by copying another one.
+  /// \brief Copy constructor. Constructs a sound speed by copying another one.
   constexpr SoundSpeed(const SoundSpeed<Number>& other) = default;
 
-  // Copy constructor. Constructs a sound speed by copying another one.
+  /// \brief Copy constructor. Constructs a sound speed by copying another one.
   template <typename OtherNumber>
   explicit constexpr SoundSpeed(const SoundSpeed<OtherNumber>& other)
     : SoundSpeed(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a sound speed by moving another one.
+  /// \brief Move constructor. Constructs a sound speed by moving another one.
   constexpr SoundSpeed(SoundSpeed<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this sound speed by copying another one.
+  /// \brief Copy assignment operator. Assigns this sound speed by copying another one.
   constexpr SoundSpeed<Number>& operator=(const SoundSpeed<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this sound speed by copying another one.
+  /// \brief Copy assignment operator. Assigns this sound speed by copying another one.
   template <typename OtherNumber>
   constexpr SoundSpeed<Number>& operator=(const SoundSpeed<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this sound speed by moving another one.
+  /// \brief Move assignment operator. Assigns this sound speed by moving another one.
   constexpr SoundSpeed<Number>& operator=(SoundSpeed<Number>&& other) noexcept = default;
 
   static constexpr SoundSpeed<Number> Zero() {
     return SoundSpeed<Number>{static_cast<Number>(0)};
   }
 
-  // Creates a sound speed from a given value and speed unit.
+  /// \brief Creates a sound speed from a given value and speed unit.
   template <Unit::Speed Unit>
   static constexpr SoundSpeed<Number> Create(const Number value) {
     return SoundSpeed<Number>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
@@ -178,7 +178,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a sound speed with a given value expressed in the standard speed unit.
+  /// \brief Constructor. Constructs a sound speed with a given value expressed in the standard
+  /// speed unit.
   explicit constexpr SoundSpeed(const Number value)
     : DimensionalScalar<Unit::Speed, Number>(value) {}
 };

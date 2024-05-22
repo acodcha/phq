@@ -37,50 +37,52 @@
 
 namespace PhQ {
 
-// Temperature.
+/// \brief Temperature.
 template <typename Number = double>
 class Temperature : public DimensionalScalar<Unit::Temperature, Number> {
 public:
-  // Default constructor. Constructs a temperature with an uninitialized value.
+  /// \brief Default constructor. Constructs a temperature with an uninitialized value.
   Temperature() = default;
 
-  // Constructor. Constructs a temperature with a given value expressed in a given temperature unit.
+  /// \brief Constructor. Constructs a temperature with a given value expressed in a given
+  /// temperature unit.
   Temperature(const Number value, const Unit::Temperature unit)
     : DimensionalScalar<Unit::Temperature, Number>(value, unit) {}
 
-  // Destructor. Destroys this temperature.
+  /// \brief Destructor. Destroys this temperature.
   ~Temperature() noexcept = default;
 
-  // Copy constructor. Constructs a temperature by copying another one.
+  /// \brief Copy constructor. Constructs a temperature by copying another one.
   constexpr Temperature(const Temperature<Number>& other) = default;
 
-  // Copy constructor. Constructs a temperature by copying another one.
+  /// \brief Copy constructor. Constructs a temperature by copying another one.
   template <typename OtherNumber>
   explicit constexpr Temperature(const Temperature<OtherNumber>& other)
     : Temperature(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a temperature by moving another one.
+  /// \brief Move constructor. Constructs a temperature by moving another one.
   constexpr Temperature(Temperature<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this temperature by copying another one.
+  /// \brief Copy assignment operator. Assigns this temperature by copying another one.
   constexpr Temperature<Number>& operator=(const Temperature<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this temperature by copying another one.
+  /// \brief Copy assignment operator. Assigns this temperature by copying another one.
   template <typename OtherNumber>
   constexpr Temperature<Number>& operator=(const Temperature<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this temperature by moving another one.
+  /// \brief Move assignment operator. Assigns this temperature by moving another one.
   constexpr Temperature<Number>& operator=(Temperature<Number>&& other) noexcept = default;
 
-  // Statically creates a temperature of absolute zero.
+  /// \brief Statically creates a temperature of absolute zero.
   static constexpr Temperature<Number> Zero() {
     return Temperature<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a temperature with a given value expressed in a given temperature unit.
+  /// \brief Statically creates a temperature with a given value expressed in a given temperature
+  /// unit.
   template <Unit::Temperature Unit>
   static constexpr Temperature<Number> Create(const Number value) {
     return Temperature<Number>{
@@ -142,8 +144,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a temperature with a given value expressed in the standard temperature
-  // unit.
+  /// \brief Constructor. Constructs a temperature with a given value expressed in the standard
+  /// temperature unit.
   explicit constexpr Temperature(const Number value)
     : DimensionalScalar<Unit::Temperature, Number>(value) {}
 

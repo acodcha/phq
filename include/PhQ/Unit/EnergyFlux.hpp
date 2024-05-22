@@ -51,29 +51,29 @@ namespace PhQ {
 
 namespace Unit {
 
-// Energy flux units.
+/// \brief Energy flux units.
 enum class EnergyFlux : int8_t {
-  // Watt per square metre (W/m^2) energy flux unit.
+  /// \brief Watt per square metre (W/m^2) energy flux unit.
   WattPerSquareMetre,
 
-  // Nanowatt per square millimetre (nW/mm^2) energy flux unit.
+  /// \brief Nanowatt per square millimetre (nW/mm^2) energy flux unit.
   NanowattPerSquareMillimetre,
 
-  // Foot-pound per square foot per second (ft·lbf/ft^2/s) energy flux unit.
+  /// \brief Foot-pound per square foot per second (ft·lbf/ft^2/s) energy flux unit.
   FootPoundPerSquareFootPerSecond,
 
-  // Inch-pound per square inch per second (in·lbf/in^2/s) energy flux unit.
+  /// \brief Inch-pound per square inch per second (in·lbf/in^2/s) energy flux unit.
   InchPoundPerSquareInchPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard energy flux unit: watt per square metre (W/m^2).
+/// \brief Standard energy flux unit: watt per square metre (W/m^2).
 template <>
 inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
     Unit::EnergyFlux::WattPerSquareMetre};
 
-// Physical dimension set of energy flux units.
+/// \brief Physical dimension set of energy flux units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::EnergyFlux>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1},

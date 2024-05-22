@@ -36,9 +36,9 @@
 
 namespace PhQ::Internal {
 
-// Tests the PhQ::Convert and PhQ::ConvertCopy unit conversion functions for a given unit of
-// measure. Verifies that a given first value expressed in a given first unit correctly converts to
-// a given second value expressed in a given second unit, and vice-versa.
+/// \brief Tests the PhQ::Convert and PhQ::ConvertCopy unit conversion functions for a given unit of
+/// measure. Verifies that a given first value expressed in a given first unit correctly converts to
+/// a given second value expressed in a given second unit, and vice-versa.
 template <typename Unit>
 void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
                                const long double first_value, const long double second_value) {
@@ -867,9 +867,9 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
   }
 }
 
-// Tests the PhQ::StaticConvertCopy unit conversion functions for a given unit of measure. Verifies
-// that a given original value expressed in a given original unit correctly converts to a given new
-// value expressed in a given new unit. Does not check the reverse conversion.
+/// \brief Tests the PhQ::StaticConvertCopy unit conversion functions for a given unit of measure.
+/// Verifies that a given original value expressed in a given original unit correctly converts to a
+/// given new value expressed in a given new unit. Does not check the reverse conversion.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
 void TestStaticConvertCopy(const long double original_value, const long double new_value) {
   // float

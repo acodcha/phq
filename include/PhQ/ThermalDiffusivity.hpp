@@ -43,21 +43,21 @@ namespace PhQ {
 template <typename Number>
 class PrandtlNumber;
 
-// Thermal diffusivity.
+/// \brief Thermal diffusivity.
 template <typename Number = double>
 class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity, Number> {
 public:
-  // Default constructor. Constructs a thermal diffusivity with an uninitialized value.
+  /// \brief Default constructor. Constructs a thermal diffusivity with an uninitialized value.
   ThermalDiffusivity() = default;
 
-  // Constructor. Constructs a thermal diffusivity with a given value expressed in a given
-  // diffusivity unit.
+  /// \brief Constructor. Constructs a thermal diffusivity with a given value expressed in a given
+  /// diffusivity unit.
   ThermalDiffusivity(const Number value, const Unit::Diffusivity unit)
     : DimensionalScalar<Unit::Diffusivity, Number>(value, unit) {}
 
-  // Constructor. Constructs a thermal diffusivity from a given scalar thermal conductivity,
-  // specific isobaric heat capacity, and mass density using the definition of the thermal
-  // diffusivity.
+  /// \brief Constructor. Constructs a thermal diffusivity from a given scalar thermal conductivity,
+  /// specific isobaric heat capacity, and mass density using the definition of the thermal
+  /// diffusivity.
   constexpr ThermalDiffusivity(
       const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
       const MassDensity<Number>& mass_density,
@@ -66,47 +66,47 @@ public:
         scalar_thermal_conductivity.Value()
         / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
 
-  // Constructor. Constructs a thermal diffusivity from a given kinematic viscosity and Prandtl
-  // number using the definition of the Prandtl number.
+  /// \brief Constructor. Constructs a thermal diffusivity from a given kinematic viscosity and
+  /// Prandtl number using the definition of the Prandtl number.
   constexpr ThermalDiffusivity(const KinematicViscosity<Number>& kinematic_viscosity,
                                const PrandtlNumber<Number>& prandtl_number);
 
-  // Destructor. Destroys this thermal diffusivity.
+  /// \brief Destructor. Destroys this thermal diffusivity.
   ~ThermalDiffusivity() noexcept = default;
 
-  // Copy constructor. Constructs a thermal diffusivity by copying another one.
+  /// \brief Copy constructor. Constructs a thermal diffusivity by copying another one.
   constexpr ThermalDiffusivity(const ThermalDiffusivity<Number>& other) = default;
 
-  // Copy constructor. Constructs a thermal diffusivity by copying another one.
+  /// \brief Copy constructor. Constructs a thermal diffusivity by copying another one.
   template <typename OtherNumber>
   explicit constexpr ThermalDiffusivity(const ThermalDiffusivity<OtherNumber>& other)
     : ThermalDiffusivity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a thermal diffusivity by moving another one.
+  /// \brief Move constructor. Constructs a thermal diffusivity by moving another one.
   constexpr ThermalDiffusivity(ThermalDiffusivity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this thermal diffusivity by copying another one.
+  /// \brief Copy assignment operator. Assigns this thermal diffusivity by copying another one.
   constexpr ThermalDiffusivity<Number>& operator=(
       const ThermalDiffusivity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this thermal diffusivity by copying another one.
+  /// \brief Copy assignment operator. Assigns this thermal diffusivity by copying another one.
   template <typename OtherNumber>
   constexpr ThermalDiffusivity<Number>& operator=(const ThermalDiffusivity<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this thermal diffusivity by moving another one.
+  /// \brief Move assignment operator. Assigns this thermal diffusivity by moving another one.
   constexpr ThermalDiffusivity<Number>& operator=(
       ThermalDiffusivity<Number>&& other) noexcept = default;
 
-  // Statically creates a thermal diffusivity of zero.
+  /// \brief Statically creates a thermal diffusivity of zero.
   static constexpr ThermalDiffusivity<Number> Zero() {
     return ThermalDiffusivity<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a thermal diffusivity with a given value expressed in a given diffusivity
-  // unit.
+  /// \brief Statically creates a thermal diffusivity with a given value expressed in a given
+  /// diffusivity unit.
   template <Unit::Diffusivity Unit>
   static constexpr ThermalDiffusivity<Number> Create(const Number value) {
     return ThermalDiffusivity<Number>{
@@ -152,8 +152,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a thermal diffusivity with a given value expressed in the standard
-  // diffusivity unit.
+  /// \brief Constructor. Constructs a thermal diffusivity with a given value expressed in the
+  /// standard diffusivity unit.
   explicit constexpr ThermalDiffusivity(const Number value)
     : DimensionalScalar<Unit::Diffusivity, Number>(value) {}
 };

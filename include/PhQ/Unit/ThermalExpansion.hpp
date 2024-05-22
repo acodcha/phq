@@ -51,29 +51,29 @@ namespace PhQ {
 
 namespace Unit {
 
-// Thermal expansion units.
+/// \brief Thermal expansion units.
 enum class ThermalExpansion : int8_t {
-  // Per kelvin (/K) thermal expansion unit.
+  /// \brief Per kelvin (/K) thermal expansion unit.
   PerKelvin,
 
-  // Per degree Celsius (/°C) thermal expansion unit.
+  /// \brief Per degree Celsius (/°C) thermal expansion unit.
   PerCelsius,
 
-  // Per degree Rankine (/°R) thermal expansion unit.
+  /// \brief Per degree Rankine (/°R) thermal expansion unit.
   PerRankine,
 
-  // Per degree Fahrenheit (/°F) thermal expansion unit.
+  /// \brief Per degree Fahrenheit (/°F) thermal expansion unit.
   PerFahrenheit
 };
 
 }  // namespace Unit
 
-// Standard thermal expansion unit: per kelvin (/K).
+/// \brief Standard thermal expansion unit: per kelvin (/K).
 template <>
 inline constexpr const Unit::ThermalExpansion Standard<Unit::ThermalExpansion>{
     Unit::ThermalExpansion::PerKelvin};
 
-// Physical dimension set of thermal expansion units.
+/// \brief Physical dimension set of thermal expansion units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::ThermalExpansion>{
     Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},

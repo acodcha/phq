@@ -40,58 +40,58 @@
 
 namespace PhQ {
 
-// Reynolds number of a fluid flow.
+/// \brief Reynolds number of a fluid flow.
 template <typename Number = double>
 class ReynoldsNumber : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a Reynolds number with an uninitialized value.
+  /// \brief Default constructor. Constructs a Reynolds number with an uninitialized value.
   ReynoldsNumber() = default;
 
-  // Constructor. Constructs a Reynolds number with a given value.
+  /// \brief Constructor. Constructs a Reynolds number with a given value.
   explicit constexpr ReynoldsNumber(const Number value) : DimensionlessScalar<Number>(value) {}
 
-  // Constructor. Constructs a Reynolds number from a given mass density, speed, length, and dynamic
-  // viscosity using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a Reynolds number from a given mass density, speed, length, and
+  /// dynamic viscosity using the definition of the Reynolds number.
   constexpr ReynoldsNumber(
       const MassDensity<Number>& mass_density, const Speed<Number>& speed,
       const Length<Number>& length, const DynamicViscosity<Number>& dynamic_viscosity)
     : ReynoldsNumber<Number>(
         mass_density.Value() * speed.Value() * length.Value() / dynamic_viscosity.Value()) {}
 
-  // Constructor. Constructs a Reynolds number from a given speed, length, and kinematic viscosity
-  // using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a Reynolds number from a given speed, length, and kinematic
+  /// viscosity using the definition of the Reynolds number.
   constexpr ReynoldsNumber(const Speed<Number>& speed, const Length<Number>& length,
                            const KinematicViscosity<Number>& kinematic_viscosity)
     : ReynoldsNumber<Number>(speed.Value() * length.Value() / kinematic_viscosity.Value()) {}
 
-  // Destructor. Destroys this Reynolds number.
+  /// \brief Destructor. Destroys this Reynolds number.
   ~ReynoldsNumber() noexcept = default;
 
-  // Copy constructor. Constructs a Reynolds number by copying another one.
+  /// \brief Copy constructor. Constructs a Reynolds number by copying another one.
   constexpr ReynoldsNumber(const ReynoldsNumber<Number>& other) = default;
 
-  // Copy constructor. Constructs a Reynolds number by copying another one.
+  /// \brief Copy constructor. Constructs a Reynolds number by copying another one.
   template <typename OtherNumber>
   explicit constexpr ReynoldsNumber(const ReynoldsNumber<OtherNumber>& other)
     : ReynoldsNumber(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a Reynolds number by moving another one.
+  /// \brief Move constructor. Constructs a Reynolds number by moving another one.
   constexpr ReynoldsNumber(ReynoldsNumber<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Reynolds number by copying another one.
+  /// \brief Copy assignment operator. Assigns this Reynolds number by copying another one.
   constexpr ReynoldsNumber<Number>& operator=(const ReynoldsNumber<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this Reynolds number by copying another one.
+  /// \brief Copy assignment operator. Assigns this Reynolds number by copying another one.
   template <typename OtherNumber>
   constexpr ReynoldsNumber<Number>& operator=(const ReynoldsNumber<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this Reynolds number by moving another one.
+  /// \brief Move assignment operator. Assigns this Reynolds number by moving another one.
   constexpr ReynoldsNumber<Number>& operator=(ReynoldsNumber<Number>&& other) noexcept = default;
 
-  // Statically creates a Reynolds number of zero.
+  /// \brief Statically creates a Reynolds number of zero.
   static constexpr ReynoldsNumber<Number> Zero() {
     return ReynoldsNumber<Number>{static_cast<Number>(0)};
   }

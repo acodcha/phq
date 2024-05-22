@@ -183,7 +183,7 @@ CLANG_DATABASE_PATH    =
 ####################################################################################################
 # Alphabetical Class Index
 ####################################################################################################
-ALPHABETICAL_INDEX     = YES
+ALPHABETICAL_INDEX     = NO
 IGNORE_PREFIX          =
 
 ####################################################################################################
@@ -227,7 +227,7 @@ QHG_LOCATION           =
 GENERATE_ECLIPSEHELP   = NO
 ECLIPSE_DOC_ID         = org.doxygen.Project
 DISABLE_INDEX          = NO
-GENERATE_TREEVIEW      = YES
+GENERATE_TREEVIEW      = NO
 ENUM_VALUES_PER_LINE   = 4
 TREEVIEW_WIDTH         = 250
 EXT_LINKS_IN_WINDOW    = NO
@@ -345,7 +345,7 @@ EXTERNAL_PAGES         = YES
 ####################################################################################################
 # Dot Tool
 ####################################################################################################
-CLASS_DIAGRAMS         = YES
+CLASS_DIAGRAMS         = NO
 DIA_PATH               =
 HIDE_UNDOC_RELATIONS   = YES
 HAVE_DOT               = YES
@@ -353,9 +353,9 @@ DOT_NUM_THREADS        = 0
 DOT_FONTNAME           = Helvetica
 DOT_FONTSIZE           = 10
 DOT_FONTPATH           =
-CLASS_GRAPH            = YES
+CLASS_GRAPH            = NO
 COLLABORATION_GRAPH    = NO
-GROUP_GRAPHS           = YES
+GROUP_GRAPHS           = NO
 UML_LOOK               = NO
 UML_LIMIT_NUM_FIELDS   = 10
 DOT_UML_DETAILS        = NO

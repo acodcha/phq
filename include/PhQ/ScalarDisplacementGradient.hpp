@@ -47,50 +47,53 @@ class ScalarVelocityGradient;
 template <typename Number>
 class Time;
 
-// Scalar component or resultant of a displacement gradient tensor. See also
-// PhQ::DisplacementGradient and PhQ::ScalarVelocityGradient.
+/// \brief Scalar component or resultant of a displacement gradient tensor. See also
+/// PhQ::DisplacementGradient and PhQ::ScalarVelocityGradient.
 template <typename Number = double>
 class ScalarDisplacementGradient : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a scalar displacement gradient with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar displacement gradient with an uninitialized
+  /// value.
   ScalarDisplacementGradient() = default;
 
-  // Constructor. Constructs a scalar displacement gradient with a given value.
+  /// \brief Constructor. Constructs a scalar displacement gradient with a given value.
   explicit constexpr ScalarDisplacementGradient(const Number value)
     : DimensionlessScalar<Number>(value) {}
 
-  // Constructor. Constructs a scalar displacement gradient from a given scalar velocity gradient
-  // and time using the definition of speed.
+  /// \brief Constructor. Constructs a scalar displacement gradient from a given scalar velocity
+  /// gradient and time using the definition of speed.
   constexpr ScalarDisplacementGradient(
       const ScalarVelocityGradient<Number>& scalar_velocity_gradient, const Time<Number>& time);
 
-  // Constructor. Constructs a scalar displacement gradient from a given scalar velocity gradient
-  // and frequency using the definition of speed.
+  /// \brief Constructor. Constructs a scalar displacement gradient from a given scalar velocity
+  /// gradient and frequency using the definition of speed.
   constexpr ScalarDisplacementGradient(
       const ScalarVelocityGradient<Number>& scalar_velocity_gradient,
       const Frequency<Number>& frequency);
 
-  // Destructor. Destroys this scalar displacement gradient.
+  /// \brief Destructor. Destroys this scalar displacement gradient.
   ~ScalarDisplacementGradient() noexcept = default;
 
-  // Copy constructor. Constructs a scalar displacement gradient by copying another one.
+  /// \brief Copy constructor. Constructs a scalar displacement gradient by copying another one.
   constexpr ScalarDisplacementGradient(const ScalarDisplacementGradient<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar displacement gradient by copying another one.
+  /// \brief Copy constructor. Constructs a scalar displacement gradient by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarDisplacementGradient(
       const ScalarDisplacementGradient<OtherNumber>& other)
     : ScalarDisplacementGradient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar displacement gradient by moving another one.
+  /// \brief Move constructor. Constructs a scalar displacement gradient by moving another one.
   constexpr ScalarDisplacementGradient(
       ScalarDisplacementGradient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar displacement gradient by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar displacement gradient by copying another
+  /// one.
   constexpr ScalarDisplacementGradient<Number>& operator=(
       const ScalarDisplacementGradient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar displacement gradient by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar displacement gradient by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr ScalarDisplacementGradient<Number>& operator=(
       const ScalarDisplacementGradient<OtherNumber>& other) {
@@ -98,11 +101,12 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar displacement gradient by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar displacement gradient by moving another
+  /// one.
   constexpr ScalarDisplacementGradient<Number>& operator=(
       ScalarDisplacementGradient<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar displacement gradient of zero.
+  /// \brief Statically creates a scalar displacement gradient of zero.
   static constexpr ScalarDisplacementGradient<Number> Zero() {
     return ScalarDisplacementGradient<Number>{static_cast<Number>(0)};
   }

@@ -90,99 +90,104 @@ class VectorArea;
 template <typename Number>
 class Velocity;
 
-// Planar angle.
+/// \brief Planar angle.
 template <typename Number = double>
 class Angle : public DimensionalScalar<Unit::Angle, Number> {
 public:
-  // Default constructor. Constructs an angle with an uninitialized value.
+  /// \brief Default constructor. Constructs an angle with an uninitialized value.
   Angle() = default;
 
-  // Constructor. Constructs an angle with a given value expressed in a given angle unit.
+  /// \brief Constructor. Constructs an angle with a given value expressed in a given angle unit.
   Angle(const Number value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
 
-  // Constructor. Constructs an angle by computing the angle between two given vector values.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given vector
+  /// values.
   Angle(const Vector<Number>& vector1, const Vector<Number>& vector2)
     : Angle(std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
-  // Constructor. Constructs an angle by computing the angle between a given vector and direction.
+  /// \brief Constructor. Constructs an angle by computing the angle between a given vector and
+  /// direction.
   Angle(const Vector<Number>& vector, const Direction<Number>& direction);
 
-  // Constructor. Constructs an angle by computing the angle between a given direction and vector.
+  /// \brief Constructor. Constructs an angle by computing the angle between a given direction and
+  /// vector.
   Angle(const Direction<Number>& direction, const Vector<Number>& vector);
 
-  // Constructor. Constructs an angle by computing the angle between two given directions.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given directions.
   Angle(const Direction<Number>& direction1, const Direction<Number>& direction2);
 
-  // Constructor. Constructs an angle from a given angular speed and time using the definition of
-  // angular speed.
+  /// \brief Constructor. Constructs an angle from a given angular speed and time using the
+  /// definition of angular speed.
   constexpr Angle(const AngularSpeed<Number>& angular_speed, const Time<Number>& time);
 
-  // Constructor. Constructs an angle from a given angular speed and frequency using the definition
-  // of angular speed.
+  /// \brief Constructor. Constructs an angle from a given angular speed and frequency using the
+  /// definition of angular speed.
   constexpr Angle(const AngularSpeed<Number>& angular_speed, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs an angle by computing the angle between two given acceleration vectors.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given acceleration
+  /// vectors.
   Angle(const Acceleration<Number>& acceleration1, const Acceleration<Number>& acceleration2);
 
-  // Constructor. Constructs an angle by computing the angle between two given vector areas.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given vector areas.
   Angle(const VectorArea<Number>& vector_area_1, const VectorArea<Number>& vector_area_2);
 
-  // Constructor. Constructs an angle by computing the angle between two given displacements.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given
+  /// displacements.
   Angle(const Displacement<Number>& displacement1, const Displacement<Number>& displacement2);
 
-  // Constructor. Constructs an angle by computing the angle between two given forces.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given forces.
   Angle(const Force<Number>& force1, const Force<Number>& force2);
 
-  // Constructor. Constructs an angle by computing the angle between two given heat fluxes.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given heat fluxes.
   Angle(const HeatFlux<Number>& heat_flux_1, const HeatFlux<Number>& heat_flux_2);
 
-  // Constructor. Constructs an angle by computing the angle between two given positions.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given positions.
   Angle(const Position<Number>& position1, const Position<Number>& position2);
 
-  // Constructor. Constructs an angle by computing the angle between two given temperature
-  // gradients.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given temperature
+  /// gradients.
   Angle(const TemperatureGradient<Number>& temperature_gradient_1,
         const TemperatureGradient<Number>& temperature_gradient_2);
 
-  // Constructor. Constructs an angle by computing the angle between two given tractions.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given tractions.
   Angle(const Traction<Number>& traction1, const Traction<Number>& traction2);
 
-  // Constructor. Constructs an angle by computing the angle between two given velocities.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given velocities.
   Angle(const Velocity<Number>& velocity1, const Velocity<Number>& velocity2);
 
-  // Destructor. Destroys this angle.
+  /// \brief Destructor. Destroys this angle.
   ~Angle() noexcept = default;
 
-  // Copy constructor. Constructs an angle by copying another one.
+  /// \brief Copy constructor. Constructs an angle by copying another one.
   constexpr Angle(const Angle<Number>& other) = default;
 
-  // Copy constructor. Constructs an angle by copying another one.
+  /// \brief Copy constructor. Constructs an angle by copying another one.
   template <typename OtherNumber>
   explicit constexpr Angle(const Angle<OtherNumber>& other)
     : Angle(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs an angle by moving another one.
+  /// \brief Move constructor. Constructs an angle by moving another one.
   constexpr Angle(Angle<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this angle by copying another one.
+  /// \brief Copy assignment operator. Assigns this angle by copying another one.
   constexpr Angle<Number>& operator=(const Angle<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this angle by copying another one.
+  /// \brief Copy assignment operator. Assigns this angle by copying another one.
   template <typename OtherNumber>
   constexpr Angle<Number>& operator=(const Angle<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this angle by moving another one.
+  /// \brief Move assignment operator. Assigns this angle by moving another one.
   constexpr Angle<Number>& operator=(Angle<Number>&& other) noexcept = default;
 
-  // Statically creates an angle of zero.
+  /// \brief Statically creates an angle of zero.
   static constexpr Angle<Number> Zero() {
     return Angle<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates an angle with a given value expressed in a given angle unit.
+  /// \brief Statically creates an angle with a given value expressed in a given angle unit.
   template <Unit::Angle Unit>
   static constexpr Angle<Number> Create(const Number value) {
     return Angle<Number>{StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
@@ -231,7 +236,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs an angle with a given value expressed in the standard angle unit.
+  /// \brief Constructor. Constructs an angle with a given value expressed in the standard angle
+  /// unit.
   explicit constexpr Angle(const Number value) : DimensionalScalar<Unit::Angle, Number>(value) {}
 };
 

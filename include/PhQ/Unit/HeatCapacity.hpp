@@ -51,29 +51,29 @@ namespace PhQ {
 
 namespace Unit {
 
-// Heat capacity units.
+/// \brief Heat capacity units.
 enum class HeatCapacity : int8_t {
-  // Joule per kelvin (J/K) heat capacity unit.
+  /// \brief Joule per kelvin (J/K) heat capacity unit.
   JoulePerKelvin,
 
-  // Nanojoule per kelvin (nJ/K) heat capacity unit.
+  /// \brief Nanojoule per kelvin (nJ/K) heat capacity unit.
   NanojoulePerKelvin,
 
-  // Foot-pound per degree Rankine (ft·lbf/°R) heat capacity unit.
+  /// \brief Foot-pound per degree Rankine (ft·lbf/°R) heat capacity unit.
   FootPoundPerRankine,
 
-  // Inch-pound per degree Rankine (in·lbf/°R) heat capacity unit.
+  /// \brief Inch-pound per degree Rankine (in·lbf/°R) heat capacity unit.
   InchPoundPerRankine,
 };
 
 }  // namespace Unit
 
-// Standard heat capacity unit: joule per kelvin (J/K).
+/// \brief Standard heat capacity unit: joule per kelvin (J/K).
 template <>
 inline constexpr const Unit::HeatCapacity Standard<Unit::HeatCapacity>{
     Unit::HeatCapacity::JoulePerKelvin};
 
-// Physical dimension set of heat capacity units.
+/// \brief Physical dimension set of heat capacity units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::HeatCapacity>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},

@@ -36,54 +36,54 @@
 
 namespace PhQ {
 
-// Lamé's first modulus of elasticity of a deformable solid material. First of the two Lamé
-// parameters. A measure of a deformable solid material's elastic modulus.
+/// \brief Lamé's first modulus of elasticity of a deformable solid material. First of the two Lamé
+/// parameters. A measure of a deformable solid material's elastic modulus.
 template <typename Number = double>
 class LameFirstModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
-  // Default constructor. Constructs a Lamé's first modulus with an uninitialized value.
+  /// \brief Default constructor. Constructs a Lamé's first modulus with an uninitialized value.
   LameFirstModulus() = default;
 
-  // Constructor. Constructs a Lamé's first modulus with a given value expressed in a given pressure
-  // unit.
+  /// \brief Constructor. Constructs a Lamé's first modulus with a given value expressed in a given
+  /// pressure unit.
   LameFirstModulus(const Number value, const Unit::Pressure unit)
     : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
-  // Destructor. Destroys this Lamé's first modulus.
+  /// \brief Destructor. Destroys this Lamé's first modulus.
   ~LameFirstModulus() noexcept = default;
 
-  // Copy constructor. Constructs a Lamé's first modulus by copying another one.
+  /// \brief Copy constructor. Constructs a Lamé's first modulus by copying another one.
   constexpr LameFirstModulus(const LameFirstModulus<Number>& other) = default;
 
-  // Copy constructor. Constructs a Lamé's first modulus by copying another one.
+  /// \brief Copy constructor. Constructs a Lamé's first modulus by copying another one.
   template <typename OtherNumber>
   explicit constexpr LameFirstModulus(const LameFirstModulus<OtherNumber>& other)
     : LameFirstModulus(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a Lamé's first modulus by moving another one.
+  /// \brief Move constructor. Constructs a Lamé's first modulus by moving another one.
   constexpr LameFirstModulus(LameFirstModulus<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
+  /// \brief Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
   constexpr LameFirstModulus<Number>& operator=(const LameFirstModulus<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
+  /// \brief Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
   template <typename OtherNumber>
   constexpr LameFirstModulus<Number>& operator=(const LameFirstModulus<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this Lamé's first modulus by moving another one.
+  /// \brief Move assignment operator. Assigns this Lamé's first modulus by moving another one.
   constexpr LameFirstModulus<Number>& operator=(
       LameFirstModulus<Number>&& other) noexcept = default;
 
-  // Statically creates a Lamé's first modulus of zero.
+  /// \brief Statically creates a Lamé's first modulus of zero.
   static constexpr LameFirstModulus<Number> Zero() {
     return LameFirstModulus<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a Lamé's first modulus with a given value expressed in a given pressure
-  // unit.
+  /// \brief Statically creates a Lamé's first modulus with a given value expressed in a given
+  /// pressure unit.
   template <Unit::Pressure Unit>
   static constexpr LameFirstModulus<Number> Create(const Number value) {
     return LameFirstModulus<Number>{
@@ -129,8 +129,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a Lamé's first modulus with a given value expressed in the standard
-  // pressure unit.
+  /// \brief Constructor. Constructs a Lamé's first modulus with a given value expressed in the
+  /// standard pressure unit.
   explicit constexpr LameFirstModulus(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
 

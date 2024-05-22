@@ -51,31 +51,31 @@ namespace PhQ {
 
 namespace Unit {
 
-// Angle units.
+/// \brief Angle units.
 enum class Angle : int8_t {
-  // Radian (rad) angle unit.
+  /// \brief Radian (rad) angle unit.
   Radian,
 
-  // Degree (deg) angle unit.
+  /// \brief Degree (deg) angle unit.
   Degree,
 
-  // Arcminute (arcmin) angle unit.
+  /// \brief Arcminute (arcmin) angle unit.
   Arcminute,
 
-  // Arcsecond (arcsec) angle unit.
+  /// \brief Arcsecond (arcsec) angle unit.
   Arcsecond,
 
-  // Revolution (rev) angle unit.
+  /// \brief Revolution (rev) angle unit.
   Revolution,
 };
 
 }  // namespace Unit
 
-// Standard angle unit: radian (rad).
+/// \brief Standard angle unit: radian (rad).
 template <>
 inline constexpr const Unit::Angle Standard<Unit::Angle>{Unit::Angle::Radian};
 
-// Physical dimension set of angle units.
+/// \brief Physical dimension set of angle units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Angle>{Dimensionless};
 

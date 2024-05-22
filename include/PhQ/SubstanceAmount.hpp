@@ -36,52 +36,52 @@
 
 namespace PhQ {
 
-// Amount of substance scalar quantity.
+/// \brief Amount of substance scalar quantity. Typically measured in moles (mol).
 template <typename Number = double>
 class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount, Number> {
 public:
-  // Default constructor. Constructs a substance amount with an uninitialized value.
+  /// \brief Default constructor. Constructs a substance amount with an uninitialized value.
   SubstanceAmount() = default;
 
-  // Constructor. Constructs a substance amount with a given value expressed in a given substance
-  // amount unit.
+  /// \brief Constructor. Constructs a substance amount with a given value expressed in a given
+  /// substance amount unit.
   SubstanceAmount(const Number value, const Unit::SubstanceAmount unit)
     : DimensionalScalar<Unit::SubstanceAmount, Number>(value, unit) {}
 
-  // Destructor. Destroys this substance amount.
+  /// \brief Destructor. Destroys this substance amount.
   ~SubstanceAmount() noexcept = default;
 
-  // Copy constructor. Constructs a substance amount by copying another one.
+  /// \brief Copy constructor. Constructs a substance amount by copying another one.
   constexpr SubstanceAmount(const SubstanceAmount<Number>& other) = default;
 
-  // Copy constructor. Constructs a substance amount by copying another one.
+  /// \brief Copy constructor. Constructs a substance amount by copying another one.
   template <typename OtherNumber>
   explicit constexpr SubstanceAmount(const SubstanceAmount<OtherNumber>& other)
     : SubstanceAmount(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a substance amount by moving another one.
+  /// \brief Move constructor. Constructs a substance amount by moving another one.
   constexpr SubstanceAmount(SubstanceAmount<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this substance amount by copying another one.
+  /// \brief Copy assignment operator. Assigns this substance amount by copying another one.
   constexpr SubstanceAmount<Number>& operator=(const SubstanceAmount<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this substance amount by copying another one.
+  /// \brief Copy assignment operator. Assigns this substance amount by copying another one.
   template <typename OtherNumber>
   constexpr SubstanceAmount<Number>& operator=(const SubstanceAmount<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this substance amount by moving another one.
+  /// \brief Move assignment operator. Assigns this substance amount by moving another one.
   constexpr SubstanceAmount<Number>& operator=(SubstanceAmount<Number>&& other) noexcept = default;
 
-  // Statically creates a substance amount of zero.
+  /// \brief Statically creates a substance amount of zero.
   static constexpr SubstanceAmount<Number> Zero() {
     return SubstanceAmount<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a substance amount with a given value expressed in a given substance amount
-  // unit.
+  /// \brief Statically creates a substance amount with a given value expressed in a given substance
+  /// amount unit.
   template <Unit::SubstanceAmount Unit>
   static constexpr SubstanceAmount<Number> Create(const Number value) {
     return SubstanceAmount<Number>{
@@ -127,8 +127,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a substance amount with a given value expressed in the standard
-  // substance amount unit.
+  /// \brief Constructor. Constructs a substance amount with a given value expressed in the standard
+  /// substance amount unit.
   explicit constexpr SubstanceAmount(const Number value)
     : DimensionalScalar<Unit::SubstanceAmount, Number>(value) {}
 };

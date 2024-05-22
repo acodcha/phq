@@ -56,53 +56,58 @@ class SpecificIsobaricHeatCapacity;
 template <typename Number>
 class ThermalDiffusivity;
 
-// Scalar component or resultant of a thermal conductivity tensor. For materials that are isotropic,
-// thermal conductivity can be represented by a scalar rather than a dyadic tensor. See also
-// PhQ::ThermalConductivity.
+/// \brief Scalar component or resultant of a thermal conductivity tensor. For materials that are
+/// isotropic, thermal conductivity can be represented by a scalar rather than a dyadic tensor. See
+/// also PhQ::ThermalConductivity.
 template <typename Number = double>
 class ScalarThermalConductivity : public DimensionalScalar<Unit::ThermalConductivity, Number> {
 public:
-  // Default constructor. Constructs a scalar thermal conductivity with an uninitialized value.
+  /// \brief Default constructor. Constructs a scalar thermal conductivity with an uninitialized
+  /// value.
   ScalarThermalConductivity() = default;
 
-  // Constructor. Constructs a scalar thermal conductivity with a given value expressed in a given
-  // thermal conductivity unit.
+  /// \brief Constructor. Constructs a scalar thermal conductivity with a given value expressed in a
+  /// given thermal conductivity unit.
   ScalarThermalConductivity(const Number value, const Unit::ThermalConductivity unit)
     : DimensionalScalar<Unit::ThermalConductivity, Number>(value, unit) {}
 
-  // Constructor. Constructs a scalar thermal conductivity from a given mass density, specific
-  // isobaric heat capacity, and thermal diffusivity using the definition of thermal diffusivity.
+  /// \brief Constructor. Constructs a scalar thermal conductivity from a given mass density,
+  /// specific isobaric heat capacity, and thermal diffusivity using the definition of thermal
+  /// diffusivity.
   constexpr ScalarThermalConductivity(
       const MassDensity<Number>& mass_density,
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const ThermalDiffusivity<Number>& thermal_diffusivity);
 
-  // Constructor. Constructs a scalar thermal conductivity from a given specific isobaric heat
-  // capacity, dynamic viscosity, and Prandtl number using the definition of the Prandtl number.
+  /// \brief Constructor. Constructs a scalar thermal conductivity from a given specific isobaric
+  /// heat capacity, dynamic viscosity, and Prandtl number using the definition of the Prandtl
+  /// number.
   constexpr ScalarThermalConductivity(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const DynamicViscosity<Number>& dynamic_viscosity,
       const PrandtlNumber<Number>& prandtl_number);
 
-  // Destructor. Destroys this scalar thermal conductivity.
+  /// \brief Destructor. Destroys this scalar thermal conductivity.
   ~ScalarThermalConductivity() noexcept = default;
 
-  // Copy constructor. Constructs a scalar thermal conductivity by copying another one.
+  /// \brief Copy constructor. Constructs a scalar thermal conductivity by copying another one.
   constexpr ScalarThermalConductivity(const ScalarThermalConductivity<Number>& other) = default;
 
-  // Copy constructor. Constructs a scalar thermal conductivity by copying another one.
+  /// \brief Copy constructor. Constructs a scalar thermal conductivity by copying another one.
   template <typename OtherNumber>
   explicit constexpr ScalarThermalConductivity(const ScalarThermalConductivity<OtherNumber>& other)
     : ScalarThermalConductivity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a scalar thermal conductivity by moving another one.
+  /// \brief Move constructor. Constructs a scalar thermal conductivity by moving another one.
   constexpr ScalarThermalConductivity(ScalarThermalConductivity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar thermal conductivity by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar thermal conductivity by copying another
+  /// one.
   constexpr ScalarThermalConductivity<Number>& operator=(
       const ScalarThermalConductivity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this scalar thermal conductivity by copying another one.
+  /// \brief Copy assignment operator. Assigns this scalar thermal conductivity by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr ScalarThermalConductivity<Number>& operator=(
       const ScalarThermalConductivity<OtherNumber>& other) {
@@ -110,17 +115,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this scalar thermal conductivity by moving another one.
+  /// \brief Move assignment operator. Assigns this scalar thermal conductivity by moving another
+  /// one.
   constexpr ScalarThermalConductivity<Number>& operator=(
       ScalarThermalConductivity<Number>&& other) noexcept = default;
 
-  // Statically creates a scalar thermal conductivity of zero.
+  /// \brief Statically creates a scalar thermal conductivity of zero.
   static constexpr ScalarThermalConductivity<Number> Zero() {
     return ScalarThermalConductivity<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a scalar thermal conductivity with a given value expressed in a given
-  // thermal conductivity unit.
+  /// \brief Statically creates a scalar thermal conductivity with a given value expressed in a
+  /// given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ScalarThermalConductivity<Number> Create(const Number value) {
     return ScalarThermalConductivity<Number>{
@@ -170,8 +176,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar thermal conductivity with a given value expressed in the
-  // standard thermal conductivity unit.
+  /// \brief Constructor. Constructs a scalar thermal conductivity with a given value expressed in
+  /// the standard thermal conductivity unit.
   explicit constexpr ScalarThermalConductivity(const Number value)
     : DimensionalScalar<Unit::ThermalConductivity, Number>(value) {}
 

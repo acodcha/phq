@@ -148,92 +148,93 @@ class Volume;
 template <typename Number>
 class VolumeRate;
 
-// Time. Can represent either a point in time, a time duration, or a period.
+/// \brief Time. Can represent either a point in time, a time duration, or a period.
 template <typename Number = double>
 class Time : public DimensionalScalar<Unit::Time, Number> {
 public:
-  // Default constructor. Constructs a time quantity with an uninitialized value.
+  /// \brief Default constructor. Constructs a time quantity with an uninitialized value.
   Time() = default;
 
-  // Constructor. Constructs a time quantity with a given value expressed in a given time unit.
+  /// \brief Constructor. Constructs a time quantity with a given value expressed in a given time
+  /// unit.
   Time(const Number value, const Unit::Time unit)
     : DimensionalScalar<Unit::Time, Number>(value, unit) {}
 
-  // Constructor. Constructs a time quantity from a given frequency using the definition of
-  // frequency.
+  /// \brief Constructor. Constructs a time quantity from a given frequency using the definition of
+  /// frequency.
   explicit constexpr Time(const PhQ::Frequency<Number>& frequency);
 
-  // Constructor. Constructs a time quantity from a given speed and scalar acceleration using the
-  // definition of acceleration.
+  /// \brief Constructor. Constructs a time quantity from a given speed and scalar acceleration
+  /// using the definition of acceleration.
   constexpr Time(const Speed<Number>& speed, const ScalarAcceleration<Number>& scalar_acceleration);
 
-  // Constructor. Constructs a time quantity from a given angular speed and scalar angular
-  // acceleration using the definition of angular acceleration.
+  /// \brief Constructor. Constructs a time quantity from a given angular speed and scalar angular
+  /// acceleration using the definition of angular acceleration.
   constexpr Time(const AngularSpeed<Number>& angular_speed,
                  const ScalarAngularAcceleration<Number>& scalar_angular_acceleration);
 
-  // Constructor. Constructs a time quantity from a given angle and angular speed using the
-  // definition of angular speed.
+  /// \brief Constructor. Constructs a time quantity from a given angle and angular speed using the
+  /// definition of angular speed.
   constexpr Time(const Angle<Number>& angle, const AngularSpeed<Number>& angular_speed);
 
-  // Constructor. Constructs a time quantity from a given mass and mass rate using the definition of
-  // mass rate.
+  /// \brief Constructor. Constructs a time quantity from a given mass and mass rate using the
+  /// definition of mass rate.
   constexpr Time(const Mass<Number>& mass, const MassRate<Number>& mass_rate);
 
-  // Constructor. Constructs a time quantity from a given memory and memory rate using the
-  // definition of memory rate.
+  /// \brief Constructor. Constructs a time quantity from a given memory and memory rate using the
+  /// definition of memory rate.
   constexpr Time(const Memory<Number>& memory, const MemoryRate<Number>& memory_rate);
 
-  // Constructor. Constructs a time quantity from a given energy and power using the definition of
-  // power.
+  /// \brief Constructor. Constructs a time quantity from a given energy and power using the
+  /// definition of power.
   constexpr Time(const Energy<Number>& energy, const Power<Number>& power);
 
-  // Constructor. Constructs a time quantity from a given specific energy and specific power using
-  // the definition of specific power.
+  /// \brief Constructor. Constructs a time quantity from a given specific energy and specific power
+  /// using the definition of specific power.
   constexpr Time(
       const SpecificEnergy<Number>& specific_energy, const SpecificPower<Number>& specific_power);
 
-  // Constructor. Constructs a time quantity from a given length and speed using the definition of
-  // speed.
+  /// \brief Constructor. Constructs a time quantity from a given length and speed using the
+  /// definition of speed.
   constexpr Time(const Length<Number>& length, const Speed<Number>& speed);
 
-  // Constructor. Constructs a time quantity from a given volume and volume rate using the
-  // definition of volume rate.
+  /// \brief Constructor. Constructs a time quantity from a given volume and volume rate using the
+  /// definition of volume rate.
   constexpr Time(const Volume<Number>& volume, const VolumeRate<Number>& volume_rate);
 
-  // Destructor. Destroys this time quantity.
+  /// \brief Destructor. Destroys this time quantity.
   ~Time() noexcept = default;
 
-  // Copy constructor. Constructs a time quantity by copying another one.
+  /// \brief Copy constructor. Constructs a time quantity by copying another one.
   constexpr Time(const Time<Number>& other) = default;
 
-  // Copy constructor. Constructs a time quantity by copying another one.
+  /// \brief Copy constructor. Constructs a time quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr Time(const Time<OtherNumber>& other)
     : Time(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a time quantity by moving another one.
+  /// \brief Move constructor. Constructs a time quantity by moving another one.
   constexpr Time(Time<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this time quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this time quantity by copying another one.
   constexpr Time<Number>& operator=(const Time<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this time quantity by copying another one.
+  /// \brief Copy assignment operator. Assigns this time quantity by copying another one.
   template <typename OtherNumber>
   constexpr Time<Number>& operator=(const Time<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this time quantity by moving another one.
+  /// \brief Move assignment operator. Assigns this time quantity by moving another one.
   constexpr Time<Number>& operator=(Time<Number>&& other) noexcept = default;
 
-  // Statically creates a time quantity of zero.
+  /// \brief Statically creates a time quantity of zero.
   static constexpr Time<Number> Zero() {
     return Time<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a time quantity with a given value expressed in a given time unit.
+  /// \brief Statically creates a time quantity with a given value expressed in a given time unit.
   template <Unit::Time Unit>
   static constexpr Time<Number> Create(const Number value) {
     return Time<Number>{StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
@@ -305,7 +306,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a time quantity with a given value expressed in the standard time unit.
+  /// \brief Constructor. Constructs a time quantity with a given value expressed in the standard
+  /// time unit.
   explicit constexpr Time(const Number value) : DimensionalScalar<Unit::Time>(value) {}
 };
 

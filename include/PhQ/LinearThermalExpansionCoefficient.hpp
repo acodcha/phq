@@ -38,45 +38,48 @@
 
 namespace PhQ {
 
-// Linear thermal expansion coefficient. Not to be confused with the volumetric thermal expansion
-// coefficient. For isotropic materials, the volumetric thermal expansion coefficient is usually
-// three times the linear thermal expansion coefficient.
+/// \brief Linear thermal expansion coefficient. Not to be confused with the volumetric thermal
+/// expansion coefficient. For isotropic materials, the volumetric thermal expansion coefficient is
+/// usually three times the linear thermal expansion coefficient.
 template <typename Number = double>
 class LinearThermalExpansionCoefficient : public DimensionalScalar<Unit::ThermalExpansion, Number> {
 public:
-  // Default constructor. Constructs a linear thermal expansion coefficient with an uninitialized
-  // value.
+  /// \brief Default constructor. Constructs a linear thermal expansion coefficient with an
+  /// uninitialized value.
   LinearThermalExpansionCoefficient() = default;
 
-  // Constructor. Constructs a linear thermal expansion coefficient with a given value expressed in
-  // a given thermal expansion unit.
+  /// \brief Constructor. Constructs a linear thermal expansion coefficient with a given value
+  /// expressed in a given thermal expansion unit.
   LinearThermalExpansionCoefficient(const Number value, const Unit::ThermalExpansion unit)
     : DimensionalScalar<Unit::ThermalExpansion, Number>(value, unit) {}
 
-  // Destructor. Destroys this linear thermal expansion coefficient.
+  /// \brief Destructor. Destroys this linear thermal expansion coefficient.
   ~LinearThermalExpansionCoefficient() noexcept = default;
 
-  // Copy constructor. Constructs a linear thermal expansion coefficient by copying another one.
+  /// \brief Copy constructor. Constructs a linear thermal expansion coefficient by copying another
+  /// one.
   constexpr LinearThermalExpansionCoefficient(
       const LinearThermalExpansionCoefficient<Number>& other) = default;
 
-  // Copy constructor. Constructs a linear thermal expansion coefficient by copying another one.
+  /// \brief Copy constructor. Constructs a linear thermal expansion coefficient by copying another
+  /// one.
   template <typename OtherNumber>
   explicit constexpr LinearThermalExpansionCoefficient(
       const LinearThermalExpansionCoefficient<OtherNumber>& other)
     : LinearThermalExpansionCoefficient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a linear thermal expansion coefficient by moving another one.
+  /// \brief Move constructor. Constructs a linear thermal expansion coefficient by moving another
+  /// one.
   constexpr LinearThermalExpansionCoefficient(
       LinearThermalExpansionCoefficient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this linear thermal expansion coefficient by copying another
-  // one.
+  /// \brief Copy assignment operator. Assigns this linear thermal expansion coefficient by copying
+  /// another one.
   constexpr LinearThermalExpansionCoefficient<Number>& operator=(
       const LinearThermalExpansionCoefficient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this linear thermal expansion coefficient by copying another
-  // one.
+  /// \brief Copy assignment operator. Assigns this linear thermal expansion coefficient by copying
+  /// another one.
   template <typename OtherNumber>
   constexpr LinearThermalExpansionCoefficient<Number>& operator=(
       const LinearThermalExpansionCoefficient<OtherNumber>& other) {
@@ -84,18 +87,18 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this linear thermal expansion coefficient by moving another
-  // one.
+  /// \brief Move assignment operator. Assigns this linear thermal expansion coefficient by moving
+  /// another one.
   constexpr LinearThermalExpansionCoefficient<Number>& operator=(
       LinearThermalExpansionCoefficient<Number>&& other) noexcept = default;
 
-  // Statically creates a linear thermal expansion coefficient of zero.
+  /// \brief Statically creates a linear thermal expansion coefficient of zero.
   static constexpr LinearThermalExpansionCoefficient<Number> Zero() {
     return LinearThermalExpansionCoefficient<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a linear thermal expansion coefficient with a given value expressed in a
-  // given thermal expansion unit.
+  /// \brief Statically creates a linear thermal expansion coefficient with a given value expressed
+  /// in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
   static constexpr LinearThermalExpansionCoefficient<Number> Create(const Number value) {
     return LinearThermalExpansionCoefficient<Number>{
@@ -152,8 +155,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a linear thermal expansion coefficient with a given value expressed in
-  // the standard thermal expansion unit.
+  /// \brief Constructor. Constructs a linear thermal expansion coefficient with a given value
+  /// expressed in the standard thermal expansion unit.
   explicit constexpr LinearThermalExpansionCoefficient(const Number value)
     : DimensionalScalar<Unit::ThermalExpansion, Number>(value) {}
 };

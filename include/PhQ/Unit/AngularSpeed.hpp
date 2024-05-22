@@ -51,62 +51,62 @@ namespace PhQ {
 
 namespace Unit {
 
-// Angular speed units.
+/// \brief Angular speed units.
 enum class AngularSpeed : int8_t {
-  // Radian per second (rad/s) angular speed unit.
+  /// \brief Radian per second (rad/s) angular speed unit.
   RadianPerSecond,
 
-  // Radian per minute (rad/min) angular speed unit.
+  /// \brief Radian per minute (rad/min) angular speed unit.
   RadianPerMinute,
 
-  // Radian per hour (rad/hr) angular speed unit.
+  /// \brief Radian per hour (rad/hr) angular speed unit.
   RadianPerHour,
 
-  // Degree per second (deg/s) angular speed unit.
+  /// \brief Degree per second (deg/s) angular speed unit.
   DegreePerSecond,
 
-  // Degree per minute (deg/min) angular speed unit.
+  /// \brief Degree per minute (deg/min) angular speed unit.
   DegreePerMinute,
 
-  // Degree per hour (deg/hr) angular speed unit.
+  /// \brief Degree per hour (deg/hr) angular speed unit.
   DegreePerHour,
 
-  // Arcminute per second (arcmin/s) angular speed unit.
+  /// \brief Arcminute per second (arcmin/s) angular speed unit.
   ArcminutePerSecond,
 
-  // Arcminute per minute (arcmin/min) angular speed unit.
+  /// \brief Arcminute per minute (arcmin/min) angular speed unit.
   ArcminutePerMinute,
 
-  // Arcminute per hour (arcmin/hr) angular speed unit.
+  /// \brief Arcminute per hour (arcmin/hr) angular speed unit.
   ArcminutePerHour,
 
-  // Arcsecond per second (arcsec/s) angular speed unit.
+  /// \brief Arcsecond per second (arcsec/s) angular speed unit.
   ArcsecondPerSecond,
 
-  // Arcsecond per minute (arcsec/min) angular speed unit.
+  /// \brief Arcsecond per minute (arcsec/min) angular speed unit.
   ArcsecondPerMinute,
 
-  // Arcsecond per hour (arcsec/hr) angular speed unit.
+  /// \brief Arcsecond per hour (arcsec/hr) angular speed unit.
   ArcsecondPerHour,
 
-  // Revolution per second (rev/s) angular speed unit.
+  /// \brief Revolution per second (rev/s) angular speed unit.
   RevolutionPerSecond,
 
-  // Revolution per minute (rev/min) angular speed unit.
+  /// \brief Revolution per minute (rev/min) angular speed unit.
   RevolutionPerMinute,
 
-  // Revolution per hour (rev/hr) angular speed unit.
+  /// \brief Revolution per hour (rev/hr) angular speed unit.
   RevolutionPerHour,
 };
 
 }  // namespace Unit
 
-// Standard angular speed unit: radian per second (rad/s).
+/// \brief Standard angular speed unit: radian per second (rad/s).
 template <>
 inline constexpr const Unit::AngularSpeed Standard<Unit::AngularSpeed>{
     Unit::AngularSpeed::RadianPerSecond};
 
-// Physical dimension set of angular speed units.
+/// \brief Physical dimension set of angular speed units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::AngularSpeed>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{0},

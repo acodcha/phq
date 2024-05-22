@@ -44,103 +44,103 @@
 
 namespace PhQ {
 
-// Constitutive model for an incompressible Newtonian fluid. This is the simplest constitutive model
-// for a fluid. The viscous stress tensor at a point is a linear function of only the local strain
-// rate tensor at that point.
+/// \brief Constitutive model for an incompressible Newtonian fluid. This is the simplest
+/// constitutive model for a fluid. The viscous stress tensor at a point is a linear function of
+/// only the local strain rate tensor at that point.
 template <typename Number = double>
 class ConstitutiveModel::IncompressibleNewtonianFluid : public ConstitutiveModel {
 public:
-  // Default constructor. Constructs an incompressible Newtonian fluid constitutive model with an
-  // uninitialized dynamic viscosity.
+  /// \brief Default constructor. Constructs an incompressible Newtonian fluid constitutive model
+  /// with an uninitialized dynamic viscosity.
   IncompressibleNewtonianFluid() : ConstitutiveModel() {}
 
-  // Constructor. Constructs an incompressible Newtonian fluid constitutive model from a given
-  // dynamic viscosity.
+  /// \brief Constructor. Constructs an incompressible Newtonian fluid constitutive model from a
+  /// given dynamic viscosity.
   explicit constexpr IncompressibleNewtonianFluid(const DynamicViscosity<Number>& dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity) {}
 
-  // Destructor. Destroys this incompressible Newtonian fluid constitutive model.
+  /// \brief Destructor. Destroys this incompressible Newtonian fluid constitutive model.
   ~IncompressibleNewtonianFluid() noexcept override = default;
 
-  // Copy constructor. Constructs an incompressible Newtonian fluid constitutive model by copying
-  // another one.
+  /// \brief Copy constructor. Constructs an incompressible Newtonian fluid constitutive model by
+  /// copying another one.
   constexpr IncompressibleNewtonianFluid(const IncompressibleNewtonianFluid& other) = default;
 
-  // Move constructor. Constructs an incompressible Newtonian fluid constitutive model by moving
-  // another one.
+  /// \brief Move constructor. Constructs an incompressible Newtonian fluid constitutive model by
+  /// moving another one.
   constexpr IncompressibleNewtonianFluid(IncompressibleNewtonianFluid&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this incompressible Newtonian fluid constitutive model by
-  // copying another one.
+  /// \brief Copy assignment operator. Assigns this incompressible Newtonian fluid constitutive
+  /// model by copying another one.
   IncompressibleNewtonianFluid& operator=(const IncompressibleNewtonianFluid& other) = default;
 
-  // Move assignment operator. Assigns this incompressible Newtonian fluid constitutive model by
-  // moving another one.
+  /// \brief Move assignment operator. Assigns this incompressible Newtonian fluid constitutive
+  /// model by moving another one.
   IncompressibleNewtonianFluid& operator=(IncompressibleNewtonianFluid&& other) noexcept = default;
 
-  // Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
+  /// \brief Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::DynamicViscosity<Number>&
   DynamicViscosity() const noexcept {
     return dynamic_viscosity;
   }
 
-  // Returns this constitutive model's type.
+  /// \brief Returns this constitutive model's type.
   [[nodiscard]] inline ConstitutiveModel::Type GetType() const noexcept override {
     return ConstitutiveModel::Type::IncompressibleNewtonianFluid;
   }
 
-  // Returns the stress resulting from a given strain and strain rate. Since this is an
-  // incompressible Newtonian fluid constitutive model, the strain does not contribute to the stress
-  // and is ignored.
+  /// \brief Returns the stress resulting from a given strain and strain rate. Since this is an
+  /// incompressible Newtonian fluid constitutive model, the strain does not contribute to the
+  /// stress and is ignored.
   [[nodiscard]] inline PhQ::Stress<float> Stress(
       const PhQ::Strain<float>& /*strain*/,
       const PhQ::StrainRate<float>& strain_rate) const override {
     return this->Stress(strain_rate);
   }
 
-  // Returns the stress resulting from a given strain and strain rate. Since this is an
-  // incompressible Newtonian fluid constitutive model, the strain does not contribute to the stress
-  // and is ignored.
+  /// \brief Returns the stress resulting from a given strain and strain rate. Since this is an
+  /// incompressible Newtonian fluid constitutive model, the strain does not contribute to the
+  /// stress and is ignored.
   [[nodiscard]] inline PhQ::Stress<double> Stress(
       const PhQ::Strain<double>& /*strain*/,
       const PhQ::StrainRate<double>& strain_rate) const override {
     return this->Stress(strain_rate);
   }
 
-  // Returns the stress resulting from a given strain and strain rate. Since this is an
-  // incompressible Newtonian fluid constitutive model, the strain does not contribute to the stress
-  // and is ignored.
+  /// \brief Returns the stress resulting from a given strain and strain rate. Since this is an
+  /// incompressible Newtonian fluid constitutive model, the strain does not contribute to the
+  /// stress and is ignored.
   [[nodiscard]] inline PhQ::Stress<long double> Stress(
       const PhQ::Strain<long double>& /*strain*/,
       const PhQ::StrainRate<long double>& strain_rate) const override {
     return this->Stress(strain_rate);
   }
 
-  // Returns the stress resulting from a given strain. Since this is an incompressible Newtonian
-  // fluid constitutive model, the strain does not contribute to the stress, so this always returns
-  // a stress of zero.
+  /// \brief Returns the stress resulting from a given strain. Since this is an incompressible
+  /// Newtonian fluid constitutive model, the strain does not contribute to the stress, so this
+  /// always returns a stress of zero.
   [[nodiscard]] inline PhQ::Stress<float> Stress(
       const PhQ::Strain<float>& /*strain*/) const override {
     return PhQ::Stress<float>::Zero();
   }
 
-  // Returns the stress resulting from a given strain. Since this is an incompressible Newtonian
-  // fluid constitutive model, the strain does not contribute to the stress, so this always returns
-  // a stress of zero.
+  /// \brief Returns the stress resulting from a given strain. Since this is an incompressible
+  /// Newtonian fluid constitutive model, the strain does not contribute to the stress, so this
+  /// always returns a stress of zero.
   [[nodiscard]] inline PhQ::Stress<double> Stress(
       const PhQ::Strain<double>& /*strain*/) const override {
     return PhQ::Stress<double>::Zero();
   }
 
-  // Returns the stress resulting from a given strain. Since this is an incompressible Newtonian
-  // fluid constitutive model, the strain does not contribute to the stress, so this always returns
-  // a stress of zero.
+  /// \brief Returns the stress resulting from a given strain. Since this is an incompressible
+  /// Newtonian fluid constitutive model, the strain does not contribute to the stress, so this
+  /// always returns a stress of zero.
   [[nodiscard]] inline PhQ::Stress<long double> Stress(
       const PhQ::Strain<long double>& /*strain*/) const override {
     return PhQ::Stress<long double>::Zero();
   }
 
-  // Returns the stress resulting from a given strain rate.
+  /// \brief Returns the stress resulting from a given strain rate.
   [[nodiscard]] inline PhQ::Stress<float> Stress(
       const PhQ::StrainRate<float>& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
@@ -149,7 +149,7 @@ public:
                               Standard<PhQ::Unit::Pressure>};
   }
 
-  // Returns the stress resulting from a given strain rate.
+  /// \brief Returns the stress resulting from a given strain rate.
   [[nodiscard]] inline PhQ::Stress<double> Stress(
       const PhQ::StrainRate<double>& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
@@ -159,7 +159,7 @@ public:
         Standard<PhQ::Unit::Pressure>};
   }
 
-  // Returns the stress resulting from a given strain rate.
+  /// \brief Returns the stress resulting from a given strain rate.
   [[nodiscard]] inline PhQ::Stress<long double> Stress(
       const PhQ::StrainRate<long double>& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
@@ -169,31 +169,31 @@ public:
         Standard<PhQ::Unit::Pressure>};
   }
 
-  // Returns the strain resulting from a given stress. Since this is an incompressible Newtonian
-  // fluid constitutive model, stress does not depend on strain, so this always returns a strain of
-  // zero.
+  /// \brief Returns the strain resulting from a given stress. Since this is an incompressible
+  /// Newtonian fluid constitutive model, stress does not depend on strain, so this always returns a
+  /// strain of zero.
   [[nodiscard]] inline PhQ::Strain<float> Strain(
       const PhQ::Stress<float>& /*stress*/) const override {
     return PhQ::Strain<float>::Zero();
   }
 
-  // Returns the strain resulting from a given stress. Since this is an incompressible Newtonian
-  // fluid constitutive model, stress does not depend on strain, so this always returns a strain of
-  // zero.
+  /// \brief Returns the strain resulting from a given stress. Since this is an incompressible
+  /// Newtonian fluid constitutive model, stress does not depend on strain, so this always returns a
+  /// strain of zero.
   [[nodiscard]] inline PhQ::Strain<double> Strain(
       const PhQ::Stress<double>& /*stress*/) const override {
     return PhQ::Strain<double>::Zero();
   }
 
-  // Returns the strain resulting from a given stress. Since this is an incompressible Newtonian
-  // fluid constitutive model, stress does not depend on strain, so this always returns a strain of
-  // zero.
+  /// \brief Returns the strain resulting from a given stress. Since this is an incompressible
+  /// Newtonian fluid constitutive model, stress does not depend on strain, so this always returns a
+  /// strain of zero.
   [[nodiscard]] inline PhQ::Strain<long double> Strain(
       const PhQ::Stress<long double>& /*stress*/) const override {
     return PhQ::Strain<long double>::Zero();
   }
 
-  // Returns the strain rate resulting from a given stress.
+  /// \brief Returns the strain rate resulting from a given stress.
   [[nodiscard]] inline PhQ::StrainRate<float> StrainRate(
       const PhQ::Stress<float>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
@@ -203,7 +203,7 @@ public:
         Standard<PhQ::Unit::Frequency>};
   }
 
-  // Returns the strain rate resulting from a given stress.
+  /// \brief Returns the strain rate resulting from a given stress.
   [[nodiscard]] inline PhQ::StrainRate<double> StrainRate(
       const PhQ::Stress<double>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
@@ -213,7 +213,7 @@ public:
         Standard<PhQ::Unit::Frequency>};
   }
 
-  // Returns the strain rate resulting from a given stress.
+  /// \brief Returns the strain rate resulting from a given stress.
   [[nodiscard]] inline PhQ::StrainRate<long double> StrainRate(
       const PhQ::Stress<long double>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
@@ -223,32 +223,32 @@ public:
         Standard<PhQ::Unit::Frequency>};
   }
 
-  // Prints this incompressible Newtonian fluid constitutive model as a string.
+  /// \brief Prints this incompressible Newtonian fluid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(this->GetType())}
             + ", Dynamic Viscosity = " + dynamic_viscosity.Print()};
   }
 
-  // Serializes this incompressible Newtonian fluid constitutive model as a JSON message.
+  /// \brief Serializes this incompressible Newtonian fluid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
     return {R"({"type":")" + SnakeCaseCopy(Abbreviation(this->GetType()))
             + R"(","dynamic_viscosity":)" + dynamic_viscosity.JSON() + "}"};
   }
 
-  // Serializes this incompressible Newtonian fluid constitutive model as an XML message.
+  /// \brief Serializes this incompressible Newtonian fluid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(this->GetType())) + "</type><dynamic_viscosity>"
             + dynamic_viscosity.XML() + "</dynamic_viscosity>"};
   }
 
-  // Serializes this incompressible Newtonian fluid constitutive model as a YAML message.
+  /// \brief Serializes this incompressible Newtonian fluid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(this->GetType()))
             + "\",dynamic_viscosity:" + dynamic_viscosity.YAML() + "}"};
   }
 
 private:
-  // Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
+  /// \brief Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
   PhQ::DynamicViscosity<Number> dynamic_viscosity;
 };
 

@@ -50,74 +50,74 @@ class ScalarThermalConductivity;
 template <typename Number>
 class SpecificIsobaricHeatCapacity;
 
-// Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic viscosity is the
-// relationship between the viscous stress of a material and its corresponding strain rate. Not to
-// be confused with kinematic viscosity, which is dynamic viscosity divided by mass density.
+/// \brief Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic viscosity is the
+/// relationship between the viscous stress of a material and its corresponding strain rate. Not to
+/// be confused with kinematic viscosity, which is dynamic viscosity divided by mass density.
 template <typename Number = double>
 class DynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, Number> {
 public:
-  // Default constructor. Constructs a dynamic viscosity with an uninitialized value.
+  /// \brief Default constructor. Constructs a dynamic viscosity with an uninitialized value.
   DynamicViscosity() = default;
 
-  // Constructor. Constructs a dynamic viscosity with a given value expressed in a given dynamic
-  // viscosity unit.
+  /// \brief Constructor. Constructs a dynamic viscosity with a given value expressed in a given
+  /// dynamic viscosity unit.
   DynamicViscosity(const Number value, const Unit::DynamicViscosity unit)
     : DimensionalScalar<Unit::DynamicViscosity, Number>(value, unit) {}
 
-  // Constructor. Constructs a dynamic viscosity from a given mass density and kinematic viscosity
-  // using the definition of kinematic viscosity.
+  /// \brief Constructor. Constructs a dynamic viscosity from a given mass density and kinematic
+  /// viscosity using the definition of kinematic viscosity.
   constexpr DynamicViscosity(const MassDensity<Number>& mass_density,
                              const KinematicViscosity<Number>& kinematic_viscosity)
     : DynamicViscosity<Number>(mass_density.Value() * kinematic_viscosity.Value()) {}
 
-  // Constructor. Constructs a dynamic viscosity from a given mass density, speed, length, and
-  // Reynolds number using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a dynamic viscosity from a given mass density, speed, length,
+  /// and Reynolds number using the definition of the Reynolds number.
   constexpr DynamicViscosity(
       const MassDensity<Number>& mass_density, const Speed<Number>& speed,
       const Length<Number>& length, const ReynoldsNumber<Number>& reynolds_number);
 
-  // Constructor. Constructs a dynamic viscosity from a given Prandtl number, scalar thermal
-  // conductivity, and specific isobaric heat capacity using the definition of the Prandtl number.
+  /// \brief Constructor. Constructs a dynamic viscosity from a given Prandtl number, scalar thermal
+  /// conductivity, and specific isobaric heat capacity using the definition of the Prandtl number.
   constexpr DynamicViscosity(
       const PrandtlNumber<Number>& prandtl_number,
       const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity);
 
-  // Destructor. Destroys this dynamic viscosity.
+  /// \brief Destructor. Destroys this dynamic viscosity.
   ~DynamicViscosity() noexcept = default;
 
-  // Copy constructor. Constructs a dynamic viscosity by copying another one.
+  /// \brief Copy constructor. Constructs a dynamic viscosity by copying another one.
   constexpr DynamicViscosity(const DynamicViscosity<Number>& other) = default;
 
-  // Copy constructor. Constructs a dynamic viscosity by copying another one.
+  /// \brief Copy constructor. Constructs a dynamic viscosity by copying another one.
   template <typename OtherNumber>
   explicit constexpr DynamicViscosity(const DynamicViscosity<OtherNumber>& other)
     : DynamicViscosity(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a dynamic viscosity by moving another one.
+  /// \brief Move constructor. Constructs a dynamic viscosity by moving another one.
   constexpr DynamicViscosity(DynamicViscosity<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this dynamic viscosity by copying another one.
+  /// \brief Copy assignment operator. Assigns this dynamic viscosity by copying another one.
   constexpr DynamicViscosity<Number>& operator=(const DynamicViscosity<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this dynamic viscosity by copying another one.
+  /// \brief Copy assignment operator. Assigns this dynamic viscosity by copying another one.
   template <typename OtherNumber>
   constexpr DynamicViscosity<Number>& operator=(const DynamicViscosity<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this dynamic viscosity by moving another one.
+  /// \brief Move assignment operator. Assigns this dynamic viscosity by moving another one.
   constexpr DynamicViscosity<Number>& operator=(
       DynamicViscosity<Number>&& other) noexcept = default;
 
-  // Statically creates a dynamic viscosity of zero.
+  /// \brief Statically creates a dynamic viscosity of zero.
   static constexpr DynamicViscosity<Number> Zero() {
     return DynamicViscosity<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a dynamic viscosity with a given value expressed in a given dynamic
-  // viscosity unit.
+  /// \brief Statically creates a dynamic viscosity with a given value expressed in a given dynamic
+  /// viscosity unit.
   template <Unit::DynamicViscosity Unit>
   static constexpr DynamicViscosity<Number> Create(const Number value) {
     return DynamicViscosity<Number>{
@@ -172,8 +172,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a dynamic viscosity with a given value expressed in the standard
-  // dynamic viscosity unit.
+  /// \brief Constructor. Constructs a dynamic viscosity with a given value expressed in the
+  /// standard dynamic viscosity unit.
   explicit constexpr DynamicViscosity(const Number value)
     : DimensionalScalar<Unit::DynamicViscosity, Number>(value) {}
 };

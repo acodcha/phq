@@ -51,34 +51,34 @@ namespace PhQ {
 
 namespace Unit {
 
-// Frequency units.
+/// \brief Frequency units.
 enum class Frequency : int8_t {
-  // Hertz (Hz) frequency unit.
+  /// \brief Hertz (Hz) frequency unit.
   Hertz,
 
-  // Kilohertz (kHz) frequency unit.
+  /// \brief Kilohertz (kHz) frequency unit.
   Kilohertz,
 
-  // Megahertz (MHz) frequency unit.
+  /// \brief Megahertz (MHz) frequency unit.
   Megahertz,
 
-  // Gigahertz (GHz) frequency unit.
+  /// \brief Gigahertz (GHz) frequency unit.
   Gigahertz,
 
-  // Per minute (/min) frequency unit.
+  /// \brief Per minute (/min) frequency unit.
   PerMinute,
 
-  // Per hour (/hr) frequency unit.
+  /// \brief Per hour (/hr) frequency unit.
   PerHour,
 };
 
 }  // namespace Unit
 
-// Standard frequency unit: hertz (Hz).
+/// \brief Standard frequency unit: hertz (Hz).
 template <>
 inline constexpr const Unit::Frequency Standard<Unit::Frequency>{Unit::Frequency::Hertz};
 
-// Physical dimension set of frequency units.
+/// \brief Physical dimension set of frequency units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Frequency>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{0},

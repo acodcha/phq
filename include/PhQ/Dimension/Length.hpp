@@ -36,49 +36,52 @@
 
 namespace PhQ::Dimension {
 
-// Base physical dimension of length. Typically denoted "L". One of seven independent base physical
-// dimensions that form the physical dimension set of any unit of measure or physical quantity.
+/// \brief Base physical dimension of length. Typically denoted "L". One of seven independent base
+/// physical dimensions that form the physical dimension set of any unit of measure or physical
+/// quantity.
 class Length {
 public:
-  // Default constructor. Constructs a base physical dimension of length with a value of zero.
+  /// \brief Default constructor. Constructs a base physical dimension of length with a value of
+  /// zero.
   constexpr Length() = default;
 
-  // Constructor. Constructs a base physical dimension of length with a given value.
+  /// \brief Constructor. Constructs a base physical dimension of length with a given value.
   explicit constexpr Length(const int8_t value) : value(value) {}
 
-  // Destructor. Destroys this base physical dimension of length.
+  /// \brief Destructor. Destroys this base physical dimension of length.
   ~Length() noexcept = default;
 
-  // Copy constructor. Constructs a base physical dimension of length by copying another one.
+  /// \brief Copy constructor. Constructs a base physical dimension of length by copying another
+  /// one.
   constexpr Length(const Length& other) = default;
 
-  // Copy assignment operator. Assigns the value of this base physical dimension of length by
-  // copying from another one.
+  /// \brief Copy assignment operator. Assigns the value of this base physical dimension of length
+  /// by copying from another one.
   constexpr Length& operator=(const Length& other) = default;
 
-  // Move constructor. Constructs a base physical dimension of length by moving another one.
+  /// \brief Move constructor. Constructs a base physical dimension of length by moving another one.
   constexpr Length(Length&& other) noexcept = default;
 
-  // Move assignment operator. Assigns the value of this base physical dimension of length by moving
-  // another one.
+  /// \brief Move assignment operator. Assigns the value of this base physical dimension of length
+  /// by moving another one.
   constexpr Length& operator=(Length&& other) noexcept = default;
 
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   [[nodiscard]] constexpr int8_t Value() const noexcept {
     return value;
   }
 
-  // Abbreviation of this base physical dimension.
+  /// \brief Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept {
     return "L";
   }
 
-  // Label of this base physical dimension.
+  /// \brief Label of this base physical dimension.
   static std::string_view Label() noexcept {
     return "Length";
   }
 
-  // Prints this base physical dimension as a string.
+  /// \brief Prints this base physical dimension as a string.
   [[nodiscard]] std::string Print() const noexcept {
     if (value == 0) {
       return {};
@@ -93,7 +96,7 @@ public:
   }
 
 private:
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   int8_t value{0};
 };
 

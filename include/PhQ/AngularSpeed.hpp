@@ -43,73 +43,74 @@ namespace PhQ {
 template <typename Number>
 class ScalarAngularAcceleration;
 
-// Planar angular speed component or magnitude of an angular velocity pseudovector. Time rate of
-// change of an angle. Typically measured in radians per second. Can also represent a circular
-// frequency.
+/// \brief Planar angular speed component or magnitude of an angular velocity pseudovector. Time
+/// rate of change of an angle. Typically measured in radians per second. Can also represent a
+/// circular frequency.
 template <typename Number = double>
 class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed, Number> {
 public:
-  // Default constructor. Constructs an angular speed with an uninitialized value.
+  /// \brief Default constructor. Constructs an angular speed with an uninitialized value.
   AngularSpeed() = default;
 
-  // Constructor. Constructs an angular speed with a given value expressed in a given angular speed
-  // unit.
+  /// \brief Constructor. Constructs an angular speed with a given value expressed in a given
+  /// angular speed unit.
   AngularSpeed(const Number value, const Unit::AngularSpeed unit)
     : DimensionalScalar<Unit::AngularSpeed, Number>(value, unit) {}
 
-  // Constructor. Constructs an angular speed from a given angle and time using the definition of
-  // angular speed.
+  /// \brief Constructor. Constructs an angular speed from a given angle and time using the
+  /// definition of angular speed.
   constexpr AngularSpeed(const Angle<Number>& angle, const Time<Number>& time)
     : AngularSpeed<Number>(angle.Value() / time.Value()) {}
 
-  // Constructor. Constructs an angular speed from a given angle and frequency using the definition
-  // of angular speed.
+  /// \brief Constructor. Constructs an angular speed from a given angle and frequency using the
+  /// definition of angular speed.
   constexpr AngularSpeed(const Angle<Number>& angle, const Frequency<Number>& frequency)
     : AngularSpeed<Number>(angle.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs an angular speed from a given scalar angular acceleration and time
-  // using the definition of angular acceleration.
+  /// \brief Constructor. Constructs an angular speed from a given scalar angular acceleration and
+  /// time using the definition of angular acceleration.
   constexpr AngularSpeed(const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
                          const Time<Number>& time);
 
-  // Constructor. Constructs an angular speed from a given scalar angular acceleration and frequency
-  // using the definition of angular acceleration.
+  /// \brief Constructor. Constructs an angular speed from a given scalar angular acceleration and
+  /// frequency using the definition of angular acceleration.
   constexpr AngularSpeed(const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
                          const Frequency<Number>& frequency);
 
-  // Destructor. Destroys this angular speed.
+  /// \brief Destructor. Destroys this angular speed.
   ~AngularSpeed() noexcept = default;
 
-  // Copy constructor. Constructs an angular speed by copying another one.
+  /// \brief Copy constructor. Constructs an angular speed by copying another one.
   constexpr AngularSpeed(const AngularSpeed<Number>& other) = default;
 
-  // Copy constructor. Constructs an angular speed by copying another one.
+  /// \brief Copy constructor. Constructs an angular speed by copying another one.
   template <typename OtherNumber>
   explicit constexpr AngularSpeed(const AngularSpeed<OtherNumber>& other)
     : AngularSpeed(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs an angular speed by moving another one.
+  /// \brief Move constructor. Constructs an angular speed by moving another one.
   constexpr AngularSpeed(AngularSpeed<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this angular speed by copying another one.
+  /// \brief Copy assignment operator. Assigns this angular speed by copying another one.
   constexpr AngularSpeed<Number>& operator=(const AngularSpeed<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this angular speed by copying another one.
+  /// \brief Copy assignment operator. Assigns this angular speed by copying another one.
   template <typename OtherNumber>
   constexpr AngularSpeed<Number>& operator=(const AngularSpeed<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this angular speed by moving another one.
+  /// \brief Move assignment operator. Assigns this angular speed by moving another one.
   constexpr AngularSpeed<Number>& operator=(AngularSpeed<Number>&& other) noexcept = default;
 
-  // Statically creates an angular speed of zero.
+  /// \brief Statically creates an angular speed of zero.
   static constexpr AngularSpeed<Number> Zero() {
     return AngularSpeed<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates an angular speed with a given value expressed in a given angular speed unit.
+  /// \brief Statically creates an angular speed with a given value expressed in a given angular
+  /// speed unit.
   template <Unit::AngularSpeed Unit>
   static constexpr AngularSpeed<Number> Create(const Number value) {
     return AngularSpeed<Number>{
@@ -172,8 +173,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs an angular speed with a given value expressed in the standard angular
-  // speed unit.
+  /// \brief Constructor. Constructs an angular speed with a given value expressed in the standard
+  /// angular speed unit.
   explicit constexpr AngularSpeed(const Number value)
     : DimensionalScalar<Unit::AngularSpeed, Number>(value) {}
 };

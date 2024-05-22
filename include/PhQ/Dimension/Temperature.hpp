@@ -36,50 +36,53 @@
 
 namespace PhQ::Dimension {
 
-// Base physical dimension of temperature. Typically denoted "Θ". One of seven independent base
-// physical dimensions that form the physical dimension set of any unit of measure or physical
-// quantity.
+/// \brief Base physical dimension of temperature. Typically denoted "Θ". One of seven independent
+/// base physical dimensions that form the physical dimension set of any unit of measure or physical
+/// quantity.
 class Temperature {
 public:
-  // Default constructor. Constructs a base physical dimension of temperature with a value of zero.
+  /// \brief Default constructor. Constructs a base physical dimension of temperature with a value
+  /// of zero.
   constexpr Temperature() = default;
 
-  // Constructor. Constructs a base physical dimension of temperature with a given value.
+  /// \brief Constructor. Constructs a base physical dimension of temperature with a given value.
   explicit constexpr Temperature(const int8_t value) : value(value) {}
 
-  // Destructor. Destroys this base physical dimension of temperature.
+  /// \brief Destructor. Destroys this base physical dimension of temperature.
   ~Temperature() noexcept = default;
 
-  // Copy constructor. Constructs a base physical dimension of temperature by copying another one.
+  /// \brief Copy constructor. Constructs a base physical dimension of temperature by copying
+  /// another one.
   constexpr Temperature(const Temperature& other) = default;
 
-  // Copy assignment operator. Assigns the value of this base physical dimension of temperature by
-  // copying from another one.
+  /// \brief Copy assignment operator. Assigns the value of this base physical dimension of
+  /// temperature by copying from another one.
   constexpr Temperature& operator=(const Temperature& other) = default;
 
-  // Move constructor. Constructs a base physical dimension of temperature by moving another one.
+  /// \brief Move constructor. Constructs a base physical dimension of temperature by moving another
+  /// one.
   constexpr Temperature(Temperature&& other) noexcept = default;
 
-  // Move assignment operator. Assigns the value of this base physical dimension of temperature by
-  // moving another one.
+  /// \brief Move assignment operator. Assigns the value of this base physical dimension of
+  /// temperature by moving another one.
   constexpr Temperature& operator=(Temperature&& other) noexcept = default;
 
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   [[nodiscard]] constexpr int8_t Value() const noexcept {
     return value;
   }
 
-  // Abbreviation of this base physical dimension.
+  /// \brief Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept {
     return "Θ";
   }
 
-  // Label of this base physical dimension.
+  /// \brief Label of this base physical dimension.
   static std::string_view Label() noexcept {
     return "Temperature";
   }
 
-  // Prints this base physical dimension as a string.
+  /// \brief Prints this base physical dimension as a string.
   [[nodiscard]] std::string Print() const noexcept {
     if (value == 0) {
       return {};
@@ -94,7 +97,7 @@ public:
   }
 
 private:
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   int8_t value{0};
 };
 

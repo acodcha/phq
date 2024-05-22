@@ -91,93 +91,93 @@ class TransportEnergyConsumption;
 template <typename Number>
 class Velocity;
 
-// Speed scalar. Magnitude of the velocity vector.
+/// \brief Speed scalar. Magnitude of the velocity vector.
 template <typename Number = double>
 class Speed : public DimensionalScalar<Unit::Speed, Number> {
 public:
-  // Default constructor. Constructs a speed with an uninitialized value.
+  /// \brief Default constructor. Constructs a speed with an uninitialized value.
   Speed() = default;
 
-  // Constructor. Constructs a speed with a given value expressed in a given speed unit.
+  /// \brief Constructor. Constructs a speed with a given value expressed in a given speed unit.
   Speed(const Number value, const Unit::Speed unit)
     : DimensionalScalar<Unit::Speed, Number>(value, unit) {}
 
-  // Constructor. Constructs a speed from a given length and time duration using the definition of
-  // speed.
+  /// \brief Constructor. Constructs a speed from a given length and time duration using the
+  /// definition of speed.
   constexpr Speed(const Length<Number>& length, const Time<Number>& time)
     : Speed<Number>(length.Value() / time.Value()) {}
 
-  // Constructor. Constructs a speed from a given length and frequency using the definition of
-  // speed.
+  /// \brief Constructor. Constructs a speed from a given length and frequency using the definition
+  /// of speed.
   constexpr Speed(const Length<Number>& length, const Frequency<Number>& frequency)
     : Speed<Number>(length.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs a speed from a given scalar acceleration and time duration using the
-  // definition of acceleration.
+  /// \brief Constructor. Constructs a speed from a given scalar acceleration and time duration
+  /// using the definition of acceleration.
   constexpr Speed(const ScalarAcceleration<Number>& scalar_acceleration, const Time<Number>& time);
 
-  // Constructor. Constructs a speed from a given scalar acceleration and frequency using the
-  // definition of acceleration.
+  /// \brief Constructor. Constructs a speed from a given scalar acceleration and frequency using
+  /// the definition of acceleration.
   constexpr Speed(
       const ScalarAcceleration<Number>& scalar_acceleration, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs a speed from a given dynamic pressure and mass density using the
-  // definition of dynamic pressure.
+  /// \brief Constructor. Constructs a speed from a given dynamic pressure and mass density using
+  /// the definition of dynamic pressure.
   Speed(const DynamicPressure<Number>& dynamic_pressure, const MassDensity<Number>& mass_density);
 
-  // Constructor. Constructs a speed from a given dynamic kinematic pressure using the definition of
-  // dynamic kinematic pressure.
+  /// \brief Constructor. Constructs a speed from a given dynamic kinematic pressure using the
+  /// definition of dynamic kinematic pressure.
   explicit Speed(const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure);
 
-  // Constructor. Constructs a speed from a given Reynolds number, dynamic viscosity, mass density,
-  // and length using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a speed from a given Reynolds number, dynamic viscosity, mass
+  /// density, and length using the definition of the Reynolds number.
   constexpr Speed(const ReynoldsNumber<Number>& reynolds_number,
                   const DynamicViscosity<Number>& dynamic_viscosity,
                   const MassDensity<Number>& mass_density, const Length<Number>& length);
 
-  // Constructor. Constructs a speed from a given Reynolds number, kinematic viscosity, and length
-  // using the definition of the Reynolds number.
+  /// \brief Constructor. Constructs a speed from a given Reynolds number, kinematic viscosity, and
+  /// length using the definition of the Reynolds number.
   constexpr Speed(
       const ReynoldsNumber<Number>& reynolds_number,
       const KinematicViscosity<Number>& kinematic_viscosity, const Length<Number>& length);
 
-  // Constructor. Constructs a speed from a given sound speed and Mach number using the definition
-  // of the Mach number.
+  /// \brief Constructor. Constructs a speed from a given sound speed and Mach number using the
+  /// definition of the Mach number.
   constexpr Speed(const SoundSpeed<Number>& sound_speed, const MachNumber<Number>& mach_number);
 
-  // Destructor. Destroys this speed.
+  /// \brief Destructor. Destroys this speed.
   ~Speed() noexcept = default;
 
-  // Copy constructor. Constructs a speed by copying another one.
+  /// \brief Copy constructor. Constructs a speed by copying another one.
   constexpr Speed(const Speed<Number>& other) = default;
 
-  // Copy constructor. Constructs a speed by copying another one.
+  /// \brief Copy constructor. Constructs a speed by copying another one.
   template <typename OtherNumber>
   explicit constexpr Speed(const Speed<OtherNumber>& other)
     : Speed(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a speed by moving another one.
+  /// \brief Move constructor. Constructs a speed by moving another one.
   constexpr Speed(Speed<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this speed by copying another one.
+  /// \brief Copy assignment operator. Assigns this speed by copying another one.
   constexpr Speed<Number>& operator=(const Speed<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this speed by copying another one.
+  /// \brief Copy assignment operator. Assigns this speed by copying another one.
   template <typename OtherNumber>
   constexpr Speed<Number>& operator=(const Speed<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this speed by moving another one.
+  /// \brief Move assignment operator. Assigns this speed by moving another one.
   constexpr Speed<Number>& operator=(Speed<Number>&& other) noexcept = default;
 
-  // Statically creates a speed of zero.
+  /// \brief Statically creates a speed of zero.
   static constexpr Speed<Number> Zero() {
     return Speed<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a speed with a given value expressed in a given speed unit.
+  /// \brief Statically creates a speed with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Speed<Number> Create(const Number value) {
     return Speed<Number>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
@@ -253,7 +253,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a speed with a given value expressed in the standard speed unit.
+  /// \brief Constructor. Constructs a speed with a given value expressed in the standard speed
+  /// unit.
   explicit constexpr Speed(const Number value) : DimensionalScalar<Unit::Speed, Number>(value) {}
 
   template <typename OtherNumber>

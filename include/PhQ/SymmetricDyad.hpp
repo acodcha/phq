@@ -40,8 +40,8 @@
 
 namespace PhQ {
 
-// Three-dimensional symmetric dyadic tensor in Cartesian coordinates. Contains six components: xx,
-// xy = yx, xz = zx, yy, yz = zy, and zz.
+/// \brief Three-dimensional symmetric dyadic tensor in Cartesian coordinates. Contains six
+/// components: xx, xy = yx, xz = zx, yy, yz = zy, and zz.
 template <typename Number = double>
 class SymmetricDyad {
   static_assert(std::is_floating_point<Number>::value,
@@ -49,45 +49,46 @@ class SymmetricDyad {
                 "floating-point number type.");
 
 public:
-  // Default constructor. Constructs a three-dimensional symmetric dyadic tensor with uninitialized
-  // xx, xy, xz, yy, yz, and zz Cartesian components.
+  /// \brief Default constructor. Constructs a three-dimensional symmetric dyadic tensor with
+  /// uninitialized xx, xy, xz, yy, yz, and zz Cartesian components.
   SymmetricDyad() = default;
 
-  // Constructor. Constructs a three-dimensional symmetric dyadic tensor from the given xx, xy, xz,
-  // yy, yz, and zz Cartesian components.
+  /// \brief Constructor. Constructs a three-dimensional symmetric dyadic tensor from the given xx,
+  /// xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad(const Number xx, const Number xy, const Number xz, const Number yy,
                           const Number yz, const Number zz)
     : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
-  // Constructor. Constructs a three-dimensional symmetric dyadic tensor from a given array
-  // representing its xx, xy, xz, yy, yz, and zz Cartesian components.
+  /// \brief Constructor. Constructs a three-dimensional symmetric dyadic tensor from a given array
+  /// representing its xx, xy, xz, yy, yz, and zz Cartesian components.
   explicit constexpr SymmetricDyad(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz)
     : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
-  // Destructor. Destroys this three-dimensional symmetric dyadic tensor.
+  /// \brief Destructor. Destroys this three-dimensional symmetric dyadic tensor.
   ~SymmetricDyad() noexcept = default;
 
-  // Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying another
-  // one.
+  /// \brief Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying
+  /// another one.
   constexpr SymmetricDyad(const SymmetricDyad<Number>& other) = default;
 
-  // Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying another
-  // one.
+  /// \brief Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying
+  /// another one.
   template <typename OtherNumber>
   explicit constexpr SymmetricDyad<Number>(const SymmetricDyad<OtherNumber>& other)
     : xx_xy_xz_yy_yz_zz_({static_cast<Number>(other.xx()), static_cast<Number>(other.xy()),
                           static_cast<Number>(other.xz()), static_cast<Number>(other.yy()),
                           static_cast<Number>(other.yz()), static_cast<Number>(other.zz())}) {}
 
-  // Move constructor. Constructs a three-dimensional symmetric dyadic tensor by moving another one.
+  /// \brief Move constructor. Constructs a three-dimensional symmetric dyadic tensor by moving
+  /// another one.
   constexpr SymmetricDyad<Number>(SymmetricDyad<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by
+  /// copying another one.
   constexpr SymmetricDyad<Number>& operator=(const SymmetricDyad<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying
-  // another one.
+  /// \brief Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by
+  /// copying another one.
   template <typename OtherNumber>
   constexpr SymmetricDyad<Number>& operator=(const SymmetricDyad<OtherNumber>& other) {
     xx_xy_xz_yy_yz_zz_[0] = static_cast<Number>(other.xx());
@@ -99,19 +100,19 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this three-dimensional symmetric dyadic tensor by moving
-  // another one.
+  /// \brief Move assignment operator. Assigns this three-dimensional symmetric dyadic tensor by
+  /// moving another one.
   constexpr SymmetricDyad<Number>& operator=(SymmetricDyad<Number>&& other) noexcept = default;
 
-  // Assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying a given
-  // array representing its xx, xy, xz, yy, yz, and zz Cartesian components.
+  /// \brief Assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying
+  /// a given array representing its xx, xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad<Number>& operator=(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
     return *this;
   }
 
-  // Statically creates a three-dimensional symmetric dyadic tensor with its xx, xy, xz, yy, yz, and
-  // zz Cartesian components initialized to zero.
+  /// \brief Statically creates a three-dimensional symmetric dyadic tensor with its xx, xy, xz, yy,
+  /// yz, and zz Cartesian components initialized to zero.
   static constexpr SymmetricDyad<Number> Zero() {
     return SymmetricDyad<Number>{
         std::array<Number, 6>{
@@ -120,125 +121,125 @@ public:
     };
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz Cartesian
-  // components as an array.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
+  /// Cartesian components as an array.
   [[nodiscard]] constexpr const std::array<Number, 6>& xx_xy_xz_yy_yz_zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xx Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xx Cartesian component.
   [[nodiscard]] constexpr Number xx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[0];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component.
   [[nodiscard]] constexpr Number xy() const noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component.
   [[nodiscard]] constexpr Number xz() const noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component.
   [[nodiscard]] constexpr Number yx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's yy Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's yy Cartesian component.
   [[nodiscard]] constexpr Number yy() const noexcept {
     return xx_xy_xz_yy_yz_zz_[3];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component.
   [[nodiscard]] constexpr Number yz() const noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component.
   [[nodiscard]] constexpr Number zx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component.
   [[nodiscard]] constexpr Number zy() const noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's zz Cartesian component.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's zz Cartesian component.
   [[nodiscard]] constexpr Number zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_[5];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz Cartesian
-  // components as a mutable array.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
+  /// Cartesian components as a mutable array.
   constexpr std::array<Number, 6>& Mutable_xx_xy_xz_yy_yz_zz() noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xx Cartesian component as a mutable
-  // value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xx Cartesian component as a
+  /// mutable value.
   constexpr Number& Mutable_xx() noexcept {
     return xx_xy_xz_yy_yz_zz_[0];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component as a
-  // mutable value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component as
+  /// a mutable value.
   constexpr Number& Mutable_xy() noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component as a
-  // mutable value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component as
+  /// a mutable value.
   constexpr Number& Mutable_xz() noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component as a
-  // mutable value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component as
+  /// a mutable value.
   constexpr Number& Mutable_yx() noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's yy Cartesian component as a mutable
-  // value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's yy Cartesian component as a
+  /// mutable value.
   constexpr Number& Mutable_yy() noexcept {
     return xx_xy_xz_yy_yz_zz_[3];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component as a
-  // mutable value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component as
+  /// a mutable value.
   constexpr Number& Mutable_yz() noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component as a
-  // mutable value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component as
+  /// a mutable value.
   constexpr Number& Mutable_zx() noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component as a
-  // mutable value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component as
+  /// a mutable value.
   constexpr Number& Mutable_zy() noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor's zz Cartesian component as a mutable
-  // value.
+  /// \brief Returns this three-dimensional symmetric dyadic tensor's zz Cartesian component as a
+  /// mutable value.
   constexpr Number& Mutable_zz() noexcept {
     return xx_xy_xz_yy_yz_zz_[5];
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz Cartesian
-  // components to the given values.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
+  /// Cartesian components to the given values.
   constexpr void Set_xx_xy_xz_yy_yz_zz(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) noexcept {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz Cartesian
-  // components to the given values.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
+  /// Cartesian components to the given values.
   constexpr void Set_xx_xy_xz_yy_yz_zz(const Number xx, const Number xy, const Number xz,
                                        const Number yy, const Number yz, const Number zz) noexcept {
     xx_xy_xz_yy_yz_zz_[0] = xx;
@@ -249,74 +250,77 @@ public:
     xx_xy_xz_yy_yz_zz_[5] = zz;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's xx Cartesian component to a given value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's xx Cartesian component to a given
+  /// value.
   constexpr void Set_xx(const Number xx) noexcept {
     xx_xy_xz_yy_yz_zz_[0] = xx;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component to a given
-  // value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component to a
+  /// given value.
   constexpr void Set_xy(const Number xy) noexcept {
     xx_xy_xz_yy_yz_zz_[1] = xy;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component to a given
-  // value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component to a
+  /// given value.
   constexpr void Set_xz(const Number xz) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = xz;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component to a given
-  // value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component to a
+  /// given value.
   constexpr void Set_yx(const Number yx) noexcept {
     xx_xy_xz_yy_yz_zz_[1] = yx;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's yy Cartesian component to a given value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's yy Cartesian component to a given
+  /// value.
   constexpr void Set_yy(const Number yy) noexcept {
     xx_xy_xz_yy_yz_zz_[3] = yy;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component to a given
-  // value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component to a
+  /// given value.
   constexpr void Set_yz(const Number yz) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = yz;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component to a given
-  // value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component to a
+  /// given value.
   constexpr void Set_zx(const Number zx) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = zx;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component to a given
-  // value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component to a
+  /// given value.
   constexpr void Set_zy(const Number zy) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = zy;
   }
 
-  // Sets this three-dimensional symmetric dyadic tensor's zz Cartesian component to a given value.
+  /// \brief Sets this three-dimensional symmetric dyadic tensor's zz Cartesian component to a given
+  /// value.
   constexpr void Set_zz(const Number zz) noexcept {
     xx_xy_xz_yy_yz_zz_[5] = zz;
   }
 
-  // Returns the trace of this three-dimensional symmetric dyadic tensor.
+  /// \brief Returns the trace of this three-dimensional symmetric dyadic tensor.
   [[nodiscard]] constexpr Number Trace() const noexcept {
     return xx() + yy() + zz();
   }
 
-  // Returns the determinant of this three-dimensional symmetric dyadic tensor.
+  /// \brief Returns the determinant of this three-dimensional symmetric dyadic tensor.
   [[nodiscard]] constexpr Number Determinant() const noexcept {
     return xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
            + xz() * (yx() * zy() - yy() * zx());
   }
 
-  // Returns the transpose of this three-dimensional symmetric dyadic tensor.
+  /// \brief Returns the transpose of this three-dimensional symmetric dyadic tensor.
   [[nodiscard]] constexpr const SymmetricDyad<Number>& Transpose() const noexcept {
     return *this;
   }
 
-  // Returns the cofactors of this three-dimensional symmetric dyadic tensor.
+  /// \brief Returns the cofactors of this three-dimensional symmetric dyadic tensor.
   [[nodiscard]] constexpr SymmetricDyad<Number> Cofactors() const {
     const Number cofactor_xx{yy() * zz() - yz() * yz()};
     const Number cofactor_xy{xz() * yz() - xy() * zz()};
@@ -328,25 +332,25 @@ public:
         cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
-  // Returns the adjugate of this three-dimensional symmetric dyadic tensor.
+  /// \brief Returns the adjugate of this three-dimensional symmetric dyadic tensor.
   [[nodiscard]] constexpr SymmetricDyad<Number> Adjugate() const {
     // In general, for a dyadic tensor, this is cofactors().transpose(), but since this is a
     // symmetric dyadic tensor, the transpose is redundant.
     return Cofactors();
   }
 
-  // Returns the inverse of this three-dimensional symmetric dyadic tensor if it exists, or
-  // std::nullopt otherwise.
+  /// \brief Returns the inverse of this three-dimensional symmetric dyadic tensor if it exists, or
+  /// std::nullopt otherwise.
   [[nodiscard]] std::optional<SymmetricDyad<Number>> Inverse() const;
 
-  // Prints this three-dimensional symmetric dyadic tensor as a string.
+  /// \brief Prints this three-dimensional symmetric dyadic tensor as a string.
   [[nodiscard]] std::string Print() const {
     return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ", " + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "; " + PhQ::Print(xx_xy_xz_yy_yz_zz_[3]) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[4]) + "; " + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
-  // Serializes this three-dimensional symmetric dyadic tensor as a JSON message.
+  /// \brief Serializes this three-dimensional symmetric dyadic tensor as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ",\"xy\":"
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + ",\"xz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2])
@@ -355,7 +359,7 @@ public:
            + ",\"zz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  // Serializes this three-dimensional symmetric dyadic tensor as an XML message.
+  /// \brief Serializes this three-dimensional symmetric dyadic tensor as an XML message.
   [[nodiscard]] std::string XML() const {
     return "<xx>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>"
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2])
@@ -364,7 +368,7 @@ public:
            + "</zz>";
   }
 
-  // Serializes this three-dimensional symmetric dyadic tensor as a YAML message.
+  /// \brief Serializes this three-dimensional symmetric dyadic tensor as a YAML message.
   [[nodiscard]] std::string YAML() const {
     return "{xx:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ",xy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1])
            + ",xz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + ",yy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[3])
@@ -411,7 +415,7 @@ public:
   }
 
 private:
-  // Cartesian components of this three-dimensional symmetric dyadic tensor.
+  /// \brief Cartesian components of this three-dimensional symmetric dyadic tensor.
   std::array<Number, 6> xx_xy_xz_yy_yz_zz_;
 };
 

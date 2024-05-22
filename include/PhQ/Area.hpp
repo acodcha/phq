@@ -61,63 +61,63 @@ class Traction;
 template <typename Number>
 class VectorArea;
 
-// Scalar area. Can also represent a component or the magnitude of a vector area (see
-// PhQ::VectorArea).
+/// \brief Scalar area. Can also represent a component or the magnitude of a vector area. See also
+/// PhQ::VectorArea.
 template <typename Number = double>
 class Area : public DimensionalScalar<Unit::Area, Number> {
 public:
-  // Default constructor. Constructs an area with an uninitialized value.
+  /// \brief Default constructor. Constructs an area with an uninitialized value.
   Area() = default;
 
-  // Constructor. Constructs an area with a given value expressed in a given area unit.
+  /// \brief Constructor. Constructs an area with a given value expressed in a given area unit.
   Area(const Number value, const Unit::Area unit)
     : DimensionalScalar<Unit::Area, Number>(value, unit) {}
 
-  // Constructor. Constructs an area from two given lengths.
+  /// \brief Constructor. Constructs an area from two given lengths.
   constexpr Area(const Length<Number>& length1, const Length<Number>& length2)
     : Area<Number>(length1.Value() * length2.Value()) {}
 
-  // Constructor. Constructs an area from a given volume and length.
+  /// \brief Constructor. Constructs an area from a given volume and length.
   constexpr Area(const Volume<Number>& volume, const Length<Number>& length);
 
-  // Constructor. Constructs an area from a given scalar force magnitude and static pressure using
-  // the definition of pressure.
+  /// \brief Constructor. Constructs an area from a given scalar force magnitude and static pressure
+  /// using the definition of pressure.
   constexpr Area(
       const ScalarForce<Number>& scalar_force, const StaticPressure<Number>& static_pressure);
 
-  // Destructor. Destroys this area.
+  /// \brief Destructor. Destroys this area.
   ~Area() noexcept = default;
 
-  // Copy constructor. Constructs an area by copying another one.
+  /// \brief Copy constructor. Constructs an area by copying another one.
   constexpr Area(const Area<Number>& other) = default;
 
-  // Copy constructor. Constructs an area by copying another one.
+  /// \brief Copy constructor. Constructs an area by copying another one.
   template <typename OtherNumber>
   explicit constexpr Area(const Area<OtherNumber>& other)
     : Area(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs an area by moving another one.
+  /// \brief Move constructor. Constructs an area by moving another one.
   constexpr Area(Area<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this area by copying another one.
+  /// \brief Copy assignment operator. Assigns this area by copying another one.
   constexpr Area<Number>& operator=(const Area<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this area by copying another one.
+  /// \brief Copy assignment operator. Assigns this area by copying another one.
   template <typename OtherNumber>
   constexpr Area<Number>& operator=(const Area<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this area by moving another one.
+  /// \brief Move assignment operator. Assigns this area by moving another one.
   constexpr Area<Number>& operator=(Area<Number>&& other) noexcept = default;
 
-  // Statically creates an area of zero.
+  /// \brief Statically creates an area of zero.
   static constexpr Area<Number> Zero() {
     return Area<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates an area with a given value expressed in a given area unit.
+  /// \brief Statically creates an area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
   static constexpr Area<Number> Create(const Number value) {
     return Area<Number>{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
@@ -170,7 +170,7 @@ public:
   }
 
 private:
-  // Constructor. Constructs an area with a given value expressed in the standard area unit.
+  /// \brief Constructor. Constructs an area with a given value expressed in the standard area unit.
   explicit constexpr Area(const Number value) : DimensionalScalar<Unit::Area, Number>(value) {}
 
   template <typename OtherArea>

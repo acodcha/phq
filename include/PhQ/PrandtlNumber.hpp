@@ -40,24 +40,24 @@
 
 namespace PhQ {
 
-// Prandtl number of a fluid.
+/// \brief Prandtl number of a fluid.
 template <typename Number = double>
 class PrandtlNumber : public DimensionlessScalar<Number> {
 public:
-  // Default constructor. Constructs a Prandtl number with an uninitialized value.
+  /// \brief Default constructor. Constructs a Prandtl number with an uninitialized value.
   PrandtlNumber() = default;
 
-  // Constructor. Constructs a Prandtl number with a given value.
+  /// \brief Constructor. Constructs a Prandtl number with a given value.
   explicit constexpr PrandtlNumber(const Number value) : DimensionlessScalar<Number>(value) {}
 
-  // Constructor. Constructs a Prandtl number from a given kinematic viscosity and thermal
-  // diffusivity using the definition of the Prandtl number.
+  /// \brief Constructor. Constructs a Prandtl number from a given kinematic viscosity and thermal
+  /// diffusivity using the definition of the Prandtl number.
   constexpr PrandtlNumber(const KinematicViscosity<Number>& kinematic_viscosity,
                           const ThermalDiffusivity<Number>& thermal_diffusivity)
     : PrandtlNumber<Number>(kinematic_viscosity.Value() / thermal_diffusivity.Value()) {}
 
-  // Constructor. Constructs a Prandtl number from a given specific isobaric heat capacity, dynamic
-  // viscosity, and scalar thermal conductivity using the definition of the Prandtl number.
+  /// \brief Constructor. Constructs a Prandtl number from a given specific isobaric heat capacity,
+  /// dynamic viscosity, and scalar thermal conductivity using the definition of the Prandtl number.
   constexpr PrandtlNumber(
       const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
       const DynamicViscosity<Number>& dynamic_viscosity,
@@ -65,34 +65,34 @@ public:
     : PrandtlNumber<Number>(specific_isobaric_heat_capacity.Value() * dynamic_viscosity.Value()
                             / scalar_thermal_conductivity.Value()) {}
 
-  // Destructor. Destroys this Prandtl number.
+  /// \brief Destructor. Destroys this Prandtl number.
   ~PrandtlNumber() noexcept = default;
 
-  // Copy constructor. Constructs a Prandtl number by copying another one.
+  /// \brief Copy constructor. Constructs a Prandtl number by copying another one.
   constexpr PrandtlNumber(const PrandtlNumber<Number>& other) = default;
 
-  // Copy constructor. Constructs a Prandtl number by copying another one.
+  /// \brief Copy constructor. Constructs a Prandtl number by copying another one.
   template <typename OtherNumber>
   explicit constexpr PrandtlNumber(const PrandtlNumber<OtherNumber>& other)
     : PrandtlNumber(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a Prandtl number by moving another one.
+  /// \brief Move constructor. Constructs a Prandtl number by moving another one.
   constexpr PrandtlNumber(PrandtlNumber<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Prandtl number by copying another one.
+  /// \brief Copy assignment operator. Assigns this Prandtl number by copying another one.
   constexpr PrandtlNumber<Number>& operator=(const PrandtlNumber<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this Prandtl number by copying another one.
+  /// \brief Copy assignment operator. Assigns this Prandtl number by copying another one.
   template <typename OtherNumber>
   constexpr PrandtlNumber<Number>& operator=(const PrandtlNumber<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this Prandtl number by moving another one.
+  /// \brief Move assignment operator. Assigns this Prandtl number by moving another one.
   constexpr PrandtlNumber<Number>& operator=(PrandtlNumber<Number>&& other) noexcept = default;
 
-  // Statically creates a Prandtl number of zero.
+  /// \brief Statically creates a Prandtl number of zero.
   static constexpr PrandtlNumber<Number> Zero() {
     return PrandtlNumber<Number>{static_cast<Number>(0)};
   }

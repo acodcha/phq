@@ -36,53 +36,54 @@
 
 namespace PhQ::Dimension {
 
-// Base physical dimension of luminous intensity. Typically denoted "J". One of seven independent
-// base physical dimensions that form the physical dimension set of any unit of measure or physical
-// quantity.
+/// \brief Base physical dimension of luminous intensity. Typically denoted "J". One of seven
+/// independent base physical dimensions that form the physical dimension set of any unit of measure
+/// or physical quantity.
 class LuminousIntensity {
 public:
-  // Default constructor. Constructs a base physical dimension of luminous intensity with a value of
-  // zero.
+  /// \brief Default constructor. Constructs a base physical dimension of luminous intensity with a
+  /// value of zero.
   constexpr LuminousIntensity() = default;
 
-  // Constructor. Constructs a base physical dimension of luminous intensity with a given value.
+  /// \brief Constructor. Constructs a base physical dimension of luminous intensity with a given
+  /// value.
   explicit constexpr LuminousIntensity(const int8_t value) : value(value) {}
 
-  // Destructor. Destroys this base physical dimension of luminous intensity.
+  /// \brief Destructor. Destroys this base physical dimension of luminous intensity.
   ~LuminousIntensity() noexcept = default;
 
-  // Copy constructor. Constructs a base physical dimension of luminous intensity by copying another
-  // one.
+  /// \brief Copy constructor. Constructs a base physical dimension of luminous intensity by copying
+  /// another one.
   constexpr LuminousIntensity(const LuminousIntensity& other) = default;
 
-  // Copy assignment operator. Assigns the value of this base physical dimension of luminous
-  // intensity by copying from another one.
+  /// \brief Copy assignment operator. Assigns the value of this base physical dimension of luminous
+  /// intensity by copying from another one.
   constexpr LuminousIntensity& operator=(const LuminousIntensity& other) = default;
 
-  // Move constructor. Constructs a base physical dimension of luminous intensity by moving another
-  // one.
+  /// \brief Move constructor. Constructs a base physical dimension of luminous intensity by moving
+  /// another one.
   constexpr LuminousIntensity(LuminousIntensity&& other) noexcept = default;
 
-  // Move assignment operator. Assigns the value of this base physical dimension of luminous
-  // intensity by moving another one.
+  /// \brief Move assignment operator. Assigns the value of this base physical dimension of luminous
+  /// intensity by moving another one.
   constexpr LuminousIntensity& operator=(LuminousIntensity&& other) noexcept = default;
 
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   [[nodiscard]] constexpr int8_t Value() const noexcept {
     return value;
   }
 
-  // Abbreviation of this base physical dimension.
+  /// \brief Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept {
     return "J";
   }
 
-  // Label of this base physical dimension.
+  /// \brief Label of this base physical dimension.
   static std::string_view Label() noexcept {
     return "Luminous Intensity";
   }
 
-  // Prints this base physical dimension as a string.
+  /// \brief Prints this base physical dimension as a string.
   [[nodiscard]] std::string Print() const noexcept {
     if (value == 0) {
       return {};
@@ -97,7 +98,7 @@ public:
   }
 
 private:
-  // Value of this base physical dimension.
+  /// \brief Value of this base physical dimension.
   int8_t value{0};
 };
 

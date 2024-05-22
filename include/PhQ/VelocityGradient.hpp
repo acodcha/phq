@@ -43,66 +43,66 @@
 
 namespace PhQ {
 
-// Velocity gradient dyadic tensor. In general, this dyadic tensor is asymmetric. See also
-// PhQ::ScalarVelocityGradient and PhQ::DisplacementGradient.
+/// \brief Velocity gradient dyadic tensor. In general, this dyadic tensor is asymmetric. See also
+/// PhQ::ScalarVelocityGradient and PhQ::DisplacementGradient.
 template <typename Number = double>
 class VelocityGradient : public DimensionalDyad<Unit::Frequency, Number> {
 public:
-  // Default constructor. Constructs a velocity gradient tensor with an uninitialized value.
+  /// \brief Default constructor. Constructs a velocity gradient tensor with an uninitialized value.
   VelocityGradient() = default;
 
-  // Constructor. Constructs a velocity gradient tensor with a given value expressed in a given
-  // frequency unit.
+  /// \brief Constructor. Constructs a velocity gradient tensor with a given value expressed in a
+  /// given frequency unit.
   VelocityGradient(const Dyad<Number>& value, const Unit::Frequency& unit)
     : DimensionalDyad<Unit::Frequency, Number>(value, unit) {}
 
-  // Constructor. Constructs a velocity gradient tensor from a given displacement gradient tensor
-  // and time using the definition of speed.
+  /// \brief Constructor. Constructs a velocity gradient tensor from a given displacement gradient
+  /// tensor and time using the definition of speed.
   constexpr VelocityGradient(
       const DisplacementGradient<Number>& displacement_gradient, const Time<Number>& time)
     : VelocityGradient<Number>(displacement_gradient.Value() / time.Value()) {}
 
-  // Constructor. Constructs a velocity gradient tensor from a given displacement gradient tensor
-  // and frequency using the definition of speed.
+  /// \brief Constructor. Constructs a velocity gradient tensor from a given displacement gradient
+  /// tensor and frequency using the definition of speed.
   constexpr VelocityGradient(
       const DisplacementGradient<Number>& displacement_gradient, const Frequency<Number>& frequency)
     : VelocityGradient<Number>(displacement_gradient.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this velocity gradient tensor.
+  /// \brief Destructor. Destroys this velocity gradient tensor.
   ~VelocityGradient() noexcept = default;
 
-  // Copy constructor. Constructs a velocity gradient tensor by copying another one.
+  /// \brief Copy constructor. Constructs a velocity gradient tensor by copying another one.
   constexpr VelocityGradient(const VelocityGradient<Number>& other) = default;
 
-  // Copy constructor. Constructs a velocity gradient tensor by copying another one.
+  /// \brief Copy constructor. Constructs a velocity gradient tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr VelocityGradient(const VelocityGradient<OtherNumber>& other)
     : VelocityGradient(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a velocity gradient tensor by moving another one.
+  /// \brief Move constructor. Constructs a velocity gradient tensor by moving another one.
   constexpr VelocityGradient(VelocityGradient<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
   constexpr VelocityGradient<Number>& operator=(const VelocityGradient<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
   template <typename OtherNumber>
   constexpr VelocityGradient<Number>& operator=(const VelocityGradient<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this velocity gradient tensor by moving another one.
+  /// \brief Move assignment operator. Assigns this velocity gradient tensor by moving another one.
   constexpr VelocityGradient<Number>& operator=(
       VelocityGradient<Number>&& other) noexcept = default;
 
-  // Statically creates a velocity gradient tensor of zero.
+  /// \brief Statically creates a velocity gradient tensor of zero.
   static constexpr VelocityGradient<Number> Zero() {
     return VelocityGradient<Number>{Dyad<Number>::Zero()};
   }
 
-  // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and
-  // zz Cartesian components expressed in a given frequency unit.
+  /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
+  /// zx,zy, and zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr VelocityGradient<Number> Create(
       const Number xx, const Number xy, const Number xz, const Number yx, const Number yy,
@@ -112,8 +112,8 @@ public:
             Dyad<Number>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
   }
 
-  // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and
-  // zz Cartesian components expressed in a given frequency unit.
+  /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
+  /// zx,zy, and zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr VelocityGradient<Number> Create(
       const std::array<Number, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
@@ -122,61 +122,61 @@ public:
             Dyad<Number>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
   }
 
-  // Statically creates a velocity gradient tensor with a given value expressed in a given frequency
-  // unit.
+  /// \brief Statically creates a velocity gradient tensor with a given value expressed in a given
+  /// frequency unit.
   template <Unit::Frequency Unit>
   static constexpr VelocityGradient<Number> Create(const Dyad<Number>& value) {
     return VelocityGradient<Number>{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
-  // Returns the xx Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the xx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> xx() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.xx()};
   }
 
-  // Returns the xy Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the xy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> xy() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.xy()};
   }
 
-  // Returns the xz Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the xz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> xz() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.xz()};
   }
 
-  // Returns the yx Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the yx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> yx() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.yx()};
   }
 
-  // Returns the yy Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the yy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> yy() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.yy()};
   }
 
-  // Returns the yz Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the yz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> yz() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.yz()};
   }
 
-  // Returns the zx Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the zx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> zx() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.zx()};
   }
 
-  // Returns the zy Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the zy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> zy() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.zy()};
   }
 
-  // Returns the zz Cartesian component of this velocity gradient tensor.
+  /// \brief Returns the zz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient<Number> zz() const noexcept {
     return ScalarVelocityGradient<Number>{this->value.zz()};
   }
 
-  // Creates a strain rate tensor from this velocity gradient tensor using the definition of the
-  // strain rate tensor.
+  /// \brief Creates a strain rate tensor from this velocity gradient tensor using the definition of
+  /// the strain rate tensor.
   [[nodiscard]] constexpr PhQ::StrainRate<Number> StrainRate() const {
     return PhQ::StrainRate<Number>{*this};
   }
@@ -224,8 +224,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a velocity gradient tensor with a given value expressed in the standard
-  // frequency unit.
+  /// \brief Constructor. Constructs a velocity gradient tensor with a given value expressed in the
+  /// standard frequency unit.
   explicit constexpr VelocityGradient(const Dyad<Number>& value)
     : DimensionalDyad<Unit::Frequency, Number>(value) {}
 };

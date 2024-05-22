@@ -39,60 +39,62 @@
 
 namespace PhQ {
 
-// Volume rate. Can represent a time rate of change of a volume or a volume flow rate.
+/// \brief Volume rate. Can represent a time rate of change of a volume or a volume flow rate.
 template <typename Number = double>
 class VolumeRate : public DimensionalScalar<Unit::VolumeRate, Number> {
 public:
-  // Default constructor. Constructs a volume rate with an uninitialized value.
+  /// \brief Default constructor. Constructs a volume rate with an uninitialized value.
   VolumeRate() = default;
 
-  // Constructor. Constructs a volume rate with a given value expressed in a given volume rate unit.
+  /// \brief Constructor. Constructs a volume rate with a given value expressed in a given volume
+  /// rate unit.
   VolumeRate(const Number value, const Unit::VolumeRate unit)
     : DimensionalScalar<Unit::VolumeRate, Number>(value, unit) {}
 
-  // Constructor. Constructs a volume rate from a given volume and time using the definition of
-  // volume rate.
+  /// \brief Constructor. Constructs a volume rate from a given volume and time using the definition
+  /// of volume rate.
   constexpr VolumeRate(const Volume<Number>& volume, const Time<Number>& time)
     : VolumeRate<Number>(volume.Value() / time.Value()) {}
 
-  // Constructor. Constructs a volume rate from a given volume and frequency using the definition of
-  // volume rate.
+  /// \brief Constructor. Constructs a volume rate from a given volume and frequency using the
+  /// definition of volume rate.
   constexpr VolumeRate(const Volume<Number>& volume, const Frequency<Number>& frequency)
     : VolumeRate<Number>(volume.Value() * frequency.Value()) {}
 
-  // Destructor. Destroys this volume rate.
+  /// \brief Destructor. Destroys this volume rate.
   ~VolumeRate() noexcept = default;
 
-  // Copy constructor. Constructs a volume rate by copying another one.
+  /// \brief Copy constructor. Constructs a volume rate by copying another one.
   constexpr VolumeRate(const VolumeRate<Number>& other) = default;
 
-  // Copy constructor. Constructs a volume rate by copying another one.
+  /// \brief Copy constructor. Constructs a volume rate by copying another one.
   template <typename OtherNumber>
   explicit constexpr VolumeRate(const VolumeRate<OtherNumber>& other)
     : VolumeRate(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a volume rate by moving another one.
+  /// \brief Move constructor. Constructs a volume rate by moving another one.
   constexpr VolumeRate(VolumeRate<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this volume rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this volume rate by copying another one.
   constexpr VolumeRate<Number>& operator=(const VolumeRate<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this volume rate by copying another one.
+  /// \brief Copy assignment operator. Assigns this volume rate by copying another one.
   template <typename OtherNumber>
   constexpr VolumeRate<Number>& operator=(const VolumeRate<OtherNumber>& other) {
     this->value = static_cast<Number>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this volume rate by moving another one.
+  /// \brief Move assignment operator. Assigns this volume rate by moving another one.
   constexpr VolumeRate<Number>& operator=(VolumeRate<Number>&& other) noexcept = default;
 
-  // Statically creates a volume rate of zero.
+  /// \brief Statically creates a volume rate of zero.
   static constexpr VolumeRate<Number> Zero() {
     return VolumeRate<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a volume rate with a given value expressed in a given volume rate unit.
+  /// \brief Statically creates a volume rate with a given value expressed in a given volume rate
+  /// unit.
   template <Unit::VolumeRate Unit>
   static constexpr VolumeRate<Number> Create(const Number value) {
     return VolumeRate<Number>{
@@ -148,8 +150,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a volume rate with a given value expressed in the standard volume rate
-  // unit.
+  /// \brief Constructor. Constructs a volume rate with a given value expressed in the standard
+  /// volume rate unit.
   explicit constexpr VolumeRate(const Number value)
     : DimensionalScalar<Unit::VolumeRate, Number>(value) {}
 };

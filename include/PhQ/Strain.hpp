@@ -62,120 +62,120 @@ class TemperatureDifference;
 template <typename Number>
 class VolumetricThermalExpansionCoefficient;
 
-// Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
+/// \brief Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
 template <typename Number = double>
 class Strain : public DimensionlessSymmetricDyad<Number> {
 public:
-  // Default constructor. Constructs a strain tensor with an uninitialized value.
+  /// \brief Default constructor. Constructs a strain tensor with an uninitialized value.
   Strain() = default;
 
-  // Constructor. Constructs a strain tensor whose value has the given xx, xy, xz, yy, yz, and zz
-  // Cartesian components.
+  /// \brief Constructor. Constructs a strain tensor whose value has the given xx, xy, xz, yy, yz,
+  /// and zz Cartesian components.
   constexpr Strain(const Number xx, const Number xy, const Number xz, const Number yy,
                    const Number yz, const Number zz)
     : DimensionlessSymmetricDyad<Number>(xx, xy, xz, yy, yz, zz) {}
 
-  // Constructor. Constructs a strain tensor from a given array representing its value's xx, xy, xz,
-  // yy, yz, and zz Cartesian components.
+  /// \brief Constructor. Constructs a strain tensor from a given array representing its value's xx,
+  /// xy, xz, yy, yz, and zz Cartesian components.
   explicit constexpr Strain(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz)
     : DimensionlessSymmetricDyad<Number>(xx_xy_xz_yy_yz_zz) {}
 
-  // Constructor. Constructs a strain tensor with a given value.
+  /// \brief Constructor. Constructs a strain tensor with a given value.
   explicit constexpr Strain(const SymmetricDyad<Number>& value)
     : DimensionlessSymmetricDyad<Number>(value) {}
 
-  // Constructor. Constructs a strain tensor from a given strain rate tensor and time using the
-  // definition of the strain rate tensor.
+  /// \brief Constructor. Constructs a strain tensor from a given strain rate tensor and time using
+  /// the definition of the strain rate tensor.
   constexpr Strain(const StrainRate<Number>& strain_rate, const Time<Number>& time);
 
-  // Constructor. Constructs a strain tensor from a given strain rate tensor and frequency using the
-  // definition of the strain rate tensor.
+  /// \brief Constructor. Constructs a strain tensor from a given strain rate tensor and frequency
+  /// using the definition of the strain rate tensor.
   constexpr Strain(const StrainRate<Number>& strain_rate, const Frequency<Number>& frequency);
 
-  // Constructor. Constructs a strain tensor from a given displacement gradient using the definition
-  // of the strain tensor.
+  /// \brief Constructor. Constructs a strain tensor from a given displacement gradient using the
+  /// definition of the strain tensor.
   explicit constexpr Strain(const DisplacementGradient<Number>& displacement_gradient);
 
-  // Constructor. Constructs a strain tensor from a given volumetric thermal expansion coefficient
-  // and temperature difference using the definition of the volumetric thermal expansion
-  // coefficient.
+  /// \brief Constructor. Constructs a strain tensor from a given volumetric thermal expansion
+  /// coefficient and temperature difference using the definition of the volumetric thermal
+  /// expansion coefficient.
   constexpr Strain(
       const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient,
       const TemperatureDifference<Number>& temperature_difference);
 
-  // Destructor. Destroys this strain tensor.
+  /// \brief Destructor. Destroys this strain tensor.
   ~Strain() noexcept = default;
 
-  // Copy constructor. Constructs a strain tensor by copying another one.
+  /// \brief Copy constructor. Constructs a strain tensor by copying another one.
   constexpr Strain(const Strain<Number>& other) = default;
 
-  // Copy constructor. Constructs a strain tensor by copying another one.
+  /// \brief Copy constructor. Constructs a strain tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr Strain(const Strain<OtherNumber>& other)
     : Strain(static_cast<SymmetricDyad<Number>>(other.Value())) {}
 
-  // Move constructor. Constructs a strain tensor by moving another one.
+  /// \brief Move constructor. Constructs a strain tensor by moving another one.
   constexpr Strain(Strain<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this strain tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this strain tensor by copying another one.
   constexpr Strain<Number>& operator=(const Strain<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this strain tensor by copying another one.
+  /// \brief Copy assignment operator. Assigns this strain tensor by copying another one.
   template <typename OtherNumber>
   constexpr Strain<Number>& operator=(const Strain<OtherNumber>& other) {
     this->value = static_cast<SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 
-  // Move assignment operator. Assigns this strain tensor by moving another one.
+  /// \brief Move assignment operator. Assigns this strain tensor by moving another one.
   constexpr Strain<Number>& operator=(Strain<Number>&& other) noexcept = default;
 
-  // Statically creates a strain tensor of zero.
+  /// \brief Statically creates a strain tensor of zero.
   static constexpr Strain<Number> Zero() {
     return Strain<Number>{SymmetricDyad<Number>::Zero()};
   }
 
-  // Returns the xx Cartesian component of this strain tensor.
+  /// \brief Returns the xx Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> xx() const noexcept {
     return ScalarStrain<Number>{this->value.xx()};
   }
 
-  // Returns the xy = yx Cartesian component of this strain tensor.
+  /// \brief Returns the xy = yx Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> xy() const noexcept {
     return ScalarStrain<Number>{this->value.xy()};
   }
 
-  // Returns the xz = zx Cartesian component of this strain tensor.
+  /// \brief Returns the xz = zx Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> xz() const noexcept {
     return ScalarStrain<Number>{this->value.xz()};
   }
 
-  // Returns the yx = xy Cartesian component of this strain tensor.
+  /// \brief Returns the yx = xy Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> yx() const noexcept {
     return ScalarStrain<Number>{this->value.yx()};
   }
 
-  // Returns the yy Cartesian component of this strain tensor.
+  /// \brief Returns the yy Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> yy() const noexcept {
     return ScalarStrain<Number>{this->value.yy()};
   }
 
-  // Returns the yz = zy Cartesian component of this strain tensor.
+  /// \brief Returns the yz = zy Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> yz() const noexcept {
     return ScalarStrain<Number>{this->value.yz()};
   }
 
-  // Returns the zx = xz Cartesian component of this strain tensor.
+  /// \brief Returns the zx = xz Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> zx() const noexcept {
     return ScalarStrain<Number>{this->value.zx()};
   }
 
-  // Returns the zy = yz Cartesian component of this strain tensor.
+  /// \brief Returns the zy = yz Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> zy() const noexcept {
     return ScalarStrain<Number>{this->value.zy()};
   }
 
-  // Returns the zz Cartesian component of this strain tensor.
+  /// \brief Returns the zz Cartesian component of this strain tensor.
   [[nodiscard]] constexpr ScalarStrain<Number> zz() const noexcept {
     return ScalarStrain<Number>{this->value.zz()};
   }

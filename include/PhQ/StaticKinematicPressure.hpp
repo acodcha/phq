@@ -46,49 +46,52 @@ class DynamicKinematicPressure;
 template <typename Number>
 class TotalKinematicPressure;
 
-// Static kinematic pressure, which is static pressure divided by mass density.
+/// \brief Static kinematic pressure, which is static pressure divided by mass density.
 template <typename Number = double>
 class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:
-  // Default constructor. Constructs a static kinematic pressure with an uninitialized value.
+  /// \brief Default constructor. Constructs a static kinematic pressure with an uninitialized
+  /// value.
   StaticKinematicPressure() = default;
 
-  // Constructor. Constructs a static kinematic pressure with a given value expressed in a given
-  // specific energy unit.
+  /// \brief Constructor. Constructs a static kinematic pressure with a given value expressed in a
+  /// given specific energy unit.
   StaticKinematicPressure(const Number value, const Unit::SpecificEnergy unit)
     : DimensionalScalar<Unit::SpecificEnergy, Number>(value, unit) {}
 
-  // Constructor. Constructs a static kinematic pressure from a given total kinematic pressure and
-  // dynamic kinematic pressure using the definition of total kinematic pressure.
+  /// \brief Constructor. Constructs a static kinematic pressure from a given total kinematic
+  /// pressure and dynamic kinematic pressure using the definition of total kinematic pressure.
   constexpr StaticKinematicPressure(
       const TotalKinematicPressure<Number>& total_kinematic_pressure,
       const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure);
 
-  // Constructor. Constructs a static kinematic pressure from a given static pressure and mass
-  // density using the definition of static kinematic pressure.
+  /// \brief Constructor. Constructs a static kinematic pressure from a given static pressure and
+  /// mass density using the definition of static kinematic pressure.
   constexpr StaticKinematicPressure(
       const StaticPressure<Number>& static_pressure, const MassDensity<Number>& mass_density)
     : StaticKinematicPressure<Number>(static_pressure.Value() / mass_density.Value()) {}
 
-  // Destructor. Destroys this static kinematic pressure.
+  /// \brief Destructor. Destroys this static kinematic pressure.
   ~StaticKinematicPressure() noexcept = default;
 
-  // Copy constructor. Constructs a static kinematic pressure by copying another one.
+  /// \brief Copy constructor. Constructs a static kinematic pressure by copying another one.
   constexpr StaticKinematicPressure(const StaticKinematicPressure<Number>& other) = default;
 
-  // Copy constructor. Constructs a static kinematic pressure by copying another one.
+  /// \brief Copy constructor. Constructs a static kinematic pressure by copying another one.
   template <typename OtherNumber>
   explicit constexpr StaticKinematicPressure(const StaticKinematicPressure<OtherNumber>& other)
     : StaticKinematicPressure(static_cast<Number>(other.Value())) {}
 
-  // Move constructor. Constructs a static kinematic pressure by moving another one.
+  /// \brief Move constructor. Constructs a static kinematic pressure by moving another one.
   constexpr StaticKinematicPressure(StaticKinematicPressure<Number>&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this static kinematic pressure by copying another one.
+  /// \brief Copy assignment operator. Assigns this static kinematic pressure by copying another
+  /// one.
   constexpr StaticKinematicPressure<Number>& operator=(
       const StaticKinematicPressure<Number>& other) = default;
 
-  // Copy assignment operator. Assigns this static kinematic pressure by copying another one.
+  /// \brief Copy assignment operator. Assigns this static kinematic pressure by copying another
+  /// one.
   template <typename OtherNumber>
   constexpr StaticKinematicPressure<Number>& operator=(
       const StaticKinematicPressure<OtherNumber>& other) {
@@ -96,17 +99,17 @@ public:
     return *this;
   }
 
-  // Move assignment operator. Assigns this static kinematic pressure by moving another one.
+  /// \brief Move assignment operator. Assigns this static kinematic pressure by moving another one.
   constexpr StaticKinematicPressure<Number>& operator=(
       StaticKinematicPressure<Number>&& other) noexcept = default;
 
-  // Statically creates a static kinematic pressure of zero.
+  /// \brief Statically creates a static kinematic pressure of zero.
   static constexpr StaticKinematicPressure<Number> Zero() {
     return StaticKinematicPressure<Number>{static_cast<Number>(0)};
   }
 
-  // Statically creates a static kinematic pressure with a given value expressed in a given specific
-  // energy unit.
+  /// \brief Statically creates a static kinematic pressure with a given value expressed in a given
+  /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
   static constexpr StaticKinematicPressure<Number> Create(const Number value) {
     return StaticKinematicPressure<Number>{
@@ -159,8 +162,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a static kinematic pressure with a given value expressed in the
-  // standard specific energy unit.
+  /// \brief Constructor. Constructs a static kinematic pressure with a given value expressed in the
+  /// standard specific energy unit.
   explicit constexpr StaticKinematicPressure(const Number value)
     : DimensionalScalar<Unit::SpecificEnergy, Number>(value) {}
 };
