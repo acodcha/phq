@@ -596,14 +596,7 @@ Testing can optionally be performed locally on your computer. Doing so requires 
 
 - **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your computer, it is automatically downloaded and linked with this library.
 
-Testing instructions differ depending on your build system:
-
-- [CMake](#testing-cmake)
-- [Bazel](#testing-bazel)
-
-[(Back to Top)](#physical-quantities-phq)
-
-### Testing: CMake
+Testing instructions differ depending on your build system.
 
 If using the CMake build system, you can manually test the Physical Quantities library on your computer with:
 
@@ -618,8 +611,6 @@ make test
 ```
 
 [(Back to Testing)](#testing)
-
-### Testing: Bazel
 
 If using the Bazel build system, you can manually test the Physical Quantities library on your computer with:
 
