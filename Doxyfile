@@ -39,7 +39,7 @@
 ####################################################################################################
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Physical Quantities (PhQ)"
-PROJECT_NUMBER         =
+PROJECT_NUMBER         = v1.0.0
 PROJECT_BRIEF          = "C++ library of physical quantities, physical models, and units of measure for scientific computation."
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = docs/
@@ -145,14 +145,14 @@ WARN_LOGFILE           =
 ####################################################################################################
 # Doxygen Input Files
 ####################################################################################################
-INPUT                  = docs/README.md include/PhQ
+INPUT                  = docs.txt include/PhQ
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.cpp *.hpp
 RECURSIVE              = YES
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       =
-EXCLUDE_SYMBOLS        =
+EXCLUDE_SYMBOLS        = std*
 EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       =
 EXAMPLE_RECURSIVE      = YES
@@ -161,7 +161,7 @@ INPUT_FILTER           =
 FILTER_PATTERNS        =
 FILTER_SOURCE_FILES    = NO
 FILTER_SOURCE_PATTERNS =
-USE_MDFILE_AS_MAINPAGE = docs/README.md
+USE_MDFILE_AS_MAINPAGE =
 
 ####################################################################################################
 # Source Code Browsing
@@ -197,6 +197,7 @@ HTML_FOOTER            =
 HTML_STYLESHEET        =
 HTML_EXTRA_STYLESHEET  =
 HTML_EXTRA_FILES       =
+HTML_COLORSTYLE        = LIGHT
 HTML_COLORSTYLE_HUE    = 220
 HTML_COLORSTYLE_SAT    = 100
 HTML_COLORSTYLE_GAMMA  = 80
@@ -206,9 +207,9 @@ HTML_DYNAMIC_SECTIONS  = NO
 HTML_INDEX_NUM_ENTRIES = 0
 GENERATE_DOCSET        = NO
 DOCSET_FEEDNAME        = "Doxygen generated docs"
-DOCSET_BUNDLE_ID       = org.doxygen.Project
-DOCSET_PUBLISHER_ID    = org.doxygen.Publisher
-DOCSET_PUBLISHER_NAME  = Publisher
+DOCSET_BUNDLE_ID       =
+DOCSET_PUBLISHER_ID    =
+DOCSET_PUBLISHER_NAME  =
 GENERATE_HTMLHELP      = NO
 CHM_FILE               =
 HHC_LOCATION           =
@@ -218,14 +219,14 @@ BINARY_TOC             = NO
 TOC_EXPAND             = NO
 GENERATE_QHP           = NO
 QCH_FILE               =
-QHP_NAMESPACE          = org.doxygen.Project
+QHP_NAMESPACE          =
 QHP_VIRTUAL_FOLDER     = doc
 QHP_CUST_FILTER_NAME   =
 QHP_CUST_FILTER_ATTRS  =
 QHP_SECT_FILTER_ATTRS  =
 QHG_LOCATION           =
 GENERATE_ECLIPSEHELP   = NO
-ECLIPSE_DOC_ID         = org.doxygen.Project
+ECLIPSE_DOC_ID         =
 DISABLE_INDEX          = NO
 GENERATE_TREEVIEW      = NO
 ENUM_VALUES_PER_LINE   = 4
@@ -348,7 +349,7 @@ EXTERNAL_PAGES         = YES
 CLASS_DIAGRAMS         = NO
 DIA_PATH               =
 HIDE_UNDOC_RELATIONS   = YES
-HAVE_DOT               = YES
+HAVE_DOT               = NO
 DOT_NUM_THREADS        = 0
 DOT_FONTNAME           = Helvetica
 DOT_FONTSIZE           = 10
