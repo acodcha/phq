@@ -4,7 +4,7 @@
 # models, and units of measure for scientific computation.
 #
 # Physical Quantities (PhQ) is hosted at:
-#     https://github.com/acodcha/physical-quantities
+#     https://github.com/acodcha/phq
 #
 # Physical Quantities (PhQ) is licensed under the MIT License:
 #     https://mit-license.org
@@ -40,7 +40,7 @@ project(
   VERSION 1.0.0
   LANGUAGES CXX
   DESCRIPTION "C++ library of physical quantities, physical models, and units of measure for scientific computation."
-  HOMEPAGE_URL "https://github.com/acodcha/physical-quantities"
+  HOMEPAGE_URL "https://github.com/acodcha/phq"
 )
 option(
   TEST_PHQ_LIBRARY
