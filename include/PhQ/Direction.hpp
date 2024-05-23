@@ -91,7 +91,7 @@ class ScalarTemperatureGradient;
 
 // Forward declaration for class PhQ::Direction.
 template <typename Number>
-class StaticPressure;
+class ScalarTraction;
 
 // Forward declaration for class PhQ::Direction.
 template <typename Number>
@@ -318,7 +318,7 @@ public:
   constexpr TemperatureGradient<Number> operator*(
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const;
 
-  constexpr Traction<Number> operator*(const StaticPressure<Number>& static_pressure) const;
+  constexpr Traction<Number> operator*(const ScalarTraction<Number>& scalar_traction) const;
 
   constexpr Velocity<Number> operator*(const Speed<Number>& speed) const;
 };

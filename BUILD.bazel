@@ -1107,6 +1107,23 @@ phq_test(
 )
 
 phq_library(
+    name = "ScalarTraction",
+    hdrs = ["include/PhQ/ScalarTraction.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalScalar",
+        ":ScalarForce",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/ScalarTraction",
+    srcs = ["test/ScalarTraction.cpp"],
+    deps = [":ScalarTraction"],
+)
+
+phq_library(
     name = "ScalarVelocityGradient",
     hdrs = ["include/PhQ/ScalarVelocityGradient.hpp"],
     deps = [
@@ -1538,7 +1555,7 @@ phq_library(
         ":DimensionalVector",
         ":Direction",
         ":Force",
-        ":StaticPressure",
+        ":ScalarTraction",
         ":Unit/Pressure",
         ":Vector",
     ],

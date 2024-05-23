@@ -36,7 +36,7 @@
 #include "../include/PhQ/Area.hpp"
 #include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Force.hpp"
-#include "../include/PhQ/StaticPressure.hpp"
+#include "../include/PhQ/ScalarTraction.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Area.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
@@ -71,10 +71,10 @@ TEST(Traction, ArithmeticOperatorMultiplication) {
             Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal));
   EXPECT_EQ(2.0 * Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal),
             Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal));
-  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * StaticPressure(7.0, Unit::Pressure::Pascal),
-            Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
-  EXPECT_EQ(StaticPressure(7.0, Unit::Pressure::Pascal) * Direction(2.0, -3.0, 6.0),
-            Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ScalarTraction(7.0, Unit::Pressure::Pascal),
+            Traction({2.0, -3.0, 6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(ScalarTraction(7.0, Unit::Pressure::Pascal) * Direction(2.0, -3.0, 6.0),
+            Traction({2.0, -3.0, 6.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, ArithmeticOperatorSubtraction) {
@@ -184,7 +184,7 @@ TEST(Traction, JSON) {
 
 TEST(Traction, Magnitude) {
   EXPECT_EQ(Traction({2.0, -3.0, 6.0}, Unit::Pressure::Pascal).Magnitude(),
-            StaticPressure(-7.0, Unit::Pressure::Pascal));
+            ScalarTraction(7.0, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, MiscellaneousConstructors) {
@@ -277,11 +277,11 @@ TEST(Traction, XML) {
 
 TEST(Traction, XYZ) {
   EXPECT_EQ(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal).x(),
-            StaticPressure(1.0, Unit::Pressure::Pascal));
+            ScalarTraction(1.0, Unit::Pressure::Pascal));
   EXPECT_EQ(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal).y(),
-            StaticPressure(-2.0, Unit::Pressure::Pascal));
+            ScalarTraction(-2.0, Unit::Pressure::Pascal));
   EXPECT_EQ(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal).z(),
-            StaticPressure(3.0, Unit::Pressure::Pascal));
+            ScalarTraction(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, YAML) {

@@ -24,8 +24,8 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT
 // OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef PHQ_AREA_VECTOR_HPP
-#define PHQ_AREA_VECTOR_HPP
+#ifndef PHQ_VECTOR_AREA_HPP
+#define PHQ_VECTOR_AREA_HPP
 
 #include <array>
 #include <cstddef>
@@ -41,7 +41,7 @@
 
 namespace PhQ {
 
-/// \brief Vector area. The vector analog to a scalar area. See also PhQ::Area.
+/// \brief Vector-area. The vector analog to a scalar area. See also PhQ::Area.
 template <typename Number = double>
 class VectorArea : public DimensionalVector<Unit::Area, Number> {
 public:
@@ -260,4 +260,4 @@ struct hash<PhQ::VectorArea<Number>> {
 
 }  // namespace std
 
-#endif  // PHQ_AREA_VECTOR_HPP
+#endif  // PHQ_VECTOR_AREA_HPP

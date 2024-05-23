@@ -62,10 +62,6 @@ class Stress;
 template <typename Number>
 class TotalPressure;
 
-// Forward declaration for class PhQ::StaticPressure.
-template <typename Number>
-class Traction;
-
 /// \brief Static pressure. Pressure of a fluid at rest. Not to be confused with dynamic pressure,
 /// which is the additional pressure resulting from the kinetic energy of a flowing fluid, or total
 /// pressure, which is the sum of static pressure and dynamic pressure. Can represent either an
@@ -156,10 +152,6 @@ public:
     return ScalarForce<Number>{*this, area};
   }
 
-  /// \brief Since pressure is compressive, the negative of this static pressure contributes to the
-  /// traction.
-  constexpr Traction<Number> operator*(const Direction<Number>& direction) const;
-
   constexpr StaticPressure<Number> operator/(const Number number) const {
     return StaticPressure<Number>{this->value / number};
   }
@@ -192,9 +184,6 @@ private:
   /// pressure unit.
   explicit constexpr StaticPressure(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
-
-  template <typename OtherNumber>
-  friend class Traction;
 };
 
 template <typename Number>

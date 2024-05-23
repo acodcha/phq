@@ -24,8 +24,8 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT
 // OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef PHQ_FORCE_SCALAR_HPP
-#define PHQ_FORCE_SCALAR_HPP
+#ifndef PHQ_SCALAR_FORCE_HPP
+#define PHQ_SCALAR_FORCE_HPP
 
 #include <cstddef>
 #include <functional>
@@ -47,6 +47,10 @@ class Force;
 
 // Forward declaration for class PhQ::ScalarForce.
 template <typename Number>
+class ScalarTraction;
+
+// Forward declaration for class PhQ::ScalarForce.
+template <typename Number>
 class StaticPressure;
 
 /// \brief Scalar force component or magnitude of a force vector. See also PhQ::Force.
@@ -60,6 +64,10 @@ public:
   /// unit.
   ScalarForce(const Number value, const Unit::Force unit)
     : DimensionalScalar<Unit::Force, Number>(value, unit) {}
+
+  /// \brief Constructor. Constructs a scalar force from a given scalar traction and area using the
+  /// definition of traction.
+  constexpr ScalarForce(const ScalarTraction<Number>& scalar_traction, const Area<Number>& area);
 
   /// \brief Constructor. Constructs a scalar force from a given static pressure and area using the
   /// definition of pressure.
@@ -214,4 +222,4 @@ struct hash<PhQ::ScalarForce<Number>> {
 
 }  // namespace std
 
-#endif  // PHQ_FORCE_SCALAR_HPP
+#endif  // PHQ_SCALAR_FORCE_HPP
