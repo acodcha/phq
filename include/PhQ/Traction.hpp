@@ -36,13 +36,19 @@
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Force.hpp"
-#include "StaticPressure.hpp"
+#include "ScalarTraction.hpp"
 #include "Unit/Pressure.hpp"
 #include "Vector.hpp"
 
 namespace PhQ {
 
-/// \brief Traction vector.
+// Forward declaration for class PhQ::Traction.
+template <typename Number>
+class Stress;
+
+/// \brief Traction vector. Traction is similar to pressure; however, traction can act in any
+/// direction, whereas pressure always acts compressively perpendicular to a surface. See also
+/// PhQ::ScalarTraction.
 template <typename Number = double>
 class Traction : public DimensionalVector<Unit::Pressure, Number> {
 public:
@@ -54,12 +60,10 @@ public:
   Traction(const Vector<Number>& value, const Unit::Pressure unit)
     : DimensionalVector<Unit::Pressure, Number>(value, unit) {}
 
-  /// \brief Constructor. Constructs a traction vector from a given static pressure and direction.
-  /// Since pressure is compressive, the negative of the static pressure contributes to the traction
-  /// vector.
+  /// \brief Constructor. Constructs a traction vector from a given scalar traction and direction.
   constexpr Traction(
-      const StaticPressure<Number>& static_pressure, const Direction<Number>& direction)
-    : Traction<Number>(-static_pressure.Value() * direction.Value()) {}
+      const ScalarTraction<Number>& scalar_traction, const Direction<Number>& direction)
+    : Traction<Number>(scalar_traction.Value() * direction.Value()) {}
 
   /// \brief Constructor. Constructs a traction vector from a given force and area using the
   /// definition of traction.
@@ -127,24 +131,23 @@ public:
   }
 
   /// \brief Returns the x Cartesian component of this traction vector.
-  [[nodiscard]] constexpr StaticPressure<Number> x() const noexcept {
-    return StaticPressure<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarTraction<Number> x() const noexcept {
+    return ScalarTraction<Number>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this traction vector.
-  [[nodiscard]] constexpr StaticPressure<Number> y() const noexcept {
-    return StaticPressure<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarTraction<Number> y() const noexcept {
+    return ScalarTraction<Number>{this->value.y()};
   }
 
   /// \brief Returns the z Cartesian component of this traction vector.
-  [[nodiscard]] constexpr StaticPressure<Number> z() const noexcept {
-    return StaticPressure<Number>{this->value.z()};
+  [[nodiscard]] constexpr ScalarTraction<Number> z() const noexcept {
+    return ScalarTraction<Number>{this->value.z()};
   }
 
-  /// \brief Returns the magnitude of this traction vector. Since pressure is compressive, the
-  /// static pressure that corresponds to the magnitude of this traction vector is negative.
-  [[nodiscard]] StaticPressure<Number> Magnitude() const {
-    return StaticPressure<Number>{-this->value.Magnitude()};
+  /// \brief Returns the magnitude of this traction vector.
+  [[nodiscard]] ScalarTraction<Number> Magnitude() const {
+    return ScalarTraction<Number>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this traction vector.
@@ -261,12 +264,12 @@ inline constexpr Force<Number>::Force(const Traction<Number>& traction, const Ar
 
 template <typename Number>
 inline constexpr Traction<Number> Direction<Number>::operator*(
-    const StaticPressure<Number>& static_pressure) const {
-  return Traction<Number>{static_pressure, *this};
+    const ScalarTraction<Number>& scalar_traction) const {
+  return Traction<Number>{scalar_traction, *this};
 }
 
 template <typename Number>
-inline constexpr Traction<Number> StaticPressure<Number>::operator*(
+inline constexpr Traction<Number> ScalarTraction<Number>::operator*(
     const Direction<Number>& direction) const {
   return Traction<Number>{*this, direction};
 }

@@ -326,6 +326,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(scalar_thermal_conductivity GTest::gtest_main)
   gtest_discover_tests(scalar_thermal_conductivity)
 
+  add_executable(scalar_traction ${PROJECT_SOURCE_DIR}/test/ScalarTraction.cpp)
+  target_link_libraries(scalar_traction GTest::gtest_main)
+  gtest_discover_tests(scalar_traction)
+
   add_executable(scalar_velocity_gradient ${PROJECT_SOURCE_DIR}/test/ScalarVelocityGradient.cpp)
   target_link_libraries(scalar_velocity_gradient GTest::gtest_main)
   gtest_discover_tests(scalar_velocity_gradient)

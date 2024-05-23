@@ -51,6 +51,10 @@ class ScalarForce;
 
 // Forward declaration for class PhQ::Area.
 template <typename Number>
+class ScalarTraction;
+
+// Forward declaration for class PhQ::Area.
+template <typename Number>
 class StaticPressure;
 
 // Forward declaration for class PhQ::Area.
@@ -79,6 +83,11 @@ public:
 
   /// \brief Constructor. Constructs an area from a given volume and length.
   constexpr Area(const Volume<Number>& volume, const Length<Number>& length);
+
+  /// \brief Constructor. Constructs an area from a given scalar force magnitude and scalar traction
+  /// magnitude using the definition of traction.
+  constexpr Area(
+      const ScalarForce<Number>& scalar_force, const ScalarTraction<Number>& scalar_traction);
 
   /// \brief Constructor. Constructs an area from a given scalar force magnitude and static pressure
   /// using the definition of pressure.
@@ -136,6 +145,8 @@ public:
   }
 
   constexpr Volume<Number> operator*(const Length<Number>& length) const;
+
+  constexpr ScalarForce<Number> operator*(const ScalarTraction<Number>& scalar_traction) const;
 
   constexpr ScalarForce<Number> operator*(const StaticPressure<Number>& static_pressure) const;
 
