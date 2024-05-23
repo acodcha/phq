@@ -1,6 +1,6 @@
 # Physical Quantities (PhQ)
 
-[![tests](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/tests.yaml)
+[![tests](https://github.com/acodcha/phq/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/phq/actions/workflows/tests.yaml)
 
 Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
@@ -38,7 +38,6 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 - [Configuration](#configuration)
   - [CMake](#configuration-cmake)
   - [Bazel](#configuration-bazel)
-- [Documentation](#documentation)
 - [Usage](#usage)
   - [Basics](#usage-basics)
   - [Vectors and Tensors](#usage-vectors-and-tensors)
@@ -49,6 +48,7 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
   - [Physical Dimensions](#usage-physical-dimensions)
   - [Divisions by Zero](#usage-divisions-by-zero)
   - [Exceptions](#usage-exceptions)
+- [Documentation](#documentation)
 - [Installation](#installation)
 - [Testing](#testing)
 - [License](#license)
@@ -89,11 +89,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 FetchContent_Declare(
     PhQ
-    GIT_REPOSITORY https://github.com/acodcha/physical-quantities.git
+    GIT_REPOSITORY https://github.com/acodcha/phq.git
     GIT_TAG main
 )
 FetchContent_MakeAvailable(PhQ)
-message(STATUS "The PhQ library was fetched from https://github.com/acodcha/physical-quantities.git")
+message(STATUS "The PhQ library was fetched from https://github.com/acodcha/phq.git")
 
 [...]
 
@@ -133,11 +133,11 @@ if(PhQ_FOUND)
 else()
     FetchContent_Declare(
         PhQ
-        GIT_REPOSITORY https://github.com/acodcha/physical-quantities.git
+        GIT_REPOSITORY https://github.com/acodcha/phq.git
         GIT_TAG main
     )
     FetchContent_MakeAvailable(PhQ)
-    message(STATUS "The PhQ library was fetched from https://github.com/acodcha/physical-quantities.git")
+    message(STATUS "The PhQ library was fetched from https://github.com/acodcha/phq.git")
 endif()
 
 [...]
@@ -159,7 +159,7 @@ Add the following code to your project's `WORKSPACE.bazel` file:
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "PhQ",
-    remote = "https://github.com/acodcha/physical-quantities.git",
+    remote = "https://github.com/acodcha/phq.git",
     branch = "main",
 )
 ```
@@ -199,6 +199,8 @@ Finally, simply include this library's C++ headers in your project's C++ source 
 [(Back to Configuration)](#configuration)
 
 ## Usage
+
+This section contains basic usage information of the Physical Quantities library; full documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
 - [Basics](#usage-basics)
 - [Vectors and Tensors](#usage-vectors-and-tensors)
@@ -560,7 +562,7 @@ Alternatively, the documentation can be built locally on your computer. Doing so
 Clone the Physical Quantities library's repository and build its documentation with:
 
 ```bash
-git clone git@github.com:acodcha/physical-quantities.git PhQ
+git clone git@github.com:acodcha/phq.git PhQ
 cd PhQ
 doxygen Doxyfile
 ```
@@ -576,7 +578,7 @@ If using the CMake build system, the Physical Quantities library can optionally 
 Clone this library's repository, configure it, and install it with:
 
 ```bash
-git clone git@github.com:acodcha/physical-quantities.git PhQ
+git clone git@github.com:acodcha/phq.git PhQ
 cd PhQ
 mkdir build
 cd build
@@ -601,7 +603,7 @@ Testing instructions differ depending on your build system.
 If using the CMake build system, you can manually test the Physical Quantities library on your computer with:
 
 ```bash
-git clone git@github.com:acodcha/physical-quantities.git PhQ
+git clone git@github.com:acodcha/phq.git PhQ
 cd PhQ
 mkdir build
 cd build
@@ -610,18 +612,16 @@ make --jobs=16
 make test
 ```
 
-[(Back to Testing)](#testing)
-
 If using the Bazel build system, you can manually test the Physical Quantities library on your computer with:
 
 ```bash
-git clone git@github.com:acodcha/physical-quantities.git PhQ
+git clone git@github.com:acodcha/phq.git PhQ
 cd PhQ
 bazel build //:all
 bazel test //:all
 ```
 
-[(Back to Testing)](#testing)
+[(Back to Top)](#physical-quantities-phq)
 
 ## License
 
@@ -629,7 +629,7 @@ Copyright © 2020-2024 Alexandre Coderre-Chabot
 
 Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
-The Physical Quantities library is hosted at <https://github.com/acodcha/physical-quantities> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
+The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
 Physical Quantities is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
 

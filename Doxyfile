@@ -4,7 +4,7 @@
 # models, and units of measure for scientific computation.
 #
 # Physical Quantities (PhQ) is hosted at:
-#     https://github.com/acodcha/physical-quantities
+#     https://github.com/acodcha/phq
 #
 # Physical Quantities (PhQ) is licensed under the MIT License:
 #     https://mit-license.org
@@ -152,7 +152,7 @@ RECURSIVE              = YES
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       =
-EXCLUDE_SYMBOLS        = std*
+EXCLUDE_SYMBOLS        = std* PhQ::Internal*
 EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       =
 EXAMPLE_RECURSIVE      = YES
