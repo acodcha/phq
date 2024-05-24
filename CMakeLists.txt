@@ -270,6 +270,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(planar_displacement GTest::gtest_main)
   gtest_discover_tests(planar_displacement)
 
+  add_executable(planar_position ${PROJECT_SOURCE_DIR}/test/PlanarPosition.cpp)
+  target_link_libraries(planar_position GTest::gtest_main)
+  gtest_discover_tests(planar_position)
+
   add_executable(planar_vector ${PROJECT_SOURCE_DIR}/test/PlanarVector.cpp)
   target_link_libraries(planar_vector GTest::gtest_main)
   gtest_discover_tests(planar_vector)

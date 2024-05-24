@@ -34,6 +34,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
+#include "../include/PhQ/Displacement.hpp"
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"

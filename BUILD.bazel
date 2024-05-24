@@ -878,6 +878,12 @@ phq_library(
     ],
 )
 
+phq_test(
+    name = "test/PlanarDirection",
+    srcs = ["test/PlanarDirection.cpp"],
+    deps = [":PlanarDirection"],
+)
+
 phq_library(
     name = "PlanarDisplacement",
     hdrs = ["include/PhQ/PlanarDisplacement.hpp"],
@@ -897,10 +903,24 @@ phq_test(
     deps = [":PlanarDisplacement"],
 )
 
+phq_library(
+    name = "PlanarPosition",
+    hdrs = ["include/PhQ/PlanarPosition.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarDisplacement",
+        ":Length",
+        ":Unit/Length",
+        ":PlanarVector",
+    ],
+)
+
 phq_test(
-    name = "test/PlanarDirection",
-    srcs = ["test/PlanarDirection.cpp"],
-    deps = [":PlanarDirection"],
+    name = "test/PlanarPosition",
+    srcs = ["test/PlanarPosition.cpp"],
+    deps = [":PlanarPosition"],
 )
 
 phq_library(
