@@ -35,6 +35,7 @@
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Dimensions.hpp"
 #include "../include/PhQ/Dyad.hpp"
+#include "../include/PhQ/PlanarDirection.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Vector.hpp"
@@ -76,19 +77,20 @@ TEST(Direction, ComparisonOperators) {
 }
 
 TEST(Direction, CopyAssignmentOperator) {
-  const Direction first(1.0, -2.0, 3.0);
+  const Direction first{1.0, -2.0, 3.0};
   Direction second = Direction<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Direction, CopyConstructor) {
-  const Direction first(1.0, -2.0, 3.0);
+  const Direction first{1.0, -2.0, 3.0};
   const Direction second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Direction, Cross) {
+  EXPECT_EQ(PlanarDirection(1.0, 0.0).Cross(PlanarDirection(0.0, 1.0)), Direction(0.0, 0.0, 1.0));
   EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Direction(0.0, 0.0, 1.0));
   EXPECT_EQ(Vector(2.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Vector(0.0, 0.0, 2.0));
   EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Vector(0.0, 2.0, 0.0)), Vector(0.0, 0.0, 2.0));
@@ -159,14 +161,14 @@ TEST(Direction, MiscellaneousMethods) {
 }
 
 TEST(Direction, MoveAssignmentOperator) {
-  Direction first(1.0, -2.0, 3.0);
+  Direction first{1.0, -2.0, 3.0};
   Direction second = Direction<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Direction(1.0, -2.0, 3.0));
 }
 
 TEST(Direction, MoveConstructor) {
-  Direction first(1.0, -2.0, 3.0);
+  Direction first{1.0, -2.0, 3.0};
   const Direction second{std::move(first)};
   EXPECT_EQ(second, Direction(1.0, -2.0, 3.0));
 }
@@ -179,17 +181,17 @@ TEST(Direction, Print) {
 
 TEST(Direction, Set) {
   {
-    Direction direction(1.0, -2.0, 3.0);
+    Direction direction{1.0, -2.0, 3.0};
     direction.Set(0.0, -2.0, 0.0);
     EXPECT_EQ(direction.Value(), Vector(0.0, -1.0, 0.0));
   }
   {
-    Direction direction(1.0, -2.0, 3.0);
+    Direction direction{1.0, -2.0, 3.0};
     direction.Set(std::array<double, 3>{0.0, -2.0, 0.0});
     EXPECT_EQ(direction.Value(), Vector(0.0, -1.0, 0.0));
   }
   {
-    Direction direction(1.0, -2.0, 3.0);
+    Direction direction{1.0, -2.0, 3.0};
     direction.Set(Vector{0.0, -2.0, 0.0});
     EXPECT_EQ(direction.Value(), Vector(0.0, -1.0, 0.0));
   }

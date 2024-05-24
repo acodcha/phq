@@ -36,6 +36,7 @@
 #include <type_traits>
 
 #include "Base.hpp"
+#include "PlanarVector.hpp"
 #include "SymmetricDyad.hpp"
 #include "Vector.hpp"
 
@@ -572,6 +573,14 @@ inline constexpr Dyad<Number> operator*(const OtherNumber number, const Dyad<Num
 }
 
 template <typename Number>
+inline constexpr Vector<Number> operator*(
+    const Dyad<Number>& dyad, const PlanarVector<Number>& planar_vector) {
+  return Vector<Number>{dyad.xx() * planar_vector.x() + dyad.xy() * planar_vector.y(),
+                        dyad.yx() * planar_vector.x() + dyad.yy() * planar_vector.y(),
+                        dyad.zx() * planar_vector.x() + dyad.zy() * planar_vector.y()};
+}
+
+template <typename Number>
 inline constexpr Vector<Number> operator*(const Dyad<Number>& dyad, const Vector<Number>& vector) {
   return Vector<Number>{dyad.xx() * vector.x() + dyad.xy() * vector.y() + dyad.xz() * vector.z(),
                         dyad.yx() * vector.x() + dyad.yy() * vector.y() + dyad.yz() * vector.z(),
@@ -678,6 +687,15 @@ inline constexpr std::optional<Dyad<Number>> Dyad<Number>::Inverse() const {
     return std::optional<Dyad<Number>>{Adjugate() / determinant_};
   }
   return std::nullopt;
+}
+
+template <typename Number>
+constexpr Dyad<Number> PlanarVector<Number>::Dyadic(
+    const PlanarVector<Number>& planar_vector) const {
+  return Dyad<Number>{
+      x_y_[0] * planar_vector.x_y_[0], x_y_[0] * planar_vector.x_y_[1], static_cast<Number>(0),
+      x_y_[1] * planar_vector.x_y_[0], x_y_[1] * planar_vector.x_y_[1], static_cast<Number>(0),
+      static_cast<Number>(0),          static_cast<Number>(0),          static_cast<Number>(0)};
 }
 
 template <typename Number>

@@ -53,6 +53,7 @@ phq_library(
     hdrs = ["include/PhQ/Angle.hpp"],
     deps = [
         ":DimensionalScalar",
+        ":PlanarVector",
         ":Unit/Angle",
         ":Vector",
     ],
@@ -298,6 +299,17 @@ phq_library(
 )
 
 phq_library(
+    name = "DimensionalPlanarVector",
+    hdrs = ["include/PhQ/DimensionalPlanarVector.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":PlanarVector",
+        ":Unit",
+    ],
+)
+
+phq_library(
     name = "DimensionalScalar",
     hdrs = ["include/PhQ/DimensionalScalar.hpp"],
     deps = [
@@ -336,6 +348,16 @@ phq_library(
         ":Base",
         ":Dimensions",
         ":Dyad",
+    ],
+)
+
+phq_library(
+    name = "DimensionlessPlanarVector",
+    hdrs = ["include/PhQ/DimensionlessPlanarVector.hpp"],
+    deps = [
+        ":Base",
+        ":Dimensions",
+        ":PlanarVector",
     ],
 )
 
@@ -396,6 +418,7 @@ phq_library(
         ":Angle",
         ":DimensionlessVector",
         ":Dyad",
+        ":PlanarDirection",
         ":SymmetricDyad",
         ":Vector",
     ],
@@ -448,6 +471,7 @@ phq_library(
     hdrs = ["include/PhQ/Dyad.hpp"],
     deps = [
         ":Base",
+        ":PlanarVector",
         ":SymmetricDyad",
         ":Vector",
     ],
@@ -839,6 +863,25 @@ phq_library(
         ":Time",
         ":Unit/MemoryRate",
     ],
+)
+
+phq_library(
+    name = "PlanarDirection",
+    hdrs = ["include/PhQ/PlanarDirection.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionlessPlanarVector",
+        ":Dyad",
+        ":PlanarVector",
+        ":SymmetricDyad",
+        ":Vector",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarDirection",
+    srcs = ["test/PlanarDirection.cpp"],
+    deps = [":PlanarDirection"],
 )
 
 phq_library(
@@ -1412,6 +1455,7 @@ phq_library(
     hdrs = ["include/PhQ/SymmetricDyad.hpp"],
     deps = [
         ":Base",
+        ":PlanarVector",
         ":Vector",
     ],
 )

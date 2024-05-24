@@ -207,7 +207,7 @@ public:
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
   /// two-dimensional planar vector and a given planar direction.
   [[nodiscard]] constexpr Number Dot(
-      const PhQ::PlanarDirection<Number>& planar_direction) const noexcept;  // TODO.
+      const PhQ::PlanarDirection<Number>& planar_direction) const noexcept;
 
   /// \brief Returns the cross product (also known as the vector product) of this two-dimensional
   /// planar vector and another one.
@@ -216,25 +216,24 @@ public:
   /// \brief Returns the cross product (also known as the vector product) of this two-dimensional
   /// planar vector and a given planar direction.
   [[nodiscard]] constexpr Vector<Number> Cross(
-      const PhQ::PlanarDirection<Number>& planar_direction) const;  // TODO.
+      const PhQ::PlanarDirection<Number>& planar_direction) const;
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// two-dimensional planar vector and another one.
-  [[nodiscard]] constexpr Dyad<Number> Dyadic(
-      const PlanarVector<Number>& planar_vector) const;  // TODO.
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const PlanarVector<Number>& planar_vector) const;
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// two-dimensional planar vector and a given planar direction.
   [[nodiscard]] constexpr Dyad<Number> Dyadic(
-      const PhQ::PlanarDirection<Number>& planar_direction) const;  // TODO.
+      const PhQ::PlanarDirection<Number>& planar_direction) const;
 
   /// \brief Returns the angle between this two-dimensional planar vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarVector<Number>& planar_vector) const;  // TODO.
+  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarVector<Number>& planar_vector) const;
 
   /// \brief Returns the angle between this two-dimensional planar vector and a given planar
   /// direction.
   [[nodiscard]] PhQ::Angle<Number> Angle(
-      const PhQ::PlanarDirection<Number>& planar_direction) const;  // TODO.
+      const PhQ::PlanarDirection<Number>& planar_direction) const;
 
   /// \brief Prints this two-dimensional planar vector as a string.
   [[nodiscard]] std::string Print() const {

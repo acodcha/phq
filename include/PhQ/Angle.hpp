@@ -33,6 +33,7 @@
 #include <ostream>
 
 #include "DimensionalScalar.hpp"
+#include "PlanarVector.hpp"
 #include "Unit/Angle.hpp"
 #include "Vector.hpp"
 
@@ -72,6 +73,46 @@ class HeatFlux;
 
 // Forward declaration for class PhQ::Angle.
 template <typename Number>
+class PlanarAcceleration;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarDirection;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarDisplacement;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarForce;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarHeatFlux;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarPosition;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarTemperatureGradient;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarTraction;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarVectorArea;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
+class PlanarVelocity;
+
+// Forward declaration for class PhQ::Angle.
+template <typename Number>
 class Position;
 
 // Forward declaration for class PhQ::Angle.
@@ -100,18 +141,36 @@ public:
   /// \brief Constructor. Constructs an angle with a given value expressed in a given angle unit.
   Angle(const Number value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
 
-  /// \brief Constructor. Constructs an angle by computing the angle between two given vector
-  /// values.
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// vectors.
+  Angle(const PlanarVector<Number>& planar_vector_1, const PlanarVector<Number>& planar_vector_2)
+    : Angle(std::acos(planar_vector_1.Dot(planar_vector_2)
+                      / (planar_vector_1.Magnitude() * planar_vector_2.Magnitude()))) {}
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given vectors.
   Angle(const Vector<Number>& vector1, const Vector<Number>& vector2)
     : Angle(std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
+
+  /// \brief Constructor. Constructs an angle by computing the angle between a given planar vector
+  /// and planar direction.
+  Angle(const PlanarVector<Number>& planar_vector, const PlanarDirection<Number>& planar_direction);
 
   /// \brief Constructor. Constructs an angle by computing the angle between a given vector and
   /// direction.
   Angle(const Vector<Number>& vector, const Direction<Number>& direction);
 
+  /// \brief Constructor. Constructs an angle by computing the angle between a given planar
+  /// direction and planar vector.
+  Angle(const PlanarDirection<Number>& planar_direction, const PlanarVector<Number>& planar_vector);
+
   /// \brief Constructor. Constructs an angle by computing the angle between a given direction and
   /// vector.
   Angle(const Direction<Number>& direction, const Vector<Number>& vector);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// directions.
+  Angle(const PlanarDirection<Number>& planar_direction_1,
+        const PlanarDirection<Number>& planar_direction_2);
 
   /// \brief Constructor. Constructs an angle by computing the angle between two given directions.
   Angle(const Direction<Number>& direction1, const Direction<Number>& direction2);
@@ -140,6 +199,50 @@ public:
 
   /// \brief Constructor. Constructs an angle by computing the angle between two given heat fluxes.
   Angle(const HeatFlux<Number>& heat_flux_1, const HeatFlux<Number>& heat_flux_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// acceleration vectors.
+  Angle(const PlanarAcceleration<Number>& planar_acceleration_1,
+        const PlanarAcceleration<Number>& planar_acceleration_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar vector
+  /// areas.
+  Angle(const PlanarVectorArea<Number>& planar_vector_area_1,
+        const PlanarVectorArea<Number>& planar_vector_area_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// displacements.
+  Angle(const PlanarDisplacement<Number>& planar_displacement_1,
+        const PlanarDisplacement<Number>& planar_displacement_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// forces.
+  Angle(const PlanarForce<Number>& planar_force_1, const PlanarForce<Number>& planar_force_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar heat
+  /// fluxes.
+  Angle(const PlanarHeatFlux<Number>& planar_heat_flux_1,
+        const PlanarHeatFlux<Number>& planar_heat_flux_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// positions.
+  Angle(const PlanarPosition<Number>& planar_position_1,
+        const PlanarPosition<Number>& planar_position_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// temperature gradients.
+  Angle(const PlanarTemperatureGradient<Number>& planar_temperature_gradient_1,
+        const PlanarTemperatureGradient<Number>& planar_temperature_gradient_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// tractions.
+  Angle(const PlanarTraction<Number>& planar_traction_1,
+        const PlanarTraction<Number>& planar_traction_2);
+
+  /// \brief Constructor. Constructs an angle by computing the angle between two given planar
+  /// velocities.
+  Angle(const PlanarVelocity<Number>& planar_velocity_1,
+        const PlanarVelocity<Number>& planar_velocity_2);
 
   /// \brief Constructor. Constructs an angle by computing the angle between two given positions.
   Angle(const Position<Number>& position1, const Position<Number>& position2);
@@ -280,6 +383,12 @@ inline std::ostream& operator<<(std::ostream& stream, const Angle<Number>& angle
 template <typename Number>
 inline constexpr Angle<Number> operator*(const Number number, const Angle<Number>& angle) {
   return angle * number;
+}
+
+template <typename Number>
+inline PhQ::Angle<Number> PlanarVector<Number>::Angle(
+    const PlanarVector<Number>& planar_vector) const {
+  return PhQ::Angle{*this, planar_vector};
 }
 
 template <typename Number>
