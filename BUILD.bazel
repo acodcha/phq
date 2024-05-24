@@ -841,6 +841,18 @@ phq_library(
     ],
 )
 
+phq_library(
+    name = "PlanarVector",
+    hdrs = ["include/PhQ/PlanarVector.hpp"],
+    deps = [":Base"],
+)
+
+phq_test(
+    name = "test/PlanarVector",
+    srcs = ["test/PlanarVector.cpp"],
+    deps = [":PlanarVector"],
+)
+
 phq_test(
     name = "test/MemoryRate",
     srcs = ["test/MemoryRate.cpp"],
@@ -2541,7 +2553,10 @@ phq_test(
 phq_library(
     name = "Vector",
     hdrs = ["include/PhQ/Vector.hpp"],
-    deps = [":Base"],
+    deps = [
+        ":Base",
+        ":PlanarVector",
+    ],
 )
 
 phq_test(
