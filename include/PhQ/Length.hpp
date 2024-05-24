@@ -70,6 +70,14 @@ class MassDensity;
 
 // Forward declaration for class PhQ::Length.
 template <typename Number>
+class PlanarDisplacement;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
+class PlanarPosition;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Position;
 
 // Forward declaration for class PhQ::Length.
@@ -231,6 +239,12 @@ private:
 
   template <typename OtherNumber>
   friend class Displacement;
+
+  template <typename OtherNumber>
+  friend class PlanarDisplacement;
+
+  template <typename OtherNumber>
+  friend class PlanarPosition;
 
   template <typename OtherNumber>
   friend class Position;
