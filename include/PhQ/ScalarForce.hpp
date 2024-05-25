@@ -47,6 +47,14 @@ class Force;
 
 // Forward declaration for class PhQ::ScalarForce.
 template <typename Number>
+class PlanarDirection;
+
+// Forward declaration for class PhQ::ScalarForce.
+template <typename Number>
+class PlanarForce;
+
+// Forward declaration for class PhQ::ScalarForce.
+template <typename Number>
 class ScalarTraction;
 
 // Forward declaration for class PhQ::ScalarForce.
@@ -123,6 +131,8 @@ public:
     return ScalarForce<Number>{this->value * number};
   }
 
+  constexpr PlanarForce<Number> operator*(const PlanarDirection<Number>& planar_direction) const;
+
   constexpr Force<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarForce<Number> operator/(const Number number) const {
@@ -156,6 +166,9 @@ private:
   /// force unit.
   explicit constexpr ScalarForce(const Number value)
     : DimensionalScalar<Unit::Force, Number>(value) {}
+
+  template <typename OtherNumber>
+  friend class PlanarForce;
 
   template <typename OtherNumber>
   friend class Force;

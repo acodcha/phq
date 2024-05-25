@@ -938,6 +938,25 @@ phq_test(
 )
 
 phq_library(
+    name = "PlanarForce",
+    hdrs = ["include/PhQ/PlanarForce.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarVector",
+        ":ScalarForce",
+        ":Unit/Force",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarForce",
+    srcs = ["test/PlanarForce.cpp"],
+    deps = [":PlanarForce"],
+)
+
+phq_library(
     name = "PlanarPosition",
     hdrs = ["include/PhQ/PlanarPosition.hpp"],
     deps = [
