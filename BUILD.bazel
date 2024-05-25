@@ -977,6 +977,25 @@ phq_test(
 )
 
 phq_library(
+    name = "PlanarTemperatureGradient",
+    hdrs = ["include/PhQ/PlanarTemperatureGradient.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarVector",
+        ":ScalarTemperatureGradient",
+        ":Unit/TemperatureGradient",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarTemperatureGradient",
+    srcs = ["test/PlanarTemperatureGradient.cpp"],
+    deps = [":PlanarTemperatureGradient"],
+)
+
+phq_library(
     name = "PlanarTraction",
     hdrs = ["include/PhQ/PlanarTraction.hpp"],
     deps = [

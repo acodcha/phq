@@ -44,6 +44,14 @@ class Direction;
 
 // Forward declaration for class PhQ::ScalarTemperatureGradient.
 template <typename Number>
+class PlanarDirection;
+
+// Forward declaration for class PhQ::ScalarTemperatureGradient.
+template <typename Number>
+class PlanarTemperatureGradient;
+
+// Forward declaration for class PhQ::ScalarTemperatureGradient.
+template <typename Number>
 class TemperatureGradient;
 
 /// \brief Scalar temperature gradient component or magnitude of a temperature gradient vector. See
@@ -131,6 +139,9 @@ public:
     return TemperatureDifference<Number>{*this, length};
   }
 
+  constexpr PlanarTemperatureGradient<Number> operator*(
+      const PlanarDirection<Number>& planar_direction) const;
+
   constexpr TemperatureGradient<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarTemperatureGradient<Number> operator/(const Number number) const {
@@ -165,6 +176,9 @@ private:
   /// the standard temperature gradient unit.
   explicit constexpr ScalarTemperatureGradient(const Number value)
     : DimensionalScalar<Unit::TemperatureGradient, Number>(value) {}
+
+  template <typename OtherNumber>
+  friend class PlanarTemperatureGradient;
 
   template <typename OtherNumber>
   friend class TemperatureGradient;
