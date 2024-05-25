@@ -977,6 +977,26 @@ phq_test(
 )
 
 phq_library(
+    name = "PlanarTraction",
+    hdrs = ["include/PhQ/PlanarTraction.hpp"],
+    deps = [
+        ":Area",
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarForce",
+        ":PlanarVector",
+        ":ScalarTraction",
+        ":Unit/Pressure",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarTraction",
+    srcs = ["test/PlanarTraction.cpp"],
+    deps = [":PlanarTraction"],
+)
+
+phq_library(
     name = "PlanarVector",
     hdrs = ["include/PhQ/PlanarVector.hpp"],
     deps = [":Base"],
@@ -1542,6 +1562,8 @@ phq_library(
     deps = [
         ":DimensionalSymmetricDyad",
         ":Direction",
+        ":PlanarDirection",
+        ":PlanarTraction",
         ":ScalarStress",
         ":StaticPressure",
         ":SymmetricDyad",

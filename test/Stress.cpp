@@ -33,9 +33,13 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/Direction.hpp"
+#include "../include/PhQ/PlanarDirection.hpp"
+#include "../include/PhQ/PlanarTraction.hpp"
 #include "../include/PhQ/ScalarStress.hpp"
 #include "../include/PhQ/StaticPressure.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
+#include "../include/PhQ/Traction.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
 
 namespace PhQ {
@@ -171,12 +175,20 @@ TEST(Stress, MiscellaneousConstructors) {
   EXPECT_EQ(StaticPressure(2.0, Unit::Pressure::Pascal).Stress(),
             Stress({-2.0, 0.0, 0.0, -2.0, 0.0, -2.0}, Unit::Pressure::Pascal));
 
+  EXPECT_EQ(PlanarTraction(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
+                           PlanarDirection(0.0, -1.0)),
+            PlanarTraction({2.0, 4.0}, Unit::Pressure::Pascal));
+
   EXPECT_EQ(Traction(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
                      Direction(0.0, -1.0, 0.0)),
             Traction({2.0, 4.0, -5.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Stress, MiscellaneousMethods) {
+  EXPECT_EQ(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal)
+                .PlanarTraction(PlanarDirection(0.0, -1.0)),
+            PlanarTraction({2.0, 4.0}, Unit::Pressure::Pascal));
+
   EXPECT_EQ(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal)
                 .Traction(Direction(0.0, -1.0, 0.0)),
             Traction({2.0, 4.0, -5.0}, Unit::Pressure::Pascal));

@@ -35,6 +35,8 @@
 
 #include "DimensionalSymmetricDyad.hpp"
 #include "Direction.hpp"
+#include "PlanarDirection.hpp"
+#include "PlanarTraction.hpp"
 #include "ScalarStress.hpp"
 #include "StaticPressure.hpp"
 #include "SymmetricDyad.hpp"
@@ -165,7 +167,15 @@ public:
     return ScalarStress<Number>{this->value.zz()};
   }
 
-  /// \brief Creates a traction from this stress tensor using the definition of traction.
+  /// \brief Creates a planar traction vector from this stress tensor and a given planar direction
+  /// using the definition of traction.
+  [[nodiscard]] constexpr PhQ::PlanarTraction<Number> PlanarTraction(
+      const PlanarDirection<Number>& direction) const {
+    return PhQ::PlanarTraction<Number>{*this, direction};
+  }
+
+  /// \brief Creates a traction vector from this stress tensor and a given direction using the
+  /// definition of traction.
   [[nodiscard]] constexpr PhQ::Traction<Number> Traction(const Direction<Number>& direction) const {
     return PhQ::Traction<Number>{*this, direction};
   }
@@ -264,9 +274,14 @@ inline constexpr Stress<Number> operator*(const Number number, const Stress<Numb
 }
 
 template <typename Number>
+inline constexpr PlanarTraction<Number>::PlanarTraction(
+    const Stress<Number>& stress, const PhQ::PlanarDirection<Number>& planar_direction)
+  : PlanarTraction<Number>(PlanarVector<Number>{stress.Value() * planar_direction}) {}
+
+template <typename Number>
 inline constexpr Traction<Number>::Traction(
     const Stress<Number>& stress, const PhQ::Direction<Number>& direction)
-  : Traction<Number>({stress.Value() * direction}) {}
+  : Traction<Number>(Vector<Number>{stress.Value() * direction}) {}
 
 template <typename Number>
 inline constexpr PhQ::Stress<Number> StaticPressure<Number>::Stress() const {

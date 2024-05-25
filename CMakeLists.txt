@@ -282,6 +282,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(planar_position GTest::gtest_main)
   gtest_discover_tests(planar_position)
 
+  add_executable(planar_traction ${PROJECT_SOURCE_DIR}/test/PlanarTraction.cpp)
+  target_link_libraries(planar_traction GTest::gtest_main)
+  gtest_discover_tests(planar_traction)
+
   add_executable(planar_vector ${PROJECT_SOURCE_DIR}/test/PlanarVector.cpp)
   target_link_libraries(planar_vector GTest::gtest_main)
   gtest_discover_tests(planar_vector)
