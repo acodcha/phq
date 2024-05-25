@@ -47,6 +47,10 @@ class Force;
 
 // Forward declaration for class PhQ::Area.
 template <typename Number>
+class PlanarVectorArea;
+
+// Forward declaration for class PhQ::Area.
+template <typename Number>
 class ScalarForce;
 
 // Forward declaration for class PhQ::Area.
@@ -65,8 +69,8 @@ class Traction;
 template <typename Number>
 class VectorArea;
 
-/// \brief Scalar area. Can also represent a component or the magnitude of a vector area. See also
-/// PhQ::VectorArea.
+/// \brief Scalar area. Can also represent a component or the magnitude of a vector area or planar
+/// vector area. See also PhQ::VectorArea and PhQ::PlanarVectorArea.
 template <typename Number = double>
 class Area : public DimensionalScalar<Unit::Area, Number> {
 public:
@@ -150,6 +154,9 @@ public:
 
   constexpr ScalarForce<Number> operator*(const StaticPressure<Number>& static_pressure) const;
 
+  constexpr PlanarVectorArea<Number> operator*(
+      const PlanarDirection<Number>& planar_direction) const;
+
   constexpr VectorArea<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr Area<Number> operator/(const Number number) const {
@@ -183,6 +190,9 @@ public:
 private:
   /// \brief Constructor. Constructs an area with a given value expressed in the standard area unit.
   explicit constexpr Area(const Number value) : DimensionalScalar<Unit::Area, Number>(value) {}
+
+  template <typename OtherArea>
+  friend class PlanarVectorArea;
 
   template <typename OtherArea>
   friend class VectorArea;

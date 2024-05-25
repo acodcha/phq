@@ -838,6 +838,12 @@ phq_library(
     ],
 )
 
+phq_test(
+    name = "test/PoissonRatio",
+    srcs = ["test/PoissonRatio.cpp"],
+    deps = [":PoissonRatio"],
+)
+
 phq_library(
     name = "Memory",
     hdrs = ["include/PhQ/Memory.hpp"],
@@ -863,6 +869,12 @@ phq_library(
         ":Time",
         ":Unit/MemoryRate",
     ],
+)
+
+phq_test(
+    name = "test/MemoryRate",
+    srcs = ["test/MemoryRate.cpp"],
+    deps = [":MemoryRate"],
 )
 
 phq_library(
@@ -909,11 +921,11 @@ phq_library(
     deps = [
         ":Angle",
         ":DimensionalPlanarVector",
+        ":Length",
         ":PlanarDirection",
         ":PlanarDisplacement",
-        ":Length",
-        ":Unit/Length",
         ":PlanarVector",
+        ":Unit/Length",
     ],
 )
 
@@ -935,16 +947,23 @@ phq_test(
     deps = [":PlanarVector"],
 )
 
-phq_test(
-    name = "test/MemoryRate",
-    srcs = ["test/MemoryRate.cpp"],
-    deps = [":MemoryRate"],
+phq_library(
+    name = "PlanarVectorArea",
+    hdrs = ["include/PhQ/PlanarVectorArea.hpp"],
+    deps = [
+        ":Angle",
+        ":Area",
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarVector",
+        ":Unit/Area",
+    ],
 )
 
 phq_test(
-    name = "test/PoissonRatio",
-    srcs = ["test/PoissonRatio.cpp"],
-    deps = [":PoissonRatio"],
+    name = "test/PlanarVectorArea",
+    srcs = ["test/PlanarVectorArea.cpp"],
+    deps = [":PlanarVectorArea"],
 )
 
 phq_library(
