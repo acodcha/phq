@@ -91,6 +91,9 @@ TEST(Acceleration, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)
                 * Frequency(2.0, Unit::Frequency::Hertz),
             Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Frequency(2.0, Unit::Frequency::Hertz)
+                * Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond),
+            Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, ArithmeticOperatorSubtraction) {

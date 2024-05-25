@@ -160,7 +160,13 @@ public:
 
   constexpr AngularSpeed<Number> operator*(const Angle<Number>& angle) const;
 
+  constexpr PlanarVelocity<Number> operator*(const PlanarDisplacement<Number>& displacement) const;
+
   constexpr Velocity<Number> operator*(const Displacement<Number>& displacement) const;
+
+  constexpr PlanarAcceleration<Number> operator*(const PlanarVelocity<Number>& displacement) const;
+
+  constexpr Acceleration<Number> operator*(const Velocity<Number>& displacement) const;
 
   constexpr VelocityGradient<Number> operator*(
       const DisplacementGradient<Number>& displacement_gradient) const;

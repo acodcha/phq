@@ -34,6 +34,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
+#include "../include/PhQ/Displacement.hpp"
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Time.hpp"
@@ -224,8 +225,8 @@ TEST(Velocity, MoveConstructor) {
 TEST(Velocity, MutableValue) {
   Velocity velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
   Vector<>& value = velocity.MutableValue();
-  value = Vector{-4.0, 2.05, -6.0};
-  EXPECT_EQ(velocity.Value(), Vector(-4.0, 2.05, -6.0));
+  value = Vector{-4.0, 5.0, -6.0};
+  EXPECT_EQ(velocity.Value(), Vector(-4.0, 5.0, -6.0));
 }
 
 TEST(Velocity, Print) {

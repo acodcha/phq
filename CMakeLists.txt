@@ -282,6 +282,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(planar_vector_area GTest::gtest_main)
   gtest_discover_tests(planar_vector_area)
 
+  add_executable(planar_velocity ${PROJECT_SOURCE_DIR}/test/PlanarVelocity.cpp)
+  target_link_libraries(planar_velocity GTest::gtest_main)
+  gtest_discover_tests(planar_velocity)
+
   add_executable(poisson_ratio ${PROJECT_SOURCE_DIR}/test/PoissonRatio.cpp)
   target_link_libraries(poisson_ratio GTest::gtest_main)
   gtest_discover_tests(poisson_ratio)

@@ -49,14 +49,15 @@ public:
   /// \brief Default constructor. Constructs a planar vector area with an uninitialized value.
   PlanarVectorArea() = default;
 
-  /// \brief Constructor. Constructs a planar vector area with a given value expressedin a given
+  /// \brief Constructor. Constructs a planar vector area with a given value expressed in a given
   /// area unit.
   PlanarVectorArea(const PlanarVector<Number>& value, const Unit::Area unit)
     : DimensionalPlanarVector<Unit::Area, Number>(value, unit) {}
 
-  /// \brief Constructor. Constructs a planar vector area from a given area and direction.
-  constexpr PlanarVectorArea(const Area<Number>& area, const PlanarDirection<Number>& direction)
-    : PlanarVectorArea<Number>(area.Value() * direction.Value()) {}
+  /// \brief Constructor. Constructs a planar vector area from a given area and planar direction.
+  constexpr PlanarVectorArea(
+      const Area<Number>& area, const PlanarDirection<Number>& planar_direction)
+    : PlanarVectorArea<Number>(area.Value() * planar_direction.Value()) {}
 
   /// \brief Destructor. Destroys this planar vector area.
   ~PlanarVectorArea() noexcept = default;
@@ -130,7 +131,7 @@ public:
     return Area<Number>{this->value.Magnitude()};
   }
 
-  /// \brief Returns the direction of this planar vector area.
+  /// \brief Returns the planar direction of this planar vector area.
   [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
@@ -235,9 +236,9 @@ inline PlanarDirection<Number>::PlanarDirection(const PlanarVectorArea<Number>& 
   : PlanarDirection<Number>(planar_vector_area.Value()) {}
 
 template <typename Number>
-inline Angle<Number>::Angle(
-    const PlanarVectorArea<Number>& vector_area_1, const PlanarVectorArea<Number>& vector_area_2)
-  : Angle<Number>(vector_area_1.Value(), vector_area_2.Value()) {}
+inline Angle<Number>::Angle(const PlanarVectorArea<Number>& planar_vector_area_1,
+                            const PlanarVectorArea<Number>& planar_vector_area_2)
+  : Angle<Number>(planar_vector_area_1.Value(), planar_vector_area_2.Value()) {}
 
 template <typename Number>
 inline constexpr PlanarVectorArea<Number> PlanarDirection<Number>::operator*(
@@ -247,8 +248,8 @@ inline constexpr PlanarVectorArea<Number> PlanarDirection<Number>::operator*(
 
 template <typename Number>
 inline constexpr PlanarVectorArea<Number> Area<Number>::operator*(
-    const PlanarDirection<Number>& direction) const {
-  return PlanarVectorArea<Number>{*this, direction};
+    const PlanarDirection<Number>& planar_direction) const {
+  return PlanarVectorArea<Number>{*this, planar_direction};
 }
 
 }  // namespace PhQ

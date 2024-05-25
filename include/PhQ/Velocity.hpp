@@ -48,7 +48,8 @@ namespace PhQ {
 template <typename Number>
 class Acceleration;
 
-/// \brief Velocity vector.
+/// \brief Velocity vector. Not to be confused with speed, which is its scalar analog. See also
+/// PhQ::Speed and PhQ::PlanarVelocity.
 template <typename Number = double>
 class Velocity : public DimensionalVector<Unit::Speed, Number> {
 public:

@@ -299,6 +299,12 @@ inline constexpr Acceleration<Number> Velocity<Number>::operator*(
 }
 
 template <typename Number>
+inline constexpr Acceleration<Number> Frequency<Number>::operator*(
+    const Velocity<Number>& velocity) const {
+  return Acceleration<Number>{velocity, *this};
+}
+
+template <typename Number>
 inline constexpr Acceleration<Number> Velocity<Number>::operator/(const Time<Number>& time) const {
   return Acceleration<Number>{*this, time};
 }

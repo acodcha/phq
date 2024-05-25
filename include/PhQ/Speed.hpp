@@ -69,6 +69,10 @@ class MassDensity;
 
 // Forward declaration for class PhQ::Speed.
 template <typename Number>
+class PlanarVelocity;
+
+// Forward declaration for class PhQ::Speed.
+template <typename Number>
 class Power;
 
 // Forward declaration for class PhQ::Speed.
@@ -205,6 +209,8 @@ public:
 
   constexpr ScalarAcceleration<Number> operator*(const Frequency<Number>& frequency) const;
 
+  constexpr PlanarVelocity<Number> operator*(const PlanarDirection<Number>& direction) const;
+
   constexpr Velocity<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr Power<Number> operator*(
@@ -259,6 +265,9 @@ private:
 
   template <typename OtherNumber>
   friend class SoundSpeed;
+
+  template <typename OtherNumber>
+  friend class PlanarVelocity;
 
   template <typename OtherNumber>
   friend class Velocity;

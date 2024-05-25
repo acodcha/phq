@@ -967,6 +967,28 @@ phq_test(
 )
 
 phq_library(
+    name = "PlanarVelocity",
+    hdrs = ["include/PhQ/PlanarVelocity.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarDisplacement",
+        ":Frequency",
+        ":Speed",
+        ":Time",
+        ":Unit/Speed",
+        ":PlanarVector",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarVelocity",
+    srcs = ["test/PlanarVelocity.cpp"],
+    deps = [":PlanarVelocity"],
+)
+
+phq_library(
     name = "Position",
     hdrs = ["include/PhQ/Position.hpp"],
     deps = [
