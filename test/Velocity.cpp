@@ -207,6 +207,10 @@ TEST(Velocity, MiscellaneousConstructors) {
   EXPECT_EQ(Displacement(Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond),
                          Frequency(2.0, Unit::Frequency::Hertz)),
             Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarVelocity(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)),
+            PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Velocity(PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond)),
+            Velocity({1.0, -2.0, 0.0}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, MoveAssignmentOperator) {

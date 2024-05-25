@@ -34,6 +34,7 @@
 
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
+#include "PlanarHeatFlux.hpp"
 #include "ScalarHeatFlux.hpp"
 #include "ScalarThermalConductivity.hpp"
 #include "TemperatureGradient.hpp"
@@ -60,6 +61,11 @@ public:
   constexpr HeatFlux(
       const ScalarHeatFlux<Number>& scalar_heat_flux, const Direction<Number>& direction)
     : HeatFlux<Number>(scalar_heat_flux.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a heat flux vector from a given planar heat flux vector in the
+  /// XY plane. This heat flux vector's z-component is initialized to zero.
+  explicit constexpr HeatFlux(const PlanarHeatFlux<Number>& planar_heat_flux)
+    : HeatFlux<Number>(Vector<Number>{planar_heat_flux.Value()}) {}
 
   /// \brief Constructor. Constructs a heat flux vector from a given scalar thermal conductivity and
   /// temperature gradient vector using Fourier's law of heat conduction. Since heat flows opposite
@@ -270,6 +276,10 @@ inline constexpr HeatFlux<Number> ScalarHeatFlux<Number>::operator*(
     const Direction<Number>& direction) const {
   return HeatFlux<Number>{*this, direction};
 }
+
+template <typename Number>
+inline constexpr PlanarHeatFlux<Number>::PlanarHeatFlux(const HeatFlux<Number>& heat_flux)
+  : PlanarHeatFlux(PlanarVector<Number>{heat_flux.Value()}) {}
 
 }  // namespace PhQ
 

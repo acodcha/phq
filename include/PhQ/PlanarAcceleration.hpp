@@ -64,6 +64,10 @@ public:
                                const PlanarDirection<Number>& planar_direction)
     : PlanarAcceleration<Number>(scalar_acceleration.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar acceleration vector from a given acceleration vector
+  /// by projecting the acceleration vector onto the XY plane.
+  explicit constexpr PlanarAcceleration(const Acceleration<Number>& acceleration);
+
   /// \brief Constructor. Constructs a planar acceleration vector from a given planar velocity and
   /// time using the definition of acceleration.
   constexpr PlanarAcceleration(

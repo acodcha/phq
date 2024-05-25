@@ -154,6 +154,8 @@ TEST(Direction, MiscellaneousConstructors) {
       Angle(Direction(0.0, -2.0, 0.0), Vector(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
   EXPECT_EQ(
       Angle(Vector(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarDirection(Direction(2.0, -3.0, 6.0)), PlanarDirection(2.0, -3.0));
+  EXPECT_EQ(Direction(PlanarDirection(2.0, -3.0)), Direction(2.0, -3.0, 0.0));
 }
 
 TEST(Direction, MiscellaneousMethods) {

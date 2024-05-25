@@ -138,6 +138,11 @@ public:
     Set(value);
   }
 
+  /// \brief Constructor. Constructs a direction from a given planar direction in the XY plane. This
+  /// direction's z-component is initialized to zero.
+  explicit constexpr Direction(const PlanarDirection<Number>& planar_direction)
+    : Direction<Number>(Vector<Number>{planar_direction.Value()}) {}
+
   /// \brief Constructor. Constructs a direction from an acceleration.
   explicit Direction(const Acceleration<Number>& acceleration);
 
@@ -422,6 +427,10 @@ template <typename Number>
 inline Angle<Number>::Angle(
     const Direction<Number>& direction1, const Direction<Number>& direction2)
   : Angle(std::acos(direction1.Dot(direction2))) {}
+
+template <typename Number>
+inline constexpr PlanarDirection<Number>::PlanarDirection(const Direction<Number>& direction)
+  : PlanarDirection(PlanarVector<Number>{direction.Value()}) {}
 
 template <typename Number>
 Direction<Number> PlanarDirection<Number>::Cross(

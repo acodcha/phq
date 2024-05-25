@@ -61,6 +61,10 @@ public:
       const Length<Number>& length, const PlanarDirection<Number>& planar_direction)
     : PlanarPosition<Number>(length.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar position vector from a given position vector by
+  /// projecting the position vector onto the XY plane.
+  explicit constexpr PlanarPosition(const Position<Number>& position);
+
   /// \brief Constructor. Constructs a planar position vector from a given planar displacement
   /// vector from the origin.
   explicit constexpr PlanarPosition(const PlanarDisplacement<Number>& planar_displacement)

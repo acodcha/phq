@@ -77,6 +77,10 @@ public:
       const Length<Number>& length, const PlanarDirection<Number>& planar_direction)
     : PlanarDisplacement<Number>(length.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar displacement vector from a given displacement vector
+  /// by projecting the displacement vector onto the XY plane.
+  explicit constexpr PlanarDisplacement(const Displacement<Number>& displacement);
+
   /// \brief Constructor. Constructs a planar displacement vector from a given planar velocity
   /// vector and time using the definition of velocity.
   constexpr PlanarDisplacement(

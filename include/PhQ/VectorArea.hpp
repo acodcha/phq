@@ -36,6 +36,7 @@
 #include "Area.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
+#include "PlanarVectorArea.hpp"
 #include "Unit/Area.hpp"
 #include "Vector.hpp"
 
@@ -55,6 +56,11 @@ public:
   /// \brief Constructor. Constructs a vector area from a given area and direction.
   constexpr VectorArea(const Area<Number>& area, const Direction<Number>& direction)
     : VectorArea<Number>(area.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a vector area from a given planar vector area in the XY plane.
+  /// This vector area's z-component is initialized to zero.
+  explicit constexpr VectorArea(const PlanarVectorArea<Number>& planar_force)
+    : VectorArea<Number>(Vector<Number>{planar_force.Value()}) {}
 
   /// \brief Destructor. Destroys this vector area.
   ~VectorArea() noexcept = default;
@@ -246,6 +252,10 @@ inline constexpr VectorArea<Number> Area<Number>::operator*(
     const Direction<Number>& direction) const {
   return VectorArea<Number>{*this, direction};
 }
+
+template <typename Number>
+inline constexpr PlanarVectorArea<Number>::PlanarVectorArea(const VectorArea<Number>& vector_area)
+  : PlanarVectorArea(PlanarVector<Number>{vector_area.Value()}) {}
 
 }  // namespace PhQ
 

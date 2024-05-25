@@ -206,6 +206,12 @@ TEST(TemperatureGradient, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(TemperatureGradient({0.0, -2.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre),
                   TemperatureGradient({0.0, 0.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
             Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarTemperatureGradient(
+                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
+            PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(TemperatureGradient(
+                PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre)),
+            TemperatureGradient({1.0, -2.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MoveAssignmentOperator) {

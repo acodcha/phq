@@ -59,6 +59,10 @@ public:
       const Area<Number>& area, const PlanarDirection<Number>& planar_direction)
     : PlanarVectorArea<Number>(area.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar vector area from a given vector area by projecting the
+  /// vector area onto the XY plane.
+  explicit constexpr PlanarVectorArea(const VectorArea<Number>& vector_area);
+
   /// \brief Destructor. Destroys this planar vector area.
   ~PlanarVectorArea() noexcept = default;
 

@@ -35,6 +35,7 @@
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
+#include "PlanarTemperatureGradient.hpp"
 #include "ScalarTemperatureGradient.hpp"
 #include "Unit/TemperatureGradient.hpp"
 #include "Vector.hpp"
@@ -60,6 +61,13 @@ public:
       const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
       const Direction<Number>& direction)
     : TemperatureGradient<Number>(scalar_temperature_gradient.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a temperature gradient vector from a given planar temperature
+  /// gradient vector in the XY plane. This temperature gradient vector's z-component is initialized
+  /// to zero.
+  explicit constexpr TemperatureGradient(
+      const PlanarTemperatureGradient<Number>& planar_temperature_gradient)
+    : TemperatureGradient<Number>(Vector<Number>{planar_temperature_gradient.Value()}) {}
 
   /// \brief Destructor. Destroys this temperature gradient vector.
   ~TemperatureGradient() noexcept = default;
@@ -267,6 +275,11 @@ inline constexpr TemperatureGradient<Number> ScalarTemperatureGradient<Number>::
     const Direction<Number>& direction) const {
   return TemperatureGradient<Number>{*this, direction};
 }
+
+template <typename Number>
+inline constexpr PlanarTemperatureGradient<Number>::PlanarTemperatureGradient(
+    const TemperatureGradient<Number>& temperature_gradient)
+  : PlanarTemperatureGradient(PlanarVector<Number>{temperature_gradient.Value()}) {}
 
 }  // namespace PhQ
 

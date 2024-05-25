@@ -36,6 +36,7 @@
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Force.hpp"
+#include "PlanarTraction.hpp"
 #include "ScalarTraction.hpp"
 #include "Unit/Pressure.hpp"
 #include "Vector.hpp"
@@ -64,6 +65,11 @@ public:
   constexpr Traction(
       const ScalarTraction<Number>& scalar_traction, const Direction<Number>& direction)
     : Traction<Number>(scalar_traction.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a traction vector from a given planar traction vector in the XY
+  /// plane. This traction vector's z-component is initialized to zero.
+  explicit constexpr Traction(const PlanarTraction<Number>& planar_traction)
+    : Traction<Number>(Vector<Number>{planar_traction.Value()}) {}
 
   /// \brief Constructor. Constructs a traction vector from a given force and area using the
   /// definition of traction.
@@ -278,6 +284,10 @@ template <typename Number>
 inline constexpr Traction<Number> Force<Number>::operator/(const Area<Number>& area) const {
   return Traction<Number>{*this, area};
 }
+
+template <typename Number>
+inline constexpr PlanarTraction<Number>::PlanarTraction(const Traction<Number>& traction)
+  : PlanarTraction(PlanarVector<Number>{traction.Value()}) {}
 
 }  // namespace PhQ
 

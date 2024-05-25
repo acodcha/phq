@@ -34,6 +34,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
+#include "../include/PhQ/PlanarForce.hpp"
 #include "../include/PhQ/ScalarForce.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
@@ -180,10 +181,13 @@ TEST(Force, Magnitude) {
 
 TEST(Force, MiscellaneousConstructors) {
   EXPECT_EQ(Direction(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)), Direction(1.0, -2.0, 3.0));
-
   EXPECT_EQ(Angle(Force({0.0, -2.0, 0.0}, Unit::Force::Newton),
                   Force({0.0, 0.0, 3.0}, Unit::Force::Newton)),
             Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarForce(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)),
+            PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+  EXPECT_EQ(Force(PlanarForce({1.0, -2.0}, Unit::Force::Newton)),
+            Force({1.0, -2.0, 0.0}, Unit::Force::Newton));
 }
 
 TEST(Force, MoveAssignmentOperator) {

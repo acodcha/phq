@@ -213,6 +213,10 @@ TEST(Position, MiscellaneousConstructors) {
             Angle(90.0, Unit::Angle::Degree));
   EXPECT_EQ(Displacement(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
             Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarPosition(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
+            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+  EXPECT_EQ(Position(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
+            Position({1.0, -2.0, 0.0}, Unit::Length::Metre));
 }
 
 TEST(Position, MoveAssignmentOperator) {

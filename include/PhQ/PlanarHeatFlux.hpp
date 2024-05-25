@@ -61,6 +61,10 @@ public:
                            const PlanarDirection<Number>& planar_direction)
     : PlanarHeatFlux<Number>(scalar_heat_flux.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar heat flux vector from a given heat flux vector by
+  /// projecting the heat flux vector onto the XY plane.
+  explicit constexpr PlanarHeatFlux(const HeatFlux<Number>& heat_flux);
+
   /// \brief Constructor. Constructs a planar heat flux vector from a given scalar thermal
   /// conductivity and planar temperature gradient vector using Fourier's law of heat conduction.
   /// Since heat flows opposite the temperature gradient, the resulting heat flux direction is

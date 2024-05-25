@@ -189,6 +189,10 @@ TEST(VectorArea, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(VectorArea({0.0, -2.0, 0.0}, Unit::Area::SquareMetre),
                   VectorArea({0.0, 0.0, 3.0}, Unit::Area::SquareMetre)),
             Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarVectorArea(VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre)),
+            PlanarVectorArea({1.0, -2.0}, Unit::Area::SquareMetre));
+  EXPECT_EQ(VectorArea(PlanarVectorArea({1.0, -2.0}, Unit::Area::SquareMetre)),
+            VectorArea({1.0, -2.0, 0.0}, Unit::Area::SquareMetre));
 }
 
 TEST(VectorArea, MoveAssignmentOperator) {

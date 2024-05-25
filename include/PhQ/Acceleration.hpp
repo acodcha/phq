@@ -36,6 +36,7 @@
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Frequency.hpp"
+#include "PlanarAcceleration.hpp"
 #include "ScalarAcceleration.hpp"
 #include "Time.hpp"
 #include "Unit/Acceleration.hpp"
@@ -61,6 +62,11 @@ public:
   constexpr Acceleration(
       const ScalarAcceleration<Number>& scalar_acceleration, const Direction<Number>& direction)
     : Acceleration<Number>(scalar_acceleration.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs an acceleration vector from a given planar acceleration vector
+  /// in the XY plane. This acceleration vector's z-component is initialized to zero.
+  explicit constexpr Acceleration(const PlanarAcceleration<Number>& planar_acceleration)
+    : Acceleration<Number>(Vector<Number>{planar_acceleration.Value()}) {}
 
   /// \brief Constructor. Constructs an acceleration vector from a given velocity and time using the
   /// definition of acceleration.
@@ -263,6 +269,11 @@ template <typename Number>
 inline Angle<Number>::Angle(
     const Acceleration<Number>& acceleration_1, const Acceleration<Number>& acceleration_2)
   : Angle<Number>(acceleration_1.Value(), acceleration_2.Value()) {}
+
+template <typename Number>
+inline constexpr PlanarAcceleration<Number>::PlanarAcceleration(
+    const Acceleration<Number>& acceleration)
+  : PlanarAcceleration(PlanarVector<Number>{acceleration.Value()}) {}
 
 template <typename Number>
 inline constexpr Velocity<Number>::Velocity(

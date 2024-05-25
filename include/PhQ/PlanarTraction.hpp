@@ -64,6 +64,10 @@ public:
                            const PlanarDirection<Number>& planar_direction)
     : PlanarTraction<Number>(scalar_traction.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar traction vector from a given traction vector by
+  /// projecting the traction vector onto the XY plane.
+  explicit constexpr PlanarTraction(const Traction<Number>& traction);
+
   /// \brief Constructor. Constructs a planar traction vector from a given planar force and area
   /// using the definition of traction.
   constexpr PlanarTraction(const PlanarForce<Number>& planar_force, const Area<Number>& area)

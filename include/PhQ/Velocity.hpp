@@ -37,6 +37,7 @@
 #include "Direction.hpp"
 #include "Displacement.hpp"
 #include "Frequency.hpp"
+#include "PlanarVelocity.hpp"
 #include "Speed.hpp"
 #include "Time.hpp"
 #include "Unit/Speed.hpp"
@@ -64,6 +65,11 @@ public:
   /// \brief Constructor. Constructs a velocity vector from a given speed and direction.
   constexpr Velocity(const Speed<Number>& speed, const Direction<Number>& direction)
     : Velocity<Number>(speed.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a velocity vector from a given planar velocity vector in the XY
+  /// plane. This velocity vector's z-component is initialized to zero.
+  explicit constexpr Velocity(const PlanarVelocity<Number>& planar_velocity)
+    : Velocity<Number>(Vector<Number>{planar_velocity.Value()}) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given displacement vector and time
   /// using the definition of velocity.
@@ -283,6 +289,10 @@ template <typename Number>
 inline constexpr Displacement<Number>::Displacement(
     const Velocity<Number>& velocity, const Frequency<Number>& frequency)
   : Displacement<Number>(velocity.Value() / frequency.Value()) {}
+
+template <typename Number>
+inline constexpr PlanarVelocity<Number>::PlanarVelocity(const Velocity<Number>& velocity)
+  : PlanarVelocity(PlanarVector<Number>{velocity.Value()}) {}
 
 template <typename Number>
 inline constexpr Velocity<Number> Direction<Number>::operator*(const Speed<Number>& speed) const {

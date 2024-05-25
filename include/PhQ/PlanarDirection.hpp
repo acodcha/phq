@@ -141,6 +141,10 @@ public:
     Set(value);
   }
 
+  /// \brief Constructor. Constructs a planar direction from a given direction by projecting the
+  /// direction onto the XY plane.
+  explicit constexpr PlanarDirection(const Direction<Number>& direction);
+
   /// \brief Constructor. Constructs a planar direction from a planar acceleration.
   explicit PlanarDirection(const PlanarAcceleration<Number>& planar_acceleration);
 

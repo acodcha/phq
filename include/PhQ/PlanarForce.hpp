@@ -63,6 +63,10 @@ public:
       const ScalarForce<Number>& scalar_force, const PlanarDirection<Number>& planar_direction)
     : PlanarForce<Number>(scalar_force.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar force vector from a given force vector by projecting
+  /// the force vector onto the XY plane.
+  explicit constexpr PlanarForce(const Force<Number>& force);
+
   /// \brief Constructor. Constructs a planar force vector from a given planar traction and area
   /// using the definition of traction.
   constexpr PlanarForce(const PlanarTraction<Number>& planar_traction, const Area<Number>& area);

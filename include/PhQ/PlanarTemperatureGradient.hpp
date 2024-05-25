@@ -64,6 +64,11 @@ public:
     : PlanarTemperatureGradient<Number>(
         scalar_temperature_gradient.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar temperature gradient vector from a given temperature
+  /// gradient vector by projecting the temperature gradient vector onto the XY plane.
+  explicit constexpr PlanarTemperatureGradient(
+      const TemperatureGradient<Number>& temperature_gradient);
+
   /// \brief Destructor. Destroys this planar temperature gradient vector.
   ~PlanarTemperatureGradient() noexcept = default;
 

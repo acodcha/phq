@@ -66,6 +66,10 @@ public:
       const Speed<Number>& speed, const PlanarDirection<Number>& planar_direction)
     : PlanarVelocity<Number>(speed.Value() * planar_direction.Value()) {}
 
+  /// \brief Constructor. Constructs a planar velocity vector from a given velocity vector by
+  /// projecting the velocity vector onto the XY plane.
+  explicit constexpr PlanarVelocity(const Velocity<Number>& velocity);
+
   /// \brief Constructor. Constructs a planar velocity vector from a given planar displacement
   /// vector and time using the definition of velocity.
   constexpr PlanarVelocity(
