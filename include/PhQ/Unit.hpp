@@ -33,6 +33,7 @@
 
 #include "Dimensions.hpp"
 #include "Dyad.hpp"
+#include "PlanarVector.hpp"
 #include "SymmetricDyad.hpp"
 #include "UnitSystem.hpp"
 #include "Vector.hpp"
@@ -169,6 +170,13 @@ inline void Convert(std::vector<Number>& values, const Unit original_unit, const
   }
 }
 
+/// \brief Converts a two-dimensional planar vector in the XY plane expressed in a given unit of
+/// measure to a new unit of measure. The conversion is performed in-place.
+template <typename Unit, typename Number>
+inline void Convert(PlanarVector<Number>& value, const Unit original_unit, const Unit new_unit) {
+  Convert<Unit, 2, Number>(value.Mutable_x_y(), original_unit, new_unit);
+}
+
 /// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
 /// measure. The conversion is performed in-place.
 template <typename Unit, typename Number>
@@ -217,6 +225,15 @@ inline std::vector<Number> ConvertCopy(
   std::vector<Number> result{values};
   Convert<Unit, Number>(result, original_unit, new_unit);
   return result;
+}
+
+/// \brief Converts a two-dimensional planar vector in the XY plane expressed in a given unit of
+/// measure to a new unit of measure. Returns a copy of the converted value. The original value
+/// remains unchanged.
+template <typename Unit, typename Number>
+inline PlanarVector<Number> ConvertCopy(
+    const PlanarVector<Number>& value, const Unit original_unit, const Unit new_unit) {
+  return PlanarVector{ConvertCopy<Unit, 2, Number>(value.x_y(), original_unit, new_unit)};
 }
 
 /// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
@@ -273,6 +290,14 @@ inline constexpr std::array<Number, Size> StaticConvertCopy(
   Internal::Conversions<Unit, OriginalUnit>::ToStandard(result.data(), Size);
   Internal::Conversions<Unit, NewUnit>::FromStandard(result.data(), Size);
   return result;
+}
+
+/// \brief Converts a two-dimensional planar vector in the XY plane expressed in a given unit of
+/// measure to a new unit of measure. Returns a copy of the converted value. The original value
+/// remains unchanged. This function can be evaluated at compile time.
+template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename Number>
+inline constexpr PlanarVector<Number> StaticConvertCopy(const PlanarVector<Number>& value) {
+  return PlanarVector{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 2, Number>(value.x_y())};
 }
 
 /// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of

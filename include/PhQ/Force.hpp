@@ -35,6 +35,7 @@
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
+#include "PlanarForce.hpp"
 #include "ScalarForce.hpp"
 #include "Unit/Force.hpp"
 #include "Vector.hpp"
@@ -61,6 +62,11 @@ public:
   /// direction.
   constexpr Force(const ScalarForce<Number>& scalar_force, const Direction<Number>& direction)
     : Force<Number>(scalar_force.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a force vector from a given planar force vector in the XY
+  /// plane. This force vector's z-component is initialized to zero.
+  explicit constexpr Force(const PlanarForce<Number>& planar_force)
+    : Force<Number>(Vector<Number>{planar_force.Value()}) {}
 
   /// \brief Constructor. Constructs a force vector from a given traction and area using the
   /// definition of traction.
@@ -251,6 +257,10 @@ inline constexpr Force<Number> ScalarForce<Number>::operator*(
     const Direction<Number>& direction) const {
   return Force<Number>{*this, direction};
 }
+
+template <typename Number>
+inline constexpr PlanarForce<Number>::PlanarForce(const Force<Number>& force)
+  : PlanarForce(PlanarVector<Number>{force.Value()}) {}
 
 }  // namespace PhQ
 

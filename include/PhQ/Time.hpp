@@ -86,6 +86,18 @@ class MemoryRate;
 
 // Forward declaration for class PhQ::Time.
 template <typename Number>
+class PlanarAcceleration;
+
+// Forward declaration for class PhQ::Time.
+template <typename Number>
+class PlanarDisplacement;
+
+// Forward declaration for class PhQ::Time.
+template <typename Number>
+class PlanarVelocity;
+
+// Forward declaration for class PhQ::Time.
+template <typename Number>
 class Power;
 
 // Forward declaration for class PhQ::Time.
@@ -256,6 +268,9 @@ public:
 
   constexpr Number operator*(const PhQ::Frequency<Number>& frequency) const noexcept;
 
+  constexpr PlanarVelocity<Number> operator*(
+      const PlanarAcceleration<Number>& planar_acceleration) const;
+
   constexpr Velocity<Number> operator*(const Acceleration<Number>& acceleration) const;
 
   constexpr Speed<Number> operator*(const ScalarAcceleration<Number>& scalar_acceleration) const;
@@ -270,6 +285,9 @@ public:
 
   constexpr ScalarStrain<Number> operator*(
       const ScalarStrainRate<Number>& scalar_strain_rate) const;
+
+  constexpr PlanarDisplacement<Number> operator*(
+      const PlanarVelocity<Number>& planar_velocity) const;
 
   constexpr Displacement<Number> operator*(const Velocity<Number>& velocity) const;
 

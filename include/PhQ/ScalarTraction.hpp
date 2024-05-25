@@ -44,6 +44,14 @@ class Direction;
 
 // Forward declaration for class PhQ::ScalarTraction.
 template <typename Number>
+class PlanarDirection;
+
+// Forward declaration for class PhQ::ScalarTraction.
+template <typename Number>
+class PlanarTraction;
+
+// Forward declaration for class PhQ::ScalarTraction.
+template <typename Number>
 class Traction;
 
 /// \brief Scalar traction component or magnitude of a traction vector. Traction is similar to
@@ -121,6 +129,8 @@ public:
     return ScalarForce<Number>{*this, area};
   }
 
+  constexpr PlanarTraction<Number> operator*(const PlanarDirection<Number>& planar_direction) const;
+
   constexpr Traction<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarTraction<Number> operator/(const Number number) const {
@@ -152,6 +162,9 @@ private:
   /// pressure unit.
   explicit constexpr ScalarTraction(const Number value)
     : DimensionalScalar<Unit::Pressure, Number>(value) {}
+
+  template <typename OtherNumber>
+  friend class PlanarTraction;
 
   template <typename OtherNumber>
   friend class Traction;

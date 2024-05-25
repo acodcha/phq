@@ -34,6 +34,7 @@
 #include <utility>
 
 #include "../include/PhQ/Base.hpp"
+#include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
@@ -119,6 +120,12 @@ TEST(SymmetricDyad, ArithmeticOperatorMultiplication) {
             SymmetricDyad(2.0L, -4.0L, 6.0L, -8.0L, 10.0L, -12.0L));
   EXPECT_EQ(2.0L * SymmetricDyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L),
             SymmetricDyad(2.0L, -4.0L, 6.0L, -8.0L, 10.0L, -12.0L));
+  EXPECT_EQ(SymmetricDyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F) * PlanarVector(1.0F, -2.0F),
+            Vector(5.0F, 6.0F, -7.0F));
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * PlanarVector(1.0, -2.0),
+            Vector(5.0, 6.0, -7.0));
+  EXPECT_EQ(SymmetricDyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L) * PlanarVector(1.0L, -2.0L),
+            Vector(5.0L, 6.0L, -7.0L));
   EXPECT_EQ(SymmetricDyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F) * Vector(1.0F, -2.0F, 3.0F),
             Vector(14.0F, 21.0F, -25.0F));
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * Vector(1.0, -2.0, 3.0),

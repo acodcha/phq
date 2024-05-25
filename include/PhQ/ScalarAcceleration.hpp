@@ -47,6 +47,14 @@ class Acceleration;
 template <typename Number>
 class Direction;
 
+// Forward declaration for class PhQ::ScalarAcceleration.
+template <typename Number>
+class PlanarAcceleration;
+
+// Forward declaration for class PhQ::ScalarAcceleration.
+template <typename Number>
+class PlanarDirection;
+
 /// \brief Scalar acceleration component or magnitude of an acceleration vector. See also
 /// PhQ::Acceleration.
 template <typename Number = double>
@@ -130,6 +138,9 @@ public:
     return Speed<Number>{*this, time};
   }
 
+  constexpr PlanarAcceleration<Number> operator*(
+      const PlanarDirection<Number>& planar_direction) const;
+
   constexpr Acceleration<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarAcceleration<Number> operator/(const Number number) const {
@@ -169,6 +180,9 @@ private:
   /// standard acceleration unit.
   explicit constexpr ScalarAcceleration(const Number value)
     : DimensionalScalar<Unit::Acceleration, Number>(value) {}
+
+  template <typename OtherNumber>
+  friend class PlanarAcceleration;
 
   template <typename OtherNumber>
   friend class Acceleration;

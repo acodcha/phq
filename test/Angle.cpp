@@ -31,6 +31,7 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Vector.hpp"
 
@@ -139,15 +140,17 @@ TEST(Angle, JSON) {
 }
 
 TEST(Angle, MiscellaneousConstructors) {
-  const Vector first{1.0, 0.0, 0.0};
-  const Vector second{0.0, 0.0, -1.0};
-  EXPECT_DOUBLE_EQ(Angle(first, second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(Angle(PlanarVector(1.0, 0.0), PlanarVector(0.0, -1.0)).Value(),
+                   Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(Angle(Vector(1.0, 0.0, 0.0), Vector(0.0, 0.0, -1.0)).Value(),
+                   Angle(90.0, Unit::Angle::Degree).Value());
 }
 
 TEST(Angle, MiscellaneousMethods) {
-  const Vector first{1.0, 0.0, 0.0};
-  const Vector second{0.0, 0.0, -1.0};
-  EXPECT_DOUBLE_EQ(first.Angle(second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(PlanarVector(1.0, 0.0).Angle(PlanarVector(0.0, -1.0)).Value(),
+                   Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(Vector(1.0, 0.0, 0.0).Angle(Vector(0.0, 0.0, -1.0)).Value(),
+                   Angle(90.0, Unit::Angle::Degree).Value());
 }
 
 TEST(Angle, MoveAssignmentOperator) {

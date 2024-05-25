@@ -262,6 +262,50 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(memory_rate GTest::gtest_main)
   gtest_discover_tests(memory_rate)
 
+  add_executable(planar_acceleration ${PROJECT_SOURCE_DIR}/test/PlanarAcceleration.cpp)
+  target_link_libraries(planar_acceleration GTest::gtest_main)
+  gtest_discover_tests(planar_acceleration)
+
+  add_executable(planar_direction ${PROJECT_SOURCE_DIR}/test/PlanarDirection.cpp)
+  target_link_libraries(planar_direction GTest::gtest_main)
+  gtest_discover_tests(planar_direction)
+
+  add_executable(planar_displacement ${PROJECT_SOURCE_DIR}/test/PlanarDisplacement.cpp)
+  target_link_libraries(planar_displacement GTest::gtest_main)
+  gtest_discover_tests(planar_displacement)
+
+  add_executable(planar_force ${PROJECT_SOURCE_DIR}/test/PlanarForce.cpp)
+  target_link_libraries(planar_force GTest::gtest_main)
+  gtest_discover_tests(planar_force)
+
+  add_executable(planar_heat_flux ${PROJECT_SOURCE_DIR}/test/PlanarHeatFlux.cpp)
+  target_link_libraries(planar_heat_flux GTest::gtest_main)
+  gtest_discover_tests(planar_heat_flux)
+
+  add_executable(planar_position ${PROJECT_SOURCE_DIR}/test/PlanarPosition.cpp)
+  target_link_libraries(planar_position GTest::gtest_main)
+  gtest_discover_tests(planar_position)
+
+  add_executable(planar_temperature_gradient ${PROJECT_SOURCE_DIR}/test/PlanarTemperatureGradient.cpp)
+  target_link_libraries(planar_temperature_gradient GTest::gtest_main)
+  gtest_discover_tests(planar_temperature_gradient)
+
+  add_executable(planar_traction ${PROJECT_SOURCE_DIR}/test/PlanarTraction.cpp)
+  target_link_libraries(planar_traction GTest::gtest_main)
+  gtest_discover_tests(planar_traction)
+
+  add_executable(planar_vector ${PROJECT_SOURCE_DIR}/test/PlanarVector.cpp)
+  target_link_libraries(planar_vector GTest::gtest_main)
+  gtest_discover_tests(planar_vector)
+
+  add_executable(planar_vector_area ${PROJECT_SOURCE_DIR}/test/PlanarVectorArea.cpp)
+  target_link_libraries(planar_vector_area GTest::gtest_main)
+  gtest_discover_tests(planar_vector_area)
+
+  add_executable(planar_velocity ${PROJECT_SOURCE_DIR}/test/PlanarVelocity.cpp)
+  target_link_libraries(planar_velocity GTest::gtest_main)
+  gtest_discover_tests(planar_velocity)
+
   add_executable(poisson_ratio ${PROJECT_SOURCE_DIR}/test/PoissonRatio.cpp)
   target_link_libraries(poisson_ratio GTest::gtest_main)
   gtest_discover_tests(poisson_ratio)

@@ -36,6 +36,7 @@
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Frequency.hpp"
+#include "PlanarAcceleration.hpp"
 #include "ScalarAcceleration.hpp"
 #include "Time.hpp"
 #include "Unit/Acceleration.hpp"
@@ -61,6 +62,11 @@ public:
   constexpr Acceleration(
       const ScalarAcceleration<Number>& scalar_acceleration, const Direction<Number>& direction)
     : Acceleration<Number>(scalar_acceleration.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs an acceleration vector from a given planar acceleration vector
+  /// in the XY plane. This acceleration vector's z-component is initialized to zero.
+  explicit constexpr Acceleration(const PlanarAcceleration<Number>& planar_acceleration)
+    : Acceleration<Number>(Vector<Number>{planar_acceleration.Value()}) {}
 
   /// \brief Constructor. Constructs an acceleration vector from a given velocity and time using the
   /// definition of acceleration.
@@ -265,6 +271,11 @@ inline Angle<Number>::Angle(
   : Angle<Number>(acceleration_1.Value(), acceleration_2.Value()) {}
 
 template <typename Number>
+inline constexpr PlanarAcceleration<Number>::PlanarAcceleration(
+    const Acceleration<Number>& acceleration)
+  : PlanarAcceleration(PlanarVector<Number>{acceleration.Value()}) {}
+
+template <typename Number>
 inline constexpr Velocity<Number>::Velocity(
     const Acceleration<Number>& acceleration, const Time<Number>& time)
   : Velocity<Number>(acceleration.Value() * time.Value()) {}
@@ -296,6 +307,12 @@ template <typename Number>
 inline constexpr Acceleration<Number> Velocity<Number>::operator*(
     const Frequency<Number>& frequency) const {
   return Acceleration<Number>{*this, frequency};
+}
+
+template <typename Number>
+inline constexpr Acceleration<Number> Frequency<Number>::operator*(
+    const Velocity<Number>& velocity) const {
+  return Acceleration<Number>{velocity, *this};
 }
 
 template <typename Number>

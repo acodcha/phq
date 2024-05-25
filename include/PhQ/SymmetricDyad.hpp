@@ -36,6 +36,7 @@
 #include <type_traits>
 
 #include "Base.hpp"
+#include "PlanarVector.hpp"
 #include "Vector.hpp"
 
 namespace PhQ {
@@ -519,6 +520,15 @@ template <typename Number, typename OtherNumber>
 inline constexpr SymmetricDyad<Number> operator*(
     const OtherNumber number, const SymmetricDyad<Number>& symmetric_dyad) {
   return SymmetricDyad<Number>{symmetric_dyad * number};
+}
+
+template <typename Number>
+inline constexpr Vector<Number> operator*(
+    const SymmetricDyad<Number>& symmetric_dyad, const PlanarVector<Number>& planar_vector) {
+  return Vector<Number>{
+      symmetric_dyad.xx() * planar_vector.x() + symmetric_dyad.xy() * planar_vector.y(),
+      symmetric_dyad.xy() * planar_vector.x() + symmetric_dyad.yy() * planar_vector.y(),
+      symmetric_dyad.xz() * planar_vector.x() + symmetric_dyad.yz() * planar_vector.y()};
 }
 
 template <typename Number>

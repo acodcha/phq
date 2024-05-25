@@ -36,6 +36,7 @@
 #include "Angle.hpp"
 #include "DimensionlessVector.hpp"
 #include "Dyad.hpp"
+#include "PlanarDirection.hpp"
 #include "SymmetricDyad.hpp"
 #include "Vector.hpp"
 
@@ -71,10 +72,6 @@ class Position;
 
 // Forward declaration for class PhQ::Direction.
 template <typename Number>
-class Speed;
-
-// Forward declaration for class PhQ::Direction.
-template <typename Number>
 class ScalarAcceleration;
 
 // Forward declaration for class PhQ::Direction.
@@ -92,6 +89,10 @@ class ScalarTemperatureGradient;
 // Forward declaration for class PhQ::Direction.
 template <typename Number>
 class ScalarTraction;
+
+// Forward declaration for class PhQ::Direction.
+template <typename Number>
+class Speed;
 
 // Forward declaration for class PhQ::Direction.
 template <typename Number>
@@ -132,10 +133,15 @@ public:
   }
 
   /// \brief Constructor. Constructs a direction by normalizing the given vector to a unit vector.
-  /// If the given vector is a zero vector, initializes the direction to the zero vector.
+  /// If the given vector is the zero vector, initializes the direction to the zero vector.
   explicit Direction(const Vector<Number>& value) : DimensionlessVector<Number>() {
     Set(value);
   }
+
+  /// \brief Constructor. Constructs a direction from a given planar direction in the XY plane. This
+  /// direction's z-component is initialized to zero.
+  explicit constexpr Direction(const PlanarDirection<Number>& planar_direction)
+    : Direction<Number>(Vector<Number>{planar_direction.Value()}) {}
 
   /// \brief Constructor. Constructs a direction from an acceleration.
   explicit Direction(const Acceleration<Number>& acceleration);
@@ -178,8 +184,7 @@ public:
   /// \brief Move constructor. Constructs a direction by moving another one.
   constexpr Direction(Direction<Number>&& other) noexcept = default;
 
-  /// \brief Copy assignment operator. Assigns the value of this direction by copying from another
-  /// one.
+  /// \brief Copy assignment operator. Assigns this direction by copying another one.
   constexpr Direction<Number>& operator=(const Direction<Number>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this direction by copying another one.
@@ -251,13 +256,13 @@ public:
   }
 
   /// \brief Returns the square of the magnitude of this direction. This is guaranteed to be exactly
-  /// 1 if the direction is valid, or 0 if the direction is the zero vector.
+  /// 1 if the direction is not the zero vector, or 0 if the direction is the zero vector.
   [[nodiscard]] constexpr Number MagnitudeSquared() const noexcept {
     return this->value.MagnitudeSquared();
   }
 
   /// \brief Returns the magnitude of this direction. This is guaranteed to be exactly 1 if the
-  /// direction is valid, or 0 if the direction is the zero vector.
+  /// direction is not the zero vector, or 0 if the direction is the zero vector.
   [[nodiscard]] Number Magnitude() const noexcept {
     return this->value.Magnitude();
   }
@@ -422,6 +427,16 @@ template <typename Number>
 inline Angle<Number>::Angle(
     const Direction<Number>& direction1, const Direction<Number>& direction2)
   : Angle(std::acos(direction1.Dot(direction2))) {}
+
+template <typename Number>
+inline constexpr PlanarDirection<Number>::PlanarDirection(const Direction<Number>& direction)
+  : PlanarDirection(PlanarVector<Number>{direction.Value()}) {}
+
+template <typename Number>
+Direction<Number> PlanarDirection<Number>::Cross(
+    const PlanarDirection<Number>& planar_direction) const {
+  return Direction<Number>{this->value.Cross(planar_direction.value)};
+}
 
 }  // namespace PhQ
 

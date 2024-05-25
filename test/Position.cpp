@@ -34,6 +34,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
+#include "../include/PhQ/Displacement.hpp"
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
@@ -212,6 +213,10 @@ TEST(Position, MiscellaneousConstructors) {
             Angle(90.0, Unit::Angle::Degree));
   EXPECT_EQ(Displacement(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
             Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarPosition(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
+            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+  EXPECT_EQ(Position(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
+            Position({1.0, -2.0, 0.0}, Unit::Length::Metre));
 }
 
 TEST(Position, MoveAssignmentOperator) {

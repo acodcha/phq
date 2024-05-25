@@ -36,6 +36,7 @@
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Length.hpp"
+#include "PlanarDisplacement.hpp"
 #include "Unit/Length.hpp"
 #include "Vector.hpp"
 
@@ -72,6 +73,11 @@ public:
   /// \brief Constructor. Constructs a displacement vector from a given length and direction.
   constexpr Displacement(const Length<Number>& length, const Direction<Number>& direction)
     : Displacement<Number>(length.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs an displacement vector from a given planar displacement vector
+  /// in the XY plane. This displacement vector's z-component is initialized to zero.
+  explicit constexpr Displacement(const PlanarDisplacement<Number>& planar_displacement)
+    : Displacement<Number>(Vector<Number>{planar_displacement.Value()}) {}
 
   /// \brief Constructor. Constructs a displacement vector from a given velocity vector and time
   /// using the definition of velocity.
@@ -277,6 +283,11 @@ template <typename Number>
 inline Angle<Number>::Angle(
     const Displacement<Number>& displacement1, const Displacement<Number>& displacement2)
   : Angle<Number>(displacement1.Value(), displacement2.Value()) {}
+
+template <typename Number>
+inline constexpr PlanarDisplacement<Number>::PlanarDisplacement(
+    const Displacement<Number>& displacement)
+  : PlanarDisplacement(PlanarVector<Number>{displacement.Value()}) {}
 
 }  // namespace PhQ
 

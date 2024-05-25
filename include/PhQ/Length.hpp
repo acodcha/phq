@@ -70,6 +70,18 @@ class MassDensity;
 
 // Forward declaration for class PhQ::Length.
 template <typename Number>
+class PlanarDirection;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
+class PlanarDisplacement;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
+class PlanarPosition;
+
+// Forward declaration for class PhQ::Length.
+template <typename Number>
 class Position;
 
 // Forward declaration for class PhQ::Length.
@@ -193,6 +205,8 @@ public:
 
   constexpr Position<Number> operator*(const Direction<Number>& direction) const;
 
+  constexpr PlanarPosition<Number> operator*(const PlanarDirection<Number>& planar_direction) const;
+
   constexpr Energy<Number> operator*(
       const TransportEnergyConsumption<Number>& transport_energy_consumption) const;
 
@@ -231,6 +245,12 @@ private:
 
   template <typename OtherNumber>
   friend class Displacement;
+
+  template <typename OtherNumber>
+  friend class PlanarDisplacement;
+
+  template <typename OtherNumber>
+  friend class PlanarPosition;
 
   template <typename OtherNumber>
   friend class Position;

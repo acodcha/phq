@@ -30,6 +30,7 @@
 #include <gtest/gtest.h>
 
 #include "../include/PhQ/Dyad.hpp"
+#include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit.hpp"
 #include "../include/PhQ/Vector.hpp"
@@ -339,6 +340,107 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(copied_converted_std_vector[0], static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(copied_converted_std_vector[1], static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(copied_converted_std_vector[2], static_cast<long double>(first_value));
+  }
+
+  // PhQ::Convert(PhQ::PlanarVector<float>)
+  {
+    PhQ::PlanarVector<float> converted_vector{
+        static_cast<float>(first_value), static_cast<float>(first_value)};
+    PhQ::Convert(converted_vector, first_unit, second_unit);
+    EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(second_value));
+    EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(second_value));
+  }
+  {
+    PhQ::PlanarVector<float> converted_vector{
+        static_cast<float>(second_value), static_cast<float>(second_value)};
+    PhQ::Convert(converted_vector, second_unit, first_unit);
+    EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(first_value));
+    EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(first_value));
+  }
+
+  // PhQ::Convert(PhQ::PlanarVector<double>)
+  {
+    PhQ::PlanarVector<double> converted_vector{
+        static_cast<double>(first_value), static_cast<double>(first_value)};
+    PhQ::Convert(converted_vector, first_unit, second_unit);
+    EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(second_value));
+    EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(second_value));
+  }
+  {
+    PhQ::PlanarVector<double> converted_vector{
+        static_cast<double>(second_value), static_cast<double>(second_value)};
+    PhQ::Convert(converted_vector, second_unit, first_unit);
+    EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(first_value));
+    EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(first_value));
+  }
+
+  // PhQ::Convert(PhQ::PlanarVector<long double>)
+  {
+    PhQ::PlanarVector<long double> converted_vector{
+        static_cast<long double>(first_value), static_cast<long double>(first_value)};
+    PhQ::Convert(converted_vector, first_unit, second_unit);
+    EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(second_value));
+    EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(second_value));
+  }
+  {
+    PhQ::PlanarVector<long double> converted_vector{
+        static_cast<long double>(second_value), static_cast<long double>(second_value)};
+    PhQ::Convert(converted_vector, second_unit, first_unit);
+    EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(first_value));
+    EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(first_value));
+  }
+
+  // PhQ::ConvertCopy(PhQ::PlanarVector<float>)
+  {
+    const PhQ::PlanarVector<float> copied_converted_vector{PhQ::ConvertCopy(
+        PhQ::PlanarVector<float>{static_cast<float>(first_value), static_cast<float>(first_value)},
+        first_unit, second_unit)};
+    EXPECT_FLOAT_EQ(copied_converted_vector.x(), static_cast<float>(second_value));
+    EXPECT_FLOAT_EQ(copied_converted_vector.y(), static_cast<float>(second_value));
+  }
+  {
+    const PhQ::PlanarVector<float> copied_converted_vector{PhQ::ConvertCopy(
+        PhQ::PlanarVector<float>{
+            static_cast<float>(second_value), static_cast<float>(second_value)},
+        second_unit, first_unit)};
+    EXPECT_FLOAT_EQ(copied_converted_vector.x(), static_cast<float>(first_value));
+    EXPECT_FLOAT_EQ(copied_converted_vector.y(), static_cast<float>(first_value));
+  }
+
+  // PhQ::ConvertCopy(PhQ::PlanarVector<double>)
+  {
+    const PhQ::PlanarVector<double> copied_converted_vector{PhQ::ConvertCopy(
+        PhQ::PlanarVector<double>{
+            static_cast<double>(first_value), static_cast<double>(first_value)},
+        first_unit, second_unit)};
+    EXPECT_DOUBLE_EQ(copied_converted_vector.x(), static_cast<double>(second_value));
+    EXPECT_DOUBLE_EQ(copied_converted_vector.y(), static_cast<double>(second_value));
+  }
+  {
+    const PhQ::PlanarVector<double> copied_converted_vector{PhQ::ConvertCopy(
+        PhQ::PlanarVector<double>{
+            static_cast<double>(second_value), static_cast<double>(second_value)},
+        second_unit, first_unit)};
+    EXPECT_DOUBLE_EQ(copied_converted_vector.x(), static_cast<double>(first_value));
+    EXPECT_DOUBLE_EQ(copied_converted_vector.y(), static_cast<double>(first_value));
+  }
+
+  // PhQ::ConvertCopy(PhQ::PlanarVector<long double>)
+  {
+    const PhQ::PlanarVector<long double> copied_converted_vector{PhQ::ConvertCopy(
+        PhQ::PlanarVector<long double>{
+            static_cast<long double>(first_value), static_cast<long double>(first_value)},
+        first_unit, second_unit)};
+    EXPECT_DOUBLE_EQ(copied_converted_vector.x(), static_cast<long double>(second_value));
+    EXPECT_DOUBLE_EQ(copied_converted_vector.y(), static_cast<long double>(second_value));
+  }
+  {
+    const PhQ::PlanarVector<long double> copied_converted_vector{PhQ::ConvertCopy(
+        PhQ::PlanarVector<long double>{
+            static_cast<long double>(second_value), static_cast<long double>(second_value)},
+        second_unit, first_unit)};
+    EXPECT_DOUBLE_EQ(copied_converted_vector.x(), static_cast<long double>(first_value));
+    EXPECT_DOUBLE_EQ(copied_converted_vector.y(), static_cast<long double>(first_value));
   }
 
   // PhQ::Convert(PhQ::Vector<float>)
@@ -917,6 +1019,33 @@ void TestStaticConvertCopy(const long double original_value, const long double n
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<long double>(new_value));
     EXPECT_DOUBLE_EQ(converted_array[1], static_cast<long double>(new_value));
     EXPECT_DOUBLE_EQ(converted_array[2], static_cast<long double>(new_value));
+  }
+
+  // PhQ::PlanarVector<float>
+  {
+    const PhQ::PlanarVector<float> converted_vector{
+        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PhQ::PlanarVector<float>{
+            static_cast<float>(original_value), static_cast<float>(original_value)})};
+    EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(new_value));
+    EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(new_value));
+  }
+
+  // PhQ::PlanarVector<double>
+  {
+    const PhQ::PlanarVector<double> converted_vector{
+        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PhQ::PlanarVector<double>{
+            static_cast<double>(original_value), static_cast<double>(original_value)})};
+    EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(new_value));
+    EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(new_value));
+  }
+
+  // PhQ::PlanarVector<long double>
+  {
+    const PhQ::PlanarVector<long double> converted_vector{
+        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PlanarVector<long double>{
+            static_cast<long double>(original_value), static_cast<long double>(original_value)})};
+    EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(new_value));
+    EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(new_value));
   }
 
   // PhQ::Vector<float>

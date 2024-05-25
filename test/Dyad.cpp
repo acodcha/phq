@@ -34,6 +34,7 @@
 #include <utility>
 
 #include "../include/PhQ/Base.hpp"
+#include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Vector.hpp"
 
@@ -122,6 +123,14 @@ TEST(Dyad, ArithmeticOperatorMultiplication) {
             Dyad(2.0L, -4.0L, 6.0L, -8.0L, 10.0L, -12.0L, 14.0L, -16.0L, 18.0L));
   EXPECT_EQ(2.0L * Dyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L),
             Dyad(2.0L, -4.0L, 6.0L, -8.0L, 10.0L, -12.0L, 14.0L, -16.0L, 18.0L));
+  EXPECT_EQ(
+      Dyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F) * PlanarVector(1.0F, -2.0F),
+      Vector(5.0F, -14.0F, 23.0F));
+  EXPECT_EQ(Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0) * PlanarVector(1.0, -2.0),
+            Vector(5.0, -14.0, 23.0));
+  EXPECT_EQ(
+      Dyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L) * PlanarVector(1.0L, -2.0L),
+      Vector(5.0L, -14.0L, 23.0L));
   EXPECT_EQ(
       Dyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F) * Vector(1.0F, -2.0F, 3.0F),
       Vector(14.0F, -32.0F, 50.0F));
@@ -439,6 +448,12 @@ TEST(Dyad, Determinant) {
 }
 
 TEST(Dyad, DyadicProduct) {
+  EXPECT_EQ(PlanarVector(1.0F, 2.0F).Dyadic(PlanarVector(4.0F, 8.0F)),
+            Dyad(4.0F, 8.0F, 0.0F, 8.0F, 16.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+  EXPECT_EQ(PlanarVector(1.0, 2.0).Dyadic(PlanarVector(4.0, 8.0)),
+            Dyad(4.0, 8.0, 0.0, 8.0, 16.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(PlanarVector(1.0L, 2.0L).Dyadic(PlanarVector(4.0L, 8.0L)),
+            Dyad(4.0L, 8.0L, 0.0L, 8.0L, 16.0L, 0.0L, 0.0L, 0.0L, 0.0L));
   EXPECT_EQ(Vector(1.0F, 2.0F, 4.0F).Dyadic(Vector(8.0F, 16.0F, 32.0F)),
             Dyad(8.0F, 16.0F, 32.0F, 16.0F, 32.0F, 64.0F, 32.0F, 64.0F, 128.0F));
   EXPECT_EQ(Vector(1.0, 2.0, 4.0).Dyadic(Vector(8.0, 16.0, 32.0)),

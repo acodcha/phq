@@ -36,6 +36,7 @@
 #include <type_traits>
 
 #include "Base.hpp"
+#include "PlanarVector.hpp"
 
 namespace PhQ {
 
@@ -71,6 +72,11 @@ public:
   /// \brief Constructor. Constructs a three-dimensional vector from a given array representing its
   /// x, y, and z Cartesian components.
   explicit constexpr Vector(const std::array<Number, 3>& x_y_z) : x_y_z_(x_y_z) {}
+
+  /// \brief Constructor. Constructs a three-dimensional vector from a given two-dimensional planar
+  /// vector in the XY plane. This vector's z-component is initialized to zero.
+  explicit constexpr Vector(const PlanarVector<Number>& planar_vector)
+    : x_y_z_({planar_vector.x(), planar_vector.y(), static_cast<Number>(0)}) {}
 
   /// \brief Constructor. Constructs a three-dimensional vector given a magnitude and a direction.
   constexpr Vector(Number magnitude, const Direction<Number>& direction);
@@ -371,6 +377,17 @@ template <typename Number>
 inline std::ostream& operator<<(std::ostream& stream, const Vector<Number>& vector) {
   stream << vector.Print();
   return stream;
+}
+
+template <typename Number>
+inline constexpr PlanarVector<Number>::PlanarVector(const Vector<Number>& vector)
+  : x_y_({vector.x(), vector.y()}) {}
+
+template <typename Number>
+[[nodiscard]] constexpr Vector<Number> PlanarVector<Number>::Cross(
+    const PlanarVector<Number>& planar_vector) const {
+  return Vector<Number>{static_cast<Number>(0), static_cast<Number>(0),
+                        x_y_[0] * planar_vector.x_y_[1] - x_y_[1] * planar_vector.x_y_[0]};
 }
 
 }  // namespace PhQ

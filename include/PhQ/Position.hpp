@@ -37,6 +37,7 @@
 #include "Direction.hpp"
 #include "Displacement.hpp"
 #include "Length.hpp"
+#include "PlanarPosition.hpp"
 #include "Unit/Length.hpp"
 #include "Vector.hpp"
 
@@ -58,6 +59,11 @@ public:
   /// \brief Constructor. Constructs a position vector from a given length and direction.
   constexpr Position(const Length<Number>& length, const Direction<Number>& direction)
     : Position<Number>(length.Value() * direction.Value()) {}
+
+  /// \brief Constructor. Constructs a position vector from a given planar position vector in the XY
+  /// plane. This position vector's z-component is initialized to zero.
+  explicit constexpr Position(const PlanarPosition<Number>& planar_force)
+    : Position<Number>(Vector<Number>{planar_force.Value()}) {}
 
   /// \brief Constructor. Constructs a position vector from a given displacement vector from the
   /// origin.
@@ -288,6 +294,10 @@ inline constexpr Position<Number> Length<Number>::operator*(
     const Direction<Number>& direction) const {
   return Position<Number>{*this, direction};
 }
+
+template <typename Number>
+inline constexpr PlanarPosition<Number>::PlanarPosition(const Position<Number>& position)
+  : PlanarPosition(PlanarVector<Number>{position.Value()}) {}
 
 }  // namespace PhQ
 

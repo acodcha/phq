@@ -33,6 +33,7 @@
 #include <utility>
 
 #include "../include/PhQ/Base.hpp"
+#include "../include/PhQ/PlanarVector.hpp"
 
 namespace PhQ {
 
@@ -378,6 +379,9 @@ TEST(Vector, Cross) {
   EXPECT_EQ(Vector(2.0F, 0.0F, 0.0F).Cross(Vector(0.0F, 4.0F, 0.0F)), Vector(0.0F, 0.0F, 8.0F));
   EXPECT_EQ(Vector(2.0, 0.0, 0.0).Cross(Vector(0.0, 4.0, 0.0)), Vector(0.0, 0.0, 8.0));
   EXPECT_EQ(Vector(2.0L, 0.0L, 0.0L).Cross(Vector(0.0L, 4.0L, 0.0L)), Vector(0.0L, 0.0L, 8.0L));
+  EXPECT_EQ(PlanarVector(1.0F, -2.0F).Cross(PlanarVector(3.0F, -4.0F)), Vector(0.0F, 0.0F, 2.0F));
+  EXPECT_EQ(PlanarVector(1.0, -2.0).Cross(PlanarVector(3.0, -4.0)), Vector(0.0, 0.0, 2.0));
+  EXPECT_EQ(PlanarVector(1.0L, -2.0L).Cross(PlanarVector(3.0L, -4.0L)), Vector(0.0L, 0.0L, 2.0L));
 }
 
 TEST(Vector, DefaultConstructor) {
@@ -440,9 +444,18 @@ TEST(Vector, Magnitude) {
 }
 
 TEST(Vector, MagnitudeSquared) {
-  EXPECT_EQ(Vector(1.0F, -2.0F, 3.0F).MagnitudeSquared(), 14.0F);
-  EXPECT_EQ(Vector(1.0, -2.0, 3.0).MagnitudeSquared(), 14.0);
-  EXPECT_EQ(Vector(1.0L, -2.0L, 3.0L).MagnitudeSquared(), 14.0L);
+  EXPECT_EQ(Vector(6.0F, -3.0F, 2.0F).MagnitudeSquared(), 49.0F);
+  EXPECT_EQ(Vector(6.0, -3.0, 2.0).MagnitudeSquared(), 49.0);
+  EXPECT_EQ(Vector(6.0L, -3.0L, 2.0L).MagnitudeSquared(), 49.0L);
+}
+
+TEST(Vector, MiscellaneousConstructors) {
+  EXPECT_EQ(Vector(PlanarVector(1.0F, -2.0F)), Vector(1.0F, -2.0F, 0.0F));
+  EXPECT_EQ(Vector(PlanarVector(1.0, -2.0)), Vector(1.0, -2.0, 0.0));
+  EXPECT_EQ(Vector(PlanarVector(1.0L, -2.0L)), Vector(1.0L, -2.0L, 0.0L));
+  EXPECT_EQ(PlanarVector(Vector(1.0F, -2.0F, 3.0F)), PlanarVector(1.0F, -2.0F));
+  EXPECT_EQ(PlanarVector(Vector(1.0, -2.0, 3.0)), PlanarVector(1.0, -2.0));
+  EXPECT_EQ(PlanarVector(Vector(1.0L, -2.0L, 3.0L)), PlanarVector(1.0L, -2.0L));
 }
 
 TEST(Vector, MoveAssignmentOperator) {

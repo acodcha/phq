@@ -88,13 +88,13 @@ public:
   }
 
   /// \brief Prints this physical quantity as a string. This physical quantity's value is expressed
-  /// in its standard unit of measure and printed to Number floating point precision.
+  /// in its standard unit of measure.
   [[nodiscard]] std::string Print() const {
     return value.Print().append(" ").append(PhQ::Abbreviation(PhQ::Standard<UnitType>));
   }
 
   /// \brief Prints this physical quantity as a string. This physical quantity's value is expressed
-  /// in the given unit of measure and printed to Number floating point precision.
+  /// in the given unit of measure.
   [[nodiscard]] std::string Print(const UnitType unit) const {
     return Value(unit).Print().append(" ").append(PhQ::Abbreviation(unit));
   }

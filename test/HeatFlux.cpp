@@ -203,6 +203,10 @@ TEST(HeatFlux, MiscellaneousConstructors) {
                                    Unit::ThermalConductivity::WattPerMetrePerKelvin),
                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
       HeatFlux({-14.0, -21.0, 25.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(PlanarHeatFlux(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre)),
+            PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux(PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre)),
+            HeatFlux({1.0, -2.0, 0.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MoveAssignmentOperator) {

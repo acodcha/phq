@@ -199,6 +199,10 @@ TEST(Traction, MiscellaneousConstructors) {
   EXPECT_EQ(
       Force(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
       Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
+  EXPECT_EQ(PlanarTraction(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal)),
+            PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Traction(PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal)),
+            Traction({1.0, -2.0, 0.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, MoveAssignmentOperator) {

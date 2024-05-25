@@ -35,6 +35,7 @@
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/PlanarAcceleration.hpp"
 #include "../include/PhQ/ScalarAcceleration.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Acceleration.hpp"
@@ -90,6 +91,9 @@ TEST(Acceleration, ArithmeticOperatorMultiplication) {
             Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)
                 * Frequency(2.0, Unit::Frequency::Hertz),
+            Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Frequency(2.0, Unit::Frequency::Hertz)
+                * Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond),
             Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
@@ -212,15 +216,17 @@ TEST(Acceleration, Magnitude) {
 TEST(Acceleration, MiscellaneousConstructors) {
   EXPECT_EQ(Direction(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
             Direction(1.0, -2.0, 3.0));
-
   EXPECT_EQ(Angle(Acceleration({0.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond),
                   Acceleration({0.0, 0.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
             Angle(90.0, Unit::Angle::Degree));
-
+  EXPECT_EQ(
+      PlanarAcceleration(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
+      PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Acceleration(PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond)),
+            Acceleration({1.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
   EXPECT_EQ(Velocity(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
                      Time(2.0, Unit::Time::Second)),
             Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Velocity(Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond),
                      Frequency(2.0, Unit::Frequency::Hertz)),
             Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
