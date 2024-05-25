@@ -957,6 +957,27 @@ phq_test(
 )
 
 phq_library(
+    name = "PlanarHeatFlux",
+    hdrs = ["include/PhQ/PlanarHeatFlux.hpp"],
+    deps = [
+        ":DimensionalPlanarVector",
+        ":PlanarDirection",
+        ":PlanarTemperatureGradient",
+        ":PlanarVector",
+        ":ScalarHeatFlux",
+        ":ScalarThermalConductivity",
+        ":ThermalConductivity",
+        ":Unit/EnergyFlux",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarHeatFlux",
+    srcs = ["test/PlanarHeatFlux.cpp"],
+    deps = [":PlanarHeatFlux"],
+)
+
+phq_library(
     name = "PlanarPosition",
     hdrs = ["include/PhQ/PlanarPosition.hpp"],
     deps = [

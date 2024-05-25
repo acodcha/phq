@@ -47,7 +47,7 @@ namespace PhQ {
 template <typename Number = double>
 class HeatFlux : public DimensionalVector<Unit::EnergyFlux, Number> {
 public:
-  /// \brief Default constructor. Constructs a heat flux with an uninitialized value.
+  /// \brief Default constructor. Constructs a heat flux vector with an uninitialized value.
   HeatFlux() = default;
 
   /// \brief Constructor. Constructs a heat flux vector with a given value expressed in a given

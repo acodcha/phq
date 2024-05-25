@@ -42,6 +42,10 @@ namespace PhQ {
 template <typename Number>
 class HeatFlux;
 
+// Forward declaration for class PhQ::ScalarHeatFlux.
+template <typename Number>
+class PlanarHeatFlux;
+
 /// \brief Scalar heat flux component or magnitude of a heat flux vector. See also PhQ::HeatFlux.
 template <typename Number = double>
 class ScalarHeatFlux : public DimensionalScalar<Unit::EnergyFlux, Number> {
@@ -114,6 +118,8 @@ public:
     return ScalarHeatFlux<Number>{this->value * number};
   }
 
+  constexpr PlanarHeatFlux<Number> operator*(const PlanarDirection<Number>& planar_direction) const;
+
   constexpr HeatFlux<Number> operator*(const Direction<Number>& direction) const;
 
   constexpr ScalarHeatFlux<Number> operator/(const Number number) const {
@@ -145,6 +151,9 @@ private:
   /// energy flux unit.
   explicit constexpr ScalarHeatFlux(const Number value)
     : DimensionalScalar<Unit::EnergyFlux, Number>(value) {}
+
+  template <typename OtherNumber>
+  friend class PlanarHeatFlux;
 
   template <typename OtherNumber>
   friend class HeatFlux;

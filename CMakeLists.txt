@@ -278,6 +278,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(planar_force GTest::gtest_main)
   gtest_discover_tests(planar_force)
 
+  add_executable(planar_heat_flux ${PROJECT_SOURCE_DIR}/test/PlanarHeatFlux.cpp)
+  target_link_libraries(planar_heat_flux GTest::gtest_main)
+  gtest_discover_tests(planar_heat_flux)
+
   add_executable(planar_position ${PROJECT_SOURCE_DIR}/test/PlanarPosition.cpp)
   target_link_libraries(planar_position GTest::gtest_main)
   gtest_discover_tests(planar_position)
