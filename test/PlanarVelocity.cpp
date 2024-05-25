@@ -168,11 +168,6 @@ TEST(PlanarVelocity, Dimensions) {
   EXPECT_EQ(PlanarVelocity<>::Dimensions(), RelatedDimensions<Unit::Speed>);
 }
 
-TEST(PlanarVelocity, PlanarDirection) {
-  EXPECT_EQ(PlanarVelocity({2.0, -3.0}, Unit::Speed::MetrePerSecond).PlanarDirection(),
-            PlanarDirection(2.0, -3.0));
-}
-
 TEST(PlanarVelocity, Hash) {
   const PlanarVelocity first({1.0, -2.000001}, Unit::Speed::MillimetrePerSecond);
   const PlanarVelocity second({1.0, -2.0}, Unit::Speed::MillimetrePerSecond);
@@ -228,6 +223,11 @@ TEST(PlanarVelocity, MutableValue) {
   PlanarVector<>& value = velocity.MutableValue();
   value = PlanarVector{-4.0, 5.0};
   EXPECT_EQ(velocity.Value(), PlanarVector(-4.0, 5.0));
+}
+
+TEST(PlanarVelocity, PlanarDirection) {
+  EXPECT_EQ(PlanarVelocity({3.0, -4.0}, Unit::Speed::MetrePerSecond).PlanarDirection(),
+            PlanarDirection(3.0, -4.0));
 }
 
 TEST(PlanarVelocity, Print) {

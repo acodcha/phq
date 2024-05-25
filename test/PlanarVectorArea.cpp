@@ -158,11 +158,6 @@ TEST(PlanarVectorArea, Dimensions) {
   EXPECT_EQ(PlanarVectorArea<>::Dimensions(), RelatedDimensions<Unit::Area>);
 }
 
-TEST(PlanarVectorArea, PlanarDirection) {
-  EXPECT_EQ(PlanarVectorArea({2.0, -3.0}, Unit::Area::SquareMetre).PlanarDirection(),
-            PlanarDirection(2.0, -3.0));
-}
-
 TEST(PlanarVectorArea, Hash) {
   const PlanarVectorArea first({1.0, -2.000001}, Unit::Area::SquareMillimetre);
   const PlanarVectorArea second({1.0, -2.0}, Unit::Area::SquareMillimetre);
@@ -212,6 +207,11 @@ TEST(PlanarVectorArea, MutableValue) {
   PlanarVector<>& value = vector_area.MutableValue();
   value = PlanarVector{-4.0, 5.0};
   EXPECT_EQ(vector_area.Value(), PlanarVector(-4.0, 5.0));
+}
+
+TEST(PlanarVectorArea, PlanarDirection) {
+  EXPECT_EQ(PlanarVectorArea({3.0, -4.0}, Unit::Area::SquareMetre).PlanarDirection(),
+            PlanarDirection(3.0, -4.0));
 }
 
 TEST(PlanarVectorArea, Print) {

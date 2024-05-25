@@ -890,6 +890,28 @@ phq_library(
     ],
 )
 
+phq_library(
+    name = "PlanarAcceleration",
+    hdrs = ["include/PhQ/PlanarAcceleration.hpp"],
+    deps = [
+        ":Angle",
+        ":DimensionalPlanarVector",
+        ":Frequency",
+        ":PlanarDirection",
+        ":PlanarVector",
+        ":PlanarVelocity",
+        ":ScalarAcceleration",
+        ":Time",
+        ":Unit/Acceleration",
+    ],
+)
+
+phq_test(
+    name = "test/PlanarAcceleration",
+    srcs = ["test/PlanarAcceleration.cpp"],
+    deps = [":PlanarAcceleration"],
+)
+
 phq_test(
     name = "test/PlanarDirection",
     srcs = ["test/PlanarDirection.cpp"],
@@ -972,13 +994,13 @@ phq_library(
     deps = [
         ":Angle",
         ":DimensionalPlanarVector",
+        ":Frequency",
         ":PlanarDirection",
         ":PlanarDisplacement",
-        ":Frequency",
+        ":PlanarVector",
         ":Speed",
         ":Time",
         ":Unit/Speed",
-        ":PlanarVector",
     ],
 )
 

@@ -179,11 +179,6 @@ TEST(PlanarPosition, Dimensions) {
   EXPECT_EQ(PlanarPosition<>::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
-TEST(PlanarPosition, PlanarDirection) {
-  EXPECT_EQ(PlanarPosition({2.0, -3.0}, Unit::Length::Metre).PlanarDirection(),
-            PlanarDirection(2.0, -3.0));
-}
-
 TEST(PlanarPosition, Hash) {
   const PlanarPosition first({1.0, -2.000001}, Unit::Length::Millimetre);
   const PlanarPosition second({1.0, -2.0}, Unit::Length::Millimetre);
@@ -234,6 +229,11 @@ TEST(PlanarPosition, MutableValue) {
   PlanarVector<>& value = position.MutableValue();
   value = PlanarVector{-4.0, 5.0};
   EXPECT_EQ(position.Value(), PlanarVector(-4.0, 5.0));
+}
+
+TEST(PlanarPosition, PlanarDirection) {
+  EXPECT_EQ(PlanarPosition({3.0, -4.0}, Unit::Length::Metre).PlanarDirection(),
+            PlanarDirection(3.0, -4.0));
 }
 
 TEST(PlanarPosition, Print) {

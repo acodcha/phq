@@ -150,11 +150,6 @@ TEST(PlanarDisplacement, Dimensions) {
   EXPECT_EQ(PlanarDisplacement<>::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
-TEST(PlanarDisplacement, PlanarDirection) {
-  EXPECT_EQ(PlanarDisplacement({2.0, -3.0}, Unit::Length::Metre).PlanarDirection(),
-            PlanarDirection(2.0, -3.0));
-}
-
 TEST(PlanarDisplacement, Hash) {
   const PlanarDisplacement first({1.0, -2.000001}, Unit::Length::Millimetre);
   const PlanarDisplacement second({1.0, -2.0}, Unit::Length::Millimetre);
@@ -204,6 +199,11 @@ TEST(PlanarDisplacement, MutableValue) {
   PlanarVector<>& value = displacement.MutableValue();
   value = PlanarVector{-4.0, 5.0};
   EXPECT_EQ(displacement.Value(), PlanarVector(-4.0, 5.0));
+}
+
+TEST(PlanarDisplacement, PlanarDirection) {
+  EXPECT_EQ(PlanarDisplacement({3.0, -4.0}, Unit::Length::Metre).PlanarDirection(),
+            PlanarDirection(3.0, -4.0));
 }
 
 TEST(PlanarDisplacement, Print) {
