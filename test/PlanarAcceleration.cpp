@@ -145,16 +145,50 @@ TEST(PlanarAcceleration, ComparisonOperators) {
 }
 
 TEST(PlanarAcceleration, CopyAssignmentOperator) {
-  const PlanarAcceleration first({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
-  PlanarAcceleration second = PlanarAcceleration<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarAcceleration<float> first({1.0F, -2.0F}, Unit::Acceleration::MetrePerSquareSecond);
+    PlanarAcceleration<double> second = PlanarAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, PlanarAcceleration<double>({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const PlanarAcceleration<double> first({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
+    PlanarAcceleration<double> second = PlanarAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, PlanarAcceleration<double>({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const PlanarAcceleration<long double> first(
+        {1.0L, -2.0L}, Unit::Acceleration::MetrePerSquareSecond);
+    PlanarAcceleration<double> second = PlanarAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, PlanarAcceleration<double>({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
 }
 
 TEST(PlanarAcceleration, CopyConstructor) {
-  const PlanarAcceleration first({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
-  const PlanarAcceleration second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarAcceleration<float> first({1.0F, -2.0F}, Unit::Acceleration::MetrePerSquareSecond);
+    const PlanarAcceleration<double> second{first};
+    EXPECT_EQ(
+        second, PlanarAcceleration<double>({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const PlanarAcceleration<double> first({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
+    const PlanarAcceleration<double> second{first};
+    EXPECT_EQ(
+        second, PlanarAcceleration<double>({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const PlanarAcceleration<long double> first(
+        {1.0L, -2.0L}, Unit::Acceleration::MetrePerSquareSecond);
+    const PlanarAcceleration<double> second{first};
+    EXPECT_EQ(
+        second, PlanarAcceleration<double>({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
 }
 
 TEST(PlanarAcceleration, Create) {

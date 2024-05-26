@@ -115,16 +115,42 @@ TEST(PlanarForce, ComparisonOperators) {
 }
 
 TEST(PlanarForce, CopyAssignmentOperator) {
-  const PlanarForce first({1.0, -2.0}, Unit::Force::Newton);
-  PlanarForce second = PlanarForce<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarForce<float> first({1.0F, -2.0F}, Unit::Force::Newton);
+    PlanarForce<double> second = PlanarForce<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarForce<double>({1.0, -2.0}, Unit::Force::Newton));
+  }
+  {
+    const PlanarForce<double> first({1.0, -2.0}, Unit::Force::Newton);
+    PlanarForce<double> second = PlanarForce<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarForce<double>({1.0, -2.0}, Unit::Force::Newton));
+  }
+  {
+    const PlanarForce<long double> first({1.0L, -2.0L}, Unit::Force::Newton);
+    PlanarForce<double> second = PlanarForce<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarForce<double>({1.0, -2.0}, Unit::Force::Newton));
+  }
 }
 
 TEST(PlanarForce, CopyConstructor) {
-  const PlanarForce first({1.0, -2.0}, Unit::Force::Newton);
-  const PlanarForce second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarForce<float> first({1.0F, -2.0F}, Unit::Force::Newton);
+    const PlanarForce<double> second{first};
+    EXPECT_EQ(second, PlanarForce<double>({1.0, -2.0}, Unit::Force::Newton));
+  }
+  {
+    const PlanarForce<double> first({1.0, -2.0}, Unit::Force::Newton);
+    const PlanarForce<double> second{first};
+    EXPECT_EQ(second, PlanarForce<double>({1.0, -2.0}, Unit::Force::Newton));
+  }
+  {
+    const PlanarForce<long double> first({1.0L, -2.0L}, Unit::Force::Newton);
+    const PlanarForce<double> second{first};
+    EXPECT_EQ(second, PlanarForce<double>({1.0, -2.0}, Unit::Force::Newton));
+  }
 }
 
 TEST(PlanarForce, Create) {

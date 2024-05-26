@@ -108,16 +108,44 @@ TEST(Stress, ComparisonOperators) {
 }
 
 TEST(Stress, CopyAssignmentOperator) {
-  const Stress first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
-  Stress second = Stress<>::Zero();
-  second = first;
-  EXPECT_EQ(second, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  {
+    const Stress<float> first({1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::Pressure::Pascal);
+    Stress<double> second = Stress<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Stress<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Stress<double> first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
+    Stress<double> second = Stress<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Stress<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Stress<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}, Unit::Pressure::Pascal);
+    Stress<double> second = Stress<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Stress<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(Stress, CopyConstructor) {
-  const Stress first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
-  const Stress second{first};
-  EXPECT_EQ(second, Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  {
+    const Stress<float> first({1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::Pressure::Pascal);
+    const Stress<double> second{first};
+    EXPECT_EQ(second, Stress<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Stress<double> first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
+    const Stress<double> second{first};
+    EXPECT_EQ(second, Stress<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Stress<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}, Unit::Pressure::Pascal);
+    const Stress<double> second{first};
+    EXPECT_EQ(second, Stress<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(Stress, Create) {

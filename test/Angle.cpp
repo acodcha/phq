@@ -97,16 +97,42 @@ TEST(Angle, ComparisonOperators) {
 }
 
 TEST(Angle, CopyAssignmentOperator) {
-  const Angle first{1.0, Unit::Angle::Radian};
-  Angle second = Angle<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Angle<float> first(1.0F, Unit::Angle::Radian);
+    Angle<double> second = Angle<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Angle<double>(1.0, Unit::Angle::Radian));
+  }
+  {
+    const Angle<double> first(1.0, Unit::Angle::Radian);
+    Angle<double> second = Angle<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Angle<double>(1.0, Unit::Angle::Radian));
+  }
+  {
+    const Angle<long double> first(1.0L, Unit::Angle::Radian);
+    Angle<double> second = Angle<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Angle<double>(1.0, Unit::Angle::Radian));
+  }
 }
 
 TEST(Angle, CopyConstructor) {
-  const Angle first{1.0, Unit::Angle::Radian};
-  const Angle second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Angle<float> first(1.0F, Unit::Angle::Radian);
+    const Angle<double> second{first};
+    EXPECT_EQ(second, Angle<double>(1.0, Unit::Angle::Radian));
+  }
+  {
+    const Angle<double> first(1.0, Unit::Angle::Radian);
+    const Angle<double> second{first};
+    EXPECT_EQ(second, Angle<double>(1.0, Unit::Angle::Radian));
+  }
+  {
+    const Angle<long double> first(1.0L, Unit::Angle::Radian);
+    const Angle<double> second{first};
+    EXPECT_EQ(second, Angle<double>(1.0, Unit::Angle::Radian));
+  }
 }
 
 TEST(Angle, Create) {

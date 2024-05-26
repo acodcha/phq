@@ -120,16 +120,42 @@ TEST(HeatFlux, ComparisonOperators) {
 }
 
 TEST(HeatFlux, CopyAssignmentOperator) {
-  const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux second = HeatFlux<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const HeatFlux<float> first({1.0F, -2.0F, 3.0F}, Unit::EnergyFlux::WattPerSquareMetre);
+    HeatFlux<double> second = HeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, HeatFlux<double>({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const HeatFlux<double> first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+    HeatFlux<double> second = HeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, HeatFlux<double>({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const HeatFlux<long double> first({1.0L, -2.0L, 3.0L}, Unit::EnergyFlux::WattPerSquareMetre);
+    HeatFlux<double> second = HeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, HeatFlux<double>({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(HeatFlux, CopyConstructor) {
-  const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  const HeatFlux second{first};
-  EXPECT_EQ(second, first);
+  {
+    const HeatFlux<float> first({1.0F, -2.0F, 3.0F}, Unit::EnergyFlux::WattPerSquareMetre);
+    const HeatFlux<double> second{first};
+    EXPECT_EQ(second, HeatFlux<double>({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const HeatFlux<double> first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+    const HeatFlux<double> second{first};
+    EXPECT_EQ(second, HeatFlux<double>({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const HeatFlux<long double> first({1.0L, -2.0L, 3.0L}, Unit::EnergyFlux::WattPerSquareMetre);
+    const HeatFlux<double> second{first};
+    EXPECT_EQ(second, HeatFlux<double>({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(HeatFlux, Create) {

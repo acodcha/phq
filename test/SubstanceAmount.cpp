@@ -102,16 +102,42 @@ TEST(SubstanceAmount, ComparisonOperators) {
 }
 
 TEST(SubstanceAmount, CopyAssignmentOperator) {
-  const SubstanceAmount first{1.0, Unit::SubstanceAmount::Mole};
-  SubstanceAmount second = SubstanceAmount<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SubstanceAmount<float> first(1.0F, Unit::SubstanceAmount::Mole);
+    SubstanceAmount<double> second = SubstanceAmount<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SubstanceAmount<double>(1.0, Unit::SubstanceAmount::Mole));
+  }
+  {
+    const SubstanceAmount<double> first(1.0, Unit::SubstanceAmount::Mole);
+    SubstanceAmount<double> second = SubstanceAmount<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SubstanceAmount<double>(1.0, Unit::SubstanceAmount::Mole));
+  }
+  {
+    const SubstanceAmount<long double> first(1.0L, Unit::SubstanceAmount::Mole);
+    SubstanceAmount<double> second = SubstanceAmount<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SubstanceAmount<double>(1.0, Unit::SubstanceAmount::Mole));
+  }
 }
 
 TEST(SubstanceAmount, CopyConstructor) {
-  const SubstanceAmount first{1.0, Unit::SubstanceAmount::Mole};
-  const SubstanceAmount second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SubstanceAmount<float> first(1.0F, Unit::SubstanceAmount::Mole);
+    const SubstanceAmount<double> second{first};
+    EXPECT_EQ(second, SubstanceAmount<double>(1.0, Unit::SubstanceAmount::Mole));
+  }
+  {
+    const SubstanceAmount<double> first(1.0, Unit::SubstanceAmount::Mole);
+    const SubstanceAmount<double> second{first};
+    EXPECT_EQ(second, SubstanceAmount<double>(1.0, Unit::SubstanceAmount::Mole));
+  }
+  {
+    const SubstanceAmount<long double> first(1.0L, Unit::SubstanceAmount::Mole);
+    const SubstanceAmount<double> second{first};
+    EXPECT_EQ(second, SubstanceAmount<double>(1.0, Unit::SubstanceAmount::Mole));
+  }
 }
 
 TEST(SubstanceAmount, Create) {

@@ -121,16 +121,53 @@ TEST(LinearThermalExpansionCoefficient, ComparisonOperators) {
 }
 
 TEST(LinearThermalExpansionCoefficient, CopyAssignmentOperator) {
-  const LinearThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
-  LinearThermalExpansionCoefficient second = LinearThermalExpansionCoefficient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const LinearThermalExpansionCoefficient<float> first(1.0F, Unit::ThermalExpansion::PerKelvin);
+    LinearThermalExpansionCoefficient<double> second =
+        LinearThermalExpansionCoefficient<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const LinearThermalExpansionCoefficient<double> first(1.0, Unit::ThermalExpansion::PerKelvin);
+    LinearThermalExpansionCoefficient<double> second =
+        LinearThermalExpansionCoefficient<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const LinearThermalExpansionCoefficient<long double> first(
+        1.0L, Unit::ThermalExpansion::PerKelvin);
+    LinearThermalExpansionCoefficient<double> second =
+        LinearThermalExpansionCoefficient<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+  }
 }
 
 TEST(LinearThermalExpansionCoefficient, CopyConstructor) {
-  const LinearThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
-  const LinearThermalExpansionCoefficient second{first};
-  EXPECT_EQ(second, first);
+  {
+    const LinearThermalExpansionCoefficient<float> first(1.0F, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<double> second{first};
+    EXPECT_EQ(
+        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const LinearThermalExpansionCoefficient<double> first(1.0, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<double> second{first};
+    EXPECT_EQ(
+        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const LinearThermalExpansionCoefficient<long double> first(
+        1.0L, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<double> second{first};
+    EXPECT_EQ(
+        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+  }
 }
 
 TEST(LinearThermalExpansionCoefficient, Create) {

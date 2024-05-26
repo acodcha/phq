@@ -75,7 +75,7 @@ public:
   /// \brief Copy constructor. Constructs a stress tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr Stress(const Stress<OtherNumber>& other)
-    : Stress(static_cast<Number>(other.Value())) {}
+    : Stress(static_cast<SymmetricDyad<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a stress tensor by moving another one.
   constexpr Stress(Stress<Number>&& other) noexcept = default;
@@ -86,7 +86,7 @@ public:
   /// \brief Copy assignment operator. Assigns this stress tensor by copying another one.
   template <typename OtherNumber>
   constexpr Stress<Number>& operator=(const Stress<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 

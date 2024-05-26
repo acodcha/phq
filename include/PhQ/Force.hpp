@@ -81,7 +81,7 @@ public:
   /// \brief Copy constructor. Constructs a force vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Force(const Force<OtherNumber>& other)
-    : Force(static_cast<Number>(other.Value())) {}
+    : Force(static_cast<Vector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a force vector by moving another one.
   constexpr Force(Force<Number>&& other) noexcept = default;
@@ -92,7 +92,7 @@ public:
   /// \brief Copy assignment operator. Assigns this force vector by copying another one.
   template <typename OtherNumber>
   constexpr Force<Number>& operator=(const Force<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 

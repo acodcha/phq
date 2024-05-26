@@ -116,16 +116,42 @@ TEST(Force, ComparisonOperators) {
 }
 
 TEST(Force, CopyAssignmentOperator) {
-  const Force first({1.0, -2.0, 3.0}, Unit::Force::Newton);
-  Force second = Force<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Force<float> first({1.0F, -2.0F, 3.0F}, Unit::Force::Newton);
+    Force<double> second = Force<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Force<double>({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  }
+  {
+    const Force<double> first({1.0, -2.0, 3.0}, Unit::Force::Newton);
+    Force<double> second = Force<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Force<double>({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  }
+  {
+    const Force<long double> first({1.0L, -2.0L, 3.0L}, Unit::Force::Newton);
+    Force<double> second = Force<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Force<double>({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  }
 }
 
 TEST(Force, CopyConstructor) {
-  const Force first({1.0, -2.0, 3.0}, Unit::Force::Newton);
-  const Force second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Force<float> first({1.0F, -2.0F, 3.0F}, Unit::Force::Newton);
+    const Force<double> second{first};
+    EXPECT_EQ(second, Force<double>({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  }
+  {
+    const Force<double> first({1.0, -2.0, 3.0}, Unit::Force::Newton);
+    const Force<double> second{first};
+    EXPECT_EQ(second, Force<double>({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  }
+  {
+    const Force<long double> first({1.0L, -2.0L, 3.0L}, Unit::Force::Newton);
+    const Force<double> second{first};
+    EXPECT_EQ(second, Force<double>({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  }
 }
 
 TEST(Force, Create) {

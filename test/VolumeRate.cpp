@@ -123,16 +123,42 @@ TEST(VolumeRate, ComparisonOperators) {
 }
 
 TEST(VolumeRate, CopyAssignmentOperator) {
-  const VolumeRate first{1.0, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second = VolumeRate<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const VolumeRate<float> first(1.0F, Unit::VolumeRate::CubicMetrePerSecond);
+    VolumeRate<double> second = VolumeRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VolumeRate<double>(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+  }
+  {
+    const VolumeRate<double> first(1.0, Unit::VolumeRate::CubicMetrePerSecond);
+    VolumeRate<double> second = VolumeRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VolumeRate<double>(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+  }
+  {
+    const VolumeRate<long double> first(1.0L, Unit::VolumeRate::CubicMetrePerSecond);
+    VolumeRate<double> second = VolumeRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VolumeRate<double>(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+  }
 }
 
 TEST(VolumeRate, CopyConstructor) {
-  const VolumeRate first{1.0, Unit::VolumeRate::CubicMetrePerSecond};
-  const VolumeRate second{first};
-  EXPECT_EQ(second, first);
+  {
+    const VolumeRate<float> first(1.0F, Unit::VolumeRate::CubicMetrePerSecond);
+    const VolumeRate<double> second{first};
+    EXPECT_EQ(second, VolumeRate<double>(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+  }
+  {
+    const VolumeRate<double> first(1.0, Unit::VolumeRate::CubicMetrePerSecond);
+    const VolumeRate<double> second{first};
+    EXPECT_EQ(second, VolumeRate<double>(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+  }
+  {
+    const VolumeRate<long double> first(1.0L, Unit::VolumeRate::CubicMetrePerSecond);
+    const VolumeRate<double> second{first};
+    EXPECT_EQ(second, VolumeRate<double>(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+  }
 }
 
 TEST(VolumeRate, Create) {

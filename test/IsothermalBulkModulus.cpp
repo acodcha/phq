@@ -102,16 +102,42 @@ TEST(IsothermalBulkModulus, ComparisonOperators) {
 }
 
 TEST(IsothermalBulkModulus, CopyAssignmentOperator) {
-  const IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
-  IsothermalBulkModulus second = IsothermalBulkModulus<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const IsothermalBulkModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    IsothermalBulkModulus<double> second = IsothermalBulkModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsothermalBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsothermalBulkModulus<double> first(1.0, Unit::Pressure::Pascal);
+    IsothermalBulkModulus<double> second = IsothermalBulkModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsothermalBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsothermalBulkModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    IsothermalBulkModulus<double> second = IsothermalBulkModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsothermalBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(IsothermalBulkModulus, CopyConstructor) {
-  const IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
-  const IsothermalBulkModulus second{first};
-  EXPECT_EQ(second, first);
+  {
+    const IsothermalBulkModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    const IsothermalBulkModulus<double> second{first};
+    EXPECT_EQ(second, IsothermalBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsothermalBulkModulus<double> first(1.0, Unit::Pressure::Pascal);
+    const IsothermalBulkModulus<double> second{first};
+    EXPECT_EQ(second, IsothermalBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsothermalBulkModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    const IsothermalBulkModulus<double> second{first};
+    EXPECT_EQ(second, IsothermalBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(IsothermalBulkModulus, Create) {

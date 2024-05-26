@@ -117,16 +117,42 @@ TEST(Power, ComparisonOperators) {
 }
 
 TEST(Power, CopyAssignmentOperator) {
-  const Power first{1.0, Unit::Power::Watt};
-  Power second = Power<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Power<float> first(1.0F, Unit::Power::Watt);
+    Power<double> second = Power<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Power<double>(1.0, Unit::Power::Watt));
+  }
+  {
+    const Power<double> first(1.0, Unit::Power::Watt);
+    Power<double> second = Power<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Power<double>(1.0, Unit::Power::Watt));
+  }
+  {
+    const Power<long double> first(1.0L, Unit::Power::Watt);
+    Power<double> second = Power<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Power<double>(1.0, Unit::Power::Watt));
+  }
 }
 
 TEST(Power, CopyConstructor) {
-  const Power first{1.0, Unit::Power::Watt};
-  const Power second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Power<float> first(1.0F, Unit::Power::Watt);
+    const Power<double> second{first};
+    EXPECT_EQ(second, Power<double>(1.0, Unit::Power::Watt));
+  }
+  {
+    const Power<double> first(1.0, Unit::Power::Watt);
+    const Power<double> second{first};
+    EXPECT_EQ(second, Power<double>(1.0, Unit::Power::Watt));
+  }
+  {
+    const Power<long double> first(1.0L, Unit::Power::Watt);
+    const Power<double> second{first};
+    EXPECT_EQ(second, Power<double>(1.0, Unit::Power::Watt));
+  }
 }
 
 TEST(Power, Create) {

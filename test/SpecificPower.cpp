@@ -147,16 +147,42 @@ TEST(SpecificPower, ComparisonOperators) {
 }
 
 TEST(SpecificPower, CopyAssignmentOperator) {
-  const SpecificPower first{1.0, Unit::SpecificPower::WattPerKilogram};
-  SpecificPower second = SpecificPower<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SpecificPower<float> first(1.0F, Unit::SpecificPower::WattPerKilogram);
+    SpecificPower<double> second = SpecificPower<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificPower<double>(1.0, Unit::SpecificPower::WattPerKilogram));
+  }
+  {
+    const SpecificPower<double> first(1.0, Unit::SpecificPower::WattPerKilogram);
+    SpecificPower<double> second = SpecificPower<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificPower<double>(1.0, Unit::SpecificPower::WattPerKilogram));
+  }
+  {
+    const SpecificPower<long double> first(1.0L, Unit::SpecificPower::WattPerKilogram);
+    SpecificPower<double> second = SpecificPower<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificPower<double>(1.0, Unit::SpecificPower::WattPerKilogram));
+  }
 }
 
 TEST(SpecificPower, CopyConstructor) {
-  const SpecificPower first{1.0, Unit::SpecificPower::WattPerKilogram};
-  const SpecificPower second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SpecificPower<float> first(1.0F, Unit::SpecificPower::WattPerKilogram);
+    const SpecificPower<double> second{first};
+    EXPECT_EQ(second, SpecificPower<double>(1.0, Unit::SpecificPower::WattPerKilogram));
+  }
+  {
+    const SpecificPower<double> first(1.0, Unit::SpecificPower::WattPerKilogram);
+    const SpecificPower<double> second{first};
+    EXPECT_EQ(second, SpecificPower<double>(1.0, Unit::SpecificPower::WattPerKilogram));
+  }
+  {
+    const SpecificPower<long double> first(1.0L, Unit::SpecificPower::WattPerKilogram);
+    const SpecificPower<double> second{first};
+    EXPECT_EQ(second, SpecificPower<double>(1.0, Unit::SpecificPower::WattPerKilogram));
+  }
 }
 
 TEST(SpecificPower, Create) {

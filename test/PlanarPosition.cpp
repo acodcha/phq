@@ -142,16 +142,42 @@ TEST(PlanarPosition, ComparisonOperators) {
 }
 
 TEST(PlanarPosition, CopyAssignmentOperator) {
-  const PlanarPosition first({1.0, -2.0}, Unit::Length::Metre);
-  PlanarPosition second = PlanarPosition<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarPosition<float> first({1.0F, -2.0F}, Unit::Length::Metre);
+    PlanarPosition<double> second = PlanarPosition<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarPosition<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarPosition<double> first({1.0, -2.0}, Unit::Length::Metre);
+    PlanarPosition<double> second = PlanarPosition<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarPosition<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarPosition<long double> first({1.0L, -2.0L}, Unit::Length::Metre);
+    PlanarPosition<double> second = PlanarPosition<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarPosition<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(PlanarPosition, CopyConstructor) {
-  const PlanarPosition first({1.0, -2.0}, Unit::Length::Metre);
-  const PlanarPosition second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarPosition<float> first({1.0F, -2.0F}, Unit::Length::Metre);
+    const PlanarPosition<double> second{first};
+    EXPECT_EQ(second, PlanarPosition<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarPosition<double> first({1.0, -2.0}, Unit::Length::Metre);
+    const PlanarPosition<double> second{first};
+    EXPECT_EQ(second, PlanarPosition<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarPosition<long double> first({1.0L, -2.0L}, Unit::Length::Metre);
+    const PlanarPosition<double> second{first};
+    EXPECT_EQ(second, PlanarPosition<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(PlanarPosition, Create) {

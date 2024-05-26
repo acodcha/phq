@@ -99,16 +99,42 @@ TEST(Frequency, ComparisonOperators) {
 }
 
 TEST(Frequency, CopyAssignmentOperator) {
-  const Frequency first{1.0, Unit::Frequency::Hertz};
-  Frequency second = Frequency<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Frequency<float> first(1.0F, Unit::Frequency::Hertz);
+    Frequency<double> second = Frequency<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Frequency<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const Frequency<double> first(1.0, Unit::Frequency::Hertz);
+    Frequency<double> second = Frequency<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Frequency<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const Frequency<long double> first(1.0L, Unit::Frequency::Hertz);
+    Frequency<double> second = Frequency<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Frequency<double>(1.0, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(Frequency, CopyConstructor) {
-  const Frequency first{1.0, Unit::Frequency::Hertz};
-  const Frequency second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Frequency<float> first(1.0F, Unit::Frequency::Hertz);
+    const Frequency<double> second{first};
+    EXPECT_EQ(second, Frequency<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const Frequency<double> first(1.0, Unit::Frequency::Hertz);
+    const Frequency<double> second{first};
+    EXPECT_EQ(second, Frequency<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const Frequency<long double> first(1.0L, Unit::Frequency::Hertz);
+    const Frequency<double> second{first};
+    EXPECT_EQ(second, Frequency<double>(1.0, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(Frequency, Create) {

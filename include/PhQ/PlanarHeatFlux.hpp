@@ -92,7 +92,7 @@ public:
   /// \brief Copy constructor. Constructs a planar heat flux vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr PlanarHeatFlux(const PlanarHeatFlux<OtherNumber>& other)
-    : PlanarHeatFlux(static_cast<Number>(other.Value())) {}
+    : PlanarHeatFlux(static_cast<PlanarVector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar heat flux vector by moving another one.
   constexpr PlanarHeatFlux(PlanarHeatFlux<Number>&& other) noexcept = default;
@@ -103,7 +103,7 @@ public:
   /// \brief Copy assignment operator. Assigns this planar heat flux vector by copying another one.
   template <typename OtherNumber>
   constexpr PlanarHeatFlux<Number>& operator=(const PlanarHeatFlux<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<PlanarVector<Number>>(other.Value());
     return *this;
   }
 

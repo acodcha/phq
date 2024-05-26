@@ -99,16 +99,42 @@ TEST(PWaveModulus, ComparisonOperators) {
 }
 
 TEST(PWaveModulus, CopyAssignmentOperator) {
-  const PWaveModulus first{1.0, Unit::Pressure::Pascal};
-  PWaveModulus second = PWaveModulus<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PWaveModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    PWaveModulus<double> second = PWaveModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PWaveModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const PWaveModulus<double> first(1.0, Unit::Pressure::Pascal);
+    PWaveModulus<double> second = PWaveModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PWaveModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const PWaveModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    PWaveModulus<double> second = PWaveModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PWaveModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(PWaveModulus, CopyConstructor) {
-  const PWaveModulus first{1.0, Unit::Pressure::Pascal};
-  const PWaveModulus second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PWaveModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    const PWaveModulus<double> second{first};
+    EXPECT_EQ(second, PWaveModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const PWaveModulus<double> first(1.0, Unit::Pressure::Pascal);
+    const PWaveModulus<double> second{first};
+    EXPECT_EQ(second, PWaveModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const PWaveModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    const PWaveModulus<double> second{first};
+    EXPECT_EQ(second, PWaveModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(PWaveModulus, Create) {

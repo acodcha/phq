@@ -121,16 +121,57 @@ TEST(VolumetricThermalExpansionCoefficient, ComparisonOperators) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, CopyAssignmentOperator) {
-  const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
-  VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const VolumetricThermalExpansionCoefficient<float> first(
+        1.0F, Unit::ThermalExpansion::PerKelvin);
+    VolumetricThermalExpansionCoefficient<double> second =
+        VolumetricThermalExpansionCoefficient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VolumetricThermalExpansionCoefficient<double>(
+                          1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const VolumetricThermalExpansionCoefficient<double> first(
+        1.0, Unit::ThermalExpansion::PerKelvin);
+    VolumetricThermalExpansionCoefficient<double> second =
+        VolumetricThermalExpansionCoefficient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VolumetricThermalExpansionCoefficient<double>(
+                          1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const VolumetricThermalExpansionCoefficient<long double> first(
+        1.0L, Unit::ThermalExpansion::PerKelvin);
+    VolumetricThermalExpansionCoefficient<double> second =
+        VolumetricThermalExpansionCoefficient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VolumetricThermalExpansionCoefficient<double>(
+                          1.0, Unit::ThermalExpansion::PerKelvin));
+  }
 }
 
 TEST(VolumetricThermalExpansionCoefficient, CopyConstructor) {
-  const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
-  const VolumetricThermalExpansionCoefficient second{first};
-  EXPECT_EQ(second, first);
+  {
+    const VolumetricThermalExpansionCoefficient<float> first(
+        1.0F, Unit::ThermalExpansion::PerKelvin);
+    const VolumetricThermalExpansionCoefficient<double> second{first};
+    EXPECT_EQ(second, VolumetricThermalExpansionCoefficient<double>(
+                          1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const VolumetricThermalExpansionCoefficient<double> first(
+        1.0, Unit::ThermalExpansion::PerKelvin);
+    const VolumetricThermalExpansionCoefficient<double> second{first};
+    EXPECT_EQ(second, VolumetricThermalExpansionCoefficient<double>(
+                          1.0, Unit::ThermalExpansion::PerKelvin));
+  }
+  {
+    const VolumetricThermalExpansionCoefficient<long double> first(
+        1.0L, Unit::ThermalExpansion::PerKelvin);
+    const VolumetricThermalExpansionCoefficient<double> second{first};
+    EXPECT_EQ(second, VolumetricThermalExpansionCoefficient<double>(
+                          1.0, Unit::ThermalExpansion::PerKelvin));
+  }
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Create) {

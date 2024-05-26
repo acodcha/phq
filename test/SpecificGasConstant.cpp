@@ -141,16 +141,54 @@ TEST(SpecificGasConstant, ComparisonOperators) {
 }
 
 TEST(SpecificGasConstant, CopyAssignmentOperator) {
-  const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificGasConstant second = SpecificGasConstant<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SpecificGasConstant<float> first(
+        1.0F, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificGasConstant<double> second = SpecificGasConstant<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificGasConstant<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificGasConstant<double> first(
+        1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificGasConstant<double> second = SpecificGasConstant<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificGasConstant<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificGasConstant<long double> first(
+        1.0L, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificGasConstant<double> second = SpecificGasConstant<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificGasConstant<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
 }
 
 TEST(SpecificGasConstant, CopyConstructor) {
-  const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  const SpecificGasConstant second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SpecificGasConstant<float> first(
+        1.0F, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificGasConstant<double> second{first};
+    EXPECT_EQ(second, SpecificGasConstant<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificGasConstant<double> first(
+        1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificGasConstant<double> second{first};
+    EXPECT_EQ(second, SpecificGasConstant<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificGasConstant<long double> first(
+        1.0L, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificGasConstant<double> second{first};
+    EXPECT_EQ(second, SpecificGasConstant<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
 }
 
 TEST(SpecificGasConstant, Create) {

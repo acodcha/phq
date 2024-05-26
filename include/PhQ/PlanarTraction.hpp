@@ -87,7 +87,7 @@ public:
   /// \brief Copy constructor. Constructs a planar traction vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr PlanarTraction(const PlanarTraction<OtherNumber>& other)
-    : PlanarTraction(static_cast<Number>(other.Value())) {}
+    : PlanarTraction(static_cast<PlanarVector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar traction vector by moving another one.
   constexpr PlanarTraction(PlanarTraction<Number>&& other) noexcept = default;
@@ -98,7 +98,7 @@ public:
   /// \brief Copy assignment operator. Assigns this planar traction vector by copying another one.
   template <typename OtherNumber>
   constexpr PlanarTraction<Number>& operator=(const PlanarTraction<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<PlanarVector<Number>>(other.Value());
     return *this;
   }
 

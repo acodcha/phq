@@ -104,16 +104,42 @@ TEST(ReynoldsNumber, ComparisonOperators) {
 }
 
 TEST(ReynoldsNumber, CopyAssignmentOperator) {
-  const ReynoldsNumber first{1.0};
-  ReynoldsNumber second = ReynoldsNumber<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ReynoldsNumber<float> first(1.0F);
+    ReynoldsNumber<double> second = ReynoldsNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ReynoldsNumber<double>(1.0));
+  }
+  {
+    const ReynoldsNumber<double> first(1.0);
+    ReynoldsNumber<double> second = ReynoldsNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ReynoldsNumber<double>(1.0));
+  }
+  {
+    const ReynoldsNumber<long double> first(1.0L);
+    ReynoldsNumber<double> second = ReynoldsNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ReynoldsNumber<double>(1.0));
+  }
 }
 
 TEST(ReynoldsNumber, CopyConstructor) {
-  const ReynoldsNumber first{1.0};
-  const ReynoldsNumber second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ReynoldsNumber<float> first(1.0F);
+    const ReynoldsNumber<double> second{first};
+    EXPECT_EQ(second, ReynoldsNumber<double>(1.0));
+  }
+  {
+    const ReynoldsNumber<double> first(1.0);
+    const ReynoldsNumber<double> second{first};
+    EXPECT_EQ(second, ReynoldsNumber<double>(1.0));
+  }
+  {
+    const ReynoldsNumber<long double> first(1.0L);
+    const ReynoldsNumber<double> second{first};
+    EXPECT_EQ(second, ReynoldsNumber<double>(1.0));
+  }
 }
 
 TEST(ReynoldsNumber, DefaultConstructor) {

@@ -128,16 +128,54 @@ TEST(TemperatureGradient, ComparisonOperators) {
 }
 
 TEST(TemperatureGradient, CopyAssignmentOperator) {
-  const TemperatureGradient first({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient second = TemperatureGradient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const TemperatureGradient<float> first(
+        {1.0F, -2.0F, 3.0F}, Unit::TemperatureGradient::KelvinPerMetre);
+    TemperatureGradient<double> second = TemperatureGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TemperatureGradient<double>(
+                          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const TemperatureGradient<double> first(
+        {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
+    TemperatureGradient<double> second = TemperatureGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TemperatureGradient<double>(
+                          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const TemperatureGradient<long double> first(
+        {1.0L, -2.0L, 3.0L}, Unit::TemperatureGradient::KelvinPerMetre);
+    TemperatureGradient<double> second = TemperatureGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TemperatureGradient<double>(
+                          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
 }
 
 TEST(TemperatureGradient, CopyConstructor) {
-  const TemperatureGradient first({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  const TemperatureGradient second{first};
-  EXPECT_EQ(second, first);
+  {
+    const TemperatureGradient<float> first(
+        {1.0F, -2.0F, 3.0F}, Unit::TemperatureGradient::KelvinPerMetre);
+    const TemperatureGradient<double> second{first};
+    EXPECT_EQ(second, TemperatureGradient<double>(
+                          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const TemperatureGradient<double> first(
+        {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
+    const TemperatureGradient<double> second{first};
+    EXPECT_EQ(second, TemperatureGradient<double>(
+                          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const TemperatureGradient<long double> first(
+        {1.0L, -2.0L, 3.0L}, Unit::TemperatureGradient::KelvinPerMetre);
+    const TemperatureGradient<double> second{first};
+    EXPECT_EQ(second, TemperatureGradient<double>(
+                          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
 }
 
 TEST(TemperatureGradient, Create) {

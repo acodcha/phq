@@ -108,16 +108,42 @@ TEST(ThermalDiffusivity, ComparisonOperators) {
 }
 
 TEST(ThermalDiffusivity, CopyAssignmentOperator) {
-  const ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  ThermalDiffusivity second = ThermalDiffusivity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ThermalDiffusivity<float> first(1.0F, Unit::Diffusivity::SquareMetrePerSecond);
+    ThermalDiffusivity<double> second = ThermalDiffusivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ThermalDiffusivity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const ThermalDiffusivity<double> first(1.0, Unit::Diffusivity::SquareMetrePerSecond);
+    ThermalDiffusivity<double> second = ThermalDiffusivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ThermalDiffusivity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const ThermalDiffusivity<long double> first(1.0L, Unit::Diffusivity::SquareMetrePerSecond);
+    ThermalDiffusivity<double> second = ThermalDiffusivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ThermalDiffusivity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
 }
 
 TEST(ThermalDiffusivity, CopyConstructor) {
-  const ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  const ThermalDiffusivity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ThermalDiffusivity<float> first(1.0F, Unit::Diffusivity::SquareMetrePerSecond);
+    const ThermalDiffusivity<double> second{first};
+    EXPECT_EQ(second, ThermalDiffusivity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const ThermalDiffusivity<double> first(1.0, Unit::Diffusivity::SquareMetrePerSecond);
+    const ThermalDiffusivity<double> second{first};
+    EXPECT_EQ(second, ThermalDiffusivity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const ThermalDiffusivity<long double> first(1.0L, Unit::Diffusivity::SquareMetrePerSecond);
+    const ThermalDiffusivity<double> second{first};
+    EXPECT_EQ(second, ThermalDiffusivity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
 }
 
 TEST(ThermalDiffusivity, Create) {

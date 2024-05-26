@@ -72,7 +72,7 @@ public:
   /// \brief Copy constructor. Constructs a planar vector area by copying another one.
   template <typename OtherNumber>
   explicit constexpr PlanarVectorArea(const PlanarVectorArea<OtherNumber>& other)
-    : PlanarVectorArea(static_cast<Number>(other.Value())) {}
+    : PlanarVectorArea(static_cast<PlanarVector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar vector area by moving another one.
   constexpr PlanarVectorArea(PlanarVectorArea<Number>&& other) noexcept = default;
@@ -83,7 +83,7 @@ public:
   /// \brief Copy assignment operator. Assigns this planar vector area by copying another one.
   template <typename OtherNumber>
   constexpr PlanarVectorArea<Number>& operator=(const PlanarVectorArea<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<PlanarVector<Number>>(other.Value());
     return *this;
   }
 

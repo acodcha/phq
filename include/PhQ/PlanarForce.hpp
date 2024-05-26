@@ -80,7 +80,7 @@ public:
   /// \brief Copy constructor. Constructs a planar force vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr PlanarForce(const PlanarForce<OtherNumber>& other)
-    : PlanarForce(static_cast<Number>(other.Value())) {}
+    : PlanarForce(static_cast<PlanarVector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar force vector by moving another one.
   constexpr PlanarForce(PlanarForce<Number>&& other) noexcept = default;
@@ -91,7 +91,7 @@ public:
   /// \brief Copy assignment operator. Assigns this planar force vector by copying another one.
   template <typename OtherNumber>
   constexpr PlanarForce<Number>& operator=(const PlanarForce<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<PlanarVector<Number>>(other.Value());
     return *this;
   }
 

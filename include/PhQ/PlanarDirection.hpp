@@ -181,7 +181,7 @@ public:
   /// \brief Copy constructor. Constructs a planar direction by copying another one.
   template <typename OtherNumber>
   explicit constexpr PlanarDirection(const PlanarDirection<OtherNumber>& other)
-    : PlanarDirection(static_cast<Number>(other.Value())) {}
+    : PlanarDirection(static_cast<PlanarVector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar direction by moving another one.
   constexpr PlanarDirection(PlanarDirection<Number>&& other) noexcept = default;
@@ -192,7 +192,7 @@ public:
   /// \brief Copy assignment operator. Assigns this planar direction by copying another one.
   template <typename OtherNumber>
   constexpr PlanarDirection<Number>& operator=(const PlanarDirection<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<PlanarVector<Number>>(other.Value());
     return *this;
   }
 

@@ -112,16 +112,42 @@ TEST(StaticPressure, ComparisonOperators) {
 }
 
 TEST(StaticPressure, CopyAssignmentOperator) {
-  const StaticPressure first{1.0, Unit::Pressure::Pascal};
-  StaticPressure second = StaticPressure<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const StaticPressure<float> first(1.0F, Unit::Pressure::Pascal);
+    StaticPressure<double> second = StaticPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, StaticPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const StaticPressure<double> first(1.0, Unit::Pressure::Pascal);
+    StaticPressure<double> second = StaticPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, StaticPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const StaticPressure<long double> first(1.0L, Unit::Pressure::Pascal);
+    StaticPressure<double> second = StaticPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, StaticPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(StaticPressure, CopyConstructor) {
-  const StaticPressure first{1.0, Unit::Pressure::Pascal};
-  const StaticPressure second{first};
-  EXPECT_EQ(second, first);
+  {
+    const StaticPressure<float> first(1.0F, Unit::Pressure::Pascal);
+    const StaticPressure<double> second{first};
+    EXPECT_EQ(second, StaticPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const StaticPressure<double> first(1.0, Unit::Pressure::Pascal);
+    const StaticPressure<double> second{first};
+    EXPECT_EQ(second, StaticPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const StaticPressure<long double> first(1.0L, Unit::Pressure::Pascal);
+    const StaticPressure<double> second{first};
+    EXPECT_EQ(second, StaticPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(StaticPressure, Create) {

@@ -106,16 +106,42 @@ TEST(TemperatureDifference, ComparisonOperators) {
 }
 
 TEST(TemperatureDifference, CopyAssignmentOperator) {
-  const TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
-  TemperatureDifference second = TemperatureDifference<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const TemperatureDifference<float> first(1.0F, Unit::TemperatureDifference::Kelvin);
+    TemperatureDifference<double> second = TemperatureDifference<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TemperatureDifference<double>(1.0, Unit::TemperatureDifference::Kelvin));
+  }
+  {
+    const TemperatureDifference<double> first(1.0, Unit::TemperatureDifference::Kelvin);
+    TemperatureDifference<double> second = TemperatureDifference<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TemperatureDifference<double>(1.0, Unit::TemperatureDifference::Kelvin));
+  }
+  {
+    const TemperatureDifference<long double> first(1.0L, Unit::TemperatureDifference::Kelvin);
+    TemperatureDifference<double> second = TemperatureDifference<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TemperatureDifference<double>(1.0, Unit::TemperatureDifference::Kelvin));
+  }
 }
 
 TEST(TemperatureDifference, CopyConstructor) {
-  const TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
-  const TemperatureDifference second{first};
-  EXPECT_EQ(second, first);
+  {
+    const TemperatureDifference<float> first(1.0F, Unit::TemperatureDifference::Kelvin);
+    const TemperatureDifference<double> second{first};
+    EXPECT_EQ(second, TemperatureDifference<double>(1.0, Unit::TemperatureDifference::Kelvin));
+  }
+  {
+    const TemperatureDifference<double> first(1.0, Unit::TemperatureDifference::Kelvin);
+    const TemperatureDifference<double> second{first};
+    EXPECT_EQ(second, TemperatureDifference<double>(1.0, Unit::TemperatureDifference::Kelvin));
+  }
+  {
+    const TemperatureDifference<long double> first(1.0L, Unit::TemperatureDifference::Kelvin);
+    const TemperatureDifference<double> second{first};
+    EXPECT_EQ(second, TemperatureDifference<double>(1.0, Unit::TemperatureDifference::Kelvin));
+  }
 }
 
 TEST(TemperatureDifference, Create) {

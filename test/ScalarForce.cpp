@@ -95,16 +95,42 @@ TEST(ScalarForce, ComparisonOperators) {
 }
 
 TEST(ScalarForce, CopyAssignmentOperator) {
-  const ScalarForce first{1.0, Unit::Force::Newton};
-  ScalarForce second = ScalarForce<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarForce<float> first(1.0F, Unit::Force::Newton);
+    ScalarForce<double> second = ScalarForce<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarForce<double>(1.0, Unit::Force::Newton));
+  }
+  {
+    const ScalarForce<double> first(1.0, Unit::Force::Newton);
+    ScalarForce<double> second = ScalarForce<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarForce<double>(1.0, Unit::Force::Newton));
+  }
+  {
+    const ScalarForce<long double> first(1.0L, Unit::Force::Newton);
+    ScalarForce<double> second = ScalarForce<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarForce<double>(1.0, Unit::Force::Newton));
+  }
 }
 
 TEST(ScalarForce, CopyConstructor) {
-  const ScalarForce first{1.0, Unit::Force::Newton};
-  const ScalarForce second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarForce<float> first(1.0F, Unit::Force::Newton);
+    const ScalarForce<double> second{first};
+    EXPECT_EQ(second, ScalarForce<double>(1.0, Unit::Force::Newton));
+  }
+  {
+    const ScalarForce<double> first(1.0, Unit::Force::Newton);
+    const ScalarForce<double> second{first};
+    EXPECT_EQ(second, ScalarForce<double>(1.0, Unit::Force::Newton));
+  }
+  {
+    const ScalarForce<long double> first(1.0L, Unit::Force::Newton);
+    const ScalarForce<double> second{first};
+    EXPECT_EQ(second, ScalarForce<double>(1.0, Unit::Force::Newton));
+  }
 }
 
 TEST(ScalarForce, Create) {

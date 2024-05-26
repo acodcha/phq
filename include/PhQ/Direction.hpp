@@ -179,7 +179,7 @@ public:
   /// \brief Copy constructor. Constructs a direction by copying another one.
   template <typename OtherNumber>
   explicit constexpr Direction(const Direction<OtherNumber>& other)
-    : Direction(static_cast<Number>(other.Value())) {}
+    : Direction(static_cast<Vector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a direction by moving another one.
   constexpr Direction(Direction<Number>&& other) noexcept = default;
@@ -190,7 +190,7 @@ public:
   /// \brief Copy assignment operator. Assigns this direction by copying another one.
   template <typename OtherNumber>
   constexpr Direction<Number>& operator=(const Direction<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 

@@ -102,16 +102,42 @@ TEST(LameFirstModulus, ComparisonOperators) {
 }
 
 TEST(LameFirstModulus, CopyAssignmentOperator) {
-  const LameFirstModulus first{1.0, Unit::Pressure::Pascal};
-  LameFirstModulus second = LameFirstModulus<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const LameFirstModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    LameFirstModulus<double> second = LameFirstModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, LameFirstModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const LameFirstModulus<double> first(1.0, Unit::Pressure::Pascal);
+    LameFirstModulus<double> second = LameFirstModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, LameFirstModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const LameFirstModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    LameFirstModulus<double> second = LameFirstModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, LameFirstModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(LameFirstModulus, CopyConstructor) {
-  const LameFirstModulus first{1.0, Unit::Pressure::Pascal};
-  const LameFirstModulus second{first};
-  EXPECT_EQ(second, first);
+  {
+    const LameFirstModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    const LameFirstModulus<double> second{first};
+    EXPECT_EQ(second, LameFirstModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const LameFirstModulus<double> first(1.0, Unit::Pressure::Pascal);
+    const LameFirstModulus<double> second{first};
+    EXPECT_EQ(second, LameFirstModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const LameFirstModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    const LameFirstModulus<double> second{first};
+    EXPECT_EQ(second, LameFirstModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(LameFirstModulus, Create) {

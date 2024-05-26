@@ -69,7 +69,7 @@ public:
   /// \brief Copy constructor. Constructs a thermal conductivity tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr ThermalConductivity(const ThermalConductivity<OtherNumber>& other)
-    : ThermalConductivity(static_cast<Number>(other.Value())) {}
+    : ThermalConductivity(static_cast<SymmetricDyad<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a thermal conductivity tensor by moving another one.
   constexpr ThermalConductivity(ThermalConductivity<Number>&& other) noexcept = default;
@@ -83,7 +83,7 @@ public:
   /// one.
   template <typename OtherNumber>
   constexpr ThermalConductivity<Number>& operator=(const ThermalConductivity<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 

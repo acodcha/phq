@@ -118,16 +118,42 @@ TEST(ScalarStrainRate, ComparisonOperators) {
 }
 
 TEST(ScalarStrainRate, CopyAssignmentOperator) {
-  const ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
-  ScalarStrainRate second = ScalarStrainRate<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarStrainRate<float> first(1.0F, Unit::Frequency::Hertz);
+    ScalarStrainRate<double> second = ScalarStrainRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStrainRate<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarStrainRate<double> first(1.0, Unit::Frequency::Hertz);
+    ScalarStrainRate<double> second = ScalarStrainRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStrainRate<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarStrainRate<long double> first(1.0L, Unit::Frequency::Hertz);
+    ScalarStrainRate<double> second = ScalarStrainRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStrainRate<double>(1.0, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(ScalarStrainRate, CopyConstructor) {
-  const ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
-  const ScalarStrainRate second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarStrainRate<float> first(1.0F, Unit::Frequency::Hertz);
+    const ScalarStrainRate<double> second{first};
+    EXPECT_EQ(second, ScalarStrainRate<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarStrainRate<double> first(1.0, Unit::Frequency::Hertz);
+    const ScalarStrainRate<double> second{first};
+    EXPECT_EQ(second, ScalarStrainRate<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarStrainRate<long double> first(1.0L, Unit::Frequency::Hertz);
+    const ScalarStrainRate<double> second{first};
+    EXPECT_EQ(second, ScalarStrainRate<double>(1.0, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(ScalarStrainRate, Create) {

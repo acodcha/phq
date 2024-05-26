@@ -78,7 +78,7 @@ public:
   /// \brief Copy constructor. Constructs a temperature gradient vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr TemperatureGradient(const TemperatureGradient<OtherNumber>& other)
-    : TemperatureGradient(static_cast<Number>(other.Value())) {}
+    : TemperatureGradient(static_cast<Vector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a temperature gradient vector by moving another one.
   constexpr TemperatureGradient(TemperatureGradient<Number>&& other) noexcept = default;
@@ -92,7 +92,7 @@ public:
   /// one.
   template <typename OtherNumber>
   constexpr TemperatureGradient<Number>& operator=(const TemperatureGradient<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 

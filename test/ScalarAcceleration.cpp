@@ -129,19 +129,45 @@ TEST(ScalarAcceleration, ComparisonOperators) {
 }
 
 TEST(ScalarAcceleration, CopyAssignmentOperator) {
-  const ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
-  ScalarAcceleration second = ScalarAcceleration<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarAcceleration<float> first(1.0F, Unit::Acceleration::MetrePerSquareSecond);
+    ScalarAcceleration<double> second = ScalarAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarAcceleration<double>(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const ScalarAcceleration<double> first(1.0, Unit::Acceleration::MetrePerSquareSecond);
+    ScalarAcceleration<double> second = ScalarAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarAcceleration<double>(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const ScalarAcceleration<long double> first(1.0L, Unit::Acceleration::MetrePerSquareSecond);
+    ScalarAcceleration<double> second = ScalarAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarAcceleration<double>(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  }
 }
 
 TEST(ScalarAcceleration, CopyConstructor) {
-  const ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
-  const ScalarAcceleration second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarAcceleration<float> first(1.0F, Unit::Acceleration::MetrePerSquareSecond);
+    const ScalarAcceleration<double> second{first};
+    EXPECT_EQ(second, ScalarAcceleration<double>(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const ScalarAcceleration<double> first(1.0, Unit::Acceleration::MetrePerSquareSecond);
+    const ScalarAcceleration<double> second{first};
+    EXPECT_EQ(second, ScalarAcceleration<double>(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const ScalarAcceleration<long double> first(1.0L, Unit::Acceleration::MetrePerSquareSecond);
+    const ScalarAcceleration<double> second{first};
+    EXPECT_EQ(second, ScalarAcceleration<double>(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  }
 }
 
-TEST(Angle, Create) {
+TEST(ScalarAcceleration, Create) {
   constexpr ScalarAcceleration scalar_acceleration =
       ScalarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0);
   EXPECT_EQ(scalar_acceleration, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));

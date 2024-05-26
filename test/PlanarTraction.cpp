@@ -121,16 +121,42 @@ TEST(PlanarTraction, ComparisonOperators) {
 }
 
 TEST(PlanarTraction, CopyAssignmentOperator) {
-  const PlanarTraction first({1.0, -2.0}, Unit::Pressure::Pascal);
-  PlanarTraction second = PlanarTraction<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarTraction<float> first({1.0F, -2.0F}, Unit::Pressure::Pascal);
+    PlanarTraction<double> second = PlanarTraction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarTraction<double>({1.0, -2.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const PlanarTraction<double> first({1.0, -2.0}, Unit::Pressure::Pascal);
+    PlanarTraction<double> second = PlanarTraction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarTraction<double>({1.0, -2.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const PlanarTraction<long double> first({1.0L, -2.0L}, Unit::Pressure::Pascal);
+    PlanarTraction<double> second = PlanarTraction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarTraction<double>({1.0, -2.0}, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(PlanarTraction, CopyConstructor) {
-  const PlanarTraction first({1.0, -2.0}, Unit::Pressure::Pascal);
-  const PlanarTraction second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarTraction<float> first({1.0F, -2.0F}, Unit::Pressure::Pascal);
+    const PlanarTraction<double> second{first};
+    EXPECT_EQ(second, PlanarTraction<double>({1.0, -2.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const PlanarTraction<double> first({1.0, -2.0}, Unit::Pressure::Pascal);
+    const PlanarTraction<double> second{first};
+    EXPECT_EQ(second, PlanarTraction<double>({1.0, -2.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const PlanarTraction<long double> first({1.0L, -2.0L}, Unit::Pressure::Pascal);
+    const PlanarTraction<double> second{first};
+    EXPECT_EQ(second, PlanarTraction<double>({1.0, -2.0}, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(PlanarTraction, Create) {

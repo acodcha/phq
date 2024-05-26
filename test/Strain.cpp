@@ -99,16 +99,42 @@ TEST(Strain, ComparisonOperators) {
 }
 
 TEST(Strain, CopyAssignmentOperator) {
-  constexpr Strain first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  Strain second = Strain<>::Zero();
-  second = first;
-  EXPECT_EQ(second, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  {
+    const Strain<float> first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
+    Strain<double> second = Strain<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Strain<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  }
+  {
+    const Strain<double> first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+    Strain<double> second = Strain<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Strain<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  }
+  {
+    const Strain<long double> first{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L};
+    Strain<double> second = Strain<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Strain<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  }
 }
 
 TEST(Strain, CopyConstructor) {
-  constexpr Strain first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  constexpr Strain second{first};
-  EXPECT_EQ(second, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  {
+    const Strain<float> first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
+    const Strain<double> second{first};
+    EXPECT_EQ(second, Strain<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  }
+  {
+    const Strain<double> first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+    const Strain<double> second{first};
+    EXPECT_EQ(second, Strain<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  }
+  {
+    const Strain<long double> first{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L};
+    const Strain<double> second{first};
+    EXPECT_EQ(second, Strain<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  }
 }
 
 TEST(Strain, DefaultConstructor) {

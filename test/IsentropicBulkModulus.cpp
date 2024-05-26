@@ -102,16 +102,42 @@ TEST(IsentropicBulkModulus, ComparisonOperators) {
 }
 
 TEST(IsentropicBulkModulus, CopyAssignmentOperator) {
-  const IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
-  IsentropicBulkModulus second = IsentropicBulkModulus<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const IsentropicBulkModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    IsentropicBulkModulus<double> second = IsentropicBulkModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsentropicBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsentropicBulkModulus<double> first(1.0, Unit::Pressure::Pascal);
+    IsentropicBulkModulus<double> second = IsentropicBulkModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsentropicBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsentropicBulkModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    IsentropicBulkModulus<double> second = IsentropicBulkModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsentropicBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(IsentropicBulkModulus, CopyConstructor) {
-  const IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
-  const IsentropicBulkModulus second{first};
-  EXPECT_EQ(second, first);
+  {
+    const IsentropicBulkModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    const IsentropicBulkModulus<double> second{first};
+    EXPECT_EQ(second, IsentropicBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsentropicBulkModulus<double> first(1.0, Unit::Pressure::Pascal);
+    const IsentropicBulkModulus<double> second{first};
+    EXPECT_EQ(second, IsentropicBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const IsentropicBulkModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    const IsentropicBulkModulus<double> second{first};
+    EXPECT_EQ(second, IsentropicBulkModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(IsentropicBulkModulus, Create) {

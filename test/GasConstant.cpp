@@ -117,16 +117,42 @@ TEST(GasConstant, ComparisonOperators) {
 }
 
 TEST(GasConstant, CopyAssignmentOperator) {
-  const GasConstant first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  GasConstant second = GasConstant<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const GasConstant<float> first(1.0F, Unit::HeatCapacity::JoulePerKelvin);
+    GasConstant<double> second = GasConstant<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, GasConstant<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const GasConstant<double> first(1.0, Unit::HeatCapacity::JoulePerKelvin);
+    GasConstant<double> second = GasConstant<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, GasConstant<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const GasConstant<long double> first(1.0L, Unit::HeatCapacity::JoulePerKelvin);
+    GasConstant<double> second = GasConstant<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, GasConstant<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
 }
 
 TEST(GasConstant, CopyConstructor) {
-  const GasConstant first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  const GasConstant second{first};
-  EXPECT_EQ(second, first);
+  {
+    const GasConstant<float> first(1.0F, Unit::HeatCapacity::JoulePerKelvin);
+    const GasConstant<double> second{first};
+    EXPECT_EQ(second, GasConstant<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const GasConstant<double> first(1.0, Unit::HeatCapacity::JoulePerKelvin);
+    const GasConstant<double> second{first};
+    EXPECT_EQ(second, GasConstant<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const GasConstant<long double> first(1.0L, Unit::HeatCapacity::JoulePerKelvin);
+    const GasConstant<double> second{first};
+    EXPECT_EQ(second, GasConstant<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
 }
 
 TEST(GasConstant, Create) {

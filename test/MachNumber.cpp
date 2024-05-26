@@ -103,16 +103,42 @@ TEST(MachNumber, ComparisonOperators) {
 }
 
 TEST(MachNumber, CopyAssignmentOperator) {
-  const MachNumber first{1.0};
-  MachNumber second = MachNumber<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const MachNumber<float> first(1.0F);
+    MachNumber<double> second = MachNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MachNumber<double>(1.0));
+  }
+  {
+    const MachNumber<double> first(1.0);
+    MachNumber<double> second = MachNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MachNumber<double>(1.0));
+  }
+  {
+    const MachNumber<long double> first(1.0L);
+    MachNumber<double> second = MachNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MachNumber<double>(1.0));
+  }
 }
 
 TEST(MachNumber, CopyConstructor) {
-  const MachNumber first{1.0};
-  const MachNumber second{first};
-  EXPECT_EQ(second, first);
+  {
+    const MachNumber<float> first(1.0F);
+    const MachNumber<double> second{first};
+    EXPECT_EQ(second, MachNumber<double>(1.0));
+  }
+  {
+    const MachNumber<double> first(1.0);
+    const MachNumber<double> second{first};
+    EXPECT_EQ(second, MachNumber<double>(1.0));
+  }
+  {
+    const MachNumber<long double> first(1.0L);
+    const MachNumber<double> second{first};
+    EXPECT_EQ(second, MachNumber<double>(1.0));
+  }
 }
 
 TEST(MachNumber, DefaultConstructor) {

@@ -137,16 +137,54 @@ TEST(TransportEnergyConsumption, ComparisonOperators) {
 }
 
 TEST(TransportEnergyConsumption, CopyAssignmentOperator) {
-  const TransportEnergyConsumption first{1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption second = TransportEnergyConsumption<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const TransportEnergyConsumption<float> first(
+        1.0F, Unit::TransportEnergyConsumption::JoulePerMetre);
+    TransportEnergyConsumption<double> second = TransportEnergyConsumption<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TransportEnergyConsumption<double>(
+                          1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  }
+  {
+    const TransportEnergyConsumption<double> first(
+        1.0, Unit::TransportEnergyConsumption::JoulePerMetre);
+    TransportEnergyConsumption<double> second = TransportEnergyConsumption<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TransportEnergyConsumption<double>(
+                          1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  }
+  {
+    const TransportEnergyConsumption<long double> first(
+        1.0L, Unit::TransportEnergyConsumption::JoulePerMetre);
+    TransportEnergyConsumption<double> second = TransportEnergyConsumption<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TransportEnergyConsumption<double>(
+                          1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  }
 }
 
 TEST(TransportEnergyConsumption, CopyConstructor) {
-  const TransportEnergyConsumption first{1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption second{first};
-  EXPECT_EQ(second, first);
+  {
+    const TransportEnergyConsumption<float> first(
+        1.0F, Unit::TransportEnergyConsumption::JoulePerMetre);
+    const TransportEnergyConsumption<double> second{first};
+    EXPECT_EQ(second, TransportEnergyConsumption<double>(
+                          1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  }
+  {
+    const TransportEnergyConsumption<double> first(
+        1.0, Unit::TransportEnergyConsumption::JoulePerMetre);
+    const TransportEnergyConsumption<double> second{first};
+    EXPECT_EQ(second, TransportEnergyConsumption<double>(
+                          1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  }
+  {
+    const TransportEnergyConsumption<long double> first(
+        1.0L, Unit::TransportEnergyConsumption::JoulePerMetre);
+    const TransportEnergyConsumption<double> second{first};
+    EXPECT_EQ(second, TransportEnergyConsumption<double>(
+                          1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  }
 }
 
 TEST(TransportEnergyConsumption, Create) {

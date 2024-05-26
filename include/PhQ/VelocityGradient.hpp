@@ -77,7 +77,7 @@ public:
   /// \brief Copy constructor. Constructs a velocity gradient tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr VelocityGradient(const VelocityGradient<OtherNumber>& other)
-    : VelocityGradient(static_cast<Number>(other.Value())) {}
+    : VelocityGradient(static_cast<Dyad<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a velocity gradient tensor by moving another one.
   constexpr VelocityGradient(VelocityGradient<Number>&& other) noexcept = default;
@@ -88,7 +88,7 @@ public:
   /// \brief Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
   template <typename OtherNumber>
   constexpr VelocityGradient<Number>& operator=(const VelocityGradient<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Dyad<Number>>(other.Value());
     return *this;
   }
 

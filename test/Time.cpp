@@ -95,16 +95,42 @@ TEST(Time, ComparisonOperators) {
 }
 
 TEST(Time, CopyAssignmentOperator) {
-  const Time first{1.0, Unit::Time::Second};
-  Time second = Time<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Time<float> first(1.0F, Unit::Time::Second);
+    Time<double> second = Time<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Time<double>(1.0, Unit::Time::Second));
+  }
+  {
+    const Time<double> first(1.0, Unit::Time::Second);
+    Time<double> second = Time<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Time<double>(1.0, Unit::Time::Second));
+  }
+  {
+    const Time<long double> first(1.0L, Unit::Time::Second);
+    Time<double> second = Time<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Time<double>(1.0, Unit::Time::Second));
+  }
 }
 
 TEST(Time, CopyConstructor) {
-  const Time first{1.0, Unit::Time::Second};
-  const Time second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Time<float> first(1.0F, Unit::Time::Second);
+    const Time<double> second{first};
+    EXPECT_EQ(second, Time<double>(1.0, Unit::Time::Second));
+  }
+  {
+    const Time<double> first(1.0, Unit::Time::Second);
+    const Time<double> second{first};
+    EXPECT_EQ(second, Time<double>(1.0, Unit::Time::Second));
+  }
+  {
+    const Time<long double> first(1.0L, Unit::Time::Second);
+    const Time<double> second{first};
+    EXPECT_EQ(second, Time<double>(1.0, Unit::Time::Second));
+  }
 }
 
 TEST(Time, Create) {

@@ -81,7 +81,7 @@ public:
   /// \brief Copy constructor. Constructs a strain rate tensor by copying another one.
   template <typename OtherNumber>
   explicit constexpr StrainRate(const StrainRate<OtherNumber>& other)
-    : StrainRate(static_cast<Number>(other.Value())) {}
+    : StrainRate(static_cast<SymmetricDyad<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a strain rate tensor by moving another one.
   constexpr StrainRate(StrainRate<Number>&& other) noexcept = default;
@@ -92,7 +92,7 @@ public:
   /// \brief Copy assignment operator. Assigns this strain rate tensor by copying another one.
   template <typename OtherNumber>
   constexpr StrainRate<Number>& operator=(const StrainRate<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 

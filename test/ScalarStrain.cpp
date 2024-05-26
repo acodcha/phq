@@ -94,16 +94,42 @@ TEST(ScalarStrain, ComparisonOperators) {
 }
 
 TEST(ScalarStrain, CopyAssignmentOperator) {
-  const ScalarStrain first{1.0};
-  ScalarStrain second = ScalarStrain<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarStrain<float> first(1.0F);
+    ScalarStrain<double> second = ScalarStrain<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStrain<double>(1.0));
+  }
+  {
+    const ScalarStrain<double> first(1.0);
+    ScalarStrain<double> second = ScalarStrain<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStrain<double>(1.0));
+  }
+  {
+    const ScalarStrain<long double> first(1.0L);
+    ScalarStrain<double> second = ScalarStrain<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStrain<double>(1.0));
+  }
 }
 
 TEST(ScalarStrain, CopyConstructor) {
-  const ScalarStrain first{1.0};
-  const ScalarStrain second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarStrain<float> first(1.0F);
+    const ScalarStrain<double> second{first};
+    EXPECT_EQ(second, ScalarStrain<double>(1.0));
+  }
+  {
+    const ScalarStrain<double> first(1.0);
+    const ScalarStrain<double> second{first};
+    EXPECT_EQ(second, ScalarStrain<double>(1.0));
+  }
+  {
+    const ScalarStrain<long double> first(1.0L);
+    const ScalarStrain<double> second{first};
+    EXPECT_EQ(second, ScalarStrain<double>(1.0));
+  }
 }
 
 TEST(ScalarStrain, DefaultConstructor) {

@@ -106,16 +106,42 @@ TEST(ScalarHeatFlux, ComparisonOperators) {
 }
 
 TEST(ScalarHeatFlux, CopyAssignmentOperator) {
-  const ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
-  ScalarHeatFlux second = ScalarHeatFlux<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarHeatFlux<float> first(1.0F, Unit::EnergyFlux::WattPerSquareMetre);
+    ScalarHeatFlux<double> second = ScalarHeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarHeatFlux<double>(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const ScalarHeatFlux<double> first(1.0, Unit::EnergyFlux::WattPerSquareMetre);
+    ScalarHeatFlux<double> second = ScalarHeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarHeatFlux<double>(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const ScalarHeatFlux<long double> first(1.0L, Unit::EnergyFlux::WattPerSquareMetre);
+    ScalarHeatFlux<double> second = ScalarHeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarHeatFlux<double>(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(ScalarHeatFlux, CopyConstructor) {
-  const ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
-  const ScalarHeatFlux second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarHeatFlux<float> first(1.0F, Unit::EnergyFlux::WattPerSquareMetre);
+    const ScalarHeatFlux<double> second{first};
+    EXPECT_EQ(second, ScalarHeatFlux<double>(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const ScalarHeatFlux<double> first(1.0, Unit::EnergyFlux::WattPerSquareMetre);
+    const ScalarHeatFlux<double> second{first};
+    EXPECT_EQ(second, ScalarHeatFlux<double>(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const ScalarHeatFlux<long double> first(1.0L, Unit::EnergyFlux::WattPerSquareMetre);
+    const ScalarHeatFlux<double> second{first};
+    EXPECT_EQ(second, ScalarHeatFlux<double>(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(ScalarHeatFlux, Create) {

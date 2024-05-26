@@ -117,16 +117,42 @@ TEST(MassDensity, ComparisonOperators) {
 }
 
 TEST(MassDensity, CopyAssignmentOperator) {
-  const MassDensity first{1.0, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity second = MassDensity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const MassDensity<float> first(1.0F, Unit::MassDensity::KilogramPerCubicMetre);
+    MassDensity<double> second = MassDensity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MassDensity<double>(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  }
+  {
+    const MassDensity<double> first(1.0, Unit::MassDensity::KilogramPerCubicMetre);
+    MassDensity<double> second = MassDensity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MassDensity<double>(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  }
+  {
+    const MassDensity<long double> first(1.0L, Unit::MassDensity::KilogramPerCubicMetre);
+    MassDensity<double> second = MassDensity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MassDensity<double>(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  }
 }
 
 TEST(MassDensity, CopyConstructor) {
-  const MassDensity first{1.0, Unit::MassDensity::KilogramPerCubicMetre};
-  const MassDensity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const MassDensity<float> first(1.0F, Unit::MassDensity::KilogramPerCubicMetre);
+    const MassDensity<double> second{first};
+    EXPECT_EQ(second, MassDensity<double>(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  }
+  {
+    const MassDensity<double> first(1.0, Unit::MassDensity::KilogramPerCubicMetre);
+    const MassDensity<double> second{first};
+    EXPECT_EQ(second, MassDensity<double>(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  }
+  {
+    const MassDensity<long double> first(1.0L, Unit::MassDensity::KilogramPerCubicMetre);
+    const MassDensity<double> second{first};
+    EXPECT_EQ(second, MassDensity<double>(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  }
 }
 
 TEST(MassDensity, Create) {

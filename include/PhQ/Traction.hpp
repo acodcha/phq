@@ -89,7 +89,7 @@ public:
   /// \brief Copy constructor. Constructs a traction vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Traction(const Traction<OtherNumber>& other)
-    : Traction(static_cast<Number>(other.Value())) {}
+    : Traction(static_cast<Vector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a traction vector by moving another one.
   constexpr Traction(Traction<Number>&& other) noexcept = default;
@@ -100,7 +100,7 @@ public:
   /// \brief Copy assignment operator. Assigns this traction vector by copying another one.
   template <typename OtherNumber>
   constexpr Traction<Number>& operator=(const Traction<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 

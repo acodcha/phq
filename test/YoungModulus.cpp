@@ -99,16 +99,42 @@ TEST(YoungModulus, ComparisonOperators) {
 }
 
 TEST(YoungModulus, CopyAssignmentOperator) {
-  const YoungModulus first{1.0, Unit::Pressure::Pascal};
-  YoungModulus second = YoungModulus<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const YoungModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    YoungModulus<double> second = YoungModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, YoungModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const YoungModulus<double> first(1.0, Unit::Pressure::Pascal);
+    YoungModulus<double> second = YoungModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, YoungModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const YoungModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    YoungModulus<double> second = YoungModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, YoungModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(YoungModulus, CopyConstructor) {
-  const YoungModulus first{1.0, Unit::Pressure::Pascal};
-  const YoungModulus second{first};
-  EXPECT_EQ(second, first);
+  {
+    const YoungModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    const YoungModulus<double> second{first};
+    EXPECT_EQ(second, YoungModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const YoungModulus<double> first(1.0, Unit::Pressure::Pascal);
+    const YoungModulus<double> second{first};
+    EXPECT_EQ(second, YoungModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const YoungModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    const YoungModulus<double> second{first};
+    EXPECT_EQ(second, YoungModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(YoungModulus, Create) {
