@@ -145,7 +145,7 @@ WARN_LOGFILE           =
 ####################################################################################################
 # Doxygen Input Files
 ####################################################################################################
-INPUT                  = Doxygen.txt include/PhQ
+INPUT                  = docs/main.txt include/PhQ
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.cpp *.hpp
 RECURSIVE              = YES
@@ -192,12 +192,11 @@ IGNORE_PREFIX          =
 GENERATE_HTML          = YES
 HTML_OUTPUT            = html
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            =
-HTML_FOOTER            =
+HTML_HEADER            = docs/header.html
+HTML_FOOTER            = docs/footer.html
 HTML_STYLESHEET        =
 HTML_EXTRA_STYLESHEET  =
-HTML_EXTRA_FILES       =
-HTML_COLORSTYLE        = LIGHT
+HTML_EXTRA_FILES       = docs/favicon.ico
 HTML_COLORSTYLE_HUE    = 220
 HTML_COLORSTYLE_SAT    = 100
 HTML_COLORSTYLE_GAMMA  = 80
