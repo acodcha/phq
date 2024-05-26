@@ -60,13 +60,13 @@ The Physical Quantities library requires the following packages:
 - **C++ Compiler:** A C++ compiler with support for the C++17 standard or any more recent standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
 - **CMake** or **Bazel:** Either the CMake build system or the Bazel build system is required.
   - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative means of installation.
-  - **Bazel:** Follow the instructions at <https://bazel.build/install> to install Bazel on your computer.
+  - **Bazel:** Follow the instructions at <https://bazel.build/install> to install Bazel on your system.
 
 [(Back to Top)](#physical-quantities-phq)
 
 ## Configuration
 
-The Physical Quantities library can be configured with either the CMake build system or the Bazel build system:
+The Physical Quantities library can be configured with either the CMake build system or the Bazel build system.
 
 - [CMake](#configuration-cmake)
 - [Bazel](#configuration-bazel)
@@ -75,53 +75,7 @@ The Physical Quantities library can be configured with either the CMake build sy
 
 ### Configuration: CMake
 
-To use this library in one of your CMake C++ projects, choose one of the following three options.
-
-Then, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
-
-#### Configuration: CMake: Option 1
-
-To use this library in one of your CMake projects, add the following code to your project's `CMakeLists.txt` file:
-
-```cmake
-set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-include(FetchContent)
-FetchContent_Declare(
-    PhQ
-    GIT_REPOSITORY https://github.com/acodcha/phq.git
-    GIT_TAG main
-)
-FetchContent_MakeAvailable(PhQ)
-message(STATUS "The PhQ library was fetched from https://github.com/acodcha/phq.git")
-
-[...]
-
-target_link_libraries(your_target_name [your_other_options] PhQ)
-```
-
-The above code automatically downloads the Physical Quantities library and links it to your CMake target.
-
-#### Configuration: CMake: Option 2
-
-Alternatively, if you have installed this library on your computer as described in the [Installation](#installation) section, you can instead simply add the following code to your project's `CMakeLists.txt` file:
-
-```cmake
-set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-find_package(PhQ CONFIG REQUIRED)
-message(STATUS "The PhQ library was found at ${PhQ_CONFIG}")
-
-[...]
-
-target_link_libraries(your_target_name [your_other_options] PhQ)
-```
-
-The above code locates the Physical Quantities library installed on your computer and links it to your CMake target.
-
-#### Configuration: CMake: Option 3
-
-The previous two options can be combined. To do so, add the following code to your project's `CMakeLists.txt` file:
+To use this library in one of your CMake C++ projects, add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
 set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
@@ -145,7 +99,9 @@ endif()
 target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-The above code first checks whether the Physical Quantities library is installed on your computer; if not, it downloads it. Then, the library is linked to your CMake target.
+The above code first checks whether the Physical Quantities library is installed on your system (see the [Installation](#installation) section). If found, the library is linked to your target. Otherwise, the library is automatically downloaded from its GitHub repository and linked to your target.
+
+Once this is done, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
 
 [(Back to Configuration)](#configuration)
 
@@ -200,7 +156,7 @@ Finally, simply include this library's C++ headers in your project's C++ source 
 
 ## Usage
 
-This section contains basic usage information of the Physical Quantities library; full documentation is hosted at <https://acodcha.github.io/phq-docs>.
+This section contains basic usage information of the Physical Quantities library; see the [Documentation](#documentation) section for the full documentation.
 
 - [Basics](#usage-basics)
 - [Vectors and Tensors](#usage-vectors-and-tensors)
@@ -249,10 +205,10 @@ area_double = area_long_double;
 For performance reasons, physical quantities are constructed with uninitialized values by default. Alternatively, the `Zero()` static method can be used to zero-initialize a physical quantity. For example:
 
 ```C++
-PhQ::Angle angle;  // Uninitialized.
+PhQ::Angle<> angle;  // Uninitialized.
 angle = {45.0, PhQ::Unit::Angle::Degree};
 
-PhQ::MachNumber mach_number_zero = PhQ::MachNumber<>::Zero();
+PhQ::MachNumber<> mach_number_zero = PhQ::MachNumber<>::Zero();
 
 PhQ::Position<float> position_zero = PhQ::Position<float>::Zero();
 ```
@@ -508,8 +464,8 @@ assert(dimensions.ElectricCurrent() == PhQ::Dimension::ElectricCurrent(0));
 assert(dimensions.Temperature() == PhQ::Dimension::Temperature(-1));
 assert(dimensions.SubstanceAmount() == PhQ::Dimension::SubstanceAmount(0));
 assert(dimensions.LuminousIntensity() == PhQ::Dimension::LuminousIntensity(0));
-std::cout << dimensions << std::endl;
-// T^(-2)·L^2·M·Θ^(-1)
+std::cout << "Dimensions: " << dimensions << std::endl;
+// Dimensions: T^(-2)·L^2·M·Θ^(-1)
 ```
 
 The above example obtains the physical dimension set of heat capacity, which is T^(-2)·L^2·M·Θ^(-1).
@@ -525,8 +481,8 @@ assert(dimensions.ElectricCurrent() == PhQ::Dimension::ElectricCurrent(0));
 assert(dimensions.Temperature() == PhQ::Dimension::Temperature(0));
 assert(dimensions.SubstanceAmount() == PhQ::Dimension::SubstanceAmount(0));
 assert(dimensions.LuminousIntensity() == PhQ::Dimension::LuminousIntensity(0));
-std::cout << dimensions << std::endl;
-// L^(-3)·M
+std::cout << "Dimensions: " << dimensions << std::endl;
+// Dimensions: L^(-3)·M
 ```
 
 The above example obtains the physical dimension set of mass density, which is L^(-3)·M.
@@ -545,7 +501,7 @@ Similarly, floating-point overflows and underflows can occur during arithmetic o
 
 ### Usage: Exceptions
 
-The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your computer when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
+The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
 
 If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
 
@@ -555,7 +511,7 @@ If maintaining a strong exception guarantee is a concern, use `try` and `catch` 
 
 The full documentation of the Physical Quantities library is hosted at <https://acodcha.github.io/phq-docs>.
 
-Alternatively, the documentation can be built locally on your computer. Doing so requires the following additional package:
+Alternatively, the documentation can be built locally on your system. Doing so requires the following additional package:
 
 - **Doxygen**: The Doxygen library (<https://www.doxygen.nl/index.html>) is used for building documentation. On Ubuntu, install it with `sudo apt install doxygen`.
 
@@ -573,7 +529,7 @@ This builds HTML documentation pages in the `PhQ/docs/html/` directory. Browse t
 
 ## Installation
 
-If using the CMake build system, the Physical Quantities library can optionally be installed on your computer to easily use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
+If using the CMake build system, the Physical Quantities library can optionally be installed on your system to conveniently use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
 
 Clone this library's repository, configure it, and install it with:
 
@@ -594,13 +550,13 @@ This is a header-only library, so no compilation is needed. On most systems, the
 
 The Physical Quantities library is automatically tested whenever it is updated.
 
-Testing can optionally be performed locally on your computer. Doing so requires the following additional package:
+Testing can optionally be performed locally on your system. Doing so requires the following additional package:
 
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your computer, it is automatically downloaded and linked with this library.
+- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your system, it is automatically downloaded and linked with this library.
 
 Testing instructions differ depending on your build system.
 
-If using the CMake build system, you can manually test the Physical Quantities library on your computer with:
+If using the CMake build system, you can manually test the Physical Quantities library on your system with:
 
 ```bash
 git clone git@github.com:acodcha/phq.git PhQ
@@ -612,7 +568,7 @@ make --jobs=16
 make test
 ```
 
-If using the Bazel build system, you can manually test the Physical Quantities library on your computer with:
+If using the Bazel build system, you can manually test the Physical Quantities library on your system with:
 
 ```bash
 git clone git@github.com:acodcha/phq.git PhQ
