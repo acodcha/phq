@@ -94,16 +94,42 @@ TEST(HeatCapacityRatio, ComparisonOperators) {
 }
 
 TEST(HeatCapacityRatio, CopyAssignmentOperator) {
-  const HeatCapacityRatio first{1.0};
-  HeatCapacityRatio second = HeatCapacityRatio<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const HeatCapacityRatio<float> first(1.0F);
+    HeatCapacityRatio<double> second = HeatCapacityRatio<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, HeatCapacityRatio<double>(1.0));
+  }
+  {
+    const HeatCapacityRatio<double> first(1.0);
+    HeatCapacityRatio<double> second = HeatCapacityRatio<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, HeatCapacityRatio<double>(1.0));
+  }
+  {
+    const HeatCapacityRatio<long double> first(1.0L);
+    HeatCapacityRatio<double> second = HeatCapacityRatio<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, HeatCapacityRatio<double>(1.0));
+  }
 }
 
 TEST(HeatCapacityRatio, CopyConstructor) {
-  const HeatCapacityRatio first{1.0};
-  const HeatCapacityRatio second{first};
-  EXPECT_EQ(second, first);
+  {
+    const HeatCapacityRatio<float> first(1.0F);
+    const HeatCapacityRatio<double> second{first};
+    EXPECT_EQ(second, HeatCapacityRatio<double>(1.0));
+  }
+  {
+    const HeatCapacityRatio<double> first(1.0);
+    const HeatCapacityRatio<double> second{first};
+    EXPECT_EQ(second, HeatCapacityRatio<double>(1.0));
+  }
+  {
+    const HeatCapacityRatio<long double> first(1.0L);
+    const HeatCapacityRatio<double> second{first};
+    EXPECT_EQ(second, HeatCapacityRatio<double>(1.0));
+  }
 }
 
 TEST(HeatCapacityRatio, DefaultConstructor) {

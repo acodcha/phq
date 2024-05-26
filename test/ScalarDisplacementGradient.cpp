@@ -96,16 +96,42 @@ TEST(ScalarDisplacementGradient, ComparisonOperators) {
 }
 
 TEST(ScalarDisplacementGradient, CopyAssignmentOperator) {
-  const ScalarDisplacementGradient first{1.0};
-  ScalarDisplacementGradient second = ScalarDisplacementGradient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarDisplacementGradient<float> first(1.0F);
+    ScalarDisplacementGradient<double> second = ScalarDisplacementGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarDisplacementGradient<double>(1.0));
+  }
+  {
+    const ScalarDisplacementGradient<double> first(1.0);
+    ScalarDisplacementGradient<double> second = ScalarDisplacementGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarDisplacementGradient<double>(1.0));
+  }
+  {
+    const ScalarDisplacementGradient<long double> first(1.0L);
+    ScalarDisplacementGradient<double> second = ScalarDisplacementGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarDisplacementGradient<double>(1.0));
+  }
 }
 
 TEST(ScalarDisplacementGradient, CopyConstructor) {
-  const ScalarDisplacementGradient first{1.0};
-  const ScalarDisplacementGradient second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarDisplacementGradient<float> first(1.0F);
+    const ScalarDisplacementGradient<double> second{first};
+    EXPECT_EQ(second, ScalarDisplacementGradient<double>(1.0));
+  }
+  {
+    const ScalarDisplacementGradient<double> first(1.0);
+    const ScalarDisplacementGradient<double> second{first};
+    EXPECT_EQ(second, ScalarDisplacementGradient<double>(1.0));
+  }
+  {
+    const ScalarDisplacementGradient<long double> first(1.0L);
+    const ScalarDisplacementGradient<double> second{first};
+    EXPECT_EQ(second, ScalarDisplacementGradient<double>(1.0));
+  }
 }
 
 TEST(ScalarDisplacementGradient, DefaultConstructor) {

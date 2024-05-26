@@ -128,16 +128,54 @@ TEST(PlanarTemperatureGradient, ComparisonOperators) {
 }
 
 TEST(PlanarTemperatureGradient, CopyAssignmentOperator) {
-  const PlanarTemperatureGradient first({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  PlanarTemperatureGradient second = PlanarTemperatureGradient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarTemperatureGradient<float> first(
+        {1.0F, -2.0F}, Unit::TemperatureGradient::KelvinPerMetre);
+    PlanarTemperatureGradient<double> second = PlanarTemperatureGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarTemperatureGradient<double>(
+                          {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const PlanarTemperatureGradient<double> first(
+        {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
+    PlanarTemperatureGradient<double> second = PlanarTemperatureGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarTemperatureGradient<double>(
+                          {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const PlanarTemperatureGradient<long double> first(
+        {1.0L, -2.0L}, Unit::TemperatureGradient::KelvinPerMetre);
+    PlanarTemperatureGradient<double> second = PlanarTemperatureGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarTemperatureGradient<double>(
+                          {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
 }
 
 TEST(PlanarTemperatureGradient, CopyConstructor) {
-  const PlanarTemperatureGradient first({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  const PlanarTemperatureGradient second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarTemperatureGradient<float> first(
+        {1.0F, -2.0F}, Unit::TemperatureGradient::KelvinPerMetre);
+    const PlanarTemperatureGradient<double> second{first};
+    EXPECT_EQ(second, PlanarTemperatureGradient<double>(
+                          {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const PlanarTemperatureGradient<double> first(
+        {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
+    const PlanarTemperatureGradient<double> second{first};
+    EXPECT_EQ(second, PlanarTemperatureGradient<double>(
+                          {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
+  {
+    const PlanarTemperatureGradient<long double> first(
+        {1.0L, -2.0L}, Unit::TemperatureGradient::KelvinPerMetre);
+    const PlanarTemperatureGradient<double> second{first};
+    EXPECT_EQ(second, PlanarTemperatureGradient<double>(
+                          {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  }
 }
 
 TEST(PlanarTemperatureGradient, Create) {

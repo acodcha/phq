@@ -139,7 +139,8 @@ public:
   Angle() = default;
 
   /// \brief Constructor. Constructs an angle with a given value expressed in a given angle unit.
-  Angle(const Number value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
+  Angle(const Number value, const Unit::Angle unit)
+    : DimensionalScalar<Unit::Angle, Number>(value, unit) {}
 
   /// \brief Constructor. Constructs an angle by computing the angle between two given planar
   /// vectors.

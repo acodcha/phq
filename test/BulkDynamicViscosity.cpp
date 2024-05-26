@@ -108,16 +108,42 @@ TEST(BulkDynamicViscosity, ComparisonOperators) {
 }
 
 TEST(BulkDynamicViscosity, CopyAssignmentOperator) {
-  const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity second = BulkDynamicViscosity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const BulkDynamicViscosity<float> first(1.0F, Unit::DynamicViscosity::PascalSecond);
+    BulkDynamicViscosity<double> second = BulkDynamicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, BulkDynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const BulkDynamicViscosity<double> first(1.0, Unit::DynamicViscosity::PascalSecond);
+    BulkDynamicViscosity<double> second = BulkDynamicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, BulkDynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const BulkDynamicViscosity<long double> first(1.0L, Unit::DynamicViscosity::PascalSecond);
+    BulkDynamicViscosity<double> second = BulkDynamicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, BulkDynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
 }
 
 TEST(BulkDynamicViscosity, CopyConstructor) {
-  const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
-  const BulkDynamicViscosity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const BulkDynamicViscosity<float> first(1.0F, Unit::DynamicViscosity::PascalSecond);
+    const BulkDynamicViscosity<double> second{first};
+    EXPECT_EQ(second, BulkDynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const BulkDynamicViscosity<double> first(1.0, Unit::DynamicViscosity::PascalSecond);
+    const BulkDynamicViscosity<double> second{first};
+    EXPECT_EQ(second, BulkDynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const BulkDynamicViscosity<long double> first(1.0L, Unit::DynamicViscosity::PascalSecond);
+    const BulkDynamicViscosity<double> second{first};
+    EXPECT_EQ(second, BulkDynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
 }
 
 TEST(BulkDynamicViscosity, Create) {

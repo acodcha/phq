@@ -160,18 +160,54 @@ TEST(SpecificIsobaricHeatCapacity, ComparisonOperators) {
 }
 
 TEST(SpecificIsobaricHeatCapacity, CopyAssignmentOperator) {
-  const SpecificIsobaricHeatCapacity first{
-      1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificIsobaricHeatCapacity second = SpecificIsobaricHeatCapacity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SpecificIsobaricHeatCapacity<float> first(
+        1.0F, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificIsobaricHeatCapacity<double> second = SpecificIsobaricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificIsobaricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsobaricHeatCapacity<double> first(
+        1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificIsobaricHeatCapacity<double> second = SpecificIsobaricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificIsobaricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsobaricHeatCapacity<long double> first(
+        1.0L, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificIsobaricHeatCapacity<double> second = SpecificIsobaricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificIsobaricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
 }
 
 TEST(SpecificIsobaricHeatCapacity, CopyConstructor) {
-  const SpecificIsobaricHeatCapacity first{
-      1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  const SpecificIsobaricHeatCapacity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SpecificIsobaricHeatCapacity<float> first(
+        1.0F, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificIsobaricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, SpecificIsobaricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsobaricHeatCapacity<double> first(
+        1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificIsobaricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, SpecificIsobaricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsobaricHeatCapacity<long double> first(
+        1.0L, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificIsobaricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, SpecificIsobaricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
 }
 
 TEST(SpecificIsobaricHeatCapacity, Create) {

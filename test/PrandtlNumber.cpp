@@ -103,16 +103,42 @@ TEST(PrandtlNumber, ComparisonOperators) {
 }
 
 TEST(PrandtlNumber, CopyAssignmentOperator) {
-  const PrandtlNumber first{1.0};
-  PrandtlNumber second = PrandtlNumber<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PrandtlNumber<float> first(1.0F);
+    PrandtlNumber<double> second = PrandtlNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PrandtlNumber<double>(1.0));
+  }
+  {
+    const PrandtlNumber<double> first(1.0);
+    PrandtlNumber<double> second = PrandtlNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PrandtlNumber<double>(1.0));
+  }
+  {
+    const PrandtlNumber<long double> first(1.0L);
+    PrandtlNumber<double> second = PrandtlNumber<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PrandtlNumber<double>(1.0));
+  }
 }
 
 TEST(PrandtlNumber, CopyConstructor) {
-  const PrandtlNumber first{1.0};
-  const PrandtlNumber second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PrandtlNumber<float> first(1.0F);
+    const PrandtlNumber<double> second{first};
+    EXPECT_EQ(second, PrandtlNumber<double>(1.0));
+  }
+  {
+    const PrandtlNumber<double> first(1.0);
+    const PrandtlNumber<double> second{first};
+    EXPECT_EQ(second, PrandtlNumber<double>(1.0));
+  }
+  {
+    const PrandtlNumber<long double> first(1.0L);
+    const PrandtlNumber<double> second{first};
+    EXPECT_EQ(second, PrandtlNumber<double>(1.0));
+  }
 }
 
 TEST(PrandtlNumber, DefaultConstructor) {

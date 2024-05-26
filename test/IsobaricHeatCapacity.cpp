@@ -113,16 +113,42 @@ TEST(IsobaricHeatCapacity, ComparisonOperators) {
 }
 
 TEST(IsobaricHeatCapacity, CopyAssignmentOperator) {
-  const IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  IsobaricHeatCapacity second = IsobaricHeatCapacity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const IsobaricHeatCapacity<float> first(1.0F, Unit::HeatCapacity::JoulePerKelvin);
+    IsobaricHeatCapacity<double> second = IsobaricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsobaricHeatCapacity<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const IsobaricHeatCapacity<double> first(1.0, Unit::HeatCapacity::JoulePerKelvin);
+    IsobaricHeatCapacity<double> second = IsobaricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsobaricHeatCapacity<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const IsobaricHeatCapacity<long double> first(1.0L, Unit::HeatCapacity::JoulePerKelvin);
+    IsobaricHeatCapacity<double> second = IsobaricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, IsobaricHeatCapacity<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
 }
 
 TEST(IsobaricHeatCapacity, CopyConstructor) {
-  const IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  const IsobaricHeatCapacity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const IsobaricHeatCapacity<float> first(1.0F, Unit::HeatCapacity::JoulePerKelvin);
+    const IsobaricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, IsobaricHeatCapacity<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const IsobaricHeatCapacity<double> first(1.0, Unit::HeatCapacity::JoulePerKelvin);
+    const IsobaricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, IsobaricHeatCapacity<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
+  {
+    const IsobaricHeatCapacity<long double> first(1.0L, Unit::HeatCapacity::JoulePerKelvin);
+    const IsobaricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, IsobaricHeatCapacity<double>(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  }
 }
 
 TEST(IsobaricHeatCapacity, Create) {

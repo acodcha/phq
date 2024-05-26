@@ -106,16 +106,42 @@ TEST(ScalarTraction, ComparisonOperators) {
 }
 
 TEST(ScalarTraction, CopyAssignmentOperator) {
-  const ScalarTraction first{1.0, Unit::Pressure::Pascal};
-  ScalarTraction second = ScalarTraction<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarTraction<float> first(1.0F, Unit::Pressure::Pascal);
+    ScalarTraction<double> second = ScalarTraction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarTraction<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarTraction<double> first(1.0, Unit::Pressure::Pascal);
+    ScalarTraction<double> second = ScalarTraction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarTraction<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarTraction<long double> first(1.0L, Unit::Pressure::Pascal);
+    ScalarTraction<double> second = ScalarTraction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarTraction<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(ScalarTraction, CopyConstructor) {
-  const ScalarTraction first{1.0, Unit::Pressure::Pascal};
-  const ScalarTraction second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarTraction<float> first(1.0F, Unit::Pressure::Pascal);
+    const ScalarTraction<double> second{first};
+    EXPECT_EQ(second, ScalarTraction<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarTraction<double> first(1.0, Unit::Pressure::Pascal);
+    const ScalarTraction<double> second{first};
+    EXPECT_EQ(second, ScalarTraction<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarTraction<long double> first(1.0L, Unit::Pressure::Pascal);
+    const ScalarTraction<double> second{first};
+    EXPECT_EQ(second, ScalarTraction<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(ScalarTraction, Create) {

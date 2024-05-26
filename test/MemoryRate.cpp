@@ -123,16 +123,42 @@ TEST(MemoryRate, ComparisonOperators) {
 }
 
 TEST(MemoryRate, CopyAssignmentOperator) {
-  const MemoryRate first{1.0, Unit::MemoryRate::BitPerSecond};
-  MemoryRate second = MemoryRate<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const MemoryRate<float> first(1.0F, Unit::MemoryRate::BitPerSecond);
+    MemoryRate<double> second = MemoryRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MemoryRate<double>(1.0, Unit::MemoryRate::BitPerSecond));
+  }
+  {
+    const MemoryRate<double> first(1.0, Unit::MemoryRate::BitPerSecond);
+    MemoryRate<double> second = MemoryRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MemoryRate<double>(1.0, Unit::MemoryRate::BitPerSecond));
+  }
+  {
+    const MemoryRate<long double> first(1.0L, Unit::MemoryRate::BitPerSecond);
+    MemoryRate<double> second = MemoryRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MemoryRate<double>(1.0, Unit::MemoryRate::BitPerSecond));
+  }
 }
 
 TEST(MemoryRate, CopyConstructor) {
-  const MemoryRate first{1.0, Unit::MemoryRate::BitPerSecond};
-  const MemoryRate second{first};
-  EXPECT_EQ(second, first);
+  {
+    const MemoryRate<float> first(1.0F, Unit::MemoryRate::BitPerSecond);
+    const MemoryRate<double> second{first};
+    EXPECT_EQ(second, MemoryRate<double>(1.0, Unit::MemoryRate::BitPerSecond));
+  }
+  {
+    const MemoryRate<double> first(1.0, Unit::MemoryRate::BitPerSecond);
+    const MemoryRate<double> second{first};
+    EXPECT_EQ(second, MemoryRate<double>(1.0, Unit::MemoryRate::BitPerSecond));
+  }
+  {
+    const MemoryRate<long double> first(1.0L, Unit::MemoryRate::BitPerSecond);
+    const MemoryRate<double> second{first};
+    EXPECT_EQ(second, MemoryRate<double>(1.0, Unit::MemoryRate::BitPerSecond));
+  }
 }
 
 TEST(MemoryRate, Create) {

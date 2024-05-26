@@ -127,16 +127,42 @@ TEST(TotalKinematicPressure, ComparisonOperators) {
 }
 
 TEST(TotalKinematicPressure, CopyAssignmentOperator) {
-  const TotalKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  TotalKinematicPressure second = TotalKinematicPressure<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const TotalKinematicPressure<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
+    TotalKinematicPressure<double> second = TotalKinematicPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TotalKinematicPressure<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const TotalKinematicPressure<double> first(1.0, Unit::SpecificEnergy::JoulePerKilogram);
+    TotalKinematicPressure<double> second = TotalKinematicPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TotalKinematicPressure<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const TotalKinematicPressure<long double> first(1.0L, Unit::SpecificEnergy::JoulePerKilogram);
+    TotalKinematicPressure<double> second = TotalKinematicPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TotalKinematicPressure<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
 }
 
 TEST(TotalKinematicPressure, CopyConstructor) {
-  const TotalKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  const TotalKinematicPressure second{first};
-  EXPECT_EQ(second, first);
+  {
+    const TotalKinematicPressure<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
+    const TotalKinematicPressure<double> second{first};
+    EXPECT_EQ(second, TotalKinematicPressure<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const TotalKinematicPressure<double> first(1.0, Unit::SpecificEnergy::JoulePerKilogram);
+    const TotalKinematicPressure<double> second{first};
+    EXPECT_EQ(second, TotalKinematicPressure<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const TotalKinematicPressure<long double> first(1.0L, Unit::SpecificEnergy::JoulePerKilogram);
+    const TotalKinematicPressure<double> second{first};
+    EXPECT_EQ(second, TotalKinematicPressure<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
 }
 
 TEST(TotalKinematicPressure, Create) {

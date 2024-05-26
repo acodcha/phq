@@ -113,16 +113,42 @@ TEST(Displacement, ComparisonOperators) {
 }
 
 TEST(Displacement, CopyAssignmentOperator) {
-  const Displacement first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Displacement second = Displacement<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Displacement<float> first({1.0F, -2.0F, 3.0F}, Unit::Length::Metre);
+    Displacement<double> second = Displacement<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Displacement<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Displacement<double> first({1.0, -2.0, 3.0}, Unit::Length::Metre);
+    Displacement<double> second = Displacement<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Displacement<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Displacement<long double> first({1.0L, -2.0L, 3.0L}, Unit::Length::Metre);
+    Displacement<double> second = Displacement<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Displacement<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Displacement, CopyConstructor) {
-  const Displacement first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  const Displacement second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Displacement<float> first({1.0F, -2.0F, 3.0F}, Unit::Length::Metre);
+    const Displacement<double> second{first};
+    EXPECT_EQ(second, Displacement<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Displacement<double> first({1.0, -2.0, 3.0}, Unit::Length::Metre);
+    const Displacement<double> second{first};
+    EXPECT_EQ(second, Displacement<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Displacement<long double> first({1.0L, -2.0L, 3.0L}, Unit::Length::Metre);
+    const Displacement<double> second{first};
+    EXPECT_EQ(second, Displacement<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Displacement, Create) {

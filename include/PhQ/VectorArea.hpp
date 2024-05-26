@@ -71,7 +71,7 @@ public:
   /// \brief Copy constructor. Constructs a vector area by copying another one.
   template <typename OtherNumber>
   explicit constexpr VectorArea(const VectorArea<OtherNumber>& other)
-    : VectorArea(static_cast<Number>(other.Value())) {}
+    : VectorArea(static_cast<Vector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a vector area by moving another one.
   constexpr VectorArea(VectorArea<Number>&& other) noexcept = default;
@@ -82,7 +82,7 @@ public:
   /// \brief Copy assignment operator. Assigns this vector area by copying another one.
   template <typename OtherNumber>
   constexpr VectorArea<Number>& operator=(const VectorArea<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 

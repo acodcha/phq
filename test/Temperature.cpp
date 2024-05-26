@@ -130,16 +130,42 @@ TEST(Temperature, ComparisonOperators) {
 }
 
 TEST(Temperature, CopyAssignmentOperator) {
-  const Temperature first{1.0, Unit::Temperature::Kelvin};
-  Temperature second = Temperature<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Temperature<float> first(1.0F, Unit::Temperature::Kelvin);
+    Temperature<double> second = Temperature<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Temperature<double>(1.0, Unit::Temperature::Kelvin));
+  }
+  {
+    const Temperature<double> first(1.0, Unit::Temperature::Kelvin);
+    Temperature<double> second = Temperature<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Temperature<double>(1.0, Unit::Temperature::Kelvin));
+  }
+  {
+    const Temperature<long double> first(1.0L, Unit::Temperature::Kelvin);
+    Temperature<double> second = Temperature<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Temperature<double>(1.0, Unit::Temperature::Kelvin));
+  }
 }
 
 TEST(Temperature, CopyConstructor) {
-  const Temperature first{1.0, Unit::Temperature::Kelvin};
-  const Temperature second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Temperature<float> first(1.0F, Unit::Temperature::Kelvin);
+    const Temperature<double> second{first};
+    EXPECT_EQ(second, Temperature<double>(1.0, Unit::Temperature::Kelvin));
+  }
+  {
+    const Temperature<double> first(1.0, Unit::Temperature::Kelvin);
+    const Temperature<double> second{first};
+    EXPECT_EQ(second, Temperature<double>(1.0, Unit::Temperature::Kelvin));
+  }
+  {
+    const Temperature<long double> first(1.0L, Unit::Temperature::Kelvin);
+    const Temperature<double> second{first};
+    EXPECT_EQ(second, Temperature<double>(1.0, Unit::Temperature::Kelvin));
+  }
 }
 
 TEST(Temperature, Create) {

@@ -76,16 +76,46 @@ TEST(PlanarDirection, ComparisonOperators) {
 }
 
 TEST(PlanarDirection, CopyAssignmentOperator) {
-  const PlanarDirection first{1.0, -2.0};
-  PlanarDirection second = PlanarDirection<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarDirection<float> first{3.0F, -4.0F};
+    PlanarDirection<double> second = PlanarDirection<double>::Zero();
+    second = first;
+    EXPECT_NEAR(second.x(), 3.0 / 5.0, 1.0E-7);
+    EXPECT_NEAR(second.y(), -4.0 / 5.0, 1.0E-7);
+  }
+  {
+    const PlanarDirection<double> first{3.0, -4.0};
+    PlanarDirection<double> second = PlanarDirection<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarDirection<double>(3.0, -4.0));
+  }
+  {
+    const PlanarDirection<long double> first{3.0L, -4.0L};
+    PlanarDirection<double> second = PlanarDirection<double>::Zero();
+    second = first;
+    EXPECT_NEAR(second.x(), 3.0 / 5.0, 1.0E-15);
+    EXPECT_NEAR(second.y(), -4.0 / 5.0, 1.0E-15);
+  }
 }
 
 TEST(PlanarDirection, CopyConstructor) {
-  const PlanarDirection first{1.0, -2.0};
-  const PlanarDirection second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarDirection<float> first{3.0F, -4.0F};
+    const PlanarDirection<double> second{first};
+    EXPECT_NEAR(second.x(), 3.0 / 5.0, 1.0E-7);
+    EXPECT_NEAR(second.y(), -4.0 / 5.0, 1.0E-7);
+  }
+  {
+    const PlanarDirection<double> first{3.0, -4.0};
+    const PlanarDirection<double> second{first};
+    EXPECT_EQ(second, PlanarDirection<double>(3.0, -4.0));
+  }
+  {
+    const PlanarDirection<long double> first{3.0L, -4.0L};
+    const PlanarDirection<double> second{first};
+    EXPECT_NEAR(second.x(), 3.0 / 5.0, 1.0E-15);
+    EXPECT_NEAR(second.y(), -4.0 / 5.0, 1.0E-15);
+  }
 }
 
 TEST(PlanarDirection, Cross) {

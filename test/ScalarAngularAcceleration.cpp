@@ -135,16 +135,54 @@ TEST(ScalarAngularAcceleration, ComparisonOperators) {
 }
 
 TEST(ScalarAngularAcceleration, CopyAssignmentOperator) {
-  const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  ScalarAngularAcceleration second = ScalarAngularAcceleration<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarAngularAcceleration<float> first(
+        1.0F, Unit::AngularAcceleration::RadianPerSquareSecond);
+    ScalarAngularAcceleration<double> second = ScalarAngularAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarAngularAcceleration<double>(
+                          1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  }
+  {
+    const ScalarAngularAcceleration<double> first(
+        1.0, Unit::AngularAcceleration::RadianPerSquareSecond);
+    ScalarAngularAcceleration<double> second = ScalarAngularAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarAngularAcceleration<double>(
+                          1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  }
+  {
+    const ScalarAngularAcceleration<long double> first(
+        1.0L, Unit::AngularAcceleration::RadianPerSquareSecond);
+    ScalarAngularAcceleration<double> second = ScalarAngularAcceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarAngularAcceleration<double>(
+                          1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  }
 }
 
 TEST(ScalarAngularAcceleration, CopyConstructor) {
-  const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  const ScalarAngularAcceleration second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarAngularAcceleration<float> first(
+        1.0F, Unit::AngularAcceleration::RadianPerSquareSecond);
+    const ScalarAngularAcceleration<double> second{first};
+    EXPECT_EQ(second, ScalarAngularAcceleration<double>(
+                          1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  }
+  {
+    const ScalarAngularAcceleration<double> first(
+        1.0, Unit::AngularAcceleration::RadianPerSquareSecond);
+    const ScalarAngularAcceleration<double> second{first};
+    EXPECT_EQ(second, ScalarAngularAcceleration<double>(
+                          1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  }
+  {
+    const ScalarAngularAcceleration<long double> first(
+        1.0L, Unit::AngularAcceleration::RadianPerSquareSecond);
+    const ScalarAngularAcceleration<double> second{first};
+    EXPECT_EQ(second, ScalarAngularAcceleration<double>(
+                          1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  }
 }
 
 TEST(ScalarAngularAcceleration, Create) {

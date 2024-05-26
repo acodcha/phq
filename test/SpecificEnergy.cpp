@@ -117,16 +117,42 @@ TEST(SpecificEnergy, ComparisonOperators) {
 }
 
 TEST(SpecificEnergy, CopyAssignmentOperator) {
-  const SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  SpecificEnergy second = SpecificEnergy<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SpecificEnergy<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
+    SpecificEnergy<double> second = SpecificEnergy<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificEnergy<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const SpecificEnergy<double> first(1.0, Unit::SpecificEnergy::JoulePerKilogram);
+    SpecificEnergy<double> second = SpecificEnergy<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificEnergy<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const SpecificEnergy<long double> first(1.0L, Unit::SpecificEnergy::JoulePerKilogram);
+    SpecificEnergy<double> second = SpecificEnergy<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificEnergy<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
 }
 
 TEST(SpecificEnergy, CopyConstructor) {
-  const SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
-  const SpecificEnergy second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SpecificEnergy<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
+    const SpecificEnergy<double> second{first};
+    EXPECT_EQ(second, SpecificEnergy<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const SpecificEnergy<double> first(1.0, Unit::SpecificEnergy::JoulePerKilogram);
+    const SpecificEnergy<double> second{first};
+    EXPECT_EQ(second, SpecificEnergy<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
+  {
+    const SpecificEnergy<long double> first(1.0L, Unit::SpecificEnergy::JoulePerKilogram);
+    const SpecificEnergy<double> second{first};
+    EXPECT_EQ(second, SpecificEnergy<double>(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  }
 }
 
 TEST(SpecificEnergy, Create) {

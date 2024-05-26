@@ -77,16 +77,50 @@ TEST(Direction, ComparisonOperators) {
 }
 
 TEST(Direction, CopyAssignmentOperator) {
-  const Direction first{1.0, -2.0, 3.0};
-  Direction second = Direction<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Direction<float> first{2.0F, -3.0F, 6.0F};
+    Direction<double> second = Direction<double>::Zero();
+    second = first;
+    EXPECT_NEAR(second.x(), 2.0 / 7.0, 1.0E-7);
+    EXPECT_NEAR(second.y(), -3.0 / 7.0, 1.0E-7);
+    EXPECT_NEAR(second.z(), 6.0 / 7.0, 1.0E-7);
+  }
+  {
+    const Direction<double> first{2.0, -3.0, 6.0};
+    Direction<double> second = Direction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Direction<double>(2.0, -3.0, 6.0));
+  }
+  {
+    const Direction<long double> first{2.0L, -3.0L, 6.0L};
+    Direction<double> second = Direction<double>::Zero();
+    second = first;
+    EXPECT_NEAR(second.x(), 2.0 / 7.0, 1.0E-15);
+    EXPECT_NEAR(second.y(), -3.0 / 7.0, 1.0E-15);
+    EXPECT_NEAR(second.z(), 6.0 / 7.0, 1.0E-15);
+  }
 }
 
 TEST(Direction, CopyConstructor) {
-  const Direction first{1.0, -2.0, 3.0};
-  const Direction second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Direction<float> first{2.0F, -3.0F, 6.0F};
+    const Direction<double> second{first};
+    EXPECT_NEAR(second.x(), 2.0 / 7.0, 1.0E-7);
+    EXPECT_NEAR(second.y(), -3.0 / 7.0, 1.0E-7);
+    EXPECT_NEAR(second.z(), 6.0 / 7.0, 1.0E-7);
+  }
+  {
+    const Direction<double> first{2.0, -3.0, 6.0};
+    const Direction<double> second{first};
+    EXPECT_EQ(second, Direction<double>(2.0, -3.0, 6.0));
+  }
+  {
+    const Direction<long double> first{2.0L, -3.0L, 6.0L};
+    const Direction<double> second{first};
+    EXPECT_NEAR(second.x(), 2.0 / 7.0, 1.0E-15);
+    EXPECT_NEAR(second.y(), -3.0 / 7.0, 1.0E-15);
+    EXPECT_NEAR(second.z(), 6.0 / 7.0, 1.0E-15);
+  }
 }
 
 TEST(Direction, Cross) {

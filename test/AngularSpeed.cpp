@@ -131,16 +131,42 @@ TEST(AngularSpeed, ComparisonOperators) {
 }
 
 TEST(AngularSpeed, CopyAssignmentOperator) {
-  const AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed second = AngularSpeed<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const AngularSpeed<float> first(1.0F, Unit::AngularSpeed::RadianPerSecond);
+    AngularSpeed<double> second = AngularSpeed<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, AngularSpeed<double>(1.0, Unit::AngularSpeed::RadianPerSecond));
+  }
+  {
+    const AngularSpeed<double> first(1.0, Unit::AngularSpeed::RadianPerSecond);
+    AngularSpeed<double> second = AngularSpeed<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, AngularSpeed<double>(1.0, Unit::AngularSpeed::RadianPerSecond));
+  }
+  {
+    const AngularSpeed<long double> first(1.0L, Unit::AngularSpeed::RadianPerSecond);
+    AngularSpeed<double> second = AngularSpeed<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, AngularSpeed<double>(1.0, Unit::AngularSpeed::RadianPerSecond));
+  }
 }
 
 TEST(AngularSpeed, CopyConstructor) {
-  const AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
-  const AngularSpeed second{first};
-  EXPECT_EQ(second, first);
+  {
+    const AngularSpeed<float> first(1.0F, Unit::AngularSpeed::RadianPerSecond);
+    const AngularSpeed<double> second{first};
+    EXPECT_EQ(second, AngularSpeed<double>(1.0, Unit::AngularSpeed::RadianPerSecond));
+  }
+  {
+    const AngularSpeed<double> first(1.0, Unit::AngularSpeed::RadianPerSecond);
+    const AngularSpeed<double> second{first};
+    EXPECT_EQ(second, AngularSpeed<double>(1.0, Unit::AngularSpeed::RadianPerSecond));
+  }
+  {
+    const AngularSpeed<long double> first(1.0L, Unit::AngularSpeed::RadianPerSecond);
+    const AngularSpeed<double> second{first};
+    EXPECT_EQ(second, AngularSpeed<double>(1.0, Unit::AngularSpeed::RadianPerSecond));
+  }
 }
 
 TEST(AngularSpeed, Create) {

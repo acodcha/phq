@@ -119,16 +119,42 @@ TEST(ScalarVelocityGradient, ComparisonOperators) {
 }
 
 TEST(ScalarVelocityGradient, CopyAssignmentOperator) {
-  const ScalarVelocityGradient first{1.0, Unit::Frequency::Hertz};
-  ScalarVelocityGradient second = ScalarVelocityGradient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarVelocityGradient<float> first(1.0F, Unit::Frequency::Hertz);
+    ScalarVelocityGradient<double> second = ScalarVelocityGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarVelocityGradient<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarVelocityGradient<double> first(1.0, Unit::Frequency::Hertz);
+    ScalarVelocityGradient<double> second = ScalarVelocityGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarVelocityGradient<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarVelocityGradient<long double> first(1.0L, Unit::Frequency::Hertz);
+    ScalarVelocityGradient<double> second = ScalarVelocityGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarVelocityGradient<double>(1.0, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(ScalarVelocityGradient, CopyConstructor) {
-  const ScalarVelocityGradient first{1.0, Unit::Frequency::Hertz};
-  const ScalarVelocityGradient second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarVelocityGradient<float> first(1.0F, Unit::Frequency::Hertz);
+    const ScalarVelocityGradient<double> second{first};
+    EXPECT_EQ(second, ScalarVelocityGradient<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarVelocityGradient<double> first(1.0, Unit::Frequency::Hertz);
+    const ScalarVelocityGradient<double> second{first};
+    EXPECT_EQ(second, ScalarVelocityGradient<double>(1.0, Unit::Frequency::Hertz));
+  }
+  {
+    const ScalarVelocityGradient<long double> first(1.0L, Unit::Frequency::Hertz);
+    const ScalarVelocityGradient<double> second{first};
+    EXPECT_EQ(second, ScalarVelocityGradient<double>(1.0, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(ScalarVelocityGradient, Create) {

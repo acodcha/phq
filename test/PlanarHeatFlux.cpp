@@ -120,16 +120,42 @@ TEST(PlanarHeatFlux, ComparisonOperators) {
 }
 
 TEST(PlanarHeatFlux, CopyAssignmentOperator) {
-  const PlanarHeatFlux first({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  PlanarHeatFlux second = PlanarHeatFlux<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarHeatFlux<float> first({1.0F, -2.0F}, Unit::EnergyFlux::WattPerSquareMetre);
+    PlanarHeatFlux<double> second = PlanarHeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarHeatFlux<double>({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const PlanarHeatFlux<double> first({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
+    PlanarHeatFlux<double> second = PlanarHeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarHeatFlux<double>({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const PlanarHeatFlux<long double> first({1.0L, -2.0L}, Unit::EnergyFlux::WattPerSquareMetre);
+    PlanarHeatFlux<double> second = PlanarHeatFlux<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarHeatFlux<double>({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(PlanarHeatFlux, CopyConstructor) {
-  const PlanarHeatFlux first({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  const PlanarHeatFlux second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarHeatFlux<float> first({1.0F, -2.0F}, Unit::EnergyFlux::WattPerSquareMetre);
+    const PlanarHeatFlux<double> second{first};
+    EXPECT_EQ(second, PlanarHeatFlux<double>({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const PlanarHeatFlux<double> first({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
+    const PlanarHeatFlux<double> second{first};
+    EXPECT_EQ(second, PlanarHeatFlux<double>({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    const PlanarHeatFlux<long double> first({1.0L, -2.0L}, Unit::EnergyFlux::WattPerSquareMetre);
+    const PlanarHeatFlux<double> second{first};
+    EXPECT_EQ(second, PlanarHeatFlux<double>({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(PlanarHeatFlux, Create) {

@@ -130,16 +130,42 @@ TEST(PlanarVelocity, ComparisonOperators) {
 }
 
 TEST(PlanarVelocity, CopyAssignmentOperator) {
-  const PlanarVelocity first({1.0, -2.0}, Unit::Speed::MetrePerSecond);
-  PlanarVelocity second = PlanarVelocity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarVelocity<float> first({1.0F, -2.0F}, Unit::Speed::MetrePerSecond);
+    PlanarVelocity<double> second = PlanarVelocity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarVelocity<double>({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const PlanarVelocity<double> first({1.0, -2.0}, Unit::Speed::MetrePerSecond);
+    PlanarVelocity<double> second = PlanarVelocity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarVelocity<double>({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const PlanarVelocity<long double> first({1.0L, -2.0L}, Unit::Speed::MetrePerSecond);
+    PlanarVelocity<double> second = PlanarVelocity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarVelocity<double>({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  }
 }
 
 TEST(PlanarVelocity, CopyConstructor) {
-  const PlanarVelocity first({1.0, -2.0}, Unit::Speed::MetrePerSecond);
-  const PlanarVelocity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarVelocity<float> first({1.0F, -2.0F}, Unit::Speed::MetrePerSecond);
+    const PlanarVelocity<double> second{first};
+    EXPECT_EQ(second, PlanarVelocity<double>({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const PlanarVelocity<double> first({1.0, -2.0}, Unit::Speed::MetrePerSecond);
+    const PlanarVelocity<double> second{first};
+    EXPECT_EQ(second, PlanarVelocity<double>({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const PlanarVelocity<long double> first({1.0L, -2.0L}, Unit::Speed::MetrePerSecond);
+    const PlanarVelocity<double> second{first};
+    EXPECT_EQ(second, PlanarVelocity<double>({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  }
 }
 
 TEST(PlanarVelocity, Create) {

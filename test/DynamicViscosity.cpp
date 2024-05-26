@@ -118,16 +118,42 @@ TEST(DynamicViscosity, ComparisonOperators) {
 }
 
 TEST(DynamicViscosity, CopyAssignmentOperator) {
-  const DynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
-  DynamicViscosity second = DynamicViscosity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const DynamicViscosity<float> first(1.0F, Unit::DynamicViscosity::PascalSecond);
+    DynamicViscosity<double> second = DynamicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, DynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const DynamicViscosity<double> first(1.0, Unit::DynamicViscosity::PascalSecond);
+    DynamicViscosity<double> second = DynamicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, DynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const DynamicViscosity<long double> first(1.0L, Unit::DynamicViscosity::PascalSecond);
+    DynamicViscosity<double> second = DynamicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, DynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
 }
 
 TEST(DynamicViscosity, CopyConstructor) {
-  const DynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
-  const DynamicViscosity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const DynamicViscosity<float> first(1.0F, Unit::DynamicViscosity::PascalSecond);
+    const DynamicViscosity<double> second{first};
+    EXPECT_EQ(second, DynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const DynamicViscosity<double> first(1.0, Unit::DynamicViscosity::PascalSecond);
+    const DynamicViscosity<double> second{first};
+    EXPECT_EQ(second, DynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
+  {
+    const DynamicViscosity<long double> first(1.0L, Unit::DynamicViscosity::PascalSecond);
+    const DynamicViscosity<double> second{first};
+    EXPECT_EQ(second, DynamicViscosity<double>(1.0, Unit::DynamicViscosity::PascalSecond));
+  }
 }
 
 TEST(DynamicViscosity, Create) {

@@ -142,16 +142,42 @@ TEST(Position, ComparisonOperators) {
 }
 
 TEST(Position, CopyAssignmentOperator) {
-  const Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Position second = Position<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Position<float> first({1.0F, -2.0F, 3.0F}, Unit::Length::Metre);
+    Position<double> second = Position<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Position<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Position<double> first({1.0, -2.0, 3.0}, Unit::Length::Metre);
+    Position<double> second = Position<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Position<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Position<long double> first({1.0L, -2.0L, 3.0L}, Unit::Length::Metre);
+    Position<double> second = Position<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Position<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Position, CopyConstructor) {
-  const Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  const Position second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Position<float> first({1.0F, -2.0F, 3.0F}, Unit::Length::Metre);
+    const Position<double> second{first};
+    EXPECT_EQ(second, Position<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Position<double> first({1.0, -2.0, 3.0}, Unit::Length::Metre);
+    const Position<double> second{first};
+    EXPECT_EQ(second, Position<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    const Position<long double> first({1.0L, -2.0L, 3.0L}, Unit::Length::Metre);
+    const Position<double> second{first};
+    EXPECT_EQ(second, Position<double>({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Position, Create) {

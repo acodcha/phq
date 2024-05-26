@@ -115,16 +115,42 @@ TEST(VectorArea, ComparisonOperators) {
 }
 
 TEST(VectorArea, CopyAssignmentOperator) {
-  const VectorArea first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
-  VectorArea second = VectorArea<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const VectorArea<float> first({1.0F, -2.0F, 3.0F}, Unit::Area::SquareMetre);
+    VectorArea<double> second = VectorArea<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VectorArea<double>({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const VectorArea<double> first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
+    VectorArea<double> second = VectorArea<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VectorArea<double>({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const VectorArea<long double> first({1.0L, -2.0L, 3.0L}, Unit::Area::SquareMetre);
+    VectorArea<double> second = VectorArea<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VectorArea<double>({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  }
 }
 
 TEST(VectorArea, CopyConstructor) {
-  const VectorArea first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
-  const VectorArea second{first};
-  EXPECT_EQ(second, first);
+  {
+    const VectorArea<float> first({1.0F, -2.0F, 3.0F}, Unit::Area::SquareMetre);
+    const VectorArea<double> second{first};
+    EXPECT_EQ(second, VectorArea<double>({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const VectorArea<double> first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
+    const VectorArea<double> second{first};
+    EXPECT_EQ(second, VectorArea<double>({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const VectorArea<long double> first({1.0L, -2.0L, 3.0L}, Unit::Area::SquareMetre);
+    const VectorArea<double> second{first};
+    EXPECT_EQ(second, VectorArea<double>({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  }
 }
 
 TEST(VectorArea, Create) {

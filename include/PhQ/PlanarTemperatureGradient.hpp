@@ -80,7 +80,7 @@ public:
   /// one.
   template <typename OtherNumber>
   explicit constexpr PlanarTemperatureGradient(const PlanarTemperatureGradient<OtherNumber>& other)
-    : PlanarTemperatureGradient(static_cast<Number>(other.Value())) {}
+    : PlanarTemperatureGradient(static_cast<PlanarVector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar temperature gradient vector by moving another
   /// one.
@@ -96,7 +96,7 @@ public:
   template <typename OtherNumber>
   constexpr PlanarTemperatureGradient<Number>& operator=(
       const PlanarTemperatureGradient<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<PlanarVector<Number>>(other.Value());
     return *this;
   }
 

@@ -109,16 +109,52 @@ TEST(DisplacementGradient, ComparisonOperators) {
 }
 
 TEST(DisplacementGradient, CopyAssignmentOperator) {
-  constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  DisplacementGradient second = DisplacementGradient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  {
+    const DisplacementGradient<float> first{
+        1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
+    DisplacementGradient<double> second = DisplacementGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  }
+  {
+    const DisplacementGradient<double> first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
+    DisplacementGradient<double> second = DisplacementGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  }
+  {
+    const DisplacementGradient<long double> first{
+        1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
+    DisplacementGradient<double> second = DisplacementGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  }
 }
 
 TEST(DisplacementGradient, CopyConstructor) {
-  constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  constexpr DisplacementGradient second{first};
-  EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  {
+    const DisplacementGradient<float> first{
+        1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
+    const DisplacementGradient<double> second{first};
+    EXPECT_EQ(
+        second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  }
+  {
+    const DisplacementGradient<double> first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
+    const DisplacementGradient<double> second{first};
+    EXPECT_EQ(
+        second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  }
+  {
+    const DisplacementGradient<long double> first{
+        1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
+    const DisplacementGradient<double> second{first};
+    EXPECT_EQ(
+        second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  }
 }
 
 TEST(DisplacementGradient, DefaultConstructor) {

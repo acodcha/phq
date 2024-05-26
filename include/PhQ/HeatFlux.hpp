@@ -92,7 +92,7 @@ public:
   /// \brief Copy constructor. Constructs a heat flux vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr HeatFlux(const HeatFlux<OtherNumber>& other)
-    : HeatFlux(static_cast<Number>(other.Value())) {}
+    : HeatFlux(static_cast<Vector<Number>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a heat flux vector by moving another one.
   constexpr HeatFlux(HeatFlux<Number>&& other) noexcept = default;
@@ -103,7 +103,7 @@ public:
   /// \brief Copy assignment operator. Assigns this heat flux vector by copying another one.
   template <typename OtherNumber>
   constexpr HeatFlux<Number>& operator=(const HeatFlux<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+    this->value = static_cast<Vector<Number>>(other.Value());
     return *this;
   }
 

@@ -106,16 +106,54 @@ TEST(ScalarThermalConductivity, ComparisonOperators) {
 }
 
 TEST(ScalarThermalConductivity, CopyAssignmentOperator) {
-  const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  ScalarThermalConductivity second = ScalarThermalConductivity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarThermalConductivity<float> first(
+        1.0F, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    ScalarThermalConductivity<double> second = ScalarThermalConductivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarThermalConductivity<double>(
+                          1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ScalarThermalConductivity<double> first(
+        1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    ScalarThermalConductivity<double> second = ScalarThermalConductivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarThermalConductivity<double>(
+                          1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ScalarThermalConductivity<long double> first(
+        1.0L, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    ScalarThermalConductivity<double> second = ScalarThermalConductivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarThermalConductivity<double>(
+                          1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
 }
 
 TEST(ScalarThermalConductivity, CopyConstructor) {
-  const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  const ScalarThermalConductivity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarThermalConductivity<float> first(
+        1.0F, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    const ScalarThermalConductivity<double> second{first};
+    EXPECT_EQ(second, ScalarThermalConductivity<double>(
+                          1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ScalarThermalConductivity<double> first(
+        1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    const ScalarThermalConductivity<double> second{first};
+    EXPECT_EQ(second, ScalarThermalConductivity<double>(
+                          1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ScalarThermalConductivity<long double> first(
+        1.0L, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    const ScalarThermalConductivity<double> second{first};
+    EXPECT_EQ(second, ScalarThermalConductivity<double>(
+                          1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
 }
 
 TEST(ScalarThermalConductivity, Create) {

@@ -128,16 +128,42 @@ TEST(Velocity, ComparisonOperators) {
 }
 
 TEST(Velocity, CopyAssignmentOperator) {
-  const Velocity first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
-  Velocity second = Velocity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Velocity<float> first({1.0F, -2.0F, 3.0F}, Unit::Speed::MetrePerSecond);
+    Velocity<double> second = Velocity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Velocity<double>({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const Velocity<double> first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
+    Velocity<double> second = Velocity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Velocity<double>({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const Velocity<long double> first({1.0L, -2.0L, 3.0L}, Unit::Speed::MetrePerSecond);
+    Velocity<double> second = Velocity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Velocity<double>({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  }
 }
 
 TEST(Velocity, CopyConstructor) {
-  const Velocity first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
-  const Velocity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Velocity<float> first({1.0F, -2.0F, 3.0F}, Unit::Speed::MetrePerSecond);
+    const Velocity<double> second{first};
+    EXPECT_EQ(second, Velocity<double>({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const Velocity<double> first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
+    const Velocity<double> second{first};
+    EXPECT_EQ(second, Velocity<double>({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const Velocity<long double> first({1.0L, -2.0L, 3.0L}, Unit::Speed::MetrePerSecond);
+    const Velocity<double> second{first};
+    EXPECT_EQ(second, Velocity<double>({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  }
 }
 
 TEST(Velocity, Create) {

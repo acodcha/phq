@@ -95,16 +95,42 @@ TEST(Energy, ComparisonOperators) {
 }
 
 TEST(Energy, CopyAssignmentOperator) {
-  const Energy first{1.0, Unit::Energy::Joule};
-  Energy second = Energy<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Energy<float> first(1.0F, Unit::Energy::Joule);
+    Energy<double> second = Energy<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Energy<double>(1.0, Unit::Energy::Joule));
+  }
+  {
+    const Energy<double> first(1.0, Unit::Energy::Joule);
+    Energy<double> second = Energy<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Energy<double>(1.0, Unit::Energy::Joule));
+  }
+  {
+    const Energy<long double> first(1.0L, Unit::Energy::Joule);
+    Energy<double> second = Energy<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Energy<double>(1.0, Unit::Energy::Joule));
+  }
 }
 
 TEST(Energy, CopyConstructor) {
-  const Energy first{1.0, Unit::Energy::Joule};
-  const Energy second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Energy<float> first(1.0F, Unit::Energy::Joule);
+    const Energy<double> second{first};
+    EXPECT_EQ(second, Energy<double>(1.0, Unit::Energy::Joule));
+  }
+  {
+    const Energy<double> first(1.0, Unit::Energy::Joule);
+    const Energy<double> second{first};
+    EXPECT_EQ(second, Energy<double>(1.0, Unit::Energy::Joule));
+  }
+  {
+    const Energy<long double> first(1.0L, Unit::Energy::Joule);
+    const Energy<double> second{first};
+    EXPECT_EQ(second, Energy<double>(1.0, Unit::Energy::Joule));
+  }
 }
 
 TEST(Energy, Create) {

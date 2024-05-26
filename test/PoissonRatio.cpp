@@ -94,16 +94,42 @@ TEST(PoissonRatio, ComparisonOperators) {
 }
 
 TEST(PoissonRatio, CopyAssignmentOperator) {
-  const PoissonRatio first{1.0};
-  PoissonRatio second = PoissonRatio<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PoissonRatio<float> first(1.0F);
+    PoissonRatio<double> second = PoissonRatio<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PoissonRatio<double>(1.0));
+  }
+  {
+    const PoissonRatio<double> first(1.0);
+    PoissonRatio<double> second = PoissonRatio<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PoissonRatio<double>(1.0));
+  }
+  {
+    const PoissonRatio<long double> first(1.0L);
+    PoissonRatio<double> second = PoissonRatio<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PoissonRatio<double>(1.0));
+  }
 }
 
 TEST(PoissonRatio, CopyConstructor) {
-  const PoissonRatio first{1.0};
-  const PoissonRatio second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PoissonRatio<float> first(1.0F);
+    const PoissonRatio<double> second{first};
+    EXPECT_EQ(second, PoissonRatio<double>(1.0));
+  }
+  {
+    const PoissonRatio<double> first(1.0);
+    const PoissonRatio<double> second{first};
+    EXPECT_EQ(second, PoissonRatio<double>(1.0));
+  }
+  {
+    const PoissonRatio<long double> first(1.0L);
+    const PoissonRatio<double> second{first};
+    EXPECT_EQ(second, PoissonRatio<double>(1.0));
+  }
 }
 
 TEST(PoissonRatio, DefaultConstructor) {

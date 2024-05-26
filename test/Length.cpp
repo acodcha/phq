@@ -95,16 +95,42 @@ TEST(Length, ComparisonOperators) {
 }
 
 TEST(Length, CopyAssignmentOperator) {
-  const Length first{1.0, Unit::Length::Metre};
-  Length second = Length<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Length<float> first(1.0F, Unit::Length::Metre);
+    Length<double> second = Length<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Length<double>(1.0, Unit::Length::Metre));
+  }
+  {
+    const Length<double> first(1.0, Unit::Length::Metre);
+    Length<double> second = Length<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Length<double>(1.0, Unit::Length::Metre));
+  }
+  {
+    const Length<long double> first(1.0L, Unit::Length::Metre);
+    Length<double> second = Length<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Length<double>(1.0, Unit::Length::Metre));
+  }
 }
 
 TEST(Length, CopyConstructor) {
-  const Length first{1.0, Unit::Length::Metre};
-  const Length second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Length<float> first(1.0F, Unit::Length::Metre);
+    const Length<double> second{first};
+    EXPECT_EQ(second, Length<double>(1.0, Unit::Length::Metre));
+  }
+  {
+    const Length<double> first(1.0, Unit::Length::Metre);
+    const Length<double> second{first};
+    EXPECT_EQ(second, Length<double>(1.0, Unit::Length::Metre));
+  }
+  {
+    const Length<long double> first(1.0L, Unit::Length::Metre);
+    const Length<double> second{first};
+    EXPECT_EQ(second, Length<double>(1.0, Unit::Length::Metre));
+  }
 }
 
 TEST(Length, Create) {

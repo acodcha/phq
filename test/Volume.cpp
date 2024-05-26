@@ -107,16 +107,42 @@ TEST(Volume, ComparisonOperators) {
 }
 
 TEST(Volume, CopyAssignmentOperator) {
-  const Volume first{1.0, Unit::Volume::CubicMetre};
-  Volume second = Volume<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Volume<float> first(1.0F, Unit::Volume::CubicMetre);
+    Volume<double> second = Volume<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Volume<double>(1.0, Unit::Volume::CubicMetre));
+  }
+  {
+    const Volume<double> first(1.0, Unit::Volume::CubicMetre);
+    Volume<double> second = Volume<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Volume<double>(1.0, Unit::Volume::CubicMetre));
+  }
+  {
+    const Volume<long double> first(1.0L, Unit::Volume::CubicMetre);
+    Volume<double> second = Volume<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Volume<double>(1.0, Unit::Volume::CubicMetre));
+  }
 }
 
 TEST(Volume, CopyConstructor) {
-  const Volume first{1.0, Unit::Volume::CubicMetre};
-  const Volume second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Volume<float> first(1.0F, Unit::Volume::CubicMetre);
+    const Volume<double> second{first};
+    EXPECT_EQ(second, Volume<double>(1.0, Unit::Volume::CubicMetre));
+  }
+  {
+    const Volume<double> first(1.0, Unit::Volume::CubicMetre);
+    const Volume<double> second{first};
+    EXPECT_EQ(second, Volume<double>(1.0, Unit::Volume::CubicMetre));
+  }
+  {
+    const Volume<long double> first(1.0L, Unit::Volume::CubicMetre);
+    const Volume<double> second{first};
+    EXPECT_EQ(second, Volume<double>(1.0, Unit::Volume::CubicMetre));
+  }
 }
 
 TEST(Volume, Create) {

@@ -120,16 +120,42 @@ TEST(PlanarVectorArea, ComparisonOperators) {
 }
 
 TEST(PlanarVectorArea, CopyAssignmentOperator) {
-  const PlanarVectorArea first({1.0, -2.0}, Unit::Area::SquareMetre);
-  PlanarVectorArea second = PlanarVectorArea<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarVectorArea<float> first({1.0F, -2.0F}, Unit::Area::SquareMetre);
+    PlanarVectorArea<double> second = PlanarVectorArea<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarVectorArea<double>({1.0, -2.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const PlanarVectorArea<double> first({1.0, -2.0}, Unit::Area::SquareMetre);
+    PlanarVectorArea<double> second = PlanarVectorArea<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarVectorArea<double>({1.0, -2.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const PlanarVectorArea<long double> first({1.0L, -2.0L}, Unit::Area::SquareMetre);
+    PlanarVectorArea<double> second = PlanarVectorArea<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarVectorArea<double>({1.0, -2.0}, Unit::Area::SquareMetre));
+  }
 }
 
 TEST(PlanarVectorArea, CopyConstructor) {
-  const PlanarVectorArea first({1.0, -2.0}, Unit::Area::SquareMetre);
-  const PlanarVectorArea second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarVectorArea<float> first({1.0F, -2.0F}, Unit::Area::SquareMetre);
+    const PlanarVectorArea<double> second{first};
+    EXPECT_EQ(second, PlanarVectorArea<double>({1.0, -2.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const PlanarVectorArea<double> first({1.0, -2.0}, Unit::Area::SquareMetre);
+    const PlanarVectorArea<double> second{first};
+    EXPECT_EQ(second, PlanarVectorArea<double>({1.0, -2.0}, Unit::Area::SquareMetre));
+  }
+  {
+    const PlanarVectorArea<long double> first({1.0L, -2.0L}, Unit::Area::SquareMetre);
+    const PlanarVectorArea<double> second{first};
+    EXPECT_EQ(second, PlanarVectorArea<double>({1.0, -2.0}, Unit::Area::SquareMetre));
+  }
 }
 
 TEST(PlanarVectorArea, Create) {

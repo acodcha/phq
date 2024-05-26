@@ -133,20 +133,60 @@ TEST(ThermalConductivity, ComparisonOperators) {
 }
 
 TEST(ThermalConductivity, CopyAssignmentOperator) {
-  const ThermalConductivity first(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  ThermalConductivity second = ThermalConductivity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
-                                        Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  {
+    const ThermalConductivity<float> first(
+        {1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    ThermalConductivity<double> second = ThermalConductivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, ThermalConductivity<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                            Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ThermalConductivity<double> first(
+        {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    ThermalConductivity<double> second = ThermalConductivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, ThermalConductivity<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                            Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ThermalConductivity<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    ThermalConductivity<double> second = ThermalConductivity<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, ThermalConductivity<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                            Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
 }
 
 TEST(ThermalConductivity, CopyConstructor) {
-  const ThermalConductivity first(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  const ThermalConductivity second{first};
-  EXPECT_EQ(second, ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
-                                        Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  {
+    const ThermalConductivity<float> first(
+        {1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    const ThermalConductivity<double> second{first};
+    EXPECT_EQ(
+        second, ThermalConductivity<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                            Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ThermalConductivity<double> first(
+        {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    const ThermalConductivity<double> second{first};
+    EXPECT_EQ(
+        second, ThermalConductivity<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                            Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
+  {
+    const ThermalConductivity<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+    const ThermalConductivity<double> second{first};
+    EXPECT_EQ(
+        second, ThermalConductivity<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                            Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  }
 }
 
 TEST(ThermalConductivity, Create) {

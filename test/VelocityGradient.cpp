@@ -160,20 +160,54 @@ TEST(VelocityGradient, ComparisonOperators) {
 }
 
 TEST(VelocityGradient, CopyAssignmentOperator) {
-  const VelocityGradient first(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
-  VelocityGradient second = VelocityGradient<>::Zero();
-  second = first;
-  EXPECT_EQ(second, VelocityGradient(
-                        {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
+  {
+    const VelocityGradient<float> first(
+        {1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F}, Unit::Frequency::Hertz);
+    VelocityGradient<double> second = VelocityGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VelocityGradient<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                               Unit::Frequency::Hertz));
+  }
+  {
+    const VelocityGradient<double> first(
+        {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
+    VelocityGradient<double> second = VelocityGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VelocityGradient<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                               Unit::Frequency::Hertz));
+  }
+  {
+    const VelocityGradient<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L}, Unit::Frequency::Hertz);
+    VelocityGradient<double> second = VelocityGradient<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, VelocityGradient<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                               Unit::Frequency::Hertz));
+  }
 }
 
 TEST(VelocityGradient, CopyConstructor) {
-  const VelocityGradient first(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
-  const VelocityGradient second{first};
-  EXPECT_EQ(second, VelocityGradient(
-                        {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
+  {
+    const VelocityGradient<float> first(
+        {1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F}, Unit::Frequency::Hertz);
+    const VelocityGradient<double> second{first};
+    EXPECT_EQ(second, VelocityGradient<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                               Unit::Frequency::Hertz));
+  }
+  {
+    const VelocityGradient<double> first(
+        {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
+    const VelocityGradient<double> second{first};
+    EXPECT_EQ(second, VelocityGradient<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                               Unit::Frequency::Hertz));
+  }
+  {
+    const VelocityGradient<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L}, Unit::Frequency::Hertz);
+    const VelocityGradient<double> second{first};
+    EXPECT_EQ(second, VelocityGradient<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                               Unit::Frequency::Hertz));
+  }
 }
 
 TEST(VelocityGradient, Create) {

@@ -99,16 +99,42 @@ TEST(ShearModulus, ComparisonOperators) {
 }
 
 TEST(ShearModulus, CopyAssignmentOperator) {
-  const ShearModulus first{1.0, Unit::Pressure::Pascal};
-  ShearModulus second = ShearModulus<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ShearModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    ShearModulus<double> second = ShearModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ShearModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ShearModulus<double> first(1.0, Unit::Pressure::Pascal);
+    ShearModulus<double> second = ShearModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ShearModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ShearModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    ShearModulus<double> second = ShearModulus<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ShearModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(ShearModulus, CopyConstructor) {
-  const ShearModulus first{1.0, Unit::Pressure::Pascal};
-  const ShearModulus second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ShearModulus<float> first(1.0F, Unit::Pressure::Pascal);
+    const ShearModulus<double> second{first};
+    EXPECT_EQ(second, ShearModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ShearModulus<double> first(1.0, Unit::Pressure::Pascal);
+    const ShearModulus<double> second{first};
+    EXPECT_EQ(second, ShearModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ShearModulus<long double> first(1.0L, Unit::Pressure::Pascal);
+    const ShearModulus<double> second{first};
+    EXPECT_EQ(second, ShearModulus<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(ShearModulus, Create) {

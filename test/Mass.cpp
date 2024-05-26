@@ -95,16 +95,42 @@ TEST(Mass, ComparisonOperators) {
 }
 
 TEST(Mass, CopyAssignmentOperator) {
-  const Mass first{1.0, Unit::Mass::Kilogram};
-  Mass second = Mass<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Mass<float> first(1.0F, Unit::Mass::Kilogram);
+    Mass<double> second = Mass<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Mass<double>(1.0, Unit::Mass::Kilogram));
+  }
+  {
+    const Mass<double> first(1.0, Unit::Mass::Kilogram);
+    Mass<double> second = Mass<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Mass<double>(1.0, Unit::Mass::Kilogram));
+  }
+  {
+    const Mass<long double> first(1.0L, Unit::Mass::Kilogram);
+    Mass<double> second = Mass<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Mass<double>(1.0, Unit::Mass::Kilogram));
+  }
 }
 
 TEST(Mass, CopyConstructor) {
-  const Mass first{1.0, Unit::Mass::Kilogram};
-  const Mass second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Mass<float> first(1.0F, Unit::Mass::Kilogram);
+    const Mass<double> second{first};
+    EXPECT_EQ(second, Mass<double>(1.0, Unit::Mass::Kilogram));
+  }
+  {
+    const Mass<double> first(1.0, Unit::Mass::Kilogram);
+    const Mass<double> second{first};
+    EXPECT_EQ(second, Mass<double>(1.0, Unit::Mass::Kilogram));
+  }
+  {
+    const Mass<long double> first(1.0L, Unit::Mass::Kilogram);
+    const Mass<double> second{first};
+    EXPECT_EQ(second, Mass<double>(1.0, Unit::Mass::Kilogram));
+  }
 }
 
 TEST(Mass, Create) {

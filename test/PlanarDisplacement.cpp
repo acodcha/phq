@@ -112,16 +112,42 @@ TEST(PlanarDisplacement, ComparisonOperators) {
 }
 
 TEST(PlanarDisplacement, CopyAssignmentOperator) {
-  const PlanarDisplacement first({1.0, -2.0}, Unit::Length::Metre);
-  PlanarDisplacement second = PlanarDisplacement<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const PlanarDisplacement<float> first({1.0F, -2.0F}, Unit::Length::Metre);
+    PlanarDisplacement<double> second = PlanarDisplacement<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarDisplacement<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarDisplacement<double> first({1.0, -2.0}, Unit::Length::Metre);
+    PlanarDisplacement<double> second = PlanarDisplacement<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarDisplacement<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarDisplacement<long double> first({1.0L, -2.0L}, Unit::Length::Metre);
+    PlanarDisplacement<double> second = PlanarDisplacement<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, PlanarDisplacement<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(PlanarDisplacement, CopyConstructor) {
-  const PlanarDisplacement first({1.0, -2.0}, Unit::Length::Metre);
-  const PlanarDisplacement second{first};
-  EXPECT_EQ(second, first);
+  {
+    const PlanarDisplacement<float> first({1.0F, -2.0F}, Unit::Length::Metre);
+    const PlanarDisplacement<double> second{first};
+    EXPECT_EQ(second, PlanarDisplacement<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarDisplacement<double> first({1.0, -2.0}, Unit::Length::Metre);
+    const PlanarDisplacement<double> second{first};
+    EXPECT_EQ(second, PlanarDisplacement<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
+  {
+    const PlanarDisplacement<long double> first({1.0L, -2.0L}, Unit::Length::Metre);
+    const PlanarDisplacement<double> second{first};
+    EXPECT_EQ(second, PlanarDisplacement<double>({1.0, -2.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(PlanarDisplacement, Create) {

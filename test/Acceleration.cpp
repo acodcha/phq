@@ -141,16 +141,50 @@ TEST(Acceleration, ComparisonOperators) {
 }
 
 TEST(Acceleration, CopyAssignmentOperator) {
-  const Acceleration first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
-  Acceleration second = Acceleration<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Acceleration<float> first({1.0F, -2.0F, 3.0F}, Unit::Acceleration::MetrePerSquareSecond);
+    Acceleration<double> second = Acceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, Acceleration<double>({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const Acceleration<double> first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
+    Acceleration<double> second = Acceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, Acceleration<double>({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const Acceleration<long double> first(
+        {1.0L, -2.0L, 3.0L}, Unit::Acceleration::MetrePerSquareSecond);
+    Acceleration<double> second = Acceleration<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, Acceleration<double>({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
 }
 
 TEST(Acceleration, CopyConstructor) {
-  const Acceleration first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
-  const Acceleration second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Acceleration<float> first({1.0F, -2.0F, 3.0F}, Unit::Acceleration::MetrePerSquareSecond);
+    const Acceleration<double> second{first};
+    EXPECT_EQ(
+        second, Acceleration<double>({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const Acceleration<double> first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
+    const Acceleration<double> second{first};
+    EXPECT_EQ(
+        second, Acceleration<double>({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
+  {
+    const Acceleration<long double> first(
+        {1.0L, -2.0L, 3.0L}, Unit::Acceleration::MetrePerSquareSecond);
+    const Acceleration<double> second{first};
+    EXPECT_EQ(
+        second, Acceleration<double>({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  }
 }
 
 TEST(Acceleration, Create) {

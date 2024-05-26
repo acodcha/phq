@@ -106,16 +106,42 @@ TEST(DynamicPressure, ComparisonOperators) {
 }
 
 TEST(DynamicPressure, CopyAssignmentOperator) {
-  const DynamicPressure first{1.0, Unit::Pressure::Pascal};
-  DynamicPressure second = DynamicPressure<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const DynamicPressure<float> first(1.0F, Unit::Pressure::Pascal);
+    DynamicPressure<double> second = DynamicPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, DynamicPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const DynamicPressure<double> first(1.0, Unit::Pressure::Pascal);
+    DynamicPressure<double> second = DynamicPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, DynamicPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const DynamicPressure<long double> first(1.0L, Unit::Pressure::Pascal);
+    DynamicPressure<double> second = DynamicPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, DynamicPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(DynamicPressure, CopyConstructor) {
-  const DynamicPressure first{1.0, Unit::Pressure::Pascal};
-  const DynamicPressure second{first};
-  EXPECT_EQ(second, first);
+  {
+    const DynamicPressure<float> first(1.0F, Unit::Pressure::Pascal);
+    const DynamicPressure<double> second{first};
+    EXPECT_EQ(second, DynamicPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const DynamicPressure<double> first(1.0, Unit::Pressure::Pascal);
+    const DynamicPressure<double> second{first};
+    EXPECT_EQ(second, DynamicPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const DynamicPressure<long double> first(1.0L, Unit::Pressure::Pascal);
+    const DynamicPressure<double> second{first};
+    EXPECT_EQ(second, DynamicPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(DynamicPressure, Create) {

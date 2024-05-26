@@ -121,16 +121,42 @@ TEST(Traction, ComparisonOperators) {
 }
 
 TEST(Traction, CopyAssignmentOperator) {
-  const Traction first({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
-  Traction second = Traction<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Traction<float> first({1.0F, -2.0F, 3.0F}, Unit::Pressure::Pascal);
+    Traction<double> second = Traction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Traction<double>({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Traction<double> first({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
+    Traction<double> second = Traction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Traction<double>({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Traction<long double> first({1.0L, -2.0L, 3.0L}, Unit::Pressure::Pascal);
+    Traction<double> second = Traction<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Traction<double>({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(Traction, CopyConstructor) {
-  const Traction first({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
-  const Traction second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Traction<float> first({1.0F, -2.0F, 3.0F}, Unit::Pressure::Pascal);
+    const Traction<double> second{first};
+    EXPECT_EQ(second, Traction<double>({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Traction<double> first({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
+    const Traction<double> second{first};
+    EXPECT_EQ(second, Traction<double>({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  }
+  {
+    const Traction<long double> first({1.0L, -2.0L, 3.0L}, Unit::Pressure::Pascal);
+    const Traction<double> second{first};
+    EXPECT_EQ(second, Traction<double>({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(Traction, Create) {

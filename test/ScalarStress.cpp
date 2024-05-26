@@ -99,16 +99,42 @@ TEST(ScalarStress, ComparisonOperators) {
 }
 
 TEST(ScalarStress, CopyAssignmentOperator) {
-  const ScalarStress first{1.0, Unit::Pressure::Pascal};
-  ScalarStress second = ScalarStress<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const ScalarStress<float> first(1.0F, Unit::Pressure::Pascal);
+    ScalarStress<double> second = ScalarStress<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStress<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarStress<double> first(1.0, Unit::Pressure::Pascal);
+    ScalarStress<double> second = ScalarStress<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStress<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarStress<long double> first(1.0L, Unit::Pressure::Pascal);
+    ScalarStress<double> second = ScalarStress<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, ScalarStress<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(ScalarStress, CopyConstructor) {
-  const ScalarStress first{1.0, Unit::Pressure::Pascal};
-  const ScalarStress second{first};
-  EXPECT_EQ(second, first);
+  {
+    const ScalarStress<float> first(1.0F, Unit::Pressure::Pascal);
+    const ScalarStress<double> second{first};
+    EXPECT_EQ(second, ScalarStress<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarStress<double> first(1.0, Unit::Pressure::Pascal);
+    const ScalarStress<double> second{first};
+    EXPECT_EQ(second, ScalarStress<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const ScalarStress<long double> first(1.0L, Unit::Pressure::Pascal);
+    const ScalarStress<double> second{first};
+    EXPECT_EQ(second, ScalarStress<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(ScalarStress, Create) {

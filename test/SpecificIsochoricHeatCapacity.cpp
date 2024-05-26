@@ -148,18 +148,54 @@ TEST(SpecificIsochoricHeatCapacity, ComparisonOperators) {
 }
 
 TEST(SpecificIsochoricHeatCapacity, CopyAssignmentOperator) {
-  const SpecificIsochoricHeatCapacity first{
-      1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  SpecificIsochoricHeatCapacity second = SpecificIsochoricHeatCapacity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SpecificIsochoricHeatCapacity<float> first(
+        1.0F, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificIsochoricHeatCapacity<double> second = SpecificIsochoricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificIsochoricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsochoricHeatCapacity<double> first(
+        1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificIsochoricHeatCapacity<double> second = SpecificIsochoricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificIsochoricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsochoricHeatCapacity<long double> first(
+        1.0L, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    SpecificIsochoricHeatCapacity<double> second = SpecificIsochoricHeatCapacity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SpecificIsochoricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
 }
 
 TEST(SpecificIsochoricHeatCapacity, CopyConstructor) {
-  const SpecificIsochoricHeatCapacity first{
-      1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  const SpecificIsochoricHeatCapacity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SpecificIsochoricHeatCapacity<float> first(
+        1.0F, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificIsochoricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, SpecificIsochoricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsochoricHeatCapacity<double> first(
+        1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificIsochoricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, SpecificIsochoricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
+  {
+    const SpecificIsochoricHeatCapacity<long double> first(
+        1.0L, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+    const SpecificIsochoricHeatCapacity<double> second{first};
+    EXPECT_EQ(second, SpecificIsochoricHeatCapacity<double>(
+                          1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  }
 }
 
 TEST(SpecificIsochoricHeatCapacity, Create) {

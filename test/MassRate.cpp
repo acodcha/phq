@@ -121,16 +121,42 @@ TEST(MassRate, ComparisonOperators) {
 }
 
 TEST(MassRate, CopyAssignmentOperator) {
-  const MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
-  MassRate second = MassRate<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const MassRate<float> first(1.0F, Unit::MassRate::KilogramPerSecond);
+    MassRate<double> second = MassRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MassRate<double>(1.0, Unit::MassRate::KilogramPerSecond));
+  }
+  {
+    const MassRate<double> first(1.0, Unit::MassRate::KilogramPerSecond);
+    MassRate<double> second = MassRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MassRate<double>(1.0, Unit::MassRate::KilogramPerSecond));
+  }
+  {
+    const MassRate<long double> first(1.0L, Unit::MassRate::KilogramPerSecond);
+    MassRate<double> second = MassRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, MassRate<double>(1.0, Unit::MassRate::KilogramPerSecond));
+  }
 }
 
 TEST(MassRate, CopyConstructor) {
-  const MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
-  const MassRate second{first};
-  EXPECT_EQ(second, first);
+  {
+    const MassRate<float> first(1.0F, Unit::MassRate::KilogramPerSecond);
+    const MassRate<double> second{first};
+    EXPECT_EQ(second, MassRate<double>(1.0, Unit::MassRate::KilogramPerSecond));
+  }
+  {
+    const MassRate<double> first(1.0, Unit::MassRate::KilogramPerSecond);
+    const MassRate<double> second{first};
+    EXPECT_EQ(second, MassRate<double>(1.0, Unit::MassRate::KilogramPerSecond));
+  }
+  {
+    const MassRate<long double> first(1.0L, Unit::MassRate::KilogramPerSecond);
+    const MassRate<double> second{first};
+    EXPECT_EQ(second, MassRate<double>(1.0, Unit::MassRate::KilogramPerSecond));
+  }
 }
 
 TEST(MassRate, Create) {

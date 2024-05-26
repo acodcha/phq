@@ -102,16 +102,42 @@ TEST(KinematicViscosity, ComparisonOperators) {
 }
 
 TEST(KinematicViscosity, CopyAssignmentOperator) {
-  const KinematicViscosity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity second = KinematicViscosity<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const KinematicViscosity<float> first(1.0F, Unit::Diffusivity::SquareMetrePerSecond);
+    KinematicViscosity<double> second = KinematicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, KinematicViscosity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const KinematicViscosity<double> first(1.0, Unit::Diffusivity::SquareMetrePerSecond);
+    KinematicViscosity<double> second = KinematicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, KinematicViscosity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const KinematicViscosity<long double> first(1.0L, Unit::Diffusivity::SquareMetrePerSecond);
+    KinematicViscosity<double> second = KinematicViscosity<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, KinematicViscosity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
 }
 
 TEST(KinematicViscosity, CopyConstructor) {
-  const KinematicViscosity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity second{first};
-  EXPECT_EQ(second, first);
+  {
+    const KinematicViscosity<float> first(1.0F, Unit::Diffusivity::SquareMetrePerSecond);
+    const KinematicViscosity<double> second{first};
+    EXPECT_EQ(second, KinematicViscosity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const KinematicViscosity<double> first(1.0, Unit::Diffusivity::SquareMetrePerSecond);
+    const KinematicViscosity<double> second{first};
+    EXPECT_EQ(second, KinematicViscosity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
+  {
+    const KinematicViscosity<long double> first(1.0L, Unit::Diffusivity::SquareMetrePerSecond);
+    const KinematicViscosity<double> second{first};
+    EXPECT_EQ(second, KinematicViscosity<double>(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  }
 }
 
 TEST(KinematicViscosity, Create) {

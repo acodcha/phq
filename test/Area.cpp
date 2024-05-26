@@ -105,16 +105,42 @@ TEST(Area, ComparisonOperators) {
 }
 
 TEST(Area, CopyAssignmentOperator) {
-  const Area first{1.0, Unit::Area::SquareMetre};
-  Area second = Area<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Area<float> first(1.0F, Unit::Area::SquareMetre);
+    Area<double> second = Area<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Area<double>(1.0, Unit::Area::SquareMetre));
+  }
+  {
+    const Area<double> first(1.0, Unit::Area::SquareMetre);
+    Area<double> second = Area<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Area<double>(1.0, Unit::Area::SquareMetre));
+  }
+  {
+    const Area<long double> first(1.0L, Unit::Area::SquareMetre);
+    Area<double> second = Area<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Area<double>(1.0, Unit::Area::SquareMetre));
+  }
 }
 
 TEST(Area, CopyConstructor) {
-  const Area first{1.0, Unit::Area::SquareMetre};
-  const Area second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Area<float> first(1.0F, Unit::Area::SquareMetre);
+    const Area<double> second{first};
+    EXPECT_EQ(second, Area<double>(1.0, Unit::Area::SquareMetre));
+  }
+  {
+    const Area<double> first(1.0, Unit::Area::SquareMetre);
+    const Area<double> second{first};
+    EXPECT_EQ(second, Area<double>(1.0, Unit::Area::SquareMetre));
+  }
+  {
+    const Area<long double> first(1.0L, Unit::Area::SquareMetre);
+    const Area<double> second{first};
+    EXPECT_EQ(second, Area<double>(1.0, Unit::Area::SquareMetre));
+  }
 }
 
 TEST(Area, Create) {

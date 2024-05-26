@@ -137,16 +137,42 @@ TEST(SoundSpeed, ComparisonOperators) {
 }
 
 TEST(SoundSpeed, CopyAssignmentOperator) {
-  const SoundSpeed first{1.0, Unit::Speed::MetrePerSecond};
-  SoundSpeed second = SoundSpeed<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const SoundSpeed<float> first(1.0F, Unit::Speed::MetrePerSecond);
+    SoundSpeed<double> second = SoundSpeed<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SoundSpeed<double>(1.0, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const SoundSpeed<double> first(1.0, Unit::Speed::MetrePerSecond);
+    SoundSpeed<double> second = SoundSpeed<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SoundSpeed<double>(1.0, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const SoundSpeed<long double> first(1.0L, Unit::Speed::MetrePerSecond);
+    SoundSpeed<double> second = SoundSpeed<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, SoundSpeed<double>(1.0, Unit::Speed::MetrePerSecond));
+  }
 }
 
 TEST(SoundSpeed, CopyConstructor) {
-  const SoundSpeed first{1.0, Unit::Speed::MetrePerSecond};
-  const SoundSpeed second{first};
-  EXPECT_EQ(second, first);
+  {
+    const SoundSpeed<float> first(1.0F, Unit::Speed::MetrePerSecond);
+    const SoundSpeed<double> second{first};
+    EXPECT_EQ(second, SoundSpeed<double>(1.0, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const SoundSpeed<double> first(1.0, Unit::Speed::MetrePerSecond);
+    const SoundSpeed<double> second{first};
+    EXPECT_EQ(second, SoundSpeed<double>(1.0, Unit::Speed::MetrePerSecond));
+  }
+  {
+    const SoundSpeed<long double> first(1.0L, Unit::Speed::MetrePerSecond);
+    const SoundSpeed<double> second{first};
+    EXPECT_EQ(second, SoundSpeed<double>(1.0, Unit::Speed::MetrePerSecond));
+  }
 }
 
 TEST(SoundSpeed, Create) {

@@ -121,16 +121,50 @@ TEST(StrainRate, ComparisonOperators) {
 }
 
 TEST(StrainRate, CopyAssignmentOperator) {
-  const StrainRate first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
-  StrainRate second = StrainRate<>::Zero();
-  second = first;
-  EXPECT_EQ(second, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  {
+    const StrainRate<float> first({1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::Frequency::Hertz);
+    StrainRate<double> second = StrainRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, StrainRate<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  }
+  {
+    const StrainRate<double> first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
+    StrainRate<double> second = StrainRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, StrainRate<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  }
+  {
+    const StrainRate<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}, Unit::Frequency::Hertz);
+    StrainRate<double> second = StrainRate<double>::Zero();
+    second = first;
+    EXPECT_EQ(
+        second, StrainRate<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(StrainRate, CopyConstructor) {
-  const StrainRate first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
-  const StrainRate second{first};
-  EXPECT_EQ(second, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  {
+    const StrainRate<float> first({1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::Frequency::Hertz);
+    const StrainRate<double> second{first};
+    EXPECT_EQ(
+        second, StrainRate<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  }
+  {
+    const StrainRate<double> first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
+    const StrainRate<double> second{first};
+    EXPECT_EQ(
+        second, StrainRate<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  }
+  {
+    const StrainRate<long double> first(
+        {1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}, Unit::Frequency::Hertz);
+    const StrainRate<double> second{first};
+    EXPECT_EQ(
+        second, StrainRate<double>({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  }
 }
 
 TEST(StrainRate, Create) {

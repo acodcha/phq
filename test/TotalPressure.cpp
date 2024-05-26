@@ -113,16 +113,42 @@ TEST(TotalPressure, ComparisonOperators) {
 }
 
 TEST(TotalPressure, CopyAssignmentOperator) {
-  const TotalPressure first{1.0, Unit::Pressure::Pascal};
-  TotalPressure second = TotalPressure<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const TotalPressure<float> first(1.0F, Unit::Pressure::Pascal);
+    TotalPressure<double> second = TotalPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TotalPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const TotalPressure<double> first(1.0, Unit::Pressure::Pascal);
+    TotalPressure<double> second = TotalPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TotalPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const TotalPressure<long double> first(1.0L, Unit::Pressure::Pascal);
+    TotalPressure<double> second = TotalPressure<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, TotalPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(TotalPressure, CopyConstructor) {
-  const TotalPressure first{1.0, Unit::Pressure::Pascal};
-  const TotalPressure second{first};
-  EXPECT_EQ(second, first);
+  {
+    const TotalPressure<float> first(1.0F, Unit::Pressure::Pascal);
+    const TotalPressure<double> second{first};
+    EXPECT_EQ(second, TotalPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const TotalPressure<double> first(1.0, Unit::Pressure::Pascal);
+    const TotalPressure<double> second{first};
+    EXPECT_EQ(second, TotalPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
+  {
+    const TotalPressure<long double> first(1.0L, Unit::Pressure::Pascal);
+    const TotalPressure<double> second{first};
+    EXPECT_EQ(second, TotalPressure<double>(1.0, Unit::Pressure::Pascal));
+  }
 }
 
 TEST(TotalPressure, Create) {

@@ -95,16 +95,42 @@ TEST(Memory, ComparisonOperators) {
 }
 
 TEST(Memory, CopyAssignmentOperator) {
-  const Memory first{1.0, Unit::Memory::Bit};
-  Memory second = Memory<>::Zero();
-  second = first;
-  EXPECT_EQ(second, first);
+  {
+    const Memory<float> first(1.0F, Unit::Memory::Bit);
+    Memory<double> second = Memory<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Memory<double>(1.0, Unit::Memory::Bit));
+  }
+  {
+    const Memory<double> first(1.0, Unit::Memory::Bit);
+    Memory<double> second = Memory<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Memory<double>(1.0, Unit::Memory::Bit));
+  }
+  {
+    const Memory<long double> first(1.0L, Unit::Memory::Bit);
+    Memory<double> second = Memory<double>::Zero();
+    second = first;
+    EXPECT_EQ(second, Memory<double>(1.0, Unit::Memory::Bit));
+  }
 }
 
 TEST(Memory, CopyConstructor) {
-  const Memory first{1.0, Unit::Memory::Bit};
-  const Memory second{first};
-  EXPECT_EQ(second, first);
+  {
+    const Memory<float> first(1.0F, Unit::Memory::Bit);
+    const Memory<double> second{first};
+    EXPECT_EQ(second, Memory<double>(1.0, Unit::Memory::Bit));
+  }
+  {
+    const Memory<double> first(1.0, Unit::Memory::Bit);
+    const Memory<double> second{first};
+    EXPECT_EQ(second, Memory<double>(1.0, Unit::Memory::Bit));
+  }
+  {
+    const Memory<long double> first(1.0L, Unit::Memory::Bit);
+    const Memory<double> second{first};
+    EXPECT_EQ(second, Memory<double>(1.0, Unit::Memory::Bit));
+  }
 }
 
 TEST(Memory, Create) {
