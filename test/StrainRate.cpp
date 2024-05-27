@@ -274,6 +274,13 @@ TEST(StrainRate, SizeOf) {
 
 TEST(StrainRate, StandardConstructor) {
   EXPECT_NO_THROW(StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate(ScalarStrainRate(1.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(-2.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(3.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(-4.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(5.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(-6.0, Unit::Frequency::Hertz)),
+            StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
 }
 
 TEST(StrainRate, StaticValue) {

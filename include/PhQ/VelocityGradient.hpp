@@ -59,6 +59,17 @@ public:
   VelocityGradient(const Dyad<Number>& value, const Unit::Frequency& unit)
     : DimensionalDyad<Unit::Frequency, Number>(value, unit) {}
 
+  /// @brief \brief Constructor. Constructs a velocity gradient tensor from a given set of scalar
+  /// velocity gradient components.
+  VelocityGradient(
+      const ScalarVelocityGradient<Number>& xx, const ScalarVelocityGradient<Number>& xy,
+      const ScalarVelocityGradient<Number>& xz, const ScalarVelocityGradient<Number>& yx,
+      const ScalarVelocityGradient<Number>& yy, const ScalarVelocityGradient<Number>& yz,
+      const ScalarVelocityGradient<Number>& zx, const ScalarVelocityGradient<Number>& zy,
+      const ScalarVelocityGradient<Number>& zz)
+    : VelocityGradient<Number>({xx.Value(), xy.Value(), xz.Value(), yx.Value(), yy.Value(),
+                                yz.Value(), zx.Value(), zy.Value(), zz.Value()}) {}
+
   /// \brief Constructor. Constructs a velocity gradient tensor from a given displacement gradient
   /// tensor and time using the definition of speed.
   constexpr VelocityGradient(

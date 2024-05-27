@@ -357,6 +357,18 @@ TEST(VelocityGradient, SizeOf) {
 TEST(VelocityGradient, StandardConstructor) {
   EXPECT_NO_THROW(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      VelocityGradient(
+          ScalarVelocityGradient(1.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-2.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(3.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-4.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(5.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-6.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(7.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-8.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(9.0, Unit::Frequency::Hertz)),
+      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
 }
 
 TEST(VelocityGradient, StaticValue) {
