@@ -32,10 +32,12 @@
 #include <utility>
 
 #include "../include/PhQ/Mass.hpp"
+#include "../include/PhQ/MassRate.hpp"
 #include "../include/PhQ/Unit/Mass.hpp"
 #include "../include/PhQ/Unit/MassDensity.hpp"
 #include "../include/PhQ/Unit/Volume.hpp"
 #include "../include/PhQ/Volume.hpp"
+#include "../include/PhQ/VolumeRate.hpp"
 
 namespace PhQ {
 
@@ -58,6 +60,12 @@ TEST(MassDensity, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       Mass(8.0, Unit::Mass::Kilogram) / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
       Volume(2.0, Unit::Volume::CubicMetre));
+  EXPECT_EQ(MassRate(8.0, Unit::MassRate::KilogramPerSecond)
+                / VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(MassRate(8.0, Unit::MassRate::KilogramPerSecond)
+                / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+            VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 TEST(MassDensity, ArithmeticOperatorMultiplication) {
@@ -71,6 +79,12 @@ TEST(MassDensity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Volume(4.0, Unit::Volume::CubicMetre)
                 * MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
             Mass(8.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)
+                * VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+            MassRate(8.0, Unit::MassRate::KilogramPerSecond));
+  EXPECT_EQ(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)
+                * MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+            MassRate(8.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassDensity, ArithmeticOperatorSubtraction) {
@@ -196,6 +210,15 @@ TEST(MassDensity, MiscellaneousConstructor) {
   EXPECT_EQ(Volume(Mass(8.0, Unit::Mass::Kilogram),
                    MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
             Volume(2.0, Unit::Volume::CubicMetre));
+  EXPECT_EQ(MassDensity(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
+                        VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(MassRate(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                     VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond)),
+            MassRate(8.0, Unit::MassRate::KilogramPerSecond));
+  EXPECT_EQ(VolumeRate(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
+                       MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 TEST(MassDensity, MoveAssignmentOperator) {
