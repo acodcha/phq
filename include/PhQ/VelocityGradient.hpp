@@ -59,8 +59,8 @@ public:
   VelocityGradient(const Dyad<Number>& value, const Unit::Frequency& unit)
     : DimensionalDyad<Unit::Frequency, Number>(value, unit) {}
 
-  /// @brief \brief Constructor. Constructs a velocity gradient tensor from a given set of scalar
-  /// velocity gradient components.
+  /// \brief Constructor. Constructs a velocity gradient tensor from a given set of scalar velocity
+  /// gradient components.
   VelocityGradient(
       const ScalarVelocityGradient<Number>& xx, const ScalarVelocityGradient<Number>& xy,
       const ScalarVelocityGradient<Number>& xz, const ScalarVelocityGradient<Number>& yx,

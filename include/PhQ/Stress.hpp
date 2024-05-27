@@ -59,8 +59,7 @@ public:
   Stress(const SymmetricDyad<Number>& value, const Unit::Pressure unit)
     : DimensionalSymmetricDyad<Unit::Pressure, Number>(value, unit) {}
 
-  /// @brief \brief Constructor. Constructs a stress tensor from a given set of scalar stress
-  /// components.
+  /// \brief Constructor. Constructs a stress tensor from a given set of scalar stress components.
   Stress(const ScalarStress<Number>& xx, const ScalarStress<Number>& xy,
          const ScalarStress<Number>& xz, const ScalarStress<Number>& yy,
          const ScalarStress<Number>& yz, const ScalarStress<Number>& zz)
