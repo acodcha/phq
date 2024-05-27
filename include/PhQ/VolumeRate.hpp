@@ -39,7 +39,8 @@
 
 namespace PhQ {
 
-/// \brief Volume rate. Can represent a time rate of change of a volume or a volume flow rate.
+/// \brief Volume rate. Can represent a time rate of change of a volume or a volume flow rate. See
+/// also PhQ::Volume, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class VolumeRate : public DimensionalScalar<Unit::VolumeRate, Number> {
 public:

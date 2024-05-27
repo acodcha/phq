@@ -298,10 +298,6 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(planar_vector GTest::gtest_main)
   gtest_discover_tests(planar_vector)
 
-  add_executable(planar_vector_area ${PROJECT_SOURCE_DIR}/test/PlanarVectorArea.cpp)
-  target_link_libraries(planar_vector_area GTest::gtest_main)
-  gtest_discover_tests(planar_vector_area)
-
   add_executable(planar_velocity ${PROJECT_SOURCE_DIR}/test/PlanarVelocity.cpp)
   target_link_libraries(planar_velocity GTest::gtest_main)
   gtest_discover_tests(planar_velocity)

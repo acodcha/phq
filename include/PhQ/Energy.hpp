@@ -69,7 +69,8 @@ template <typename Number>
 class TransportEnergyConsumption;
 
 /// \brief Energy physical quantity. Can represent any kind of energy, such as kinetic energy,
-/// potential energy, internal energy, and so on.
+/// potential energy, internal energy, and so on. The time rate of change of energy is power; see
+/// PhQ::Power, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class Energy : public DimensionalScalar<Unit::Energy, Number> {
 public:

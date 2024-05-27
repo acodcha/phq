@@ -64,8 +64,8 @@ template <typename Number>
 class SpecificIsochoricHeatCapacity;
 
 /// \brief Heat capacity ratio, also known as ratio of specific heats, adiabatic index, or Laplace's
-/// coefficient. The heat capacity ratio is the ratio of the isobaric heat capacity of a material to
-/// its isochoric heat capacity.
+/// coefficient. A material's heat capacity ratio is the ratio of its isobaric heat capacity to its
+/// isochoric heat capacity; see PhQ::IsobaricHeatCapacity and PhQ::IsochoricHeatCapacity.
 template <typename Number = double>
 class HeatCapacityRatio : public DimensionlessScalar<Number> {
 public:

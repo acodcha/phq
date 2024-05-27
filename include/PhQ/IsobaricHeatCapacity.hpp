@@ -38,7 +38,8 @@
 
 namespace PhQ {
 
-/// \brief Isobaric heat capacity, also known as heat capacity at constant pressure.
+/// \brief Isobaric heat capacity, also known as heat capacity at constant pressure. For the
+/// mass-specific isobaric heat capacity, see PhQ::SpecificIsobaricHeatCapacity.
 template <typename Number = double>
 class IsobaricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity, Number> {
 public:

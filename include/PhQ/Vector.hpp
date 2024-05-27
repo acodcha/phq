@@ -52,8 +52,10 @@ class Direction;
 template <typename>
 class Dyad;
 
-/// \brief Three-dimensional vector in Cartesian coordinates. Contains three components: x, y, and
-/// z.
+/// \brief Three-dimensional Euclidean vector. Contains three components in Cartesian coordinates:
+/// x, y, and z. For a two-dimensional Euclidean vector in the XY plane, see PhQ::PlanarVector. For
+/// a three-dimensional Euclidean dyadic tensor, see PhQ::Dyad. For a three-dimensional symmetric
+/// Euclidean dyadic tensor, see PhQ::SymmetricDyad.
 template <typename Number = double>
 class Vector {
   static_assert(

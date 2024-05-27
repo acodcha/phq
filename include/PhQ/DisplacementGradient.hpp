@@ -43,8 +43,12 @@ namespace PhQ {
 template <typename Number>
 class VelocityGradient;
 
-/// \brief Displacement gradient dyadic tensor. Gradient of the displacement vector. In general,
-/// this dyadic tensor is asymmetric. See also PhQ::ScalarDisplacementGradient.
+/// \brief Three-dimensional Euclidean displacement gradient dyadic tensor. Gradient of the
+/// displacement vector. May be symmetric or asymmetric. Contains nine components in Cartesian
+/// coordinates: xx, xy, xz, yx, yy, yz, zx, zy, and zz. For the scalar components or resultants of
+/// a displacement gradient tensor, see PhQ::ScalarDisplacementGradient. The time rate of change of
+/// a displacement gradient is a velocity gradient; see PhQ::VelocityGradient, PhQ::Time, and
+/// PhQ::Frequency.
 template <typename Number = double>
 class DisplacementGradient : public DimensionlessDyad<Number> {
 public:

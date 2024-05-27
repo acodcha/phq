@@ -58,7 +58,8 @@ class MassDensity;
 template <typename Number>
 class VolumeRate;
 
-/// \brief Volume.
+/// \brief Volume. For the time rate of change of volume, see PhQ::VolumeRate; see also PhQ::Time
+/// and PhQ::Frequency.
 template <typename Number = double>
 class Volume : public DimensionalScalar<Unit::Volume, Number> {
 public:

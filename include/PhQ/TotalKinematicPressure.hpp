@@ -40,8 +40,8 @@
 
 namespace PhQ {
 
-/// \brief Total kinematic pressure, which is the sum of static kinematic pressure and dynamic
-/// kinematic pressure.
+/// \brief Total kinematic pressure, which is total pressure divided by mass density; see
+/// PhQ::TotalPressure and PhQ::MassDensity.
 template <typename Number = double>
 class TotalKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:

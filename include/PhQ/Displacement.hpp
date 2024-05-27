@@ -58,7 +58,11 @@ class Time;
 template <typename Number>
 class Velocity;
 
-/// \brief Displacement vector. Not to be confused with the position vector. See also PhQ::Position.
+/// \brief Three-dimensional Euclidean displacement vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. Displacement is not to be confused with position; for a
+/// three-dimensional Euclidean position vector, see PhQ::Position. For a two-dimensional Euclidean
+/// displacement vector in the XY plane, see PhQ::PlanarDisplacement. For scalar displacement
+/// components or for the magnitude of a displacement vector, see PhQ::Length.
 template <typename Number = double>
 class Displacement : public DimensionalVector<Unit::Length, Number> {
 public:

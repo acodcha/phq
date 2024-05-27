@@ -1053,25 +1053,6 @@ phq_test(
 )
 
 phq_library(
-    name = "PlanarVectorArea",
-    hdrs = ["include/PhQ/PlanarVectorArea.hpp"],
-    deps = [
-        ":Angle",
-        ":Area",
-        ":DimensionalPlanarVector",
-        ":PlanarDirection",
-        ":PlanarVector",
-        ":Unit/Area",
-    ],
-)
-
-phq_test(
-    name = "test/PlanarVectorArea",
-    srcs = ["test/PlanarVectorArea.cpp"],
-    deps = [":PlanarVectorArea"],
-)
-
-phq_library(
     name = "PlanarVelocity",
     hdrs = ["include/PhQ/PlanarVelocity.hpp"],
     deps = [
@@ -2809,7 +2790,6 @@ phq_library(
         ":Area",
         ":DimensionalVector",
         ":Direction",
-        ":PlanarVectorArea",
         ":Unit/Area",
         ":Vector",
     ],

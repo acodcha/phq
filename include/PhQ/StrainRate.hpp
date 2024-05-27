@@ -45,8 +45,10 @@ namespace PhQ {
 template <typename Number>
 class VelocityGradient;
 
-/// \brief Strain rate symmetric dyadic tensor. Time rate of change of the strain symmetric dyadic
-/// tensor. See also PhQ::Strain and PhQ::ScalarStrainRate.
+/// \brief Three-dimensional Euclidean strain rate symmetric dyadic tensor. Time rate of change of
+/// strain. Contains six components in Cartesian coordinates: xx, xy = yx, xz = zx, yy, yz = zy, and
+/// zz. For the scalar components or resultants of a strain rate tensor, see PhQ::ScalarStrainRate.
+/// See also PhQ::Strain, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class StrainRate : public DimensionalSymmetricDyad<Unit::Frequency, Number> {
 public:

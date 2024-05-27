@@ -39,7 +39,11 @@
 
 namespace PhQ {
 
-/// \brief Thermal conductivity symmetric dyadic tensor. See also PhQ::ScalarThermalConductivity.
+/// \brief Three-dimensional Euclidean Cauchy thermal conductivity symmetric dyadic tensor. Contains
+/// six components in Cartesian coordinates: xx, xy = yx, xz = zx, yy, yz = zy, and zz. In general,
+/// thermal conductivity is a tensor; however, in isotropic materials, thermal conductivity
+/// simplifies to a scalar. For the scalar components or resultants of a thermal conductivity
+/// tensor, see PhQ::ScalarThermalConductivity.
 template <typename Number = double>
 class ThermalConductivity : public DimensionalSymmetricDyad<Unit::ThermalConductivity, Number> {
 public:

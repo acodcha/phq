@@ -131,7 +131,7 @@ class VectorArea;
 template <typename Number>
 class Velocity;
 
-/// \brief Planar angle.
+/// \brief Plane angle between two lines or dihedral angle between two planes.
 template <typename Number = double>
 class Angle : public DimensionalScalar<Unit::Angle, Number> {
 public:

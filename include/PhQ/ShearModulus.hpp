@@ -37,7 +37,9 @@
 namespace PhQ {
 
 /// \brief Shear modulus of elasticity of a deformable solid material. A measure of a deformable
-/// solid material's elastic modulus.
+/// solid material's elastic modulus. For other measures of a material's elastic modulus, see
+/// PhQ::YoungModulus, PhQ::IsentropicBulkModulus, PhQ::IsothermalBulkModulus, PhQ::LameModulus,
+/// PhQ::PWaveModulus, and PhQ::PoissonRatio.
 template <typename Number = double>
 class ShearModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:

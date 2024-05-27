@@ -37,7 +37,8 @@
 
 namespace PhQ {
 
-/// \brief Isochoric heat capacity, also known as heat capacity at constant volume.
+/// \brief Isochoric heat capacity, also known as heat capacity at constant volume. For the
+/// mass-specific isochoric heat capacity, see PhQ::SpecificIsochoricHeatCapacity.
 template <typename Number = double>
 class IsochoricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity, Number> {
 public:

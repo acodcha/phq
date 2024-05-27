@@ -64,8 +64,9 @@ class Speed;
 template <typename Number>
 class ThermalDiffusivity;
 
-/// \brief Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic viscosity is
-/// defined as dynamic viscosity divided by mass density.
+/// \brief Kinematic viscosity, also known as molecular kinematic viscosity. Defined as dynamic
+/// viscosity divided by mass density; see PhQ::DynamicViscosity and PhQ::MassDensity. Also appears
+/// in the definition of the Prandtl number; see PhQ::PrandtlNumber and PhQ::ThermalDiffusivity.
 template <typename Number = double>
 class KinematicViscosity : public DimensionalScalar<Unit::Diffusivity, Number> {
 public:

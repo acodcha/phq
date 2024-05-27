@@ -41,7 +41,7 @@
 
 namespace PhQ {
 
-/// \brief Specific power. Power per unit mass.
+/// \brief Mass-specific power. Power per unit mass; see PhQ::Power and PhQ::Mass.
 template <typename Number = double>
 class SpecificPower : public DimensionalScalar<Unit::SpecificPower, Number> {
 public:

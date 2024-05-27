@@ -42,7 +42,10 @@
 
 namespace PhQ {
 
-/// \brief Temperature gradient vector. See also PhQ::ScalarTemperatureGradient.
+/// \brief Three-dimensional Euclidean temperature gradient vector. Contains three components in
+/// Cartesian coordinates: x, y, and z. For a two-dimensional Euclidean temperature gradient vector
+/// in the XY plane, see PhQ::PlanarTemperatureGradient. For scalar temperature gradient components
+/// or for the magnitude of a temperature gradient vector, see PhQ::ScalarTemperatureGradient.
 template <typename Number = double>
 class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient, Number> {
 public:

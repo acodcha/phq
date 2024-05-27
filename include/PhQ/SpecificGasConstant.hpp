@@ -41,7 +41,8 @@
 
 namespace PhQ {
 
-/// \brief Specific gas constant of a gas. Gas constant per unit mass.
+/// \brief Mass-specific gas constant of a gas. Gas constant per unit mass; see PhQ::GasConstant and
+/// PhQ::Mass. PhQ::Mass.
 template <typename Number = double>
 class SpecificGasConstant : public DimensionalScalar<Unit::SpecificHeatCapacity, Number> {
 public:

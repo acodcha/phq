@@ -69,8 +69,10 @@ class Traction;
 template <typename Number>
 class VectorArea;
 
-/// \brief Scalar area. Can also represent a component or the magnitude of a vector area or planar
-/// vector area. See also PhQ::VectorArea and PhQ::PlanarVectorArea.
+/// \brief Surface area or cross-sectional area. Can also represent a scalar component of a vector
+/// area or the magnitude of a vector area. Any closed surface has a vector area: it is the surface
+/// integral of its surface normal direction. A vector area is an oriented area; it is the
+/// three-dimensional Euclidean vector representation of an area; see PhQ::VectorArea.
 template <typename Number = double>
 class Area : public DimensionalScalar<Unit::Area, Number> {
 public:

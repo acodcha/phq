@@ -44,8 +44,10 @@ class MassDensity;
 template <typename Number>
 class SoundSpeed;
 
-/// \brief Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus. See also
-/// PhQ::IsothermalBulkModulus.
+/// \brief Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus; see
+/// PhQ::IsothermalBulkModulus. Solid materials usually have very similar isentropic and isothermal
+/// bulk moduli; however, in general, fluid materials have differing isentropic and isothermal bulk
+/// moduli.
 template <typename Number = double>
 class IsentropicBulkModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:

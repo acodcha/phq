@@ -61,7 +61,9 @@ class ScalarTraction;
 template <typename Number>
 class StaticPressure;
 
-/// \brief Scalar force component or magnitude of a force vector. See also PhQ::Force.
+/// \brief Scalar force component or magnitude of a force vector. For a three-dimensional Euclidean
+/// force vector, see PhQ::Force. For a two-dimensional Euclidean force vector in the XY plane, see
+/// PhQ::PlanarForce.
 template <typename Number = double>
 class ScalarForce : public DimensionalScalar<Unit::Force, Number> {
 public:

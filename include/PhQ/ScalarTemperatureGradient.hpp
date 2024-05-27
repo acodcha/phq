@@ -54,8 +54,10 @@ class PlanarTemperatureGradient;
 template <typename Number>
 class TemperatureGradient;
 
-/// \brief Scalar temperature gradient component or magnitude of a temperature gradient vector. See
-/// also PhQ::TemperatureGradient.
+/// \brief Scalar temperature gradient component or magnitude of a temperature gradient vector. For
+/// a three-dimensional Euclidean temperature gradient vector, see PhQ::TemperatureGradient. For a
+/// two-dimensional Euclidean temperature gradient vector in the XY plane, see
+/// PhQ::PlanarTemperatureGradient.
 template <typename Number = double>
 class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient, Number> {
 public:

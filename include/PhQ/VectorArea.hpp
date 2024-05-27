@@ -36,31 +36,30 @@
 #include "Area.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
-#include "PlanarVectorArea.hpp"
 #include "Unit/Area.hpp"
 #include "Vector.hpp"
 
 namespace PhQ {
 
-/// \brief Vector-area. The vector analog to a scalar area. See also PhQ::Area.
+/// \brief Three-dimensional Euclidean vector area. Contains three components in Cartesian
+/// coordinates: x, y, and z. A vector area is an oriented area; it is the three-dimensional
+/// Euclidean vector representation of an area. Any closed surface has a vector area: it is the
+/// surface integral of its surface normal direction. For the scalar components of a vector area or
+/// for the magnitude of a vector area, see PhQ::Area.
 template <typename Number = double>
 class VectorArea : public DimensionalVector<Unit::Area, Number> {
 public:
   /// \brief Default constructor. Constructs a vector area with an uninitialized value.
   VectorArea() = default;
 
-  /// \brief Constructor. Constructs a vector area with a given value expressedin a given area unit.
+  /// \brief Constructor. Constructs a vector area with a given value expressed in a given area
+  /// unit.
   VectorArea(const Vector<Number>& value, const Unit::Area unit)
     : DimensionalVector<Unit::Area, Number>(value, unit) {}
 
   /// \brief Constructor. Constructs a vector area from a given area and direction.
   constexpr VectorArea(const Area<Number>& area, const Direction<Number>& direction)
     : VectorArea<Number>(area.Value() * direction.Value()) {}
-
-  /// \brief Constructor. Constructs a vector area from a given planar vector area in the XY plane.
-  /// This vector area's z-component is initialized to zero.
-  explicit constexpr VectorArea(const PlanarVectorArea<Number>& planar_force)
-    : VectorArea<Number>(Vector<Number>{planar_force.Value()}) {}
 
   /// \brief Destructor. Destroys this vector area.
   ~VectorArea() noexcept = default;
@@ -252,10 +251,6 @@ inline constexpr VectorArea<Number> Area<Number>::operator*(
     const Direction<Number>& direction) const {
   return VectorArea<Number>{*this, direction};
 }
-
-template <typename Number>
-inline constexpr PlanarVectorArea<Number>::PlanarVectorArea(const VectorArea<Number>& vector_area)
-  : PlanarVectorArea(PlanarVector<Number>{vector_area.Value()}) {}
 
 }  // namespace PhQ
 

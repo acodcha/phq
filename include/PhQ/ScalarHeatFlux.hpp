@@ -46,7 +46,9 @@ class HeatFlux;
 template <typename Number>
 class PlanarHeatFlux;
 
-/// \brief Scalar heat flux component or magnitude of a heat flux vector. See also PhQ::HeatFlux.
+/// \brief Scalar heat flux component or magnitude of a heat flux vector. For a three-dimensional
+/// Euclidean heat flux vector, see PhQ::HeatFlux. For a two-dimensional Euclidean heat flux vector
+/// in the XY plane, see PhQ::PlanarHeatFlux.
 template <typename Number = double>
 class ScalarHeatFlux : public DimensionalScalar<Unit::EnergyFlux, Number> {
 public:

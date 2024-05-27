@@ -56,9 +56,10 @@ class SpecificIsobaricHeatCapacity;
 template <typename Number>
 class ThermalDiffusivity;
 
-/// \brief Scalar component or resultant of a thermal conductivity tensor. For materials that are
-/// isotropic, thermal conductivity can be represented by a scalar rather than a dyadic tensor. See
-/// also PhQ::ThermalConductivity.
+/// \brief Scalar component or resultant of a three-dimensional Euclidean thermal conductivity
+/// symmetric dyadic tensor. In general, thermal conductivity is a tensor; however, in isotropic
+/// materials, thermal conductivity simplifies to a scalar. For the related tensor, see
+/// PhQ::ThermalConductivity.
 template <typename Number = double>
 class ScalarThermalConductivity : public DimensionalScalar<Unit::ThermalConductivity, Number> {
 public:

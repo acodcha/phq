@@ -165,11 +165,6 @@ TEST(Direction, Hash) {
   EXPECT_NE(hasher(second), hasher(third));
 }
 
-TEST(Direction, IsZero) {
-  EXPECT_FALSE(Direction(1.0, -2.0, 3.0).IsZero());
-  EXPECT_TRUE(Direction(0.0, 0.0, 0.0).IsZero());
-}
-
 TEST(Direction, JSON) {
   EXPECT_EQ(Direction(0.0, -2.0, 0.0).JSON(),
             "{\"x\":" + Print(0.0) + ",\"y\":" + Print(-1.0) + ",\"z\":" + Print(0.0) + "}");

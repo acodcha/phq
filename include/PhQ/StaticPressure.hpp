@@ -64,8 +64,10 @@ class TotalPressure;
 
 /// \brief Static pressure. Pressure of a fluid at rest. Not to be confused with dynamic pressure,
 /// which is the additional pressure resulting from the kinetic energy of a flowing fluid, or total
-/// pressure, which is the sum of static pressure and dynamic pressure. Can represent either an
-/// absolute static pressure or a static pressure difference relative to another static pressure.
+/// pressure, which is the sum of static pressure and dynamic pressure. See PhQ::DynamicPressure and
+/// PhQ::TotalPressure. Can represent either an absolute static pressure or a static pressure
+/// difference relative to another static pressure. For static kinematic pressure, see
+/// PhQ::StaticKinematicPressure.
 template <typename Number = double>
 class StaticPressure : public DimensionalScalar<Unit::Pressure, Number> {
 public:

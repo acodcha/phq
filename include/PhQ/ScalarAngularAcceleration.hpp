@@ -39,9 +39,9 @@
 
 namespace PhQ {
 
-/// \brief Planar scalar angular acceleration component or magnitude of an angular acceleration
-/// pseudovector. Time rate of change of angular speed. Typically measured in radians per square
-/// second.
+/// @brief Scalar angular acceleration. Represents the time rate of change of an angular speed; see
+/// also PhQ::AngularSpeed, PhQ::Time, and PhQ::Frequency. Can also represent a component or the
+/// magnitude of an angular acceleration pseudovector.
 template <typename Number = double>
 class ScalarAngularAcceleration : public DimensionalScalar<Unit::AngularAcceleration, Number> {
 public:

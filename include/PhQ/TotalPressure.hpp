@@ -43,7 +43,9 @@ namespace PhQ {
 template <typename Number>
 class TotalKinematicPressure;
 
-/// \brief Total pressure, which is the sum of static pressure and dynamic pressure.
+/// \brief Total pressure, which is the sum of static pressure and dynamic pressure; see
+/// PhQ::StaticPressure and PhQ::DynamicPressure. For total kinematic pressure, see
+/// PhQ::TotalKinematicPressure.
 template <typename Number = double>
 class TotalPressure : public DimensionalScalar<Unit::Pressure, Number> {
 public:

@@ -36,7 +36,7 @@
 
 namespace PhQ {
 
-/// \brief Amount of substance scalar quantity. Typically measured in moles (mol).
+/// \brief Amount of substance. Typically measured in moles (mol).
 template <typename Number = double>
 class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount, Number> {
 public:

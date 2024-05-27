@@ -40,7 +40,7 @@
 namespace PhQ {
 
 /// \brief Computer memory rate. Can represent the time rate of change of memory or a memory
-/// transfer speed.
+/// transfer speed; see PhQ::Memory, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class MemoryRate : public DimensionalScalar<Unit::MemoryRate, Number> {
 public:

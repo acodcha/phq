@@ -104,8 +104,11 @@ class TransportEnergyConsumption;
 template <typename Number>
 class Volume;
 
-/// \brief Length, size, or distance. Can also represent the magnitude of a position vector or
-/// displacement vector.
+/// \brief Length, distance, or physical size. Can also represent a scalar component or magnitude of
+/// a position or displacement vector. For a three-dimensional Euclidean position vector, see
+/// PhQ::Position. For a three-dimensional Euclidean displacement vector, see PhQ::Displacement. For
+/// a two-dimensional Euclidean position vector in the XY plane, see PhQ::PlanarPosition. For a
+/// two-dimensional Euclidean displacement vector in the XY plane, see PhQ::PlanarDisplacement.
 template <typename Number = double>
 class Length : public DimensionalScalar<Unit::Length, Number> {
 public:

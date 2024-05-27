@@ -43,7 +43,10 @@
 
 namespace PhQ {
 
-/// \brief Planar heat flux vector in the XY plane. See also PhQ::HeatFlux and PhQ::ScalarHeatFlux.
+/// \brief Two-dimensional Euclidean heat flux vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. For a three-dimensional Euclidean heat flux vector, see
+/// PhQ::HeatFlux. For scalar heat flux components or for the magnitude of a heat flux vector, see
+/// PhQ::ScalarHeatFlux.
 template <typename Number = double>
 class PlanarHeatFlux : public DimensionalPlanarVector<Unit::EnergyFlux, Number> {
 public:

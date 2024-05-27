@@ -37,7 +37,9 @@
 namespace PhQ {
 
 /// \brief P-wave modulus of elasticity of a deformable solid material. A measure of a deformable
-/// solid material's elastic modulus.
+/// solid material's elastic modulus. For other measures of a material's elastic modulus, see
+/// PhQ::YoungModulus, PhQ::ShearModulus, PhQ::IsentropicBulkModulus, PhQ::IsothermalBulkModulus,
+/// PhQ::LameModulus, and PhQ::PoissonRatio.
 template <typename Number = double>
 class PWaveModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:

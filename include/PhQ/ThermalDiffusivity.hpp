@@ -43,7 +43,11 @@ namespace PhQ {
 template <typename Number>
 class PrandtlNumber;
 
-/// \brief Thermal diffusivity.
+/// \brief Thermal diffusivity of a material. Measures the rate of heat transfer inside a material.
+/// Equals the scalar thermal conductivity divided by the mass density and specific isobaric heat
+/// capacity; see PhQ::ScalarThermalConductivity, PhQ::MassDensity, and
+/// PhQ::SpecificIsobaricHeatCapacity. Also appears in the definition of the Prandtl number; see
+/// PhQ::PrandtlNumber and PhQ::KinematicViscosity.
 template <typename Number = double>
 class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity, Number> {
 public:

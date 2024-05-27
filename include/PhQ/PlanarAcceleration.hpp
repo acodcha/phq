@@ -44,8 +44,10 @@
 
 namespace PhQ {
 
-/// \brief Planar acceleration vector in the XY plane. See also PhQ::Acceleration and
-/// PhQ::ScalarAcceleration.
+/// \brief Two-dimensional Euclidean acceleration vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. For a three-dimensional Euclidean acceleration vector, see
+/// PhQ::Acceleration. For scalar acceleration components or for the magnitude of an acceleration
+/// vector, see PhQ::ScalarAcceleration.
 template <typename Number = double>
 class PlanarAcceleration : public DimensionalPlanarVector<Unit::Acceleration, Number> {
 public:

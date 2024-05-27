@@ -43,8 +43,11 @@
 
 namespace PhQ {
 
-/// \brief Position vector. Not to be confused with the displacement vector. See also
-/// PhQ::Displacement.
+/// \brief Three-dimensional Euclidean position vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. Position is not to be confused with displacement; for a
+/// three-dimensional Euclidean displacement vector, see PhQ::Displacement. For a two-dimensional
+/// Euclidean position vector in the XY plane, see PhQ::PlanarPosition. For scalar position
+/// components or for the magnitude of a position vector, see PhQ::Length.
 template <typename Number = double>
 class Position : public DimensionalVector<Unit::Length, Number> {
 public:

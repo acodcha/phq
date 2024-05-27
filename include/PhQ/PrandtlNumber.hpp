@@ -40,7 +40,10 @@
 
 namespace PhQ {
 
-/// \brief Prandtl number of a fluid.
+/// \brief Prandtl number of a fluid. Represents the ratio of the momentum diffusivity to the
+/// thermal diffusivity of a fluid. See also PhQ::KinematicViscosity,
+/// PhQ::SpecificIsobaricHeatCapacity, PhQ::DynamicViscosity, PhQ::ScalarThermalConductivity, and
+/// PhQ::ThermalDiffusivity.
 template <typename Number = double>
 class PrandtlNumber : public DimensionlessScalar<Number> {
 public:

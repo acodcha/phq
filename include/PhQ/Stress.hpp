@@ -45,7 +45,9 @@
 
 namespace PhQ {
 
-/// \brief Cauchy stress symmetric dyadic tensor. See also PhQ::ScalarStress.
+/// \brief Three-dimensional Euclidean Cauchy stress symmetric dyadic tensor. Contains six
+/// components in Cartesian coordinates: xx, xy = yx, xz = zx, yy, yz = zy, and zz. For the scalar
+/// components or resultants of a Cauchy stress tensor, see PhQ::ScalarStress.
 template <typename Number = double>
 class Stress : public DimensionalSymmetricDyad<Unit::Pressure, Number> {
 public:

@@ -39,8 +39,9 @@
 
 namespace PhQ {
 
-/// \brief Scalar component or resultant of a strain rate tensor. Time rate of change of a scalar
-/// strain. See also PhQ::StrainRate and PhQ::ScalarStrain.
+/// \brief Scalar component or resultant of a three-dimensional Euclidean strain rate symmetric
+/// dyadic tensor. For the related tensor, see PhQ::StrainRate. See also PhQ::ScalarStrain,
+/// PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class ScalarStrainRate : public DimensionalScalar<Unit::Frequency, Number> {
 public:

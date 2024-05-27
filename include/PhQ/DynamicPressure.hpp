@@ -44,6 +44,8 @@ class DynamicKinematicPressure;
 
 /// \brief Dynamic pressure, which is the additional pressure arising from a flowing fluid's kinetic
 /// energy. Dynamic pressure can be thought of as a flowing fluid's kinetic energy per unit volume.
+/// Not to be confused with static pressure or total pressure; see PhQ::StaticPressure and
+/// PhQ::TotalPressure. For dynamic kinematic pressure, see PhQ::DynamicKinematicPressure.
 template <typename Number = double>
 class DynamicPressure : public DimensionalScalar<Unit::Pressure, Number> {
 public:

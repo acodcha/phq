@@ -96,7 +96,8 @@ class SpecificPower;
 template <typename Number>
 class Volume;
 
-/// \brief Mass.
+/// \brief Mass. For the time rate of change of mass, see PhQ::MassRate; see also PhQ::Time and
+/// PhQ::Frequency.
 template <typename Number = double>
 class Mass : public DimensionalScalar<Unit::Mass, Number> {
 public:

@@ -55,8 +55,9 @@ class PlanarAcceleration;
 template <typename Number>
 class PlanarDirection;
 
-/// \brief Scalar acceleration component or magnitude of an acceleration vector. See also
-/// PhQ::Acceleration.
+/// \brief Scalar acceleration component or magnitude of an acceleration vector. For a
+/// three-dimensional Euclidean acceleration vector, see PhQ::Acceleration. For a two-dimensional
+/// Euclidean acceleration vector in the XY plane, see PhQ::PlanarAcceleration.
 template <typename Number = double>
 class ScalarAcceleration : public DimensionalScalar<Unit::Acceleration, Number> {
 public:

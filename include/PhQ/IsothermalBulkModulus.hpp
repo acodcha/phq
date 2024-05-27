@@ -36,8 +36,10 @@
 
 namespace PhQ {
 
-/// \brief Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus. See also
-/// PhQ::IsentropicBulkModulus.
+/// \brief Isothermal bulk modulus of a material. Not to be confused with the isentropic bulk
+/// modulus; see PhQ::IsentropicBulkModulus. Solid materials usually have very similar isentropic
+/// and isothermal bulk moduli; however, in general, fluid materials have differing isentropic and
+/// isothermal bulk moduli.
 template <typename Number = double>
 class IsothermalBulkModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:

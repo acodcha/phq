@@ -48,7 +48,8 @@ class Frequency;
 template <typename Number>
 class MemoryRate;
 
-/// \brief Computer memory.
+/// \brief Computer memory. For the time rate of change of computer memory, see PhQ::MemoryRate; see
+/// also PhQ::Time and PhQ::Frequency.
 template <typename Number = double>
 class Memory : public DimensionalScalar<Unit::Memory, Number> {
 public:

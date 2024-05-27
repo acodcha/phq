@@ -59,7 +59,9 @@ class ScalarThermalConductivity;
 template <typename Number>
 class ThermalDiffusivity;
 
-/// \brief Specific isobaric heat capacity. Isobaric heat capacity per unit mass.
+/// \brief Mass-specific isobaric heat capacity, also known as mass-specific heat capacity at
+/// constant pressure, or isobaric heat capacity per unit mass; see PhQ::IsobaricHeatCapacity and
+/// PhQ::Mass.
 template <typename Number = double>
 class SpecificIsobaricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, Number> {
 public:

@@ -39,8 +39,9 @@
 namespace PhQ {
 
 /// \brief Linear thermal expansion coefficient. Not to be confused with the volumetric thermal
-/// expansion coefficient. For isotropic materials, the volumetric thermal expansion coefficient is
-/// usually three times the linear thermal expansion coefficient.
+/// expansion coefficient; see PhQ::VolumetricThermalExpansionCoefficient. For isotropic materials,
+/// the volumetric thermal expansion coefficient is usually three times the linear thermal expansion
+/// coefficient.
 template <typename Number = double>
 class LinearThermalExpansionCoefficient : public DimensionalScalar<Unit::ThermalExpansion, Number> {
 public:

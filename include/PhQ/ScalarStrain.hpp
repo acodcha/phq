@@ -55,8 +55,9 @@ class TemperatureDifference;
 template <typename Number>
 class Time;
 
-/// \brief Scalar component or resultant of a strain tensor. See also PhQ::Strain and
-/// PhQ::ScalarStrainRate.
+/// \brief Scalar component or resultant of a three-dimensional Euclidean strain symmetric dyadic
+/// tensor. For the related tensor, see PhQ::Strain. For the time rate of change of scalar strain,
+/// see PhQ::ScalarStrainRate, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class ScalarStrain : public DimensionlessScalar<Number> {
 public:

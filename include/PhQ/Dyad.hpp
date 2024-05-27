@@ -42,8 +42,11 @@
 
 namespace PhQ {
 
-/// \brief Three-dimensional dyadic tensor in Cartesian coordinates. May be non-symmetric. Contains
-/// nine components: xx, xy, xz, yx, yy, yz, zx, zy, and zz.
+/// \brief Three-dimensional Euclidean dyadic tensor. Contains nine components in Cartesian
+/// coordinates: xx, xy, xz, yx, yy, yz, zx, zy, and zz. May be symmetric or asymmetric. For a
+/// symmetric three-dimensional Euclidean dyadic tensor, see PhQ::SymmetricDyad. For a
+/// three-dimensional Euclidean vector, see PhQ::Vector. For a two-dimensional Euclidean vector in
+/// the XY plane, see PhQ::PlanarVector.
 template <typename Number = double>
 class Dyad {
   static_assert(
