@@ -110,8 +110,9 @@ class VectorArea;
 template <typename Number>
 class Velocity;
 
-/// \brief Direction. This is guaranteed to be either a unit vector or the zero vector (0, 0, 0).
-/// Use the IsZero() method to check whether the direction is a unit vector or the zero vector.
+/// \brief Three-dimensional Euclidean direction vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. Guaranteed to be either a unit vector or the zero vector (0, 0, 0).
+/// For a two-dimensional Euclidean direction vector in the XY plane, see PhQ::PlanarDirection.
 template <typename Number = double>
 class Direction : public DimensionlessVector<Number> {
 public:
@@ -247,12 +248,6 @@ public:
   /// the given vector is a zero vector, sets the direction to the zero vector.
   constexpr void Set(const Vector<Number>& value) {
     Set(value.x_y_z());
-  }
-
-  /// \brief Returns true if this direction is the zero vector, or false if it is a unit vector.
-  [[nodiscard]] constexpr bool IsZero() const noexcept {
-    return this->value.x() == static_cast<Number>(0) && this->value.y() == static_cast<Number>(0)
-           && this->value.z() == static_cast<Number>(0);
   }
 
   /// \brief Returns the square of the magnitude of this direction. This is guaranteed to be exactly

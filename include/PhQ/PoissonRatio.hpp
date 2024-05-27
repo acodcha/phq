@@ -35,7 +35,10 @@
 
 namespace PhQ {
 
-/// \brief Poisson's ratio of a deformable solid material.
+/// \brief Poisson's ratio of a deformable solid material. Measures the deformation of a deformable
+/// solid material subjected to a load in directions perpendicular to the direction of loading.
+/// Poisson's ratios range from -1 to 0.5, though most deformable solid materials have a
+/// Poisson's ratio between 0 and 0.5.
 template <typename Number = double>
 class PoissonRatio : public DimensionlessScalar<Number> {
 public:

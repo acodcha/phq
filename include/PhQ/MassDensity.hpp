@@ -78,7 +78,7 @@ class Speed;
 template <typename Number>
 class ThermalDiffusivity;
 
-/// \brief Mass density.
+/// \brief Mass density. Mass per unit volume; see PhQ::Mass and PhQ::Volume.
 template <typename Number = double>
 class MassDensity : public DimensionalScalar<Unit::MassDensity, Number> {
 public:

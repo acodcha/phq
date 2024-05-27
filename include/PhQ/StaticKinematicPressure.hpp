@@ -46,7 +46,8 @@ class DynamicKinematicPressure;
 template <typename Number>
 class TotalKinematicPressure;
 
-/// \brief Static kinematic pressure, which is static pressure divided by mass density.
+/// \brief Static kinematic pressure, which is static pressure divided by mass density; see
+/// PhQ::StaticPressure and PhQ::MassDensity.
 template <typename Number = double>
 class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:

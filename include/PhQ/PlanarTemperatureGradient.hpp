@@ -41,8 +41,10 @@
 
 namespace PhQ {
 
-/// \brief Planar temperature gradient vector in the XY plane. See also PhQ::TemperatureGradient and
-/// PhQ::ScalarTemperatureGradient.
+/// \brief Two-dimensional Euclidean temperature gradient vector in the XY plane. Contains two
+/// components in Cartesian coordinates: x and y. For a three-dimensional Euclidean temperature
+/// gradient vector, see PhQ::TemperatureGradient. For scalar temperature gradient components or for
+/// the magnitude of a temperature gradient vector, see PhQ::ScalarTemperatureGradient.
 template <typename Number = double>
 class PlanarTemperatureGradient
   : public DimensionalPlanarVector<Unit::TemperatureGradient, Number> {

@@ -50,7 +50,10 @@ class MachNumber;
 template <typename Number>
 class Speed;
 
-/// \brief Speed of sound. Applies to any deformable medium, including fluids and elastic solids.
+/// \brief Speed of sound. Applies to any deformable material, including fluids and deformable
+/// solids. Defined as the ratio of a material's isentropic bulk modulus to its mass density; see
+/// PhQ::IsentropicBulkModulus and PhQ::MassDensity. The speed of sound also appears in the
+/// definition of the Mach number; see PhQ::MachNumber and PhQ::Speed.
 template <typename Number = double>
 class SoundSpeed : public DimensionalScalar<Unit::Speed, Number> {
 public:

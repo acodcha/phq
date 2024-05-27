@@ -47,8 +47,10 @@ class ScalarVelocityGradient;
 template <typename Number>
 class Time;
 
-/// \brief Scalar component or resultant of a displacement gradient tensor. See also
-/// PhQ::DisplacementGradient and PhQ::ScalarVelocityGradient.
+/// \brief Scalar component or resultant of a three-dimensional Euclidean displacement gradient
+/// dyadic tensor. For the related tensor, see PhQ::DisplacementGradient. The time rate of change of
+/// a scalar displacement gradient is a scalar velocity gradient; see PhQ::ScalarVelocityGradient,
+/// PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class ScalarDisplacementGradient : public DimensionlessScalar<Number> {
 public:

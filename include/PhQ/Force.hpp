@@ -46,7 +46,10 @@ namespace PhQ {
 template <typename Number>
 class Traction;
 
-/// \brief Force vector. See also PhQ::ScalarForce.
+/// \brief Three-dimensional Euclidean force vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. For a two-dimensional Euclidean force vector in the XY plane, see
+/// PhQ::PlanarForce. For scalar force components or for the magnitude of a force vector, see
+/// PhQ::ScalarForce.
 template <typename Number = double>
 class Force : public DimensionalVector<Unit::Force, Number> {
 public:

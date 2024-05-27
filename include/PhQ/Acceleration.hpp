@@ -45,7 +45,10 @@
 
 namespace PhQ {
 
-/// \brief Acceleration vector. See also PhQ::ScalarAcceleration.
+/// \brief Three-dimensional Euclidean acceleration vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. For a two-dimensional Euclidean acceleration vector in the XY plane,
+/// see PhQ::PlanarAcceleration. For scalar acceleration components or for the magnitude of an
+/// acceleration vector, see PhQ::ScalarAcceleration.
 template <typename Number = double>
 class Acceleration : public DimensionalVector<Unit::Acceleration, Number> {
 public:

@@ -45,7 +45,7 @@ namespace PhQ {
 template <typename Number>
 class SpecificPower;
 
-/// \brief Specific energy. Energy per unit mass.
+/// \brief Mass-specific energy. Energy per unit mass; see PhQ::Energy and PhQ::Mass.
 template <typename Number = double>
 class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:

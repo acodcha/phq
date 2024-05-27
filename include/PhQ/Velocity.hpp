@@ -49,8 +49,10 @@ namespace PhQ {
 template <typename Number>
 class Acceleration;
 
-/// \brief Velocity vector. Not to be confused with speed, which is its scalar analog. See also
-/// PhQ::Speed and PhQ::PlanarVelocity.
+/// \brief Three-dimensional Euclidean velocity vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. For a two-dimensional Euclidean velocity vector in the XY plane, see
+/// PhQ::PlanarVelocity. For scalar velocity components or for the magnitude of a velocity vector,
+/// see PhQ::Speed.
 template <typename Number = double>
 class Velocity : public DimensionalVector<Unit::Speed, Number> {
 public:

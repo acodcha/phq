@@ -37,7 +37,9 @@
 
 namespace PhQ {
 
-/// \brief Mach number of a fluid flow.
+/// \brief Mach number of a fluid flow. Measures the local compressibility of a fluid flow.
+/// Represents the ratio of a fluid's local speed to its local speed of sound. See also PhQ::Speed
+/// and PhQ::SoundSpeed.
 template <typename Number = double>
 class MachNumber : public DimensionlessScalar<Number> {
 public:

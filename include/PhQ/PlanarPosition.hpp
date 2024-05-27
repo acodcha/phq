@@ -42,8 +42,11 @@
 
 namespace PhQ {
 
-/// \brief Planar position vector in the XY plane. Not to be confused with the planar displacement
-/// vector in the XY plane. See also PhQ::PlanarDisplacement.
+/// \brief Two-dimensional Euclidean position vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. Position is not to be confused with displacement; for a
+/// two-dimensional Euclidean displacement vector in the XY plane, see PhQ::PlanarDisplacement. For
+/// a three-dimensional Euclidean position vector, see PhQ::Position. For scalar position components
+/// or for the magnitude of a position vector, see PhQ::Length.
 template <typename Number = double>
 class PlanarPosition : public DimensionalPlanarVector<Unit::Length, Number> {
 public:

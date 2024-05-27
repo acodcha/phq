@@ -55,8 +55,10 @@ class PlanarDirection;
 template <typename Number>
 class Vector;
 
-/// \brief Two-dimensional planar vector in the XY plane in Cartesian coordinates. Contains two
-/// components: x and y.
+/// \brief Two-dimensional Euclidean vector in the XY plane. Contains two components in Cartesian
+/// coordinates: x and y. For a three-dimensional Euclidean vector, see PhQ::Vector. For a
+/// three-dimensional Euclidean dyadic tensor, see PhQ::Dyad. For a three-dimensional symmetric
+/// Euclidean dyadic tensor, see PhQ::SymmetricDyad.
 template <typename Number = double>
 class PlanarVector {
   static_assert(std::is_floating_point<Number>::value,

@@ -37,7 +37,10 @@
 namespace PhQ {
 
 /// \brief Lamé's first modulus of elasticity of a deformable solid material. First of the two Lamé
-/// parameters. A measure of a deformable solid material's elastic modulus.
+/// parameters. A measure of a deformable solid material's elastic modulus. For other measures of a
+/// material's elastic modulus, see PhQ::YoungModulus, PhQ::ShearModulus,
+/// PhQ::IsentropicBulkModulus, PhQ::IsothermalBulkModulus, PhQ::PWaveModulus, and
+/// PhQ::PoissonRatio.
 template <typename Number = double>
 class LameFirstModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:

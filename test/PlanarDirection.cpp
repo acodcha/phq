@@ -158,11 +158,6 @@ TEST(PlanarDirection, Hash) {
   EXPECT_NE(hasher(second), hasher(third));
 }
 
-TEST(PlanarDirection, IsZero) {
-  EXPECT_FALSE(PlanarDirection(1.0, -2.0).IsZero());
-  EXPECT_TRUE(PlanarDirection(0.0, 0.0).IsZero());
-}
-
 TEST(PlanarDirection, JSON) {
   EXPECT_EQ(
       PlanarDirection(0.0, -2.0).JSON(), "{\"x\":" + Print(0.0) + ",\"y\":" + Print(-1.0) + "}");

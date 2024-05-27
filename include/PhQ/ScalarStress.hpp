@@ -40,7 +40,8 @@ namespace PhQ {
 template <typename Number>
 class Stress;
 
-/// \brief Scalar component or resultant of a Cauchy stress tensor. See also PhQ::Stress.
+/// \brief Scalar component or resultant of a three-dimensional Euclidean Cauchy stress symmetric
+/// dyadic tensor. For the related tensor, see PhQ::Stress.
 template <typename Number = double>
 class ScalarStress : public DimensionalScalar<Unit::Pressure, Number> {
 public:

@@ -160,7 +160,8 @@ class Volume;
 template <typename Number>
 class VolumeRate;
 
-/// \brief Time. Can represent either a point in time, a time duration, or a period.
+/// \brief Time. Can represent either a point in time, a time duration, or a period. For the inverse
+/// of time, see PhQ::Frequency.
 template <typename Number = double>
 class Time : public DimensionalScalar<Unit::Time, Number> {
 public:

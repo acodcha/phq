@@ -39,7 +39,9 @@
 
 namespace PhQ {
 
-/// \brief Specific isochoric heat capacity. Isochoric heat capacity per unit mass.
+/// \brief Mass-specific isochoric heat capacity, also known as mass-specific heat capacity at
+/// constant volume, or isochoric heat capacity per unit mass; see PhQ::IsochoricHeatCapacity and
+/// PhQ::Mass.
 template <typename Number = double>
 class SpecificIsochoricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, Number> {
 public:

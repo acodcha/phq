@@ -46,7 +46,11 @@ namespace PhQ {
 template <typename Number>
 class Stress;
 
-/// \brief Planar traction vector in the XY plane. See also PhQ::Traction and PhQ::ScalarTraction.
+/// \brief Two-dimensional Euclidean traction vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. Traction is similar to pressure; however, traction can act in
+/// any direction, whereas pressure always acts compressively perpendicular to a surface. For a
+/// three-dimensional Euclidean traction vector, see PhQ::Traction. For scalar traction components
+/// or for the magnitude of a traction vector, see PhQ::ScalarTraction.
 template <typename Number = double>
 class PlanarTraction : public DimensionalPlanarVector<Unit::Pressure, Number> {
 public:

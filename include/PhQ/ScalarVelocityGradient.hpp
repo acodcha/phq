@@ -39,9 +39,10 @@
 
 namespace PhQ {
 
-/// \brief Scalar component or resultant of a velocity gradient tensor. Time rate of change of a
-/// scalar displacement gradient. See also PhQ::VelocityGradient and
-/// PhQ::ScalarDisplacementGradient.
+/// \brief Scalar component or resultant of a three-dimensional Euclidean velocity gradient dyadic
+/// tensor. For the related tensor, see PhQ::VelocityGradient. Can also represent the time rate of
+/// change of a scalar displacement gradient; see PhQ::ScalarDisplacementGradient, PhQ::Time, and
+/// PhQ::Frequency.
 template <typename Number = double>
 class ScalarVelocityGradient : public DimensionalScalar<Unit::Frequency, Number> {
 public:

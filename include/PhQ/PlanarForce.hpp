@@ -45,7 +45,9 @@ namespace PhQ {
 template <typename Number>
 class PlanarTraction;
 
-/// \brief Planar force vector in the XY plane. See also PhQ::Force and PhQ::ScalarForce.
+/// \brief Two-dimensional Euclidean force vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. For a three-dimensional Euclidean force vector, see PhQ::Force.
+/// For scalar force components or for the magnitude of a force vector, see PhQ::ScalarForce.
 template <typename Number = double>
 class PlanarForce : public DimensionalPlanarVector<Unit::Force, Number> {
 public:

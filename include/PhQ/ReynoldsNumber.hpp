@@ -40,7 +40,9 @@
 
 namespace PhQ {
 
-/// \brief Reynolds number of a fluid flow.
+/// \brief Reynolds number of a fluid flow. Measures the local turbulence of a fluid flow.
+/// Represents the ratio of local inertial forces to local viscous forces in a fluid flow. See also
+/// PhQ::MassDensity, PhQ::Speed, PhQ::Length, PhQ::DynamicViscosity, and PhQ::KinematicViscosity.
 template <typename Number = double>
 class ReynoldsNumber : public DimensionlessScalar<Number> {
 public:

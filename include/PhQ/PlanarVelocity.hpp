@@ -48,7 +48,10 @@ namespace PhQ {
 template <typename Number>
 class PlanarAcceleration;
 
-/// \brief Planar velocity vector in the XY plane. See also PhQ::Velocity and PhQ::Speed.
+/// \brief Two-dimensional Euclidean velocity vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. For a three-dimensional Euclidean velocity vector, see
+/// PhQ::Velocity. For scalar velocity components or for the magnitude of a velocity vector, see
+/// PhQ::Speed.
 template <typename Number = double>
 class PlanarVelocity : public DimensionalPlanarVector<Unit::Speed, Number> {
 public:

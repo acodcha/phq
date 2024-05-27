@@ -37,7 +37,7 @@
 namespace PhQ {
 
 /// \brief Bulk dynamic viscosity, also known as volume dynamic viscosity or dilatational dynamic
-/// viscosity.
+/// viscosity. Not to be confused with dynamic viscosity; see PhQ::DynamicViscosity.
 template <typename Number = double>
 class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, Number> {
 public:

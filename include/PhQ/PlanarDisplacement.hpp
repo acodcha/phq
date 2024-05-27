@@ -57,8 +57,11 @@ class PlanarVelocity;
 template <typename Number>
 class Time;
 
-/// \brief Planar displacement vector in the XY plane. Not to be confused with the planar position
-/// vector in the XY plane. See also PhQ::PlanarPosition.
+/// \brief Two-dimensional Euclidean displacement vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. Displacement is not to be confused with position; for a
+/// two-dimensional Euclidean position vector in the XY plane, see PhQ::PlanarPosition. For a
+/// three-dimensional Euclidean displacement vector, see PhQ::Displacement. For scalar displacement
+/// components or for the magnitude of a displacement vector, see PhQ::Length.
 template <typename Number = double>
 class PlanarDisplacement : public DimensionalPlanarVector<Unit::Length, Number> {
 public:

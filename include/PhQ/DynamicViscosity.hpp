@@ -52,7 +52,9 @@ class SpecificIsobaricHeatCapacity;
 
 /// \brief Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic viscosity is the
 /// relationship between the viscous stress of a material and its corresponding strain rate. Not to
-/// be confused with kinematic viscosity, which is dynamic viscosity divided by mass density.
+/// be confused with kinematic viscosity, which is dynamic viscosity divided by mass density; see
+/// PhQ::KinematicViscosity and PhQ::MassDensity. Also not to be confused with bulk dynamic
+/// viscosity; see PhQ::BulkDynamicViscosity.
 template <typename Number = double>
 class DynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, Number> {
 public:

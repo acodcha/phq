@@ -110,9 +110,9 @@ class ScalarTraction;
 template <typename Number>
 class Speed;
 
-/// \brief Planar direction in the XY plane. This is guaranteed to be either a unit planar vector or
-/// the zero planar vector (0, 0). Use the IsZero() method to check whether the planar direction is
-/// a unit planar vector or the zero planar vector.
+/// \brief two-dimensional Euclidean direction vector in the XY plane. Contains two components in
+/// Cartesian coordinates: x and y. Guaranteed to be either a unit vector or the zero vector (0, 0).
+/// For a three-dimensional Euclidean direction vector, see PhQ::Direction.
 template <typename Number = double>
 class PlanarDirection : public DimensionlessPlanarVector<Number> {
 public:
@@ -246,12 +246,6 @@ public:
   /// direction to the zero planar vector.
   constexpr void Set(const PlanarVector<Number>& value) {
     Set(value.x_y());
-  }
-
-  /// \brief Returns true if this planar direction is the zero planar vector, or false if it is a
-  /// unit planar vector.
-  [[nodiscard]] constexpr bool IsZero() const noexcept {
-    return this->value.x() == static_cast<Number>(0) && this->value.y() == static_cast<Number>(0);
   }
 
   /// \brief Returns the square of the magnitude of this planar direction. This is guaranteed to be

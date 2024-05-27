@@ -56,7 +56,9 @@ class Traction;
 
 /// \brief Scalar traction component or magnitude of a traction vector. Traction is similar to
 /// pressure; however, traction can act in any direction, whereas pressure always acts compressively
-/// perpendicular to a surface. See also PhQ::Traction.
+/// perpendicular to a surface. For a three-dimensional Euclidean traction vector, see
+/// PhQ::Traction. For a two-dimensional Euclidean traction vector in the XY plane, see
+/// PhQ::PlanarTraction.
 template <typename Number = double>
 class ScalarTraction : public DimensionalScalar<Unit::Pressure, Number> {
 public:

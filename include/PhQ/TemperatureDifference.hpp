@@ -64,8 +64,9 @@ class Temperature;
 template <typename Number>
 class VolumetricThermalExpansionCoefficient;
 
-/// \brief Temperature difference. Not to be confused with temperature. For example, a temperature
-/// difference of 20 kelvin is very different from a temperature of 20 kelvin.
+/// \brief Temperature difference. Not to be confused with temperature; see PhQ::Temperature. For
+/// example, a temperature difference of 20 kelvin is very different from a temperature of 20
+/// kelvin.
 template <typename Number = double>
 class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference, Number> {
 public:

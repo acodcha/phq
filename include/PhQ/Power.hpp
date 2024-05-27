@@ -47,7 +47,8 @@ class Speed;
 template <typename Number>
 class TransportEnergyConsumption;
 
-/// \brief Power. Time rate of change of energy. Can also represent an energy transfer rate.
+/// \brief Power. Time rate of change of energy or energy transfer rate; see PhQ::Energy, PhQ::Time,
+/// and PhQ::Frequency.
 template <typename Number = double>
 class Power : public DimensionalScalar<Unit::Power, Number> {
 public:

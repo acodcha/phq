@@ -47,9 +47,11 @@ namespace PhQ {
 template <typename Number>
 class Stress;
 
-/// \brief Traction vector. Traction is similar to pressure; however, traction can act in any
-/// direction, whereas pressure always acts compressively perpendicular to a surface. See also
-/// PhQ::ScalarTraction.
+/// \brief Three-dimensional Euclidean traction vector. Contains three components in Cartesian
+/// coordinates: x, y, and z. Traction is similar to pressure; however, traction can act in any
+/// direction, whereas pressure always acts compressively perpendicular to a surface. For a
+/// two-dimensional Euclidean traction vector in the XY plane, see PhQ::PlanarTraction. For scalar
+/// traction components or for the magnitude of a traction vector, see PhQ::ScalarTraction.
 template <typename Number = double>
 class Traction : public DimensionalVector<Unit::Pressure, Number> {
 public:

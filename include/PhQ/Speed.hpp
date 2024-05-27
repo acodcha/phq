@@ -95,7 +95,9 @@ class TransportEnergyConsumption;
 template <typename Number>
 class Velocity;
 
-/// \brief Speed scalar. Magnitude of the velocity vector.
+/// \brief Scalar velocity component or magnitude of a velocity vector. For a three-dimensional
+/// Euclidean velocity vector, see PhQ::Velocity. For a two-dimensional Euclidean velocity vector in
+/// the XY plane, see PhQ::PlanarVelocity.
 template <typename Number = double>
 class Speed : public DimensionalScalar<Unit::Speed, Number> {
 public:

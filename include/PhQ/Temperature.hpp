@@ -37,7 +37,8 @@
 
 namespace PhQ {
 
-/// \brief Temperature.
+/// \brief Temperature. For a temperature difference, see PhQ::TemperatureDifference. For the
+/// gradient of temperature, see PhQ::TemperatureGradient.
 template <typename Number = double>
 class Temperature : public DimensionalScalar<Unit::Temperature, Number> {
 public:

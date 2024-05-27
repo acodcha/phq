@@ -39,8 +39,8 @@
 
 namespace PhQ {
 
-/// \brief Mass rate. Can represent the time rate of change of a mass or a mass flow
-/// rate.
+/// \brief Mass rate. Can represent the time rate of change of a mass or a mass flow rate; see
+/// PhQ::Mass, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class MassRate : public DimensionalScalar<Unit::MassRate, Number> {
 public:

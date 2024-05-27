@@ -62,7 +62,10 @@ class TemperatureDifference;
 template <typename Number>
 class VolumetricThermalExpansionCoefficient;
 
-/// \brief Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
+/// \brief Three-dimensional Euclidean strain symmetric dyadic tensor. Contains six components in
+/// Cartesian coordinates: xx, xy = yx, xz = zx, yy, yz = zy, and zz. For the scalar components or
+/// resultants of a strain tensor, see PhQ::ScalarStrain. For the time rate of change of strain, see
+/// PhQ::StrainRate, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
 class Strain : public DimensionlessSymmetricDyad<Number> {
 public:

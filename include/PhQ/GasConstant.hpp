@@ -43,8 +43,7 @@ namespace PhQ {
 template <typename Number>
 class SpecificGasConstant;
 
-/// \brief Gas constant of a gas. Not to be confused with the molar gas constant or the specific gas
-/// constant.
+/// \brief Gas constant of a gas. For the mass-specific gas constant, see PhQ::SpecificGasConstant.
 template <typename Number = double>
 class GasConstant : public DimensionalScalar<Unit::HeatCapacity, Number> {
 public:

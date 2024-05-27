@@ -41,7 +41,8 @@
 
 namespace PhQ {
 
-/// \brief Dynamic kinematic pressure, which is dynamic pressure divided by mass density.
+/// \brief Dynamic kinematic pressure, which is dynamic pressure divided by mass density; see
+/// PhQ::DynamicPressure and PhQ::MassDensity.
 template <typename Number = double>
 class DynamicKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:
