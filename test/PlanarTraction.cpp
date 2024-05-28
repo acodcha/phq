@@ -266,6 +266,9 @@ TEST(PlanarTraction, SizeOf) {
 
 TEST(PlanarTraction, StandardConstructor) {
   EXPECT_NO_THROW(PlanarTraction({1.0, -2.0}, Unit::Pressure::Kilopascal));
+  EXPECT_EQ(PlanarTraction(ScalarTraction(1.0, Unit::Pressure::Pascal),
+                           ScalarTraction(-2.0, Unit::Pressure::Pascal)),
+            PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
 }
 
 TEST(PlanarTraction, StaticValue) {

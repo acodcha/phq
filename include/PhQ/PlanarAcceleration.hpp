@@ -60,6 +60,11 @@ public:
   PlanarAcceleration(const PlanarVector<Number>& value, const Unit::Acceleration unit)
     : DimensionalPlanarVector<Unit::Acceleration, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar acceleration vector from a given set of scalar
+  /// acceleration components.
+  PlanarAcceleration(const ScalarAcceleration<Number>& x, const ScalarAcceleration<Number>& y)
+    : PlanarAcceleration<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar acceleration vector from a given scalar acceleration
   /// magnitude and planar direction.
   constexpr PlanarAcceleration(const ScalarAcceleration<Number>& scalar_acceleration,

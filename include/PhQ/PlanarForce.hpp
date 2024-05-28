@@ -59,6 +59,11 @@ public:
   PlanarForce(const PlanarVector<Number>& value, const Unit::Force unit)
     : DimensionalPlanarVector<Unit::Force, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar force vector from a given set of scalar force
+  /// components.
+  PlanarForce(const ScalarForce<Number>& x, const ScalarForce<Number>& y)
+    : PlanarForce<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar force vector from a given scalar force magnitude and
   /// planar direction.
   constexpr PlanarForce(

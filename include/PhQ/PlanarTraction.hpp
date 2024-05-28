@@ -62,6 +62,11 @@ public:
   PlanarTraction(const PlanarVector<Number>& value, const Unit::Pressure unit)
     : DimensionalPlanarVector<Unit::Pressure, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar traction vector from a given set of scalar traction
+  /// components.
+  PlanarTraction(const ScalarTraction<Number>& x, const ScalarTraction<Number>& y)
+    : PlanarTraction<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar traction vector from a given scalar traction and
   /// planar direction.
   constexpr PlanarTraction(const ScalarTraction<Number>& scalar_traction,

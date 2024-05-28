@@ -58,6 +58,11 @@ public:
   PlanarHeatFlux(const PlanarVector<Number>& value, const Unit::EnergyFlux unit)
     : DimensionalPlanarVector<Unit::EnergyFlux, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar heat flux vector from a given set of scalar heat flux
+  /// components.
+  PlanarHeatFlux(const ScalarHeatFlux<Number>& x, const ScalarHeatFlux<Number>& y)
+    : PlanarHeatFlux<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar heat flux vector from a given scalar heat flux
   /// magnitude and planar direction.
   constexpr PlanarHeatFlux(const ScalarHeatFlux<Number>& scalar_heat_flux,

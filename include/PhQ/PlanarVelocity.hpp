@@ -63,6 +63,10 @@ public:
   PlanarVelocity(const PlanarVector<Number>& value, const Unit::Speed unit)
     : DimensionalPlanarVector<Unit::Speed, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar velocity vector from a given set of speed components.
+  PlanarVelocity(const Speed<Number>& x, const Speed<Number>& y)
+    : PlanarVelocity<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar velocity vector from a given speed and planar
   /// direction.
   constexpr PlanarVelocity(

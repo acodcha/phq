@@ -253,6 +253,9 @@ TEST(PlanarForce, SizeOf) {
 
 TEST(PlanarForce, StandardConstructor) {
   EXPECT_NO_THROW(PlanarForce({1.0, -2.0}, Unit::Force::Pound));
+  EXPECT_EQ(
+      PlanarForce(ScalarForce(1.0, Unit::Force::Newton), ScalarForce(-2.0, Unit::Force::Newton)),
+      PlanarForce({1.0, -2.0}, Unit::Force::Newton));
 }
 
 TEST(PlanarForce, StaticValue) {

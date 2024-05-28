@@ -74,6 +74,11 @@ public:
   PlanarDisplacement(const PlanarVector<Number>& value, const Unit::Length unit)
     : DimensionalPlanarVector<Unit::Length, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar displacement vector from a given set of length
+  /// components.
+  PlanarDisplacement(const Length<Number>& x, const Length<Number>& y)
+    : PlanarDisplacement<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar displacement vector from a given length and planar
   /// direction.
   constexpr PlanarDisplacement(
