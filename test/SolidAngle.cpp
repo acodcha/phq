@@ -65,27 +65,27 @@ TEST(SolidAngle, ArithmeticOperatorSubtraction) {
 }
 
 TEST(SolidAngle, AssignmentOperatorAddition) {
-  SolidAngle angle{1.0, Unit::SolidAngle::Steradian};
-  angle += SolidAngle(2.0, Unit::SolidAngle::Steradian);
-  EXPECT_EQ(angle, SolidAngle(3.0, Unit::SolidAngle::Steradian));
+  SolidAngle solid_angle{1.0, Unit::SolidAngle::Steradian};
+  solid_angle += SolidAngle(2.0, Unit::SolidAngle::Steradian);
+  EXPECT_EQ(solid_angle, SolidAngle(3.0, Unit::SolidAngle::Steradian));
 }
 
 TEST(SolidAngle, AssignmentOperatorDivision) {
-  SolidAngle angle{8.0, Unit::SolidAngle::Steradian};
-  angle /= 2.0;
-  EXPECT_EQ(angle, SolidAngle(4.0, Unit::SolidAngle::Steradian));
+  SolidAngle solid_angle{8.0, Unit::SolidAngle::Steradian};
+  solid_angle /= 2.0;
+  EXPECT_EQ(solid_angle, SolidAngle(4.0, Unit::SolidAngle::Steradian));
 }
 
 TEST(SolidAngle, AssignmentOperatorMultiplication) {
-  SolidAngle angle{4.0, Unit::SolidAngle::Steradian};
-  angle *= 2.0;
-  EXPECT_EQ(angle, SolidAngle(8.0, Unit::SolidAngle::Steradian));
+  SolidAngle solid_angle{4.0, Unit::SolidAngle::Steradian};
+  solid_angle *= 2.0;
+  EXPECT_EQ(solid_angle, SolidAngle(8.0, Unit::SolidAngle::Steradian));
 }
 
 TEST(SolidAngle, AssignmentOperatorSubtraction) {
-  SolidAngle angle{3.0, Unit::SolidAngle::Steradian};
-  angle -= SolidAngle(2.0, Unit::SolidAngle::Steradian);
-  EXPECT_EQ(angle, SolidAngle(1.0, Unit::SolidAngle::Steradian));
+  SolidAngle solid_angle{3.0, Unit::SolidAngle::Steradian};
+  solid_angle -= SolidAngle(2.0, Unit::SolidAngle::Steradian);
+  EXPECT_EQ(solid_angle, SolidAngle(1.0, Unit::SolidAngle::Steradian));
 }
 
 TEST(SolidAngle, ComparisonOperators) {
@@ -145,8 +145,8 @@ TEST(SolidAngle, CopyConstructor) {
 }
 
 TEST(SolidAngle, Create) {
-  constexpr SolidAngle angle = SolidAngle<>::Create<Unit::SolidAngle::Steradian>(1.0);
-  EXPECT_EQ(angle, SolidAngle(1.0, Unit::SolidAngle::Steradian));
+  constexpr SolidAngle solid_angle = SolidAngle<>::Create<Unit::SolidAngle::Steradian>(1.0);
+  EXPECT_EQ(solid_angle, SolidAngle(1.0, Unit::SolidAngle::Steradian));
 }
 
 TEST(SolidAngle, DefaultConstructor) {
@@ -188,10 +188,10 @@ TEST(SolidAngle, MoveConstructor) {
 }
 
 TEST(SolidAngle, MutableValue) {
-  SolidAngle angle{1.0, Unit::SolidAngle::Steradian};
-  double& value = angle.MutableValue();
+  SolidAngle solid_angle{1.0, Unit::SolidAngle::Steradian};
+  double& value = solid_angle.MutableValue();
   value = 2.0;
-  EXPECT_EQ(angle.Value(), 2.0);
+  EXPECT_EQ(solid_angle.Value(), 2.0);
 }
 
 TEST(SolidAngle, Print) {
@@ -201,9 +201,9 @@ TEST(SolidAngle, Print) {
 }
 
 TEST(SolidAngle, SetValue) {
-  SolidAngle angle{1.0, Unit::SolidAngle::Steradian};
-  angle.SetValue(2.0);
-  EXPECT_EQ(angle.Value(), 2.0);
+  SolidAngle solid_angle{1.0, Unit::SolidAngle::Steradian};
+  solid_angle.SetValue(2.0);
+  EXPECT_EQ(solid_angle.Value(), 2.0);
 }
 
 TEST(SolidAngle, SizeOf) {
@@ -211,8 +211,8 @@ TEST(SolidAngle, SizeOf) {
 }
 
 TEST(SolidAngle, StaticValue) {
-  constexpr SolidAngle angle = SolidAngle<>::Create<Unit::SolidAngle::SquareDegree>(1.0);
-  constexpr double value = angle.StaticValue<Unit::SolidAngle::SquareDegree>();
+  constexpr SolidAngle solid_angle = SolidAngle<>::Create<Unit::SolidAngle::SquareDegree>(1.0);
+  constexpr double value = solid_angle.StaticValue<Unit::SolidAngle::SquareDegree>();
   EXPECT_EQ(value, 1.0);
 }
 

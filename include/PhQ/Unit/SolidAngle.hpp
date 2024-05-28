@@ -119,8 +119,8 @@ inline const std::unordered_map<std::string_view, Unit::SolidAngle> Spellings<Un
     {"degree2",      Unit::SolidAngle::SquareDegree   },
     {"degrees^2",    Unit::SolidAngle::SquareDegree   },
     {"degrees2",     Unit::SolidAngle::SquareDegree   },
-    {"°^2",         Unit::SolidAngle::SquareDegree   },
-    {"°2",          Unit::SolidAngle::SquareDegree   },
+    {"°^2",          Unit::SolidAngle::SquareDegree   },
+    {"°2",           Unit::SolidAngle::SquareDegree   },
     {"'^2",          Unit::SolidAngle::SquareArcminute},
     {"'2",           Unit::SolidAngle::SquareArcminute},
     {"am^2",         Unit::SolidAngle::SquareArcminute},
@@ -159,28 +159,30 @@ template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::FromStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(180.0) * static_cast<Number>(180.0) / (Pi<Number> * Pi<Number>);
+  value *= static_cast<Number>(180.0L) * static_cast<Number>(180.0L) / (Pi<Number> * Pi<Number>);
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::ToStandard(
     Number& value) noexcept {
-  value *= Pi<Number> * Pi<Number> / (static_cast<Number>(180.0) * static_cast<Number>(180.0));
+  value *= Pi<Number> * Pi<Number> / (static_cast<Number>(180.0L) * static_cast<Number>(180.0L));
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareArcminute>::FromStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(10800.0) * static_cast<Number>(10800.0) / (Pi<Number> * Pi<Number>);
+  value *=
+      static_cast<Number>(10800.0L) * static_cast<Number>(10800.0L) / (Pi<Number> * Pi<Number>);
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareArcminute>::ToStandard(
     Number& value) noexcept {
-  value *= Pi<Number> * Pi<Number> / (static_cast<Number>(10800.0) * static_cast<Number>(10800.0));
+  value *=
+      Pi<Number> * Pi<Number> / (static_cast<Number>(10800.0L) * static_cast<Number>(10800.0L));
 }
 
 template <>
@@ -188,7 +190,7 @@ template <typename Number>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareArcsecond>::FromStandard(
     Number& value) noexcept {
   value *=
-      static_cast<Number>(648000.0) * static_cast<Number>(648000.0) / (Pi<Number> * Pi<Number>);
+      static_cast<Number>(648000.0L) * static_cast<Number>(648000.0L) / (Pi<Number> * Pi<Number>);
 }
 
 template <>
@@ -196,7 +198,7 @@ template <typename Number>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareArcsecond>::ToStandard(
     Number& value) noexcept {
   value *=
-      Pi<Number> * Pi<Number> / (static_cast<Number>(648000.0) * static_cast<Number>(648000.0));
+      Pi<Number> * Pi<Number> / (static_cast<Number>(648000.0L) * static_cast<Number>(648000.0L));
 }
 
 template <typename Number>

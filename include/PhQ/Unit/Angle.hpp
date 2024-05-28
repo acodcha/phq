@@ -145,56 +145,56 @@ template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Degree>::FromStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(180.0) / Pi<Number>;
+  value *= static_cast<Number>(180.0L) / Pi<Number>;
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Degree>::ToStandard(
     Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(180.0);
+  value *= Pi<Number> / static_cast<Number>(180.0L);
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcminute>::FromStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(10800.0) / Pi<Number>;
+  value *= static_cast<Number>(10800.0L) / Pi<Number>;
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcminute>::ToStandard(
     Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(10800.0);
+  value *= Pi<Number> / static_cast<Number>(10800.0L);
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcsecond>::FromStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(648000.0) / Pi<Number>;
+  value *= static_cast<Number>(648000.0L) / Pi<Number>;
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcsecond>::ToStandard(
     Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(648000.0);
+  value *= Pi<Number> / static_cast<Number>(648000.0L);
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Revolution>::FromStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(0.5) / Pi<Number>;
+  value *= static_cast<Number>(0.5L) / Pi<Number>;
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Revolution>::ToStandard(
     Number& value) noexcept {
-  value *= static_cast<Number>(2.0) * Pi<Number>;
+  value *= static_cast<Number>(2.0L) * Pi<Number>;
 }
 
 template <typename Number>

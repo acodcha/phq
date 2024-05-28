@@ -259,13 +259,15 @@ template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Area, Unit::Area::Acre>::FromStandard(
     Number& value) noexcept {
-  value *= 640.0 / (static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L));
+  value *= static_cast<Number>(640.0L)
+           / (static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L));
 }
 
 template <>
 template <typename Number>
 inline constexpr void Conversion<Unit::Area, Unit::Area::Acre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L) / 640.0;
+  value *=
+      static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L) / static_cast<Number>(640.0L);
 }
 
 template <>
