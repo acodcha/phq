@@ -378,6 +378,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(shear_modulus GTest::gtest_main)
   gtest_discover_tests(shear_modulus)
 
+  add_executable(solid_angle ${PROJECT_SOURCE_DIR}/test/SolidAngle.cpp)
+  target_link_libraries(solid_angle GTest::gtest_main)
+  gtest_discover_tests(solid_angle)
+
   add_executable(sound_speed ${PROJECT_SOURCE_DIR}/test/SoundSpeed.cpp)
   target_link_libraries(sound_speed GTest::gtest_main)
   gtest_discover_tests(sound_speed)
@@ -553,6 +557,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(unit_pressure ${PROJECT_SOURCE_DIR}/test/Unit/Pressure.cpp)
   target_link_libraries(unit_pressure GTest::gtest_main)
   gtest_discover_tests(unit_pressure)
+
+  add_executable(unit_solid_angle ${PROJECT_SOURCE_DIR}/test/Unit/SolidAngle.cpp)
+  target_link_libraries(unit_solid_angle GTest::gtest_main)
+  gtest_discover_tests(unit_solid_angle)
 
   add_executable(unit_specific_energy ${PROJECT_SOURCE_DIR}/test/Unit/SpecificEnergy.cpp)
   target_link_libraries(unit_specific_energy GTest::gtest_main)
