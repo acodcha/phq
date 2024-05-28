@@ -182,6 +182,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(dynamic_viscosity)
 
+  add_executable(electric_charge ${PROJECT_SOURCE_DIR}/test/ElectricCharge.cpp)
+  target_link_libraries(electric_charge GTest::gtest_main)
+  gtest_discover_tests(electric_charge)
+
   add_executable(energy ${PROJECT_SOURCE_DIR}/test/Energy.cpp)
   target_link_libraries(energy GTest::gtest_main)
   gtest_discover_tests(energy)
@@ -505,6 +509,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(unit_dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/Unit/DynamicViscosity.cpp)
   target_link_libraries(unit_dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(unit_dynamic_viscosity)
+
+  add_executable(unit_electric_charge ${PROJECT_SOURCE_DIR}/test/Unit/ElectricCharge.cpp)
+  target_link_libraries(unit_electric_charge GTest::gtest_main)
+  gtest_discover_tests(unit_electric_charge)
 
   add_executable(unit_energy ${PROJECT_SOURCE_DIR}/test/Unit/Energy.cpp)
   target_link_libraries(unit_energy GTest::gtest_main)
