@@ -1381,6 +1381,21 @@ phq_test(
 )
 
 phq_library(
+    name = "SolidAngle",
+    hdrs = ["include/PhQ/SolidAngle.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":Unit/SolidAngle",
+    ],
+)
+
+phq_test(
+    name = "test/SolidAngle",
+    srcs = ["test/SolidAngle.cpp"],
+    deps = [":SolidAngle"],
+)
+
+phq_library(
     name = "SoundSpeed",
     hdrs = ["include/PhQ/SoundSpeed.hpp"],
     deps = [
@@ -2375,6 +2390,33 @@ phq_test(
     srcs = ["test/Unit/Pressure.cpp"],
     deps = [
         ":Unit/Pressure",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/SolidAngle",
+    hdrs = ["include/PhQ/Unit/SolidAngle.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/SolidAngle",
+    srcs = ["test/Unit/SolidAngle.cpp"],
+    deps = [
+        ":Unit/SolidAngle",
         ":test/Unit",
     ],
 )
