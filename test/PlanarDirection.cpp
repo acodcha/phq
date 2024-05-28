@@ -75,6 +75,19 @@ TEST(PlanarDirection, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PlanarDirection, Constructor) {
+  EXPECT_NO_THROW(PlanarDirection(1.0, -2.0));
+  EXPECT_NO_THROW(PlanarDirection(std::array<double, 2>{1.0, -2.0}));
+  EXPECT_NO_THROW(PlanarDirection(PlanarVector{1.0, -2.0}));
+  EXPECT_EQ(PlanarVector(5.0, PlanarDirection(3.0, -4.0)), PlanarVector(3.0, -4.0));
+  EXPECT_EQ(Angle(PlanarDirection(0.0, -2.0), PlanarDirection(3.0, 0.0)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(PlanarDirection(0.0, -2.0), PlanarVector(3.0, 0.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(PlanarVector(0.0, -2.0), PlanarDirection(3.0, 0.0)), Angle(90.0, Unit::Angle::Degree));
+}
+
 TEST(PlanarDirection, CopyAssignmentOperator) {
   {
     const PlanarDirection<float> first{3.0F, -4.0F};
@@ -168,16 +181,6 @@ TEST(PlanarDirection, Magnitude) {
   EXPECT_EQ(PlanarDirection(0.0, 0.0).Magnitude(), 0.0);
 }
 
-TEST(PlanarDirection, MiscellaneousConstructors) {
-  EXPECT_EQ(PlanarVector(5.0, PlanarDirection(3.0, -4.0)), PlanarVector(3.0, -4.0));
-  EXPECT_EQ(Angle(PlanarDirection(0.0, -2.0), PlanarDirection(3.0, 0.0)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(
-      Angle(PlanarDirection(0.0, -2.0), PlanarVector(3.0, 0.0)), Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(
-      Angle(PlanarVector(0.0, -2.0), PlanarDirection(3.0, 0.0)), Angle(90.0, Unit::Angle::Degree));
-}
-
 TEST(PlanarDirection, MiscellaneousMethods) {
   EXPECT_EQ(PlanarVector(3.0, -4.0).PlanarDirection(), PlanarDirection(3.0, -4.0));
 }
@@ -220,12 +223,6 @@ TEST(PlanarDirection, Set) {
 
 TEST(PlanarDirection, SizeOf) {
   EXPECT_EQ(sizeof(PlanarDirection<>{}), 2 * sizeof(double));
-}
-
-TEST(PlanarDirection, StandardConstructor) {
-  EXPECT_NO_THROW(PlanarDirection(1.0, -2.0));
-  EXPECT_NO_THROW(PlanarDirection(std::array<double, 2>{1.0, -2.0}));
-  EXPECT_NO_THROW(PlanarDirection(PlanarVector{1.0, -2.0}));
 }
 
 TEST(PlanarDirection, Stream) {

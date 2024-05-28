@@ -98,6 +98,12 @@ TEST(Frequency, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Frequency, Constructor) {
+  EXPECT_NO_THROW(Frequency(1.0, Unit::Frequency::Kilohertz));
+  EXPECT_EQ(Time(Frequency(0.5, Unit::Frequency::Hertz)), Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Frequency(Time(2.0, Unit::Time::Second)), Frequency(0.5, Unit::Frequency::Hertz));
+}
+
 TEST(Frequency, CopyAssignmentOperator) {
   {
     const Frequency<float> first(1.0F, Unit::Frequency::Hertz);
@@ -167,10 +173,6 @@ TEST(Frequency, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kHz\"}");
 }
 
-TEST(Frequency, MiscellaneousConstructors) {
-  EXPECT_EQ(Time(Frequency(0.5, Unit::Frequency::Hertz)), Time(2.0, Unit::Time::Second));
-}
-
 TEST(Frequency, MiscellaneousMethods) {
   EXPECT_EQ(Frequency(0.5, Unit::Frequency::Hertz).Period(), Time(2.0, Unit::Time::Second));
   EXPECT_EQ(Time(0.5, Unit::Time::Second).Frequency(), Frequency(2.0, Unit::Frequency::Hertz));
@@ -210,10 +212,6 @@ TEST(Frequency, SetValue) {
 
 TEST(Frequency, SizeOf) {
   EXPECT_EQ(sizeof(Frequency<>{}), sizeof(double));
-}
-
-TEST(Frequency, StandardConstructor) {
-  EXPECT_NO_THROW(Frequency(1.0, Unit::Frequency::Kilohertz));
 }
 
 TEST(Frequency, StaticValue) {

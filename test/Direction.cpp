@@ -76,6 +76,21 @@ TEST(Direction, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Direction, Constructor) {
+  EXPECT_NO_THROW(Direction(1.0, -2.0, 3.0));
+  EXPECT_NO_THROW(Direction(std::array<double, 3>{1.0, -2.0, 3.0}));
+  EXPECT_NO_THROW(Direction(Vector{1.0, -2.0, 3.0}));
+  EXPECT_EQ(Vector(7.0, Direction(2.0, -3.0, 6.0)), Vector(2.0, -3.0, 6.0));
+  EXPECT_EQ(
+      Angle(Direction(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(Direction(0.0, -2.0, 0.0), Vector(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(Vector(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarDirection(Direction(2.0, -3.0, 6.0)), PlanarDirection(2.0, -3.0));
+  EXPECT_EQ(Direction(PlanarDirection(2.0, -3.0)), Direction(2.0, -3.0, 0.0));
+}
+
 TEST(Direction, CopyAssignmentOperator) {
   {
     const Direction<float> first{2.0F, -3.0F, 6.0F};
@@ -175,18 +190,6 @@ TEST(Direction, Magnitude) {
   EXPECT_EQ(Direction(0.0, 0.0, 0.0).Magnitude(), 0.0);
 }
 
-TEST(Direction, MiscellaneousConstructors) {
-  EXPECT_EQ(Vector(7.0, Direction(2.0, -3.0, 6.0)), Vector(2.0, -3.0, 6.0));
-  EXPECT_EQ(
-      Angle(Direction(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(
-      Angle(Direction(0.0, -2.0, 0.0), Vector(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(
-      Angle(Vector(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(PlanarDirection(Direction(2.0, -3.0, 6.0)), PlanarDirection(2.0, -3.0));
-  EXPECT_EQ(Direction(PlanarDirection(2.0, -3.0)), Direction(2.0, -3.0, 0.0));
-}
-
 TEST(Direction, MiscellaneousMethods) {
   EXPECT_EQ(Vector(2.0, -3.0, 6.0).Direction(), Direction(2.0, -3.0, 6.0));
 }
@@ -230,12 +233,6 @@ TEST(Direction, Set) {
 
 TEST(Direction, SizeOf) {
   EXPECT_EQ(sizeof(Direction<>{}), 3 * sizeof(double));
-}
-
-TEST(Direction, StandardConstructor) {
-  EXPECT_NO_THROW(Direction(1.0, -2.0, 3.0));
-  EXPECT_NO_THROW(Direction(std::array<double, 3>{1.0, -2.0, 3.0}));
-  EXPECT_NO_THROW(Direction(Vector{1.0, -2.0, 3.0}));
 }
 
 TEST(Direction, Stream) {

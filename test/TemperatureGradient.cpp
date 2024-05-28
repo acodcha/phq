@@ -127,6 +127,28 @@ TEST(TemperatureGradient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(TemperatureGradient, Constructor) {
+  EXPECT_NO_THROW(
+      TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMillimetre));
+  EXPECT_EQ(TemperatureGradient(
+                ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre),
+                ScalarTemperatureGradient(-2.0, Unit::TemperatureGradient::KelvinPerMetre),
+                ScalarTemperatureGradient(3.0, Unit::TemperatureGradient::KelvinPerMetre)),
+            TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(
+      Direction(TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
+      Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(TemperatureGradient({0.0, -2.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre),
+                  TemperatureGradient({0.0, 0.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarTemperatureGradient(
+                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
+            PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(TemperatureGradient(
+                PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre)),
+            TemperatureGradient({1.0, -2.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre));
+}
+
 TEST(TemperatureGradient, CopyAssignmentOperator) {
   {
     const TemperatureGradient<float> first(
@@ -237,21 +259,6 @@ TEST(TemperatureGradient, Magnitude) {
       ScalarTemperatureGradient(7.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
-TEST(TemperatureGradient, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Direction(TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
-      Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(TemperatureGradient({0.0, -2.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre),
-                  TemperatureGradient({0.0, 0.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(PlanarTemperatureGradient(
-                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
-            PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
-  EXPECT_EQ(TemperatureGradient(
-                PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre)),
-            TemperatureGradient({1.0, -2.0, 0.0}, Unit::TemperatureGradient::KelvinPerMetre));
-}
-
 TEST(TemperatureGradient, MoveAssignmentOperator) {
   TemperatureGradient first({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
   TemperatureGradient second = TemperatureGradient<>::Zero();
@@ -293,16 +300,6 @@ TEST(TemperatureGradient, SetValue) {
 
 TEST(TemperatureGradient, SizeOf) {
   EXPECT_EQ(sizeof(TemperatureGradient<>{}), 3 * sizeof(double));
-}
-
-TEST(TemperatureGradient, StandardConstructor) {
-  EXPECT_NO_THROW(
-      TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMillimetre));
-  EXPECT_EQ(TemperatureGradient(
-                ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre),
-                ScalarTemperatureGradient(-2.0, Unit::TemperatureGradient::KelvinPerMetre),
-                ScalarTemperatureGradient(3.0, Unit::TemperatureGradient::KelvinPerMetre)),
-            TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, StaticValue) {

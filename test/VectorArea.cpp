@@ -114,6 +114,18 @@ TEST(VectorArea, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(VectorArea, Constructor) {
+  EXPECT_NO_THROW(VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMillimetre));
+  EXPECT_EQ(VectorArea(Area(1.0, Unit::Area::SquareMetre), Area(-2.0, Unit::Area::SquareMetre),
+                       Area(3.0, Unit::Area::SquareMetre)),
+            VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+  EXPECT_EQ(
+      Direction(VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre)), Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(VectorArea({0.0, -2.0, 0.0}, Unit::Area::SquareMetre),
+                  VectorArea({0.0, 0.0, 3.0}, Unit::Area::SquareMetre)),
+            Angle(90.0, Unit::Angle::Degree));
+}
+
 TEST(VectorArea, CopyAssignmentOperator) {
   {
     const VectorArea<float> first({1.0F, -2.0F, 3.0F}, Unit::Area::SquareMetre);
@@ -209,14 +221,6 @@ TEST(VectorArea, Magnitude) {
             Area(7.0, Unit::Area::SquareMetre));
 }
 
-TEST(VectorArea, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Direction(VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre)), Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(VectorArea({0.0, -2.0, 0.0}, Unit::Area::SquareMetre),
-                  VectorArea({0.0, 0.0, 3.0}, Unit::Area::SquareMetre)),
-            Angle(90.0, Unit::Angle::Degree));
-}
-
 TEST(VectorArea, MoveAssignmentOperator) {
   VectorArea first({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
   VectorArea second = VectorArea<>::Zero();
@@ -253,13 +257,6 @@ TEST(VectorArea, SetValue) {
 
 TEST(VectorArea, SizeOf) {
   EXPECT_EQ(sizeof(VectorArea<>{}), 3 * sizeof(double));
-}
-
-TEST(VectorArea, StandardConstructor) {
-  EXPECT_NO_THROW(VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMillimetre));
-  EXPECT_EQ(VectorArea(Area(1.0, Unit::Area::SquareMetre), Area(-2.0, Unit::Area::SquareMetre),
-                       Area(3.0, Unit::Area::SquareMetre)),
-            VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
 }
 
 TEST(VectorArea, StaticValue) {

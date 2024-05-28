@@ -105,6 +105,10 @@ TEST(IsochoricHeatCapacity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(IsochoricHeatCapacity, Constructor) {
+  EXPECT_NO_THROW(IsochoricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin));
+}
+
 TEST(IsochoricHeatCapacity, CopyAssignmentOperator) {
   {
     const IsochoricHeatCapacity<float> first(1.0F, Unit::HeatCapacity::JoulePerKelvin);
@@ -213,10 +217,6 @@ TEST(IsochoricHeatCapacity, SetValue) {
 
 TEST(IsochoricHeatCapacity, SizeOf) {
   EXPECT_EQ(sizeof(IsochoricHeatCapacity<>{}), sizeof(double));
-}
-
-TEST(IsochoricHeatCapacity, StandardConstructor) {
-  EXPECT_NO_THROW(IsochoricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin));
 }
 
 TEST(IsochoricHeatCapacity, StaticValue) {

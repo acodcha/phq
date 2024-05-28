@@ -107,6 +107,34 @@ TEST(ThermalDiffusivity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ThermalDiffusivity, Constructor) {
+  EXPECT_NO_THROW(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond));
+  EXPECT_EQ(
+      ThermalDiffusivity(
+          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+      ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  EXPECT_EQ(
+      ScalarThermalConductivity(
+          MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond)),
+      ScalarThermalConductivity(64.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(
+      MassDensity(
+          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
+          SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+      MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(
+      SpecificIsobaricHeatCapacity(
+          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+          ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
+      SpecificIsobaricHeatCapacity(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+}
+
 TEST(ThermalDiffusivity, CopyAssignmentOperator) {
   {
     const ThermalDiffusivity<float> first(1.0F, Unit::Diffusivity::SquareMetrePerSecond);
@@ -178,33 +206,6 @@ TEST(ThermalDiffusivity, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"mm^2/s\"}");
 }
 
-TEST(ThermalDiffusivity, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      ThermalDiffusivity(
-          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
-          MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-      ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
-  EXPECT_EQ(
-      ScalarThermalConductivity(
-          MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond)),
-      ScalarThermalConductivity(64.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-  EXPECT_EQ(
-      MassDensity(
-          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
-          ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
-          SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-      MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
-  EXPECT_EQ(
-      SpecificIsobaricHeatCapacity(
-          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
-          MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-          ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
-      SpecificIsobaricHeatCapacity(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-}
-
 TEST(ThermalDiffusivity, MoveAssignmentOperator) {
   ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
   ThermalDiffusivity second = ThermalDiffusivity<>::Zero();
@@ -241,10 +242,6 @@ TEST(ThermalDiffusivity, SetValue) {
 
 TEST(ThermalDiffusivity, SizeOf) {
   EXPECT_EQ(sizeof(ThermalDiffusivity<>{}), sizeof(double));
-}
-
-TEST(ThermalDiffusivity, StandardConstructor) {
-  EXPECT_NO_THROW(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, StaticValue) {

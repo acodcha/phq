@@ -94,6 +94,10 @@ TEST(Time, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Time, Constructor) {
+  EXPECT_NO_THROW(Time(1.0, Unit::Time::Minute));
+}
+
 TEST(Time, CopyAssignmentOperator) {
   {
     const Time<float> first(1.0F, Unit::Time::Second);
@@ -195,10 +199,6 @@ TEST(Time, SetValue) {
 
 TEST(Time, SizeOf) {
   EXPECT_EQ(sizeof(Time<>{}), sizeof(double));
-}
-
-TEST(Time, StandardConstructor) {
-  EXPECT_NO_THROW(Time(1.0, Unit::Time::Minute));
 }
 
 TEST(Time, StaticValue) {

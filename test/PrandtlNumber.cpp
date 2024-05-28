@@ -102,6 +102,42 @@ TEST(PrandtlNumber, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PrandtlNumber, Constructor) {
+  EXPECT_NO_THROW(PrandtlNumber(1.0));
+  EXPECT_EQ(PrandtlNumber(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
+                          ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond)),
+            PrandtlNumber(2.0));
+  EXPECT_EQ(
+      PrandtlNumber(
+          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
+          ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
+      PrandtlNumber(16.0));
+  EXPECT_EQ(ThermalDiffusivity(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
+                               PrandtlNumber(4.0)),
+            ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
+  EXPECT_EQ(
+      ScalarThermalConductivity(
+          SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond), PrandtlNumber(2.0)),
+      ScalarThermalConductivity(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(
+      SpecificIsobaricHeatCapacity(
+          PrandtlNumber(8.0),
+          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond)),
+      SpecificIsobaricHeatCapacity(16.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  EXPECT_EQ(
+      DynamicViscosity(
+          PrandtlNumber(8.0),
+          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+      DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond));
+  EXPECT_EQ(KinematicViscosity(PrandtlNumber(4.0),
+                               ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
+            KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
+}
+
 TEST(PrandtlNumber, CopyAssignmentOperator) {
   {
     const PrandtlNumber<float> first(1.0F);
@@ -179,41 +215,6 @@ TEST(PrandtlNumber, Mathematics) {
   EXPECT_EQ(std::sqrt(PrandtlNumber(9.0)), std::sqrt(9.0));
 }
 
-TEST(PrandtlNumber, MiscellaneousConstructors) {
-  EXPECT_EQ(PrandtlNumber(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
-                          ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond)),
-            PrandtlNumber(2.0));
-  EXPECT_EQ(
-      PrandtlNumber(
-          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-          ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
-      PrandtlNumber(16.0));
-  EXPECT_EQ(ThermalDiffusivity(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
-                               PrandtlNumber(4.0)),
-            ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
-  EXPECT_EQ(
-      ScalarThermalConductivity(
-          SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond), PrandtlNumber(2.0)),
-      ScalarThermalConductivity(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-  EXPECT_EQ(
-      SpecificIsobaricHeatCapacity(
-          PrandtlNumber(8.0),
-          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
-          DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond)),
-      SpecificIsobaricHeatCapacity(16.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-  EXPECT_EQ(
-      DynamicViscosity(
-          PrandtlNumber(8.0),
-          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
-          SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-      DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond));
-  EXPECT_EQ(KinematicViscosity(PrandtlNumber(4.0),
-                               ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
-            KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
-}
-
 TEST(PrandtlNumber, MiscellaneousMethods) {
   EXPECT_EQ(
       PrandtlNumber(8.0).DynamicViscosity(
@@ -270,10 +271,6 @@ TEST(PrandtlNumber, SetValue) {
 
 TEST(PrandtlNumber, SizeOf) {
   EXPECT_EQ(sizeof(PrandtlNumber<>{}), sizeof(double));
-}
-
-TEST(PrandtlNumber, StandardConstructor) {
-  EXPECT_NO_THROW(PrandtlNumber(1.0));
 }
 
 TEST(PrandtlNumber, Stream) {

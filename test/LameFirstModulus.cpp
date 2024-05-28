@@ -101,6 +101,10 @@ TEST(LameFirstModulus, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(LameFirstModulus, Constructor) {
+  EXPECT_NO_THROW(LameFirstModulus(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(LameFirstModulus, CopyAssignmentOperator) {
   {
     const LameFirstModulus<float> first(1.0F, Unit::Pressure::Pascal);
@@ -205,10 +209,6 @@ TEST(LameFirstModulus, SetValue) {
 
 TEST(LameFirstModulus, SizeOf) {
   EXPECT_EQ(sizeof(LameFirstModulus<>{}), sizeof(double));
-}
-
-TEST(LameFirstModulus, StandardConstructor) {
-  EXPECT_NO_THROW(LameFirstModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(LameFirstModulus, StaticValue) {

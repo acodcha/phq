@@ -146,6 +146,36 @@ TEST(SpecificPower, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(SpecificPower, Constructor) {
+  EXPECT_NO_THROW(SpecificPower(1.0, Unit::SpecificPower::NanowattPerGram));
+  EXPECT_EQ(SpecificPower(SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram),
+                          Time(4.0, Unit::Time::Second)),
+            SpecificPower(2.0, Unit::SpecificPower::WattPerKilogram));
+  EXPECT_EQ(SpecificPower(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
+                          Frequency(2.0, Unit::Frequency::Hertz)),
+            SpecificPower(8.0, Unit::SpecificPower::WattPerKilogram));
+  EXPECT_EQ(SpecificPower(Power(8.0, Unit::Power::Watt), Mass(4.0, Unit::Mass::Kilogram)),
+            SpecificPower(2.0, Unit::SpecificPower::WattPerKilogram));
+  EXPECT_EQ(Time(SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram),
+                 SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram)),
+            Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Frequency(SpecificPower(8.0, Unit::SpecificPower::WattPerKilogram),
+                      SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
+            Frequency(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      Mass(Power(8.0, Unit::Power::Watt), SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram)),
+      Mass(2.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Power(SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram),
+                  Mass(2.0, Unit::Mass::Kilogram)),
+            Power(8.0, Unit::Power::Watt));
+  EXPECT_EQ(SpecificEnergy(SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram),
+                           Time(2.0, Unit::Time::Second)),
+            SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(SpecificEnergy(SpecificPower(8.0, Unit::SpecificPower::WattPerKilogram),
+                           Frequency(2.0, Unit::Frequency::Hertz)),
+            SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram));
+}
+
 TEST(SpecificPower, CopyAssignmentOperator) {
   {
     const SpecificPower<float> first(1.0F, Unit::SpecificPower::WattPerKilogram);
@@ -217,35 +247,6 @@ TEST(SpecificPower, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"nW/g\"}");
 }
 
-TEST(SpecificPower, MiscellaneousConstructors) {
-  EXPECT_EQ(SpecificPower(SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram),
-                          Time(4.0, Unit::Time::Second)),
-            SpecificPower(2.0, Unit::SpecificPower::WattPerKilogram));
-  EXPECT_EQ(SpecificPower(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
-                          Frequency(2.0, Unit::Frequency::Hertz)),
-            SpecificPower(8.0, Unit::SpecificPower::WattPerKilogram));
-  EXPECT_EQ(SpecificPower(Power(8.0, Unit::Power::Watt), Mass(4.0, Unit::Mass::Kilogram)),
-            SpecificPower(2.0, Unit::SpecificPower::WattPerKilogram));
-  EXPECT_EQ(Time(SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram),
-                 SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram)),
-            Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(Frequency(SpecificPower(8.0, Unit::SpecificPower::WattPerKilogram),
-                      SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
-            Frequency(2.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(
-      Mass(Power(8.0, Unit::Power::Watt), SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram)),
-      Mass(2.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(Power(SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram),
-                  Mass(2.0, Unit::Mass::Kilogram)),
-            Power(8.0, Unit::Power::Watt));
-  EXPECT_EQ(SpecificEnergy(SpecificPower(4.0, Unit::SpecificPower::WattPerKilogram),
-                           Time(2.0, Unit::Time::Second)),
-            SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
-  EXPECT_EQ(SpecificEnergy(SpecificPower(8.0, Unit::SpecificPower::WattPerKilogram),
-                           Frequency(2.0, Unit::Frequency::Hertz)),
-            SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram));
-}
-
 TEST(SpecificPower, MoveAssignmentOperator) {
   SpecificPower first{1.0, Unit::SpecificPower::WattPerKilogram};
   SpecificPower second = SpecificPower<>::Zero();
@@ -281,10 +282,6 @@ TEST(SpecificPower, SetValue) {
 
 TEST(SpecificPower, SizeOf) {
   EXPECT_EQ(sizeof(SpecificPower<>{}), sizeof(double));
-}
-
-TEST(SpecificPower, StandardConstructor) {
-  EXPECT_NO_THROW(SpecificPower(1.0, Unit::SpecificPower::NanowattPerGram));
 }
 
 TEST(SpecificPower, StaticValue) {

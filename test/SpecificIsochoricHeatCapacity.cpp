@@ -147,6 +147,24 @@ TEST(SpecificIsochoricHeatCapacity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(SpecificIsochoricHeatCapacity, Constructor) {
+  EXPECT_NO_THROW(
+      SpecificIsochoricHeatCapacity(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin));
+  EXPECT_EQ(
+      SpecificIsochoricHeatCapacity(IsochoricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
+                                    Mass(4.0, Unit::Mass::Kilogram)),
+      SpecificIsochoricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  EXPECT_EQ(Mass(IsochoricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
+                 SpecificIsochoricHeatCapacity(
+                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+            Mass(2.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(
+      IsochoricHeatCapacity(
+          SpecificIsochoricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          Mass(2.0, Unit::Mass::Kilogram)),
+      IsochoricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
+}
+
 TEST(SpecificIsochoricHeatCapacity, CopyAssignmentOperator) {
   {
     const SpecificIsochoricHeatCapacity<float> first(
@@ -238,22 +256,6 @@ TEST(SpecificIsochoricHeatCapacity, JSON) {
       "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g/K\"}");
 }
 
-TEST(SpecificIsochoricHeatCapacity, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      SpecificIsochoricHeatCapacity(IsochoricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
-                                    Mass(4.0, Unit::Mass::Kilogram)),
-      SpecificIsochoricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-  EXPECT_EQ(Mass(IsochoricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
-                 SpecificIsochoricHeatCapacity(
-                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-            Mass(2.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(
-      IsochoricHeatCapacity(
-          SpecificIsochoricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          Mass(2.0, Unit::Mass::Kilogram)),
-      IsochoricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
-}
-
 TEST(SpecificIsochoricHeatCapacity, MoveAssignmentOperator) {
   SpecificIsochoricHeatCapacity first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   SpecificIsochoricHeatCapacity second = SpecificIsochoricHeatCapacity<>::Zero();
@@ -297,11 +299,6 @@ TEST(SpecificIsochoricHeatCapacity, SetValue) {
 
 TEST(SpecificIsochoricHeatCapacity, SizeOf) {
   EXPECT_EQ(sizeof(SpecificIsochoricHeatCapacity<>{}), sizeof(double));
-}
-
-TEST(SpecificIsochoricHeatCapacity, StandardConstructor) {
-  EXPECT_NO_THROW(
-      SpecificIsochoricHeatCapacity(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin));
 }
 
 TEST(SpecificIsochoricHeatCapacity, StaticValue) {

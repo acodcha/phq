@@ -53,6 +53,10 @@ TEST(DimensionSubstanceAmount, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionSubstanceAmount, Constructor) {
+  EXPECT_NO_THROW(SubstanceAmount(1));
+}
+
 TEST(DimensionSubstanceAmount, CopyAssignmentOperator) {
   constexpr SubstanceAmount first{3};
   SubstanceAmount second{0};

@@ -132,6 +132,15 @@ TEST(ThermalConductivity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ThermalConductivity, Constructor) {
+  EXPECT_NO_THROW(ThermalConductivity(
+      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity(
+                ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
+            ThermalConductivity(
+                {2.0, 0.0, 0.0, 2.0, 0.0, 2.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+}
+
 TEST(ThermalConductivity, CopyAssignmentOperator) {
   {
     const ThermalConductivity<float> first(
@@ -252,13 +261,6 @@ TEST(ThermalConductivity, JSON) {
                 + "},\"unit\":\"nW/mm/K\"}");
 }
 
-TEST(ThermalConductivity, MiscellaneousConstructors) {
-  EXPECT_EQ(ThermalConductivity(
-                ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
-            ThermalConductivity(
-                {2.0, 0.0, 0.0, 2.0, 0.0, 2.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-}
-
 TEST(ThermalConductivity, MoveAssignmentOperator) {
   ThermalConductivity first(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
@@ -306,11 +308,6 @@ TEST(ThermalConductivity, SetValue) {
 
 TEST(ThermalConductivity, SizeOf) {
   EXPECT_EQ(sizeof(ThermalConductivity<>{}), 6 * sizeof(double));
-}
-
-TEST(ThermalConductivity, StandardConstructor) {
-  EXPECT_NO_THROW(ThermalConductivity(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
 TEST(ThermalConductivity, StaticValue) {

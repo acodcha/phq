@@ -65,6 +65,77 @@ TEST(ConstitutiveModelElasticIsotropicSolid, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ConstitutiveModelElasticIsotropicSolid, Constructor) {
+  const YoungModulus young_modulus{4.0, Unit::Pressure::Pascal};
+  const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
+  const IsentropicBulkModulus isentropic_bulk_modulus{4.0, Unit::Pressure::Pascal};
+  const IsothermalBulkModulus isothermal_bulk_modulus{4.0, Unit::Pressure::Pascal};
+  const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
+  const PWaveModulus p_wave_modulus{4.0, Unit::Pressure::Pascal};
+  const PoissonRatio poisson_ratio{0.25};
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model01{young_modulus, shear_modulus};
+  EXPECT_EQ(model01.YoungModulus(), young_modulus);
+  EXPECT_EQ(model01.ShearModulus(), shear_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model02{young_modulus, isentropic_bulk_modulus};
+  EXPECT_EQ(model02.YoungModulus(), young_modulus);
+  EXPECT_EQ(model02.IsentropicBulkModulus(), isentropic_bulk_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model03{young_modulus, lame_first_modulus};
+  EXPECT_EQ(model03.YoungModulus(), young_modulus);
+  EXPECT_EQ(model03.LameFirstModulus(), lame_first_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model04{young_modulus, p_wave_modulus};
+  EXPECT_EQ(model04.YoungModulus(), young_modulus);
+  EXPECT_EQ(model04.PWaveModulus(), p_wave_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model05{young_modulus, poisson_ratio};
+  EXPECT_EQ(model05.YoungModulus(), young_modulus);
+  EXPECT_EQ(model05.PoissonRatio(), poisson_ratio);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model06{shear_modulus, isentropic_bulk_modulus};
+  EXPECT_EQ(model06.ShearModulus(), shear_modulus);
+  EXPECT_EQ(model06.IsentropicBulkModulus(), isentropic_bulk_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model07{shear_modulus, lame_first_modulus};
+  EXPECT_EQ(model07.ShearModulus(), shear_modulus);
+  EXPECT_EQ(model07.LameFirstModulus(), lame_first_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model08{shear_modulus, p_wave_modulus};
+  EXPECT_EQ(model08.ShearModulus(), shear_modulus);
+  EXPECT_EQ(model08.PWaveModulus(), p_wave_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model09{shear_modulus, poisson_ratio};
+  EXPECT_EQ(model09.ShearModulus(), shear_modulus);
+  EXPECT_EQ(model09.PoissonRatio(), poisson_ratio);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model10{
+      isentropic_bulk_modulus, lame_first_modulus};
+  EXPECT_EQ(model10.IsentropicBulkModulus(), isentropic_bulk_modulus);
+  EXPECT_EQ(model10.LameFirstModulus(), lame_first_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model11{isentropic_bulk_modulus, p_wave_modulus};
+  EXPECT_EQ(model11.IsentropicBulkModulus(), isentropic_bulk_modulus);
+  EXPECT_EQ(model11.PWaveModulus(), p_wave_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model12{isentropic_bulk_modulus, poisson_ratio};
+  EXPECT_EQ(model12.IsentropicBulkModulus(), isentropic_bulk_modulus);
+  EXPECT_DOUBLE_EQ(model12.PoissonRatio().Value(), poisson_ratio.Value());
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model13{lame_first_modulus, p_wave_modulus};
+  EXPECT_EQ(model13.LameFirstModulus(), lame_first_modulus);
+  EXPECT_EQ(model13.PWaveModulus(), p_wave_modulus);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model14{lame_first_modulus, poisson_ratio};
+  EXPECT_EQ(model14.LameFirstModulus(), lame_first_modulus);
+  EXPECT_EQ(model14.PoissonRatio(), poisson_ratio);
+
+  const ConstitutiveModel::ElasticIsotropicSolid<> model15{p_wave_modulus, poisson_ratio};
+  EXPECT_EQ(model15.PWaveModulus(), p_wave_modulus);
+  EXPECT_EQ(model15.PoissonRatio(), poisson_ratio);
+}
+
 TEST(ConstitutiveModelElasticIsotropicSolid, CopyAssignmentOperator) {
   const ConstitutiveModel::ElasticIsotropicSolid<> first{
       ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
@@ -144,77 +215,6 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Print) {
             "Type = Elastic Isotropic Solid, Shear Modulus = "
                 + ShearModulus(4.0, Unit::Pressure::Pascal).Print() + ", Lamé's First Modulus = "
                 + LameFirstModulus(-2.0, Unit::Pressure::Pascal).Print());
-}
-
-TEST(ConstitutiveModelElasticIsotropicSolid, StandardConstructors) {
-  const YoungModulus young_modulus{4.0, Unit::Pressure::Pascal};
-  const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
-  const IsentropicBulkModulus isentropic_bulk_modulus{4.0, Unit::Pressure::Pascal};
-  const IsothermalBulkModulus isothermal_bulk_modulus{4.0, Unit::Pressure::Pascal};
-  const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
-  const PWaveModulus p_wave_modulus{4.0, Unit::Pressure::Pascal};
-  const PoissonRatio poisson_ratio{0.25};
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model01{young_modulus, shear_modulus};
-  EXPECT_EQ(model01.YoungModulus(), young_modulus);
-  EXPECT_EQ(model01.ShearModulus(), shear_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model02{young_modulus, isentropic_bulk_modulus};
-  EXPECT_EQ(model02.YoungModulus(), young_modulus);
-  EXPECT_EQ(model02.IsentropicBulkModulus(), isentropic_bulk_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model03{young_modulus, lame_first_modulus};
-  EXPECT_EQ(model03.YoungModulus(), young_modulus);
-  EXPECT_EQ(model03.LameFirstModulus(), lame_first_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model04{young_modulus, p_wave_modulus};
-  EXPECT_EQ(model04.YoungModulus(), young_modulus);
-  EXPECT_EQ(model04.PWaveModulus(), p_wave_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model05{young_modulus, poisson_ratio};
-  EXPECT_EQ(model05.YoungModulus(), young_modulus);
-  EXPECT_EQ(model05.PoissonRatio(), poisson_ratio);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model06{shear_modulus, isentropic_bulk_modulus};
-  EXPECT_EQ(model06.ShearModulus(), shear_modulus);
-  EXPECT_EQ(model06.IsentropicBulkModulus(), isentropic_bulk_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model07{shear_modulus, lame_first_modulus};
-  EXPECT_EQ(model07.ShearModulus(), shear_modulus);
-  EXPECT_EQ(model07.LameFirstModulus(), lame_first_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model08{shear_modulus, p_wave_modulus};
-  EXPECT_EQ(model08.ShearModulus(), shear_modulus);
-  EXPECT_EQ(model08.PWaveModulus(), p_wave_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model09{shear_modulus, poisson_ratio};
-  EXPECT_EQ(model09.ShearModulus(), shear_modulus);
-  EXPECT_EQ(model09.PoissonRatio(), poisson_ratio);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model10{
-      isentropic_bulk_modulus, lame_first_modulus};
-  EXPECT_EQ(model10.IsentropicBulkModulus(), isentropic_bulk_modulus);
-  EXPECT_EQ(model10.LameFirstModulus(), lame_first_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model11{isentropic_bulk_modulus, p_wave_modulus};
-  EXPECT_EQ(model11.IsentropicBulkModulus(), isentropic_bulk_modulus);
-  EXPECT_EQ(model11.PWaveModulus(), p_wave_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model12{isentropic_bulk_modulus, poisson_ratio};
-  EXPECT_EQ(model12.IsentropicBulkModulus(), isentropic_bulk_modulus);
-  EXPECT_DOUBLE_EQ(model12.PoissonRatio().Value(), poisson_ratio.Value());
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model13{lame_first_modulus, p_wave_modulus};
-  EXPECT_EQ(model13.LameFirstModulus(), lame_first_modulus);
-  EXPECT_EQ(model13.PWaveModulus(), p_wave_modulus);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model14{lame_first_modulus, poisson_ratio};
-  EXPECT_EQ(model14.LameFirstModulus(), lame_first_modulus);
-  EXPECT_EQ(model14.PoissonRatio(), poisson_ratio);
-
-  const ConstitutiveModel::ElasticIsotropicSolid<> model15{p_wave_modulus, poisson_ratio};
-  EXPECT_EQ(model15.PWaveModulus(), p_wave_modulus);
-  EXPECT_EQ(model15.PoissonRatio(), poisson_ratio);
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Stream) {

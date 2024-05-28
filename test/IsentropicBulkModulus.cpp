@@ -101,6 +101,10 @@ TEST(IsentropicBulkModulus, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(IsentropicBulkModulus, Constructor) {
+  EXPECT_NO_THROW(IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(IsentropicBulkModulus, CopyAssignmentOperator) {
   {
     const IsentropicBulkModulus<float> first(1.0F, Unit::Pressure::Pascal);
@@ -206,10 +210,6 @@ TEST(IsentropicBulkModulus, SetValue) {
 
 TEST(IsentropicBulkModulus, SizeOf) {
   EXPECT_EQ(sizeof(IsentropicBulkModulus<>{}), sizeof(double));
-}
-
-TEST(IsentropicBulkModulus, StandardConstructor) {
-  EXPECT_NO_THROW(IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(IsentropicBulkModulus, StaticValue) {

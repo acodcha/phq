@@ -93,6 +93,10 @@ TEST(ScalarStrain, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarStrain, Constructor) {
+  EXPECT_NO_THROW(ScalarStrain(1.0));
+}
+
 TEST(ScalarStrain, CopyAssignmentOperator) {
   {
     const ScalarStrain<float> first(1.0F);
@@ -202,10 +206,6 @@ TEST(ScalarStrain, SetValue) {
 
 TEST(ScalarStrain, SizeOf) {
   EXPECT_EQ(sizeof(ScalarStrain<>{}), sizeof(double));
-}
-
-TEST(ScalarStrain, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarStrain(1.0));
 }
 
 TEST(ScalarStrain, Stream) {

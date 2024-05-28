@@ -111,6 +111,17 @@ TEST(PlanarDisplacement, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PlanarDisplacement, Constructor) {
+  EXPECT_NO_THROW(PlanarDisplacement({1.0, -2.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(PlanarDisplacement(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre)),
+            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarDirection(PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre)),
+            PlanarDirection(1.0, -2.0));
+  EXPECT_EQ(Angle(PlanarDisplacement({0.0, -2.0}, Unit::Length::Metre),
+                  PlanarDisplacement({3.0, 0.0}, Unit::Length::Metre)),
+            Angle(90.0, Unit::Angle::Degree));
+}
+
 TEST(PlanarDisplacement, CopyAssignmentOperator) {
   {
     const PlanarDisplacement<float> first({1.0F, -2.0F}, Unit::Length::Metre);
@@ -199,14 +210,6 @@ TEST(PlanarDisplacement, Magnitude) {
             Length(5.0, Unit::Length::Metre));
 }
 
-TEST(PlanarDisplacement, MiscellaneousConstructors) {
-  EXPECT_EQ(PlanarDirection(PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre)),
-            PlanarDirection(1.0, -2.0));
-  EXPECT_EQ(Angle(PlanarDisplacement({0.0, -2.0}, Unit::Length::Metre),
-                  PlanarDisplacement({3.0, 0.0}, Unit::Length::Metre)),
-            Angle(90.0, Unit::Angle::Degree));
-}
-
 TEST(PlanarDisplacement, MoveAssignmentOperator) {
   PlanarDisplacement first({1.0, -2.0}, Unit::Length::Metre);
   PlanarDisplacement second = PlanarDisplacement<>::Zero();
@@ -248,12 +251,6 @@ TEST(PlanarDisplacement, SetValue) {
 
 TEST(PlanarDisplacement, SizeOf) {
   EXPECT_EQ(sizeof(PlanarDisplacement<>{}), 2 * sizeof(double));
-}
-
-TEST(PlanarDisplacement, StandardConstructor) {
-  EXPECT_NO_THROW(PlanarDisplacement({1.0, -2.0}, Unit::Length::Millimetre));
-  EXPECT_EQ(PlanarDisplacement(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre)),
-            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarDisplacement, StaticValue) {

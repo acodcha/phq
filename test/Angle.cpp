@@ -96,6 +96,14 @@ TEST(Angle, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Angle, Constructor) {
+  EXPECT_NO_THROW(Angle(1.0, Unit::Angle::Degree));
+  EXPECT_DOUBLE_EQ(Angle(PlanarVector(1.0, 0.0), PlanarVector(0.0, -1.0)).Value(),
+                   Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(Angle(Vector(1.0, 0.0, 0.0), Vector(0.0, 0.0, -1.0)).Value(),
+                   Angle(90.0, Unit::Angle::Degree).Value());
+}
+
 TEST(Angle, CopyAssignmentOperator) {
   {
     const Angle<float> first(1.0F, Unit::Angle::Radian);
@@ -165,13 +173,6 @@ TEST(Angle, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"deg\"}");
 }
 
-TEST(Angle, MiscellaneousConstructors) {
-  EXPECT_DOUBLE_EQ(Angle(PlanarVector(1.0, 0.0), PlanarVector(0.0, -1.0)).Value(),
-                   Angle(90.0, Unit::Angle::Degree).Value());
-  EXPECT_DOUBLE_EQ(Angle(Vector(1.0, 0.0, 0.0), Vector(0.0, 0.0, -1.0)).Value(),
-                   Angle(90.0, Unit::Angle::Degree).Value());
-}
-
 TEST(Angle, MiscellaneousMethods) {
   EXPECT_DOUBLE_EQ(PlanarVector(1.0, 0.0).Angle(PlanarVector(0.0, -1.0)).Value(),
                    Angle(90.0, Unit::Angle::Degree).Value());
@@ -212,10 +213,6 @@ TEST(Angle, SetValue) {
 
 TEST(Angle, SizeOf) {
   EXPECT_EQ(sizeof(Angle<>{}), sizeof(double));
-}
-
-TEST(Angle, StandardConstructor) {
-  EXPECT_NO_THROW(Angle(1.0, Unit::Angle::Degree));
 }
 
 TEST(Angle, StaticValue) {

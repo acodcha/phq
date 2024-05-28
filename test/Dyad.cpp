@@ -326,6 +326,32 @@ TEST(Dyad, ComparisonOperators) {
   }
 }
 
+TEST(Dyad, Constructor) {
+  EXPECT_EQ(Dyad(std::array<float, 9>{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F}),
+            Dyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F));
+  EXPECT_EQ(Dyad(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
+            Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  EXPECT_EQ(
+      Dyad(std::array<long double, 9>{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L}),
+      Dyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L));
+  {
+    Dyad dyad{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
+    dyad = std::array<float, 9>{-10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F};
+    EXPECT_EQ(dyad, Dyad(-10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F));
+  }
+  {
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
+    dyad = std::array<double, 9>{-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
+    EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
+  }
+  {
+    Dyad dyad{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
+    dyad = std::array<long double, 9>{
+        -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L};
+    EXPECT_EQ(dyad, Dyad(-10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L));
+  }
+}
+
 TEST(Dyad, CopyAssignmentOperator) {
   {
     constexpr Dyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
@@ -832,32 +858,6 @@ TEST(Dyad, SizeOf) {
   EXPECT_EQ(sizeof(Dyad<float>{}), 9 * sizeof(float));
   EXPECT_EQ(sizeof(Dyad<double>{}), 9 * sizeof(double));
   EXPECT_EQ(sizeof(Dyad<long double>{}), 9 * sizeof(long double));
-}
-
-TEST(Dyad, StandardConstructor) {
-  EXPECT_EQ(Dyad(std::array<float, 9>{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F}),
-            Dyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F));
-  EXPECT_EQ(Dyad(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
-            Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
-  EXPECT_EQ(
-      Dyad(std::array<long double, 9>{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L}),
-      Dyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L));
-  {
-    Dyad dyad{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
-    dyad = std::array<float, 9>{-10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F};
-    EXPECT_EQ(dyad, Dyad(-10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F));
-  }
-  {
-    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
-    dyad = std::array<double, 9>{-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
-    EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
-  }
-  {
-    Dyad dyad{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
-    dyad = std::array<long double, 9>{
-        -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L};
-    EXPECT_EQ(dyad, Dyad(-10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L));
-  }
 }
 
 TEST(Dyad, Stream) {

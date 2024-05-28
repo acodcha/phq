@@ -120,6 +120,24 @@ TEST(PlanarTraction, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PlanarTraction, Constructor) {
+  EXPECT_NO_THROW(PlanarTraction({1.0, -2.0}, Unit::Pressure::Kilopascal));
+  EXPECT_EQ(PlanarTraction(ScalarTraction(1.0, Unit::Pressure::Pascal),
+                           ScalarTraction(-2.0, Unit::Pressure::Pascal)),
+            PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(PlanarDirection(PlanarTraction({3.0, -4.0}, Unit::Pressure::Pascal)),
+            PlanarDirection(3.0, -4.0));
+  EXPECT_EQ(Angle(PlanarTraction({0.0, -2.0}, Unit::Pressure::Pascal),
+                  PlanarTraction({3.0, 0.0}, Unit::Pressure::Pascal)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarTraction(
+                PlanarForce({2.0, -4.0}, Unit::Force::Newton), Area(2.0, Unit::Area::SquareMetre)),
+            PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(PlanarForce(PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal),
+                        Area(2.0, Unit::Area::SquareMetre)),
+            PlanarForce({2.0, -4.0}, Unit::Force::Newton));
+}
+
 TEST(PlanarTraction, CopyAssignmentOperator) {
   {
     const PlanarTraction<float> first({1.0F, -2.0F}, Unit::Pressure::Pascal);
@@ -207,20 +225,6 @@ TEST(PlanarTraction, Magnitude) {
             ScalarTraction(5.0, Unit::Pressure::Pascal));
 }
 
-TEST(PlanarTraction, MiscellaneousConstructors) {
-  EXPECT_EQ(PlanarDirection(PlanarTraction({3.0, -4.0}, Unit::Pressure::Pascal)),
-            PlanarDirection(3.0, -4.0));
-  EXPECT_EQ(Angle(PlanarTraction({0.0, -2.0}, Unit::Pressure::Pascal),
-                  PlanarTraction({3.0, 0.0}, Unit::Pressure::Pascal)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(PlanarTraction(
-                PlanarForce({2.0, -4.0}, Unit::Force::Newton), Area(2.0, Unit::Area::SquareMetre)),
-            PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
-  EXPECT_EQ(PlanarForce(PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal),
-                        Area(2.0, Unit::Area::SquareMetre)),
-            PlanarForce({2.0, -4.0}, Unit::Force::Newton));
-}
-
 TEST(PlanarTraction, MoveAssignmentOperator) {
   PlanarTraction first({1.0, -2.0}, Unit::Pressure::Pascal);
   PlanarTraction second = PlanarTraction<>::Zero();
@@ -262,13 +266,6 @@ TEST(PlanarTraction, SetValue) {
 
 TEST(PlanarTraction, SizeOf) {
   EXPECT_EQ(sizeof(PlanarTraction<>{}), 2 * sizeof(double));
-}
-
-TEST(PlanarTraction, StandardConstructor) {
-  EXPECT_NO_THROW(PlanarTraction({1.0, -2.0}, Unit::Pressure::Kilopascal));
-  EXPECT_EQ(PlanarTraction(ScalarTraction(1.0, Unit::Pressure::Pascal),
-                           ScalarTraction(-2.0, Unit::Pressure::Pascal)),
-            PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
 }
 
 TEST(PlanarTraction, StaticValue) {

@@ -102,6 +102,17 @@ TEST(MachNumber, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(MachNumber, Constructor) {
+  EXPECT_NO_THROW(MachNumber(1.0));
+  EXPECT_EQ(MachNumber(Speed(8.0, Unit::Speed::MetrePerSecond),
+                       SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
+            MachNumber(2.0));
+  EXPECT_EQ(SoundSpeed(Speed(8.0, Unit::Speed::MetrePerSecond), MachNumber(4.0)),
+            SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(SoundSpeed(4.0, Unit::Speed::MetrePerSecond), MachNumber(2.0)),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+}
+
 TEST(MachNumber, CopyAssignmentOperator) {
   {
     const MachNumber<float> first(1.0F);
@@ -179,16 +190,6 @@ TEST(MachNumber, Mathematics) {
   EXPECT_EQ(std::sqrt(MachNumber(9.0)), std::sqrt(9.0));
 }
 
-TEST(MachNumber, MiscellaneousConstructors) {
-  EXPECT_EQ(MachNumber(Speed(8.0, Unit::Speed::MetrePerSecond),
-                       SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
-            MachNumber(2.0));
-  EXPECT_EQ(SoundSpeed(Speed(8.0, Unit::Speed::MetrePerSecond), MachNumber(4.0)),
-            SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(Speed(SoundSpeed(4.0, Unit::Speed::MetrePerSecond), MachNumber(2.0)),
-            Speed(8.0, Unit::Speed::MetrePerSecond));
-}
-
 TEST(MachNumber, MoveAssignmentOperator) {
   MachNumber first{1.0};
   MachNumber second = MachNumber<>::Zero();
@@ -221,10 +222,6 @@ TEST(MachNumber, SetValue) {
 
 TEST(MachNumber, SizeOf) {
   EXPECT_EQ(sizeof(MachNumber<>{}), sizeof(double));
-}
-
-TEST(MachNumber, StandardConstructor) {
-  EXPECT_NO_THROW(MachNumber(1.0));
 }
 
 TEST(MachNumber, Stream) {

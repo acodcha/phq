@@ -141,6 +141,23 @@ TEST(Position, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Position, Constructor) {
+  EXPECT_NO_THROW(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(Position(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre),
+                     Length(3.0, Unit::Length::Metre)),
+            Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(Direction(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)), Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(Position({0.0, -2.0, 0.0}, Unit::Length::Metre),
+                  Position({0.0, 0.0, 3.0}, Unit::Length::Metre)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(Displacement(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarPosition(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
+            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+  EXPECT_EQ(Position(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
+            Position({1.0, -2.0, 0.0}, Unit::Length::Metre));
+}
+
 TEST(Position, CopyAssignmentOperator) {
   {
     const Position<float> first({1.0F, -2.0F, 3.0F}, Unit::Length::Metre);
@@ -232,19 +249,6 @@ TEST(Position, Magnitude) {
             Length(7.0, Unit::Length::Metre));
 }
 
-TEST(Position, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)), Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(Position({0.0, -2.0, 0.0}, Unit::Length::Metre),
-                  Position({0.0, 0.0, 3.0}, Unit::Length::Metre)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(Displacement(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
-            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
-  EXPECT_EQ(PlanarPosition(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
-            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
-  EXPECT_EQ(Position(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
-            Position({1.0, -2.0, 0.0}, Unit::Length::Metre));
-}
-
 TEST(Position, MoveAssignmentOperator) {
   Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
   Position second = Position<>::Zero();
@@ -280,13 +284,6 @@ TEST(Position, SetValue) {
 
 TEST(Position, SizeOf) {
   EXPECT_EQ(sizeof(Position<>{}), 3 * sizeof(double));
-}
-
-TEST(Position, StandardConstructor) {
-  EXPECT_NO_THROW(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
-  EXPECT_EQ(Position(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre),
-                     Length(3.0, Unit::Length::Metre)),
-            Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, StaticValue) {

@@ -107,6 +107,28 @@ TEST(Stress, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Stress, Constructor) {
+  EXPECT_NO_THROW(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      Stress(ScalarStress(1.0, Unit::Pressure::Pascal), ScalarStress(-2.0, Unit::Pressure::Pascal),
+             ScalarStress(3.0, Unit::Pressure::Pascal), ScalarStress(-4.0, Unit::Pressure::Pascal),
+             ScalarStress(5.0, Unit::Pressure::Pascal), ScalarStress(-6.0, Unit::Pressure::Pascal)),
+      Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress(StaticPressure(2.0, Unit::Pressure::Pascal)),
+            Stress({-2.0, 0.0, 0.0, -2.0, 0.0, -2.0}, Unit::Pressure::Pascal));
+
+  EXPECT_EQ(StaticPressure(2.0, Unit::Pressure::Pascal).Stress(),
+            Stress({-2.0, 0.0, 0.0, -2.0, 0.0, -2.0}, Unit::Pressure::Pascal));
+
+  EXPECT_EQ(PlanarTraction(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
+                           PlanarDirection(0.0, -1.0)),
+            PlanarTraction({2.0, 4.0}, Unit::Pressure::Pascal));
+
+  EXPECT_EQ(Traction(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
+                     Direction(0.0, -1.0, 0.0)),
+            Traction({2.0, 4.0, -5.0}, Unit::Pressure::Pascal));
+}
+
 TEST(Stress, CopyAssignmentOperator) {
   {
     const Stress<float> first({1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::Pressure::Pascal);
@@ -196,22 +218,6 @@ TEST(Stress, JSON) {
                 + "},\"unit\":\"kPa\"}");
 }
 
-TEST(Stress, MiscellaneousConstructors) {
-  EXPECT_EQ(Stress(StaticPressure(2.0, Unit::Pressure::Pascal)),
-            Stress({-2.0, 0.0, 0.0, -2.0, 0.0, -2.0}, Unit::Pressure::Pascal));
-
-  EXPECT_EQ(StaticPressure(2.0, Unit::Pressure::Pascal).Stress(),
-            Stress({-2.0, 0.0, 0.0, -2.0, 0.0, -2.0}, Unit::Pressure::Pascal));
-
-  EXPECT_EQ(PlanarTraction(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
-                           PlanarDirection(0.0, -1.0)),
-            PlanarTraction({2.0, 4.0}, Unit::Pressure::Pascal));
-
-  EXPECT_EQ(Traction(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
-                     Direction(0.0, -1.0, 0.0)),
-            Traction({2.0, 4.0, -5.0}, Unit::Pressure::Pascal));
-}
-
 TEST(Stress, MiscellaneousMethods) {
   EXPECT_EQ(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal)
                 .PlanarTraction(PlanarDirection(0.0, -1.0)),
@@ -267,15 +273,6 @@ TEST(Stress, SetValue) {
 
 TEST(Stress, SizeOf) {
   EXPECT_EQ(sizeof(Stress<>{}), 6 * sizeof(double));
-}
-
-TEST(Stress, StandardConstructor) {
-  EXPECT_NO_THROW(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
-  EXPECT_EQ(
-      Stress(ScalarStress(1.0, Unit::Pressure::Pascal), ScalarStress(-2.0, Unit::Pressure::Pascal),
-             ScalarStress(3.0, Unit::Pressure::Pascal), ScalarStress(-4.0, Unit::Pressure::Pascal),
-             ScalarStress(5.0, Unit::Pressure::Pascal), ScalarStress(-6.0, Unit::Pressure::Pascal)),
-      Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Stress, StaticValue) {

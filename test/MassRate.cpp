@@ -120,6 +120,20 @@ TEST(MassRate, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(MassRate, Constructor) {
+  EXPECT_NO_THROW(MassRate(1.0, Unit::MassRate::GramPerSecond));
+  EXPECT_EQ(Mass(MassRate(4.0, Unit::MassRate::KilogramPerSecond), Time(2.0, Unit::Time::Second)),
+            Mass(8.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Mass(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
+                 Frequency(4.0, Unit::Frequency::Hertz)),
+            Mass(2.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Time(Mass(8.0, Unit::Mass::Kilogram), MassRate(4.0, Unit::MassRate::KilogramPerSecond)),
+            Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(
+      Frequency(MassRate(8.0, Unit::MassRate::KilogramPerSecond), Mass(4.0, Unit::Mass::Kilogram)),
+      Frequency(2.0, Unit::Frequency::Hertz));
+}
+
 TEST(MassRate, CopyAssignmentOperator) {
   {
     const MassRate<float> first(1.0F, Unit::MassRate::KilogramPerSecond);
@@ -189,19 +203,6 @@ TEST(MassRate, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"g/s\"}");
 }
 
-TEST(MassRate, MiscellaneousConstructors) {
-  EXPECT_EQ(Mass(MassRate(4.0, Unit::MassRate::KilogramPerSecond), Time(2.0, Unit::Time::Second)),
-            Mass(8.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(Mass(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
-                 Frequency(4.0, Unit::Frequency::Hertz)),
-            Mass(2.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(Time(Mass(8.0, Unit::Mass::Kilogram), MassRate(4.0, Unit::MassRate::KilogramPerSecond)),
-            Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(
-      Frequency(MassRate(8.0, Unit::MassRate::KilogramPerSecond), Mass(4.0, Unit::Mass::Kilogram)),
-      Frequency(2.0, Unit::Frequency::Hertz));
-}
-
 TEST(MassRate, MoveAssignmentOperator) {
   MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
   MassRate second = MassRate<>::Zero();
@@ -236,10 +237,6 @@ TEST(MassRate, SetValue) {
 
 TEST(MassRate, SizeOf) {
   EXPECT_EQ(sizeof(MassRate<>{}), sizeof(double));
-}
-
-TEST(MassRate, StandardConstructor) {
-  EXPECT_NO_THROW(MassRate(1.0, Unit::MassRate::GramPerSecond));
 }
 
 TEST(MassRate, StaticValue) {

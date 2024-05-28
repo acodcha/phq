@@ -270,6 +270,33 @@ TEST(Vector, ComparisonOperators) {
   }
 }
 
+TEST(Vector, Constructor) {
+  EXPECT_EQ(Vector(std::array<float, 3>{1.0F, -2.0F, 3.0F}), Vector(1.0F, -2.0F, 3.0F));
+  EXPECT_EQ(Vector(std::array<double, 3>{1.0, -2.0, 3.0}), Vector(1.0, -2.0, 3.0));
+  EXPECT_EQ(Vector(std::array<long double, 3>{1.0L, -2.0L, 3.0L}), Vector(1.0L, -2.0L, 3.0L));
+  {
+    Vector vector{1.0F, -2.0F, 3.0F};
+    vector = std::array<float, 3>{-4.0F, 5.0F, -6.0F};
+    EXPECT_EQ(vector, Vector(-4.0F, 5.0F, -6.0F));
+  }
+  {
+    Vector vector{1.0, -2.0, 3.0};
+    vector = std::array<double, 3>{-4.0, 5.0, -6.0};
+    EXPECT_EQ(vector, Vector(-4.0, 5.0, -6.0));
+  }
+  {
+    Vector vector{1.0L, -2.0L, 3.0L};
+    vector = std::array<long double, 3>{-4.0L, 5.0L, -6.0L};
+    EXPECT_EQ(vector, Vector(-4.0L, 5.0L, -6.0L));
+  }
+  EXPECT_EQ(Vector(PlanarVector(1.0F, -2.0F)), Vector(1.0F, -2.0F, 0.0F));
+  EXPECT_EQ(Vector(PlanarVector(1.0, -2.0)), Vector(1.0, -2.0, 0.0));
+  EXPECT_EQ(Vector(PlanarVector(1.0L, -2.0L)), Vector(1.0L, -2.0L, 0.0L));
+  EXPECT_EQ(PlanarVector(Vector(1.0F, -2.0F, 3.0F)), PlanarVector(1.0F, -2.0F));
+  EXPECT_EQ(PlanarVector(Vector(1.0, -2.0, 3.0)), PlanarVector(1.0, -2.0));
+  EXPECT_EQ(PlanarVector(Vector(1.0L, -2.0L, 3.0L)), PlanarVector(1.0L, -2.0L));
+}
+
 TEST(Vector, CopyAssignmentOperator) {
   {
     constexpr Vector first{1.0F, -2.0F, 3.0F};
@@ -449,15 +476,6 @@ TEST(Vector, MagnitudeSquared) {
   EXPECT_EQ(Vector(6.0L, -3.0L, 2.0L).MagnitudeSquared(), 49.0L);
 }
 
-TEST(Vector, MiscellaneousConstructors) {
-  EXPECT_EQ(Vector(PlanarVector(1.0F, -2.0F)), Vector(1.0F, -2.0F, 0.0F));
-  EXPECT_EQ(Vector(PlanarVector(1.0, -2.0)), Vector(1.0, -2.0, 0.0));
-  EXPECT_EQ(Vector(PlanarVector(1.0L, -2.0L)), Vector(1.0L, -2.0L, 0.0L));
-  EXPECT_EQ(PlanarVector(Vector(1.0F, -2.0F, 3.0F)), PlanarVector(1.0F, -2.0F));
-  EXPECT_EQ(PlanarVector(Vector(1.0, -2.0, 3.0)), PlanarVector(1.0, -2.0));
-  EXPECT_EQ(PlanarVector(Vector(1.0L, -2.0L, 3.0L)), PlanarVector(1.0L, -2.0L));
-}
-
 TEST(Vector, MoveAssignmentOperator) {
   {
     Vector first{1.0F, -2.0F, 3.0F};
@@ -622,27 +640,6 @@ TEST(Vector, SizeOf) {
   EXPECT_EQ(sizeof(Vector<float>{}), 3 * sizeof(float));
   EXPECT_EQ(sizeof(Vector<double>{}), 3 * sizeof(double));
   EXPECT_EQ(sizeof(Vector<long double>{}), 3 * sizeof(long double));
-}
-
-TEST(Vector, StandardConstructor) {
-  EXPECT_EQ(Vector(std::array<float, 3>{1.0F, -2.0F, 3.0F}), Vector(1.0F, -2.0F, 3.0F));
-  EXPECT_EQ(Vector(std::array<double, 3>{1.0, -2.0, 3.0}), Vector(1.0, -2.0, 3.0));
-  EXPECT_EQ(Vector(std::array<long double, 3>{1.0L, -2.0L, 3.0L}), Vector(1.0L, -2.0L, 3.0L));
-  {
-    Vector vector{1.0F, -2.0F, 3.0F};
-    vector = std::array<float, 3>{-4.0F, 5.0F, -6.0F};
-    EXPECT_EQ(vector, Vector(-4.0F, 5.0F, -6.0F));
-  }
-  {
-    Vector vector{1.0, -2.0, 3.0};
-    vector = std::array<double, 3>{-4.0, 5.0, -6.0};
-    EXPECT_EQ(vector, Vector(-4.0, 5.0, -6.0));
-  }
-  {
-    Vector vector{1.0L, -2.0L, 3.0L};
-    vector = std::array<long double, 3>{-4.0L, 5.0L, -6.0L};
-    EXPECT_EQ(vector, Vector(-4.0L, 5.0L, -6.0L));
-  }
 }
 
 TEST(Vector, Stream) {

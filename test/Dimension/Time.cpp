@@ -53,6 +53,10 @@ TEST(DimensionTime, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionTime, Constructor) {
+  EXPECT_NO_THROW(Time(1));
+}
+
 TEST(DimensionTime, CopyAssignmentOperator) {
   constexpr Time first{3};
   Time second{0};

@@ -101,6 +101,10 @@ TEST(IsothermalBulkModulus, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(IsothermalBulkModulus, Constructor) {
+  EXPECT_NO_THROW(IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(IsothermalBulkModulus, CopyAssignmentOperator) {
   {
     const IsothermalBulkModulus<float> first(1.0F, Unit::Pressure::Pascal);
@@ -206,10 +210,6 @@ TEST(IsothermalBulkModulus, SetValue) {
 
 TEST(IsothermalBulkModulus, SizeOf) {
   EXPECT_EQ(sizeof(IsothermalBulkModulus<>{}), sizeof(double));
-}
-
-TEST(IsothermalBulkModulus, StandardConstructor) {
-  EXPECT_NO_THROW(IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(IsothermalBulkModulus, StaticValue) {

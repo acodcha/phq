@@ -341,6 +341,30 @@ TEST(SymmetricDyad, ComparisonOperators) {
   }
 }
 
+TEST(SymmetricDyad, Constructor) {
+  EXPECT_EQ(SymmetricDyad(std::array<float, 6>{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}),
+            SymmetricDyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F));
+  EXPECT_EQ(SymmetricDyad(std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
+            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  EXPECT_EQ(SymmetricDyad(std::array<long double, 6>{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}),
+            SymmetricDyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L));
+  {
+    SymmetricDyad symmetric_dyad{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
+    symmetric_dyad = std::array<float, 6>{-7.0F, 8.0F, -9.0F, 10.0F, -11.0F, 12.0F};
+    EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0F, 8.0F, -9.0F, 10.0F, -11.0F, 12.0F));
+  }
+  {
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+    symmetric_dyad = std::array<double, 6>{7.0, -8.0, 9.0, -10.0, 11.0, -12.0};
+    EXPECT_EQ(symmetric_dyad, SymmetricDyad(7.0, -8.0, 9.0, -10.0, 11.0, -12.0));
+  }
+  {
+    SymmetricDyad symmetric_dyad{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L};
+    symmetric_dyad = std::array<long double, 6>{-7.0L, 8.0L, -9.0L, 10.0L, -11.0L, 12.0L};
+    EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0L, 8.0L, -9.0L, 10.0L, -11.0L, 12.0L));
+  }
+}
+
 TEST(SymmetricDyad, CopyAssignmentOperator) {
   {
     constexpr SymmetricDyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
@@ -798,30 +822,6 @@ TEST(SymmetricDyad, SizeOf) {
   EXPECT_EQ(sizeof(SymmetricDyad<float>{}), 6 * sizeof(float));
   EXPECT_EQ(sizeof(SymmetricDyad<double>{}), 6 * sizeof(double));
   EXPECT_EQ(sizeof(SymmetricDyad<long double>{}), 6 * sizeof(long double));
-}
-
-TEST(SymmetricDyad, StandardConstructor) {
-  EXPECT_EQ(SymmetricDyad(std::array<float, 6>{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}),
-            SymmetricDyad(1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F));
-  EXPECT_EQ(SymmetricDyad(std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
-            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-  EXPECT_EQ(SymmetricDyad(std::array<long double, 6>{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L}),
-            SymmetricDyad(1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L));
-  {
-    SymmetricDyad symmetric_dyad{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
-    symmetric_dyad = std::array<float, 6>{-7.0F, 8.0F, -9.0F, 10.0F, -11.0F, 12.0F};
-    EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0F, 8.0F, -9.0F, 10.0F, -11.0F, 12.0F));
-  }
-  {
-    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
-    symmetric_dyad = std::array<double, 6>{7.0, -8.0, 9.0, -10.0, 11.0, -12.0};
-    EXPECT_EQ(symmetric_dyad, SymmetricDyad(7.0, -8.0, 9.0, -10.0, 11.0, -12.0));
-  }
-  {
-    SymmetricDyad symmetric_dyad{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L};
-    symmetric_dyad = std::array<long double, 6>{-7.0L, 8.0L, -9.0L, 10.0L, -11.0L, 12.0L};
-    EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0L, 8.0L, -9.0L, 10.0L, -11.0L, 12.0L));
-  }
 }
 
 TEST(SymmetricDyad, Stream) {

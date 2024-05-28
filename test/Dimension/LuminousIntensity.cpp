@@ -53,6 +53,10 @@ TEST(DimensionLuminousIntensity, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionLuminousIntensity, Constructor) {
+  EXPECT_NO_THROW(LuminousIntensity(1));
+}
+
 TEST(DimensionLuminousIntensity, CopyAssignmentOperator) {
   constexpr LuminousIntensity first{3};
   LuminousIntensity second{0};

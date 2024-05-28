@@ -136,6 +136,27 @@ TEST(SoundSpeed, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(SoundSpeed, Constructor) {
+  EXPECT_NO_THROW(SoundSpeed(1.0, Unit::Speed::MillimetrePerSecond));
+  EXPECT_EQ(SoundSpeed(IsentropicBulkModulus(32.0, Unit::Pressure::Pascal),
+                       MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(MassDensity(IsentropicBulkModulus(16.0, Unit::Pressure::Pascal),
+                        SoundSpeed(2.0, Unit::Speed::MetrePerSecond)),
+            MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(IsentropicBulkModulus(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                                  SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
+            IsentropicBulkModulus(32.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(SoundSpeed(HeatCapacityRatio(2.0), StaticPressure(8.0, Unit::Pressure::Pascal),
+                       MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(
+      SoundSpeed(HeatCapacityRatio(2.0),
+                 SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+                 Temperature(8.0, Unit::Temperature::Kelvin)),
+      SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
+}
+
 TEST(SoundSpeed, CopyAssignmentOperator) {
   {
     const SoundSpeed<float> first(1.0F, Unit::Speed::MetrePerSecond);
@@ -206,26 +227,6 @@ TEST(SoundSpeed, JSON) {
       "{\"value\":" + Print(1.0) + ",\"unit\":\"mm/s\"}");
 }
 
-TEST(SoundSpeed, MiscellaneousConstructors) {
-  EXPECT_EQ(SoundSpeed(IsentropicBulkModulus(32.0, Unit::Pressure::Pascal),
-                       MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(MassDensity(IsentropicBulkModulus(16.0, Unit::Pressure::Pascal),
-                        SoundSpeed(2.0, Unit::Speed::MetrePerSecond)),
-            MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
-  EXPECT_EQ(IsentropicBulkModulus(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                                  SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
-            IsentropicBulkModulus(32.0, Unit::Pressure::Pascal));
-  EXPECT_EQ(SoundSpeed(HeatCapacityRatio(2.0), StaticPressure(8.0, Unit::Pressure::Pascal),
-                       MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(
-      SoundSpeed(HeatCapacityRatio(2.0),
-                 SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-                 Temperature(8.0, Unit::Temperature::Kelvin)),
-      SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
-}
-
 TEST(SoundSpeed, MoveAssignmentOperator) {
   SoundSpeed first{1.0, Unit::Speed::MetrePerSecond};
   SoundSpeed second = SoundSpeed<>::Zero();
@@ -261,10 +262,6 @@ TEST(SoundSpeed, SetValue) {
 
 TEST(SoundSpeed, SizeOf) {
   EXPECT_EQ(sizeof(SoundSpeed<>{}), sizeof(double));
-}
-
-TEST(SoundSpeed, StandardConstructor) {
-  EXPECT_NO_THROW(SoundSpeed(1.0, Unit::Speed::MillimetrePerSecond));
 }
 
 TEST(SoundSpeed, StaticValue) {

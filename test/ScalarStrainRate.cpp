@@ -117,6 +117,20 @@ TEST(ScalarStrainRate, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarStrainRate, Constructor) {
+  EXPECT_NO_THROW(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz));
+  EXPECT_EQ(ScalarStrainRate(ScalarStrain(8.0), Time(4.0, Unit::Time::Second)),
+            ScalarStrainRate(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(ScalarStrainRate(ScalarStrain(4.0), Frequency(2.0, Unit::Frequency::Hertz)),
+            ScalarStrainRate(8.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      ScalarStrain(ScalarStrainRate(4.0, Unit::Frequency::Hertz), Time(2.0, Unit::Time::Second)),
+      ScalarStrain(8.0));
+  EXPECT_EQ(ScalarStrain(ScalarStrainRate(8.0, Unit::Frequency::Hertz),
+                         Frequency(4.0, Unit::Frequency::Hertz)),
+            ScalarStrain(2.0));
+}
+
 TEST(ScalarStrainRate, CopyAssignmentOperator) {
   {
     const ScalarStrainRate<float> first(1.0F, Unit::Frequency::Hertz);
@@ -186,19 +200,6 @@ TEST(ScalarStrainRate, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kHz\"}");
 }
 
-TEST(ScalarStrainRate, MiscellaneousConstructors) {
-  EXPECT_EQ(ScalarStrainRate(ScalarStrain(8.0), Time(4.0, Unit::Time::Second)),
-            ScalarStrainRate(2.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(ScalarStrainRate(ScalarStrain(4.0), Frequency(2.0, Unit::Frequency::Hertz)),
-            ScalarStrainRate(8.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(
-      ScalarStrain(ScalarStrainRate(4.0, Unit::Frequency::Hertz), Time(2.0, Unit::Time::Second)),
-      ScalarStrain(8.0));
-  EXPECT_EQ(ScalarStrain(ScalarStrainRate(8.0, Unit::Frequency::Hertz),
-                         Frequency(4.0, Unit::Frequency::Hertz)),
-            ScalarStrain(2.0));
-}
-
 TEST(ScalarStrainRate, MoveAssignmentOperator) {
   ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
   ScalarStrainRate second = ScalarStrainRate<>::Zero();
@@ -233,10 +234,6 @@ TEST(ScalarStrainRate, SetValue) {
 
 TEST(ScalarStrainRate, SizeOf) {
   EXPECT_EQ(sizeof(ScalarStrainRate<>{}), sizeof(double));
-}
-
-TEST(ScalarStrainRate, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz));
 }
 
 TEST(ScalarStrainRate, StaticValue) {

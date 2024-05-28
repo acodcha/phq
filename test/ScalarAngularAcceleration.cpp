@@ -134,6 +134,36 @@ TEST(ScalarAngularAcceleration, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarAngularAcceleration, Constructor) {
+  EXPECT_NO_THROW(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond));
+  EXPECT_EQ(ScalarAngularAcceleration(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
+                                      Time(4.0, Unit::Time::Second)),
+            ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+
+  EXPECT_EQ(ScalarAngularAcceleration(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond),
+                                      Frequency(2.0, Unit::Frequency::Hertz)),
+            ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+
+  EXPECT_EQ(
+      AngularSpeed(ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond),
+                   Time(2.0, Unit::Time::Second)),
+      AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
+
+  EXPECT_EQ(
+      AngularSpeed(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond),
+                   Frequency(2.0, Unit::Frequency::Hertz)),
+      AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
+
+  EXPECT_EQ(Time(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
+                 ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond)),
+            Time(2.0, Unit::Time::Second));
+
+  EXPECT_EQ(
+      Frequency(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond),
+                AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond)),
+      Frequency(2.0, Unit::Frequency::Hertz));
+}
+
 TEST(ScalarAngularAcceleration, CopyAssignmentOperator) {
   {
     const ScalarAngularAcceleration<float> first(
@@ -220,35 +250,6 @@ TEST(ScalarAngularAcceleration, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"deg/s^2\"}");
 }
 
-TEST(ScalarAngularAcceleration, MiscellaneousConstructors) {
-  EXPECT_EQ(ScalarAngularAcceleration(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
-                                      Time(4.0, Unit::Time::Second)),
-            ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
-  EXPECT_EQ(ScalarAngularAcceleration(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond),
-                                      Frequency(2.0, Unit::Frequency::Hertz)),
-            ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
-  EXPECT_EQ(
-      AngularSpeed(ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond),
-                   Time(2.0, Unit::Time::Second)),
-      AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
-
-  EXPECT_EQ(
-      AngularSpeed(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond),
-                   Frequency(2.0, Unit::Frequency::Hertz)),
-      AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
-
-  EXPECT_EQ(Time(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
-                 ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond)),
-            Time(2.0, Unit::Time::Second));
-
-  EXPECT_EQ(
-      Frequency(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond),
-                AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond)),
-      Frequency(2.0, Unit::Frequency::Hertz));
-}
-
 TEST(ScalarAngularAcceleration, MoveAssignmentOperator) {
   ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   ScalarAngularAcceleration second = ScalarAngularAcceleration<>::Zero();
@@ -290,10 +291,6 @@ TEST(ScalarAngularAcceleration, SetValue) {
 
 TEST(ScalarAngularAcceleration, SizeOf) {
   EXPECT_EQ(sizeof(ScalarAngularAcceleration<>{}), sizeof(double));
-}
-
-TEST(ScalarAngularAcceleration, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, StaticValue) {

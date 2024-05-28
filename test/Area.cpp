@@ -104,6 +104,10 @@ TEST(Area, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Area, Constructor) {
+  EXPECT_NO_THROW(Area(1.0, Unit::Area::SquareMillimetre));
+}
+
 TEST(Area, CopyAssignmentOperator) {
   {
     const Area<float> first(1.0F, Unit::Area::SquareMetre);
@@ -207,10 +211,6 @@ TEST(Area, SetValue) {
 
 TEST(Area, SizeOf) {
   EXPECT_EQ(sizeof(Area<>{}), sizeof(double));
-}
-
-TEST(Area, StandardConstructor) {
-  EXPECT_NO_THROW(Area(1.0, Unit::Area::SquareMillimetre));
 }
 
 TEST(Area, StaticValue) {

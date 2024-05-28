@@ -101,6 +101,10 @@ TEST(KinematicViscosity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(KinematicViscosity, Constructor) {
+  EXPECT_NO_THROW(KinematicViscosity(1.0, Unit::Diffusivity::SquareFootPerSecond));
+}
+
 TEST(KinematicViscosity, CopyAssignmentOperator) {
   {
     const KinematicViscosity<float> first(1.0F, Unit::Diffusivity::SquareMetrePerSecond);
@@ -208,10 +212,6 @@ TEST(KinematicViscosity, SetValue) {
 
 TEST(KinematicViscosity, SizeOf) {
   EXPECT_EQ(sizeof(KinematicViscosity<>{}), sizeof(double));
-}
-
-TEST(KinematicViscosity, StandardConstructor) {
-  EXPECT_NO_THROW(KinematicViscosity(1.0, Unit::Diffusivity::SquareFootPerSecond));
 }
 
 TEST(KinematicViscosity, StaticValue) {

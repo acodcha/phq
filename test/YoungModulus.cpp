@@ -98,6 +98,10 @@ TEST(YoungModulus, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(YoungModulus, Constructor) {
+  EXPECT_NO_THROW(YoungModulus(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(YoungModulus, CopyAssignmentOperator) {
   {
     const YoungModulus<float> first(1.0F, Unit::Pressure::Pascal);
@@ -201,10 +205,6 @@ TEST(YoungModulus, SetValue) {
 
 TEST(YoungModulus, SizeOf) {
   EXPECT_EQ(sizeof(YoungModulus<>{}), sizeof(double));
-}
-
-TEST(YoungModulus, StandardConstructor) {
-  EXPECT_NO_THROW(YoungModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(YoungModulus, StaticValue) {

@@ -129,6 +129,10 @@ TEST(Temperature, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Temperature, Constructor) {
+  EXPECT_NO_THROW(Temperature(1.0, Unit::Temperature::Rankine));
+}
+
 TEST(Temperature, CopyAssignmentOperator) {
   {
     const Temperature<float> first(1.0F, Unit::Temperature::Kelvin);
@@ -232,10 +236,6 @@ TEST(Temperature, SetValue) {
 
 TEST(Temperature, SizeOf) {
   EXPECT_EQ(sizeof(Temperature<>{}), sizeof(double));
-}
-
-TEST(Temperature, StandardConstructor) {
-  EXPECT_NO_THROW(Temperature(1.0, Unit::Temperature::Rankine));
 }
 
 TEST(Temperature, StaticValue) {

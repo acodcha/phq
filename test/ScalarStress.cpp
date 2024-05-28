@@ -98,6 +98,10 @@ TEST(ScalarStress, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarStress, Constructor) {
+  EXPECT_NO_THROW(ScalarStress(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(ScalarStress, CopyAssignmentOperator) {
   {
     const ScalarStress<float> first(1.0F, Unit::Pressure::Pascal);
@@ -201,10 +205,6 @@ TEST(ScalarStress, SetValue) {
 
 TEST(ScalarStress, SizeOf) {
   EXPECT_EQ(sizeof(ScalarStress<>{}), sizeof(double));
-}
-
-TEST(ScalarStress, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarStress(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(ScalarStress, StaticValue) {

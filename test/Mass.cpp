@@ -94,6 +94,10 @@ TEST(Mass, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Mass, Constructor) {
+  EXPECT_NO_THROW(Mass(1.0, Unit::Mass::Gram));
+}
+
 TEST(Mass, CopyAssignmentOperator) {
   {
     const Mass<float> first(1.0F, Unit::Mass::Kilogram);
@@ -196,10 +200,6 @@ TEST(Mass, SetValue) {
 
 TEST(Mass, SizeOf) {
   EXPECT_EQ(sizeof(Mass<>{}), sizeof(double));
-}
-
-TEST(Mass, StandardConstructor) {
-  EXPECT_NO_THROW(Mass(1.0, Unit::Mass::Gram));
 }
 
 TEST(Mass, StaticValue) {

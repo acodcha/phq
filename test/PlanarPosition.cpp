@@ -141,6 +141,19 @@ TEST(PlanarPosition, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PlanarPosition, Constructor) {
+  EXPECT_NO_THROW(PlanarPosition({1.0, -2.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(PlanarPosition(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre)),
+            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarDirection(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
+            PlanarDirection(1.0, -2.0));
+  EXPECT_EQ(Angle(PlanarPosition({0.0, -2.0}, Unit::Length::Metre),
+                  PlanarPosition({3.0, 0.0}, Unit::Length::Metre)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarDisplacement(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
+            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+}
+
 TEST(PlanarPosition, CopyAssignmentOperator) {
   {
     const PlanarPosition<float> first({1.0F, -2.0F}, Unit::Length::Metre);
@@ -227,16 +240,6 @@ TEST(PlanarPosition, Magnitude) {
             Length(5.0, Unit::Length::Metre));
 }
 
-TEST(PlanarPosition, MiscellaneousConstructors) {
-  EXPECT_EQ(PlanarDirection(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
-            PlanarDirection(1.0, -2.0));
-  EXPECT_EQ(Angle(PlanarPosition({0.0, -2.0}, Unit::Length::Metre),
-                  PlanarPosition({3.0, 0.0}, Unit::Length::Metre)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(PlanarDisplacement(PlanarPosition({1.0, -2.0}, Unit::Length::Metre)),
-            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
-}
-
 TEST(PlanarPosition, MoveAssignmentOperator) {
   PlanarPosition first({1.0, -2.0}, Unit::Length::Metre);
   PlanarPosition second = PlanarPosition<>::Zero();
@@ -277,12 +280,6 @@ TEST(PlanarPosition, SetValue) {
 
 TEST(PlanarPosition, SizeOf) {
   EXPECT_EQ(sizeof(PlanarPosition<>{}), 2 * sizeof(double));
-}
-
-TEST(PlanarPosition, StandardConstructor) {
-  EXPECT_NO_THROW(PlanarPosition({1.0, -2.0}, Unit::Length::Millimetre));
-  EXPECT_EQ(PlanarPosition(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre)),
-            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarPosition, StaticValue) {

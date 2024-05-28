@@ -53,6 +53,10 @@ TEST(DimensionElectricCurrent, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionElectricCurrent, Constructor) {
+  EXPECT_NO_THROW(ElectricCurrent(1));
+}
+
 TEST(DimensionElectricCurrent, CopyAssignmentOperator) {
   constexpr ElectricCurrent first{3};
   ElectricCurrent second{0};

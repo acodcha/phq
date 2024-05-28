@@ -95,6 +95,10 @@ TEST(ScalarDisplacementGradient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarDisplacementGradient, Constructor) {
+  EXPECT_NO_THROW(ScalarDisplacementGradient(1.0));
+}
+
 TEST(ScalarDisplacementGradient, CopyAssignmentOperator) {
   {
     const ScalarDisplacementGradient<float> first(1.0F);
@@ -204,10 +208,6 @@ TEST(ScalarDisplacementGradient, SetValue) {
 
 TEST(ScalarDisplacementGradient, SizeOf) {
   EXPECT_EQ(sizeof(ScalarDisplacementGradient<>{}), sizeof(double));
-}
-
-TEST(ScalarDisplacementGradient, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarDisplacementGradient(1.0));
 }
 
 TEST(ScalarDisplacementGradient, Stream) {

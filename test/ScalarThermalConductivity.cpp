@@ -105,6 +105,11 @@ TEST(ScalarThermalConductivity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarThermalConductivity, Constructor) {
+  EXPECT_NO_THROW(
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin));
+}
+
 TEST(ScalarThermalConductivity, CopyAssignmentOperator) {
   {
     const ScalarThermalConductivity<float> first(
@@ -231,11 +236,6 @@ TEST(ScalarThermalConductivity, SetValue) {
 
 TEST(ScalarThermalConductivity, SizeOf) {
   EXPECT_EQ(sizeof(ScalarThermalConductivity<>{}), sizeof(double));
-}
-
-TEST(ScalarThermalConductivity, StandardConstructor) {
-  EXPECT_NO_THROW(
-      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin));
 }
 
 TEST(ScalarThermalConductivity, StaticValue) {

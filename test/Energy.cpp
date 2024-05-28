@@ -94,6 +94,10 @@ TEST(Energy, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Energy, Constructor) {
+  EXPECT_NO_THROW(Energy(1.0, Unit::Energy::Nanojoule));
+}
+
 TEST(Energy, CopyAssignmentOperator) {
   {
     const Energy<float> first(1.0F, Unit::Energy::Joule);
@@ -197,10 +201,6 @@ TEST(Energy, SetValue) {
 
 TEST(Energy, SizeOf) {
   EXPECT_EQ(sizeof(Energy<>{}), sizeof(double));
-}
-
-TEST(Energy, StandardConstructor) {
-  EXPECT_NO_THROW(Energy(1.0, Unit::Energy::Nanojoule));
 }
 
 TEST(Energy, StaticValue) {

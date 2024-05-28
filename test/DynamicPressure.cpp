@@ -105,6 +105,19 @@ TEST(DynamicPressure, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(DynamicPressure, Constructor) {
+  EXPECT_NO_THROW(DynamicPressure(1.0, Unit::Pressure::Kilopascal));
+  EXPECT_EQ(DynamicPressure(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                            Speed(4.0, Unit::Speed::MetrePerSecond)),
+            DynamicPressure(16.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(MassDensity(DynamicPressure(16.0, Unit::Pressure::Pascal),
+                        Speed(4.0, Unit::Speed::MetrePerSecond)),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(Speed(DynamicPressure(16.0, Unit::Pressure::Pascal),
+                  MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            Speed(4.0, Unit::Speed::MetrePerSecond));
+}
+
 TEST(DynamicPressure, CopyAssignmentOperator) {
   {
     const DynamicPressure<float> first(1.0F, Unit::Pressure::Pascal);
@@ -175,18 +188,6 @@ TEST(DynamicPressure, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
-TEST(DynamicPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(DynamicPressure(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                            Speed(4.0, Unit::Speed::MetrePerSecond)),
-            DynamicPressure(16.0, Unit::Pressure::Pascal));
-  EXPECT_EQ(MassDensity(DynamicPressure(16.0, Unit::Pressure::Pascal),
-                        Speed(4.0, Unit::Speed::MetrePerSecond)),
-            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
-  EXPECT_EQ(Speed(DynamicPressure(16.0, Unit::Pressure::Pascal),
-                  MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            Speed(4.0, Unit::Speed::MetrePerSecond));
-}
-
 TEST(DynamicPressure, MoveAssignmentOperator) {
   DynamicPressure first{1.0, Unit::Pressure::Pascal};
   DynamicPressure second = DynamicPressure<>::Zero();
@@ -221,10 +222,6 @@ TEST(DynamicPressure, SetValue) {
 
 TEST(DynamicPressure, SizeOf) {
   EXPECT_EQ(sizeof(DynamicPressure<>{}), sizeof(double));
-}
-
-TEST(DynamicPressure, StandardConstructor) {
-  EXPECT_NO_THROW(DynamicPressure(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(DynamicPressure, StaticValue) {

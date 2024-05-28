@@ -105,6 +105,14 @@ TEST(ScalarHeatFlux, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarHeatFlux, Constructor) {
+  EXPECT_NO_THROW(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre));
+  EXPECT_EQ(ScalarHeatFlux(
+                ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+                ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre)),
+            ScalarHeatFlux(-8.0, Unit::EnergyFlux::WattPerSquareMetre));
+}
+
 TEST(ScalarHeatFlux, CopyAssignmentOperator) {
   {
     const ScalarHeatFlux<float> first(1.0F, Unit::EnergyFlux::WattPerSquareMetre);
@@ -176,13 +184,6 @@ TEST(ScalarHeatFlux, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"nW/mm^2\"}");
 }
 
-TEST(ScalarHeatFlux, MiscellaneousConstructor) {
-  EXPECT_EQ(ScalarHeatFlux(
-                ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
-                ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre)),
-            ScalarHeatFlux(-8.0, Unit::EnergyFlux::WattPerSquareMetre));
-}
-
 TEST(ScalarHeatFlux, MoveAssignmentOperator) {
   ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
   ScalarHeatFlux second = ScalarHeatFlux<>::Zero();
@@ -219,10 +220,6 @@ TEST(ScalarHeatFlux, SetValue) {
 
 TEST(ScalarHeatFlux, SizeOf) {
   EXPECT_EQ(sizeof(ScalarHeatFlux<>{}), sizeof(double));
-}
-
-TEST(ScalarHeatFlux, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre));
 }
 
 TEST(ScalarHeatFlux, StaticValue) {

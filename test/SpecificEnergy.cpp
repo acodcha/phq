@@ -116,6 +116,18 @@ TEST(SpecificEnergy, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(SpecificEnergy, Constructor) {
+  EXPECT_NO_THROW(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram));
+  EXPECT_EQ(SpecificEnergy(Energy(8.0, Unit::Energy::Joule), Mass(4.0, Unit::Mass::Kilogram)),
+            SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(Mass(Energy(8.0, Unit::Energy::Joule),
+                 SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
+            Mass(2.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Energy(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
+                   Mass(2.0, Unit::Mass::Kilogram)),
+            Energy(8.0, Unit::Energy::Joule));
+}
+
 TEST(SpecificEnergy, CopyAssignmentOperator) {
   {
     const SpecificEnergy<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
@@ -187,17 +199,6 @@ TEST(SpecificEnergy, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g\"}");
 }
 
-TEST(SpecificEnergy, MiscellaneousConstructors) {
-  EXPECT_EQ(SpecificEnergy(Energy(8.0, Unit::Energy::Joule), Mass(4.0, Unit::Mass::Kilogram)),
-            SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram));
-  EXPECT_EQ(Mass(Energy(8.0, Unit::Energy::Joule),
-                 SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
-            Mass(2.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(Energy(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
-                   Mass(2.0, Unit::Mass::Kilogram)),
-            Energy(8.0, Unit::Energy::Joule));
-}
-
 TEST(SpecificEnergy, MoveAssignmentOperator) {
   SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   SpecificEnergy second = SpecificEnergy<>::Zero();
@@ -234,10 +235,6 @@ TEST(SpecificEnergy, SetValue) {
 
 TEST(SpecificEnergy, SizeOf) {
   EXPECT_EQ(sizeof(SpecificEnergy<>{}), sizeof(double));
-}
-
-TEST(SpecificEnergy, StandardConstructor) {
-  EXPECT_NO_THROW(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram));
 }
 
 TEST(SpecificEnergy, StaticValue) {

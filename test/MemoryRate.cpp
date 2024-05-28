@@ -122,6 +122,22 @@ TEST(MemoryRate, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(MemoryRate, Constructor) {
+  EXPECT_NO_THROW(MemoryRate(1.0, Unit::MemoryRate::BytePerSecond));
+  EXPECT_EQ(MemoryRate(Memory(8.0, Unit::Memory::Bit), Time(4.0, Unit::Time::Second)),
+            MemoryRate(2.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(MemoryRate(Memory(4.0, Unit::Memory::Bit), Frequency(2.0, Unit::Frequency::Hertz)),
+            MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(
+      Frequency(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond), Memory(4.0, Unit::Memory::Bit)),
+      Frequency(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(Memory(MemoryRate(4.0, Unit::MemoryRate::BitPerSecond), Time(2.0, Unit::Time::Second)),
+            Memory(8.0, Unit::Memory::Bit));
+  EXPECT_EQ(Memory(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond),
+                   Frequency(4.0, Unit::Frequency::Hertz)),
+            Memory(2.0, Unit::Memory::Bit));
+}
+
 TEST(MemoryRate, CopyAssignmentOperator) {
   {
     const MemoryRate<float> first(1.0F, Unit::MemoryRate::BitPerSecond);
@@ -191,21 +207,6 @@ TEST(MemoryRate, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"B/s\"}");
 }
 
-TEST(MemoryRate, MiscellaneousConstructors) {
-  EXPECT_EQ(MemoryRate(Memory(8.0, Unit::Memory::Bit), Time(4.0, Unit::Time::Second)),
-            MemoryRate(2.0, Unit::MemoryRate::BitPerSecond));
-  EXPECT_EQ(MemoryRate(Memory(4.0, Unit::Memory::Bit), Frequency(2.0, Unit::Frequency::Hertz)),
-            MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
-  EXPECT_EQ(
-      Frequency(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond), Memory(4.0, Unit::Memory::Bit)),
-      Frequency(2.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(Memory(MemoryRate(4.0, Unit::MemoryRate::BitPerSecond), Time(2.0, Unit::Time::Second)),
-            Memory(8.0, Unit::Memory::Bit));
-  EXPECT_EQ(Memory(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond),
-                   Frequency(4.0, Unit::Frequency::Hertz)),
-            Memory(2.0, Unit::Memory::Bit));
-}
-
 TEST(MemoryRate, MoveAssignmentOperator) {
   MemoryRate first{1.0, Unit::MemoryRate::BitPerSecond};
   MemoryRate second = MemoryRate<>::Zero();
@@ -240,10 +241,6 @@ TEST(MemoryRate, SetValue) {
 
 TEST(MemoryRate, SizeOf) {
   EXPECT_EQ(sizeof(MemoryRate<>{}), sizeof(double));
-}
-
-TEST(MemoryRate, StandardConstructor) {
-  EXPECT_NO_THROW(MemoryRate(1.0, Unit::MemoryRate::BytePerSecond));
 }
 
 TEST(MemoryRate, StaticValue) {

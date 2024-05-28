@@ -130,6 +130,27 @@ TEST(MassDensity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(MassDensity, Constructor) {
+  EXPECT_NO_THROW(MassDensity(1.0, Unit::MassDensity::GramPerCubicMillimetre));
+  EXPECT_EQ(MassDensity(Mass(8.0, Unit::Mass::Kilogram), Volume(4.0, Unit::Volume::CubicMetre)),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(Mass(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                 Volume(2.0, Unit::Volume::CubicMetre)),
+            Mass(8.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Volume(Mass(8.0, Unit::Mass::Kilogram),
+                   MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            Volume(2.0, Unit::Volume::CubicMetre));
+  EXPECT_EQ(MassDensity(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
+                        VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(MassRate(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                     VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond)),
+            MassRate(8.0, Unit::MassRate::KilogramPerSecond));
+  EXPECT_EQ(VolumeRate(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
+                       MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
+}
+
 TEST(MassDensity, CopyAssignmentOperator) {
   {
     const MassDensity<float> first(1.0F, Unit::MassDensity::KilogramPerCubicMetre);
@@ -201,26 +222,6 @@ TEST(MassDensity, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"g/mm^3\"}");
 }
 
-TEST(MassDensity, MiscellaneousConstructor) {
-  EXPECT_EQ(MassDensity(Mass(8.0, Unit::Mass::Kilogram), Volume(4.0, Unit::Volume::CubicMetre)),
-            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
-  EXPECT_EQ(Mass(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-                 Volume(2.0, Unit::Volume::CubicMetre)),
-            Mass(8.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(Volume(Mass(8.0, Unit::Mass::Kilogram),
-                   MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            Volume(2.0, Unit::Volume::CubicMetre));
-  EXPECT_EQ(MassDensity(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
-                        VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)),
-            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
-  EXPECT_EQ(MassRate(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-                     VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond)),
-            MassRate(8.0, Unit::MassRate::KilogramPerSecond));
-  EXPECT_EQ(VolumeRate(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
-                       MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
-}
-
 TEST(MassDensity, MoveAssignmentOperator) {
   MassDensity first{1.0, Unit::MassDensity::KilogramPerCubicMetre};
   MassDensity second = MassDensity<>::Zero();
@@ -257,10 +258,6 @@ TEST(MassDensity, SetValue) {
 
 TEST(MassDensity, SizeOf) {
   EXPECT_EQ(sizeof(MassDensity<>{}), sizeof(double));
-}
-
-TEST(MassDensity, StandardConstructor) {
-  EXPECT_NO_THROW(MassDensity(1.0, Unit::MassDensity::GramPerCubicMillimetre));
 }
 
 TEST(MassDensity, StaticValue) {
