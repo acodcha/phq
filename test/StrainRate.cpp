@@ -120,6 +120,31 @@ TEST(StrainRate, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(StrainRate, Constructor) {
+  EXPECT_NO_THROW(StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate(ScalarStrainRate(1.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(-2.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(3.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(-4.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(5.0, Unit::Frequency::Hertz),
+                       ScalarStrainRate(-6.0, Unit::Frequency::Hertz)),
+            StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate(Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0), Time(2.0, Unit::Time::Second)),
+            StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+
+  EXPECT_EQ(
+      StrainRate(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0), Frequency(2.0, Unit::Frequency::Hertz)),
+      StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz));
+
+  EXPECT_EQ(Strain(StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz),
+                   Time(2.0, Unit::Time::Second)),
+            Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
+
+  EXPECT_EQ(Strain(StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz),
+                   Frequency(2.0, Unit::Frequency::Hertz)),
+            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
+
 TEST(StrainRate, CopyAssignmentOperator) {
   {
     const StrainRate<float> first({1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F}, Unit::Frequency::Hertz);
@@ -215,23 +240,6 @@ TEST(StrainRate, JSON) {
                 + "},\"unit\":\"kHz\"}");
 }
 
-TEST(StrainRate, MiscellaneousConstructors) {
-  EXPECT_EQ(StrainRate(Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0), Time(2.0, Unit::Time::Second)),
-            StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
-
-  EXPECT_EQ(
-      StrainRate(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0), Frequency(2.0, Unit::Frequency::Hertz)),
-      StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz));
-
-  EXPECT_EQ(Strain(StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz),
-                   Time(2.0, Unit::Time::Second)),
-            Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
-
-  EXPECT_EQ(Strain(StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz),
-                   Frequency(2.0, Unit::Frequency::Hertz)),
-            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-}
-
 TEST(StrainRate, MoveAssignmentOperator) {
   StrainRate first({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
   StrainRate second = StrainRate<>::Zero();
@@ -270,17 +278,6 @@ TEST(StrainRate, SetValue) {
 
 TEST(StrainRate, SizeOf) {
   EXPECT_EQ(sizeof(StrainRate<>{}), 6 * sizeof(double));
-}
-
-TEST(StrainRate, StandardConstructor) {
-  EXPECT_NO_THROW(StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
-  EXPECT_EQ(StrainRate(ScalarStrainRate(1.0, Unit::Frequency::Hertz),
-                       ScalarStrainRate(-2.0, Unit::Frequency::Hertz),
-                       ScalarStrainRate(3.0, Unit::Frequency::Hertz),
-                       ScalarStrainRate(-4.0, Unit::Frequency::Hertz),
-                       ScalarStrainRate(5.0, Unit::Frequency::Hertz),
-                       ScalarStrainRate(-6.0, Unit::Frequency::Hertz)),
-            StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
 }
 
 TEST(StrainRate, StaticValue) {

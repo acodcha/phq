@@ -112,6 +112,22 @@ TEST(Speed, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Speed, Constructor) {
+  EXPECT_NO_THROW(Speed(1.0, Unit::Speed::MillimetrePerSecond));
+  EXPECT_EQ(Speed(Length(8.0, Unit::Length::Metre), Time(4.0, Unit::Time::Second)),
+            Speed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(Length(4.0, Unit::Length::Metre), Frequency(2.0, Unit::Frequency::Hertz)),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Length(Speed(4.0, Unit::Speed::MetrePerSecond), Time(2.0, Unit::Time::Second)),
+            Length(8.0, Unit::Length::Metre));
+  EXPECT_EQ(Length(Speed(8.0, Unit::Speed::MetrePerSecond), Frequency(4.0, Unit::Frequency::Hertz)),
+            Length(2.0, Unit::Length::Metre));
+  EXPECT_EQ(Time(Length(8.0, Unit::Length::Metre), Speed(4.0, Unit::Speed::MetrePerSecond)),
+            Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Frequency(Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre)),
+            Frequency(2.0, Unit::Frequency::Hertz));
+}
+
 TEST(Speed, CopyAssignmentOperator) {
   {
     const Speed<float> first(1.0F, Unit::Speed::MetrePerSecond);
@@ -181,21 +197,6 @@ TEST(Speed, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"mm/s\"}");
 }
 
-TEST(Speed, MiscellaneousConstructors) {
-  EXPECT_EQ(Speed(Length(8.0, Unit::Length::Metre), Time(4.0, Unit::Time::Second)),
-            Speed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(Speed(Length(4.0, Unit::Length::Metre), Frequency(2.0, Unit::Frequency::Hertz)),
-            Speed(8.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(Length(Speed(4.0, Unit::Speed::MetrePerSecond), Time(2.0, Unit::Time::Second)),
-            Length(8.0, Unit::Length::Metre));
-  EXPECT_EQ(Length(Speed(8.0, Unit::Speed::MetrePerSecond), Frequency(4.0, Unit::Frequency::Hertz)),
-            Length(2.0, Unit::Length::Metre));
-  EXPECT_EQ(Time(Length(8.0, Unit::Length::Metre), Speed(4.0, Unit::Speed::MetrePerSecond)),
-            Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(Frequency(Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre)),
-            Frequency(2.0, Unit::Frequency::Hertz));
-}
-
 TEST(Speed, MoveAssignmentOperator) {
   Speed first{1.0, Unit::Speed::MetrePerSecond};
   Speed second = Speed<>::Zero();
@@ -230,10 +231,6 @@ TEST(Speed, SetValue) {
 
 TEST(Speed, SizeOf) {
   EXPECT_EQ(sizeof(Speed<>{}), sizeof(double));
-}
-
-TEST(Speed, StandardConstructor) {
-  EXPECT_NO_THROW(Speed(1.0, Unit::Speed::MillimetrePerSecond));
 }
 
 TEST(Speed, StaticValue) {

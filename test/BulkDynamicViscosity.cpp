@@ -107,6 +107,10 @@ TEST(BulkDynamicViscosity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(BulkDynamicViscosity, Constructor) {
+  EXPECT_NO_THROW(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond));
+}
+
 TEST(BulkDynamicViscosity, CopyAssignmentOperator) {
   {
     const BulkDynamicViscosity<float> first(1.0F, Unit::DynamicViscosity::PascalSecond);
@@ -215,10 +219,6 @@ TEST(BulkDynamicViscosity, SetValue) {
 
 TEST(BulkDynamicViscosity, SizeOf) {
   EXPECT_EQ(sizeof(BulkDynamicViscosity<>{}), sizeof(double));
-}
-
-TEST(BulkDynamicViscosity, StandardConstructor) {
-  EXPECT_NO_THROW(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond));
 }
 
 TEST(BulkDynamicViscosity, StaticValue) {

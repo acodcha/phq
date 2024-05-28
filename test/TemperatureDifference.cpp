@@ -105,6 +105,10 @@ TEST(TemperatureDifference, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(TemperatureDifference, Constructor) {
+  EXPECT_NO_THROW(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine));
+}
+
 TEST(TemperatureDifference, CopyAssignmentOperator) {
   {
     const TemperatureDifference<float> first(1.0F, Unit::TemperatureDifference::Kelvin);
@@ -213,10 +217,6 @@ TEST(TemperatureDifference, SetValue) {
 
 TEST(TemperatureDifference, SizeOf) {
   EXPECT_EQ(sizeof(TemperatureDifference<>{}), sizeof(double));
-}
-
-TEST(TemperatureDifference, StandardConstructor) {
-  EXPECT_NO_THROW(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine));
 }
 
 TEST(TemperatureDifference, StaticValue) {

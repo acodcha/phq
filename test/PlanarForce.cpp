@@ -114,6 +114,18 @@ TEST(PlanarForce, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PlanarForce, Constructor) {
+  EXPECT_NO_THROW(PlanarForce({1.0, -2.0}, Unit::Force::Pound));
+  EXPECT_EQ(
+      PlanarForce(ScalarForce(1.0, Unit::Force::Newton), ScalarForce(-2.0, Unit::Force::Newton)),
+      PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+  EXPECT_EQ(
+      PlanarDirection(PlanarForce({1.0, -2.0}, Unit::Force::Newton)), PlanarDirection(1.0, -2.0));
+  EXPECT_EQ(Angle(PlanarForce({0.0, -2.0}, Unit::Force::Newton),
+                  PlanarForce({3.0, 0.0}, Unit::Force::Newton)),
+            Angle(90.0, Unit::Angle::Degree));
+}
+
 TEST(PlanarForce, CopyAssignmentOperator) {
   {
     const PlanarForce<float> first({1.0F, -2.0F}, Unit::Force::Newton);
@@ -200,15 +212,6 @@ TEST(PlanarForce, Magnitude) {
             ScalarForce(5.0, Unit::Force::Newton));
 }
 
-TEST(PlanarForce, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      PlanarDirection(PlanarForce({1.0, -2.0}, Unit::Force::Newton)), PlanarDirection(1.0, -2.0));
-
-  EXPECT_EQ(Angle(PlanarForce({0.0, -2.0}, Unit::Force::Newton),
-                  PlanarForce({3.0, 0.0}, Unit::Force::Newton)),
-            Angle(90.0, Unit::Angle::Degree));
-}
-
 TEST(PlanarForce, MoveAssignmentOperator) {
   PlanarForce first({1.0, -2.0}, Unit::Force::Newton);
   PlanarForce second = PlanarForce<>::Zero();
@@ -249,13 +252,6 @@ TEST(PlanarForce, SetValue) {
 
 TEST(PlanarForce, SizeOf) {
   EXPECT_EQ(sizeof(PlanarForce<>{}), 2 * sizeof(double));
-}
-
-TEST(PlanarForce, StandardConstructor) {
-  EXPECT_NO_THROW(PlanarForce({1.0, -2.0}, Unit::Force::Pound));
-  EXPECT_EQ(
-      PlanarForce(ScalarForce(1.0, Unit::Force::Newton), ScalarForce(-2.0, Unit::Force::Newton)),
-      PlanarForce({1.0, -2.0}, Unit::Force::Newton));
 }
 
 TEST(PlanarForce, StaticValue) {

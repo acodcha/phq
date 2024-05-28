@@ -98,6 +98,10 @@ TEST(PWaveModulus, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PWaveModulus, Constructor) {
+  EXPECT_NO_THROW(PWaveModulus(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(PWaveModulus, CopyAssignmentOperator) {
   {
     const PWaveModulus<float> first(1.0F, Unit::Pressure::Pascal);
@@ -201,10 +205,6 @@ TEST(PWaveModulus, SetValue) {
 
 TEST(PWaveModulus, SizeOf) {
   EXPECT_EQ(sizeof(PWaveModulus<>{}), sizeof(double));
-}
-
-TEST(PWaveModulus, StandardConstructor) {
-  EXPECT_NO_THROW(PWaveModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(PWaveModulus, StaticValue) {

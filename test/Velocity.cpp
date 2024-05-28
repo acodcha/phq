@@ -127,6 +127,29 @@ TEST(Velocity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Velocity, Constructor) {
+  EXPECT_NO_THROW(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MillimetrePerSecond));
+  EXPECT_EQ(
+      Velocity(Speed(1.0, Unit::Speed::MetrePerSecond), Speed(-2.0, Unit::Speed::MetrePerSecond),
+               Speed(3.0, Unit::Speed::MetrePerSecond)),
+      Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Direction(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)),
+            Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(Velocity({0.0, -2.0, 0.0}, Unit::Speed::MetrePerSecond),
+                  Velocity({0.0, 0.0, 3.0}, Unit::Speed::MetrePerSecond)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(Displacement(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond),
+                         Time(2.0, Unit::Time::Second)),
+            Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
+  EXPECT_EQ(Displacement(Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond),
+                         Frequency(2.0, Unit::Frequency::Hertz)),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(PlanarVelocity(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)),
+            PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Velocity(PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond)),
+            Velocity({1.0, -2.0, 0.0}, Unit::Speed::MetrePerSecond));
+}
+
 TEST(Velocity, CopyAssignmentOperator) {
   {
     const Velocity<float> first({1.0F, -2.0F, 3.0F}, Unit::Speed::MetrePerSecond);
@@ -221,24 +244,6 @@ TEST(Velocity, Magnitude) {
             Speed(7.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Velocity, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)),
-            Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(Velocity({0.0, -2.0, 0.0}, Unit::Speed::MetrePerSecond),
-                  Velocity({0.0, 0.0, 3.0}, Unit::Speed::MetrePerSecond)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(Displacement(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond),
-                         Time(2.0, Unit::Time::Second)),
-            Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
-  EXPECT_EQ(Displacement(Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond),
-                         Frequency(2.0, Unit::Frequency::Hertz)),
-            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
-  EXPECT_EQ(PlanarVelocity(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)),
-            PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(Velocity(PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond)),
-            Velocity({1.0, -2.0, 0.0}, Unit::Speed::MetrePerSecond));
-}
-
 TEST(Velocity, MoveAssignmentOperator) {
   Velocity first({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
   Velocity second = Velocity<>::Zero();
@@ -275,14 +280,6 @@ TEST(Velocity, SetValue) {
 
 TEST(Velocity, SizeOf) {
   EXPECT_EQ(sizeof(Velocity<>{}), 3 * sizeof(double));
-}
-
-TEST(Velocity, StandardConstructor) {
-  EXPECT_NO_THROW(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MillimetrePerSecond));
-  EXPECT_EQ(
-      Velocity(Speed(1.0, Unit::Speed::MetrePerSecond), Speed(-2.0, Unit::Speed::MetrePerSecond),
-               Speed(3.0, Unit::Speed::MetrePerSecond)),
-      Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, StaticValue) {

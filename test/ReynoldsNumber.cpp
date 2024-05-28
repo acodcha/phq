@@ -103,6 +103,47 @@ TEST(ReynoldsNumber, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ReynoldsNumber, Constructor) {
+  EXPECT_NO_THROW(ReynoldsNumber(1.0));
+  EXPECT_EQ(
+      ReynoldsNumber(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                     Speed(4.0, Unit::Speed::MetrePerSecond), Length(8.0, Unit::Length::Metre),
+                     DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond)),
+      ReynoldsNumber(4.0));
+  EXPECT_EQ(
+      ReynoldsNumber(Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre),
+                     KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
+      ReynoldsNumber(16.0));
+  EXPECT_EQ(
+      Length(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
+             MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+             Speed(2.0, Unit::Speed::MetrePerSecond)),
+      Length(16.0, Unit::Length::Metre));
+  EXPECT_EQ(
+      Length(ReynoldsNumber(4.0), KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
+             Speed(2.0, Unit::Speed::MetrePerSecond)),
+      Length(16.0, Unit::Length::Metre));
+  EXPECT_EQ(Speed(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
+                  MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                  Length(2.0, Unit::Length::Metre)),
+            Speed(16.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(
+      Speed(ReynoldsNumber(8.0), KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
+            Length(2.0, Unit::Length::Metre)),
+      Speed(16.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(
+      MassDensity(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
+                  Speed(4.0, Unit::Speed::MetrePerSecond), Length(2.0, Unit::Length::Metre)),
+      MassDensity(16.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(KinematicViscosity(Speed(8.0, Unit::Speed::MetrePerSecond),
+                               Length(4.0, Unit::Length::Metre), ReynoldsNumber(2.0)),
+            KinematicViscosity(16.0, Unit::Diffusivity::SquareMetrePerSecond));
+  EXPECT_EQ(DynamicViscosity(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                             Speed(4.0, Unit::Speed::MetrePerSecond),
+                             Length(8.0, Unit::Length::Metre), ReynoldsNumber(16.0)),
+            DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
+}
+
 TEST(ReynoldsNumber, CopyAssignmentOperator) {
   {
     const ReynoldsNumber<float> first(1.0F);
@@ -180,46 +221,6 @@ TEST(ReynoldsNumber, Mathematics) {
   EXPECT_EQ(std::sqrt(ReynoldsNumber(9.0)), std::sqrt(9.0));
 }
 
-TEST(ReynoldsNumber, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      ReynoldsNumber(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                     Speed(4.0, Unit::Speed::MetrePerSecond), Length(8.0, Unit::Length::Metre),
-                     DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond)),
-      ReynoldsNumber(4.0));
-  EXPECT_EQ(
-      ReynoldsNumber(Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre),
-                     KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
-      ReynoldsNumber(16.0));
-  EXPECT_EQ(
-      Length(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-             MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-             Speed(2.0, Unit::Speed::MetrePerSecond)),
-      Length(16.0, Unit::Length::Metre));
-  EXPECT_EQ(
-      Length(ReynoldsNumber(4.0), KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
-             Speed(2.0, Unit::Speed::MetrePerSecond)),
-      Length(16.0, Unit::Length::Metre));
-  EXPECT_EQ(Speed(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-                  MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-                  Length(2.0, Unit::Length::Metre)),
-            Speed(16.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(
-      Speed(ReynoldsNumber(8.0), KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
-            Length(2.0, Unit::Length::Metre)),
-      Speed(16.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(
-      MassDensity(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-                  Speed(4.0, Unit::Speed::MetrePerSecond), Length(2.0, Unit::Length::Metre)),
-      MassDensity(16.0, Unit::MassDensity::KilogramPerCubicMetre));
-  EXPECT_EQ(KinematicViscosity(Speed(8.0, Unit::Speed::MetrePerSecond),
-                               Length(4.0, Unit::Length::Metre), ReynoldsNumber(2.0)),
-            KinematicViscosity(16.0, Unit::Diffusivity::SquareMetrePerSecond));
-  EXPECT_EQ(DynamicViscosity(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                             Speed(4.0, Unit::Speed::MetrePerSecond),
-                             Length(8.0, Unit::Length::Metre), ReynoldsNumber(16.0)),
-            DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
-}
-
 TEST(ReynoldsNumber, MiscellaneousMethods) {
   EXPECT_EQ(ReynoldsNumber(16.0).DynamicViscosity(
                 MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
@@ -282,10 +283,6 @@ TEST(ReynoldsNumber, SetValue) {
 
 TEST(ReynoldsNumber, SizeOf) {
   EXPECT_EQ(sizeof(ReynoldsNumber<>{}), sizeof(double));
-}
-
-TEST(ReynoldsNumber, StandardConstructor) {
-  EXPECT_NO_THROW(ReynoldsNumber(1.0));
 }
 
 TEST(ReynoldsNumber, Stream) {

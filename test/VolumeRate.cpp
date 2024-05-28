@@ -122,6 +122,25 @@ TEST(VolumeRate, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(VolumeRate, Constructor) {
+  EXPECT_NO_THROW(VolumeRate(1.0, Unit::VolumeRate::CubicFootPerSecond));
+  EXPECT_EQ(
+      Volume(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond), Time(2.0, Unit::Time::Second)),
+      Volume(8.0, Unit::Volume::CubicMetre));
+
+  EXPECT_EQ(Volume(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
+                   Frequency(4.0, Unit::Frequency::Hertz)),
+            Volume(2.0, Unit::Volume::CubicMetre));
+
+  EXPECT_EQ(Time(Volume(8.0, Unit::Volume::CubicMetre),
+                 VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)),
+            Time(2.0, Unit::Time::Second));
+
+  EXPECT_EQ(Frequency(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
+                      Volume(4.0, Unit::Volume::CubicMetre)),
+            Frequency(2.0, Unit::Frequency::Hertz));
+}
+
 TEST(VolumeRate, CopyAssignmentOperator) {
   {
     const VolumeRate<float> first(1.0F, Unit::VolumeRate::CubicMetrePerSecond);
@@ -193,24 +212,6 @@ TEST(VolumeRate, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"ft^3/s\"}");
 }
 
-TEST(VolumeRate, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Volume(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond), Time(2.0, Unit::Time::Second)),
-      Volume(8.0, Unit::Volume::CubicMetre));
-
-  EXPECT_EQ(Volume(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
-                   Frequency(4.0, Unit::Frequency::Hertz)),
-            Volume(2.0, Unit::Volume::CubicMetre));
-
-  EXPECT_EQ(Time(Volume(8.0, Unit::Volume::CubicMetre),
-                 VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)),
-            Time(2.0, Unit::Time::Second));
-
-  EXPECT_EQ(Frequency(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
-                      Volume(4.0, Unit::Volume::CubicMetre)),
-            Frequency(2.0, Unit::Frequency::Hertz));
-}
-
 TEST(VolumeRate, MoveAssignmentOperator) {
   VolumeRate first{1.0, Unit::VolumeRate::CubicMetrePerSecond};
   VolumeRate second = VolumeRate<>::Zero();
@@ -246,10 +247,6 @@ TEST(VolumeRate, SetValue) {
 
 TEST(VolumeRate, SizeOf) {
   EXPECT_EQ(sizeof(VolumeRate<>{}), sizeof(double));
-}
-
-TEST(VolumeRate, StandardConstructor) {
-  EXPECT_NO_THROW(VolumeRate(1.0, Unit::VolumeRate::CubicFootPerSecond));
 }
 
 TEST(VolumeRate, StaticValue) {

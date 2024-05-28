@@ -98,6 +98,13 @@ TEST(Strain, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Strain, Constructor) {
+  EXPECT_EQ(Strain(std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
+            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  EXPECT_EQ(Strain(SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
+            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
+
 TEST(Strain, CopyAssignmentOperator) {
   {
     const Strain<float> first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
@@ -196,13 +203,6 @@ TEST(Strain, SetValue) {
 
 TEST(Strain, SizeOf) {
   EXPECT_EQ(sizeof(Strain<>{}), 6 * sizeof(double));
-}
-
-TEST(Strain, StandardConstructor) {
-  EXPECT_EQ(Strain(std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
-            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-  EXPECT_EQ(Strain(SymmetricDyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
-            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(Strain, Stream) {

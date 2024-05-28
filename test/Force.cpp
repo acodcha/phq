@@ -115,6 +115,21 @@ TEST(Force, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Force, Constructor) {
+  EXPECT_NO_THROW(Force({1.0, -2.0, 3.0}, Unit::Force::Pound));
+  EXPECT_EQ(Force(ScalarForce(1.0, Unit::Force::Newton), ScalarForce(-2.0, Unit::Force::Newton),
+                  ScalarForce(3.0, Unit::Force::Newton)),
+            Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  EXPECT_EQ(Direction(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)), Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(Force({0.0, -2.0, 0.0}, Unit::Force::Newton),
+                  Force({0.0, 0.0, 3.0}, Unit::Force::Newton)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarForce(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)),
+            PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+  EXPECT_EQ(Force(PlanarForce({1.0, -2.0}, Unit::Force::Newton)),
+            Force({1.0, -2.0, 0.0}, Unit::Force::Newton));
+}
+
 TEST(Force, CopyAssignmentOperator) {
   {
     const Force<float> first({1.0F, -2.0F, 3.0F}, Unit::Force::Newton);
@@ -205,17 +220,6 @@ TEST(Force, Magnitude) {
             ScalarForce(7.0, Unit::Force::Newton));
 }
 
-TEST(Force, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)), Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(Force({0.0, -2.0, 0.0}, Unit::Force::Newton),
-                  Force({0.0, 0.0, 3.0}, Unit::Force::Newton)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(PlanarForce(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)),
-            PlanarForce({1.0, -2.0}, Unit::Force::Newton));
-  EXPECT_EQ(Force(PlanarForce({1.0, -2.0}, Unit::Force::Newton)),
-            Force({1.0, -2.0, 0.0}, Unit::Force::Newton));
-}
-
 TEST(Force, MoveAssignmentOperator) {
   Force first({1.0, -2.0, 3.0}, Unit::Force::Newton);
   Force second = Force<>::Zero();
@@ -251,13 +255,6 @@ TEST(Force, SetValue) {
 
 TEST(Force, SizeOf) {
   EXPECT_EQ(sizeof(Force<>{}), 3 * sizeof(double));
-}
-
-TEST(Force, StandardConstructor) {
-  EXPECT_NO_THROW(Force({1.0, -2.0, 3.0}, Unit::Force::Pound));
-  EXPECT_EQ(Force(ScalarForce(1.0, Unit::Force::Newton), ScalarForce(-2.0, Unit::Force::Newton),
-                  ScalarForce(3.0, Unit::Force::Newton)),
-            Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
 }
 
 TEST(Force, StaticValue) {

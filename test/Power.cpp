@@ -116,6 +116,22 @@ TEST(Power, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Power, Constructor) {
+  EXPECT_NO_THROW(Power(1.0, Unit::Power::Kilowatt));
+  EXPECT_EQ(Power(Energy(8.0, Unit::Energy::Joule), Time(4.0, Unit::Time::Second)),
+            Power(2.0, Unit::Power::Watt));
+  EXPECT_EQ(Power(Energy(4.0, Unit::Energy::Joule), Frequency(2.0, Unit::Frequency::Hertz)),
+            Power(8.0, Unit::Power::Watt));
+  EXPECT_EQ(Time(Energy(8.0, Unit::Energy::Joule), Power(4.0, Unit::Power::Watt)),
+            Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Frequency(Power(8.0, Unit::Power::Watt), Energy(4.0, Unit::Energy::Joule)),
+            Frequency(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(Energy(Power(4.0, Unit::Power::Watt), Time(2.0, Unit::Time::Second)),
+            Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(Energy(Power(8.0, Unit::Power::Watt), Frequency(4.0, Unit::Frequency::Hertz)),
+            Energy(2.0, Unit::Energy::Joule));
+}
+
 TEST(Power, CopyAssignmentOperator) {
   {
     const Power<float> first(1.0F, Unit::Power::Watt);
@@ -184,21 +200,6 @@ TEST(Power, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kW\"}");
 }
 
-TEST(Power, MiscellaneousConstructors) {
-  EXPECT_EQ(Power(Energy(8.0, Unit::Energy::Joule), Time(4.0, Unit::Time::Second)),
-            Power(2.0, Unit::Power::Watt));
-  EXPECT_EQ(Power(Energy(4.0, Unit::Energy::Joule), Frequency(2.0, Unit::Frequency::Hertz)),
-            Power(8.0, Unit::Power::Watt));
-  EXPECT_EQ(Time(Energy(8.0, Unit::Energy::Joule), Power(4.0, Unit::Power::Watt)),
-            Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(Frequency(Power(8.0, Unit::Power::Watt), Energy(4.0, Unit::Energy::Joule)),
-            Frequency(2.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(Energy(Power(4.0, Unit::Power::Watt), Time(2.0, Unit::Time::Second)),
-            Energy(8.0, Unit::Energy::Joule));
-  EXPECT_EQ(Energy(Power(8.0, Unit::Power::Watt), Frequency(4.0, Unit::Frequency::Hertz)),
-            Energy(2.0, Unit::Energy::Joule));
-}
-
 TEST(Power, MoveAssignmentOperator) {
   Power first{1.0, Unit::Power::Watt};
   Power second = Power<>::Zero();
@@ -232,10 +233,6 @@ TEST(Power, SetValue) {
 
 TEST(Power, SizeOf) {
   EXPECT_EQ(sizeof(Power<>{}), sizeof(double));
-}
-
-TEST(Power, StandardConstructor) {
-  EXPECT_NO_THROW(Power(1.0, Unit::Power::Kilowatt));
 }
 
 TEST(Power, StaticValue) {

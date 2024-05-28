@@ -94,6 +94,10 @@ TEST(ScalarForce, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarForce, Constructor) {
+  EXPECT_NO_THROW(ScalarForce(1.0, Unit::Force::Micronewton));
+}
+
 TEST(ScalarForce, CopyAssignmentOperator) {
   {
     const ScalarForce<float> first(1.0F, Unit::Force::Newton);
@@ -197,10 +201,6 @@ TEST(ScalarForce, SetValue) {
 
 TEST(ScalarForce, SizeOf) {
   EXPECT_EQ(sizeof(ScalarForce<>{}), sizeof(double));
-}
-
-TEST(ScalarForce, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarForce(1.0, Unit::Force::Micronewton));
 }
 
 TEST(ScalarForce, StaticValue) {

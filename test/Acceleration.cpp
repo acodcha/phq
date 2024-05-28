@@ -140,6 +140,30 @@ TEST(Acceleration, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Acceleration, Constructor) {
+  EXPECT_NO_THROW(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MillimetrePerSquareSecond));
+  EXPECT_EQ(Acceleration(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond),
+                         ScalarAcceleration(-2.0, Unit::Acceleration::MetrePerSquareSecond),
+                         ScalarAcceleration(3.0, Unit::Acceleration::MetrePerSquareSecond)),
+            Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Direction(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
+            Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(Acceleration({0.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond),
+                  Acceleration({0.0, 0.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      PlanarAcceleration(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
+      PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Acceleration(PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond)),
+            Acceleration({1.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Velocity(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
+                     Time(2.0, Unit::Time::Second)),
+            Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Velocity(Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond),
+                     Frequency(2.0, Unit::Frequency::Hertz)),
+            Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+}
+
 TEST(Acceleration, CopyAssignmentOperator) {
   {
     const Acceleration<float> first({1.0F, -2.0F, 3.0F}, Unit::Acceleration::MetrePerSquareSecond);
@@ -247,25 +271,6 @@ TEST(Acceleration, Magnitude) {
             ScalarAcceleration(7.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(Acceleration, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
-            Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(Acceleration({0.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond),
-                  Acceleration({0.0, 0.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(
-      PlanarAcceleration(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)),
-      PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
-  EXPECT_EQ(Acceleration(PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond)),
-            Acceleration({1.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
-  EXPECT_EQ(Velocity(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
-                     Time(2.0, Unit::Time::Second)),
-            Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(Velocity(Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond),
-                     Frequency(2.0, Unit::Frequency::Hertz)),
-            Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
-}
-
 TEST(Acceleration, MoveAssignmentOperator) {
   Acceleration first({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
   Acceleration second = Acceleration<>::Zero();
@@ -302,14 +307,6 @@ TEST(Acceleration, SetValue) {
 
 TEST(Acceleration, SizeOf) {
   EXPECT_EQ(sizeof(Acceleration<>{}), 3 * sizeof(double));
-}
-
-TEST(Acceleration, StandardConstructor) {
-  EXPECT_NO_THROW(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MillimetrePerSquareSecond));
-  EXPECT_EQ(Acceleration(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond),
-                         ScalarAcceleration(-2.0, Unit::Acceleration::MetrePerSquareSecond),
-                         ScalarAcceleration(3.0, Unit::Acceleration::MetrePerSquareSecond)),
-            Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, StaticValue) {

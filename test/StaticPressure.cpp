@@ -111,6 +111,19 @@ TEST(StaticPressure, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(StaticPressure, Constructor) {
+  EXPECT_NO_THROW(StaticPressure(1.0, Unit::Pressure::Kilopascal));
+  EXPECT_EQ(
+      StaticPressure(ScalarForce(8.0, Unit::Force::Newton), Area(4.0, Unit::Area::SquareMetre)),
+      StaticPressure(2.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      Area(ScalarForce(8.0, Unit::Force::Newton), StaticPressure(4.0, Unit::Pressure::Pascal)),
+      Area(2.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(
+      ScalarForce(StaticPressure(4.0, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
+      ScalarForce(8.0, Unit::Force::Newton));
+}
+
 TEST(StaticPressure, CopyAssignmentOperator) {
   {
     const StaticPressure<float> first(1.0F, Unit::Pressure::Pascal);
@@ -180,18 +193,6 @@ TEST(StaticPressure, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
-TEST(StaticPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      StaticPressure(ScalarForce(8.0, Unit::Force::Newton), Area(4.0, Unit::Area::SquareMetre)),
-      StaticPressure(2.0, Unit::Pressure::Pascal));
-  EXPECT_EQ(
-      Area(ScalarForce(8.0, Unit::Force::Newton), StaticPressure(4.0, Unit::Pressure::Pascal)),
-      Area(2.0, Unit::Area::SquareMetre));
-  EXPECT_EQ(
-      ScalarForce(StaticPressure(4.0, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
-      ScalarForce(8.0, Unit::Force::Newton));
-}
-
 TEST(StaticPressure, MoveAssignmentOperator) {
   StaticPressure first{1.0, Unit::Pressure::Pascal};
   StaticPressure second = StaticPressure<>::Zero();
@@ -226,10 +227,6 @@ TEST(StaticPressure, SetValue) {
 
 TEST(StaticPressure, SizeOf) {
   EXPECT_EQ(sizeof(StaticPressure<>{}), sizeof(double));
-}
-
-TEST(StaticPressure, StandardConstructor) {
-  EXPECT_NO_THROW(StaticPressure(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(StaticPressure, StaticValue) {

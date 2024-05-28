@@ -98,6 +98,10 @@ TEST(ShearModulus, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ShearModulus, Constructor) {
+  EXPECT_NO_THROW(ShearModulus(1.0, Unit::Pressure::Kilopascal));
+}
+
 TEST(ShearModulus, CopyAssignmentOperator) {
   {
     const ShearModulus<float> first(1.0F, Unit::Pressure::Pascal);
@@ -201,10 +205,6 @@ TEST(ShearModulus, SetValue) {
 
 TEST(ShearModulus, SizeOf) {
   EXPECT_EQ(sizeof(ShearModulus<>{}), sizeof(double));
-}
-
-TEST(ShearModulus, StandardConstructor) {
-  EXPECT_NO_THROW(ShearModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(ShearModulus, StaticValue) {

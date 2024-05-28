@@ -112,6 +112,19 @@ TEST(TotalPressure, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(TotalPressure, Constructor) {
+  EXPECT_NO_THROW(TotalPressure(1.0, Unit::Pressure::Kilopascal));
+  EXPECT_EQ(TotalPressure(StaticPressure(2.0, Unit::Pressure::Pascal),
+                          DynamicPressure(1.0, Unit::Pressure::Pascal)),
+            TotalPressure(3.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(StaticPressure(TotalPressure(3.0, Unit::Pressure::Pascal),
+                           DynamicPressure(1.0, Unit::Pressure::Pascal)),
+            StaticPressure(2.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(DynamicPressure(TotalPressure(3.0, Unit::Pressure::Pascal),
+                            StaticPressure(2.0, Unit::Pressure::Pascal)),
+            DynamicPressure(1.0, Unit::Pressure::Pascal));
+}
+
 TEST(TotalPressure, CopyAssignmentOperator) {
   {
     const TotalPressure<float> first(1.0F, Unit::Pressure::Pascal);
@@ -181,18 +194,6 @@ TEST(TotalPressure, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
-TEST(TotalPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(TotalPressure(StaticPressure(2.0, Unit::Pressure::Pascal),
-                          DynamicPressure(1.0, Unit::Pressure::Pascal)),
-            TotalPressure(3.0, Unit::Pressure::Pascal));
-  EXPECT_EQ(StaticPressure(TotalPressure(3.0, Unit::Pressure::Pascal),
-                           DynamicPressure(1.0, Unit::Pressure::Pascal)),
-            StaticPressure(2.0, Unit::Pressure::Pascal));
-  EXPECT_EQ(DynamicPressure(TotalPressure(3.0, Unit::Pressure::Pascal),
-                            StaticPressure(2.0, Unit::Pressure::Pascal)),
-            DynamicPressure(1.0, Unit::Pressure::Pascal));
-}
-
 TEST(TotalPressure, MoveAssignmentOperator) {
   TotalPressure first{1.0, Unit::Pressure::Pascal};
   TotalPressure second = TotalPressure<>::Zero();
@@ -227,10 +228,6 @@ TEST(TotalPressure, SetValue) {
 
 TEST(TotalPressure, SizeOf) {
   EXPECT_EQ(sizeof(TotalPressure<>{}), sizeof(double));
-}
-
-TEST(TotalPressure, StandardConstructor) {
-  EXPECT_NO_THROW(TotalPressure(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(TotalPressure, StaticValue) {

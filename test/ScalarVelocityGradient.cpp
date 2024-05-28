@@ -118,6 +118,21 @@ TEST(ScalarVelocityGradient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarVelocityGradient, Constructor) {
+  EXPECT_NO_THROW(ScalarVelocityGradient(1.0, Unit::Frequency::Kilohertz));
+  EXPECT_EQ(ScalarVelocityGradient(ScalarDisplacementGradient(8.0), Time(4.0, Unit::Time::Second)),
+            ScalarVelocityGradient(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(ScalarVelocityGradient(
+                ScalarDisplacementGradient(4.0), Frequency(2.0, Unit::Frequency::Hertz)),
+            ScalarVelocityGradient(8.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(ScalarDisplacementGradient(
+                ScalarVelocityGradient(4.0, Unit::Frequency::Hertz), Time(2.0, Unit::Time::Second)),
+            ScalarDisplacementGradient(8.0));
+  EXPECT_EQ(ScalarDisplacementGradient(ScalarVelocityGradient(8.0, Unit::Frequency::Hertz),
+                                       Frequency(4.0, Unit::Frequency::Hertz)),
+            ScalarDisplacementGradient(2.0));
+}
+
 TEST(ScalarVelocityGradient, CopyAssignmentOperator) {
   {
     const ScalarVelocityGradient<float> first(1.0F, Unit::Frequency::Hertz);
@@ -189,20 +204,6 @@ TEST(ScalarVelocityGradient, JSON) {
       "{\"value\":" + Print(1.0) + ",\"unit\":\"kHz\"}");
 }
 
-TEST(ScalarVelocityGradient, MiscellaneousConstructors) {
-  EXPECT_EQ(ScalarVelocityGradient(ScalarDisplacementGradient(8.0), Time(4.0, Unit::Time::Second)),
-            ScalarVelocityGradient(2.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(ScalarVelocityGradient(
-                ScalarDisplacementGradient(4.0), Frequency(2.0, Unit::Frequency::Hertz)),
-            ScalarVelocityGradient(8.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(ScalarDisplacementGradient(
-                ScalarVelocityGradient(4.0, Unit::Frequency::Hertz), Time(2.0, Unit::Time::Second)),
-            ScalarDisplacementGradient(8.0));
-  EXPECT_EQ(ScalarDisplacementGradient(ScalarVelocityGradient(8.0, Unit::Frequency::Hertz),
-                                       Frequency(4.0, Unit::Frequency::Hertz)),
-            ScalarDisplacementGradient(2.0));
-}
-
 TEST(ScalarVelocityGradient, MoveAssignmentOperator) {
   ScalarVelocityGradient first{1.0, Unit::Frequency::Hertz};
   ScalarVelocityGradient second = ScalarVelocityGradient<>::Zero();
@@ -238,10 +239,6 @@ TEST(ScalarVelocityGradient, SetValue) {
 
 TEST(ScalarVelocityGradient, SizeOf) {
   EXPECT_EQ(sizeof(ScalarVelocityGradient<>{}), sizeof(double));
-}
-
-TEST(ScalarVelocityGradient, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarVelocityGradient(1.0, Unit::Frequency::Kilohertz));
 }
 
 TEST(ScalarVelocityGradient, StaticValue) {

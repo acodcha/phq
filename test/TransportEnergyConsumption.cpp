@@ -136,6 +136,24 @@ TEST(TransportEnergyConsumption, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(TransportEnergyConsumption, Constructor) {
+  EXPECT_NO_THROW(
+      TransportEnergyConsumption(1.0, Unit::TransportEnergyConsumption::KilowattHourPerKilometre));
+  EXPECT_EQ(TransportEnergyConsumption(
+                Energy(8.0, Unit::Energy::Joule), Length(4.0, Unit::Length::Metre)),
+            TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  EXPECT_EQ(Energy(TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+                   Length(4.0, Unit::Length::Metre)),
+            Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(
+      Length(Energy(8.0, Unit::Energy::Joule),
+             TransportEnergyConsumption(4.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
+      Length(2.0, Unit::Length::Metre));
+  EXPECT_EQ(Power(TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+                  Speed(4.0, Unit::Speed::MetrePerSecond)),
+            Power(8.0, Unit::Power::Watt));
+}
+
 TEST(TransportEnergyConsumption, CopyAssignmentOperator) {
   {
     const TransportEnergyConsumption<float> first(
@@ -223,22 +241,6 @@ TEST(TransportEnergyConsumption, JSON) {
       "{\"value\":" + Print(1.0) + ",\"unit\":\"kW·hr/km\"}");
 }
 
-TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
-  EXPECT_EQ(TransportEnergyConsumption(
-                Energy(8.0, Unit::Energy::Joule), Length(4.0, Unit::Length::Metre)),
-            TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-  EXPECT_EQ(Energy(TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
-                   Length(4.0, Unit::Length::Metre)),
-            Energy(8.0, Unit::Energy::Joule));
-  EXPECT_EQ(
-      Length(Energy(8.0, Unit::Energy::Joule),
-             TransportEnergyConsumption(4.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
-      Length(2.0, Unit::Length::Metre));
-  EXPECT_EQ(Power(TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
-                  Speed(4.0, Unit::Speed::MetrePerSecond)),
-            Power(8.0, Unit::Power::Watt));
-}
-
 TEST(TransportEnergyConsumption, MoveAssignmentOperator) {
   TransportEnergyConsumption first{1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   TransportEnergyConsumption second = TransportEnergyConsumption<>::Zero();
@@ -281,11 +283,6 @@ TEST(TransportEnergyConsumption, SetValue) {
 
 TEST(TransportEnergyConsumption, SizeOf) {
   EXPECT_EQ(sizeof(TransportEnergyConsumption<>{}), sizeof(double));
-}
-
-TEST(TransportEnergyConsumption, StandardConstructor) {
-  EXPECT_NO_THROW(
-      TransportEnergyConsumption(1.0, Unit::TransportEnergyConsumption::KilowattHourPerKilometre));
 }
 
 TEST(TransportEnergyConsumption, StaticValue) {

@@ -111,6 +111,16 @@ TEST(StaticKinematicPressure, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(StaticKinematicPressure, Constructor) {
+  EXPECT_NO_THROW(StaticKinematicPressure(1.0, Unit::SpecificEnergy::NanojoulePerGram));
+  EXPECT_EQ(StaticKinematicPressure(StaticPressure(8.0, Unit::Pressure::Pascal),
+                                    MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            StaticKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(StaticPressure(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                           StaticKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram)),
+            StaticPressure(8.0, Unit::Pressure::Pascal));
+}
+
 TEST(StaticKinematicPressure, CopyAssignmentOperator) {
   {
     const StaticKinematicPressure<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
@@ -182,15 +192,6 @@ TEST(StaticKinematicPressure, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g\"}");
 }
 
-TEST(StaticKinematicPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(StaticKinematicPressure(StaticPressure(8.0, Unit::Pressure::Pascal),
-                                    MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            StaticKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram));
-  EXPECT_EQ(StaticPressure(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-                           StaticKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram)),
-            StaticPressure(8.0, Unit::Pressure::Pascal));
-}
-
 TEST(StaticKinematicPressure, MoveAssignmentOperator) {
   StaticKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   StaticKinematicPressure second = StaticKinematicPressure<>::Zero();
@@ -227,10 +228,6 @@ TEST(StaticKinematicPressure, SetValue) {
 
 TEST(StaticKinematicPressure, SizeOf) {
   EXPECT_EQ(sizeof(StaticKinematicPressure<>{}), sizeof(double));
-}
-
-TEST(StaticKinematicPressure, StandardConstructor) {
-  EXPECT_NO_THROW(StaticKinematicPressure(1.0, Unit::SpecificEnergy::NanojoulePerGram));
 }
 
 TEST(StaticKinematicPressure, StaticValue) {

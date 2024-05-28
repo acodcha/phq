@@ -106,6 +106,10 @@ TEST(Volume, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Volume, Constructor) {
+  EXPECT_NO_THROW(Volume(1.0, Unit::Volume::CubicMillimetre));
+}
+
 TEST(Volume, CopyAssignmentOperator) {
   {
     const Volume<float> first(1.0F, Unit::Volume::CubicMetre);
@@ -209,10 +213,6 @@ TEST(Volume, SetValue) {
 
 TEST(Volume, SizeOf) {
   EXPECT_EQ(sizeof(Volume<>{}), sizeof(double));
-}
-
-TEST(Volume, StandardConstructor) {
-  EXPECT_NO_THROW(Volume(1.0, Unit::Volume::CubicMillimetre));
 }
 
 TEST(Volume, StaticValue) {

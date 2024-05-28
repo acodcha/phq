@@ -108,6 +108,16 @@ TEST(DisplacementGradient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(DisplacementGradient, Constructor) {
+  EXPECT_EQ(
+      DisplacementGradient(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
+      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  EXPECT_EQ(DisplacementGradient(Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
+            DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  EXPECT_EQ(Strain(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0)),
+            Strain(1.0, -3.0, 5.0, 5.0, -7.0, 9.0));
+}
+
 TEST(DisplacementGradient, CopyAssignmentOperator) {
   {
     const DisplacementGradient<float> first{
@@ -183,11 +193,6 @@ TEST(DisplacementGradient, JSON) {
           + ",\"zx\":" + Print(7.0) + ",\"zy\":" + Print(-8.0) + ",\"zz\":" + Print(9.0) + "}");
 }
 
-TEST(DisplacementGradient, MiscellaneousConstructors) {
-  EXPECT_EQ(Strain(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0)),
-            Strain(1.0, -3.0, 5.0, 5.0, -7.0, 9.0));
-}
-
 TEST(DisplacementGradient, MoveAssignmentOperator) {
   DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   DisplacementGradient second = DisplacementGradient<>::Zero();
@@ -226,14 +231,6 @@ TEST(DisplacementGradient, SetValue) {
 
 TEST(DisplacementGradient, SizeOf) {
   EXPECT_EQ(sizeof(DisplacementGradient<>{}), 9 * sizeof(double));
-}
-
-TEST(DisplacementGradient, StandardConstructor) {
-  EXPECT_EQ(
-      DisplacementGradient(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
-      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
-  EXPECT_EQ(DisplacementGradient(Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
-            DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, Stream) {

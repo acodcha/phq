@@ -53,6 +53,10 @@ TEST(DimensionMass, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionMass, Constructor) {
+  EXPECT_NO_THROW(Mass(1));
+}
+
 TEST(DimensionMass, CopyAssignmentOperator) {
   constexpr Mass first{3};
   Mass second{0};

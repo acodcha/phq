@@ -59,6 +59,12 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ConstitutiveModelIncompressibleNewtonianFluid, Constructor) {
+  const ConstitutiveModel::IncompressibleNewtonianFluid<> model{
+      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
+  EXPECT_EQ(model.DynamicViscosity(), DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond));
+}
+
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, CopyAssignmentOperator) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
@@ -128,12 +134,6 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, Print) {
   EXPECT_EQ(model->Print(),
             "Type = Incompressible Newtonian Fluid, Dynamic Viscosity = "
                 + DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond).Print());
-}
-
-TEST(ConstitutiveModelIncompressibleNewtonianFluid, StandardConstructor) {
-  const ConstitutiveModel::IncompressibleNewtonianFluid<> model{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
-  EXPECT_EQ(model.DynamicViscosity(), DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Stream) {

@@ -93,6 +93,10 @@ TEST(PoissonRatio, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(PoissonRatio, Constructor) {
+  EXPECT_NO_THROW(PoissonRatio(1.0));
+}
+
 TEST(PoissonRatio, CopyAssignmentOperator) {
   {
     const PoissonRatio<float> first(1.0F);
@@ -202,10 +206,6 @@ TEST(PoissonRatio, SetValue) {
 
 TEST(PoissonRatio, SizeOf) {
   EXPECT_EQ(sizeof(PoissonRatio<>{}), sizeof(double));
-}
-
-TEST(PoissonRatio, StandardConstructor) {
-  EXPECT_NO_THROW(PoissonRatio(1.0));
 }
 
 TEST(PoissonRatio, Stream) {

@@ -101,6 +101,10 @@ TEST(SubstanceAmount, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(SubstanceAmount, Constructor) {
+  EXPECT_NO_THROW(SubstanceAmount(1.0, Unit::SubstanceAmount::Kilomole));
+}
+
 TEST(SubstanceAmount, CopyAssignmentOperator) {
   {
     const SubstanceAmount<float> first(1.0F, Unit::SubstanceAmount::Mole);
@@ -207,10 +211,6 @@ TEST(SubstanceAmount, SetValue) {
 
 TEST(SubstanceAmount, SizeOf) {
   EXPECT_EQ(sizeof(SubstanceAmount<>{}), sizeof(double));
-}
-
-TEST(SubstanceAmount, StandardConstructor) {
-  EXPECT_NO_THROW(SubstanceAmount(1.0, Unit::SubstanceAmount::Kilomole));
 }
 
 TEST(SubstanceAmount, StaticValue) {

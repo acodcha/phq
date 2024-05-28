@@ -89,6 +89,10 @@ TEST(Dimensions, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(Dimensions, Constructor) {
+  EXPECT_NO_THROW(Dimensions({}, {}, {}, {}, {}, {}, {}));
+}
+
 TEST(Dimensions, CopyAssignmentOperator) {
   constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1), {}, {}, {}, {}, {}};
   Dimensions second;

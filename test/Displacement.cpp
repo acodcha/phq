@@ -112,6 +112,22 @@ TEST(Displacement, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Displacement, Constructor) {
+  EXPECT_NO_THROW(Displacement({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(Displacement(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre),
+                         Length(3.0, Unit::Length::Metre)),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      Direction(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)), Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(Displacement({0.0, -2.0, 0.0}, Unit::Length::Metre),
+                  Displacement({0.0, 0.0, 3.0}, Unit::Length::Metre)),
+            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(PlanarDisplacement(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)),
+            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+  EXPECT_EQ(Displacement(PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre)),
+            Displacement({1.0, -2.0, 0.0}, Unit::Length::Metre));
+}
+
 TEST(Displacement, CopyAssignmentOperator) {
   {
     const Displacement<float> first({1.0F, -2.0F, 3.0F}, Unit::Length::Metre);
@@ -206,18 +222,6 @@ TEST(Displacement, Magnitude) {
             Length(7.0, Unit::Length::Metre));
 }
 
-TEST(Displacement, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Direction(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)), Direction(1.0, -2.0, 3.0));
-  EXPECT_EQ(Angle(Displacement({0.0, -2.0, 0.0}, Unit::Length::Metre),
-                  Displacement({0.0, 0.0, 3.0}, Unit::Length::Metre)),
-            Angle(90.0, Unit::Angle::Degree));
-  EXPECT_EQ(PlanarDisplacement(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)),
-            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
-  EXPECT_EQ(Displacement(PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre)),
-            Displacement({1.0, -2.0, 0.0}, Unit::Length::Metre));
-}
-
 TEST(Displacement, MoveAssignmentOperator) {
   Displacement first({1.0, -2.0, 3.0}, Unit::Length::Metre);
   Displacement second = Displacement<>::Zero();
@@ -254,13 +258,6 @@ TEST(Displacement, SetValue) {
 
 TEST(Displacement, SizeOf) {
   EXPECT_EQ(sizeof(Displacement<>{}), 3 * sizeof(double));
-}
-
-TEST(Displacement, StandardConstructor) {
-  EXPECT_NO_THROW(Displacement({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
-  EXPECT_EQ(Displacement(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre),
-                         Length(3.0, Unit::Length::Metre)),
-            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Displacement, StaticValue) {

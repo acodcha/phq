@@ -94,6 +94,10 @@ TEST(Memory, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Memory, Constructor) {
+  EXPECT_NO_THROW(Memory(1.0, Unit::Memory::Byte));
+}
+
 TEST(Memory, CopyAssignmentOperator) {
   {
     const Memory<float> first(1.0F, Unit::Memory::Bit);
@@ -195,10 +199,6 @@ TEST(Memory, SetValue) {
 
 TEST(Memory, SizeOf) {
   EXPECT_EQ(sizeof(Memory<>{}), sizeof(double));
-}
-
-TEST(Memory, StandardConstructor) {
-  EXPECT_NO_THROW(Memory(1.0, Unit::Memory::Byte));
 }
 
 TEST(Memory, StaticValue) {

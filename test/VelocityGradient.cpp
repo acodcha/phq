@@ -159,6 +159,43 @@ TEST(VelocityGradient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(VelocityGradient, Constructor) {
+  EXPECT_NO_THROW(
+      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      VelocityGradient(
+          ScalarVelocityGradient(1.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-2.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(3.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-4.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(5.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-6.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(7.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(-8.0, Unit::Frequency::Hertz),
+          ScalarVelocityGradient(9.0, Unit::Frequency::Hertz)),
+      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      VelocityGradient(DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0),
+                       Time(2.0, Unit::Time::Second)),
+      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(VelocityGradient(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0),
+                             Frequency(2.0, Unit::Frequency::Hertz)),
+            VelocityGradient(
+                {2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0}, Unit::Frequency::Hertz));
+  EXPECT_EQ(DisplacementGradient(VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                                                  Unit::Frequency::Hertz),
+                                 Time(2.0, Unit::Time::Second)),
+            DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
+  EXPECT_EQ(
+      DisplacementGradient(VelocityGradient({2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
+                                            Unit::Frequency::Hertz),
+                           Frequency(2.0, Unit::Frequency::Hertz)),
+      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  EXPECT_EQ(StrainRate(VelocityGradient(
+                {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)),
+            StrainRate({1.0, -3.0, 5.0, 5.0, -7.0, 9.0}, Unit::Frequency::Hertz));
+}
+
 TEST(VelocityGradient, CopyAssignmentOperator) {
   {
     const VelocityGradient<float> first(
@@ -272,29 +309,6 @@ TEST(VelocityGradient, JSON) {
                 + "},\"unit\":\"kHz\"}");
 }
 
-TEST(VelocityGradient, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      VelocityGradient(DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0),
-                       Time(2.0, Unit::Time::Second)),
-      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
-  EXPECT_EQ(VelocityGradient(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0),
-                             Frequency(2.0, Unit::Frequency::Hertz)),
-            VelocityGradient(
-                {2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0}, Unit::Frequency::Hertz));
-  EXPECT_EQ(DisplacementGradient(VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
-                                                  Unit::Frequency::Hertz),
-                                 Time(2.0, Unit::Time::Second)),
-            DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
-  EXPECT_EQ(
-      DisplacementGradient(VelocityGradient({2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
-                                            Unit::Frequency::Hertz),
-                           Frequency(2.0, Unit::Frequency::Hertz)),
-      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
-  EXPECT_EQ(StrainRate(VelocityGradient(
-                {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)),
-            StrainRate({1.0, -3.0, 5.0, 5.0, -7.0, 9.0}, Unit::Frequency::Hertz));
-}
-
 TEST(VelocityGradient, MiscellaneousMethods) {
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
@@ -352,23 +366,6 @@ TEST(VelocityGradient, SetValue) {
 
 TEST(VelocityGradient, SizeOf) {
   EXPECT_EQ(sizeof(VelocityGradient<>{}), 9 * sizeof(double));
-}
-
-TEST(VelocityGradient, StandardConstructor) {
-  EXPECT_NO_THROW(
-      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
-  EXPECT_EQ(
-      VelocityGradient(
-          ScalarVelocityGradient(1.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(-2.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(3.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(-4.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(5.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(-6.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(7.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(-8.0, Unit::Frequency::Hertz),
-          ScalarVelocityGradient(9.0, Unit::Frequency::Hertz)),
-      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz));
 }
 
 TEST(VelocityGradient, StaticValue) {

@@ -93,6 +93,10 @@ TEST(HeatCapacityRatio, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(HeatCapacityRatio, Constructor) {
+  EXPECT_NO_THROW(HeatCapacityRatio(1.0));
+}
+
 TEST(HeatCapacityRatio, CopyAssignmentOperator) {
   {
     const HeatCapacityRatio<float> first(1.0F);
@@ -202,10 +206,6 @@ TEST(HeatCapacityRatio, SetValue) {
 
 TEST(HeatCapacityRatio, SizeOf) {
   EXPECT_EQ(sizeof(HeatCapacityRatio<>{}), sizeof(double));
-}
-
-TEST(HeatCapacityRatio, StandardConstructor) {
-  EXPECT_NO_THROW(HeatCapacityRatio(1.0));
 }
 
 TEST(HeatCapacityRatio, Stream) {

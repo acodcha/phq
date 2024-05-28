@@ -120,6 +120,13 @@ TEST(LinearThermalExpansionCoefficient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(LinearThermalExpansionCoefficient, Constructor) {
+  EXPECT_NO_THROW(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine));
+  EXPECT_EQ(ScalarStrain(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
+                         TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)),
+            ScalarStrain(8.0));
+}
+
 TEST(LinearThermalExpansionCoefficient, CopyAssignmentOperator) {
   {
     const LinearThermalExpansionCoefficient<float> first(1.0F, Unit::ThermalExpansion::PerKelvin);
@@ -204,12 +211,6 @@ TEST(LinearThermalExpansionCoefficient, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"/°R\"}");
 }
 
-TEST(LinearThermalExpansionCoefficient, MiscellaneousConstructors) {
-  EXPECT_EQ(ScalarStrain(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
-                         TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)),
-            ScalarStrain(8.0));
-}
-
 TEST(LinearThermalExpansionCoefficient, MoveAssignmentOperator) {
   LinearThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
   LinearThermalExpansionCoefficient second = LinearThermalExpansionCoefficient<>::Zero();
@@ -248,10 +249,6 @@ TEST(LinearThermalExpansionCoefficient, SetValue) {
 
 TEST(LinearThermalExpansionCoefficient, SizeOf) {
   EXPECT_EQ(sizeof(LinearThermalExpansionCoefficient<>{}), sizeof(double));
-}
-
-TEST(LinearThermalExpansionCoefficient, StandardConstructor) {
-  EXPECT_NO_THROW(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine));
 }
 
 TEST(LinearThermalExpansionCoefficient, StaticValue) {

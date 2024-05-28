@@ -94,6 +94,10 @@ TEST(Length, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(Length, Constructor) {
+  EXPECT_NO_THROW(Length(1.0, Unit::Length::Metre));
+}
+
 TEST(Length, CopyAssignmentOperator) {
   {
     const Length<float> first(1.0F, Unit::Length::Metre);
@@ -197,10 +201,6 @@ TEST(Length, SetValue) {
 
 TEST(Length, SizeOf) {
   EXPECT_EQ(sizeof(Length<>{}), sizeof(double));
-}
-
-TEST(Length, StandardConstructor) {
-  EXPECT_NO_THROW(Length(1.0, Unit::Length::Metre));
 }
 
 TEST(Length, StaticValue) {

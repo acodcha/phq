@@ -116,6 +116,20 @@ TEST(DynamicKinematicPressure, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(DynamicKinematicPressure, Constructor) {
+  EXPECT_NO_THROW(DynamicKinematicPressure(1.0, Unit::SpecificEnergy::NanojoulePerGram));
+  EXPECT_EQ(DynamicKinematicPressure(Speed(4.0, Unit::Speed::MetrePerSecond)),
+            DynamicKinematicPressure(8.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(DynamicKinematicPressure(DynamicPressure(8.0, Unit::Pressure::Pascal),
+                                     MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            DynamicKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(Speed(DynamicKinematicPressure(8.0, Unit::SpecificEnergy::JoulePerKilogram)),
+            Speed(4.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(DynamicPressure(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                            DynamicKinematicPressure(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
+            DynamicPressure(8.0, Unit::Pressure::Pascal));
+}
+
 TEST(DynamicKinematicPressure, CopyAssignmentOperator) {
   {
     const DynamicKinematicPressure<float> first(1.0F, Unit::SpecificEnergy::JoulePerKilogram);
@@ -194,19 +208,6 @@ TEST(DynamicKinematicPressure, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g\"}");
 }
 
-TEST(DynamicKinematicPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(DynamicKinematicPressure(Speed(4.0, Unit::Speed::MetrePerSecond)),
-            DynamicKinematicPressure(8.0, Unit::SpecificEnergy::JoulePerKilogram));
-  EXPECT_EQ(DynamicKinematicPressure(DynamicPressure(8.0, Unit::Pressure::Pascal),
-                                     MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            DynamicKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram));
-  EXPECT_EQ(Speed(DynamicKinematicPressure(8.0, Unit::SpecificEnergy::JoulePerKilogram)),
-            Speed(4.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(DynamicPressure(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                            DynamicKinematicPressure(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
-            DynamicPressure(8.0, Unit::Pressure::Pascal));
-}
-
 TEST(DynamicKinematicPressure, MoveAssignmentOperator) {
   DynamicKinematicPressure first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   DynamicKinematicPressure second = DynamicKinematicPressure<>::Zero();
@@ -243,10 +244,6 @@ TEST(DynamicKinematicPressure, SetValue) {
 
 TEST(DynamicKinematicPressure, SizeOf) {
   EXPECT_EQ(sizeof(DynamicKinematicPressure<>{}), sizeof(double));
-}
-
-TEST(DynamicKinematicPressure, StandardConstructor) {
-  EXPECT_NO_THROW(DynamicKinematicPressure(1.0, Unit::SpecificEnergy::NanojoulePerGram));
 }
 
 TEST(DynamicKinematicPressure, StaticValue) {

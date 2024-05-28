@@ -130,6 +130,31 @@ TEST(AngularSpeed, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(AngularSpeed, Constructor) {
+  EXPECT_NO_THROW(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond));
+  EXPECT_EQ(AngularSpeed(Angle(8.0, Unit::Angle::Radian), Time(2.0, Unit::Time::Second)),
+            AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
+
+  EXPECT_EQ(AngularSpeed(Angle(4.0, Unit::Angle::Radian), Frequency(2.0, Unit::Frequency::Hertz)),
+            AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
+
+  EXPECT_EQ(
+      Angle(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond), Time(2.0, Unit::Time::Second)),
+      Angle(8.0, Unit::Angle::Radian));
+
+  EXPECT_EQ(Angle(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
+                  Frequency(2.0, Unit::Frequency::Hertz)),
+            Angle(4.0, Unit::Angle::Radian));
+
+  EXPECT_EQ(
+      Time(Angle(8.0, Unit::Angle::Radian), AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond)),
+      Time(4.0, Unit::Time::Second));
+
+  EXPECT_EQ(Frequency(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
+                      Angle(2.0, Unit::Angle::Radian)),
+            Frequency(4.0, Unit::Frequency::Hertz));
+}
+
 TEST(AngularSpeed, CopyAssignmentOperator) {
   {
     const AngularSpeed<float> first(1.0F, Unit::AngularSpeed::RadianPerSecond);
@@ -201,30 +226,6 @@ TEST(AngularSpeed, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"deg/s\"}");
 }
 
-TEST(AngularSpeed, MiscellaneousConstructors) {
-  EXPECT_EQ(AngularSpeed(Angle(8.0, Unit::Angle::Radian), Time(2.0, Unit::Time::Second)),
-            AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
-
-  EXPECT_EQ(AngularSpeed(Angle(4.0, Unit::Angle::Radian), Frequency(2.0, Unit::Frequency::Hertz)),
-            AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
-
-  EXPECT_EQ(
-      Angle(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond), Time(2.0, Unit::Time::Second)),
-      Angle(8.0, Unit::Angle::Radian));
-
-  EXPECT_EQ(Angle(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
-                  Frequency(2.0, Unit::Frequency::Hertz)),
-            Angle(4.0, Unit::Angle::Radian));
-
-  EXPECT_EQ(
-      Time(Angle(8.0, Unit::Angle::Radian), AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond)),
-      Time(4.0, Unit::Time::Second));
-
-  EXPECT_EQ(Frequency(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
-                      Angle(2.0, Unit::Angle::Radian)),
-            Frequency(4.0, Unit::Frequency::Hertz));
-}
-
 TEST(AngularSpeed, MoveAssignmentOperator) {
   AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
   AngularSpeed second = AngularSpeed<>::Zero();
@@ -260,10 +261,6 @@ TEST(AngularSpeed, SetValue) {
 
 TEST(AngularSpeed, SizeOf) {
   EXPECT_EQ(sizeof(AngularSpeed<>{}), sizeof(double));
-}
-
-TEST(AngularSpeed, StandardConstructor) {
-  EXPECT_NO_THROW(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond));
 }
 
 TEST(AngularSpeed, StaticValue) {

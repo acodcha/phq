@@ -117,6 +117,19 @@ TEST(DynamicViscosity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(DynamicViscosity, Constructor) {
+  EXPECT_NO_THROW(DynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond));
+  EXPECT_EQ(DynamicViscosity(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                             KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
+            DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
+  EXPECT_EQ(KinematicViscosity(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
+                               MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
+            KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
+  EXPECT_EQ(MassDensity(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
+                        KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond)),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+}
+
 TEST(DynamicViscosity, CopyAssignmentOperator) {
   {
     const DynamicViscosity<float> first(1.0F, Unit::DynamicViscosity::PascalSecond);
@@ -188,18 +201,6 @@ TEST(DynamicViscosity, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa·s\"}");
 }
 
-TEST(DynamicViscosity, MiscellaneousConstructors) {
-  EXPECT_EQ(DynamicViscosity(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-                             KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
-            DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
-  EXPECT_EQ(KinematicViscosity(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-                               MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
-            KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
-  EXPECT_EQ(MassDensity(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-                        KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond)),
-            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
-}
-
 TEST(DynamicViscosity, MoveAssignmentOperator) {
   DynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
   DynamicViscosity second = DynamicViscosity<>::Zero();
@@ -236,10 +237,6 @@ TEST(DynamicViscosity, SetValue) {
 
 TEST(DynamicViscosity, SizeOf) {
   EXPECT_EQ(sizeof(DynamicViscosity<>{}), sizeof(double));
-}
-
-TEST(DynamicViscosity, StandardConstructor) {
-  EXPECT_NO_THROW(DynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond));
 }
 
 TEST(DynamicViscosity, StaticValue) {

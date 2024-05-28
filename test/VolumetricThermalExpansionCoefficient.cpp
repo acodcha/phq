@@ -120,6 +120,13 @@ TEST(VolumetricThermalExpansionCoefficient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(VolumetricThermalExpansionCoefficient, Constructor) {
+  EXPECT_NO_THROW(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine));
+  EXPECT_EQ(Strain(VolumetricThermalExpansionCoefficient(6.0, Unit::ThermalExpansion::PerKelvin),
+                   TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin)),
+            Strain(4.0, 0.0, 0.0, 4.0, 0.0, 4.0));
+}
+
 TEST(VolumetricThermalExpansionCoefficient, CopyAssignmentOperator) {
   {
     const VolumetricThermalExpansionCoefficient<float> first(
@@ -208,12 +215,6 @@ TEST(VolumetricThermalExpansionCoefficient, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"/°R\"}");
 }
 
-TEST(VolumetricThermalExpansionCoefficient, MiscellaneousConstructors) {
-  EXPECT_EQ(Strain(VolumetricThermalExpansionCoefficient(6.0, Unit::ThermalExpansion::PerKelvin),
-                   TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin)),
-            Strain(4.0, 0.0, 0.0, 4.0, 0.0, 4.0));
-}
-
 TEST(VolumetricThermalExpansionCoefficient, MoveAssignmentOperator) {
   VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
   VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient<>::Zero();
@@ -252,10 +253,6 @@ TEST(VolumetricThermalExpansionCoefficient, SetValue) {
 
 TEST(VolumetricThermalExpansionCoefficient, SizeOf) {
   EXPECT_EQ(sizeof(VolumetricThermalExpansionCoefficient<>{}), sizeof(double));
-}
-
-TEST(VolumetricThermalExpansionCoefficient, StandardConstructor) {
-  EXPECT_NO_THROW(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, StaticValue) {

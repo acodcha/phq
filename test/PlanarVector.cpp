@@ -267,6 +267,27 @@ TEST(PlanarVector, ComparisonOperators) {
   }
 }
 
+TEST(PlanarVector, Constructor) {
+  EXPECT_EQ(PlanarVector(std::array<float, 2>{1.0F, -2.0F}), PlanarVector(1.0F, -2.0F));
+  EXPECT_EQ(PlanarVector(std::array<double, 2>{1.0, -2.0}), PlanarVector(1.0, -2.0));
+  EXPECT_EQ(PlanarVector(std::array<long double, 2>{1.0L, -2.0L}), PlanarVector(1.0L, -2.0L));
+  {
+    PlanarVector vector{1.0F, -2.0F};
+    vector = std::array<float, 2>{-3.0F, 4.0F};
+    EXPECT_EQ(vector, PlanarVector(-3.0F, 4.0F));
+  }
+  {
+    PlanarVector vector{1.0, -2.0};
+    vector = std::array<double, 2>{-3.0, 4.0};
+    EXPECT_EQ(vector, PlanarVector(-3.0, 4.0));
+  }
+  {
+    PlanarVector vector{1.0L, -2.0L};
+    vector = std::array<long double, 2>{-3.0L, 4.0L};
+    EXPECT_EQ(vector, PlanarVector(-3.0L, 4.0L));
+  }
+}
+
 TEST(PlanarVector, CopyAssignmentOperator) {
   {
     constexpr PlanarVector first{1.0F, -2.0F};
@@ -585,27 +606,6 @@ TEST(PlanarVector, SizeOf) {
   EXPECT_EQ(sizeof(PlanarVector<float>{}), 2 * sizeof(float));
   EXPECT_EQ(sizeof(PlanarVector<double>{}), 2 * sizeof(double));
   EXPECT_EQ(sizeof(PlanarVector<long double>{}), 2 * sizeof(long double));
-}
-
-TEST(PlanarVector, StandardConstructor) {
-  EXPECT_EQ(PlanarVector(std::array<float, 2>{1.0F, -2.0F}), PlanarVector(1.0F, -2.0F));
-  EXPECT_EQ(PlanarVector(std::array<double, 2>{1.0, -2.0}), PlanarVector(1.0, -2.0));
-  EXPECT_EQ(PlanarVector(std::array<long double, 2>{1.0L, -2.0L}), PlanarVector(1.0L, -2.0L));
-  {
-    PlanarVector vector{1.0F, -2.0F};
-    vector = std::array<float, 2>{-3.0F, 4.0F};
-    EXPECT_EQ(vector, PlanarVector(-3.0F, 4.0F));
-  }
-  {
-    PlanarVector vector{1.0, -2.0};
-    vector = std::array<double, 2>{-3.0, 4.0};
-    EXPECT_EQ(vector, PlanarVector(-3.0, 4.0));
-  }
-  {
-    PlanarVector vector{1.0L, -2.0L};
-    vector = std::array<long double, 2>{-3.0L, 4.0L};
-    EXPECT_EQ(vector, PlanarVector(-3.0L, 4.0L));
-  }
 }
 
 TEST(PlanarVector, Stream) {

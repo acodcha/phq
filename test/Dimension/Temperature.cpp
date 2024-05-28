@@ -53,6 +53,10 @@ TEST(DimensionTemperature, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionTemperature, Constructor) {
+  EXPECT_NO_THROW(Temperature(1));
+}
+
 TEST(DimensionTemperature, CopyAssignmentOperator) {
   constexpr Temperature first{3};
   Temperature second{0};

@@ -111,6 +111,18 @@ TEST(ScalarTemperatureGradient, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(ScalarTemperatureGradient, Constructor) {
+  EXPECT_NO_THROW(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre));
+  EXPECT_EQ(
+      ScalarTemperatureGradient(TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin),
+                                Length(4.0, Unit::Length::Metre)),
+      ScalarTemperatureGradient(2.0, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(TemperatureDifference(
+                ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre),
+                Length(2.0, Unit::Length::Metre)),
+            TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
+}
+
 TEST(ScalarTemperatureGradient, CopyAssignmentOperator) {
   {
     const ScalarTemperatureGradient<float> first(1.0F, Unit::TemperatureGradient::KelvinPerMetre);
@@ -191,17 +203,6 @@ TEST(ScalarTemperatureGradient, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"K/mm\"}");
 }
 
-TEST(ScalarTemperatureGradient, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      ScalarTemperatureGradient(TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin),
-                                Length(4.0, Unit::Length::Metre)),
-      ScalarTemperatureGradient(2.0, Unit::TemperatureGradient::KelvinPerMetre));
-  EXPECT_EQ(TemperatureDifference(
-                ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre),
-                Length(2.0, Unit::Length::Metre)),
-            TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
-}
-
 TEST(ScalarTemperatureGradient, MoveAssignmentOperator) {
   ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   ScalarTemperatureGradient second = ScalarTemperatureGradient<>::Zero();
@@ -238,10 +239,6 @@ TEST(ScalarTemperatureGradient, SetValue) {
 
 TEST(ScalarTemperatureGradient, SizeOf) {
   EXPECT_EQ(sizeof(ScalarTemperatureGradient<>{}), sizeof(double));
-}
-
-TEST(ScalarTemperatureGradient, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre));
 }
 
 TEST(ScalarTemperatureGradient, StaticValue) {

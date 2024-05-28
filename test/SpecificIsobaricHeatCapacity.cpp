@@ -159,6 +159,40 @@ TEST(SpecificIsobaricHeatCapacity, ComparisonOperators) {
   EXPECT_GE(second, first);
 }
 
+TEST(SpecificIsobaricHeatCapacity, Constructor) {
+  EXPECT_NO_THROW(
+      SpecificIsobaricHeatCapacity(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin));
+  EXPECT_EQ(
+      SpecificIsobaricHeatCapacity(
+          HeatCapacityRatio(2.0), SpecificIsochoricHeatCapacity(
+                                      4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+      SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  EXPECT_EQ(
+      SpecificIsobaricHeatCapacity(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
+                                   Mass(4.0, Unit::Mass::Kilogram)),
+      SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+  EXPECT_EQ(
+      HeatCapacityRatio(
+          SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          SpecificIsochoricHeatCapacity(
+              4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+      HeatCapacityRatio(2.0));
+  EXPECT_EQ(Mass(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
+                 SpecificIsobaricHeatCapacity(
+                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
+            Mass(2.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(
+      IsobaricHeatCapacity(
+          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          Mass(2.0, Unit::Mass::Kilogram)),
+      IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(
+      SpecificIsochoricHeatCapacity(
+          SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+          HeatCapacityRatio(2.0)),
+      SpecificIsochoricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+}
+
 TEST(SpecificIsobaricHeatCapacity, CopyAssignmentOperator) {
   {
     const SpecificIsobaricHeatCapacity<float> first(
@@ -249,38 +283,6 @@ TEST(SpecificIsobaricHeatCapacity, JSON) {
             "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g/K\"}");
 }
 
-TEST(SpecificIsobaricHeatCapacity, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      SpecificIsobaricHeatCapacity(
-          HeatCapacityRatio(2.0), SpecificIsochoricHeatCapacity(
-                                      4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-      SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-  EXPECT_EQ(
-      SpecificIsobaricHeatCapacity(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
-                                   Mass(4.0, Unit::Mass::Kilogram)),
-      SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-  EXPECT_EQ(
-      HeatCapacityRatio(
-          SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          SpecificIsochoricHeatCapacity(
-              4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-      HeatCapacityRatio(2.0));
-  EXPECT_EQ(Mass(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
-                 SpecificIsobaricHeatCapacity(
-                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
-            Mass(2.0, Unit::Mass::Kilogram));
-  EXPECT_EQ(
-      IsobaricHeatCapacity(
-          SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          Mass(2.0, Unit::Mass::Kilogram)),
-      IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
-  EXPECT_EQ(
-      SpecificIsochoricHeatCapacity(
-          SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-          HeatCapacityRatio(2.0)),
-      SpecificIsochoricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-}
-
 TEST(SpecificIsobaricHeatCapacity, MoveAssignmentOperator) {
   SpecificIsobaricHeatCapacity first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   SpecificIsobaricHeatCapacity second = SpecificIsobaricHeatCapacity<>::Zero();
@@ -320,11 +322,6 @@ TEST(SpecificIsobaricHeatCapacity, SetValue) {
 
 TEST(SpecificIsobaricHeatCapacity, SizeOf) {
   EXPECT_EQ(sizeof(SpecificIsobaricHeatCapacity<>{}), sizeof(double));
-}
-
-TEST(SpecificIsobaricHeatCapacity, StandardConstructor) {
-  EXPECT_NO_THROW(
-      SpecificIsobaricHeatCapacity(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin));
 }
 
 TEST(SpecificIsobaricHeatCapacity, StaticValue) {

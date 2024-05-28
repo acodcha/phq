@@ -53,6 +53,10 @@ TEST(DimensionLength, ComparisonOperators) {
   EXPECT_GE(first, first);
 }
 
+TEST(DimensionLength, Constructor) {
+  EXPECT_NO_THROW(Length(1));
+}
+
 TEST(DimensionLength, CopyAssignmentOperator) {
   constexpr Length first{3};
   Length second{0};
