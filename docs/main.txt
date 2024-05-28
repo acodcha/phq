@@ -1,6 +1,16 @@
-/// \mainpage Main Page
+/// \mainpage Physical Quantities
 ///
 /// Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
+///
+/// - \ref requirements "Requirements"
+/// - \ref configuration "Configuration": \ref configuration_cmake "CMake", \ref configuration_bazel "Bazel"
+/// - \ref usage "Usage": \ref usage_basics "Basics", \ref usage_vectors_and_tensors "Vectors and Tensors", \ref usage_operations "Operations", \ref usage_units "Units", \ref usage_unit_systems "Unit Systems", \ref usage_models "Models", \ref usage_dimensions "Dimensions"
+/// - \ref documentation "Documentation"
+/// - \ref installation "Installation"
+/// - \ref testing "Testing"
+/// - \ref license "License"
+///
+/// Example:
 ///
 /// ```
 /// PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
@@ -30,30 +40,9 @@
 /// - Physical models enable tedious mathematical computations involving physical quantities to be performed easily. No more tensor-vector multiplication errors when computing stresses!
 /// - Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
 ///
-/// The library is hosted at <https://github.com/acodcha/phq>. Its documentation is hosted here, at <https://acodcha.github.io/phq-docs>.
+/// The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 ///
-/// \section contents_section Contents
-///
-/// - \ref requirements_section "Requirements"
-/// - \ref configuration_section "Configuration"
-///   - \ref configuration_cmake_subsection "CMake"
-///   - \ref configuration_bazel_subsection "Bazel"
-/// - \ref usage_section "Usage"
-///   - \ref usage_basics_subsection "Basics"
-///   - \ref usage_vectors_and_tensors_subsection "Vectors and Tensors"
-///   - \ref usage_operations_subsection "Operations"
-///   - \ref usage_units_subsection "Units"
-///   - \ref usage_unit_systems_subsection "Unit Systems"
-///   - \ref usage_physical_models_subsection "Physical Models"
-///   - \ref usage_physical_dimensions_subsection "Physical Dimensions"
-///   - \ref usage_divisions_by_zero_subsection "Divisions by Zero"
-///   - \ref usage_exceptions_subsection "Exceptions"
-/// - \ref documentation_section "Documentation"
-/// - \ref installation_section "Installation"
-/// - \ref testing_section "Testing"
-/// - \ref license_section "License"
-///
-/// \section requirements_section Requirements
+/// \section requirements Requirements
 ///
 /// The Physical Quantities library requires the following packages:
 ///
@@ -62,18 +51,18 @@
 ///   - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative means of installation.
 ///   - **Bazel:** Follow the instructions at <https://bazel.build/install> to install Bazel on your system.
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"
 ///
-/// \section configuration_section Configuration
+/// \section configuration Configuration
 ///
 /// The Physical Quantities library can be configured with either the CMake build system or the Bazel build system.
 ///
-/// - \ref configuration_cmake_subsection "CMake"
-/// - \ref configuration_bazel_subsection "Bazel"
+/// - \ref configuration_cmake "CMake"
+/// - \ref configuration_bazel "Bazel"
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"
 ///
-/// \subsection configuration_cmake_subsection Configuration: CMake
+/// \subsection configuration_cmake Configuration: CMake
 ///
 /// To use this library in one of your CMake C++ projects, add the following code to your project's `CMakeLists.txt` file:
 ///
@@ -103,9 +92,9 @@
 ///
 /// Once this is done, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
 ///
-/// \ref configuration_section "(Back to Configuration)"
+/// \ref configuration "(Back to Configuration)"
 ///
-/// \subsection configuration_bazel_subsection Configuration: Bazel
+/// \subsection configuration_bazel Configuration: Bazel
 ///
 /// To use this library in one of your Bazel C++ projects, do the following.
 ///
@@ -152,25 +141,23 @@
 ///
 /// Finally, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of this library's contents.
 ///
-/// \ref configuration_section "(Back to Configuration)"
+/// \ref configuration "(Back to Configuration)"
 ///
-/// \section usage_section Usage
+/// \section usage Usage
 ///
-/// This section contains basic usage information of the Physical Quantities library; see the \ref documentation_section "Documentation" section for the full documentation.
+/// This section contains basic usage information of the Physical Quantities library; see the \ref documentation "Documentation" section for the full documentation.
 ///
-/// - \ref usage_basics_subsection "Basics"
-/// - \ref usage_vectors_and_tensors_subsection "Vectors and Tensors"
-/// - \ref usage_operations_subsection "Operations"
-/// - \ref usage_units_subsection "Units"
-/// - \ref usage_unit_systems_subsection "Unit Systems"
-/// - \ref usage_physical_models_subsection "Physical Models"
-/// - \ref usage_physical_dimensions_subsection "Physical Dimensions"
-/// - \ref usage_divisions_by_zero_subsection "Divisions by Zero"
-/// - \ref usage_exceptions_subsection "Exceptions"
+/// - \ref usage_basics "Basics"
+/// - \ref usage_vectors_and_tensors "Vectors and Tensors"
+/// - \ref usage_operations "Operations"
+/// - \ref usage_units "Units"
+/// - \ref usage_unit_systems "Unit Systems"
+/// - \ref usage_models "Models"
+/// - \ref usage_dimensions "Dimensions"
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"
 ///
-/// \subsection usage_basics_subsection Usage: Basics
+/// \subsection usage_basics Usage: Basics
 ///
 /// Physical quantities are constructed from a value and a unit and support standard arithmetic operations. For example:
 ///
@@ -231,9 +218,13 @@
 /// assert(sizeof(position) == 3 * sizeof(float));
 /// ```
 ///
-/// \ref usage_section "(Back to Usage)"
+/// The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
 ///
-/// \subsection usage_vectors_and_tensors_subsection Usage: Vectors and Tensors
+/// If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
+///
+/// \ref usage "(Back to Usage)"
+///
+/// \subsection usage_vectors_and_tensors Usage: Vectors and Tensors
 ///
 /// Values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors are represented internally in a Cartesian (x-y-z) coordinate system. For example:
 ///
@@ -267,9 +258,9 @@
 ///
 /// The above example creates a stress quantity and computes and prints its equivalent von Mises stress.
 ///
-/// \ref usage_section "(Back to Usage)"
+/// \ref usage "(Back to Usage)"
 ///
-/// \subsection usage_operations_subsection Usage: Operations
+/// \subsection usage_operations Usage: Operations
 ///
 /// Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating-point numbers to represent the same data. For example:
 ///
@@ -300,9 +291,15 @@
 ///
 /// The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
 ///
-/// \ref usage_section "(Back to Usage)"
+/// The Physical Quantities library checks for divisions by zero in certain critical internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
 ///
-/// \subsection usage_units_subsection Usage: Units
+/// However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard such that divisions by zero result in `inf`, `-inf`, or `NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
+///
+/// Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
+///
+/// \ref usage "(Back to Usage)"
+///
+/// \subsection usage_units Usage: Units
 ///
 /// The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
 ///
@@ -376,9 +373,9 @@
 ///
 /// In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than explicitly invoking the `PhQ::Convert` function.
 ///
-/// \ref usage_section "(Back to Usage)"
+/// \ref usage "(Back to Usage)"
 ///
-/// \subsection usage_unit_systems_subsection Usage: Unit Systems
+/// \subsection usage_unit_systems Usage: Unit Systems
 ///
 /// Internally, physical quantities store their values in the metre-kilogram-second-kelvin (m·kg·s·K) system. Unit conversions are performed automatically when physical quantity objects are constructed. Other common systems of units of measure are also defined:
 ///
@@ -425,9 +422,9 @@
 ///
 /// The above example shows that the pound (lbm) mass unit does not relate to any particular system of units.
 ///
-/// \ref usage_section "(Back to Usage)"
+/// \ref usage "(Back to Usage)"
 ///
-/// \subsection usage_physical_models_subsection Usage: Physical Models
+/// \subsection usage_models Usage: Models
 ///
 /// Some physical models and related operations are supported. Physical models allow complex mathematical calculations to be performed easily. For example:
 ///
@@ -452,9 +449,9 @@
 ///
 /// The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
 ///
-/// \ref usage_section "(Back to Usage)"
+/// \ref usage "(Back to Usage)"
 ///
-/// \subsection usage_physical_dimensions_subsection Usage: Physical Dimensions
+/// \subsection usage_dimensions Usage: Dimensions
 ///
 /// Seven independent base physical dimensions form the physical dimension set of any unit of measure or physical quantity. These seven independent base physical dimensions are: time (T), length (L), mass (M), electric current (I), temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that share the same physical dimension set are of the same type and can be converted between one another.
 ///
@@ -498,27 +495,9 @@
 ///
 /// The above example obtains the physical dimension set of mass density, which is L^(-3)·M.
 ///
-/// \ref usage_section "(Back to Usage)"
+/// \ref usage "(Back to Usage)"
 ///
-/// \subsection usage_divisions_by_zero_subsection Usage: Divisions by Zero
-///
-/// The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
-///
-/// However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
-///
-/// Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
-///
-/// \ref usage_section "(Back to Usage)"
-///
-/// \subsection usage_exceptions_subsection Usage: Exceptions
-///
-/// The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
-///
-/// If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
-///
-/// \ref usage_section "(Back to Usage)"
-///
-/// \section documentation_section Documentation
+/// \section documentation Documentation
 ///
 /// The full documentation of the Physical Quantities library is hosted here, at <https://acodcha.github.io/phq-docs>:
 ///
@@ -545,11 +524,11 @@
 ///
 /// This builds HTML documentation pages in the `PhQ/docs/html/` directory. Browse the documentation by opening the `PhQ/docs/html/index.html` file in a web browser.
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"
 ///
-/// \section installation_section Installation
+/// \section installation Installation
 ///
-/// If using the CMake build system, the Physical Quantities library can optionally be installed on your system to conveniently use it in your CMake projects. Alternatively, see the \ref configuration_section "Configuration" section for other methods of use.
+/// If using the CMake build system, the Physical Quantities library can optionally be installed on your system to conveniently use it in your CMake projects. Alternatively, see the \ref configuration "Configuration" section for other methods of use.
 ///
 /// Clone this library's repository, configure it, and install it with:
 ///
@@ -564,9 +543,9 @@
 ///
 /// This is a header-only library, so no compilation is needed. On most systems, the above code installs this library's headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"
 ///
-/// \section testing_section Testing
+/// \section testing Testing
 ///
 /// The Physical Quantities library is automatically tested whenever it is updated.
 ///
@@ -597,9 +576,9 @@
 /// bazel test //:all
 /// ```
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"
 ///
-/// \section license_section License
+/// \section license License
 ///
 /// Copyright © 2020-2024 Alexandre Coderre-Chabot
 ///
@@ -614,4 +593,4 @@
 /// - The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 /// - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///
-/// \ref contents_section "(Back to Contents)"
+/// \ref index "(Back to Top)"

@@ -4,6 +4,16 @@
 
 Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
+- [Requirements](#requirements)
+- [Configuration](#configuration): [CMake](#configuration-cmake), [Bazel](#configuration-bazel)
+- [Usage](#usage): [Basics](#usage-basics), [Vectors and Tensors](#usage-vectors-and-tensors), [Operations](#usage-operations), [Units](#usage-units), [Unit Systems](#usage-unit-systems), [Models](#usage-models), [Dimensions](#usage-dimensions)
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Testing](#testing)
+- [License](#license)
+
+Example:
+
 ```C++
 PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
 
@@ -32,26 +42,7 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 - Physical models enable tedious mathematical computations involving physical quantities to be performed easily. No more tensor-vector multiplication errors when computing stresses!
 - Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
 
-## Contents
-
-- [Requirements](#requirements)
-- [Configuration](#configuration)
-  - [CMake](#configuration-cmake)
-  - [Bazel](#configuration-bazel)
-- [Usage](#usage)
-  - [Basics](#usage-basics)
-  - [Vectors and Tensors](#usage-vectors-and-tensors)
-  - [Operations](#usage-operations)
-  - [Units](#usage-units)
-  - [Unit Systems](#usage-unit-systems)
-  - [Physical Models](#usage-physical-models)
-  - [Physical Dimensions](#usage-physical-dimensions)
-  - [Divisions by Zero](#usage-divisions-by-zero)
-  - [Exceptions](#usage-exceptions)
-- [Documentation](#documentation)
-- [Installation](#installation)
-- [Testing](#testing)
-- [License](#license)
+The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
 ## Requirements
 
@@ -163,10 +154,8 @@ This section contains basic usage information of the Physical Quantities library
 - [Operations](#usage-operations)
 - [Units](#usage-units)
 - [Unit Systems](#usage-unit-systems)
-- [Physical Models](#usage-physical-models)
-- [Physical Dimensions](#usage-physical-dimensions)
-- [Divisions by Zero](#usage-divisions-by-zero)
-- [Exceptions](#usage-exceptions)
+- [Models](#usage-models)
+- [Dimensions](#usage-dimensions)
 
 [(Back to Top)](#physical-quantities-phq)
 
@@ -231,6 +220,10 @@ PhQ::Position<float> position{{-1.11F, 2.22F, -3.33F}, PhQ::Unit::Length::Mile};
 assert(sizeof(position) == 3 * sizeof(float));
 ```
 
+The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
+
+If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
+
 [(Back to Usage)](#usage)
 
 ### Usage: Vectors and Tensors
@@ -292,6 +285,12 @@ std::cout << "Angle: " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
 ```
 
 The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
+
+The Physical Quantities library checks for divisions by zero in certain critical internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
+
+However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard such that divisions by zero result in `inf`, `-inf`, or `NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
+
+Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
 
 [(Back to Usage)](#usage)
 
@@ -420,7 +419,7 @@ The above example shows that the pound (lbm) mass unit does not relate to any pa
 
 [(Back to Usage)](#usage)
 
-### Usage: Physical Models
+### Usage: Models
 
 Some physical models and related operations are supported. Physical models allow complex mathematical calculations to be performed easily. For example:
 
@@ -443,7 +442,7 @@ The above example creates an elastic isotropic solid constitutive model from a Y
 
 [(Back to Usage)](#usage)
 
-### Usage: Physical Dimensions
+### Usage: Dimensions
 
 Seven independent base physical dimensions form the physical dimension set of any unit of measure or physical quantity. These seven independent base physical dimensions are: time (T), length (L), mass (M), electric current (I), temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that share the same physical dimension set are of the same type and can be converted between one another.
 
@@ -486,24 +485,6 @@ std::cout << "Dimensions: " << dimensions << std::endl;
 ```
 
 The above example obtains the physical dimension set of mass density, which is L^(-3)·M.
-
-[(Back to Usage)](#usage)
-
-### Usage: Divisions by Zero
-
-The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
-
-However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
-
-Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
-
-[(Back to Usage)](#usage)
-
-### Usage: Exceptions
-
-The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
-
-If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
 
 [(Back to Usage)](#usage)
 
