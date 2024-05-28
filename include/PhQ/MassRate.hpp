@@ -39,6 +39,14 @@
 
 namespace PhQ {
 
+// Forward declaration for class PhQ::MassRate.
+template <typename Number>
+class MassDensity;
+
+// Forward declaration for class PhQ::MassRate.
+template <typename Number>
+class VolumeRate;
+
 /// \brief Mass rate. Can represent the time rate of change of a mass or a mass flow rate; see
 /// PhQ::Mass, PhQ::Time, and PhQ::Frequency.
 template <typename Number = double>
@@ -61,6 +69,11 @@ public:
   /// definition of mass rate.
   constexpr MassRate(const Mass<Number>& mass, const Frequency<Number>& frequency)
     : MassRate<Number>(mass.Value() * frequency.Value()) {}
+
+  /// \brief Constructor. Constructs a mass rate from a given mass density and volume rate using the
+  /// definition of mass density.
+  constexpr MassRate(
+      const MassDensity<Number>& mass_density, const VolumeRate<Number>& volume_rate);
 
   /// \brief Destructor. Destroys this mass rate.
   ~MassRate() noexcept = default;
@@ -128,6 +141,10 @@ public:
   constexpr Mass<Number> operator/(const Frequency<Number>& frequency) const {
     return Mass<Number>{*this, frequency};
   }
+
+  constexpr MassDensity<Number> operator/(const VolumeRate<Number>& volume_rate) const;
+
+  constexpr VolumeRate<Number> operator/(const MassDensity<Number>& mass_density) const;
 
   constexpr Number operator/(const MassRate<Number>& mass_rate) const noexcept {
     return this->value / mass_rate.value;

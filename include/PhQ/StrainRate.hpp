@@ -60,6 +60,14 @@ public:
   StrainRate(const SymmetricDyad<Number>& value, Unit::Frequency unit)
     : DimensionalSymmetricDyad<Unit::Frequency, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a strain rate tensor from a given set of scalar strain rate
+  /// components.
+  StrainRate(const ScalarStrainRate<Number>& xx, const ScalarStrainRate<Number>& xy,
+             const ScalarStrainRate<Number>& xz, const ScalarStrainRate<Number>& yy,
+             const ScalarStrainRate<Number>& yz, const ScalarStrainRate<Number>& zz)
+    : StrainRate<Number>({xx.Value(), xy.Value(), xz.Value(), yy.Value(), yz.Value(), zz.Value()}) {
+  }
+
   /// \brief Constructor. Constructs a strain rate tensor from a given strain tensor and time using
   /// the definition of the strain rate tensor.
   constexpr StrainRate(const Strain<Number>& strain, const Time<Number>& time)

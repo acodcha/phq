@@ -279,6 +279,10 @@ TEST(Velocity, SizeOf) {
 
 TEST(Velocity, StandardConstructor) {
   EXPECT_NO_THROW(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MillimetrePerSecond));
+  EXPECT_EQ(
+      Velocity(Speed(1.0, Unit::Speed::MetrePerSecond), Speed(-2.0, Unit::Speed::MetrePerSecond),
+               Speed(3.0, Unit::Speed::MetrePerSecond)),
+      Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, StaticValue) {

@@ -258,6 +258,9 @@ TEST(Displacement, SizeOf) {
 
 TEST(Displacement, StandardConstructor) {
   EXPECT_NO_THROW(Displacement({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(Displacement(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre),
+                         Length(3.0, Unit::Length::Metre)),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Displacement, StaticValue) {

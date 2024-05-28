@@ -276,6 +276,9 @@ TEST(PlanarVelocity, SizeOf) {
 
 TEST(PlanarVelocity, StandardConstructor) {
   EXPECT_NO_THROW(PlanarVelocity({1.0, -2.0}, Unit::Speed::MillimetrePerSecond));
+  EXPECT_EQ(PlanarVelocity(
+                Speed(1.0, Unit::Speed::MetrePerSecond), Speed(-2.0, Unit::Speed::MetrePerSecond)),
+            PlanarVelocity({1.0, -2.0}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(PlanarVelocity, StaticValue) {

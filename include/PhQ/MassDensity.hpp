@@ -33,8 +33,10 @@
 
 #include "DimensionalScalar.hpp"
 #include "Mass.hpp"
+#include "MassRate.hpp"
 #include "Unit/MassDensity.hpp"
 #include "Volume.hpp"
+#include "VolumeRate.hpp"
 
 namespace PhQ {
 
@@ -94,6 +96,11 @@ public:
   /// definition of mass density.
   constexpr MassDensity(const Mass<Number>& mass, const Volume<Number>& volume)
     : MassDensity<Number>(mass.Value() / volume.Value()) {}
+
+  /// \brief Constructor. Constructs a mass density from a given mass rate and volume rate using the
+  /// definition of mass density.
+  constexpr MassDensity(const MassRate<Number>& mass_rate, const VolumeRate<Number>& volume_rate)
+    : MassDensity<Number>(mass_rate.Value() / volume_rate.Value()) {}
 
   /// \brief Constructor. Constructs a mass density from a given dynamic viscosity and kinematic
   /// viscosity using the definition of kinematic viscosity.
@@ -178,6 +185,10 @@ public:
 
   constexpr Mass<Number> operator*(const Volume<Number>& volume) const {
     return Mass<Number>{*this, volume};
+  }
+
+  constexpr MassRate<Number> operator*(const VolumeRate<Number>& volume_rate) const {
+    return MassRate<Number>{*this, volume_rate};
   }
 
   constexpr DynamicViscosity<Number> operator*(
@@ -273,6 +284,28 @@ inline constexpr Mass<Number>::Mass(
   : Mass<Number>(mass_density.Value() * volume.Value()) {}
 
 template <typename Number>
+inline constexpr MassRate<Number>::MassRate(
+    const MassDensity<Number>& mass_density, const VolumeRate<Number>& volume_rate)
+  : MassRate<Number>(mass_density.Value() * volume_rate.Value()) {}
+
+template <typename Number>
+inline constexpr VolumeRate<Number>::VolumeRate(
+    const MassRate<Number>& mass_rate, const MassDensity<Number>& mass_density)
+  : VolumeRate<Number>(mass_rate.Value() / mass_density.Value()) {}
+
+template <typename Number>
+inline constexpr Mass<Number> Volume<Number>::operator*(
+    const MassDensity<Number>& mass_density) const {
+  return Mass<Number>{mass_density, *this};
+}
+
+template <typename Number>
+inline constexpr MassRate<Number> VolumeRate<Number>::operator*(
+    const MassDensity<Number>& mass_density) const {
+  return MassRate<Number>{mass_density, *this};
+}
+
+template <typename Number>
 inline constexpr MassDensity<Number> Mass<Number>::operator/(const Volume<Number>& volume) const {
   return MassDensity<Number>{*this, volume};
 }
@@ -284,9 +317,15 @@ inline constexpr Volume<Number> Mass<Number>::operator/(
 }
 
 template <typename Number>
-inline constexpr Mass<Number> Volume<Number>::operator*(
+inline constexpr MassDensity<Number> MassRate<Number>::operator/(
+    const VolumeRate<Number>& volume_rate) const {
+  return MassDensity<Number>{*this, volume_rate};
+}
+
+template <typename Number>
+inline constexpr VolumeRate<Number> MassRate<Number>::operator/(
     const MassDensity<Number>& mass_density) const {
-  return Mass<Number>{mass_density, *this};
+  return VolumeRate<Number>{*this, mass_density};
 }
 
 }  // namespace PhQ

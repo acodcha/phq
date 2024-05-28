@@ -298,6 +298,11 @@ TEST(TemperatureGradient, SizeOf) {
 TEST(TemperatureGradient, StandardConstructor) {
   EXPECT_NO_THROW(
       TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMillimetre));
+  EXPECT_EQ(TemperatureGradient(
+                ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre),
+                ScalarTemperatureGradient(-2.0, Unit::TemperatureGradient::KelvinPerMetre),
+                ScalarTemperatureGradient(3.0, Unit::TemperatureGradient::KelvinPerMetre)),
+            TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, StaticValue) {

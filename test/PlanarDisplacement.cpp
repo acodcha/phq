@@ -252,6 +252,8 @@ TEST(PlanarDisplacement, SizeOf) {
 
 TEST(PlanarDisplacement, StandardConstructor) {
   EXPECT_NO_THROW(PlanarDisplacement({1.0, -2.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(PlanarDisplacement(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre)),
+            PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarDisplacement, StaticValue) {

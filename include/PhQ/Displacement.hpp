@@ -74,6 +74,10 @@ public:
   Displacement(const Vector<Number>& value, const Unit::Length unit)
     : DimensionalVector<Unit::Length, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a displacement vector from a given set of length components.
+  Displacement(const Length<Number>& x, const Length<Number>& y, const Length<Number>& z)
+    : Displacement<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a displacement vector from a given length and direction.
   constexpr Displacement(const Length<Number>& length, const Direction<Number>& direction)
     : Displacement<Number>(length.Value() * direction.Value()) {}

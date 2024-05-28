@@ -58,6 +58,10 @@ public:
   PlanarPosition(const PlanarVector<Number>& value, const Unit::Length unit)
     : DimensionalPlanarVector<Unit::Length, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar position vector from a given set of length components.
+  PlanarPosition(const Length<Number>& x, const Length<Number>& y)
+    : PlanarPosition<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar position vector from a given length and planar
   /// direction.
   constexpr PlanarPosition(

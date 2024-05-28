@@ -805,8 +805,10 @@ phq_library(
     deps = [
         ":DimensionalScalar",
         ":Mass",
+        ":MassRate",
         ":Unit/MassDensity",
         ":Volume",
+        ":VolumeRate",
     ],
 )
 

@@ -58,6 +58,12 @@ public:
   PlanarTemperatureGradient(const PlanarVector<Number>& value, const Unit::TemperatureGradient unit)
     : DimensionalPlanarVector<Unit::TemperatureGradient, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a planar temperature gradient vector from a given set of scalar
+  /// temperature gradient components.
+  PlanarTemperatureGradient(
+      const ScalarTemperatureGradient<Number>& x, const ScalarTemperatureGradient<Number>& y)
+    : PlanarTemperatureGradient<Number>({x.Value(), y.Value()}) {}
+
   /// \brief Constructor. Constructs a planar temperature gradient vector from a given scalar
   /// temperature gradient magnitude and planar direction.
   constexpr PlanarTemperatureGradient(

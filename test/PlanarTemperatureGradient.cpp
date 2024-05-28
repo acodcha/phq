@@ -294,6 +294,10 @@ TEST(PlanarTemperatureGradient, SizeOf) {
 TEST(PlanarTemperatureGradient, StandardConstructor) {
   EXPECT_NO_THROW(
       PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMillimetre));
+  EXPECT_EQ(PlanarTemperatureGradient(
+                ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre),
+                ScalarTemperatureGradient(-2.0, Unit::TemperatureGradient::KelvinPerMetre)),
+            PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(PlanarTemperatureGradient, StaticValue) {

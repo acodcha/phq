@@ -281,6 +281,8 @@ TEST(PlanarPosition, SizeOf) {
 
 TEST(PlanarPosition, StandardConstructor) {
   EXPECT_NO_THROW(PlanarPosition({1.0, -2.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(PlanarPosition(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre)),
+            PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarPosition, StaticValue) {

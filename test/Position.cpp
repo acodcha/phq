@@ -284,6 +284,9 @@ TEST(Position, SizeOf) {
 
 TEST(Position, StandardConstructor) {
   EXPECT_NO_THROW(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
+  EXPECT_EQ(Position(Length(1.0, Unit::Length::Metre), Length(-2.0, Unit::Length::Metre),
+                     Length(3.0, Unit::Length::Metre)),
+            Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, StaticValue) {

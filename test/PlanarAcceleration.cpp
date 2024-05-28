@@ -311,6 +311,9 @@ TEST(PlanarAcceleration, SizeOf) {
 
 TEST(PlanarAcceleration, StandardConstructor) {
   EXPECT_NO_THROW(PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MillimetrePerSquareSecond));
+  EXPECT_EQ(PlanarAcceleration(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond),
+                               ScalarAcceleration(-2.0, Unit::Acceleration::MetrePerSquareSecond)),
+            PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(PlanarAcceleration, StaticValue) {

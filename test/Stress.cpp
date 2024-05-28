@@ -271,6 +271,11 @@ TEST(Stress, SizeOf) {
 
 TEST(Stress, StandardConstructor) {
   EXPECT_NO_THROW(Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      Stress(ScalarStress(1.0, Unit::Pressure::Pascal), ScalarStress(-2.0, Unit::Pressure::Pascal),
+             ScalarStress(3.0, Unit::Pressure::Pascal), ScalarStress(-4.0, Unit::Pressure::Pascal),
+             ScalarStress(5.0, Unit::Pressure::Pascal), ScalarStress(-6.0, Unit::Pressure::Pascal)),
+      Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Stress, StaticValue) {
