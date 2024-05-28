@@ -306,6 +306,10 @@ TEST(Acceleration, SizeOf) {
 
 TEST(Acceleration, StandardConstructor) {
   EXPECT_NO_THROW(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MillimetrePerSquareSecond));
+  EXPECT_EQ(Acceleration(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond),
+                         ScalarAcceleration(-2.0, Unit::Acceleration::MetrePerSquareSecond),
+                         ScalarAcceleration(3.0, Unit::Acceleration::MetrePerSquareSecond)),
+            Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, StaticValue) {

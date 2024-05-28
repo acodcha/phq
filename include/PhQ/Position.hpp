@@ -59,6 +59,10 @@ public:
   Position(const Vector<Number>& value, const Unit::Length unit)
     : DimensionalVector<Unit::Length, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a position vector from a given set of length components.
+  Position(const Length<Number>& x, const Length<Number>& y, const Length<Number>& z)
+    : Position<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a position vector from a given length and direction.
   constexpr Position(const Length<Number>& length, const Direction<Number>& direction)
     : Position<Number>(length.Value() * direction.Value()) {}

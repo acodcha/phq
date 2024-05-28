@@ -61,6 +61,10 @@ public:
   Force(const Vector<Number>& value, const Unit::Force unit)
     : DimensionalVector<Unit::Force, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a force vector from a given set of scalar force components.
+  Force(const ScalarForce<Number>& x, const ScalarForce<Number>& y, const ScalarForce<Number>& z)
+    : Force<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a force vector from a given scalar force magnitude and
   /// direction.
   constexpr Force(const ScalarForce<Number>& scalar_force, const Direction<Number>& direction)

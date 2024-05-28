@@ -275,6 +275,10 @@ TEST(HeatFlux, SizeOf) {
 
 TEST(HeatFlux, StandardConstructor) {
   EXPECT_NO_THROW(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre));
+  EXPECT_EQ(HeatFlux(ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre),
+                     ScalarHeatFlux(-2.0, Unit::EnergyFlux::WattPerSquareMetre),
+                     ScalarHeatFlux(3.0, Unit::EnergyFlux::WattPerSquareMetre)),
+            HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, StaticValue) {

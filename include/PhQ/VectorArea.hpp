@@ -57,6 +57,10 @@ public:
   VectorArea(const Vector<Number>& value, const Unit::Area unit)
     : DimensionalVector<Unit::Area, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a vector area from a given set of area components.
+  VectorArea(const Area<Number>& x, const Area<Number>& y, const Area<Number>& z)
+    : VectorArea<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a vector area from a given area and direction.
   constexpr VectorArea(const Area<Number>& area, const Direction<Number>& direction)
     : VectorArea<Number>(area.Value() * direction.Value()) {}

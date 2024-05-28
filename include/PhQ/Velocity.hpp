@@ -64,6 +64,10 @@ public:
   Velocity(const Vector<Number>& value, const Unit::Speed unit)
     : DimensionalVector<Unit::Speed, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a velocity vector from a given set of speed components.
+  Velocity(const Speed<Number>& x, const Speed<Number>& y, const Speed<Number>& z)
+    : Velocity<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a velocity vector from a given speed and direction.
   constexpr Velocity(const Speed<Number>& speed, const Direction<Number>& direction)
     : Velocity<Number>(speed.Value() * direction.Value()) {}

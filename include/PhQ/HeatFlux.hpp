@@ -59,6 +59,12 @@ public:
   HeatFlux(const Vector<Number>& value, const Unit::EnergyFlux unit)
     : DimensionalVector<Unit::EnergyFlux, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a heat flux vector from a given set of scalar heat flux
+  /// components.
+  HeatFlux(const ScalarHeatFlux<Number>& x, const ScalarHeatFlux<Number>& y,
+           const ScalarHeatFlux<Number>& z)
+    : HeatFlux<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a heat flux vector from a given scalar heat flux magnitude and
   /// direction.
   constexpr HeatFlux(

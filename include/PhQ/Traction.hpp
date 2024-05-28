@@ -63,6 +63,12 @@ public:
   Traction(const Vector<Number>& value, const Unit::Pressure unit)
     : DimensionalVector<Unit::Pressure, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a traction vector from a given set of scalar traction
+  /// components.
+  Traction(const ScalarTraction<Number>& x, const ScalarTraction<Number>& y,
+           const ScalarTraction<Number>& z)
+    : Traction<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a traction vector from a given scalar traction and direction.
   constexpr Traction(
       const ScalarTraction<Number>& scalar_traction, const Direction<Number>& direction)

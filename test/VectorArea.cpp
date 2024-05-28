@@ -257,6 +257,9 @@ TEST(VectorArea, SizeOf) {
 
 TEST(VectorArea, StandardConstructor) {
   EXPECT_NO_THROW(VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMillimetre));
+  EXPECT_EQ(VectorArea(Area(1.0, Unit::Area::SquareMetre), Area(-2.0, Unit::Area::SquareMetre),
+                       Area(3.0, Unit::Area::SquareMetre)),
+            VectorArea({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
 }
 
 TEST(VectorArea, StaticValue) {

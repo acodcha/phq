@@ -271,6 +271,10 @@ TEST(Traction, SizeOf) {
 
 TEST(Traction, StandardConstructor) {
   EXPECT_NO_THROW(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Kilopascal));
+  EXPECT_EQ(Traction(ScalarTraction(1.0, Unit::Pressure::Pascal),
+                     ScalarTraction(-2.0, Unit::Pressure::Pascal),
+                     ScalarTraction(3.0, Unit::Pressure::Pascal)),
+            Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, StaticValue) {

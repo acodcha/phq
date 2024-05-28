@@ -255,6 +255,9 @@ TEST(Force, SizeOf) {
 
 TEST(Force, StandardConstructor) {
   EXPECT_NO_THROW(Force({1.0, -2.0, 3.0}, Unit::Force::Pound));
+  EXPECT_EQ(Force(ScalarForce(1.0, Unit::Force::Newton), ScalarForce(-2.0, Unit::Force::Newton),
+                  ScalarForce(3.0, Unit::Force::Newton)),
+            Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
 }
 
 TEST(Force, StaticValue) {

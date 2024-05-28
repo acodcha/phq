@@ -58,6 +58,13 @@ public:
   TemperatureGradient(const Vector<Number>& value, const Unit::TemperatureGradient unit)
     : DimensionalVector<Unit::TemperatureGradient, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs a temperature gradient vector from a given set of scalar
+  /// temperature gradient components.
+  TemperatureGradient(
+      const ScalarTemperatureGradient<Number>& x, const ScalarTemperatureGradient<Number>& y,
+      const ScalarTemperatureGradient<Number>& z)
+    : TemperatureGradient<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs a temperature gradient vector from a given scalar temperature
   /// gradient magnitude and direction.
   constexpr TemperatureGradient(

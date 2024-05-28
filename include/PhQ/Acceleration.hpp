@@ -60,6 +60,12 @@ public:
   Acceleration(const Vector<Number>& value, const Unit::Acceleration unit)
     : DimensionalVector<Unit::Acceleration, Number>(value, unit) {}
 
+  /// \brief Constructor. Constructs an acceleration vector from a given set of scalar acceleration
+  /// components.
+  Acceleration(const ScalarAcceleration<Number>& x, const ScalarAcceleration<Number>& y,
+               const ScalarAcceleration<Number>& z)
+    : Acceleration<Number>({x.Value(), y.Value(), z.Value()}) {}
+
   /// \brief Constructor. Constructs an acceleration vector from a given scalar acceleration
   /// magnitude and direction.
   constexpr Acceleration(
