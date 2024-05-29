@@ -25,10 +25,7 @@ PhQ::Direction direction = velocity.Direction();
 std::cout << "Direction: " << direction << std::endl;
 // Direction: (0.857142857142857095, -0.428571428571428548, 0.285714285714285698)
 
-PhQ::Time time{0.5, PhQ::Unit::Time::Minute};
-std::cout << "Time: " << time << std::endl;
-// Time: 30.0000000000000000 s
-
+PhQ::Time{0.5, PhQ::Unit::Time::Minute};
 PhQ::Displacement displacement = velocity * time;
 std::cout << "Displacement: " << displacement.Print(PhQ::Unit::Length::Centimetre) << std::endl;
 // Displacement: (1.80000000000000000e+04, -9000.00000000000000, 6000.00000000000000) cm
@@ -228,30 +225,51 @@ If maintaining a strong exception guarantee is a concern, use `try` and `catch` 
 
 ### Usage: Vectors and Tensors
 
-Values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors are represented internally in a Cartesian (x-y-z) coordinate system. For example:
+Physical quantities' values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors are defined in three-dimensional Euclidean space and use Cartesian coordinates. For example:
 
 ```C++
-PhQ::Force force{{/*x=*/300.0, /*y=*/0.0, /*z=*/-400.0}, PhQ::Unit::Force::Pound};
-force /= 5.0;
-PhQ::ScalarForce magnitude = force.Magnitude();
-std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::Force::Pound) << std::endl;
-// Magnitude: 100.000000000000000 lbf
+PhQ::HeatFlux heat_flux{{-200.0,  // x
+                          300.0,  // y
+                         -600.0}, // z
+                        PhQ::Unit::EnergyFlux::WattPerSquareMetre};
+heat_flux /= 7.0;
+PhQ::ScalarHeatFlux magnitude = heat_flux.Magnitude();
+std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::EnergyFlux::WattPerSquareMetre) << std::endl;
+// Magnitude: 100.000000000000000 W/m^2
 ```
 
-The above example creates a force quantity of (300, 0, -400) lbf, divides it by 5, computes its magnitude, and prints the magnitude in pounds, which results in 100 lbf.
+The above example creates a heat flux of (-200, 300, -600) W/m^2, divides it by 7, computes its magnitude, and prints the magnitude in pounds, which results in 100 W/m^2.
 
-Many dyadic tensor quantities are symmetric. For example:
+Two-dimensional planar vectors in the XY plane are also supported. For example:
 
 ```C++
-PhQ::Stress stress{
-    {/*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0},
-    PhQ::Unit::Pressure::Megapascal};
+PhQ::PlanarForce planar_force{{-300.0,  // x
+                                400.0}, // y
+                              PhQ::Unit::Force::Pound};
+planar_force *= 2.0;
+PhQ::ScalarForce magnitude = planar_force.Magnitude();
+std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::Force::Pound) << std::endl;
+// Magnitude: 1000.00000000000000 lbf
+```
+
+The above example creates a planar force of (-300, 400) lbf, doubles it, computes its magnitude, and prints the magnitude in pounds, which results in 1000 lbf.
+
+The components of dyadic tensors are listed in alphabetical order: xx, xy, xz, yx, yy, yz, zx, zy, and zz. Some dyadic tensor physical quantities are symmetric while others are asymmetric. Symmetric dyadic tensors only need to specify their upper triangular components: xx, xy, xz, yy, yz, and zz. For example:
+
+```C++
+PhQ::Stress stress{{32.0,  // xx
+                    -4.0,  // xy = yx
+                    -2.0,  // xz = zx
+                    16.0,  // yy
+                    -1.0,  // yz = zy
+                     8.0}, // zz
+                   PhQ::Unit::Pressure::Megapascal};
 assert(stress.Value().xy() == stress.Value().yx());
 std::cout << "Equivalent von Mises stress: " << stress.VonMises() << std::endl;
 // Equivalent von Mises stress: 2.26053091109146290e+07 Pa
 ```
 
-The above example creates a stress quantity and computes and prints its equivalent von Mises stress.
+The above example creates a stress quantity, asserts that it is symmetric, and computes and prints its equivalent von Mises stress.
 
 [(Back to Usage)](#usage)
 
@@ -269,7 +287,7 @@ std::cout << "Acceleration: " << acceleration << std::endl;
 
 The above example creates a velocity quantity of (50, -10, 20) m/s and a time quantity of 10 s, then divides the velocity by the time to produce an acceleration quantity of (5, -1, 2) m/s^2.
 
-Similarly, other meaningful mathematical operations are supported via member methods. For example:
+Similarly, other meaningful mathematical operations are supported via member methods and constructors. For example:
 
 ```C++
 PhQ::Displacement displacement{{0.0, 6.0, 0.0}, PhQ::Unit::Length::Inch};
