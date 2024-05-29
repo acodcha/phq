@@ -58,6 +58,14 @@ class DisplacementGradient;
 
 // Forward declaration for class PhQ::Time.
 template <typename Number>
+class ElectricCharge;
+
+// Forward declaration for class PhQ::Time.
+template <typename Number>
+class ElectricCurrent;
+
+// Forward declaration for class PhQ::Time.
+template <typename Number>
 class Energy;
 
 // Forward declaration for class PhQ::Time.
@@ -190,6 +198,11 @@ public:
   /// definition of angular speed.
   constexpr Time(const Angle<Number>& angle, const AngularSpeed<Number>& angular_speed);
 
+  /// \brief Constructor. Constructs a time quantity from a given electric charge and electric
+  /// current using the definition of electric current.
+  constexpr Time(const ElectricCharge<Number>& electric_charge,
+                 const ElectricCurrent<Number>& electric_current);
+
   /// \brief Constructor. Constructs a time quantity from a given mass and mass rate using the
   /// definition of mass rate.
   constexpr Time(const Mass<Number>& mass, const MassRate<Number>& mass_rate);
@@ -271,6 +284,13 @@ public:
 
   constexpr PlanarVelocity<Number> operator*(
       const PlanarAcceleration<Number>& planar_acceleration) const;
+
+  constexpr Angle<Number> operator*(const AngularSpeed<Number>& angular_speed) const;
+
+  constexpr AngularSpeed<Number> operator*(
+      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const;
+
+  constexpr ElectricCharge<Number> operator*(const ElectricCurrent<Number>& electric_current) const;
 
   constexpr Velocity<Number> operator*(const Acceleration<Number>& acceleration) const;
 

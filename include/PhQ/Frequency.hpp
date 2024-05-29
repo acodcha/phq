@@ -67,6 +67,11 @@ public:
   /// definitions of angular speed and frequency.
   constexpr Frequency(const AngularSpeed<Number>& angular_speed, const Angle<Number>& angle);
 
+  /// \brief Constructor. Constructs a frequency from a given electric current and electric charge
+  /// using the definitions of electric current and frequency.
+  constexpr Frequency(const ElectricCurrent<Number>& electric_current,
+                      const ElectricCharge<Number>& electric_charge);
+
   /// \brief Constructor. Constructs a frequency from a given mass rate and mass using the
   /// definitions of mass rate and frequency.
   constexpr Frequency(const MassRate<Number>& mass_rate, const Mass<Number>& mass);
@@ -159,6 +164,8 @@ public:
   constexpr Speed<Number> operator*(const Length<Number>& length) const;
 
   constexpr AngularSpeed<Number> operator*(const Angle<Number>& angle) const;
+
+  constexpr ElectricCurrent<Number> operator*(const ElectricCharge<Number>& electric_charge) const;
 
   constexpr PlanarVelocity<Number> operator*(const PlanarDisplacement<Number>& displacement) const;
 

@@ -36,6 +36,18 @@
 
 namespace PhQ {
 
+// Forward declaration for class PhQ::ElectricCharge.
+template <typename Number>
+class ElectricCurrent;
+
+// Forward declaration for class PhQ::ElectricCharge.
+template <typename Number>
+class Frequency;
+
+// Forward declaration for class PhQ::ElectricCharge.
+template <typename Number>
+class Time;
+
 /// \brief Electric charge.
 template <typename Number = double>
 class ElectricCharge : public DimensionalScalar<Unit::ElectricCharge, Number> {
@@ -47,6 +59,16 @@ public:
   /// electric charge unit.
   ElectricCharge(const Number value, const Unit::ElectricCharge unit)
     : DimensionalScalar<Unit::ElectricCharge, Number>(value, unit) {}
+
+  /// \brief Constructor. Constructs an electric charge from a given electric current and time using
+  /// the definition of electric current.
+  constexpr ElectricCharge(
+      const ElectricCurrent<Number>& electric_current, const Time<Number>& time);
+
+  /// \brief Constructor. Constructs an electric charge from a given electric current and frequency
+  /// using the definition of electric current.
+  constexpr ElectricCharge(
+      const ElectricCurrent<Number>& electric_current, const Frequency<Number>& frequency);
 
   /// \brief Destructor. Destroys this electric charge.
   ~ElectricCharge() noexcept = default;
@@ -100,6 +122,8 @@ public:
     return ElectricCharge<Number>{this->value * number};
   }
 
+  constexpr ElectricCurrent<Number> operator*(const Frequency<Number>& frequency) const;
+
   constexpr ElectricCharge<Number> operator/(const Number number) const {
     return ElectricCharge<Number>{this->value / number};
   }
@@ -107,6 +131,10 @@ public:
   constexpr Number operator/(const ElectricCharge<Number>& electric_charge) const noexcept {
     return this->value / electric_charge.value;
   }
+
+  constexpr ElectricCurrent<Number> operator/(const Time<Number>& time) const;
+
+  constexpr Time<Number> operator/(const ElectricCurrent<Number>& electric_current) const;
 
   constexpr void operator+=(const ElectricCharge<Number>& electric_charge) noexcept {
     this->value += electric_charge.value;

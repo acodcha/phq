@@ -249,6 +249,12 @@ inline constexpr Frequency<Number>::Frequency(
   : Frequency<Number>(angular_speed.Value() / angle.Value()) {}
 
 template <typename Number>
+inline constexpr Angle<Number> Time<Number>::operator*(
+    const AngularSpeed<Number>& angular_speed) const {
+  return Angle<Number>(angular_speed, *this);
+}
+
+template <typename Number>
 inline constexpr AngularSpeed<Number> Angle<Number>::operator*(
     const Frequency<Number>& frequency) const {
   return AngularSpeed<Number>{*this, frequency};

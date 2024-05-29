@@ -246,6 +246,12 @@ inline constexpr AngularSpeed<Number>::AngularSpeed(
   : AngularSpeed<Number>(scalar_angular_acceleration.Value() / frequency.Value()) {}
 
 template <typename Number>
+inline constexpr AngularSpeed<Number> Time<Number>::operator*(
+    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
+  return AngularSpeed<Number>(scalar_angular_acceleration, *this);
+}
+
+template <typename Number>
 inline constexpr ScalarAngularAcceleration<Number> Frequency<Number>::operator*(
     const AngularSpeed<Number>& angular_speed) const {
   return ScalarAngularAcceleration<Number>{angular_speed, *this};
