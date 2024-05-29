@@ -228,10 +228,10 @@ If maintaining a strong exception guarantee is a concern, use `try` and `catch` 
 Physical quantities' values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors are defined in three-dimensional Euclidean space and use Cartesian coordinates. For example:
 
 ```C++
-PhQ::PlanarHeatFlux heat_flux{{-200.0,  // x
-                                300.0,  // y
-                               -600.0}, // z
-                              PhQ::Unit::EnergyFlux::WattPerSquareMetre};
+PhQ::HeatFlux heat_flux{{-200.0,  // x
+                          300.0,  // y
+                         -600.0}, // z
+                        PhQ::Unit::EnergyFlux::WattPerSquareMetre};
 heat_flux /= 7.0;
 PhQ::ScalarHeatFlux magnitude = heat_flux.Magnitude();
 std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::EnergyFlux::WattPerSquareMetre) << std::endl;
