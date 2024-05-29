@@ -186,6 +186,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(electric_charge GTest::gtest_main)
   gtest_discover_tests(electric_charge)
 
+  add_executable(electric_current ${PROJECT_SOURCE_DIR}/test/ElectricCurrent.cpp)
+  target_link_libraries(electric_current GTest::gtest_main)
+  gtest_discover_tests(electric_current)
+
   add_executable(energy ${PROJECT_SOURCE_DIR}/test/Energy.cpp)
   target_link_libraries(energy GTest::gtest_main)
   gtest_discover_tests(energy)
@@ -513,6 +517,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(unit_electric_charge ${PROJECT_SOURCE_DIR}/test/Unit/ElectricCharge.cpp)
   target_link_libraries(unit_electric_charge GTest::gtest_main)
   gtest_discover_tests(unit_electric_charge)
+
+  add_executable(unit_electric_current ${PROJECT_SOURCE_DIR}/test/Unit/ElectricCurrent.cpp)
+  target_link_libraries(unit_electric_current GTest::gtest_main)
+  gtest_discover_tests(unit_electric_current)
 
   add_executable(unit_energy ${PROJECT_SOURCE_DIR}/test/Unit/Energy.cpp)
   target_link_libraries(unit_energy GTest::gtest_main)

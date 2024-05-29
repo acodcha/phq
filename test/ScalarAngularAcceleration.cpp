@@ -73,6 +73,9 @@ TEST(ScalarAngularAcceleration, ArithmeticOperatorMultiplication) {
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
   EXPECT_EQ(2.0 * ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond),
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  EXPECT_EQ(Time(4.0, Unit::Time::Second)
+                * ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond),
+            AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
   EXPECT_EQ(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond)
                 * Frequency(2.0, Unit::Frequency::Hertz),
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));

@@ -131,7 +131,7 @@ enum class ElectricCharge : int8_t {
 
 }  // namespace Unit
 
-/// \brief Standard electric charge unit: radian (C).
+/// \brief Standard electric charge unit: coulomb (C).
 template <>
 inline constexpr const Unit::ElectricCharge Standard<Unit::ElectricCharge>{
     Unit::ElectricCharge::Coulomb};

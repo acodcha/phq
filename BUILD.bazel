@@ -554,6 +554,24 @@ phq_test(
 )
 
 phq_library(
+    name = "ElectricCurrent",
+    hdrs = ["include/PhQ/ElectricCurrent.hpp"],
+    deps = [
+        ":DimensionalScalar",
+        ":ElectricCharge",
+        ":Frequency",
+        ":Time",
+        ":Unit/ElectricCurrent",
+    ],
+)
+
+phq_test(
+    name = "test/ElectricCurrent",
+    srcs = ["test/ElectricCurrent.cpp"],
+    deps = [":ElectricCurrent"],
+)
+
+phq_library(
     name = "Energy",
     hdrs = ["include/PhQ/Energy.hpp"],
     deps = [
@@ -2081,6 +2099,33 @@ phq_test(
     srcs = ["test/Unit/ElectricCharge.cpp"],
     deps = [
         ":Unit/ElectricCharge",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
+    name = "Unit/ElectricCurrent",
+    hdrs = ["include/PhQ/Unit/ElectricCurrent.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/ElectricCurrent",
+    srcs = ["test/Unit/ElectricCurrent.cpp"],
+    deps = [
+        ":Unit/ElectricCurrent",
         ":test/Unit",
     ],
 )

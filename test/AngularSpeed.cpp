@@ -52,22 +52,17 @@ TEST(AngularSpeed, ArithmeticOperatorAddition) {
 TEST(AngularSpeed, ArithmeticOperatorDivision) {
   EXPECT_EQ(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond) / 2.0,
             AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond)
                 / AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
             4.0);
-
   EXPECT_EQ(
       AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond) / Angle(2.0, Unit::Angle::Radian),
       Frequency(4.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond)
                 / Frequency(2.0, Unit::Frequency::Hertz),
             Angle(4.0, Unit::Angle::Radian));
-
   EXPECT_EQ(Angle(8.0, Unit::Angle::Radian) / Time(2.0, Unit::Time::Second),
             AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(
       Angle(8.0, Unit::Angle::Radian) / AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
       Time(4.0, Unit::Time::Second));
@@ -76,13 +71,12 @@ TEST(AngularSpeed, ArithmeticOperatorDivision) {
 TEST(AngularSpeed, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond) * 2.0,
             AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(2.0 * AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond),
             AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
-
+  EXPECT_EQ(Time(4.0, Unit::Time::Second) * AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
+            Angle(8.0, Unit::Angle::Radian));
   EXPECT_EQ(Angle(4.0, Unit::Angle::Radian) * Frequency(2.0, Unit::Frequency::Hertz),
             AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Angle(2.0, Unit::Angle::Radian),
             AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
 }
@@ -134,22 +128,17 @@ TEST(AngularSpeed, Constructor) {
   EXPECT_NO_THROW(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond));
   EXPECT_EQ(AngularSpeed(Angle(8.0, Unit::Angle::Radian), Time(2.0, Unit::Time::Second)),
             AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(AngularSpeed(Angle(4.0, Unit::Angle::Radian), Frequency(2.0, Unit::Frequency::Hertz)),
             AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(
       Angle(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond), Time(2.0, Unit::Time::Second)),
       Angle(8.0, Unit::Angle::Radian));
-
   EXPECT_EQ(Angle(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
                   Frequency(2.0, Unit::Frequency::Hertz)),
             Angle(4.0, Unit::Angle::Radian));
-
   EXPECT_EQ(
       Time(Angle(8.0, Unit::Angle::Radian), AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond)),
       Time(4.0, Unit::Time::Second));
-
   EXPECT_EQ(Frequency(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),
                       Angle(2.0, Unit::Angle::Radian)),
             Frequency(4.0, Unit::Frequency::Hertz));
