@@ -69,13 +69,13 @@ public:
   static inline constexpr void ToStandard(NumericType& value) noexcept;
 };
 
-/// \brief Abstract class for converting a series of values expressed in a unit of measure to or
+/// \brief Abstract class for converting a sequence of values expressed in a unit of measure to or
 /// from the standard unit of measure of that type. Internal implementation detail not intended to
 /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
 template <typename Unit, Unit UnitValue>
 class Conversions {
 public:
-  /// \brief Converts a series of values expressed in the standard unit of measure of a given unit
+  /// \brief Converts a sequence of values expressed in the standard unit of measure of a given unit
   /// type to any given unit of measure of that type. Internal implementation detail not intended to
   /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
   template <typename NumericType>
@@ -89,9 +89,10 @@ public:
     }
   }
 
-  /// \brief Converts a series of values expressed in any given unit of measure of a given unit type
-  /// to the standard unit of measure of that type. Internal implementation detail not intended to
-  /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// \brief Converts a sequence of values expressed in any given unit of measure of a given unit
+  /// type to the standard unit of measure of that type. Internal implementation detail not intended
+  /// to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy
+  /// functions.
   template <typename NumericType>
   static inline constexpr void ToStandard(NumericType* values, const std::size_t size) noexcept {
     static_assert(std::is_floating_point<NumericType>::value,
@@ -104,18 +105,18 @@ public:
   }
 };
 
-/// \brief Abstract map of functions for converting a series of values expressed in the standard
+/// \brief Abstract map of functions for converting a sequence of values expressed in the standard
 /// unit of measure of a given type to any given unit of measure of that type. Internal
-/// implementation detail not intended to be used outside of the functions: PhQ::Convert,
-/// PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
+/// implementation detail not intended to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and
+/// PhQ::StaticConvertCopy functions.
 template <typename Unit, typename NumericType>
 inline const std::map<Unit, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard;
 
-/// \brief Abstract map of functions for converting a series of values expressed in any given unit
+/// \brief Abstract map of functions for converting a sequence of values expressed in any given unit
 /// of measure of a given type to the standard unit of measure of that type. Internal implementation
-/// detail not intended to be used outside of the functions: PhQ::Convert, PhQ::ConvertCopy, and
-/// PhQ::StaticConvertCopy.
+/// detail not intended to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and
+/// PhQ::StaticConvertCopy functions.
 template <typename Unit, typename NumericType>
 inline const std::map<Unit, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsToStandard;
