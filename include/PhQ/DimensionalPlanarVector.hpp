@@ -171,7 +171,7 @@ protected:
   /// value expressed in a given unit of measure.
   DimensionalPlanarVector(const PhQ::PlanarVector<NumericType>& value, const UnitType unit)
     : value(value) {
-    Convert(this->value, unit, PhQ::Standard<UnitType>);
+    PhQ::Convert(this->value, unit, PhQ::Standard<UnitType>);
   }
 
   /// \brief Destructor. Destroys this dimensional planar vector physical quantity.
