@@ -92,7 +92,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr LameFirstModulus<NumericType> Create(const NumericType value) {
     return LameFirstModulus<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr LameFirstModulus<NumericType> operator+(

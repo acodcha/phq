@@ -193,9 +193,9 @@ TEST(UnitAngularAcceleration, Standard) {
   EXPECT_EQ(Standard<AngularAcceleration>, AngularAcceleration::RadianPerSquareSecond);
 }
 
-TEST(UnitAngularAcceleration, StaticConvertCopy) {
+TEST(UnitAngularAcceleration, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<AngularAcceleration, AngularAcceleration::RadianPerSquareSecond,
+  Internal::TestConvertStatically<AngularAcceleration, AngularAcceleration::RadianPerSquareSecond,
                                   AngularAcceleration::DegreePerSquareSecond>(
       value, value * 180.0L / Pi<long double>);
 }

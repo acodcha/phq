@@ -102,9 +102,9 @@ TEST(UnitMass, Standard) {
   EXPECT_EQ(Standard<Mass>, Mass::Kilogram);
 }
 
-TEST(UnitMass, StaticConvertCopy) {
+TEST(UnitMass, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Mass, Mass::Kilogram, Mass::Slug>(
+  Internal::TestConvertStatically<Mass, Mass::Kilogram, Mass::Slug>(
       value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 

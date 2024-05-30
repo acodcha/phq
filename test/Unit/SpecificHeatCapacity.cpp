@@ -123,9 +123,9 @@ TEST(UnitSpecificHeatCapacity, Standard) {
   EXPECT_EQ(Standard<SpecificHeatCapacity>, SpecificHeatCapacity::JoulePerKilogramPerKelvin);
 }
 
-TEST(UnitSpecificHeatCapacity, StaticConvertCopy) {
+TEST(UnitSpecificHeatCapacity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SpecificHeatCapacity,
+  Internal::TestConvertStatically<SpecificHeatCapacity,
                                   SpecificHeatCapacity::JoulePerKilogramPerKelvin,
                                   SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
       value, value / (1.8L * std::pow(0.3048L, 2)));

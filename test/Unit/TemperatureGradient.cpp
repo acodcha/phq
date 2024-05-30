@@ -140,9 +140,9 @@ TEST(UnitTemperatureGradient, Standard) {
   EXPECT_EQ(Standard<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
 }
 
-TEST(UnitTemperatureGradient, StaticConvertCopy) {
+TEST(UnitTemperatureGradient, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+  Internal::TestConvertStatically<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
                                   TemperatureGradient::FahrenheitPerFoot>(
       value, value * 1.8L * 0.3048L);
 }

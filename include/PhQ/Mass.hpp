@@ -180,7 +180,7 @@ public:
   /// \brief Statically creates a mass with a given value expressed in a given mass unit.
   template <Unit::Mass Unit>
   static constexpr Mass<NumericType> Create(const NumericType value) {
-    return Mass<NumericType>{StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
+    return Mass<NumericType>{ConvertStatically<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
   }
 
   constexpr Mass<NumericType> operator+(const Mass<NumericType>& mass) const {

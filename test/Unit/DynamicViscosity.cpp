@@ -132,9 +132,9 @@ TEST(UnitDynamicViscosity, Standard) {
   EXPECT_EQ(Standard<DynamicViscosity>, DynamicViscosity::PascalSecond);
 }
 
-TEST(UnitDynamicViscosity, StaticConvertCopy) {
+TEST(UnitDynamicViscosity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<DynamicViscosity, DynamicViscosity::PascalSecond,
+  Internal::TestConvertStatically<DynamicViscosity, DynamicViscosity::PascalSecond,
                                   DynamicViscosity::KilopascalSecond>(value, value * 0.001L);
 }
 

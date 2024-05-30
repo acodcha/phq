@@ -88,7 +88,7 @@ public:
   template <Unit::Temperature Unit>
   static constexpr Temperature<NumericType> Create(const NumericType value) {
     return Temperature<NumericType>{
-        StaticConvertCopy<Unit::Temperature, Unit, Standard<Unit::Temperature>>(value)};
+        ConvertStatically<Unit::Temperature, Unit, Standard<Unit::Temperature>>(value)};
   }
 
   constexpr Temperature<NumericType> operator+(const Temperature<NumericType>& temperature) const {

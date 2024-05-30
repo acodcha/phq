@@ -123,7 +123,7 @@ public:
   template <Unit::Volume Unit>
   static constexpr Volume<NumericType> Create(const NumericType value) {
     return Volume<NumericType>{
-        StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
+        ConvertStatically<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }
 
   constexpr Volume<NumericType> operator+(const Volume<NumericType>& volume) const {

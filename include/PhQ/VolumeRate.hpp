@@ -112,7 +112,7 @@ public:
   template <Unit::VolumeRate Unit>
   static constexpr VolumeRate<NumericType> Create(const NumericType value) {
     return VolumeRate<NumericType>{
-        StaticConvertCopy<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
+        ConvertStatically<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
   }
 
   constexpr VolumeRate<NumericType> operator+(const VolumeRate<NumericType>& volume_rate) const {

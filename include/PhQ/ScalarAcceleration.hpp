@@ -120,7 +120,7 @@ public:
   template <Unit::Acceleration Unit>
   static constexpr ScalarAcceleration<NumericType> Create(const NumericType value) {
     return ScalarAcceleration<NumericType>{
-        StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
+        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
 
   constexpr ScalarAcceleration<NumericType> operator+(

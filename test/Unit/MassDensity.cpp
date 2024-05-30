@@ -123,9 +123,9 @@ TEST(UnitMassDensity, Standard) {
   EXPECT_EQ(Standard<MassDensity>, MassDensity::KilogramPerCubicMetre);
 }
 
-TEST(UnitMassDensity, StaticConvertCopy) {
+TEST(UnitMassDensity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<MassDensity, MassDensity::KilogramPerCubicMetre,
+  Internal::TestConvertStatically<MassDensity, MassDensity::KilogramPerCubicMetre,
                                   MassDensity::SlugPerCubicFoot>(
       value, value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
 }

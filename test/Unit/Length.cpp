@@ -142,9 +142,9 @@ TEST(UnitLength, Standard) {
   EXPECT_EQ(Standard<Length>, Length::Metre);
 }
 
-TEST(UnitLength, StaticConvertCopy) {
+TEST(UnitLength, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Length, Length::Metre, Length::Foot>(value, value / 0.3048L);
+  Internal::TestConvertStatically<Length, Length::Metre, Length::Foot>(value, value / 0.3048L);
 }
 
 TEST(UnitLength, Stream) {

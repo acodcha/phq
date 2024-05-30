@@ -396,9 +396,9 @@ TEST(UnitVolumeRate, Standard) {
   EXPECT_EQ(Standard<VolumeRate>, VolumeRate::CubicMetrePerSecond);
 }
 
-TEST(UnitVolumeRate, StaticConvertCopy) {
+TEST(UnitVolumeRate, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<VolumeRate, VolumeRate::CubicMetrePerSecond,
+  Internal::TestConvertStatically<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                   VolumeRate::CubicFootPerSecond>(
       value, value / std::pow(0.3048L, 3));
 }

@@ -104,7 +104,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus<NumericType> Create(const NumericType value) {
     return IsentropicBulkModulus<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr IsentropicBulkModulus<NumericType> operator+(

@@ -127,7 +127,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr PlanarTraction<NumericType> Create(const NumericType x, const NumericType y) {
     return PlanarTraction<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             PlanarVector<NumericType>{x, y})};
   }
 
@@ -136,7 +136,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr PlanarTraction<NumericType> Create(const std::array<NumericType, 2>& x_y) {
     return PlanarTraction<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             PlanarVector<NumericType>{x_y})};
   }
 
@@ -145,7 +145,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr PlanarTraction<NumericType> Create(const PlanarVector<NumericType>& value) {
     return PlanarTraction<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar traction vector.

@@ -184,9 +184,9 @@ TEST(UnitMemory, Standard) {
   EXPECT_EQ(Standard<Memory>, Memory::Bit);
 }
 
-TEST(UnitMemory, StaticConvertCopy) {
+TEST(UnitMemory, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Memory, Memory::Bit, Memory::Kilobyte>(
+  Internal::TestConvertStatically<Memory, Memory::Bit, Memory::Kilobyte>(
       value, value / (8.0L * 1000.0L));
 }
 

@@ -108,9 +108,9 @@ TEST(UnitThermalExpansion, Standard) {
   EXPECT_EQ(Standard<ThermalExpansion>, ThermalExpansion::PerKelvin);
 }
 
-TEST(UnitThermalExpansion, StaticConvertCopy) {
+TEST(UnitThermalExpansion, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ThermalExpansion, ThermalExpansion::PerKelvin,
+  Internal::TestConvertStatically<ThermalExpansion, ThermalExpansion::PerKelvin,
                                   ThermalExpansion::PerFahrenheit>(value, value / 1.8L);
 }
 

@@ -109,7 +109,7 @@ public:
   template <Unit::ElectricCharge Unit>
   static constexpr ElectricCharge<NumericType> Create(const NumericType value) {
     return ElectricCharge<NumericType>{
-        StaticConvertCopy<Unit::ElectricCharge, Unit, Standard<Unit::ElectricCharge>>(value)};
+        ConvertStatically<Unit::ElectricCharge, Unit, Standard<Unit::ElectricCharge>>(value)};
   }
 
   constexpr ElectricCharge<NumericType> operator+(

@@ -88,7 +88,7 @@ public:
   template <Unit::SubstanceAmount Unit>
   static constexpr SubstanceAmount<NumericType> Create(const NumericType value) {
     return SubstanceAmount<NumericType>{
-        StaticConvertCopy<Unit::SubstanceAmount, Unit, Standard<Unit::SubstanceAmount>>(value)};
+        ConvertStatically<Unit::SubstanceAmount, Unit, Standard<Unit::SubstanceAmount>>(value)};
   }
 
   constexpr SubstanceAmount<NumericType> operator+(

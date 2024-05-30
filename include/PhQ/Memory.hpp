@@ -107,7 +107,7 @@ public:
   template <Unit::Memory Unit>
   static constexpr Memory<NumericType> Create(const NumericType value) {
     return Memory<NumericType>{
-        StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
+        ConvertStatically<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }
 
   constexpr Memory<NumericType> operator+(const Memory<NumericType>& memory) const {

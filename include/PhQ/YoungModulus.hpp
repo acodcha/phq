@@ -89,7 +89,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr YoungModulus<NumericType> Create(const NumericType value) {
     return YoungModulus<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr YoungModulus<NumericType> operator+(

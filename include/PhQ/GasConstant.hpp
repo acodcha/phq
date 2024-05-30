@@ -118,7 +118,7 @@ public:
   template <Unit::HeatCapacity Unit>
   static constexpr GasConstant<NumericType> Create(const NumericType value) {
     return GasConstant<NumericType>{
-        StaticConvertCopy<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
+        ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr GasConstant<NumericType> operator+(const GasConstant<NumericType>& gas_constant) const {

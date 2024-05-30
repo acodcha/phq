@@ -167,9 +167,9 @@ TEST(UnitMassRate, Standard) {
   EXPECT_EQ(Standard<MassRate>, MassRate::KilogramPerSecond);
 }
 
-TEST(UnitMassRate, StaticConvertCopy) {
+TEST(UnitMassRate, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
+  Internal::TestConvertStatically<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
       value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 

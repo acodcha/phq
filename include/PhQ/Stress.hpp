@@ -114,7 +114,7 @@ public:
   static constexpr Stress<NumericType> Create(
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
-    return Stress<NumericType>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+    return Stress<NumericType>{ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
         SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
   }
 
@@ -122,7 +122,7 @@ public:
   /// components expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Stress<NumericType> Create(const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
-    return Stress<NumericType>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+    return Stress<NumericType>{ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
         SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
   }
 
@@ -131,7 +131,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Stress<NumericType> Create(const SymmetricDyad<NumericType>& value) {
     return Stress<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this stress tensor.

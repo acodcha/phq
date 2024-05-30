@@ -112,9 +112,9 @@ TEST(UnitSubstanceAmount, Standard) {
   EXPECT_EQ(Standard<SubstanceAmount>, SubstanceAmount::Mole);
 }
 
-TEST(UnitSubstanceAmount, StaticConvertCopy) {
+TEST(UnitSubstanceAmount, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SubstanceAmount, SubstanceAmount::Mole,
+  Internal::TestConvertStatically<SubstanceAmount, SubstanceAmount::Mole,
                                   SubstanceAmount::Particles>(value, value * 6.02214076E23L);
 }
 

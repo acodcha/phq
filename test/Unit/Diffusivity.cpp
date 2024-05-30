@@ -189,9 +189,9 @@ TEST(UnitDiffusivity, Standard) {
   EXPECT_EQ(Standard<Diffusivity>, Diffusivity::SquareMetrePerSecond);
 }
 
-TEST(UnitDiffusivity, StaticConvertCopy) {
+TEST(UnitDiffusivity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Diffusivity, Diffusivity::SquareMetrePerSecond,
+  Internal::TestConvertStatically<Diffusivity, Diffusivity::SquareMetrePerSecond,
                                   Diffusivity::SquareFootPerSecond>(
       value, value / std::pow(0.3048L, 2));
 }

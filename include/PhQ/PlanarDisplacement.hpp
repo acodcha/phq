@@ -147,7 +147,7 @@ public:
   static constexpr PlanarDisplacement<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarDisplacement<NumericType>{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
+        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
             PlanarVector<NumericType>{x, y})};
   }
 
@@ -156,7 +156,7 @@ public:
   template <Unit::Length Unit>
   static constexpr PlanarDisplacement<NumericType> Create(const std::array<NumericType, 2>& x_y) {
     return PlanarDisplacement<NumericType>{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
+        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
             PlanarVector<NumericType>{x_y})};
   }
 
@@ -165,7 +165,7 @@ public:
   template <Unit::Length Unit>
   static constexpr PlanarDisplacement<NumericType> Create(const PlanarVector<NumericType>& value) {
     return PlanarDisplacement<NumericType>{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar displacement vector.

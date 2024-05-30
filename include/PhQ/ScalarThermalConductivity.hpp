@@ -134,7 +134,7 @@ public:
   template <Unit::ThermalConductivity Unit>
   static constexpr ScalarThermalConductivity<NumericType> Create(const NumericType value) {
     return ScalarThermalConductivity<NumericType>{
-        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             value)};
   }
 

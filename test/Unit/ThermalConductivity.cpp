@@ -110,9 +110,9 @@ TEST(UnitThermalConductivity, Standard) {
   EXPECT_EQ(Standard<ThermalConductivity>, ThermalConductivity::WattPerMetrePerKelvin);
 }
 
-TEST(UnitThermalConductivity, StaticConvertCopy) {
+TEST(UnitThermalConductivity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
+  Internal::TestConvertStatically<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
                                   ThermalConductivity::PoundPerSecondPerRankine>(
       value, value / (0.45359237L * 9.80665L * 1.8L));
 }

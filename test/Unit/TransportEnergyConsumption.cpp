@@ -241,9 +241,9 @@ TEST(UnitTransportEnergyConsumption, Standard) {
   EXPECT_EQ(Standard<TransportEnergyConsumption>, TransportEnergyConsumption::JoulePerMetre);
 }
 
-TEST(UnitTransportEnergyConsumption, StaticConvertCopy) {
+TEST(UnitTransportEnergyConsumption, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<
+  Internal::TestConvertStatically<
       TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
       TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237L * 9.80665L));
 }

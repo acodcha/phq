@@ -115,7 +115,7 @@ public:
   template <Unit::SpecificEnergy Unit>
   static constexpr StaticKinematicPressure<NumericType> Create(const NumericType value) {
     return StaticKinematicPressure<NumericType>{
-        StaticConvertCopy<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
+        ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
   constexpr StaticKinematicPressure<NumericType> operator+(

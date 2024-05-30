@@ -128,7 +128,7 @@ public:
   template <Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificIsochoricHeatCapacity<NumericType> Create(const NumericType value) {
     return SpecificIsochoricHeatCapacity<NumericType>{
-        StaticConvertCopy<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
+        ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
             value)};
   }
 

@@ -52,32 +52,32 @@ namespace Internal {
 
 /// \brief Abstract class for converting a value expressed in a unit of measure to or from the
 /// standard unit of measure of that type. Internal implementation detail not intended to be used
-/// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+/// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
 template <typename Unit, Unit UnitValue>
 class Conversion {
 public:
   /// \brief Converts a value expressed in the standard unit of measure of a given unit type to any
   /// given unit of measure of that type. Internal implementation detail not intended to be used
-  /// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
   template <typename NumericType>
   static inline constexpr void FromStandard(NumericType& value) noexcept;
 
   /// \brief Converts a value expressed in any given unit of measure of a given unit type to the
   /// standard unit of measure of that type. Internal implementation detail not intended to be used
-  /// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
   template <typename NumericType>
   static inline constexpr void ToStandard(NumericType& value) noexcept;
 };
 
 /// \brief Abstract class for converting a sequence of values expressed in a unit of measure to or
 /// from the standard unit of measure of that type. Internal implementation detail not intended to
-/// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+/// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
 template <typename Unit, Unit UnitValue>
 class Conversions {
 public:
   /// \brief Converts a sequence of values expressed in the standard unit of measure of a given unit
   /// type to any given unit of measure of that type. Internal implementation detail not intended to
-  /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  /// be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
   template <typename NumericType>
   static inline constexpr void FromStandard(NumericType* values, const std::size_t size) noexcept {
     static_assert(std::is_floating_point<NumericType>::value,
@@ -91,7 +91,7 @@ public:
 
   /// \brief Converts a sequence of values expressed in any given unit of measure of a given unit
   /// type to the standard unit of measure of that type. Internal implementation detail not intended
-  /// to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy
+  /// to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::ConvertStatically
   /// functions.
   template <typename NumericType>
   static inline constexpr void ToStandard(NumericType* values, const std::size_t size) noexcept {
@@ -108,7 +108,7 @@ public:
 /// \brief Abstract map of functions for converting a sequence of values expressed in the standard
 /// unit of measure of a given type to any given unit of measure of that type. Internal
 /// implementation detail not intended to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and
-/// PhQ::StaticConvertCopy functions.
+/// PhQ::ConvertStatically functions.
 template <typename Unit, typename NumericType>
 inline const std::map<Unit, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard;
@@ -116,7 +116,7 @@ inline const std::map<Unit, std::function<void(NumericType* values, const std::s
 /// \brief Abstract map of functions for converting a sequence of values expressed in any given unit
 /// of measure of a given type to the standard unit of measure of that type. Internal implementation
 /// detail not intended to be used outside of the PhQ::Convert, PhQ::ConvertCopy, and
-/// PhQ::StaticConvertCopy functions.
+/// PhQ::ConvertStatically functions.
 template <typename Unit, typename NumericType>
 inline const std::map<Unit, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsToStandard;
@@ -273,9 +273,9 @@ inline Dyad<NumericType> ConvertCopy(
 /// copy of the converted value. The original value remains unchanged. This function can be
 /// evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr NumericType StaticConvertCopy(const NumericType value) {
+inline constexpr NumericType ConvertStatically(const NumericType value) {
   static_assert(std::is_floating_point<NumericType>::value,
-                "The NumericType template parameter of PhQ::StaticConvertCopy must be a numeric "
+                "The NumericType template parameter of PhQ::ConvertStatically must be a numeric "
                 "floating-point type: float, double, or long double.");
   NumericType result{value};
   Internal::Conversion<Unit, OriginalUnit>::ToStandard(result);
@@ -287,10 +287,10 @@ inline constexpr NumericType StaticConvertCopy(const NumericType value) {
 /// measure. Returns a copy of the converted values. The original values remain unchanged. This
 /// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size, typename NumericType>
-inline constexpr std::array<NumericType, Size> StaticConvertCopy(
+inline constexpr std::array<NumericType, Size> ConvertStatically(
     const std::array<NumericType, Size>& values) {
   static_assert(std::is_floating_point<NumericType>::value,
-                "The NumericType template parameter of PhQ::StaticConvertCopy must be a numeric "
+                "The NumericType template parameter of PhQ::ConvertStatically must be a numeric "
                 "floating-point type: float, double, or long double.");
   std::array<NumericType, Size> result{values};
   Internal::Conversions<Unit, OriginalUnit>::ToStandard(result.data(), Size);
@@ -302,35 +302,35 @@ inline constexpr std::array<NumericType, Size> StaticConvertCopy(
 /// measure to a new unit of measure. Returns a copy of the converted value. The original value
 /// remains unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr PlanarVector<NumericType> StaticConvertCopy(
+inline constexpr PlanarVector<NumericType> ConvertStatically(
     const PlanarVector<NumericType>& value) {
-  return PlanarVector{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 2, NumericType>(value.x_y())};
+  return PlanarVector{ConvertStatically<Unit, OriginalUnit, NewUnit, 2, NumericType>(value.x_y())};
 }
 
 /// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
 /// measure. Returns a copy of the converted value. The original value remains unchanged. This
 /// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr Vector<NumericType> StaticConvertCopy(const Vector<NumericType>& value) {
-  return Vector{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 3, NumericType>(value.x_y_z())};
+inline constexpr Vector<NumericType> ConvertStatically(const Vector<NumericType>& value) {
+  return Vector{ConvertStatically<Unit, OriginalUnit, NewUnit, 3, NumericType>(value.x_y_z())};
 }
 
 /// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
 /// to a new unit of measure. Returns a copy of the converted value. The original value remains
 /// unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr SymmetricDyad<NumericType> StaticConvertCopy(
+inline constexpr SymmetricDyad<NumericType> ConvertStatically(
     const SymmetricDyad<NumericType>& value) {
   return SymmetricDyad{
-      StaticConvertCopy<Unit, OriginalUnit, NewUnit, 6, NumericType>(value.xx_xy_xz_yy_yz_zz())};
+      ConvertStatically<Unit, OriginalUnit, NewUnit, 6, NumericType>(value.xx_xy_xz_yy_yz_zz())};
 }
 
 /// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
 /// unit of measure. Returns a copy of the converted value. The original value remains unchanged.
 /// This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr Dyad<NumericType> StaticConvertCopy(const Dyad<NumericType>& value) {
-  return Dyad{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 9, NumericType>(
+inline constexpr Dyad<NumericType> ConvertStatically(const Dyad<NumericType>& value) {
+  return Dyad{ConvertStatically<Unit, OriginalUnit, NewUnit, 9, NumericType>(
       value.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
 }
 

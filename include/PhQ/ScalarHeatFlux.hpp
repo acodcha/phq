@@ -108,7 +108,7 @@ public:
   template <Unit::EnergyFlux Unit>
   static constexpr ScalarHeatFlux<NumericType> Create(const NumericType value) {
     return ScalarHeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
   constexpr ScalarHeatFlux<NumericType> operator+(

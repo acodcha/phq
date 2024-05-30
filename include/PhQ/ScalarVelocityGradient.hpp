@@ -109,7 +109,7 @@ public:
   template <Unit::Frequency Unit>
   static constexpr ScalarVelocityGradient<NumericType> Create(const NumericType value) {
     return ScalarVelocityGradient<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   constexpr ScalarVelocityGradient<NumericType> operator+(

@@ -104,7 +104,7 @@ public:
   template <Unit::ElectricCurrent Unit>
   static constexpr ElectricCurrent<NumericType> Create(const NumericType value) {
     return ElectricCurrent<NumericType>{
-        StaticConvertCopy<Unit::ElectricCurrent, Unit, Standard<Unit::ElectricCurrent>>(value)};
+        ConvertStatically<Unit::ElectricCurrent, Unit, Standard<Unit::ElectricCurrent>>(value)};
   }
 
   constexpr ElectricCurrent<NumericType> operator+(

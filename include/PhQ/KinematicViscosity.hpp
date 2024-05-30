@@ -134,7 +134,7 @@ public:
   template <Unit::Diffusivity Unit>
   static constexpr KinematicViscosity<NumericType> Create(const NumericType value) {
     return KinematicViscosity<NumericType>{
-        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
+        ConvertStatically<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }
 
   constexpr KinematicViscosity<NumericType> operator+(

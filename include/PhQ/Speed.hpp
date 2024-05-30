@@ -189,7 +189,7 @@ public:
   /// \brief Statically creates a speed with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Speed<NumericType> Create(const NumericType value) {
-    return Speed<NumericType>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+    return Speed<NumericType>{ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   constexpr Speed<NumericType> operator+(const Speed<NumericType>& speed) const {

@@ -105,7 +105,7 @@ public:
   static constexpr VolumetricThermalExpansionCoefficient<NumericType> Create(
       const NumericType value) {
     return VolumetricThermalExpansionCoefficient<NumericType>{
-        StaticConvertCopy<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
+        ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<NumericType> operator+(

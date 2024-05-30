@@ -123,9 +123,9 @@ TEST(UnitForce, Standard) {
   EXPECT_EQ(Standard<Force>, Force::Newton);
 }
 
-TEST(UnitForce, StaticConvertCopy) {
+TEST(UnitForce, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Force, Force::Newton, Force::Pound>(
+  Internal::TestConvertStatically<Force, Force::Newton, Force::Pound>(
       value, value / (0.45359237L * 9.80665L));
 }
 

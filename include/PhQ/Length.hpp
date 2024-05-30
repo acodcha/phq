@@ -186,7 +186,7 @@ public:
   template <Unit::Length Unit>
   static constexpr Length<NumericType> Create(const NumericType value) {
     return Length<NumericType>{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   constexpr Length<NumericType> operator+(const Length<NumericType>& length) const {

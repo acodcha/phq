@@ -286,9 +286,9 @@ TEST(UnitSpeed, Standard) {
   EXPECT_EQ(Standard<Speed>, Speed::MetrePerSecond);
 }
 
-TEST(UnitSpeed, StaticConvertCopy) {
+TEST(UnitSpeed, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Speed, Speed::MetrePerSecond, Speed::FootPerSecond>(
+  Internal::TestConvertStatically<Speed, Speed::MetrePerSecond, Speed::FootPerSecond>(
       value, value / 0.3048L);
 }
 

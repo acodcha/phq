@@ -106,9 +106,9 @@ TEST(UnitTemperature, Standard) {
   EXPECT_EQ(Standard<Temperature>, Temperature::Kelvin);
 }
 
-TEST(UnitTemperature, StaticConvertCopy) {
+TEST(UnitTemperature, ConvertStatically) {
   constexpr long double value{123.4567890123456789L};
-  Internal::TestStaticConvertCopy<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
+  Internal::TestConvertStatically<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
       value, (value * 1.8L) - 459.67L);
 }
 

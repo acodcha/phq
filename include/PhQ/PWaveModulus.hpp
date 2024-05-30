@@ -89,7 +89,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr PWaveModulus<NumericType> Create(const NumericType value) {
     return PWaveModulus<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr PWaveModulus<NumericType> operator+(

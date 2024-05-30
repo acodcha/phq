@@ -123,7 +123,7 @@ public:
   static constexpr TemperatureGradient<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return TemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             Vector<NumericType>{x, y, z})};
   }
 
@@ -133,7 +133,7 @@ public:
   static constexpr TemperatureGradient<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return TemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             Vector<NumericType>{x_y_z})};
   }
 
@@ -142,7 +142,7 @@ public:
   template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradient<NumericType> Create(const Vector<NumericType>& value) {
     return TemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 

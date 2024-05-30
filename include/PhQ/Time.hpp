@@ -264,7 +264,7 @@ public:
   /// \brief Statically creates a time quantity with a given value expressed in a given time unit.
   template <Unit::Time Unit>
   static constexpr Time<NumericType> Create(const NumericType value) {
-    return Time<NumericType>{StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
+    return Time<NumericType>{ConvertStatically<Unit::Time, Unit, Standard<Unit::Time>>(value)};
   }
 
   [[nodiscard]] constexpr PhQ::Frequency<NumericType> Frequency() const;

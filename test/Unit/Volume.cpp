@@ -158,9 +158,9 @@ TEST(UnitVolume, Standard) {
   EXPECT_EQ(Standard<Volume>, Volume::CubicMetre);
 }
 
-TEST(UnitVolume, StaticConvertCopy) {
+TEST(UnitVolume, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Volume, Volume::CubicMetre, Volume::CubicFoot>(
+  Internal::TestConvertStatically<Volume, Volume::CubicMetre, Volume::CubicFoot>(
       value, value / std::pow(0.3048L, 3));
 }
 

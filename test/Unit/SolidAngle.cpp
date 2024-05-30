@@ -101,9 +101,9 @@ TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<SolidAngle>, SolidAngle::Steradian);
 }
 
-TEST(UnitAngle, StaticConvertCopy) {
+TEST(UnitAngle, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SolidAngle, SolidAngle::Steradian, SolidAngle::SquareDegree>(
+  Internal::TestConvertStatically<SolidAngle, SolidAngle::Steradian, SolidAngle::SquareDegree>(
       value, value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
 }
 

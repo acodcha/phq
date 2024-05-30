@@ -124,7 +124,7 @@ public:
   template <Unit::TemperatureDifference Unit>
   static constexpr TemperatureDifference<NumericType> Create(const NumericType value) {
     return TemperatureDifference<NumericType>{
-        StaticConvertCopy<Unit::TemperatureDifference, Unit, Standard<Unit::TemperatureDifference>>(
+        ConvertStatically<Unit::TemperatureDifference, Unit, Standard<Unit::TemperatureDifference>>(
             value)};
   }
 

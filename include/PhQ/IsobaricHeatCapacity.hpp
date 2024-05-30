@@ -114,7 +114,7 @@ public:
   template <Unit::HeatCapacity Unit>
   static constexpr IsobaricHeatCapacity<NumericType> Create(const NumericType value) {
     return IsobaricHeatCapacity<NumericType>{
-        StaticConvertCopy<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
+        ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr IsobaricHeatCapacity<NumericType> operator+(

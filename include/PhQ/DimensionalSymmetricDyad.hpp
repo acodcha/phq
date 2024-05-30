@@ -72,7 +72,7 @@ public:
   /// be evaluated statically at compile-time.
   template <UnitType NewUnit>
   [[nodiscard]] constexpr PhQ::SymmetricDyad<NumericType> StaticValue() const {
-    return PhQ::StaticConvertCopy<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
+    return PhQ::ConvertStatically<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
   }
 
   /// \brief Returns the value of this physical quantity expressed in its standard unit of measure

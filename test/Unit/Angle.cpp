@@ -97,9 +97,9 @@ TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<Angle>, Angle::Radian);
 }
 
-TEST(UnitAngle, StaticConvertCopy) {
+TEST(UnitAngle, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Angle, Angle::Radian, Angle::Degree>(
+  Internal::TestConvertStatically<Angle, Angle::Radian, Angle::Degree>(
       value, value * 180.0L / Pi<long double>);
 }
 

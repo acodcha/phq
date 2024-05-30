@@ -125,7 +125,7 @@ public:
       const NumericType yy, const NumericType yz, const NumericType zx, const NumericType zy,
       const NumericType zz) {
     return VelocityGradient<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             Dyad<NumericType>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
   }
 
@@ -135,7 +135,7 @@ public:
   static constexpr VelocityGradient<NumericType> Create(
       const std::array<NumericType, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     return VelocityGradient<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             Dyad<NumericType>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
   }
 
@@ -144,7 +144,7 @@ public:
   template <Unit::Frequency Unit>
   static constexpr VelocityGradient<NumericType> Create(const Dyad<NumericType>& value) {
     return VelocityGradient<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this velocity gradient tensor.

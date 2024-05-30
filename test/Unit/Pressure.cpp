@@ -130,9 +130,9 @@ TEST(UnitPressure, Standard) {
   EXPECT_EQ(Standard<Pressure>, Pressure::Pascal);
 }
 
-TEST(UnitPressure, StaticConvertCopy) {
+TEST(UnitPressure, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
+  Internal::TestConvertStatically<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
       value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
 }
 

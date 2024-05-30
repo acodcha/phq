@@ -357,9 +357,9 @@ TEST(UnitAcceleration, Standard) {
   EXPECT_EQ(Standard<Acceleration>, Acceleration::MetrePerSquareSecond);
 }
 
-TEST(UnitAcceleration, StaticConvertCopy) {
+TEST(UnitAcceleration, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Acceleration, Acceleration::MetrePerSquareSecond,
+  Internal::TestConvertStatically<Acceleration, Acceleration::MetrePerSquareSecond,
                                   Acceleration::FootPerSquareSecond>(value, value / 0.3048L);
 }
 

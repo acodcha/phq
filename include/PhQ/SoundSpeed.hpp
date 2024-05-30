@@ -125,7 +125,7 @@ public:
   template <Unit::Speed Unit>
   static constexpr SoundSpeed<NumericType> Create(const NumericType value) {
     return SoundSpeed<NumericType>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   constexpr SoundSpeed<NumericType> operator+(const SoundSpeed<NumericType>& speed) const {

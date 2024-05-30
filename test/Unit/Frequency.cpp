@@ -105,9 +105,9 @@ TEST(UnitFrequency, Standard) {
   EXPECT_EQ(Standard<Frequency>, Frequency::Hertz);
 }
 
-TEST(UnitFrequency, StaticConvertCopy) {
+TEST(UnitFrequency, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
+  Internal::TestConvertStatically<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
       value, value * 0.001L);
 }
 

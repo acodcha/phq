@@ -114,9 +114,9 @@ TEST(UnitSpecificPower, Standard) {
   EXPECT_EQ(Standard<SpecificPower>, SpecificPower::WattPerKilogram);
 }
 
-TEST(UnitSpecificPower, StaticConvertCopy) {
+TEST(UnitSpecificPower, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SpecificPower, SpecificPower::WattPerKilogram,
+  Internal::TestConvertStatically<SpecificPower, SpecificPower::WattPerKilogram,
                                   SpecificPower::FootPoundPerSlugPerSecond>(
       value, value / std::pow(0.3048L, 2));
 }

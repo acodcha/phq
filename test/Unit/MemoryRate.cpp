@@ -477,9 +477,9 @@ TEST(UnitMemoryRate, Standard) {
   EXPECT_EQ(Standard<MemoryRate>, MemoryRate::BitPerSecond);
 }
 
-TEST(UnitMemoryRate, StaticConvertCopy) {
+TEST(UnitMemoryRate, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<MemoryRate, MemoryRate::BitPerSecond,
+  Internal::TestConvertStatically<MemoryRate, MemoryRate::BitPerSecond,
                                   MemoryRate::KilobytePerSecond>(value, value / (8.0L * 1000.0L));
 }
 

@@ -217,9 +217,9 @@ TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<ElectricCharge>, ElectricCharge::Coulomb);
 }
 
-TEST(UnitAngle, StaticConvertCopy) {
+TEST(UnitAngle, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ElectricCharge, ElectricCharge::Coulomb,
+  Internal::TestConvertStatically<ElectricCharge, ElectricCharge::Coulomb,
                                   ElectricCharge::Kilocoulomb>(value, value * 0.001L);
 }
 

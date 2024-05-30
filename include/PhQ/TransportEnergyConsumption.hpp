@@ -107,7 +107,7 @@ public:
   template <Unit::TransportEnergyConsumption Unit>
   static constexpr TransportEnergyConsumption<NumericType> Create(const NumericType value) {
     return TransportEnergyConsumption<NumericType>{
-        StaticConvertCopy<Unit::TransportEnergyConsumption, Unit,
+        ConvertStatically<Unit::TransportEnergyConsumption, Unit,
                           Standard<Unit::TransportEnergyConsumption>>(value)};
   }
 

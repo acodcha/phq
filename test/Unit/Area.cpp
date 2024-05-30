@@ -167,9 +167,9 @@ TEST(UnitArea, Standard) {
   EXPECT_EQ(Standard<Area>, Area::SquareMetre);
 }
 
-TEST(UnitArea, StaticConvertCopy) {
+TEST(UnitArea, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Area, Area::SquareMetre, Area::SquareFoot>(
+  Internal::TestConvertStatically<Area, Area::SquareMetre, Area::SquareFoot>(
       value, value / std::pow(0.3048L, 2));
 }
 

@@ -105,7 +105,7 @@ public:
   template <Unit::Frequency Unit>
   static constexpr ScalarStrainRate<NumericType> Create(const NumericType value) {
     return ScalarStrainRate<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   constexpr ScalarStrainRate<NumericType> operator+(

@@ -110,7 +110,7 @@ public:
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return ThermalConductivity<NumericType>{
-        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
   }
 
@@ -120,7 +120,7 @@ public:
   static constexpr ThermalConductivity<NumericType> Create(
       const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return ThermalConductivity<NumericType>{
-        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
   }
 
@@ -130,7 +130,7 @@ public:
   static constexpr ThermalConductivity<NumericType> Create(
       const SymmetricDyad<NumericType>& value) {
     return ThermalConductivity<NumericType>{
-        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             value)};
   }
 

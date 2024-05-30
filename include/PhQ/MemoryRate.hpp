@@ -99,7 +99,7 @@ public:
   template <Unit::MemoryRate Unit>
   static constexpr MemoryRate<NumericType> Create(const NumericType value) {
     return MemoryRate<NumericType>{
-        StaticConvertCopy<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(value)};
+        ConvertStatically<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(value)};
   }
 
   constexpr MemoryRate<NumericType> operator+(const MemoryRate<NumericType>& memory_rate) const {

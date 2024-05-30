@@ -114,7 +114,7 @@ public:
   /// \brief Statically creates a power quantity with a given value expressed in a given power unit.
   template <Unit::Power Unit>
   static constexpr Power<NumericType> Create(const NumericType value) {
-    return Power<NumericType>{StaticConvertCopy<Unit::Power, Unit, Standard<Unit::Power>>(value)};
+    return Power<NumericType>{ConvertStatically<Unit::Power, Unit, Standard<Unit::Power>>(value)};
   }
 
   constexpr Power<NumericType> operator+(const Power<NumericType>& power) const {

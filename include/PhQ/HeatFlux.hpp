@@ -130,7 +130,7 @@ public:
   static constexpr HeatFlux<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return HeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             Vector<NumericType>{x, y, z})};
   }
 
@@ -139,7 +139,7 @@ public:
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
     return HeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             Vector<NumericType>{x_y_z})};
   }
 
@@ -148,7 +148,7 @@ public:
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux<NumericType> Create(const Vector<NumericType>& value) {
     return HeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this heat flux vector.

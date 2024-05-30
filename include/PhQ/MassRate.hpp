@@ -111,7 +111,7 @@ public:
   template <Unit::MassRate Unit>
   static constexpr MassRate<NumericType> Create(const NumericType value) {
     return MassRate<NumericType>{
-        StaticConvertCopy<Unit::MassRate, Unit, Standard<Unit::MassRate>>(value)};
+        ConvertStatically<Unit::MassRate, Unit, Standard<Unit::MassRate>>(value)};
   }
 
   constexpr MassRate<NumericType> operator+(const MassRate<NumericType>& mass_rate) const {

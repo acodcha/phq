@@ -128,7 +128,7 @@ public:
   static constexpr PlanarTemperatureGradient<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarTemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             PlanarVector<NumericType>{x, y})};
   }
 
@@ -138,7 +138,7 @@ public:
   static constexpr PlanarTemperatureGradient<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarTemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             PlanarVector<NumericType>{x_y})};
   }
 
@@ -148,7 +148,7 @@ public:
   static constexpr PlanarTemperatureGradient<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarTemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 

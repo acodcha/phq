@@ -127,7 +127,7 @@ public:
   static constexpr Acceleration<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return Acceleration<NumericType>{
-        StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
+        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
             Vector<NumericType>{x, y, z})};
   }
 
@@ -136,7 +136,7 @@ public:
   template <Unit::Acceleration Unit>
   static constexpr Acceleration<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
     return Acceleration<NumericType>{
-        StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
+        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
             Vector<NumericType>{x_y_z})};
   }
 
@@ -145,7 +145,7 @@ public:
   template <Unit::Acceleration Unit>
   static constexpr Acceleration<NumericType> Create(const Vector<NumericType>& value) {
     return Acceleration<NumericType>{
-        StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
+        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this acceleration vector.

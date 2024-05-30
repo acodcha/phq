@@ -113,9 +113,9 @@ TEST(UnitHeatCapacity, Standard) {
   EXPECT_EQ(Standard<HeatCapacity>, HeatCapacity::JoulePerKelvin);
 }
 
-TEST(UnitHeatCapacity, StaticConvertCopy) {
+TEST(UnitHeatCapacity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<HeatCapacity, HeatCapacity::JoulePerKelvin,
+  Internal::TestConvertStatically<HeatCapacity, HeatCapacity::JoulePerKelvin,
                                   HeatCapacity::FootPoundPerRankine>(
       value, value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
 }

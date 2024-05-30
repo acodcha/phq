@@ -113,9 +113,9 @@ TEST(UnitSpecificEnergy, Standard) {
   EXPECT_EQ(Standard<SpecificEnergy>, SpecificEnergy::JoulePerKilogram);
 }
 
-TEST(UnitSpecificEnergy, StaticConvertCopy) {
+TEST(UnitSpecificEnergy, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
+  Internal::TestConvertStatically<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
                                   SpecificEnergy::FootPoundPerSlug>(
       value, value / std::pow(0.3048L, 2));
 }

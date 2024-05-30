@@ -88,7 +88,7 @@ public:
   template <Unit::SolidAngle Unit>
   static constexpr SolidAngle<NumericType> Create(const NumericType value) {
     return SolidAngle<NumericType>{
-        StaticConvertCopy<Unit::SolidAngle, Unit, Standard<Unit::SolidAngle>>(value)};
+        ConvertStatically<Unit::SolidAngle, Unit, Standard<Unit::SolidAngle>>(value)};
   }
 
   constexpr SolidAngle<NumericType> operator+(const SolidAngle<NumericType>& other) const {

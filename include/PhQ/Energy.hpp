@@ -137,7 +137,7 @@ public:
   template <Unit::Energy Unit>
   static constexpr Energy<NumericType> Create(const NumericType value) {
     return Energy<NumericType>{
-        StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
+        ConvertStatically<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }
 
   constexpr Energy<NumericType> operator+(const Energy<NumericType>& energy) const {

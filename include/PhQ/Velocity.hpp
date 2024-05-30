@@ -135,7 +135,7 @@ public:
   static constexpr Velocity<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return Velocity<NumericType>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x, y, z})};
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
@@ -143,7 +143,7 @@ public:
   template <Unit::Speed Unit>
   static constexpr Velocity<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
     return Velocity<NumericType>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x_y_z})};
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a velocity vector with a given value expressed in a given speed
@@ -151,7 +151,7 @@ public:
   template <Unit::Speed Unit>
   static constexpr Velocity<NumericType> Create(const Vector<NumericType>& value) {
     return Velocity<NumericType>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this velocity vector.

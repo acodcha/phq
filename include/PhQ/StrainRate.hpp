@@ -121,7 +121,7 @@ public:
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return StrainRate<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
   }
 
@@ -131,7 +131,7 @@ public:
   static constexpr StrainRate<NumericType> Create(
       const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return StrainRate<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
   }
 
@@ -140,7 +140,7 @@ public:
   template <Unit::Frequency Unit>
   static constexpr StrainRate<NumericType> Create(const SymmetricDyad<NumericType>& value) {
     return StrainRate<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this strain rate tensor.

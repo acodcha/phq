@@ -132,7 +132,7 @@ public:
   template <Unit::EnergyFlux Unit>
   static constexpr PlanarHeatFlux<NumericType> Create(const NumericType x, const NumericType y) {
     return PlanarHeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             PlanarVector<NumericType>{x, y})};
   }
 
@@ -141,7 +141,7 @@ public:
   template <Unit::EnergyFlux Unit>
   static constexpr PlanarHeatFlux<NumericType> Create(const std::array<NumericType, 2>& x_y) {
     return PlanarHeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             PlanarVector<NumericType>{x_y})};
   }
 
@@ -150,7 +150,7 @@ public:
   template <Unit::EnergyFlux Unit>
   static constexpr PlanarHeatFlux<NumericType> Create(const PlanarVector<NumericType>& value) {
     return PlanarHeatFlux<NumericType>{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
+        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar heat flux vector.

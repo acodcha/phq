@@ -969,29 +969,29 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
   }
 }
 
-/// \brief Tests the PhQ::StaticConvertCopy unit conversion functions for a given unit of measure.
+/// \brief Tests the PhQ::ConvertStatically unit conversion functions for a given unit of measure.
 /// Verifies that a given original value expressed in a given original unit correctly converts to a
 /// given new value expressed in a given new unit. Does not check the reverse conversion.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestStaticConvertCopy(const long double original_value, const long double new_value) {
+void TestConvertStatically(const long double original_value, const long double new_value) {
   // float
   EXPECT_FLOAT_EQ(
-      (PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(static_cast<float>(original_value))),
+      (PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(static_cast<float>(original_value))),
       static_cast<float>(new_value));
 
   // double
   EXPECT_DOUBLE_EQ(
-      (PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(static_cast<double>(original_value))),
+      (PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(static_cast<double>(original_value))),
       static_cast<double>(new_value));
 
   // long double
-  EXPECT_DOUBLE_EQ((PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+  EXPECT_DOUBLE_EQ((PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(
                        static_cast<long double>(original_value))),
                    static_cast<long double>(new_value));
 
   // std::array<float>
   {
-    const std::array<float, 3> converted_array{PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+    const std::array<float, 3> converted_array{PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(
         std::array<float, 3>{static_cast<float>(original_value), static_cast<float>(original_value),
                              static_cast<float>(original_value)})};
     EXPECT_FLOAT_EQ(converted_array[0], static_cast<float>(new_value));
@@ -1002,7 +1002,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // std::array<double>
   {
     const std::array<double, 3> converted_array{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(std::array<double, 3>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(std::array<double, 3>{
             static_cast<double>(original_value), static_cast<double>(original_value),
             static_cast<double>(original_value)})};
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<double>(new_value));
@@ -1013,7 +1013,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // std::array<long double>
   {
     const std::array<long double, 3> converted_array{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(std::array<long double, 3>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(std::array<long double, 3>{
             static_cast<long double>(original_value), static_cast<long double>(original_value),
             static_cast<long double>(original_value)})};
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<long double>(new_value));
@@ -1024,7 +1024,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::PlanarVector<float>
   {
     const PhQ::PlanarVector<float> converted_vector{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PhQ::PlanarVector<float>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(PhQ::PlanarVector<float>{
             static_cast<float>(original_value), static_cast<float>(original_value)})};
     EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(new_value));
     EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(new_value));
@@ -1033,7 +1033,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::PlanarVector<double>
   {
     const PhQ::PlanarVector<double> converted_vector{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PhQ::PlanarVector<double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(PhQ::PlanarVector<double>{
             static_cast<double>(original_value), static_cast<double>(original_value)})};
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(new_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(new_value));
@@ -1042,7 +1042,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::PlanarVector<long double>
   {
     const PhQ::PlanarVector<long double> converted_vector{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PlanarVector<long double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(PlanarVector<long double>{
             static_cast<long double>(original_value), static_cast<long double>(original_value)})};
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(new_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(new_value));
@@ -1050,7 +1050,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
 
   // PhQ::Vector<float>
   {
-    const PhQ::Vector<float> converted_vector{PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+    const PhQ::Vector<float> converted_vector{PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(
         PhQ::Vector<float>{static_cast<float>(original_value), static_cast<float>(original_value),
                            static_cast<float>(original_value)})};
     EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(new_value));
@@ -1061,7 +1061,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::Vector<double>
   {
     const PhQ::Vector<double> converted_vector{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(PhQ::Vector<double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(PhQ::Vector<double>{
             static_cast<double>(original_value), static_cast<double>(original_value),
             static_cast<double>(original_value)})};
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(new_value));
@@ -1072,7 +1072,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::Vector<long double>
   {
     const PhQ::Vector<long double> converted_vector{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(Vector<long double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(Vector<long double>{
             static_cast<long double>(original_value), static_cast<long double>(original_value),
             static_cast<long double>(original_value)})};
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(new_value));
@@ -1083,7 +1083,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::SymmetricDyad<float>
   {
     const PhQ::SymmetricDyad<float> converted_symmetric_dyad{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(SymmetricDyad<float>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(SymmetricDyad<float>{
             static_cast<float>(original_value), static_cast<float>(original_value),
             static_cast<float>(original_value), static_cast<float>(original_value),
             static_cast<float>(original_value), static_cast<float>(original_value)})};
@@ -1098,7 +1098,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::SymmetricDyad<double>
   {
     const PhQ::SymmetricDyad<double> converted_symmetric_dyad{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(SymmetricDyad<double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(SymmetricDyad<double>{
             static_cast<double>(original_value), static_cast<double>(original_value),
             static_cast<double>(original_value), static_cast<double>(original_value),
             static_cast<double>(original_value), static_cast<double>(original_value)})};
@@ -1113,7 +1113,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::SymmetricDyad<long double>
   {
     const PhQ::SymmetricDyad<long double> converted_symmetric_dyad{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(SymmetricDyad<long double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(SymmetricDyad<long double>{
             static_cast<long double>(original_value), static_cast<long double>(original_value),
             static_cast<long double>(original_value), static_cast<long double>(original_value),
             static_cast<long double>(original_value), static_cast<long double>(original_value)})};
@@ -1127,7 +1127,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
 
   // PhQ::Dyad<float>
   {
-    const PhQ::Dyad<float> converted_dyad{PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+    const PhQ::Dyad<float> converted_dyad{PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(
         PhQ::Dyad<float>{static_cast<float>(original_value), static_cast<float>(original_value),
                          static_cast<float>(original_value), static_cast<float>(original_value),
                          static_cast<float>(original_value), static_cast<float>(original_value),
@@ -1146,7 +1146,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
 
   // PhQ::Dyad<double>
   {
-    const PhQ::Dyad<double> converted_dyad{PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+    const PhQ::Dyad<double> converted_dyad{PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(
         PhQ::Dyad<double>{static_cast<double>(original_value), static_cast<double>(original_value),
                           static_cast<double>(original_value), static_cast<double>(original_value),
                           static_cast<double>(original_value), static_cast<double>(original_value),
@@ -1166,7 +1166,7 @@ void TestStaticConvertCopy(const long double original_value, const long double n
   // PhQ::Dyad<long double>
   {
     const PhQ::Dyad<long double> converted_dyad{
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(Dyad<long double>{
+        PhQ::ConvertStatically<Unit, OriginalUnit, NewUnit>(Dyad<long double>{
             static_cast<long double>(original_value), static_cast<long double>(original_value),
             static_cast<long double>(original_value), static_cast<long double>(original_value),
             static_cast<long double>(original_value), static_cast<long double>(original_value),

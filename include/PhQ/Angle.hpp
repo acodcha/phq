@@ -301,7 +301,7 @@ public:
   /// \brief Statically creates an angle with a given value expressed in a given angle unit.
   template <Unit::Angle Unit>
   static constexpr Angle<NumericType> Create(const NumericType value) {
-    return Angle<NumericType>{StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
+    return Angle<NumericType>{ConvertStatically<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 
   constexpr Angle<NumericType> operator+(const Angle<NumericType>& other) const {

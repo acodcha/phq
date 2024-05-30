@@ -125,7 +125,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Traction<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
-    return Traction<NumericType>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+    return Traction<NumericType>{ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
         Vector<NumericType>{x, y, z})};
   }
 
@@ -133,7 +133,7 @@ public:
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
-    return Traction<NumericType>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+    return Traction<NumericType>{ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
         Vector<NumericType>{x_y_z})};
   }
 
@@ -142,7 +142,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Traction<NumericType> Create(const Vector<NumericType>& value) {
     return Traction<NumericType>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this traction vector.

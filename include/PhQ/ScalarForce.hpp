@@ -122,7 +122,7 @@ public:
   template <Unit::Force Unit>
   static constexpr ScalarForce<NumericType> Create(const NumericType value) {
     return ScalarForce<NumericType>{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
+        ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   constexpr ScalarForce<NumericType> operator+(const ScalarForce<NumericType>& scalar_force) const {

@@ -135,7 +135,7 @@ public:
   /// \brief Statically creates an area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
   static constexpr Area<NumericType> Create(const NumericType value) {
-    return Area<NumericType>{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
+    return Area<NumericType>{ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   constexpr Area<NumericType> operator+(const Area<NumericType>& area) const {

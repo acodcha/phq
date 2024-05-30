@@ -104,9 +104,9 @@ TEST(UnitTime, Standard) {
   EXPECT_EQ(Standard<Time>, Time::Second);
 }
 
-TEST(UnitTime, StaticConvertCopy) {
+TEST(UnitTime, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
+  Internal::TestConvertStatically<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
 }
 
 TEST(UnitTime, Stream) {

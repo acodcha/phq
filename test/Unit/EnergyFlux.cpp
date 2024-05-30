@@ -115,9 +115,9 @@ TEST(UnitEnergyFlux, Standard) {
   EXPECT_EQ(Standard<EnergyFlux>, EnergyFlux::WattPerSquareMetre);
 }
 
-TEST(UnitEnergyFlux, StaticConvertCopy) {
+TEST(UnitEnergyFlux, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<EnergyFlux, EnergyFlux::WattPerSquareMetre,
+  Internal::TestConvertStatically<EnergyFlux, EnergyFlux::WattPerSquareMetre,
                                   EnergyFlux::FootPoundPerSquareFootPerSecond>(
       value, value * 0.3048L / (0.45359237L * 9.80665L));
 }

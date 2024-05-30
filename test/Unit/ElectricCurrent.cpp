@@ -148,9 +148,9 @@ TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<ElectricCurrent>, ElectricCurrent::Ampere);
 }
 
-TEST(UnitAngle, StaticConvertCopy) {
+TEST(UnitAngle, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ElectricCurrent, ElectricCurrent::Ampere,
+  Internal::TestConvertStatically<ElectricCurrent, ElectricCurrent::Ampere,
                                   ElectricCurrent::Kiloampere>(value, value * 0.001L);
 }
 

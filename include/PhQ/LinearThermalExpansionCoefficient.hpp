@@ -104,7 +104,7 @@ public:
   template <Unit::ThermalExpansion Unit>
   static constexpr LinearThermalExpansionCoefficient<NumericType> Create(const NumericType value) {
     return LinearThermalExpansionCoefficient<NumericType>{
-        StaticConvertCopy<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
+        ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
   }
 
   constexpr LinearThermalExpansionCoefficient<NumericType> operator+(

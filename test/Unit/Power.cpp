@@ -123,9 +123,9 @@ TEST(UnitPower, Standard) {
   EXPECT_EQ(Standard<Power>, Power::Watt);
 }
 
-TEST(UnitPower, StaticConvertCopy) {
+TEST(UnitPower, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Power, Power::Watt, Power::FootPoundPerSecond>(
+  Internal::TestConvertStatically<Power, Power::Watt, Power::FootPoundPerSecond>(
       value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 

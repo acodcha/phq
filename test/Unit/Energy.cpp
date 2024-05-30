@@ -261,9 +261,9 @@ TEST(UnitEnergy, Standard) {
   EXPECT_EQ(Standard<Energy>, Energy::Joule);
 }
 
-TEST(UnitEnergy, StaticConvertCopy) {
+TEST(UnitEnergy, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Energy, Energy::Joule, Energy::FootPound>(
+  Internal::TestConvertStatically<Energy, Energy::Joule, Energy::FootPound>(
       value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 

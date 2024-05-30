@@ -137,7 +137,7 @@ public:
   template <Unit::Frequency Unit>
   static constexpr Frequency<NumericType> Create(const NumericType value) {
     return Frequency<NumericType>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Time period that corresponds to this frequency.

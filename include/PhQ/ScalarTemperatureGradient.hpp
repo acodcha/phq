@@ -123,7 +123,7 @@ public:
   template <Unit::TemperatureGradient Unit>
   static constexpr ScalarTemperatureGradient<NumericType> Create(const NumericType value) {
     return ScalarTemperatureGradient<NumericType>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 
