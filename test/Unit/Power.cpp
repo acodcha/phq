@@ -68,7 +68,7 @@ TEST(UnitPower, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Power>(UnitSystem::InchPoundSecondRankine), Power::InchPoundPerSecond);
 }
 
-TEST(UnitPower, ConvertAndConvertCopy) {
+TEST(UnitPower, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Power>(Power::Watt, Power::Watt, value, value);
   Internal::TestConvert<Power>(Power::Watt, Power::Milliwatt, value, value * 1000.0L);

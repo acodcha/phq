@@ -90,7 +90,7 @@ TEST(UnitDiffusivity, ConsistentUnit) {
             Diffusivity::SquareInchPerSecond);
 }
 
-TEST(UnitDiffusivity, ConvertAndConvertCopy) {
+TEST(UnitDiffusivity, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Diffusivity>(
       Diffusivity::SquareMetrePerSecond, Diffusivity::SquareNauticalMilePerSecond, value,

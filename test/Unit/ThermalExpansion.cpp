@@ -70,7 +70,7 @@ TEST(UnitThermalExpansion, ConsistentUnit) {
             ThermalExpansion::PerRankine);
 }
 
-TEST(UnitThermalExpansion, ConvertAndConvertCopy) {
+TEST(UnitThermalExpansion, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerKelvin, value, value);

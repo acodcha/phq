@@ -86,7 +86,7 @@ TEST(UnitArea, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::InchPoundSecondRankine), Area::SquareInch);
 }
 
-TEST(UnitArea, ConvertAndConvertCopy) {
+TEST(UnitArea, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Area>(
       Area::SquareMetre, Area::SquareNauticalMile, value, value / std::pow(1852.0L, 2));

@@ -70,7 +70,7 @@ TEST(UnitHeatCapacity, ConsistentUnit) {
             HeatCapacity::InchPoundPerRankine);
 }
 
-TEST(UnitHeatCapacity, ConvertAndConvertCopy) {
+TEST(UnitHeatCapacity, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);

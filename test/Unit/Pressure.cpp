@@ -75,7 +75,7 @@ TEST(UnitPressure, ConsistentUnit) {
       ConsistentUnit<Pressure>(UnitSystem::InchPoundSecondRankine), Pressure::PoundPerSquareInch);
 }
 
-TEST(UnitPressure, ConvertAndConvertCopy) {
+TEST(UnitPressure, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Pascal, value, value);
   Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001L);

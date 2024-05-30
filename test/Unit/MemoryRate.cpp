@@ -147,7 +147,7 @@ TEST(UnitMemoryRate, ConsistentUnit) {
       ConsistentUnit<MemoryRate>(UnitSystem::InchPoundSecondRankine), MemoryRate::BitPerSecond);
 }
 
-TEST(UnitMemoryRate, ConvertAndConvertCopy) {
+TEST(UnitMemoryRate, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BitPerSecond, value, value);

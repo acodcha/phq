@@ -70,7 +70,7 @@ TEST(UnitMassDensity, ConsistentUnit) {
             MassDensity::SlinchPerCubicInch);
 }
 
-TEST(UnitMassDensity, ConvertAndConvertCopy) {
+TEST(UnitMassDensity, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::KilogramPerCubicMetre, value, value);

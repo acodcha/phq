@@ -75,7 +75,7 @@ TEST(UnitDynamicViscosity, ConsistentUnit) {
             DynamicViscosity::PoundSecondPerSquareInch);
 }
 
-TEST(UnitDynamicViscosity, ConvertAndConvertCopy) {
+TEST(UnitDynamicViscosity, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<DynamicViscosity>(
       DynamicViscosity::PascalSecond, DynamicViscosity::PascalSecond, value, value);

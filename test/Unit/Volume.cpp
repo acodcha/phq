@@ -77,7 +77,7 @@ TEST(UnitVolume, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Volume>(UnitSystem::InchPoundSecondRankine), Volume::CubicInch);
 }
 
-TEST(UnitVolume, ConvertAndConvertCopy) {
+TEST(UnitVolume, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicNauticalMile, value, value / std::pow(1852.0L, 3));

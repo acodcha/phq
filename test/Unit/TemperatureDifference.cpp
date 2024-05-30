@@ -70,7 +70,7 @@ TEST(UnitTemperatureDifference, ConsistentUnit) {
             TemperatureDifference::Rankine);
 }
 
-TEST(UnitTemperatureDifference, ConvertAndConvertCopy) {
+TEST(UnitTemperatureDifference, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);

@@ -68,7 +68,7 @@ TEST(UnitTemperature, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::InchPoundSecondRankine), Temperature::Rankine);
 }
 
-TEST(UnitTemperature, ConvertAndConvertCopy) {
+TEST(UnitTemperature, Convert) {
   constexpr long double value{123.4567890123456789L};
   Internal::TestConvert<Temperature>(Temperature::Kelvin, Temperature::Kelvin, value, value);
   Internal::TestConvert<Temperature>(

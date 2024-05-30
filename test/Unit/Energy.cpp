@@ -120,7 +120,7 @@ TEST(UnitEnergy, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::InchPoundSecondRankine), Energy::InchPound);
 }
 
-TEST(UnitEnergy, ConvertAndConvertCopy) {
+TEST(UnitEnergy, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Energy>(Energy::Joule, Energy::Joule, value, value);
   Internal::TestConvert<Energy>(Energy::Joule, Energy::Millijoule, value, value * 1000.0L);

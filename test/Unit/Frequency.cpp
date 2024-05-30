@@ -62,7 +62,7 @@ TEST(UnitFrequency, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Frequency>(UnitSystem::InchPoundSecondRankine), Frequency::Hertz);
 }
 
-TEST(UnitFrequency, ConvertAndConvertCopy) {
+TEST(UnitFrequency, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::Hertz, value, value);
   Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001L);

@@ -71,7 +71,7 @@ TEST(UnitSpecificHeatCapacity, ConsistentUnit) {
             SpecificHeatCapacity::InchPoundPerSlinchPerRankine);
 }
 
-TEST(UnitSpecificHeatCapacity, ConvertAndConvertCopy) {
+TEST(UnitSpecificHeatCapacity, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<SpecificHeatCapacity>(
       SpecificHeatCapacity::JoulePerKilogramPerKelvin,

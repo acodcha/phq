@@ -72,7 +72,7 @@ TEST(UnitLength, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::InchPoundSecondRankine), Length::Inch);
 }
 
-TEST(UnitLength, ConvertAndConvertCopy) {
+TEST(UnitLength, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Length>(Length::Metre, Length::NauticalMile, value, value / 1852.0L);
   Internal::TestConvert<Length>(Length::Metre, Length::Mile, value, value / 1609.344L);

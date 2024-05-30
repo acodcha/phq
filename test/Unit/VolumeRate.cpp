@@ -150,7 +150,7 @@ TEST(UnitVolumeRate, ConsistentUnit) {
             VolumeRate::CubicInchPerSecond);
 }
 
-TEST(UnitVolumeRate, ConvertAndConvertCopy) {
+TEST(UnitVolumeRate, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerSecond, value,

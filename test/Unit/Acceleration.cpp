@@ -137,7 +137,7 @@ TEST(UnitAcceleration, ConsistentUnit) {
             Acceleration::InchPerSquareSecond);
 }
 
-TEST(UnitAcceleration, ConvertAndConvertCopy) {
+TEST(UnitAcceleration, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::NauticalMilePerSquareSecond, value,

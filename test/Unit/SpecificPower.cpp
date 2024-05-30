@@ -68,7 +68,7 @@ TEST(UnitSpecificPower, ConsistentUnit) {
             SpecificPower::InchPoundPerSlinchPerSecond);
 }
 
-TEST(UnitSpecificPower, ConvertAndConvertCopy) {
+TEST(UnitSpecificPower, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<SpecificPower>(
       SpecificPower::WattPerKilogram, SpecificPower::WattPerKilogram, value, value);

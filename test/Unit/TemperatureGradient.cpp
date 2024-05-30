@@ -74,7 +74,7 @@ TEST(UnitTemperatureGradient, ConsistentUnit) {
             TemperatureGradient::RankinePerInch);
 }
 
-TEST(UnitTemperatureGradient, ConvertAndConvertCopy) {
+TEST(UnitTemperatureGradient, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMetre, value, value);

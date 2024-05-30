@@ -63,7 +63,7 @@ TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<SolidAngle>(UnitSystem::InchPoundSecondRankine), SolidAngle::Steradian);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<SolidAngle>(SolidAngle::Steradian, SolidAngle::Steradian, value, value);
   Internal::TestConvert<SolidAngle>(SolidAngle::Steradian, SolidAngle::SquareDegree, value,

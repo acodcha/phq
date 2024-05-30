@@ -62,7 +62,7 @@ TEST(UnitMass, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
 }
 
-TEST(UnitMass, ConvertAndConvertCopy) {
+TEST(UnitMass, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Kilogram, value, value);
   Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Gram, value, value * 1000.0L);

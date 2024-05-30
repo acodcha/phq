@@ -108,7 +108,7 @@ TEST(UnitSpeed, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Speed>(UnitSystem::InchPoundSecondRankine), Speed::InchPerSecond);
 }
 
-TEST(UnitSpeed, ConvertAndConvertCopy) {
+TEST(UnitSpeed, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::NauticalMilePerSecond, value, value / 1852.0L);

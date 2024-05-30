@@ -79,7 +79,7 @@ TEST(UnitAngle, ConsistentUnit) {
       ConsistentUnit<ElectricCurrent>(UnitSystem::InchPoundSecondRankine), ElectricCurrent::Ampere);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Ampere, value, value);

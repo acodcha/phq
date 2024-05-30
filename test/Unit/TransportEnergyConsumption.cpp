@@ -98,7 +98,7 @@ TEST(UnitTransportEnergyConsumption, ConsistentUnit) {
             TransportEnergyConsumption::InchPoundPerInch);
 }
 
-TEST(UnitTransportEnergyConsumption, ConvertAndConvertCopy) {
+TEST(UnitTransportEnergyConsumption, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerMile, value,

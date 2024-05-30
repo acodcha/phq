@@ -67,7 +67,7 @@ TEST(UnitForce, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::InchPoundSecondRankine), Force::Pound);
 }
 
-TEST(UnitForce, ConvertAndConvertCopy) {
+TEST(UnitForce, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Force>(Force::Newton, Force::Newton, value, value);
   Internal::TestConvert<Force>(Force::Newton, Force::Kilonewton, value, value * 0.001L);

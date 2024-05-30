@@ -95,7 +95,7 @@ TEST(UnitAngle, ConsistentUnit) {
       ConsistentUnit<ElectricCharge>(UnitSystem::InchPoundSecondRankine), ElectricCharge::Coulomb);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Coulomb, value, value);

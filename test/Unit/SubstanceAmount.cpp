@@ -70,7 +70,7 @@ TEST(UnitSubstanceAmount, ConsistentUnit) {
       ConsistentUnit<SubstanceAmount>(UnitSystem::InchPoundSecondRankine), SubstanceAmount::Mole);
 }
 
-TEST(UnitSubstanceAmount, ConvertAndConvertCopy) {
+TEST(UnitSubstanceAmount, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Mole, value, value);

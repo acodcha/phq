@@ -68,7 +68,7 @@ TEST(UnitSpecificEnergy, ConsistentUnit) {
             SpecificEnergy::InchPoundPerSlinch);
 }
 
-TEST(UnitSpecificEnergy, ConvertAndConvertCopy) {
+TEST(UnitSpecificEnergy, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);

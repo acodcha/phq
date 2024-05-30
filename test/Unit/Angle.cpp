@@ -59,7 +59,7 @@ TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::InchPoundSecondRankine), Angle::Radian);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Angle>(Angle::Radian, Angle::Radian, value, value);
   Internal::TestConvert<Angle>(

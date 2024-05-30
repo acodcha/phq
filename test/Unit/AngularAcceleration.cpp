@@ -81,7 +81,7 @@ TEST(UnitAngularAcceleration, ConsistentUnit) {
             AngularAcceleration::RadianPerSquareSecond);
 }
 
-TEST(UnitAngularAcceleration, ConvertAndConvertCopy) {
+TEST(UnitAngularAcceleration, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RadianPerSquareSecond, value,

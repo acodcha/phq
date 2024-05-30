@@ -61,7 +61,7 @@ TEST(UnitTime, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::InchPoundSecondRankine), Time::Second);
 }
 
-TEST(UnitTime, ConvertAndConvertCopy) {
+TEST(UnitTime, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Time>(Time::Second, Time::Nanosecond, value, value * 1000000000.0L);
   Internal::TestConvert<Time>(Time::Second, Time::Microsecond, value, value * 1000000.0L);

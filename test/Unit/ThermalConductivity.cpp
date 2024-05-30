@@ -68,7 +68,7 @@ TEST(UnitThermalConductivity, ConsistentUnit) {
             ThermalConductivity::PoundPerSecondPerRankine);
 }
 
-TEST(UnitThermalConductivity, ConvertAndConvertCopy) {
+TEST(UnitThermalConductivity, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<ThermalConductivity>(
       ThermalConductivity::WattPerMetrePerKelvin, ThermalConductivity::WattPerMetrePerKelvin, value,

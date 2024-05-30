@@ -68,7 +68,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             EnergyFlux::InchPoundPerSquareInchPerSecond);
 }
 
-TEST(UnitEnergyFlux, ConvertAndConvertCopy) {
+TEST(UnitEnergyFlux, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::WattPerSquareMetre, value, value);

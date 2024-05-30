@@ -81,7 +81,7 @@ TEST(UnitAngularSpeed, ConsistentUnit) {
             AngularSpeed::RadianPerSecond);
 }
 
-TEST(UnitAngularSpeed, ConvertAndConvertCopy) {
+TEST(UnitAngularSpeed, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerSecond, value, value);

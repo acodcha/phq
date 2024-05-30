@@ -81,7 +81,7 @@ TEST(UnitMemory, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Memory>(UnitSystem::InchPoundSecondRankine), Memory::Bit);
 }
 
-TEST(UnitMemory, ConvertAndConvertCopy) {
+TEST(UnitMemory, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<Memory>(Memory::Bit, Memory::Bit, value, value);
   Internal::TestConvert<Memory>(Memory::Bit, Memory::Byte, value, value / 8.0L);

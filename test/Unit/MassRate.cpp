@@ -79,7 +79,7 @@ TEST(UnitMassRate, ConsistentUnit) {
       ConsistentUnit<MassRate>(UnitSystem::InchPoundSecondRankine), MassRate::SlinchPerSecond);
 }
 
-TEST(UnitMassRate, ConvertAndConvertCopy) {
+TEST(UnitMassRate, Convert) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
