@@ -70,13 +70,12 @@ TEST(UnitTemperature, ConsistentUnit) {
 
 TEST(UnitTemperature, ConvertAndConvertCopy) {
   constexpr long double value{123.4567890123456789L};
-  Internal::TestConvertAndConvertCopy<Temperature>(
-      Temperature::Kelvin, Temperature::Kelvin, value, value);
-  Internal::TestConvertAndConvertCopy<Temperature>(
+  Internal::TestConvert<Temperature>(Temperature::Kelvin, Temperature::Kelvin, value, value);
+  Internal::TestConvert<Temperature>(
       Temperature::Kelvin, Temperature::Celsius, value, value - 273.15L);
-  Internal::TestConvertAndConvertCopy<Temperature>(
+  Internal::TestConvert<Temperature>(
       Temperature::Kelvin, Temperature::Rankine, value, value * 1.8L);
-  Internal::TestConvertAndConvertCopy<Temperature>(
+  Internal::TestConvert<Temperature>(
       Temperature::Kelvin, Temperature::Fahrenheit, value, (value * 1.8L) - 459.67L);
 }
 

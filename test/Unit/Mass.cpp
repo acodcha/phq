@@ -64,14 +64,13 @@ TEST(UnitMass, ConsistentUnit) {
 
 TEST(UnitMass, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Mass>(Mass::Kilogram, Mass::Kilogram, value, value);
-  Internal::TestConvertAndConvertCopy<Mass>(Mass::Kilogram, Mass::Gram, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Mass>(
+  Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Kilogram, value, value);
+  Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Gram, value, value * 1000.0L);
+  Internal::TestConvert<Mass>(
       Mass::Kilogram, Mass::Slug, value, value * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Mass>(
+  Internal::TestConvert<Mass>(
       Mass::Kilogram, Mass::Slinch, value, value * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Mass>(
-      Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
+  Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
 }
 
 TEST(UnitMass, ConvertStatically) {

@@ -72,14 +72,14 @@ TEST(UnitHeatCapacity, ConsistentUnit) {
 
 TEST(UnitHeatCapacity, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::NanojoulePerKelvin, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::FootPoundPerRankine, value,
       value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::InchPoundPerRankine, value,
       value / (0.0254L * 0.45359237L * 9.80665L * 1.8L));
 }

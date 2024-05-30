@@ -81,29 +81,29 @@ TEST(UnitAngle, ConsistentUnit) {
 
 TEST(UnitAngle, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Ampere, value, value);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Kiloampere, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Megaampere, value, value * 1.0E-6L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Gigaampere, value, value * 1.0E-9L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Teraampere, value, value * 1.0E-12L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Milliampere, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Microampere, value, value * 1.0E6L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Nanoampere, value, value * 1.0E9L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::ElementaryChargePerSecond, value,
       value / 1.602176634E-19L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::ElementaryChargePerMinute, value,
       value * 60.0L / 1.602176634E-19L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::ElementaryChargePerHour, value,
       value * 3600.0L / 1.602176634E-19L);
 }

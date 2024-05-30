@@ -152,136 +152,120 @@ TEST(UnitVolumeRate, ConsistentUnit) {
 
 TEST(UnitVolumeRate, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerSecond, value,
       value / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerSecond, value,
-      value / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerSecond,
+                                    value, value / std::pow(1609.344L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerSecond, value,
       value * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMetrePerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerSecond, value,
-      value / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerSecond, value,
-      value / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerSecond,
+                                    value, value / std::pow(0.9144L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerSecond,
+                                    value, value / std::pow(0.3048L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicDecimetrePerSecond, value,
       value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerSecond, value,
-      value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerSecond, value,
-      value / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerSecond,
+                                    value, value * std::pow(10.0L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerSecond,
+                                    value, value / std::pow(0.0254L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicCentimetrePerSecond, value,
       value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerSecond, value,
       value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMillimetrePerSecond, value,
       value * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilliinchPerSecond, value,
       value / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicrometrePerSecond, value,
       value * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerSecond, value,
       value / std::pow(0.0000000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerMinute, value,
       value * 60.0L / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerMinute, value,
-      value * 60.0L / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerMinute,
+                                    value, value * 60.0L / std::pow(1609.344L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerMinute, value,
       value * 60.0L * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMetrePerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerMinute, value,
-      value * 60.0L / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerMinute, value,
-      value * 60.0L / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerMinute,
+                                    value, value * 60.0L / std::pow(0.9144L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerMinute,
+                                    value, value * 60.0L / std::pow(0.3048L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicDecimetrePerMinute, value,
       value * 60.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerMinute, value,
-      value * 60.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerMinute, value,
-      value * 60.0L / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerMinute,
+                                    value, value * 60.0L * std::pow(10.0L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerMinute,
+                                    value, value * 60.0L / std::pow(0.0254L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicCentimetrePerMinute, value,
       value * 60.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerMinute, value,
       value * 60.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMillimetrePerMinute, value,
       value * 60.0L * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilliinchPerMinute, value,
       value * 60.0L / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicrometrePerMinute, value,
       value * 60.0L * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerMinute, value,
       value * 60.0L / std::pow(0.0000000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerHour, value,
       value * 3600.0L / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerHour, value,
-      value * 3600.0L / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerHour,
+                                    value, value * 3600.0L / std::pow(1609.344L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerHour, value,
       value * 3600.0L * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMetrePerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerHour, value,
-      value * 3600.0L / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerHour, value,
-      value * 3600.0L / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerHour,
+                                    value, value * 3600.0L / std::pow(0.9144L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerHour,
+                                    value, value * 3600.0L / std::pow(0.3048L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicDecimetrePerHour, value,
       value * 3600.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerHour, value,
-      value * 3600.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerHour, value,
-      value * 3600.0L / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerHour,
+                                    value, value * 3600.0L * std::pow(10.0L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerHour,
+                                    value, value * 3600.0L / std::pow(0.0254L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicCentimetrePerHour, value,
       value * 3600.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerHour, value,
-      value * 3600.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerHour,
+                                    value, value * 3600.0L * std::pow(100.0L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMillimetrePerHour, value,
       value * 3600.0L * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilliinchPerHour, value,
       value * 3600.0L / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicrometrePerHour, value,
       value * 3600.0L * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerHour, value,
       value * 3600.0L / std::pow(0.0000000254L, 3));
 }

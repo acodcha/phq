@@ -72,13 +72,13 @@ TEST(UnitThermalExpansion, ConsistentUnit) {
 
 TEST(UnitThermalExpansion, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerKelvin, value, value);
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerCelsius, value, value);
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerRankine, value, value / 1.8L);
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerFahrenheit, value, value / 1.8L);
 }
 

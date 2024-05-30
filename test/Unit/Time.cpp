@@ -63,15 +63,12 @@ TEST(UnitTime, ConsistentUnit) {
 
 TEST(UnitTime, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Time>(
-      Time::Second, Time::Nanosecond, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<Time>(
-      Time::Second, Time::Microsecond, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Time>(
-      Time::Second, Time::Millisecond, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Second, value, value);
-  Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Minute, value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Hour, value, value / 3600.0L);
+  Internal::TestConvert<Time>(Time::Second, Time::Nanosecond, value, value * 1000000000.0L);
+  Internal::TestConvert<Time>(Time::Second, Time::Microsecond, value, value * 1000000.0L);
+  Internal::TestConvert<Time>(Time::Second, Time::Millisecond, value, value * 1000.0L);
+  Internal::TestConvert<Time>(Time::Second, Time::Second, value, value);
+  Internal::TestConvert<Time>(Time::Second, Time::Minute, value, value / 60.0L);
+  Internal::TestConvert<Time>(Time::Second, Time::Hour, value, value / 3600.0L);
 }
 
 TEST(UnitTime, ConvertStatically) {

@@ -37,45 +37,45 @@
 
 namespace PhQ::Internal {
 
-/// \brief Tests the PhQ::Convert and PhQ::ConvertCopy unit conversion functions for a given unit of
-/// measure. Verifies that a given first value expressed in a given first unit correctly converts to
-/// a given second value expressed in a given second unit, and vice-versa.
+/// \brief Tests the PhQ::ConvertInPlace and PhQ::ConvertCopy unit conversion functions for a given
+/// unit of measure. Verifies that a given first value expressed in a given first unit correctly
+/// converts to a given second value expressed in a given second unit, and vice-versa.
 template <typename Unit>
-void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
-                               const long double first_value, const long double second_value) {
-  // PhQ::Convert(float)
+void TestConvert(const Unit first_unit, const Unit second_unit, const long double first_value,
+                 const long double second_value) {
+  // PhQ::ConvertInPlace(float)
   {
     float converted_value{static_cast<float>(first_value)};
-    PhQ::Convert(converted_value, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_value, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_value, static_cast<float>(second_value));
   }
   {
     float converted_value{static_cast<float>(second_value)};
-    PhQ::Convert(converted_value, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_value, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_value, static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(double)
+  // PhQ::ConvertInPlace(double)
   {
     double converted_value{static_cast<double>(first_value)};
-    PhQ::Convert(converted_value, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_value, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_value, static_cast<double>(second_value));
   }
   {
     double converted_value{static_cast<double>(second_value)};
-    PhQ::Convert(converted_value, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_value, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_value, static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(long double)
+  // PhQ::ConvertInPlace(long double)
   {
     long double converted_value{static_cast<long double>(first_value)};
-    PhQ::Convert(converted_value, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_value, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_value, static_cast<long double>(second_value));
   }
   {
     long double converted_value{static_cast<long double>(second_value)};
-    PhQ::Convert(converted_value, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_value, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_value, static_cast<long double>(first_value));
   }
 
@@ -98,12 +98,12 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
       PhQ::ConvertCopy(static_cast<long double>(second_value), second_unit, first_unit),
       static_cast<long double>(first_value));
 
-  // PhQ::Convert(std::array<float>)
+  // PhQ::ConvertInPlace(std::array<float>)
   {
     std::array<float, 3> converted_array{
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value)};
-    PhQ::Convert(converted_array, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_array, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_array[0], static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_array[1], static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_array[2], static_cast<float>(second_value));
@@ -112,18 +112,18 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     std::array<float, 3> converted_array{
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value)};
-    PhQ::Convert(converted_array, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_array, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_array[0], static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_array[1], static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_array[2], static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(std::array<double>)
+  // PhQ::ConvertInPlace(std::array<double>)
   {
     std::array<double, 3> converted_array{
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value)};
-    PhQ::Convert(converted_array, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_array, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_array[1], static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_array[2], static_cast<double>(second_value));
@@ -132,18 +132,18 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     std::array<double, 3> converted_array{
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value)};
-    PhQ::Convert(converted_array, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_array, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_array[1], static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_array[2], static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(std::array<long double>)
+  // PhQ::ConvertInPlace(std::array<long double>)
   {
     std::array<long double, 3> converted_array{
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value)};
-    PhQ::Convert(converted_array, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_array, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_array[1], static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_array[2], static_cast<long double>(second_value));
@@ -152,7 +152,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     std::array<long double, 3> converted_array{
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value)};
-    PhQ::Convert(converted_array, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_array, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_array[0], static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_array[1], static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_array[2], static_cast<long double>(first_value));
@@ -220,12 +220,12 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(copied_converted_array[2], static_cast<long double>(first_value));
   }
 
-  // PhQ::Convert(std::vector<float>)
+  // PhQ::ConvertInPlace(std::vector<float>)
   {
     std::vector<float> converted_std_vector{
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value)};
-    PhQ::Convert(converted_std_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_std_vector, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_std_vector[0], static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_std_vector[1], static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_std_vector[2], static_cast<float>(second_value));
@@ -234,18 +234,18 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     std::vector<float> converted_std_vector{
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value)};
-    PhQ::Convert(converted_std_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_std_vector, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_std_vector[0], static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_std_vector[1], static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_std_vector[2], static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(std::vector<double>)
+  // PhQ::ConvertInPlace(std::vector<double>)
   {
     std::vector<double> converted_std_vector{
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value)};
-    PhQ::Convert(converted_std_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_std_vector, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_std_vector[0], static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[1], static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[2], static_cast<double>(second_value));
@@ -254,18 +254,18 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     std::vector<double> converted_std_vector{
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value)};
-    PhQ::Convert(converted_std_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_std_vector, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_std_vector[0], static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[1], static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[2], static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(std::vector<long double>)
+  // PhQ::ConvertInPlace(std::vector<long double>)
   {
     std::vector<long double> converted_std_vector{
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value)};
-    PhQ::Convert(converted_std_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_std_vector, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_std_vector[0], static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[1], static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[2], static_cast<long double>(second_value));
@@ -274,7 +274,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     std::vector<long double> converted_std_vector{
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value)};
-    PhQ::Convert(converted_std_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_std_vector, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_std_vector[0], static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[1], static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_std_vector[2], static_cast<long double>(first_value));
@@ -342,50 +342,50 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(copied_converted_std_vector[2], static_cast<long double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::PlanarVector<float>)
+  // PhQ::ConvertInPlace(PhQ::PlanarVector<float>)
   {
     PhQ::PlanarVector<float> converted_vector{
         static_cast<float>(first_value), static_cast<float>(first_value)};
-    PhQ::Convert(converted_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_vector, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(second_value));
   }
   {
     PhQ::PlanarVector<float> converted_vector{
         static_cast<float>(second_value), static_cast<float>(second_value)};
-    PhQ::Convert(converted_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_vector, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(PhQ::PlanarVector<double>)
+  // PhQ::ConvertInPlace(PhQ::PlanarVector<double>)
   {
     PhQ::PlanarVector<double> converted_vector{
         static_cast<double>(first_value), static_cast<double>(first_value)};
-    PhQ::Convert(converted_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_vector, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(second_value));
   }
   {
     PhQ::PlanarVector<double> converted_vector{
         static_cast<double>(second_value), static_cast<double>(second_value)};
-    PhQ::Convert(converted_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_vector, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::PlanarVector<long double>)
+  // PhQ::ConvertInPlace(PhQ::PlanarVector<long double>)
   {
     PhQ::PlanarVector<long double> converted_vector{
         static_cast<long double>(first_value), static_cast<long double>(first_value)};
-    PhQ::Convert(converted_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_vector, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(second_value));
   }
   {
     PhQ::PlanarVector<long double> converted_vector{
         static_cast<long double>(second_value), static_cast<long double>(second_value)};
-    PhQ::Convert(converted_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_vector, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(first_value));
   }
@@ -443,12 +443,12 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(copied_converted_vector.y(), static_cast<long double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::Vector<float>)
+  // PhQ::ConvertInPlace(PhQ::Vector<float>)
   {
     PhQ::Vector<float> converted_vector{
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value)};
-    PhQ::Convert(converted_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_vector, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_vector.z(), static_cast<float>(second_value));
@@ -457,18 +457,18 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     PhQ::Vector<float> converted_vector{
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value)};
-    PhQ::Convert(converted_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_vector, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_vector.x(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_vector.y(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_vector.z(), static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(PhQ::Vector<double>)
+  // PhQ::ConvertInPlace(PhQ::Vector<double>)
   {
     PhQ::Vector<double> converted_vector{
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value)};
-    PhQ::Convert(converted_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_vector, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_vector.z(), static_cast<double>(second_value));
@@ -477,18 +477,18 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     PhQ::Vector<double> converted_vector{
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value)};
-    PhQ::Convert(converted_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_vector, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_vector.z(), static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::Vector<long double>)
+  // PhQ::ConvertInPlace(PhQ::Vector<long double>)
   {
     PhQ::Vector<long double> converted_vector{
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value)};
-    PhQ::Convert(converted_vector, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_vector, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_vector.z(), static_cast<long double>(second_value));
@@ -497,7 +497,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     PhQ::Vector<long double> converted_vector{
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value)};
-    PhQ::Convert(converted_vector, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_vector, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_vector.y(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_vector.z(), static_cast<long double>(first_value));
@@ -565,13 +565,13 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(copied_converted_vector.z(), static_cast<long double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::SymmetricDyad<float>)
+  // PhQ::ConvertInPlace(PhQ::SymmetricDyad<float>)
   {
     PhQ::SymmetricDyad<float> converted_symmetric_dyad{
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value), static_cast<float>(first_value)};
-    PhQ::Convert(converted_symmetric_dyad, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_symmetric_dyad, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.xx(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.xy(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.xz(), static_cast<float>(second_value));
@@ -584,7 +584,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value), static_cast<float>(second_value)};
-    PhQ::Convert(converted_symmetric_dyad, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_symmetric_dyad, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.xx(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.xy(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.xz(), static_cast<float>(first_value));
@@ -593,13 +593,13 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_FLOAT_EQ(converted_symmetric_dyad.zz(), static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(PhQ::SymmetricDyad<double>)
+  // PhQ::ConvertInPlace(PhQ::SymmetricDyad<double>)
   {
     PhQ::SymmetricDyad<double> converted_symmetric_dyad{
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value), static_cast<double>(first_value)};
-    PhQ::Convert(converted_symmetric_dyad, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_symmetric_dyad, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xx(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xy(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xz(), static_cast<double>(second_value));
@@ -612,7 +612,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value), static_cast<double>(second_value)};
-    PhQ::Convert(converted_symmetric_dyad, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_symmetric_dyad, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xx(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xy(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xz(), static_cast<double>(first_value));
@@ -621,13 +621,13 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.zz(), static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::SymmetricDyad<long double>)
+  // PhQ::ConvertInPlace(PhQ::SymmetricDyad<long double>)
   {
     PhQ::SymmetricDyad<long double> converted_symmetric_dyad{
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value), static_cast<long double>(first_value)};
-    PhQ::Convert(converted_symmetric_dyad, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_symmetric_dyad, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xx(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xy(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xz(), static_cast<long double>(second_value));
@@ -640,7 +640,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value), static_cast<long double>(second_value)};
-    PhQ::Convert(converted_symmetric_dyad, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_symmetric_dyad, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xx(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xy(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xz(), static_cast<long double>(first_value));
@@ -738,7 +738,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(copied_converted_symmetric_dyad.zz(), static_cast<long double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::Dyad<float>)
+  // PhQ::ConvertInPlace(PhQ::Dyad<float>)
   {
     PhQ::Dyad<float> converted_dyad{
         static_cast<float>(first_value), static_cast<float>(first_value),
@@ -746,7 +746,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value), static_cast<float>(first_value),
         static_cast<float>(first_value)};
-    PhQ::Convert(converted_dyad, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_dyad, first_unit, second_unit);
     EXPECT_FLOAT_EQ(converted_dyad.xx(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_dyad.xy(), static_cast<float>(second_value));
     EXPECT_FLOAT_EQ(converted_dyad.xz(), static_cast<float>(second_value));
@@ -764,7 +764,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value), static_cast<float>(second_value),
         static_cast<float>(second_value)};
-    PhQ::Convert(converted_dyad, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_dyad, second_unit, first_unit);
     EXPECT_FLOAT_EQ(converted_dyad.xx(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_dyad.xy(), static_cast<float>(first_value));
     EXPECT_FLOAT_EQ(converted_dyad.xz(), static_cast<float>(first_value));
@@ -776,7 +776,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_FLOAT_EQ(converted_dyad.zz(), static_cast<float>(first_value));
   }
 
-  // PhQ::Convert(PhQ::Dyad<double>)
+  // PhQ::ConvertInPlace(PhQ::Dyad<double>)
   {
     PhQ::Dyad<double> converted_dyad{
         static_cast<double>(first_value), static_cast<double>(first_value),
@@ -784,7 +784,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value), static_cast<double>(first_value),
         static_cast<double>(first_value)};
-    PhQ::Convert(converted_dyad, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_dyad, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_dyad.xx(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xy(), static_cast<double>(second_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xz(), static_cast<double>(second_value));
@@ -802,7 +802,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value), static_cast<double>(second_value),
         static_cast<double>(second_value)};
-    PhQ::Convert(converted_dyad, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_dyad, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_dyad.xx(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xy(), static_cast<double>(first_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xz(), static_cast<double>(first_value));
@@ -814,7 +814,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
     EXPECT_DOUBLE_EQ(converted_dyad.zz(), static_cast<double>(first_value));
   }
 
-  // PhQ::Convert(PhQ::Dyad<long double>)
+  // PhQ::ConvertInPlace(PhQ::Dyad<long double>)
   {
     PhQ::Dyad<long double> converted_dyad{
         static_cast<long double>(first_value), static_cast<long double>(first_value),
@@ -822,7 +822,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value), static_cast<long double>(first_value),
         static_cast<long double>(first_value)};
-    PhQ::Convert(converted_dyad, first_unit, second_unit);
+    PhQ::ConvertInPlace(converted_dyad, first_unit, second_unit);
     EXPECT_DOUBLE_EQ(converted_dyad.xx(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xy(), static_cast<long double>(second_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xz(), static_cast<long double>(second_value));
@@ -840,7 +840,7 @@ void TestConvertAndConvertCopy(const Unit first_unit, const Unit second_unit,
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value), static_cast<long double>(second_value),
         static_cast<long double>(second_value)};
-    PhQ::Convert(converted_dyad, second_unit, first_unit);
+    PhQ::ConvertInPlace(converted_dyad, second_unit, first_unit);
     EXPECT_DOUBLE_EQ(converted_dyad.xx(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xy(), static_cast<long double>(first_value));
     EXPECT_DOUBLE_EQ(converted_dyad.xz(), static_cast<long double>(first_value));

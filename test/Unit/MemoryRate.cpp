@@ -149,182 +149,138 @@ TEST(UnitMemoryRate, ConsistentUnit) {
 
 TEST(UnitMemoryRate, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BitPerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BytePerSecond, value, value / 8.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KilobitPerSecond, value, value / 1000.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KibibitPerSecond, value, value / 1024.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KilobytePerSecond, value, value / (8.0L * 1000.0L));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KibibytePerSecond, value, value / (8.0L * 1024.0L));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::MegabitPerSecond, value, value / std::pow(1000.0L, 2));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::MebibitPerSecond, value, value / std::pow(1024.0L, 2));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MegabytePerSecond, value,
-      value / (8.0L * std::pow(1000.0L, 2)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MebibytePerSecond, value,
-      value / (8.0L * std::pow(1024.0L, 2)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MegabytePerSecond, value,
+                                    value / (8.0L * std::pow(1000.0L, 2)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MebibytePerSecond, value,
+                                    value / (8.0L * std::pow(1024.0L, 2)));
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::GigabitPerSecond, value, value / std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::GibibitPerSecond, value, value / std::pow(1024.0L, 3));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GigabytePerSecond, value,
-      value / (8.0L * std::pow(1000.0L, 3)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GibibytePerSecond, value,
-      value / (8.0L * std::pow(1024.0L, 3)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GigabytePerSecond, value,
+                                    value / (8.0L * std::pow(1000.0L, 3)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GibibytePerSecond, value,
+                                    value / (8.0L * std::pow(1024.0L, 3)));
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::TerabitPerSecond, value, value / std::pow(1000.0L, 4));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::TebibitPerSecond, value, value / std::pow(1024.0L, 4));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TerabytePerSecond, value,
-      value / (8.0L * std::pow(1000.0L, 4)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TebibytePerSecond, value,
-      value / (8.0L * std::pow(1024.0L, 4)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TerabytePerSecond, value,
+                                    value / (8.0L * std::pow(1000.0L, 4)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TebibytePerSecond, value,
+                                    value / (8.0L * std::pow(1024.0L, 4)));
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::PetabitPerSecond, value, value / std::pow(1000.0L, 5));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::PebibitPerSecond, value, value / std::pow(1024.0L, 5));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PetabytePerSecond, value,
-      value / (8.0L * std::pow(1000.0L, 5)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PebibytePerSecond, value,
-      value / (8.0L * std::pow(1024.0L, 5)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PetabytePerSecond, value,
+                                    value / (8.0L * std::pow(1000.0L, 5)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PebibytePerSecond, value,
+                                    value / (8.0L * std::pow(1024.0L, 5)));
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BitPerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BytePerMinute, value, value * 60.0L / 8.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KilobitPerMinute, value, value * 60.0L / 1000.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KibibitPerMinute, value, value * 60.0L / 1024.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::KilobytePerMinute, value,
-      value * 60.0L / (8.0L * 1000.0L));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::KibibytePerMinute, value,
-      value * 60.0L / (8.0L * 1024.0L));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MegabitPerMinute, value,
-      value * 60.0L / std::pow(1000.0L, 2));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MebibitPerMinute, value,
-      value * 60.0L / std::pow(1024.0L, 2));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MegabytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1000.0L, 2)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MebibytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1024.0L, 2)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GigabitPerMinute, value,
-      value * 60.0L / std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GibibitPerMinute, value,
-      value * 60.0L / std::pow(1024.0L, 3));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GigabytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1000.0L, 3)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GibibytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1024.0L, 3)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TerabitPerMinute, value,
-      value * 60.0L / std::pow(1000.0L, 4));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TebibitPerMinute, value,
-      value * 60.0L / std::pow(1024.0L, 4));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TerabytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1000.0L, 4)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TebibytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1024.0L, 4)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PetabitPerMinute, value,
-      value * 60.0L / std::pow(1000.0L, 5));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PebibitPerMinute, value,
-      value * 60.0L / std::pow(1024.0L, 5));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PetabytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1000.0L, 5)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PebibytePerMinute, value,
-      value * 60.0L / (8.0L * std::pow(1024.0L, 5)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::KilobytePerMinute, value,
+                                    value * 60.0L / (8.0L * 1000.0L));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::KibibytePerMinute, value,
+                                    value * 60.0L / (8.0L * 1024.0L));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MegabitPerMinute, value,
+                                    value * 60.0L / std::pow(1000.0L, 2));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MebibitPerMinute, value,
+                                    value * 60.0L / std::pow(1024.0L, 2));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MegabytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1000.0L, 2)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MebibytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1024.0L, 2)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GigabitPerMinute, value,
+                                    value * 60.0L / std::pow(1000.0L, 3));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GibibitPerMinute, value,
+                                    value * 60.0L / std::pow(1024.0L, 3));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GigabytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1000.0L, 3)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GibibytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1024.0L, 3)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TerabitPerMinute, value,
+                                    value * 60.0L / std::pow(1000.0L, 4));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TebibitPerMinute, value,
+                                    value * 60.0L / std::pow(1024.0L, 4));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TerabytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1000.0L, 4)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TebibytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1024.0L, 4)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PetabitPerMinute, value,
+                                    value * 60.0L / std::pow(1000.0L, 5));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PebibitPerMinute, value,
+                                    value * 60.0L / std::pow(1024.0L, 5));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PetabytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1000.0L, 5)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PebibytePerMinute, value,
+                                    value * 60.0L / (8.0L * std::pow(1024.0L, 5)));
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BitPerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::BytePerHour, value, value * 3600.0L / 8.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KilobitPerHour, value, value * 3600.0L / 1000.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
+  Internal::TestConvert<MemoryRate>(
       MemoryRate::BitPerSecond, MemoryRate::KibibitPerHour, value, value * 3600.0L / 1024.0L);
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::KilobytePerHour, value,
-      value * 3600.0L / (8.0L * 1000.0L));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::KibibytePerHour, value,
-      value * 3600.0L / (8.0L * 1024.0L));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MegabitPerHour, value,
-      value * 3600.0L / std::pow(1000.0L, 2));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MebibitPerHour, value,
-      value * 3600.0L / std::pow(1024.0L, 2));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MegabytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1000.0L, 2)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::MebibytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1024.0L, 2)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GigabitPerHour, value,
-      value * 3600.0L / std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GibibitPerHour, value,
-      value * 3600.0L / std::pow(1024.0L, 3));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GigabytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1000.0L, 3)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::GibibytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1024.0L, 3)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TerabitPerHour, value,
-      value * 3600.0L / std::pow(1000.0L, 4));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TebibitPerHour, value,
-      value * 3600.0L / std::pow(1024.0L, 4));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TerabytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1000.0L, 4)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::TebibytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1024.0L, 4)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PetabitPerHour, value,
-      value * 3600.0L / std::pow(1000.0L, 5));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PebibitPerHour, value,
-      value * 3600.0L / std::pow(1024.0L, 5));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PetabytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1000.0L, 5)));
-  Internal::TestConvertAndConvertCopy<MemoryRate>(
-      MemoryRate::BitPerSecond, MemoryRate::PebibytePerHour, value,
-      value * 3600.0L / (8.0L * std::pow(1024.0L, 5)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::KilobytePerHour, value,
+                                    value * 3600.0L / (8.0L * 1000.0L));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::KibibytePerHour, value,
+                                    value * 3600.0L / (8.0L * 1024.0L));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MegabitPerHour, value,
+                                    value * 3600.0L / std::pow(1000.0L, 2));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MebibitPerHour, value,
+                                    value * 3600.0L / std::pow(1024.0L, 2));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MegabytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1000.0L, 2)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::MebibytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1024.0L, 2)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GigabitPerHour, value,
+                                    value * 3600.0L / std::pow(1000.0L, 3));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GibibitPerHour, value,
+                                    value * 3600.0L / std::pow(1024.0L, 3));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GigabytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1000.0L, 3)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::GibibytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1024.0L, 3)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TerabitPerHour, value,
+                                    value * 3600.0L / std::pow(1000.0L, 4));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TebibitPerHour, value,
+                                    value * 3600.0L / std::pow(1024.0L, 4));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TerabytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1000.0L, 4)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::TebibytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1024.0L, 4)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PetabitPerHour, value,
+                                    value * 3600.0L / std::pow(1000.0L, 5));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PebibitPerHour, value,
+                                    value * 3600.0L / std::pow(1024.0L, 5));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PetabytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1000.0L, 5)));
+  Internal::TestConvert<MemoryRate>(MemoryRate::BitPerSecond, MemoryRate::PebibytePerHour, value,
+                                    value * 3600.0L / (8.0L * std::pow(1024.0L, 5)));
 }
 
 TEST(UnitMemoryRate, ConvertStatically) {

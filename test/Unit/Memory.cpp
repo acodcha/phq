@@ -83,45 +83,35 @@ TEST(UnitMemory, ConsistentUnit) {
 
 TEST(UnitMemory, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Bit, value, value);
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Byte, value, value / 8.0L);
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Kilobit, value, value / 1000.0L);
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Kibibit, value, value / 1024.0L);
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Kilobyte, value, value / (8.0L * 1000.0L));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Kibibyte, value, value / (8.0L * 1024.0L));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Megabit, value, value / std::pow(1000.0L, 2));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Mebibit, value, value / std::pow(1024.0L, 2));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Bit, value, value);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Byte, value, value / 8.0L);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kilobit, value, value / 1000.0L);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kibibit, value, value / 1024.0L);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kilobyte, value, value / (8.0L * 1000.0L));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kibibyte, value, value / (8.0L * 1024.0L));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Megabit, value, value / std::pow(1000.0L, 2));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Mebibit, value, value / std::pow(1024.0L, 2));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Megabyte, value, value / (8.0L * std::pow(1000.0L, 2)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Mebibyte, value, value / (8.0L * std::pow(1024.0L, 2)));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Gigabit, value, value / std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Gibibit, value, value / std::pow(1024.0L, 3));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Gigabit, value, value / std::pow(1000.0L, 3));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Gibibit, value, value / std::pow(1024.0L, 3));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Gigabyte, value, value / (8.0L * std::pow(1000.0L, 3)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Gibibyte, value, value / (8.0L * std::pow(1024.0L, 3)));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Terabit, value, value / std::pow(1000.0L, 4));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Tebibit, value, value / std::pow(1024.0L, 4));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Terabit, value, value / std::pow(1000.0L, 4));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Tebibit, value, value / std::pow(1024.0L, 4));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Terabyte, value, value / (8.0L * std::pow(1000.0L, 4)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Tebibyte, value, value / (8.0L * std::pow(1024.0L, 4)));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Petabit, value, value / std::pow(1000.0L, 5));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Pebibit, value, value / std::pow(1024.0L, 5));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Petabit, value, value / std::pow(1000.0L, 5));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Pebibit, value, value / std::pow(1024.0L, 5));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Petabyte, value, value / (8.0L * std::pow(1000.0L, 5)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Pebibyte, value, value / (8.0L * std::pow(1024.0L, 5)));
 }
 

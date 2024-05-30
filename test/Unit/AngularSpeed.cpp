@@ -83,46 +83,41 @@ TEST(UnitAngularSpeed, ConsistentUnit) {
 
 TEST(UnitAngularSpeed, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
-      AngularSpeed::RadianPerSecond, AngularSpeed::DegreePerSecond, value,
-      value * 180.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
-      AngularSpeed::RadianPerSecond, AngularSpeed::DegreePerMinute, value,
-      value * 10800.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
-      AngularSpeed::RadianPerSecond, AngularSpeed::DegreePerHour, value,
-      value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(AngularSpeed::RadianPerSecond, AngularSpeed::DegreePerSecond,
+                                      value, value * 180.0L / Pi<long double>);
+  Internal::TestConvert<AngularSpeed>(AngularSpeed::RadianPerSecond, AngularSpeed::DegreePerMinute,
+                                      value, value * 10800.0L / Pi<long double>);
+  Internal::TestConvert<AngularSpeed>(AngularSpeed::RadianPerSecond, AngularSpeed::DegreePerHour,
+                                      value, value * 648000.0L / Pi<long double>);
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::ArcminutePerSecond, value,
       value * 10800.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::ArcminutePerMinute, value,
       value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
-      AngularSpeed::RadianPerSecond, AngularSpeed::ArcminutePerHour, value,
-      value * 38880000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(AngularSpeed::RadianPerSecond, AngularSpeed::ArcminutePerHour,
+                                      value, value * 38880000.0L / Pi<long double>);
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::ArcsecondPerSecond, value,
       value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::ArcsecondPerMinute, value,
       value * 38880000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
-      AngularSpeed::RadianPerSecond, AngularSpeed::ArcsecondPerHour, value,
-      value * 2332800000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(AngularSpeed::RadianPerSecond, AngularSpeed::ArcsecondPerHour,
+                                      value, value * 2332800000.0L / Pi<long double>);
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RevolutionPerSecond, value,
       value * 0.5L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RevolutionPerMinute, value,
       value * 30.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularSpeed>(
+  Internal::TestConvert<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RevolutionPerHour, value,
       value * 1800.0L / Pi<long double>);
 }

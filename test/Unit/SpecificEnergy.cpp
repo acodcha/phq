@@ -70,15 +70,15 @@ TEST(UnitSpecificEnergy, ConsistentUnit) {
 
 TEST(UnitSpecificEnergy, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::NanojoulePerGram, value,
       value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::FootPoundPerSlug, value,
       value / std::pow(0.3048L, 2));
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::InchPoundPerSlinch, value,
       value / std::pow(0.0254L, 2));
 }

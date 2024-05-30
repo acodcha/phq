@@ -169,7 +169,7 @@ protected:
   /// \brief Constructor. Constructs a dimensional vector physical quantity with a given value
   /// expressed in a given unit of measure.
   DimensionalVector(const PhQ::Vector<NumericType>& value, const UnitType unit) : value(value) {
-    PhQ::Convert(this->value, unit, PhQ::Standard<UnitType>);
+    PhQ::ConvertInPlace(this->value, unit, PhQ::Standard<UnitType>);
   }
 
   /// \brief Destructor. Destroys this dimensional vector physical quantity.

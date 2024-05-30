@@ -79,34 +79,34 @@ TEST(UnitVolume, ConsistentUnit) {
 
 TEST(UnitVolume, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicNauticalMile, value, value / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMile, value, value / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicKilometre, value, value * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(Volume::CubicMetre, Volume::CubicMetre, value, value);
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(Volume::CubicMetre, Volume::CubicMetre, value, value);
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicYard, value, value / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicFoot, value, value / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicDecimetre, value, value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::Litre, value, value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicInch, value, value / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicCentimetre, value, value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::Millilitre, value, value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMillimetre, value, value * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMilliinch, value, value / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMicrometre, value, value * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMicroinch, value, value / std::pow(0.0000000254L, 3));
 }
 

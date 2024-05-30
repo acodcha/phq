@@ -61,14 +61,14 @@ TEST(UnitAngle, ConsistentUnit) {
 
 TEST(UnitAngle, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Angle>(Angle::Radian, Angle::Radian, value, value);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(Angle::Radian, Angle::Radian, value, value);
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Degree, value, value * 180.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Arcminute, value, value * 10800.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Arcsecond, value, value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Revolution, value, value / (2.0L * Pi<long double>));
 }
 

@@ -110,83 +110,77 @@ TEST(UnitSpeed, ConsistentUnit) {
 
 TEST(UnitSpeed, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::NauticalMilePerSecond, value, value / 1852.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilePerSecond, value, value / 1609.344L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::KilometrePerSecond, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::MetrePerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::YardPerSecond, value, value / 0.9144L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::FootPerSecond, value, value / 0.3048L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::MetrePerSecond, value, value);
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::YardPerSecond, value, value / 0.9144L);
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::FootPerSecond, value, value / 0.3048L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::DecimetrePerSecond, value, value * 10.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::InchPerSecond, value, value / 0.0254L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::InchPerSecond, value, value / 0.0254L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::CentimetrePerSecond, value, value * 100.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MillimetrePerSecond, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilliinchPerSecond, value, value / 0.0000254L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicrometrePerSecond, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerSecond, value, value / 0.0000000254L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::NauticalMilePerMinute, value, value / 1852.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilePerMinute, value, value / 1609.344L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::KilometrePerMinute, value, value * 0.001L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::MetrePerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::MetrePerMinute, value, value * 60.0L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::YardPerMinute, value, value / 0.9144L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::FootPerMinute, value, value / 0.3048L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::DecimetrePerMinute, value, value * 10.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::InchPerMinute, value, value / 0.0254L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::CentimetrePerMinute, value, value * 100.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MillimetrePerMinute, value, value * 1000.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilliinchPerMinute, value, value / 0.0000254L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicrometrePerMinute, value, value * 1000000.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerMinute, value, value / 0.0000000254L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::Knot, value, value / 1852.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilePerHour, value, value / 1609.344L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::KilometrePerHour, value, value * 0.001L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::MetrePerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::MetrePerHour, value, value * 3600.0L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::YardPerHour, value, value / 0.9144L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::FootPerHour, value, value / 0.3048L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::DecimetrePerHour, value, value * 10.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::InchPerHour, value, value / 0.0254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::CentimetrePerHour, value, value * 100.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MillimetrePerHour, value, value * 1000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilliinchPerHour, value, value / 0.0000254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicrometrePerHour, value, value * 1000000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerHour, value, value / 0.0000000254L * 3600.0L);
 }
 

@@ -97,55 +97,55 @@ TEST(UnitAngle, ConsistentUnit) {
 
 TEST(UnitAngle, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Coulomb, value, value);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Kilocoulomb, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Megacoulomb, value, value * 1.0E-6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Gigacoulomb, value, value * 1.0E-9L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Teracoulomb, value, value * 1.0E-12L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Millicoulomb, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Microcoulomb, value, value * 1.0E6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Nanocoulomb, value, value * 1.0E9L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::ElementaryCharge, value, value / 1.602176634E-19L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::AmpereMinute, value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::AmpereHour, value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::KiloampereMinute, value, value / 6.0E4L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::KiloampereHour, value, value / 3.6E6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MegaampereMinute, value, value / 6.0E7L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MegaampereHour, value, value / 3.6E9L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::GigaampereMinute, value, value / 6.0E10L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::GigaampereHour, value, value / 3.6E12L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::TeraampereMinute, value, value / 6.0E13L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::TeraampereHour, value, value / 3.6E15L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MilliampereMinute, value, value / 0.06L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MilliampereHour, value, value / 3.6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MicroampereMinute, value, value / 6.0E-5L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MicroampereHour, value, value / 3.6E-3L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::NanoampereMinute, value, value / 6.0E-8L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::NanoampereHour, value, value / 3.6E-6L);
 }
 

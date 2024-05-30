@@ -139,120 +139,112 @@ TEST(UnitAcceleration, ConsistentUnit) {
 
 TEST(UnitAcceleration, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::NauticalMilePerSquareSecond, value,
       value / 1852.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareSecond, value,
-      value / 1609.344L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::MilePerSquareSecond, value, value / 1609.344L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareSecond, value,
       value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareSecond, value, value);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareSecond, value,
-      value / 0.9144L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareSecond, value,
-      value / 0.3048L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::DecimetrePerSquareSecond, value,
-      value * 10.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareSecond, value,
-      value / 0.0254L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::YardPerSquareSecond, value, value / 0.9144L);
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::FootPerSquareSecond, value, value / 0.3048L);
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::DecimetrePerSquareSecond, value, value * 10.0L);
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::InchPerSquareSecond, value, value / 0.0254L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareSecond, value,
       value * 100.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareSecond, value,
       value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareSecond, value,
       value / 0.0000254L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareSecond, value,
       value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareSecond, value,
       value / 0.0000000254L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::NauticalMilePerSquareMinute, value,
       value / 1852.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareMinute, value,
       value / 1609.344L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareMinute, value,
       value * 0.001L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareMinute, value,
-      value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::MetrePerSquareMinute, value, value * 3600.0L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareMinute, value,
       value / 0.9144L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareMinute, value,
       value / 0.3048L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::DecimetrePerSquareMinute, value,
       value * 10.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareMinute, value,
       value / 0.0254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareMinute, value,
       value * 100.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareMinute, value,
       value * 1000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareMinute, value,
       value / 0.0000254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareMinute, value,
       value * 1000000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareMinute, value,
       value / 0.0000000254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::KnotPerHour, value,
-      value / 1852.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond, Acceleration::KnotPerHour,
+                                      value, value / 1852.0L * 12960000.0L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareHour, value,
       value / 1609.344L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareHour, value,
       value * 0.001L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareHour, value,
-      value * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::MetrePerSquareHour, value, value * 12960000.0L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareHour, value,
       value / 0.9144L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareHour, value,
       value / 0.3048L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::DecimetrePerSquareHour, value,
       value * 10.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareHour, value,
       value / 0.0254L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareHour, value,
       value * 100.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareHour, value,
       value * 1000.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareHour, value,
       value / 0.0000254L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareHour, value,
       value * 1000000.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareHour, value,
       value / 0.0000000254L * 12960000.0L);
 }

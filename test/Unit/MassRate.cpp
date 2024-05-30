@@ -81,41 +81,35 @@ TEST(UnitMassRate, ConsistentUnit) {
 
 TEST(UnitMassRate, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::GramPerSecond, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlugPerSecond, value,
-      value * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlinchPerSecond, value,
-      value * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlugPerSecond, value,
+                                  value * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlinchPerSecond, value,
+                                  value * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::PoundPerSecond, value, value / 0.45359237L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::GramPerMinute, value, value * 60000.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlugPerMinute, value,
-      value * 60.0L * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlinchPerMinute, value,
-      value * 60.0L * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlugPerMinute, value,
+                                  value * 60.0L * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlinchPerMinute, value,
+                                  value * 60.0L * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::PoundPerMinute, value, value * 60.0L / 0.45359237L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::GramPerHour, value, value * 3600000.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlugPerHour, value,
-      value * 3600.0L * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlinchPerHour, value,
-      value * 3600.0L * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlugPerHour, value,
+                                  value * 3600.0L * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlinchPerHour, value,
+                                  value * 3600.0L * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::PoundPerHour, value, value * 3600.0L / 0.45359237L);
 }
 

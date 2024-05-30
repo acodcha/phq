@@ -100,61 +100,61 @@ TEST(UnitTransportEnergyConsumption, ConsistentUnit) {
 
 TEST(UnitTransportEnergyConsumption, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerMile, value,
       value * 1609.344L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerKilometre,
       value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerMetre, value,
       value);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::NanojoulePerMillimetre,
       value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilojoulePerMile,
       value, value * 1.609344L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerMile,
       value, value * 1609.344L / 60.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerMile, value,
       value * 1609.344L / 3600.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerKilometre,
       value, value / 0.06L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerKilometre,
       value, value / 3.6L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerMetre,
       value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerMetre,
       value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattMinutePerMile,
       value, value * 1609.344L / 60000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattHourPerMile,
       value, value * 1609.344L / 3600000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre,
       TransportEnergyConsumption::KilowattMinutePerKilometre, value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre,
       TransportEnergyConsumption::KilowattHourPerKilometre, value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattMinutePerMetre,
       value, value / 60000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattHourPerMetre,
       value, value / 3600000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::FootPoundPerFoot,
       value, value / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::InchPoundPerInch,
       value, value / (0.45359237L * 9.80665L));
 }

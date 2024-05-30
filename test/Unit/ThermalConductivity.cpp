@@ -70,13 +70,13 @@ TEST(UnitThermalConductivity, ConsistentUnit) {
 
 TEST(UnitThermalConductivity, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ThermalConductivity>(
+  Internal::TestConvert<ThermalConductivity>(
       ThermalConductivity::WattPerMetrePerKelvin, ThermalConductivity::WattPerMetrePerKelvin, value,
       value);
-  Internal::TestConvertAndConvertCopy<ThermalConductivity>(
+  Internal::TestConvert<ThermalConductivity>(
       ThermalConductivity::WattPerMetrePerKelvin,
       ThermalConductivity::NanowattPerMillimetrePerKelvin, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<ThermalConductivity>(
+  Internal::TestConvert<ThermalConductivity>(
       ThermalConductivity::WattPerMetrePerKelvin, ThermalConductivity::PoundPerSecondPerRankine,
       value, value / (0.45359237L * 9.80665L * 1.8L));
 }

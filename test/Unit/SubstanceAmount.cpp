@@ -72,15 +72,15 @@ TEST(UnitSubstanceAmount, ConsistentUnit) {
 
 TEST(UnitSubstanceAmount, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Mole, value, value);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Kilomole, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Megamole, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Gigamole, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Particles, value, value * 6.02214076E23L);
 }
 

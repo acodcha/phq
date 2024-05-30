@@ -69,21 +69,15 @@ TEST(UnitForce, ConsistentUnit) {
 
 TEST(UnitForce, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Force>(Force::Newton, Force::Newton, value, value);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Kilonewton, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Meganewton, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Giganewton, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Millinewton, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Micronewton, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Nanonewton, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(Force::Newton, Force::Dyne, value, value * 100000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(
+  Internal::TestConvert<Force>(Force::Newton, Force::Newton, value, value);
+  Internal::TestConvert<Force>(Force::Newton, Force::Kilonewton, value, value * 0.001L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Meganewton, value, value * 0.000001L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Giganewton, value, value * 0.000000001L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Millinewton, value, value * 1000.0L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Micronewton, value, value * 1000000.0L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Nanonewton, value, value * 1000000000.0L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Dyne, value, value * 100000.0L);
+  Internal::TestConvert<Force>(
       Force::Newton, Force::Pound, value, value / (0.45359237L * 9.80665L));
 }
 

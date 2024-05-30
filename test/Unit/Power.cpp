@@ -70,20 +70,16 @@ TEST(UnitPower, ConsistentUnit) {
 
 TEST(UnitPower, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Power>(Power::Watt, Power::Watt, value, value);
-  Internal::TestConvertAndConvertCopy<Power>(Power::Watt, Power::Milliwatt, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Microwatt, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Nanowatt, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<Power>(Power::Watt, Power::Kilowatt, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Megawatt, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Gigawatt, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Power>(
+  Internal::TestConvert<Power>(Power::Watt, Power::Watt, value, value);
+  Internal::TestConvert<Power>(Power::Watt, Power::Milliwatt, value, value * 1000.0L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Microwatt, value, value * 1000000.0L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Nanowatt, value, value * 1000000000.0L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Kilowatt, value, value * 0.001L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Megawatt, value, value * 0.000001L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Gigawatt, value, value * 0.000000001L);
+  Internal::TestConvert<Power>(
       Power::Watt, Power::FootPoundPerSecond, value, value / (0.3048L * 0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Power>(
+  Internal::TestConvert<Power>(
       Power::Watt, Power::InchPoundPerSecond, value, value / (0.0254L * 0.45359237L * 9.80665L));
 }
 

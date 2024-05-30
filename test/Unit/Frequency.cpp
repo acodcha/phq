@@ -64,17 +64,14 @@ TEST(UnitFrequency, ConsistentUnit) {
 
 TEST(UnitFrequency, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Frequency>(Frequency::Hertz, Frequency::Hertz, value, value);
-  Internal::TestConvertAndConvertCopy<Frequency>(
-      Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::Hertz, value, value);
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001L);
+  Internal::TestConvert<Frequency>(
       Frequency::Hertz, Frequency::Megahertz, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
+  Internal::TestConvert<Frequency>(
       Frequency::Hertz, Frequency::Gigahertz, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
-      Frequency::Hertz, Frequency::PerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
-      Frequency::Hertz, Frequency::PerHour, value, value * 3600.0L);
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::PerMinute, value, value * 60.0L);
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::PerHour, value, value * 3600.0L);
 }
 
 TEST(UnitFrequency, ConvertStatically) {

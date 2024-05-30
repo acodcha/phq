@@ -65,15 +65,13 @@ TEST(UnitAngle, ConsistentUnit) {
 
 TEST(UnitAngle, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
-      SolidAngle::Steradian, SolidAngle::Steradian, value, value);
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
-      SolidAngle::Steradian, SolidAngle::SquareDegree, value,
-      value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
+  Internal::TestConvert<SolidAngle>(SolidAngle::Steradian, SolidAngle::Steradian, value, value);
+  Internal::TestConvert<SolidAngle>(SolidAngle::Steradian, SolidAngle::SquareDegree, value,
+                                    value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
+  Internal::TestConvert<SolidAngle>(
       SolidAngle::Steradian, SolidAngle::SquareArcminute, value,
       value * 10800.0L * 10800.0L / (Pi<long double> * Pi<long double>));
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
+  Internal::TestConvert<SolidAngle>(
       SolidAngle::Steradian, SolidAngle::SquareArcsecond, value,
       value * 648000.0L * 648000.0L / (Pi<long double> * Pi<long double>));
 }

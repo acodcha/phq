@@ -72,21 +72,20 @@ TEST(UnitMassDensity, ConsistentUnit) {
 
 TEST(UnitMassDensity, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::KilogramPerCubicMetre, value, value);
-  Internal::TestConvertAndConvertCopy<MassDensity>(
-      MassDensity::KilogramPerCubicMetre, MassDensity::GramPerCubicMillimetre, value,
-      value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(MassDensity::KilogramPerCubicMetre,
+                                     MassDensity::GramPerCubicMillimetre, value, value * 0.000001L);
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::SlugPerCubicFoot, value,
       value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::SlinchPerCubicInch, value,
       value * std::pow(0.0254L, 4) / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::PoundPerCubicFoot, value,
       value * std::pow(0.3048L, 3) / 0.45359237L);
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::PoundPerCubicInch, value,
       value * std::pow(0.0254L, 3) / 0.45359237L);
 }

@@ -70,15 +70,15 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
 
 TEST(UnitEnergyFlux, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::WattPerSquareMetre, value, value);
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::NanowattPerSquareMillimetre, value,
       value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::FootPoundPerSquareFootPerSecond, value,
       value * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::InchPoundPerSquareInchPerSecond, value,
       value * 0.0254L / (0.45359237L * 9.80665L));
 }

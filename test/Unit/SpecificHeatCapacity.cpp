@@ -73,17 +73,17 @@ TEST(UnitSpecificHeatCapacity, ConsistentUnit) {
 
 TEST(UnitSpecificHeatCapacity, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SpecificHeatCapacity>(
+  Internal::TestConvert<SpecificHeatCapacity>(
       SpecificHeatCapacity::JoulePerKilogramPerKelvin,
       SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value);
-  Internal::TestConvertAndConvertCopy<SpecificHeatCapacity>(
+  Internal::TestConvert<SpecificHeatCapacity>(
       SpecificHeatCapacity::JoulePerKilogramPerKelvin,
       SpecificHeatCapacity::NanojoulePerGramPerKelvin, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<SpecificHeatCapacity>(
+  Internal::TestConvert<SpecificHeatCapacity>(
       SpecificHeatCapacity::JoulePerKilogramPerKelvin,
       SpecificHeatCapacity::FootPoundPerSlugPerRankine, value,
       value / (1.8L * std::pow(0.3048L, 2)));
-  Internal::TestConvertAndConvertCopy<SpecificHeatCapacity>(
+  Internal::TestConvert<SpecificHeatCapacity>(
       SpecificHeatCapacity::JoulePerKilogramPerKelvin,
       SpecificHeatCapacity::InchPoundPerSlinchPerRankine, value,
       value / (1.8L * std::pow(0.0254L, 2)));

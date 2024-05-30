@@ -72,13 +72,13 @@ TEST(UnitTemperatureDifference, ConsistentUnit) {
 
 TEST(UnitTemperatureDifference, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Celsius, value, value);
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Rankine, value, value * 1.8L);
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Fahrenheit, value, value * 1.8L);
 }
 

@@ -83,49 +83,49 @@ TEST(UnitAngularAcceleration, ConsistentUnit) {
 
 TEST(UnitAngularAcceleration, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RadianPerSquareSecond, value,
       value);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RadianPerSquareMinute, value,
       value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RadianPerSquareHour, value,
       value * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::DegreePerSquareSecond, value,
       value * 180.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::DegreePerSquareMinute, value,
       value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::DegreePerSquareHour, value,
       value * 2332800000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcminutePerSquareSecond,
       value, value * 10800.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcminutePerSquareMinute,
       value, value * 38880000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcminutePerSquareHour,
       value, value * 139968000000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcsecondPerSquareSecond,
       value, value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcsecondPerSquareMinute,
       value, value * 2332800000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcsecondPerSquareHour,
       value, value * 8398080000000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RevolutionPerSquareSecond,
       value, value * 0.5L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RevolutionPerSquareMinute,
       value, value * 1800.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<AngularAcceleration>(
+  Internal::TestConvert<AngularAcceleration>(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RevolutionPerSquareHour,
       value, value * 6480000.0L / Pi<long double>);
 }

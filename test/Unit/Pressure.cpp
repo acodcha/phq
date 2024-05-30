@@ -77,23 +77,17 @@ TEST(UnitPressure, ConsistentUnit) {
 
 TEST(UnitPressure, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Pressure>(Pressure::Pascal, Pressure::Pascal, value, value);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Megapascal, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Pascal, value, value);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001L);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Megapascal, value, value * 0.000001L);
+  Internal::TestConvert<Pressure>(
       Pressure::Pascal, Pressure::Gigapascal, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Bar, value, value * 0.00001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Atmosphere, value, value / 101325.0L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::PoundPerSquareFoot, value,
-      value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::PoundPerSquareInch, value,
-      value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Bar, value, value * 0.00001L);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Atmosphere, value, value / 101325.0L);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::PoundPerSquareFoot, value,
+                                  value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::PoundPerSquareInch, value,
+                                  value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitPressure, ConvertStatically) {

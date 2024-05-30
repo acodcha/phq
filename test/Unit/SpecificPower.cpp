@@ -70,14 +70,14 @@ TEST(UnitSpecificPower, ConsistentUnit) {
 
 TEST(UnitSpecificPower, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SpecificPower>(
+  Internal::TestConvert<SpecificPower>(
       SpecificPower::WattPerKilogram, SpecificPower::WattPerKilogram, value, value);
-  Internal::TestConvertAndConvertCopy<SpecificPower>(
+  Internal::TestConvert<SpecificPower>(
       SpecificPower::WattPerKilogram, SpecificPower::NanowattPerGram, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<SpecificPower>(
+  Internal::TestConvert<SpecificPower>(
       SpecificPower::WattPerKilogram, SpecificPower::FootPoundPerSlugPerSecond, value,
       value / std::pow(0.3048L, 2));
-  Internal::TestConvertAndConvertCopy<SpecificPower>(
+  Internal::TestConvert<SpecificPower>(
       SpecificPower::WattPerKilogram, SpecificPower::InchPoundPerSlinchPerSecond, value,
       value / std::pow(0.0254L, 2));
 }
