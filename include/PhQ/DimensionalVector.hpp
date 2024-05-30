@@ -63,9 +63,7 @@ public:
 
   /// \brief Value of this physical quantity expressed in a given unit of measure.
   [[nodiscard]] PhQ::Vector<NumericType> Value(const UnitType unit) const {
-    PhQ::Vector<NumericType> result{value};
-    PhQ::Convert(result, PhQ::Standard<UnitType>, unit);
-    return result;
+    return PhQ::ConvertCopy(value, PhQ::Standard<UnitType>, unit);
   }
 
   /// \brief Value of this physical quantity expressed in a given unit of measure. This method can
