@@ -78,6 +78,12 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       value * 648000.0L * 648000.0L / (Pi<long double> * Pi<long double>));
 }
 
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SolidAngle, SolidAngle::Steradian, SolidAngle::SquareDegree>(
+      value, value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
+}
+
 TEST(UnitAngle, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<SolidAngle>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<SolidAngle>("sr"), SolidAngle::Steradian);
@@ -99,12 +105,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<SolidAngle>, SolidAngle::Steradian);
-}
-
-TEST(UnitAngle, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<SolidAngle, SolidAngle::Steradian, SolidAngle::SquareDegree>(
-      value, value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
 }
 
 TEST(UnitAngle, Stream) {

@@ -74,6 +74,12 @@ TEST(UnitMass, ConvertAndConvertCopy) {
       Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
 }
 
+TEST(UnitMass, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Mass, Mass::Kilogram, Mass::Slug>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
+}
+
 TEST(UnitMass, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Mass>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Mass>("kg"), Mass::Kilogram);
@@ -100,12 +106,6 @@ TEST(UnitMass, RelatedUnitSystem) {
 
 TEST(UnitMass, Standard) {
   EXPECT_EQ(Standard<Mass>, Mass::Kilogram);
-}
-
-TEST(UnitMass, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Mass, Mass::Kilogram, Mass::Slug>(
-      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMass, Stream) {

@@ -87,6 +87,12 @@ TEST(UnitPower, ConvertAndConvertCopy) {
       Power::Watt, Power::InchPoundPerSecond, value, value / (0.0254L * 0.45359237L * 9.80665L));
 }
 
+TEST(UnitPower, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Power, Power::Watt, Power::FootPoundPerSecond>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L));
+}
+
 TEST(UnitPower, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Power>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Power>("W"), Power::Watt);
@@ -121,12 +127,6 @@ TEST(UnitPower, RelatedUnitSystem) {
 
 TEST(UnitPower, Standard) {
   EXPECT_EQ(Standard<Power>, Power::Watt);
-}
-
-TEST(UnitPower, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Power, Power::Watt, Power::FootPoundPerSecond>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 
 TEST(UnitPower, Stream) {

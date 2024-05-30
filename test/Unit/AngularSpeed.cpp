@@ -81,7 +81,7 @@ TEST(UnitAngularSpeed, ConsistentUnit) {
             AngularSpeed::RadianPerSecond);
 }
 
-TEST(UnitAngularSpeed, ConvertFromStandard) {
+TEST(UnitAngularSpeed, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvertAndConvertCopy<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerSecond, value, value);
@@ -125,6 +125,13 @@ TEST(UnitAngularSpeed, ConvertFromStandard) {
   Internal::TestConvertAndConvertCopy<AngularSpeed>(
       AngularSpeed::RadianPerSecond, AngularSpeed::RevolutionPerHour, value,
       value * 1800.0L / Pi<long double>);
+}
+
+TEST(UnitAngularSpeed, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<AngularSpeed, AngularSpeed::RadianPerSecond,
+                                  AngularSpeed::DegreePerSecond>(
+      value, value * 180.0L / Pi<long double>);
 }
 
 TEST(UnitAngularSpeed, ParseEnumeration) {
@@ -173,13 +180,6 @@ TEST(UnitAngularSpeed, RelatedUnitSystem) {
 
 TEST(UnitAngularSpeed, Standard) {
   EXPECT_EQ(Standard<AngularSpeed>, AngularSpeed::RadianPerSecond);
-}
-
-TEST(UnitAngularSpeed, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                  AngularSpeed::DegreePerSecond>(
-      value, value * 180.0L / Pi<long double>);
 }
 
 TEST(UnitAngularSpeed, Stream) {

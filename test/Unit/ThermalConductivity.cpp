@@ -81,6 +81,13 @@ TEST(UnitThermalConductivity, ConvertAndConvertCopy) {
       value, value / (0.45359237L * 9.80665L * 1.8L));
 }
 
+TEST(UnitThermalConductivity, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
+                                  ThermalConductivity::PoundPerSecondPerRankine>(
+      value, value / (0.45359237L * 9.80665L * 1.8L));
+}
+
 TEST(UnitThermalConductivity, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<ThermalConductivity>("Hello world!"), std::nullopt);
   EXPECT_EQ(
@@ -108,13 +115,6 @@ TEST(UnitThermalConductivity, RelatedUnitSystem) {
 
 TEST(UnitThermalConductivity, Standard) {
   EXPECT_EQ(Standard<ThermalConductivity>, ThermalConductivity::WattPerMetrePerKelvin);
-}
-
-TEST(UnitThermalConductivity, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
-                                  ThermalConductivity::PoundPerSecondPerRankine>(
-      value, value / (0.45359237L * 9.80665L * 1.8L));
 }
 
 TEST(UnitThermalConductivity, Stream) {

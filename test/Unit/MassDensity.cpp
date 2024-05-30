@@ -91,6 +91,13 @@ TEST(UnitMassDensity, ConvertAndConvertCopy) {
       value * std::pow(0.0254L, 3) / 0.45359237L);
 }
 
+TEST(UnitMassDensity, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                  MassDensity::SlugPerCubicFoot>(
+      value, value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
+}
+
 TEST(UnitMassDensity, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<MassDensity>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
@@ -121,13 +128,6 @@ TEST(UnitMassDensity, RelatedUnitSystem) {
 
 TEST(UnitMassDensity, Standard) {
   EXPECT_EQ(Standard<MassDensity>, MassDensity::KilogramPerCubicMetre);
-}
-
-TEST(UnitMassDensity, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<MassDensity, MassDensity::KilogramPerCubicMetre,
-                                  MassDensity::SlugPerCubicFoot>(
-      value, value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMassDensity, Stream) {

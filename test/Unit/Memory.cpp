@@ -125,6 +125,12 @@ TEST(UnitMemory, ConvertAndConvertCopy) {
       Memory::Bit, Memory::Pebibyte, value, value / (8.0L * std::pow(1024.0L, 5)));
 }
 
+TEST(UnitMemory, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Memory, Memory::Bit, Memory::Kilobyte>(
+      value, value / (8.0L * 1000.0L));
+}
+
 TEST(UnitMemory, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Memory>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Memory>("b"), Memory::Bit);
@@ -182,12 +188,6 @@ TEST(UnitMemory, RelatedUnitSystem) {
 
 TEST(UnitMemory, Standard) {
   EXPECT_EQ(Standard<Memory>, Memory::Bit);
-}
-
-TEST(UnitMemory, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Memory, Memory::Bit, Memory::Kilobyte>(
-      value, value / (8.0L * 1000.0L));
 }
 
 TEST(UnitMemory, Stream) {

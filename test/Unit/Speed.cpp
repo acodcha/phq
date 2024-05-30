@@ -108,7 +108,7 @@ TEST(UnitSpeed, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Speed>(UnitSystem::InchPoundSecondRankine), Speed::InchPerSecond);
 }
 
-TEST(UnitSpeed, ConvertFromStandard) {
+TEST(UnitSpeed, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvertAndConvertCopy<Speed>(
       Speed::MetrePerSecond, Speed::NauticalMilePerSecond, value, value / 1852.0L);
@@ -188,6 +188,12 @@ TEST(UnitSpeed, ConvertFromStandard) {
       Speed::MetrePerSecond, Speed::MicrometrePerHour, value, value * 1000000.0L * 3600.0L);
   Internal::TestConvertAndConvertCopy<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerHour, value, value / 0.0000000254L * 3600.0L);
+}
+
+TEST(UnitSpeed, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Speed, Speed::MetrePerSecond, Speed::FootPerSecond>(
+      value, value / 0.3048L);
 }
 
 TEST(UnitSpeed, ParseEnumeration) {
@@ -284,12 +290,6 @@ TEST(UnitSpeed, RelatedUnitSystem) {
 
 TEST(UnitSpeed, Standard) {
   EXPECT_EQ(Standard<Speed>, Speed::MetrePerSecond);
-}
-
-TEST(UnitSpeed, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Speed, Speed::MetrePerSecond, Speed::FootPerSecond>(
-      value, value / 0.3048L);
 }
 
 TEST(UnitSpeed, Stream) {

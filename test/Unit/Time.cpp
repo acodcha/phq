@@ -74,6 +74,11 @@ TEST(UnitTime, ConvertAndConvertCopy) {
   Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Hour, value, value / 3600.0L);
 }
 
+TEST(UnitTime, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
+}
+
 TEST(UnitTime, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Time>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Time>("ns"), Time::Nanosecond);
@@ -102,11 +107,6 @@ TEST(UnitTime, RelatedUnitSystem) {
 
 TEST(UnitTime, Standard) {
   EXPECT_EQ(Standard<Time>, Time::Second);
-}
-
-TEST(UnitTime, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
 }
 
 TEST(UnitTime, Stream) {

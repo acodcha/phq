@@ -87,6 +87,12 @@ TEST(UnitForce, ConvertAndConvertCopy) {
       Force::Newton, Force::Pound, value, value / (0.45359237L * 9.80665L));
 }
 
+TEST(UnitForce, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Force, Force::Newton, Force::Pound>(
+      value, value / (0.45359237L * 9.80665L));
+}
+
 TEST(UnitForce, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Force>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Force>("N"), Force::Newton);
@@ -121,12 +127,6 @@ TEST(UnitForce, RelatedUnitSystem) {
 
 TEST(UnitForce, Standard) {
   EXPECT_EQ(Standard<Force>, Force::Newton);
-}
-
-TEST(UnitForce, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Force, Force::Newton, Force::Pound>(
-      value, value / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitForce, Stream) {

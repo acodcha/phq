@@ -100,6 +100,13 @@ TEST(UnitTemperatureGradient, ConvertAndConvertCopy) {
       value * 1.8L * 0.0254L);
 }
 
+TEST(UnitTemperatureGradient, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                                  TemperatureGradient::FahrenheitPerFoot>(
+      value, value * 1.8L * 0.3048L);
+}
+
 TEST(UnitTemperatureGradient, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<TemperatureGradient>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<TemperatureGradient>("K/m"), TemperatureGradient::KelvinPerMetre);
@@ -138,13 +145,6 @@ TEST(UnitTemperatureGradient, RelatedUnitSystem) {
 
 TEST(UnitTemperatureGradient, Standard) {
   EXPECT_EQ(Standard<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
-}
-
-TEST(UnitTemperatureGradient, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
-                                  TemperatureGradient::FahrenheitPerFoot>(
-      value, value * 1.8L * 0.3048L);
 }
 
 TEST(UnitTemperatureGradient, Stream) {

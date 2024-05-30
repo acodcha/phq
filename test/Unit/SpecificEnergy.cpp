@@ -83,6 +83,13 @@ TEST(UnitSpecificEnergy, ConvertAndConvertCopy) {
       value / std::pow(0.0254L, 2));
 }
 
+TEST(UnitSpecificEnergy, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
+                                  SpecificEnergy::FootPoundPerSlug>(
+      value, value / std::pow(0.3048L, 2));
+}
+
 TEST(UnitSpecificEnergy, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<SpecificEnergy>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<SpecificEnergy>("J/kg"), SpecificEnergy::JoulePerKilogram);
@@ -111,13 +118,6 @@ TEST(UnitSpecificEnergy, RelatedUnitSystem) {
 
 TEST(UnitSpecificEnergy, Standard) {
   EXPECT_EQ(Standard<SpecificEnergy>, SpecificEnergy::JoulePerKilogram);
-}
-
-TEST(UnitSpecificEnergy, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                  SpecificEnergy::FootPoundPerSlug>(
-      value, value / std::pow(0.3048L, 2));
 }
 
 TEST(UnitSpecificEnergy, Stream) {

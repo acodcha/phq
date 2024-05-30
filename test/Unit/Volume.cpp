@@ -110,6 +110,12 @@ TEST(UnitVolume, ConvertAndConvertCopy) {
       Volume::CubicMetre, Volume::CubicMicroinch, value, value / std::pow(0.0000000254L, 3));
 }
 
+TEST(UnitVolume, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Volume, Volume::CubicMetre, Volume::CubicFoot>(
+      value, value / std::pow(0.3048L, 3));
+}
+
 TEST(UnitVolume, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Volume>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Volume>("nmi^3"), Volume::CubicNauticalMile);
@@ -156,12 +162,6 @@ TEST(UnitVolume, RelatedUnitSystem) {
 
 TEST(UnitVolume, Standard) {
   EXPECT_EQ(Standard<Volume>, Volume::CubicMetre);
-}
-
-TEST(UnitVolume, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Volume, Volume::CubicMetre, Volume::CubicFoot>(
-      value, value / std::pow(0.3048L, 3));
 }
 
 TEST(UnitVolume, Stream) {

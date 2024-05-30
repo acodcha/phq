@@ -82,6 +82,12 @@ TEST(UnitThermalExpansion, ConvertAndConvertCopy) {
       ThermalExpansion::PerKelvin, ThermalExpansion::PerFahrenheit, value, value / 1.8L);
 }
 
+TEST(UnitThermalExpansion, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ThermalExpansion, ThermalExpansion::PerKelvin,
+                                  ThermalExpansion::PerFahrenheit>(value, value / 1.8L);
+}
+
 TEST(UnitThermalExpansion, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<ThermalExpansion>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<ThermalExpansion>("/K"), ThermalExpansion::PerKelvin);
@@ -106,12 +112,6 @@ TEST(UnitThermalExpansion, RelatedUnitSystem) {
 
 TEST(UnitThermalExpansion, Standard) {
   EXPECT_EQ(Standard<ThermalExpansion>, ThermalExpansion::PerKelvin);
-}
-
-TEST(UnitThermalExpansion, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<ThermalExpansion, ThermalExpansion::PerKelvin,
-                                  ThermalExpansion::PerFahrenheit>(value, value / 1.8L);
 }
 
 TEST(UnitThermalExpansion, Stream) {

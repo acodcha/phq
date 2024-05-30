@@ -327,6 +327,12 @@ TEST(UnitMemoryRate, ConvertAndConvertCopy) {
       value * 3600.0L / (8.0L * std::pow(1024.0L, 5)));
 }
 
+TEST(UnitMemoryRate, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<MemoryRate, MemoryRate::BitPerSecond,
+                                  MemoryRate::KilobytePerSecond>(value, value / (8.0L * 1000.0L));
+}
+
 TEST(UnitMemoryRate, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<MemoryRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<MemoryRate>("b/s"), MemoryRate::BitPerSecond);
@@ -475,12 +481,6 @@ TEST(UnitMemoryRate, RelatedUnitSystem) {
 
 TEST(UnitMemoryRate, Standard) {
   EXPECT_EQ(Standard<MemoryRate>, MemoryRate::BitPerSecond);
-}
-
-TEST(UnitMemoryRate, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<MemoryRate, MemoryRate::BitPerSecond,
-                                  MemoryRate::KilobytePerSecond>(value, value / (8.0L * 1000.0L));
 }
 
 TEST(UnitMemoryRate, Stream) {

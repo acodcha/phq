@@ -108,6 +108,12 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       value * 3600.0L / 1.602176634E-19L);
 }
 
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ElectricCurrent, ElectricCurrent::Ampere,
+                                  ElectricCurrent::Kiloampere>(value, value * 0.001L);
+}
+
 TEST(UnitAngle, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<ElectricCurrent>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<ElectricCurrent>("A"), ElectricCurrent::Ampere);
@@ -146,12 +152,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<ElectricCurrent>, ElectricCurrent::Ampere);
-}
-
-TEST(UnitAngle, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<ElectricCurrent, ElectricCurrent::Ampere,
-                                  ElectricCurrent::Kiloampere>(value, value * 0.001L);
 }
 
 TEST(UnitAngle, Stream) {

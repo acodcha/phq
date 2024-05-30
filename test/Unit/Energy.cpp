@@ -187,6 +187,12 @@ TEST(UnitEnergy, ConvertAndConvertCopy) {
       Energy::Joule, Energy::BritishThermalUnit, value, value * 1.8L / (4.1868L * 453.59237L));
 }
 
+TEST(UnitEnergy, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Energy, Energy::Joule, Energy::FootPound>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L));
+}
+
 TEST(UnitEnergy, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Energy>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Energy>("J"), Energy::Joule);
@@ -259,12 +265,6 @@ TEST(UnitEnergy, RelatedUnitSystem) {
 
 TEST(UnitEnergy, Standard) {
   EXPECT_EQ(Standard<Energy>, Energy::Joule);
-}
-
-TEST(UnitEnergy, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Energy, Energy::Joule, Energy::FootPound>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 
 TEST(UnitEnergy, Stream) {

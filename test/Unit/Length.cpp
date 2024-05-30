@@ -98,6 +98,11 @@ TEST(UnitLength, ConvertAndConvertCopy) {
       Length::Metre, Length::Microinch, value, value / 0.0000000254L);
 }
 
+TEST(UnitLength, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Length, Length::Metre, Length::Foot>(value, value / 0.3048L);
+}
+
 TEST(UnitLength, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Length>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Length>("nmi"), Length::NauticalMile);
@@ -140,11 +145,6 @@ TEST(UnitLength, RelatedUnitSystem) {
 
 TEST(UnitLength, Standard) {
   EXPECT_EQ(Standard<Length>, Length::Metre);
-}
-
-TEST(UnitLength, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Length, Length::Metre, Length::Foot>(value, value / 0.3048L);
 }
 
 TEST(UnitLength, Stream) {

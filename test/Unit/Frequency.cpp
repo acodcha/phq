@@ -77,6 +77,12 @@ TEST(UnitFrequency, ConvertAndConvertCopy) {
       Frequency::Hertz, Frequency::PerHour, value, value * 3600.0L);
 }
 
+TEST(UnitFrequency, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
+      value, value * 0.001L);
+}
+
 TEST(UnitFrequency, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Frequency>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Frequency>("Hz"), Frequency::Hertz);
@@ -103,12 +109,6 @@ TEST(UnitFrequency, RelatedUnitSystem) {
 
 TEST(UnitFrequency, Standard) {
   EXPECT_EQ(Standard<Frequency>, Frequency::Hertz);
-}
-
-TEST(UnitFrequency, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
-      value, value * 0.001L);
 }
 
 TEST(UnitFrequency, Stream) {

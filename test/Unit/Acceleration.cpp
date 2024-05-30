@@ -257,6 +257,12 @@ TEST(UnitAcceleration, ConvertAndConvertCopy) {
       value / 0.0000000254L * 12960000.0L);
 }
 
+TEST(UnitAcceleration, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Acceleration, Acceleration::MetrePerSquareSecond,
+                                  Acceleration::FootPerSquareSecond>(value, value / 0.3048L);
+}
+
 TEST(UnitAcceleration, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Acceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Acceleration>("nmi/s^2"), Acceleration::NauticalMilePerSquareSecond);
@@ -355,12 +361,6 @@ TEST(UnitAcceleration, RelatedUnitSystem) {
 
 TEST(UnitAcceleration, Standard) {
   EXPECT_EQ(Standard<Acceleration>, Acceleration::MetrePerSquareSecond);
-}
-
-TEST(UnitAcceleration, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Acceleration, Acceleration::MetrePerSquareSecond,
-                                  Acceleration::FootPerSquareSecond>(value, value / 0.3048L);
 }
 
 TEST(UnitAcceleration, Stream) {

@@ -84,6 +84,12 @@ TEST(UnitSubstanceAmount, ConvertAndConvertCopy) {
       SubstanceAmount::Mole, SubstanceAmount::Particles, value, value * 6.02214076E23L);
 }
 
+TEST(UnitSubstanceAmount, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SubstanceAmount, SubstanceAmount::Mole,
+                                  SubstanceAmount::Particles>(value, value * 6.02214076E23L);
+}
+
 TEST(UnitSubstanceAmount, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<SubstanceAmount>("mol"), SubstanceAmount::Mole);
@@ -110,12 +116,6 @@ TEST(UnitSubstanceAmount, RelatedUnitSystem) {
 
 TEST(UnitSubstanceAmount, Standard) {
   EXPECT_EQ(Standard<SubstanceAmount>, SubstanceAmount::Mole);
-}
-
-TEST(UnitSubstanceAmount, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<SubstanceAmount, SubstanceAmount::Mole,
-                                  SubstanceAmount::Particles>(value, value * 6.02214076E23L);
 }
 
 TEST(UnitSubstanceAmount, Stream) {

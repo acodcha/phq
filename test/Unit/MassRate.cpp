@@ -119,6 +119,12 @@ TEST(UnitMassRate, ConvertAndConvertCopy) {
       MassRate::KilogramPerSecond, MassRate::PoundPerHour, value, value * 3600.0L / 0.45359237L);
 }
 
+TEST(UnitMassRate, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
+}
+
 TEST(UnitMassRate, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<MassRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<MassRate>("kg/s"), MassRate::KilogramPerSecond);
@@ -165,12 +171,6 @@ TEST(UnitMassRate, RelatedUnitSystem) {
 
 TEST(UnitMassRate, Standard) {
   EXPECT_EQ(Standard<MassRate>, MassRate::KilogramPerSecond);
-}
-
-TEST(UnitMassRate, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
-      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMassRate, Stream) {

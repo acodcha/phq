@@ -82,6 +82,13 @@ TEST(UnitSpecificPower, ConvertAndConvertCopy) {
       value / std::pow(0.0254L, 2));
 }
 
+TEST(UnitSpecificPower, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SpecificPower, SpecificPower::WattPerKilogram,
+                                  SpecificPower::FootPoundPerSlugPerSecond>(
+      value, value / std::pow(0.3048L, 2));
+}
+
 TEST(UnitSpecificPower, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<SpecificPower>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<SpecificPower>("W/kg"), SpecificPower::WattPerKilogram);
@@ -112,13 +119,6 @@ TEST(UnitSpecificPower, RelatedUnitSystem) {
 
 TEST(UnitSpecificPower, Standard) {
   EXPECT_EQ(Standard<SpecificPower>, SpecificPower::WattPerKilogram);
-}
-
-TEST(UnitSpecificPower, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<SpecificPower, SpecificPower::WattPerKilogram,
-                                  SpecificPower::FootPoundPerSlugPerSecond>(
-      value, value / std::pow(0.3048L, 2));
 }
 
 TEST(UnitSpecificPower, Stream) {

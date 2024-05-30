@@ -84,6 +84,13 @@ TEST(UnitHeatCapacity, ConvertAndConvertCopy) {
       value / (0.0254L * 0.45359237L * 9.80665L * 1.8L));
 }
 
+TEST(UnitHeatCapacity, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                  HeatCapacity::FootPoundPerRankine>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
+}
+
 TEST(UnitHeatCapacity, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<HeatCapacity>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<HeatCapacity>("J/K"), HeatCapacity::JoulePerKelvin);
@@ -111,13 +118,6 @@ TEST(UnitHeatCapacity, RelatedUnitSystem) {
 
 TEST(UnitHeatCapacity, Standard) {
   EXPECT_EQ(Standard<HeatCapacity>, HeatCapacity::JoulePerKelvin);
-}
-
-TEST(UnitHeatCapacity, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<HeatCapacity, HeatCapacity::JoulePerKelvin,
-                                  HeatCapacity::FootPoundPerRankine>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
 }
 
 TEST(UnitHeatCapacity, Stream) {

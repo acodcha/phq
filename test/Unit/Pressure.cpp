@@ -96,6 +96,12 @@ TEST(UnitPressure, ConvertAndConvertCopy) {
       value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
+TEST(UnitPressure, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
+      value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
+}
+
 TEST(UnitPressure, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Pressure>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Pressure>("Pa"), Pressure::Pascal);
@@ -128,12 +134,6 @@ TEST(UnitPressure, RelatedUnitSystem) {
 
 TEST(UnitPressure, Standard) {
   EXPECT_EQ(Standard<Pressure>, Pressure::Pascal);
-}
-
-TEST(UnitPressure, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
-      value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitPressure, Stream) {

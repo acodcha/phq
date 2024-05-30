@@ -286,6 +286,13 @@ TEST(UnitVolumeRate, ConvertAndConvertCopy) {
       value * 3600.0L / std::pow(0.0000000254L, 3));
 }
 
+TEST(UnitVolumeRate, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<VolumeRate, VolumeRate::CubicMetrePerSecond,
+                                  VolumeRate::CubicFootPerSecond>(
+      value, value / std::pow(0.3048L, 3));
+}
+
 TEST(UnitVolumeRate, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<VolumeRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<VolumeRate>("nmi^3/s"), VolumeRate::CubicNauticalMilePerSecond);
@@ -394,13 +401,6 @@ TEST(UnitVolumeRate, RelatedUnitSystem) {
 
 TEST(UnitVolumeRate, Standard) {
   EXPECT_EQ(Standard<VolumeRate>, VolumeRate::CubicMetrePerSecond);
-}
-
-TEST(UnitVolumeRate, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                  VolumeRate::CubicFootPerSecond>(
-      value, value / std::pow(0.3048L, 3));
 }
 
 TEST(UnitVolumeRate, Stream) {

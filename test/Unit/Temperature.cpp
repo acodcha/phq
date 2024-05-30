@@ -80,6 +80,12 @@ TEST(UnitTemperature, ConvertAndConvertCopy) {
       Temperature::Kelvin, Temperature::Fahrenheit, value, (value * 1.8L) - 459.67L);
 }
 
+TEST(UnitTemperature, ConvertStatically) {
+  constexpr long double value{123.4567890123456789L};
+  Internal::TestConvertStatically<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
+      value, (value * 1.8L) - 459.67L);
+}
+
 TEST(UnitTemperature, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Temperature>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Temperature>("K"), Temperature::Kelvin);
@@ -104,12 +110,6 @@ TEST(UnitTemperature, RelatedUnitSystem) {
 
 TEST(UnitTemperature, Standard) {
   EXPECT_EQ(Standard<Temperature>, Temperature::Kelvin);
-}
-
-TEST(UnitTemperature, ConvertStatically) {
-  constexpr long double value{123.4567890123456789L};
-  Internal::TestConvertStatically<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
-      value, (value * 1.8L) - 459.67L);
 }
 
 TEST(UnitTemperature, Stream) {

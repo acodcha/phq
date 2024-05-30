@@ -149,6 +149,12 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       ElectricCharge::Coulomb, ElectricCharge::NanoampereHour, value, value / 3.6E-6L);
 }
 
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ElectricCharge, ElectricCharge::Coulomb,
+                                  ElectricCharge::Kilocoulomb>(value, value * 0.001L);
+}
+
 TEST(UnitAngle, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<ElectricCharge>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<ElectricCharge>("C"), ElectricCharge::Coulomb);
@@ -215,12 +221,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<ElectricCharge>, ElectricCharge::Coulomb);
-}
-
-TEST(UnitAngle, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<ElectricCharge, ElectricCharge::Coulomb,
-                                  ElectricCharge::Kilocoulomb>(value, value * 0.001L);
 }
 
 TEST(UnitAngle, Stream) {

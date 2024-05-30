@@ -68,7 +68,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             EnergyFlux::InchPoundPerSquareInchPerSecond);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitEnergyFlux, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
   Internal::TestConvertAndConvertCopy<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::WattPerSquareMetre, value, value);
@@ -81,6 +81,13 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
   Internal::TestConvertAndConvertCopy<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::InchPoundPerSquareInchPerSecond, value,
       value * 0.0254L / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitEnergyFlux, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<EnergyFlux, EnergyFlux::WattPerSquareMetre,
+                                  EnergyFlux::FootPoundPerSquareFootPerSecond>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitEnergyFlux, ParseEnumeration) {
@@ -113,13 +120,6 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
 
 TEST(UnitEnergyFlux, Standard) {
   EXPECT_EQ(Standard<EnergyFlux>, EnergyFlux::WattPerSquareMetre);
-}
-
-TEST(UnitEnergyFlux, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<EnergyFlux, EnergyFlux::WattPerSquareMetre,
-                                  EnergyFlux::FootPoundPerSquareFootPerSecond>(
-      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitEnergyFlux, Stream) {

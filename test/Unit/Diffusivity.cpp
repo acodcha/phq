@@ -137,6 +137,13 @@ TEST(UnitDiffusivity, ConvertAndConvertCopy) {
       value / std::pow(0.0000000254L, 2));
 }
 
+TEST(UnitDiffusivity, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Diffusivity, Diffusivity::SquareMetrePerSecond,
+                                  Diffusivity::SquareFootPerSecond>(
+      value, value / std::pow(0.3048L, 2));
+}
+
 TEST(UnitDiffusivity, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Diffusivity>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Diffusivity>("nmi^2/s"), Diffusivity::SquareNauticalMilePerSecond);
@@ -187,13 +194,6 @@ TEST(UnitDiffusivity, RelatedUnitSystem) {
 
 TEST(UnitDiffusivity, Standard) {
   EXPECT_EQ(Standard<Diffusivity>, Diffusivity::SquareMetrePerSecond);
-}
-
-TEST(UnitDiffusivity, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                                  Diffusivity::SquareFootPerSecond>(
-      value, value / std::pow(0.3048L, 2));
 }
 
 TEST(UnitDiffusivity, Stream) {

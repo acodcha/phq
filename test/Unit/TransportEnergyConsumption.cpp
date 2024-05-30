@@ -159,6 +159,13 @@ TEST(UnitTransportEnergyConsumption, ConvertAndConvertCopy) {
       value, value / (0.45359237L * 9.80665L));
 }
 
+TEST(UnitTransportEnergyConsumption, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<
+      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
+      TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237L * 9.80665L));
+}
+
 TEST(UnitTransportEnergyConsumption, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("J/m"),
@@ -239,13 +246,6 @@ TEST(UnitTransportEnergyConsumption, RelatedUnitSystem) {
 
 TEST(UnitTransportEnergyConsumption, Standard) {
   EXPECT_EQ(Standard<TransportEnergyConsumption>, TransportEnergyConsumption::JoulePerMetre);
-}
-
-TEST(UnitTransportEnergyConsumption, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitTransportEnergyConsumption, Stream) {

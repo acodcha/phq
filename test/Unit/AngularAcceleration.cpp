@@ -130,6 +130,13 @@ TEST(UnitAngularAcceleration, ConvertAndConvertCopy) {
       value, value * 6480000.0L / Pi<long double>);
 }
 
+TEST(UnitAngularAcceleration, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<AngularAcceleration, AngularAcceleration::RadianPerSquareSecond,
+                                  AngularAcceleration::DegreePerSquareSecond>(
+      value, value * 180.0L / Pi<long double>);
+}
+
 TEST(UnitAngularAcceleration, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<AngularAcceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(
@@ -191,13 +198,6 @@ TEST(UnitAngularAcceleration, RelatedUnitSystem) {
 
 TEST(UnitAngularAcceleration, Standard) {
   EXPECT_EQ(Standard<AngularAcceleration>, AngularAcceleration::RadianPerSquareSecond);
-}
-
-TEST(UnitAngularAcceleration, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<AngularAcceleration, AngularAcceleration::RadianPerSquareSecond,
-                                  AngularAcceleration::DegreePerSquareSecond>(
-      value, value * 180.0L / Pi<long double>);
 }
 
 TEST(UnitAngularAcceleration, Stream) {

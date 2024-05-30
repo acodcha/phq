@@ -72,6 +72,12 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       Angle::Radian, Angle::Revolution, value, value / (2.0L * Pi<long double>));
 }
 
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Angle, Angle::Radian, Angle::Degree>(
+      value, value * 180.0L / Pi<long double>);
+}
+
 TEST(UnitAngle, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Angle>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Angle>("rad"), Angle::Radian);
@@ -95,12 +101,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<Angle>, Angle::Radian);
-}
-
-TEST(UnitAngle, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Angle, Angle::Radian, Angle::Degree>(
-      value, value * 180.0L / Pi<long double>);
 }
 
 TEST(UnitAngle, Stream) {

@@ -119,6 +119,12 @@ TEST(UnitArea, ConvertAndConvertCopy) {
       Area::SquareMetre, Area::SquareMicroinch, value, value / std::pow(0.0000000254L, 2));
 }
 
+TEST(UnitArea, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Area, Area::SquareMetre, Area::SquareFoot>(
+      value, value / std::pow(0.3048L, 2));
+}
+
 TEST(UnitArea, ParseEnumeration) {
   EXPECT_EQ(ParseEnumeration<Area>("Hello world!"), std::nullopt);
   EXPECT_EQ(ParseEnumeration<Area>("nmi^2"), Area::SquareNauticalMile);
@@ -165,12 +171,6 @@ TEST(UnitArea, RelatedUnitSystem) {
 
 TEST(UnitArea, Standard) {
   EXPECT_EQ(Standard<Area>, Area::SquareMetre);
-}
-
-TEST(UnitArea, ConvertStatically) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<Area, Area::SquareMetre, Area::SquareFoot>(
-      value, value / std::pow(0.3048L, 2));
 }
 
 TEST(UnitArea, Stream) {
