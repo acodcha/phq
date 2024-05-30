@@ -198,291 +198,294 @@ inline const std::unordered_map<std::string_view, Unit::Volume> Spellings<Unit::
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicNauticalMile>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1852.0L) * static_cast<NumericType>(1852.0L)
+           * static_cast<NumericType>(1852.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicNauticalMile>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1852.0L) * static_cast<NumericType>(1852.0L)
+           * static_cast<NumericType>(1852.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMile>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
-           * static_cast<Number>(1609.344L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L)
+           * static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMile>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
-           * static_cast<Number>(1609.344L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L)
+           * static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicKilometre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicKilometre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicYard>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.9144L) * static_cast<NumericType>(0.9144L)
+           * static_cast<NumericType>(0.9144L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicYard>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.9144L) * static_cast<NumericType>(0.9144L)
+           * static_cast<NumericType>(0.9144L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicFoot>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L)
+           * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicFoot>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L)
+           * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicDecimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicDecimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::Litre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::Litre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicInch>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L)
+           * static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicInch>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L)
+           * static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicCentimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicCentimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::Millilitre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::Millilitre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMillimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMillimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMilliinch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
-           * static_cast<Number>(0.0000254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0000254L) * static_cast<NumericType>(0.0000254L)
+           * static_cast<NumericType>(0.0000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMilliinch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
-           * static_cast<Number>(0.0000254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0000254L) * static_cast<NumericType>(0.0000254L)
+           * static_cast<NumericType>(0.0000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMicrometre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E18L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E18L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMicrometre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-18L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-18L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMicroinch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
-           * static_cast<Number>(0.0000000254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0000000254L) * static_cast<NumericType>(0.0000000254L)
+           * static_cast<NumericType>(0.0000000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMicroinch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
-           * static_cast<Number>(0.0000000254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0000000254L) * static_cast<NumericType>(0.0000000254L)
+           * static_cast<NumericType>(0.0000000254L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Volume, std::function<void(Number* const, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Volume, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Volume, std::function<void(NumericType* const, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Volume, NumericType>{
         {Unit::Volume::CubicNauticalMile,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicNauticalMile>::FromStandard<Number>},
+         Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::FromStandard<NumericType>},
         {Unit::Volume::CubicMile,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMile>::FromStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicMile>::FromStandard<NumericType>        },
         {Unit::Volume::CubicKilometre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicKilometre>::FromStandard<Number>   },
+         Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::FromStandard<NumericType>   },
         {Unit::Volume::CubicMetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMetre>::FromStandard<Number>       },
+         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard<NumericType>       },
         {Unit::Volume::CubicYard,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicYard>::FromStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicYard>::FromStandard<NumericType>        },
         {Unit::Volume::CubicFoot,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicFoot>::FromStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicFoot>::FromStandard<NumericType>        },
         {Unit::Volume::CubicDecimetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicDecimetre>::FromStandard<Number>   },
-        {Unit::Volume::Litre,             Conversions<Unit::Volume, Unit::Volume::Litre>::FromStandard<Number>            },
+         Conversions<Unit::Volume, Unit::Volume::CubicDecimetre>::FromStandard<NumericType>   },
+        {Unit::Volume::Litre,
+         Conversions<Unit::Volume, Unit::Volume::Litre>::FromStandard<NumericType>            },
         {Unit::Volume::CubicInch,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicInch>::FromStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicInch>::FromStandard<NumericType>        },
         {Unit::Volume::CubicCentimetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicCentimetre>::FromStandard<Number>  },
+         Conversions<Unit::Volume, Unit::Volume::CubicCentimetre>::FromStandard<NumericType>  },
         {Unit::Volume::Millilitre,
-         Conversions<Unit::Volume,                                  Unit::Volume::Millilitre>::FromStandard<Number>       },
+         Conversions<Unit::Volume, Unit::Volume::Millilitre>::FromStandard<NumericType>       },
         {Unit::Volume::CubicMillimetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMillimetre>::FromStandard<Number>  },
+         Conversions<Unit::Volume, Unit::Volume::CubicMillimetre>::FromStandard<NumericType>  },
         {Unit::Volume::CubicMilliinch,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMilliinch>::FromStandard<Number>   },
+         Conversions<Unit::Volume, Unit::Volume::CubicMilliinch>::FromStandard<NumericType>   },
         {Unit::Volume::CubicMicrometre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMicrometre>::FromStandard<Number>  },
+         Conversions<Unit::Volume, Unit::Volume::CubicMicrometre>::FromStandard<NumericType>  },
         {Unit::Volume::CubicMicroinch,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMicroinch>::FromStandard<Number>   },
+         Conversions<Unit::Volume, Unit::Volume::CubicMicroinch>::FromStandard<NumericType>   },
 };
 
-template <typename Number>
-inline const std::map<Unit::Volume, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Volume, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Volume,
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Volume, NumericType>{
         {Unit::Volume::CubicNauticalMile,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicNauticalMile>::ToStandard<Number>},
+         Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::ToStandard<NumericType>},
         {Unit::Volume::CubicMile,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMile>::ToStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicMile>::ToStandard<NumericType>        },
         {Unit::Volume::CubicKilometre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicKilometre>::ToStandard<Number>   },
+         Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::ToStandard<NumericType>   },
         {Unit::Volume::CubicMetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMetre>::ToStandard<Number>       },
+         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard<NumericType>       },
         {Unit::Volume::CubicYard,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicYard>::ToStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicYard>::ToStandard<NumericType>        },
         {Unit::Volume::CubicFoot,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicFoot>::ToStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicFoot>::ToStandard<NumericType>        },
         {Unit::Volume::CubicDecimetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicDecimetre>::ToStandard<Number>   },
-        {Unit::Volume::Litre,             Conversions<Unit::Volume, Unit::Volume::Litre>::ToStandard<Number>            },
+         Conversions<Unit::Volume, Unit::Volume::CubicDecimetre>::ToStandard<NumericType>   },
+        {Unit::Volume::Litre,
+         Conversions<Unit::Volume, Unit::Volume::Litre>::ToStandard<NumericType>            },
         {Unit::Volume::CubicInch,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicInch>::ToStandard<Number>        },
+         Conversions<Unit::Volume, Unit::Volume::CubicInch>::ToStandard<NumericType>        },
         {Unit::Volume::CubicCentimetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicCentimetre>::ToStandard<Number>  },
+         Conversions<Unit::Volume, Unit::Volume::CubicCentimetre>::ToStandard<NumericType>  },
         {Unit::Volume::Millilitre,
-         Conversions<Unit::Volume,                                  Unit::Volume::Millilitre>::ToStandard<Number>       },
+         Conversions<Unit::Volume, Unit::Volume::Millilitre>::ToStandard<NumericType>       },
         {Unit::Volume::CubicMillimetre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMillimetre>::ToStandard<Number>  },
+         Conversions<Unit::Volume, Unit::Volume::CubicMillimetre>::ToStandard<NumericType>  },
         {Unit::Volume::CubicMilliinch,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMilliinch>::ToStandard<Number>   },
+         Conversions<Unit::Volume, Unit::Volume::CubicMilliinch>::ToStandard<NumericType>   },
         {Unit::Volume::CubicMicrometre,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMicrometre>::ToStandard<Number>  },
+         Conversions<Unit::Volume, Unit::Volume::CubicMicrometre>::ToStandard<NumericType>  },
         {Unit::Volume::CubicMicroinch,
-         Conversions<Unit::Volume,                                  Unit::Volume::CubicMicroinch>::ToStandard<Number>   },
+         Conversions<Unit::Volume, Unit::Volume::CubicMicroinch>::ToStandard<NumericType>   },
 };
 
 }  // namespace Internal

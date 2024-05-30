@@ -84,13 +84,13 @@ TEST(UnitSubstanceAmount, ConvertAndConvertCopy) {
       SubstanceAmount::Mole, SubstanceAmount::Particles, value, value * 6.02214076E23L);
 }
 
-TEST(UnitSubstanceAmount, Parse) {
-  EXPECT_EQ(Parse<SubstanceAmount>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SubstanceAmount>("mol"), SubstanceAmount::Mole);
-  EXPECT_EQ(Parse<SubstanceAmount>("kmol"), SubstanceAmount::Kilomole);
-  EXPECT_EQ(Parse<SubstanceAmount>("Mmol"), SubstanceAmount::Megamole);
-  EXPECT_EQ(Parse<SubstanceAmount>("Gmol"), SubstanceAmount::Gigamole);
-  EXPECT_EQ(Parse<SubstanceAmount>("particles"), SubstanceAmount::Particles);
+TEST(UnitSubstanceAmount, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("mol"), SubstanceAmount::Mole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("kmol"), SubstanceAmount::Kilomole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Mmol"), SubstanceAmount::Megamole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Gmol"), SubstanceAmount::Gigamole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("particles"), SubstanceAmount::Particles);
 }
 
 TEST(UnitSubstanceAmount, RelatedDimensions) {

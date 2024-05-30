@@ -110,23 +110,23 @@ TEST(UnitVolume, ConvertAndConvertCopy) {
       Volume::CubicMetre, Volume::CubicMicroinch, value, value / std::pow(0.0000000254L, 3));
 }
 
-TEST(UnitVolume, Parse) {
-  EXPECT_EQ(Parse<Volume>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Volume>("nmi^3"), Volume::CubicNauticalMile);
-  EXPECT_EQ(Parse<Volume>("mi^3"), Volume::CubicMile);
-  EXPECT_EQ(Parse<Volume>("km^3"), Volume::CubicKilometre);
-  EXPECT_EQ(Parse<Volume>("m^3"), Volume::CubicMetre);
-  EXPECT_EQ(Parse<Volume>("yd^3"), Volume::CubicYard);
-  EXPECT_EQ(Parse<Volume>("ft^3"), Volume::CubicFoot);
-  EXPECT_EQ(Parse<Volume>("dm^3"), Volume::CubicDecimetre);
-  EXPECT_EQ(Parse<Volume>("L"), Volume::Litre);
-  EXPECT_EQ(Parse<Volume>("in^3"), Volume::CubicInch);
-  EXPECT_EQ(Parse<Volume>("cm^3"), Volume::CubicCentimetre);
-  EXPECT_EQ(Parse<Volume>("mL"), Volume::Millilitre);
-  EXPECT_EQ(Parse<Volume>("mm^3"), Volume::CubicMillimetre);
-  EXPECT_EQ(Parse<Volume>("mil^3"), Volume::CubicMilliinch);
-  EXPECT_EQ(Parse<Volume>("μm^3"), Volume::CubicMicrometre);
-  EXPECT_EQ(Parse<Volume>("μin^3"), Volume::CubicMicroinch);
+TEST(UnitVolume, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Volume>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Volume>("nmi^3"), Volume::CubicNauticalMile);
+  EXPECT_EQ(ParseEnumeration<Volume>("mi^3"), Volume::CubicMile);
+  EXPECT_EQ(ParseEnumeration<Volume>("km^3"), Volume::CubicKilometre);
+  EXPECT_EQ(ParseEnumeration<Volume>("m^3"), Volume::CubicMetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("yd^3"), Volume::CubicYard);
+  EXPECT_EQ(ParseEnumeration<Volume>("ft^3"), Volume::CubicFoot);
+  EXPECT_EQ(ParseEnumeration<Volume>("dm^3"), Volume::CubicDecimetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("L"), Volume::Litre);
+  EXPECT_EQ(ParseEnumeration<Volume>("in^3"), Volume::CubicInch);
+  EXPECT_EQ(ParseEnumeration<Volume>("cm^3"), Volume::CubicCentimetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("mL"), Volume::Millilitre);
+  EXPECT_EQ(ParseEnumeration<Volume>("mm^3"), Volume::CubicMillimetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("mil^3"), Volume::CubicMilliinch);
+  EXPECT_EQ(ParseEnumeration<Volume>("μm^3"), Volume::CubicMicrometre);
+  EXPECT_EQ(ParseEnumeration<Volume>("μin^3"), Volume::CubicMicroinch);
 }
 
 TEST(UnitVolume, RelatedDimensions) {

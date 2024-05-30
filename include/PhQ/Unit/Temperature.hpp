@@ -125,83 +125,83 @@ inline const std::unordered_map<std::string_view, Unit::Temperature> Spellings<U
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Kelvin>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Kelvin>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Celsius>::FromStandard(
-    Number& value) noexcept {
-  value -= static_cast<Number>(273.15L);
+    NumericType& value) noexcept {
+  value -= static_cast<NumericType>(273.15L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Celsius>::ToStandard(
-    Number& value) noexcept {
-  value += static_cast<Number>(273.15L);
+    NumericType& value) noexcept {
+  value += static_cast<NumericType>(273.15L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Rankine>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Rankine>::ToStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Fahrenheit>::FromStandard(
-    Number& value) noexcept {
-  value = static_cast<Number>(1.8L) * value - static_cast<Number>(459.67L);
+    NumericType& value) noexcept {
+  value = static_cast<NumericType>(1.8L) * value - static_cast<NumericType>(459.67L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Fahrenheit>::ToStandard(
-    Number& value) noexcept {
-  value = (value + static_cast<Number>(459.67L)) / static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value = (value + static_cast<NumericType>(459.67L)) / static_cast<NumericType>(1.8L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Temperature,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Temperature, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Temperature, NumericType>{
         {Unit::Temperature::Kelvin,
-         Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::FromStandard<Number>    },
+         Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::FromStandard<NumericType>    },
         {Unit::Temperature::Celsius,
-         Conversions<Unit::Temperature, Unit::Temperature::Celsius>::FromStandard<Number>   },
+         Conversions<Unit::Temperature, Unit::Temperature::Celsius>::FromStandard<NumericType>   },
         {Unit::Temperature::Rankine,
-         Conversions<Unit::Temperature, Unit::Temperature::Rankine>::FromStandard<Number>   },
+         Conversions<Unit::Temperature, Unit::Temperature::Rankine>::FromStandard<NumericType>   },
         {Unit::Temperature::Fahrenheit,
-         Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::FromStandard<Number>},
+         Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Temperature,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Temperature, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Temperature, NumericType>{
         {Unit::Temperature::Kelvin,
-         Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::ToStandard<Number>    },
+         Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::ToStandard<NumericType>    },
         {Unit::Temperature::Celsius,
-         Conversions<Unit::Temperature, Unit::Temperature::Celsius>::ToStandard<Number>   },
+         Conversions<Unit::Temperature, Unit::Temperature::Celsius>::ToStandard<NumericType>   },
         {Unit::Temperature::Rankine,
-         Conversions<Unit::Temperature, Unit::Temperature::Rankine>::ToStandard<Number>   },
+         Conversions<Unit::Temperature, Unit::Temperature::Rankine>::ToStandard<NumericType>   },
         {Unit::Temperature::Fahrenheit,
-         Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::ToStandard<Number>},
+         Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

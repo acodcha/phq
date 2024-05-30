@@ -44,7 +44,7 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::Traction.
-template <typename Number>
+template <typename NumericType>
 class Stress;
 
 /// \brief Three-dimensional Euclidean traction vector. Contains three components in Cartesian
@@ -52,259 +52,264 @@ class Stress;
 /// direction, whereas pressure always acts compressively perpendicular to a surface. For a
 /// two-dimensional Euclidean traction vector in the XY plane, see PhQ::PlanarTraction. For scalar
 /// traction components or for the magnitude of a traction vector, see PhQ::ScalarTraction.
-template <typename Number = double>
-class Traction : public DimensionalVector<Unit::Pressure, Number> {
+template <typename NumericType = double>
+class Traction : public DimensionalVector<Unit::Pressure, NumericType> {
 public:
   /// \brief Default constructor. Constructs a traction vector with an uninitialized value.
   Traction() = default;
 
   /// \brief Constructor. Constructs a traction vector with a given value expressed in a given
   /// pressure unit.
-  Traction(const Vector<Number>& value, const Unit::Pressure unit)
-    : DimensionalVector<Unit::Pressure, Number>(value, unit) {}
+  Traction(const Vector<NumericType>& value, const Unit::Pressure unit)
+    : DimensionalVector<Unit::Pressure, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a traction vector from a given set of scalar traction
   /// components.
-  Traction(const ScalarTraction<Number>& x, const ScalarTraction<Number>& y,
-           const ScalarTraction<Number>& z)
-    : Traction<Number>({x.Value(), y.Value(), z.Value()}) {}
+  Traction(const ScalarTraction<NumericType>& x, const ScalarTraction<NumericType>& y,
+           const ScalarTraction<NumericType>& z)
+    : Traction<NumericType>({x.Value(), y.Value(), z.Value()}) {}
 
   /// \brief Constructor. Constructs a traction vector from a given scalar traction and direction.
   constexpr Traction(
-      const ScalarTraction<Number>& scalar_traction, const Direction<Number>& direction)
-    : Traction<Number>(scalar_traction.Value() * direction.Value()) {}
+      const ScalarTraction<NumericType>& scalar_traction, const Direction<NumericType>& direction)
+    : Traction<NumericType>(scalar_traction.Value() * direction.Value()) {}
 
   /// \brief Constructor. Constructs a traction vector from a given planar traction vector in the XY
   /// plane. This traction vector's z-component is initialized to zero.
-  explicit constexpr Traction(const PlanarTraction<Number>& planar_traction)
-    : Traction<Number>(Vector<Number>{planar_traction.Value()}) {}
+  explicit constexpr Traction(const PlanarTraction<NumericType>& planar_traction)
+    : Traction<NumericType>(Vector<NumericType>{planar_traction.Value()}) {}
 
   /// \brief Constructor. Constructs a traction vector from a given force and area using the
   /// definition of traction.
-  constexpr Traction(const Force<Number>& force, const Area<Number>& area)
-    : Traction<Number>(force.Value() / area.Value()) {}
+  constexpr Traction(const Force<NumericType>& force, const Area<NumericType>& area)
+    : Traction<NumericType>(force.Value() / area.Value()) {}
 
   /// \brief Constructor. Constructs a traction vector from a given stress and direction using the
   /// definition of traction.
-  constexpr Traction(const Stress<Number>& stress, const Direction<Number>& direction);
+  constexpr Traction(const Stress<NumericType>& stress, const Direction<NumericType>& direction);
 
   /// \brief Destructor. Destroys this traction vector.
   ~Traction() noexcept = default;
 
   /// \brief Copy constructor. Constructs a traction vector by copying another one.
-  constexpr Traction(const Traction<Number>& other) = default;
+  constexpr Traction(const Traction<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a traction vector by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Traction(const Traction<OtherNumber>& other)
-    : Traction(static_cast<Vector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Traction(const Traction<OtherNumericType>& other)
+    : Traction(static_cast<Vector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a traction vector by moving another one.
-  constexpr Traction(Traction<Number>&& other) noexcept = default;
+  constexpr Traction(Traction<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this traction vector by copying another one.
-  constexpr Traction<Number>& operator=(const Traction<Number>& other) = default;
+  constexpr Traction<NumericType>& operator=(const Traction<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this traction vector by copying another one.
-  template <typename OtherNumber>
-  constexpr Traction<Number>& operator=(const Traction<OtherNumber>& other) {
-    this->value = static_cast<Vector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Traction<NumericType>& operator=(const Traction<OtherNumericType>& other) {
+    this->value = static_cast<Vector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this traction vector by moving another one.
-  constexpr Traction<Number>& operator=(Traction<Number>&& other) noexcept = default;
+  constexpr Traction<NumericType>& operator=(Traction<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a traction vector of zero.
-  static constexpr Traction<Number> Zero() {
-    return Traction<Number>{Vector<Number>::Zero()};
+  static constexpr Traction<NumericType> Zero() {
+    return Traction<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a traction vector from the given x, y, and z Cartesian components
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction<Number> Create(const Number x, const Number y, const Number z) {
-    return Traction<Number>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<Number>{x, y, z})};
+  static constexpr Traction<NumericType> Create(
+      const NumericType x, const NumericType y, const NumericType z) {
+    return Traction<NumericType>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+        Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a traction vector from the given x, y, and z Cartesian components
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction<Number> Create(const std::array<Number, 3>& x_y_z) {
-    return Traction<Number>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<Number>{x_y_z})};
+  static constexpr Traction<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+    return Traction<NumericType>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+        Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a traction vector with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction<Number> Create(const Vector<Number>& value) {
-    return Traction<Number>{
+  static constexpr Traction<NumericType> Create(const Vector<NumericType>& value) {
+    return Traction<NumericType>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this traction vector.
-  [[nodiscard]] constexpr ScalarTraction<Number> x() const noexcept {
-    return ScalarTraction<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarTraction<NumericType> x() const noexcept {
+    return ScalarTraction<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this traction vector.
-  [[nodiscard]] constexpr ScalarTraction<Number> y() const noexcept {
-    return ScalarTraction<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarTraction<NumericType> y() const noexcept {
+    return ScalarTraction<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the z Cartesian component of this traction vector.
-  [[nodiscard]] constexpr ScalarTraction<Number> z() const noexcept {
-    return ScalarTraction<Number>{this->value.z()};
+  [[nodiscard]] constexpr ScalarTraction<NumericType> z() const noexcept {
+    return ScalarTraction<NumericType>{this->value.z()};
   }
 
   /// \brief Returns the magnitude of this traction vector.
-  [[nodiscard]] ScalarTraction<Number> Magnitude() const {
-    return ScalarTraction<Number>{this->value.Magnitude()};
+  [[nodiscard]] ScalarTraction<NumericType> Magnitude() const {
+    return ScalarTraction<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this traction vector.
-  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+  [[nodiscard]] PhQ::Direction<NumericType> Direction() const {
     return this->value.Direction();
   }
 
   /// \brief Returns the angle between this traction vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const Traction<Number>& traction) const {
-    return PhQ::Angle<Number>{*this, traction};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const Traction<NumericType>& traction) const {
+    return PhQ::Angle<NumericType>{*this, traction};
   }
 
-  constexpr Traction<Number> operator+(const Traction<Number>& traction) const {
-    return Traction<Number>{this->value + traction.value};
+  constexpr Traction<NumericType> operator+(const Traction<NumericType>& traction) const {
+    return Traction<NumericType>{this->value + traction.value};
   }
 
-  constexpr Traction<Number> operator-(const Traction<Number>& traction) const {
-    return Traction<Number>{this->value - traction.value};
+  constexpr Traction<NumericType> operator-(const Traction<NumericType>& traction) const {
+    return Traction<NumericType>{this->value - traction.value};
   }
 
-  constexpr Traction<Number> operator*(const Number number) const {
-    return Traction<Number>{this->value * number};
+  constexpr Traction<NumericType> operator*(const NumericType number) const {
+    return Traction<NumericType>{this->value * number};
   }
 
-  constexpr Force<Number> operator*(const Area<Number>& area) const {
-    return Force<Number>{*this, area};
+  constexpr Force<NumericType> operator*(const Area<NumericType>& area) const {
+    return Force<NumericType>{*this, area};
   }
 
-  constexpr Traction<Number> operator/(const Number number) const {
-    return Traction<Number>{this->value / number};
+  constexpr Traction<NumericType> operator/(const NumericType number) const {
+    return Traction<NumericType>{this->value / number};
   }
 
-  constexpr void operator+=(const Traction<Number>& traction) noexcept {
+  constexpr void operator+=(const Traction<NumericType>& traction) noexcept {
     this->value += traction.value;
   }
 
-  constexpr void operator-=(const Traction<Number>& traction) noexcept {
+  constexpr void operator-=(const Traction<NumericType>& traction) noexcept {
     this->value -= traction.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a traction vector with a given value expressed in the standard
   /// pressure unit.
-  explicit constexpr Traction(const Vector<Number>& value)
-    : DimensionalVector<Unit::Pressure, Number>(value) {}
+  explicit constexpr Traction(const Vector<NumericType>& value)
+    : DimensionalVector<Unit::Pressure, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const Traction<Number>& left, const Traction<Number>& right) noexcept {
+    const Traction<NumericType>& left, const Traction<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const Traction<Number>& left, const Traction<Number>& right) noexcept {
+    const Traction<NumericType>& left, const Traction<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const Traction<Number>& left, const Traction<Number>& right) noexcept {
+    const Traction<NumericType>& left, const Traction<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const Traction<Number>& left, const Traction<Number>& right) noexcept {
+    const Traction<NumericType>& left, const Traction<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const Traction<Number>& left, const Traction<Number>& right) noexcept {
+    const Traction<NumericType>& left, const Traction<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const Traction<Number>& left, const Traction<Number>& right) noexcept {
+    const Traction<NumericType>& left, const Traction<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Traction<Number>& traction) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Traction<NumericType>& traction) {
   stream << traction.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Traction<Number> operator*(const Number number, const Traction<Number>& traction) {
+template <typename NumericType>
+inline constexpr Traction<NumericType> operator*(
+    const NumericType number, const Traction<NumericType>& traction) {
   return traction * number;
 }
 
-template <typename Number>
-inline Direction<Number>::Direction(const Traction<Number>& traction)
-  : Direction<Number>(traction.Value()) {}
+template <typename NumericType>
+inline Direction<NumericType>::Direction(const Traction<NumericType>& traction)
+  : Direction<NumericType>(traction.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const Traction<Number>& traction1, const Traction<Number>& traction2)
-  : Angle<Number>(traction1.Value(), traction2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(
+    const Traction<NumericType>& traction1, const Traction<NumericType>& traction2)
+  : Angle<NumericType>(traction1.Value(), traction2.Value()) {}
 
-template <typename Number>
-inline constexpr Force<Number>::Force(const Traction<Number>& traction, const Area<Number>& area)
-  : Force<Number>(traction.Value() * area.Value()) {}
+template <typename NumericType>
+inline constexpr Force<NumericType>::Force(
+    const Traction<NumericType>& traction, const Area<NumericType>& area)
+  : Force<NumericType>(traction.Value() * area.Value()) {}
 
-template <typename Number>
-inline constexpr Traction<Number> Direction<Number>::operator*(
-    const ScalarTraction<Number>& scalar_traction) const {
-  return Traction<Number>{scalar_traction, *this};
+template <typename NumericType>
+inline constexpr Traction<NumericType> Direction<NumericType>::operator*(
+    const ScalarTraction<NumericType>& scalar_traction) const {
+  return Traction<NumericType>{scalar_traction, *this};
 }
 
-template <typename Number>
-inline constexpr Traction<Number> ScalarTraction<Number>::operator*(
-    const Direction<Number>& direction) const {
-  return Traction<Number>{*this, direction};
+template <typename NumericType>
+inline constexpr Traction<NumericType> ScalarTraction<NumericType>::operator*(
+    const Direction<NumericType>& direction) const {
+  return Traction<NumericType>{*this, direction};
 }
 
-template <typename Number>
-inline constexpr Traction<Number> Force<Number>::operator/(const Area<Number>& area) const {
-  return Traction<Number>{*this, area};
+template <typename NumericType>
+inline constexpr Traction<NumericType> Force<NumericType>::operator/(
+    const Area<NumericType>& area) const {
+  return Traction<NumericType>{*this, area};
 }
 
-template <typename Number>
-inline constexpr PlanarTraction<Number>::PlanarTraction(const Traction<Number>& traction)
-  : PlanarTraction(PlanarVector<Number>{traction.Value()}) {}
+template <typename NumericType>
+inline constexpr PlanarTraction<NumericType>::PlanarTraction(const Traction<NumericType>& traction)
+  : PlanarTraction(PlanarVector<NumericType>{traction.Value()}) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Traction<Number>> {
-  inline size_t operator()(const PhQ::Traction<Number>& traction) const {
-    return hash<PhQ::Vector<Number>>()(traction.Value());
+template <typename NumericType>
+struct hash<PhQ::Traction<NumericType>> {
+  inline size_t operator()(const PhQ::Traction<NumericType>& traction) const {
+    return hash<PhQ::Vector<NumericType>>()(traction.Value());
   }
 };
 

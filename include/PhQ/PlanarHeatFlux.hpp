@@ -47,250 +47,258 @@ namespace PhQ {
 /// Cartesian coordinates: x and y. For a three-dimensional Euclidean heat flux vector, see
 /// PhQ::HeatFlux. For scalar heat flux components or for the magnitude of a heat flux vector, see
 /// PhQ::ScalarHeatFlux.
-template <typename Number = double>
-class PlanarHeatFlux : public DimensionalPlanarVector<Unit::EnergyFlux, Number> {
+template <typename NumericType = double>
+class PlanarHeatFlux : public DimensionalPlanarVector<Unit::EnergyFlux, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar heat flux vector with an uninitialized value.
   PlanarHeatFlux() = default;
 
   /// \brief Constructor. Constructs a planar heat flux vector with a given value expressed in a
   /// given energy flux unit.
-  PlanarHeatFlux(const PlanarVector<Number>& value, const Unit::EnergyFlux unit)
-    : DimensionalPlanarVector<Unit::EnergyFlux, Number>(value, unit) {}
+  PlanarHeatFlux(const PlanarVector<NumericType>& value, const Unit::EnergyFlux unit)
+    : DimensionalPlanarVector<Unit::EnergyFlux, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar heat flux vector from a given set of scalar heat flux
   /// components.
-  PlanarHeatFlux(const ScalarHeatFlux<Number>& x, const ScalarHeatFlux<Number>& y)
-    : PlanarHeatFlux<Number>({x.Value(), y.Value()}) {}
+  PlanarHeatFlux(const ScalarHeatFlux<NumericType>& x, const ScalarHeatFlux<NumericType>& y)
+    : PlanarHeatFlux<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar heat flux vector from a given scalar heat flux
   /// magnitude and planar direction.
-  constexpr PlanarHeatFlux(const ScalarHeatFlux<Number>& scalar_heat_flux,
-                           const PlanarDirection<Number>& planar_direction)
-    : PlanarHeatFlux<Number>(scalar_heat_flux.Value() * planar_direction.Value()) {}
+  constexpr PlanarHeatFlux(const ScalarHeatFlux<NumericType>& scalar_heat_flux,
+                           const PlanarDirection<NumericType>& planar_direction)
+    : PlanarHeatFlux<NumericType>(scalar_heat_flux.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar heat flux vector from a given heat flux vector by
   /// projecting the heat flux vector onto the XY plane.
-  explicit constexpr PlanarHeatFlux(const HeatFlux<Number>& heat_flux);
+  explicit constexpr PlanarHeatFlux(const HeatFlux<NumericType>& heat_flux);
 
   /// \brief Constructor. Constructs a planar heat flux vector from a given scalar thermal
   /// conductivity and planar temperature gradient vector using Fourier's law of heat conduction.
   /// Since heat flows opposite the temperature gradient, the resulting heat flux direction is
   /// opposite the temperature gradient direction.
-  constexpr PlanarHeatFlux(const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
-                           const PlanarTemperatureGradient<Number>& planar_temperature_gradient)
-    : PlanarHeatFlux<Number>(
+  constexpr PlanarHeatFlux(
+      const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient)
+    : PlanarHeatFlux<NumericType>(
         -scalar_thermal_conductivity.Value() * planar_temperature_gradient.Value()) {}
 
   /// \brief Constructor. Constructs a planar heat flux vector from a given thermal conductivity
   /// tensor and planar temperature gradient vector using Fourier's law of heat conduction. Since
   /// heat flows opposite the temperature gradient, the resulting heat flux direction is opposite
   /// the temperature gradient direction.
-  constexpr PlanarHeatFlux(const ThermalConductivity<Number>& thermal_conductivity,
-                           const PlanarTemperatureGradient<Number>& planar_temperature_gradient)
-    : PlanarHeatFlux<Number>(PlanarVector<Number>{Vector<Number>{
+  constexpr PlanarHeatFlux(
+      const ThermalConductivity<NumericType>& thermal_conductivity,
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient)
+    : PlanarHeatFlux<NumericType>(PlanarVector<NumericType>{Vector<NumericType>{
         -1.0 * thermal_conductivity.Value() * planar_temperature_gradient.Value()}}) {}
 
   /// \brief Destructor. Destroys this planar heat flux vector.
   ~PlanarHeatFlux() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar heat flux vector by copying another one.
-  constexpr PlanarHeatFlux(const PlanarHeatFlux<Number>& other) = default;
+  constexpr PlanarHeatFlux(const PlanarHeatFlux<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar heat flux vector by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarHeatFlux(const PlanarHeatFlux<OtherNumber>& other)
-    : PlanarHeatFlux(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarHeatFlux(const PlanarHeatFlux<OtherNumericType>& other)
+    : PlanarHeatFlux(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar heat flux vector by moving another one.
-  constexpr PlanarHeatFlux(PlanarHeatFlux<Number>&& other) noexcept = default;
+  constexpr PlanarHeatFlux(PlanarHeatFlux<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this planar heat flux vector by copying another one.
-  constexpr PlanarHeatFlux<Number>& operator=(const PlanarHeatFlux<Number>& other) = default;
+  constexpr PlanarHeatFlux<NumericType>& operator=(
+      const PlanarHeatFlux<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this planar heat flux vector by copying another one.
-  template <typename OtherNumber>
-  constexpr PlanarHeatFlux<Number>& operator=(const PlanarHeatFlux<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarHeatFlux<NumericType>& operator=(const PlanarHeatFlux<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this planar heat flux vector by moving another one.
-  constexpr PlanarHeatFlux<Number>& operator=(PlanarHeatFlux<Number>&& other) noexcept = default;
+  constexpr PlanarHeatFlux<NumericType>& operator=(
+      PlanarHeatFlux<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar heat flux vector of zero.
-  static constexpr PlanarHeatFlux<Number> Zero() {
-    return PlanarHeatFlux<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarHeatFlux<NumericType> Zero() {
+    return PlanarHeatFlux<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar heat flux vector from the given x and y Cartesian
   /// components expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr PlanarHeatFlux<Number> Create(const Number x, const Number y) {
-    return PlanarHeatFlux<Number>{
+  static constexpr PlanarHeatFlux<NumericType> Create(const NumericType x, const NumericType y) {
+    return PlanarHeatFlux<NumericType>{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
-            PlanarVector<Number>{x, y})};
+            PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar heat flux vector from the given x and y Cartesian
   /// components expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr PlanarHeatFlux<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarHeatFlux<Number>{
+  static constexpr PlanarHeatFlux<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+    return PlanarHeatFlux<NumericType>{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
-            PlanarVector<Number>{x_y})};
+            PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar heat flux vector with a given value expressed in a given
   /// energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr PlanarHeatFlux<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarHeatFlux<Number>{
+  static constexpr PlanarHeatFlux<NumericType> Create(const PlanarVector<NumericType>& value) {
+    return PlanarHeatFlux<NumericType>{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar heat flux vector.
-  [[nodiscard]] constexpr ScalarHeatFlux<Number> x() const noexcept {
-    return ScalarHeatFlux<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarHeatFlux<NumericType> x() const noexcept {
+    return ScalarHeatFlux<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this planar heat flux vector.
-  [[nodiscard]] constexpr ScalarHeatFlux<Number> y() const noexcept {
-    return ScalarHeatFlux<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarHeatFlux<NumericType> y() const noexcept {
+    return ScalarHeatFlux<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this planar heat flux vector.
-  [[nodiscard]] ScalarHeatFlux<Number> Magnitude() const {
-    return ScalarHeatFlux<Number>{this->value.Magnitude()};
+  [[nodiscard]] ScalarHeatFlux<NumericType> Magnitude() const {
+    return ScalarHeatFlux<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this planar heat flux vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this planar heat flux vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarHeatFlux<Number>& planar_heat_flux) const {
-    return PhQ::Angle<Number>{*this, planar_heat_flux};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(
+      const PlanarHeatFlux<NumericType>& planar_heat_flux) const {
+    return PhQ::Angle<NumericType>{*this, planar_heat_flux};
   }
 
-  constexpr PlanarHeatFlux<Number> operator+(const PlanarHeatFlux<Number>& planar_heat_flux) const {
-    return PlanarHeatFlux<Number>{this->value + planar_heat_flux.value};
+  constexpr PlanarHeatFlux<NumericType> operator+(
+      const PlanarHeatFlux<NumericType>& planar_heat_flux) const {
+    return PlanarHeatFlux<NumericType>{this->value + planar_heat_flux.value};
   }
 
-  constexpr PlanarHeatFlux<Number> operator-(const PlanarHeatFlux<Number>& planar_heat_flux) const {
-    return PlanarHeatFlux<Number>{this->value - planar_heat_flux.value};
+  constexpr PlanarHeatFlux<NumericType> operator-(
+      const PlanarHeatFlux<NumericType>& planar_heat_flux) const {
+    return PlanarHeatFlux<NumericType>{this->value - planar_heat_flux.value};
   }
 
-  constexpr PlanarHeatFlux<Number> operator*(const Number number) const {
-    return PlanarHeatFlux<Number>{this->value * number};
+  constexpr PlanarHeatFlux<NumericType> operator*(const NumericType number) const {
+    return PlanarHeatFlux<NumericType>{this->value * number};
   }
 
-  constexpr PlanarHeatFlux<Number> operator/(const Number number) const {
-    return PlanarHeatFlux<Number>{this->value / number};
+  constexpr PlanarHeatFlux<NumericType> operator/(const NumericType number) const {
+    return PlanarHeatFlux<NumericType>{this->value / number};
   }
 
-  constexpr void operator+=(const PlanarHeatFlux<Number>& planar_heat_flux) noexcept {
+  constexpr void operator+=(const PlanarHeatFlux<NumericType>& planar_heat_flux) noexcept {
     this->value += planar_heat_flux.value;
   }
 
-  constexpr void operator-=(const PlanarHeatFlux<Number>& planar_heat_flux) noexcept {
+  constexpr void operator-=(const PlanarHeatFlux<NumericType>& planar_heat_flux) noexcept {
     this->value -= planar_heat_flux.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar heat flux vector with a given value expressed in the
   /// standard energy flux unit.
-  explicit constexpr PlanarHeatFlux(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::EnergyFlux, Number>(value) {}
+  explicit constexpr PlanarHeatFlux(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::EnergyFlux, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PlanarHeatFlux<Number>& left, const PlanarHeatFlux<Number>& right) noexcept {
+    const PlanarHeatFlux<NumericType>& left, const PlanarHeatFlux<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PlanarHeatFlux<Number>& left, const PlanarHeatFlux<Number>& right) noexcept {
+    const PlanarHeatFlux<NumericType>& left, const PlanarHeatFlux<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PlanarHeatFlux<Number>& left, const PlanarHeatFlux<Number>& right) noexcept {
+    const PlanarHeatFlux<NumericType>& left, const PlanarHeatFlux<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PlanarHeatFlux<Number>& left, const PlanarHeatFlux<Number>& right) noexcept {
+    const PlanarHeatFlux<NumericType>& left, const PlanarHeatFlux<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PlanarHeatFlux<Number>& left, const PlanarHeatFlux<Number>& right) noexcept {
+    const PlanarHeatFlux<NumericType>& left, const PlanarHeatFlux<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PlanarHeatFlux<Number>& left, const PlanarHeatFlux<Number>& right) noexcept {
+    const PlanarHeatFlux<NumericType>& left, const PlanarHeatFlux<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const PlanarHeatFlux<Number>& planar_heat_flux) {
+    std::ostream& stream, const PlanarHeatFlux<NumericType>& planar_heat_flux) {
   stream << planar_heat_flux.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarHeatFlux<Number> operator*(
-    const Number number, const PlanarHeatFlux<Number>& planar_heat_flux) {
+template <typename NumericType>
+inline constexpr PlanarHeatFlux<NumericType> operator*(
+    const NumericType number, const PlanarHeatFlux<NumericType>& planar_heat_flux) {
   return planar_heat_flux * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(const PlanarHeatFlux<Number>& planar_heat_flux)
-  : PlanarDirection<Number>(planar_heat_flux.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(
+    const PlanarHeatFlux<NumericType>& planar_heat_flux)
+  : PlanarDirection<NumericType>(planar_heat_flux.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const PlanarHeatFlux<Number>& planar_heat_flux_1,
-                            const PlanarHeatFlux<Number>& planar_heat_flux_2)
-  : Angle<Number>(planar_heat_flux_1.Value(), planar_heat_flux_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(const PlanarHeatFlux<NumericType>& planar_heat_flux_1,
+                                 const PlanarHeatFlux<NumericType>& planar_heat_flux_2)
+  : Angle<NumericType>(planar_heat_flux_1.Value(), planar_heat_flux_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarHeatFlux<Number> PlanarDirection<Number>::operator*(
-    const ScalarHeatFlux<Number>& scalar_heat_flux) const {
-  return PlanarHeatFlux<Number>{scalar_heat_flux, *this};
+template <typename NumericType>
+inline constexpr PlanarHeatFlux<NumericType> PlanarDirection<NumericType>::operator*(
+    const ScalarHeatFlux<NumericType>& scalar_heat_flux) const {
+  return PlanarHeatFlux<NumericType>{scalar_heat_flux, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarHeatFlux<Number> ScalarHeatFlux<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarHeatFlux<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarHeatFlux<NumericType> ScalarHeatFlux<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarHeatFlux<NumericType>{*this, planar_direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarHeatFlux<Number>> {
-  inline size_t operator()(const PhQ::PlanarHeatFlux<Number>& planar_heat_flux) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_heat_flux.Value());
+template <typename NumericType>
+struct hash<PhQ::PlanarHeatFlux<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarHeatFlux<NumericType>& planar_heat_flux) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_heat_flux.Value());
   }
 };
 

@@ -39,17 +39,17 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::StaticKinematicPressure.
-template <typename Number>
+template <typename NumericType>
 class DynamicKinematicPressure;
 
 // Forward declaration for class PhQ::StaticKinematicPressure.
-template <typename Number>
+template <typename NumericType>
 class TotalKinematicPressure;
 
 /// \brief Static kinematic pressure, which is static pressure divided by mass density; see
 /// PhQ::StaticPressure and PhQ::MassDensity.
-template <typename Number = double>
-class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
+template <typename NumericType = double>
+class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, NumericType> {
 public:
   /// \brief Default constructor. Constructs a static kinematic pressure with an uninitialized
   /// value.
@@ -57,188 +57,192 @@ public:
 
   /// \brief Constructor. Constructs a static kinematic pressure with a given value expressed in a
   /// given specific energy unit.
-  StaticKinematicPressure(const Number value, const Unit::SpecificEnergy unit)
-    : DimensionalScalar<Unit::SpecificEnergy, Number>(value, unit) {}
+  StaticKinematicPressure(const NumericType value, const Unit::SpecificEnergy unit)
+    : DimensionalScalar<Unit::SpecificEnergy, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a static kinematic pressure from a given total kinematic
   /// pressure and dynamic kinematic pressure using the definition of total kinematic pressure.
   constexpr StaticKinematicPressure(
-      const TotalKinematicPressure<Number>& total_kinematic_pressure,
-      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure);
+      const TotalKinematicPressure<NumericType>& total_kinematic_pressure,
+      const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure);
 
   /// \brief Constructor. Constructs a static kinematic pressure from a given static pressure and
   /// mass density using the definition of static kinematic pressure.
-  constexpr StaticKinematicPressure(
-      const StaticPressure<Number>& static_pressure, const MassDensity<Number>& mass_density)
-    : StaticKinematicPressure<Number>(static_pressure.Value() / mass_density.Value()) {}
+  constexpr StaticKinematicPressure(const StaticPressure<NumericType>& static_pressure,
+                                    const MassDensity<NumericType>& mass_density)
+    : StaticKinematicPressure<NumericType>(static_pressure.Value() / mass_density.Value()) {}
 
   /// \brief Destructor. Destroys this static kinematic pressure.
   ~StaticKinematicPressure() noexcept = default;
 
   /// \brief Copy constructor. Constructs a static kinematic pressure by copying another one.
-  constexpr StaticKinematicPressure(const StaticKinematicPressure<Number>& other) = default;
+  constexpr StaticKinematicPressure(const StaticKinematicPressure<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a static kinematic pressure by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr StaticKinematicPressure(const StaticKinematicPressure<OtherNumber>& other)
-    : StaticKinematicPressure(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr StaticKinematicPressure(const StaticKinematicPressure<OtherNumericType>& other)
+    : StaticKinematicPressure(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a static kinematic pressure by moving another one.
-  constexpr StaticKinematicPressure(StaticKinematicPressure<Number>&& other) noexcept = default;
+  constexpr StaticKinematicPressure(
+      StaticKinematicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this static kinematic pressure by copying another
   /// one.
-  constexpr StaticKinematicPressure<Number>& operator=(
-      const StaticKinematicPressure<Number>& other) = default;
+  constexpr StaticKinematicPressure<NumericType>& operator=(
+      const StaticKinematicPressure<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this static kinematic pressure by copying another
   /// one.
-  template <typename OtherNumber>
-  constexpr StaticKinematicPressure<Number>& operator=(
-      const StaticKinematicPressure<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr StaticKinematicPressure<NumericType>& operator=(
+      const StaticKinematicPressure<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this static kinematic pressure by moving another one.
-  constexpr StaticKinematicPressure<Number>& operator=(
-      StaticKinematicPressure<Number>&& other) noexcept = default;
+  constexpr StaticKinematicPressure<NumericType>& operator=(
+      StaticKinematicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a static kinematic pressure of zero.
-  static constexpr StaticKinematicPressure<Number> Zero() {
-    return StaticKinematicPressure<Number>{static_cast<Number>(0)};
+  static constexpr StaticKinematicPressure<NumericType> Zero() {
+    return StaticKinematicPressure<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a static kinematic pressure with a given value expressed in a given
   /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr StaticKinematicPressure<Number> Create(const Number value) {
-    return StaticKinematicPressure<Number>{
+  static constexpr StaticKinematicPressure<NumericType> Create(const NumericType value) {
+    return StaticKinematicPressure<NumericType>{
         StaticConvertCopy<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  constexpr StaticKinematicPressure<Number> operator+(
-      const StaticKinematicPressure<Number>& other) const {
-    return StaticKinematicPressure<Number>{this->value + other.value};
+  constexpr StaticKinematicPressure<NumericType> operator+(
+      const StaticKinematicPressure<NumericType>& other) const {
+    return StaticKinematicPressure<NumericType>{this->value + other.value};
   }
 
-  constexpr TotalKinematicPressure<Number> operator+(
-      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const;
+  constexpr TotalKinematicPressure<NumericType> operator+(
+      const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure) const;
 
-  constexpr StaticKinematicPressure<Number> operator-(
-      const StaticKinematicPressure<Number>& other) const {
-    return StaticKinematicPressure<Number>{this->value - other.value};
+  constexpr StaticKinematicPressure<NumericType> operator-(
+      const StaticKinematicPressure<NumericType>& other) const {
+    return StaticKinematicPressure<NumericType>{this->value - other.value};
   }
 
-  constexpr StaticKinematicPressure<Number> operator*(const Number number) const {
-    return StaticKinematicPressure<Number>{this->value * number};
+  constexpr StaticKinematicPressure<NumericType> operator*(const NumericType number) const {
+    return StaticKinematicPressure<NumericType>{this->value * number};
   }
 
-  constexpr StaticPressure<Number> operator*(const MassDensity<Number>& mass_density) const {
-    return StaticPressure<Number>{mass_density, *this};
+  constexpr StaticPressure<NumericType> operator*(
+      const MassDensity<NumericType>& mass_density) const {
+    return StaticPressure<NumericType>{mass_density, *this};
   }
 
-  constexpr StaticKinematicPressure<Number> operator/(const Number number) const {
-    return StaticKinematicPressure<Number>{this->value / number};
+  constexpr StaticKinematicPressure<NumericType> operator/(const NumericType number) const {
+    return StaticKinematicPressure<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const StaticKinematicPressure<Number>& other) const noexcept {
+  constexpr NumericType operator/(
+      const StaticKinematicPressure<NumericType>& other) const noexcept {
     return this->value / other.value;
   }
 
-  constexpr void operator+=(const StaticKinematicPressure<Number>& other) noexcept {
+  constexpr void operator+=(const StaticKinematicPressure<NumericType>& other) noexcept {
     this->value += other.value;
   }
 
-  constexpr void operator-=(const StaticKinematicPressure<Number>& other) noexcept {
+  constexpr void operator-=(const StaticKinematicPressure<NumericType>& other) noexcept {
     this->value -= other.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a static kinematic pressure with a given value expressed in the
   /// standard specific energy unit.
-  explicit constexpr StaticKinematicPressure(const Number value)
-    : DimensionalScalar<Unit::SpecificEnergy, Number>(value) {}
+  explicit constexpr StaticKinematicPressure(const NumericType value)
+    : DimensionalScalar<Unit::SpecificEnergy, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(const StaticKinematicPressure<Number>& left,
-                                 const StaticKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const StaticKinematicPressure<NumericType>& left,
+                                 const StaticKinematicPressure<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const StaticKinematicPressure<Number>& left,
-                                 const StaticKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const StaticKinematicPressure<NumericType>& left,
+                                 const StaticKinematicPressure<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const StaticKinematicPressure<Number>& left,
-                                const StaticKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const StaticKinematicPressure<NumericType>& left,
+                                const StaticKinematicPressure<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const StaticKinematicPressure<Number>& left,
-                                const StaticKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const StaticKinematicPressure<NumericType>& left,
+                                const StaticKinematicPressure<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const StaticKinematicPressure<Number>& left,
-                                 const StaticKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const StaticKinematicPressure<NumericType>& left,
+                                 const StaticKinematicPressure<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const StaticKinematicPressure<Number>& left,
-                                 const StaticKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const StaticKinematicPressure<NumericType>& left,
+                                 const StaticKinematicPressure<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const StaticKinematicPressure<Number>& static_kinematic_pressure) {
+    std::ostream& stream, const StaticKinematicPressure<NumericType>& static_kinematic_pressure) {
   stream << static_kinematic_pressure.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr StaticKinematicPressure<Number> operator*(
-    const Number number, const StaticKinematicPressure<Number>& static_kinematic_pressure) {
+template <typename NumericType>
+inline constexpr StaticKinematicPressure<NumericType> operator*(
+    const NumericType number,
+    const StaticKinematicPressure<NumericType>& static_kinematic_pressure) {
   return static_kinematic_pressure * number;
 }
 
-template <typename Number>
-inline constexpr StaticPressure<Number>::StaticPressure(
-    const MassDensity<Number>& mass_density,
-    const StaticKinematicPressure<Number>& static_kinematic_pressure)
-  : StaticPressure<Number>(mass_density.Value() * static_kinematic_pressure.Value()) {}
+template <typename NumericType>
+inline constexpr StaticPressure<NumericType>::StaticPressure(
+    const MassDensity<NumericType>& mass_density,
+    const StaticKinematicPressure<NumericType>& static_kinematic_pressure)
+  : StaticPressure<NumericType>(mass_density.Value() * static_kinematic_pressure.Value()) {}
 
-template <typename Number>
-inline constexpr StaticKinematicPressure<Number> StaticPressure<Number>::operator/(
-    const MassDensity<Number>& mass_density) const {
-  return StaticKinematicPressure<Number>{*this, mass_density};
+template <typename NumericType>
+inline constexpr StaticKinematicPressure<NumericType> StaticPressure<NumericType>::operator/(
+    const MassDensity<NumericType>& mass_density) const {
+  return StaticKinematicPressure<NumericType>{*this, mass_density};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::StaticKinematicPressure<Number>> {
+template <typename NumericType>
+struct hash<PhQ::StaticKinematicPressure<NumericType>> {
   inline size_t operator()(
-      const PhQ::StaticKinematicPressure<Number>& static_kinematic_pressure) const {
-    return hash<Number>()(static_kinematic_pressure.Value());
+      const PhQ::StaticKinematicPressure<NumericType>& static_kinematic_pressure) const {
+    return hash<NumericType>()(static_kinematic_pressure.Value());
   }
 };
 

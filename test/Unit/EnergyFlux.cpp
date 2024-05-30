@@ -83,12 +83,14 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
       value * 0.0254L / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitEnergyFlux, Parse) {
-  EXPECT_EQ(Parse<EnergyFlux>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<EnergyFlux>("W/m^2"), EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(Parse<EnergyFlux>("nW/mm^2"), EnergyFlux::NanowattPerSquareMillimetre);
-  EXPECT_EQ(Parse<EnergyFlux>("ft·lbf/ft^2/s"), EnergyFlux::FootPoundPerSquareFootPerSecond);
-  EXPECT_EQ(Parse<EnergyFlux>("in·lbf/in^2/s"), EnergyFlux::InchPoundPerSquareInchPerSecond);
+TEST(UnitEnergyFlux, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<EnergyFlux>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<EnergyFlux>("W/m^2"), EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(ParseEnumeration<EnergyFlux>("nW/mm^2"), EnergyFlux::NanowattPerSquareMillimetre);
+  EXPECT_EQ(
+      ParseEnumeration<EnergyFlux>("ft·lbf/ft^2/s"), EnergyFlux::FootPoundPerSquareFootPerSecond);
+  EXPECT_EQ(
+      ParseEnumeration<EnergyFlux>("in·lbf/in^2/s"), EnergyFlux::InchPoundPerSquareInchPerSecond);
 }
 
 TEST(UnitEnergyFlux, RelatedDimensions) {

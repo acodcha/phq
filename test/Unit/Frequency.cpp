@@ -77,14 +77,14 @@ TEST(UnitFrequency, ConvertAndConvertCopy) {
       Frequency::Hertz, Frequency::PerHour, value, value * 3600.0L);
 }
 
-TEST(UnitFrequency, Parse) {
-  EXPECT_EQ(Parse<Frequency>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Frequency>("Hz"), Frequency::Hertz);
-  EXPECT_EQ(Parse<Frequency>("kHz"), Frequency::Kilohertz);
-  EXPECT_EQ(Parse<Frequency>("MHz"), Frequency::Megahertz);
-  EXPECT_EQ(Parse<Frequency>("GHz"), Frequency::Gigahertz);
-  EXPECT_EQ(Parse<Frequency>("/min"), Frequency::PerMinute);
-  EXPECT_EQ(Parse<Frequency>("/hr"), Frequency::PerHour);
+TEST(UnitFrequency, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Frequency>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Frequency>("Hz"), Frequency::Hertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("kHz"), Frequency::Kilohertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("MHz"), Frequency::Megahertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("GHz"), Frequency::Gigahertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("/min"), Frequency::PerMinute);
+  EXPECT_EQ(ParseEnumeration<Frequency>("/hr"), Frequency::PerHour);
 }
 
 TEST(UnitFrequency, RelatedDimensions) {

@@ -40,242 +40,244 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::VolumeRate.
-template <typename Number>
+template <typename NumericType>
 class MassDensity;
 
 // Forward declaration for class PhQ::VolumeRate.
-template <typename Number>
+template <typename NumericType>
 class MassRate;
 
 /// \brief Volume rate. Can represent a time rate of change of a volume or a volume flow rate. See
 /// also PhQ::Volume, PhQ::Time, and PhQ::Frequency.
-template <typename Number = double>
-class VolumeRate : public DimensionalScalar<Unit::VolumeRate, Number> {
+template <typename NumericType = double>
+class VolumeRate : public DimensionalScalar<Unit::VolumeRate, NumericType> {
 public:
   /// \brief Default constructor. Constructs a volume rate with an uninitialized value.
   VolumeRate() = default;
 
   /// \brief Constructor. Constructs a volume rate with a given value expressed in a given volume
   /// rate unit.
-  VolumeRate(const Number value, const Unit::VolumeRate unit)
-    : DimensionalScalar<Unit::VolumeRate, Number>(value, unit) {}
+  VolumeRate(const NumericType value, const Unit::VolumeRate unit)
+    : DimensionalScalar<Unit::VolumeRate, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a volume rate from a given volume and time using the definition
   /// of volume rate.
-  constexpr VolumeRate(const Volume<Number>& volume, const Time<Number>& time)
-    : VolumeRate<Number>(volume.Value() / time.Value()) {}
+  constexpr VolumeRate(const Volume<NumericType>& volume, const Time<NumericType>& time)
+    : VolumeRate<NumericType>(volume.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a volume rate from a given volume and frequency using the
   /// definition of volume rate.
-  constexpr VolumeRate(const Volume<Number>& volume, const Frequency<Number>& frequency)
-    : VolumeRate<Number>(volume.Value() * frequency.Value()) {}
+  constexpr VolumeRate(const Volume<NumericType>& volume, const Frequency<NumericType>& frequency)
+    : VolumeRate<NumericType>(volume.Value() * frequency.Value()) {}
 
   /// \brief Constructor. Constructs a volume rate from a given mass rate and mass density using the
   /// definition of mass density.
-  constexpr VolumeRate(const MassRate<Number>& mass_rate, const MassDensity<Number>& mass_density);
+  constexpr VolumeRate(
+      const MassRate<NumericType>& mass_rate, const MassDensity<NumericType>& mass_density);
 
   /// \brief Destructor. Destroys this volume rate.
   ~VolumeRate() noexcept = default;
 
   /// \brief Copy constructor. Constructs a volume rate by copying another one.
-  constexpr VolumeRate(const VolumeRate<Number>& other) = default;
+  constexpr VolumeRate(const VolumeRate<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a volume rate by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr VolumeRate(const VolumeRate<OtherNumber>& other)
-    : VolumeRate(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr VolumeRate(const VolumeRate<OtherNumericType>& other)
+    : VolumeRate(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a volume rate by moving another one.
-  constexpr VolumeRate(VolumeRate<Number>&& other) noexcept = default;
+  constexpr VolumeRate(VolumeRate<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this volume rate by copying another one.
-  constexpr VolumeRate<Number>& operator=(const VolumeRate<Number>& other) = default;
+  constexpr VolumeRate<NumericType>& operator=(const VolumeRate<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this volume rate by copying another one.
-  template <typename OtherNumber>
-  constexpr VolumeRate<Number>& operator=(const VolumeRate<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr VolumeRate<NumericType>& operator=(const VolumeRate<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this volume rate by moving another one.
-  constexpr VolumeRate<Number>& operator=(VolumeRate<Number>&& other) noexcept = default;
+  constexpr VolumeRate<NumericType>& operator=(VolumeRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a volume rate of zero.
-  static constexpr VolumeRate<Number> Zero() {
-    return VolumeRate<Number>{static_cast<Number>(0)};
+  static constexpr VolumeRate<NumericType> Zero() {
+    return VolumeRate<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a volume rate with a given value expressed in a given volume rate
   /// unit.
   template <Unit::VolumeRate Unit>
-  static constexpr VolumeRate<Number> Create(const Number value) {
-    return VolumeRate<Number>{
+  static constexpr VolumeRate<NumericType> Create(const NumericType value) {
+    return VolumeRate<NumericType>{
         StaticConvertCopy<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
   }
 
-  constexpr VolumeRate<Number> operator+(const VolumeRate<Number>& volume_rate) const {
-    return VolumeRate<Number>{this->value + volume_rate.value};
+  constexpr VolumeRate<NumericType> operator+(const VolumeRate<NumericType>& volume_rate) const {
+    return VolumeRate<NumericType>{this->value + volume_rate.value};
   }
 
-  constexpr VolumeRate<Number> operator-(const VolumeRate<Number>& volume_rate) const {
-    return VolumeRate<Number>{this->value - volume_rate.value};
+  constexpr VolumeRate<NumericType> operator-(const VolumeRate<NumericType>& volume_rate) const {
+    return VolumeRate<NumericType>{this->value - volume_rate.value};
   }
 
-  constexpr VolumeRate<Number> operator*(const Number number) const {
-    return VolumeRate<Number>{this->value * number};
+  constexpr VolumeRate<NumericType> operator*(const NumericType number) const {
+    return VolumeRate<NumericType>{this->value * number};
   }
 
-  constexpr Volume<Number> operator*(const Time<Number>& time) const {
-    return Volume<Number>{*this, time};
+  constexpr Volume<NumericType> operator*(const Time<NumericType>& time) const {
+    return Volume<NumericType>{*this, time};
   }
 
-  constexpr MassRate<Number> operator*(const MassDensity<Number>& mass_density) const;
+  constexpr MassRate<NumericType> operator*(const MassDensity<NumericType>& mass_density) const;
 
-  constexpr VolumeRate<Number> operator/(const Number number) const {
-    return VolumeRate<Number>{this->value / number};
+  constexpr VolumeRate<NumericType> operator/(const NumericType number) const {
+    return VolumeRate<NumericType>{this->value / number};
   }
 
-  constexpr Volume<Number> operator/(const Frequency<Number>& frequency) const {
-    return Volume<Number>{*this, frequency};
+  constexpr Volume<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return Volume<NumericType>{*this, frequency};
   }
 
-  constexpr Frequency<Number> operator/(const Volume<Number>& volume) const {
-    return Frequency<Number>{*this, volume};
+  constexpr Frequency<NumericType> operator/(const Volume<NumericType>& volume) const {
+    return Frequency<NumericType>{*this, volume};
   }
 
-  constexpr Number operator/(const VolumeRate<Number>& volume_rate) const noexcept {
+  constexpr NumericType operator/(const VolumeRate<NumericType>& volume_rate) const noexcept {
     return this->value / volume_rate.value;
   }
 
-  constexpr void operator+=(const VolumeRate<Number>& volume_rate) noexcept {
+  constexpr void operator+=(const VolumeRate<NumericType>& volume_rate) noexcept {
     this->value += volume_rate.value;
   }
 
-  constexpr void operator-=(const VolumeRate<Number>& volume_rate) noexcept {
+  constexpr void operator-=(const VolumeRate<NumericType>& volume_rate) noexcept {
     this->value -= volume_rate.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a volume rate with a given value expressed in the standard
   /// volume rate unit.
-  explicit constexpr VolumeRate(const Number value)
-    : DimensionalScalar<Unit::VolumeRate, Number>(value) {}
+  explicit constexpr VolumeRate(const NumericType value)
+    : DimensionalScalar<Unit::VolumeRate, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const VolumeRate<Number>& left, const VolumeRate<Number>& right) noexcept {
+    const VolumeRate<NumericType>& left, const VolumeRate<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const VolumeRate<Number>& left, const VolumeRate<Number>& right) noexcept {
+    const VolumeRate<NumericType>& left, const VolumeRate<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const VolumeRate<Number>& left, const VolumeRate<Number>& right) noexcept {
+    const VolumeRate<NumericType>& left, const VolumeRate<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const VolumeRate<Number>& left, const VolumeRate<Number>& right) noexcept {
+    const VolumeRate<NumericType>& left, const VolumeRate<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const VolumeRate<Number>& left, const VolumeRate<Number>& right) noexcept {
+    const VolumeRate<NumericType>& left, const VolumeRate<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const VolumeRate<Number>& left, const VolumeRate<Number>& right) noexcept {
+    const VolumeRate<NumericType>& left, const VolumeRate<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const VolumeRate<Number>& volume_rate) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const VolumeRate<NumericType>& volume_rate) {
   stream << volume_rate.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr VolumeRate<Number> operator*(
-    const Number number, const VolumeRate<Number>& volume_rate) {
+template <typename NumericType>
+inline constexpr VolumeRate<NumericType> operator*(
+    const NumericType number, const VolumeRate<NumericType>& volume_rate) {
   return volume_rate * number;
 }
 
-template <typename Number>
-inline constexpr Volume<Number>::Volume(
-    const VolumeRate<Number>& volume_rate, const Time<Number>& time)
-  : Volume<Number>(volume_rate.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr Volume<NumericType>::Volume(
+    const VolumeRate<NumericType>& volume_rate, const Time<NumericType>& time)
+  : Volume<NumericType>(volume_rate.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr Volume<Number>::Volume(
-    const VolumeRate<Number>& volume_rate, const Frequency<Number>& frequency)
-  : Volume<Number>(volume_rate.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr Volume<NumericType>::Volume(
+    const VolumeRate<NumericType>& volume_rate, const Frequency<NumericType>& frequency)
+  : Volume<NumericType>(volume_rate.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr Time<Number>::Time(
-    const Volume<Number>& volume, const VolumeRate<Number>& volume_rate)
-  : Time<Number>(volume.Value() / volume_rate.Value()) {}
+template <typename NumericType>
+inline constexpr Time<NumericType>::Time(
+    const Volume<NumericType>& volume, const VolumeRate<NumericType>& volume_rate)
+  : Time<NumericType>(volume.Value() / volume_rate.Value()) {}
 
-template <typename Number>
-inline constexpr Frequency<Number>::Frequency(
-    const VolumeRate<Number>& volume_rate, const Volume<Number>& volume)
-  : Frequency<Number>(volume_rate.Value() / volume.Value()) {}
+template <typename NumericType>
+inline constexpr Frequency<NumericType>::Frequency(
+    const VolumeRate<NumericType>& volume_rate, const Volume<NumericType>& volume)
+  : Frequency<NumericType>(volume_rate.Value() / volume.Value()) {}
 
-template <typename Number>
-inline constexpr Volume<Number> Time<Number>::operator*(
-    const VolumeRate<Number>& volume_rate) const {
-  return Volume<Number>{volume_rate, *this};
+template <typename NumericType>
+inline constexpr Volume<NumericType> Time<NumericType>::operator*(
+    const VolumeRate<NumericType>& volume_rate) const {
+  return Volume<NumericType>{volume_rate, *this};
 }
 
-template <typename Number>
-inline constexpr VolumeRate<Number> Volume<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return VolumeRate<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr VolumeRate<NumericType> Volume<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return VolumeRate<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr Time<Number> Volume<Number>::operator/(
-    const VolumeRate<Number>& volume_rate) const {
-  return Time<Number>{*this, volume_rate};
+template <typename NumericType>
+inline constexpr Time<NumericType> Volume<NumericType>::operator/(
+    const VolumeRate<NumericType>& volume_rate) const {
+  return Time<NumericType>{*this, volume_rate};
 }
 
-template <typename Number>
-inline constexpr VolumeRate<Number> Frequency<Number>::operator*(
-    const Volume<Number>& volume) const {
-  return VolumeRate<Number>{volume, *this};
+template <typename NumericType>
+inline constexpr VolumeRate<NumericType> Frequency<NumericType>::operator*(
+    const Volume<NumericType>& volume) const {
+  return VolumeRate<NumericType>{volume, *this};
 }
 
-template <typename Number>
-inline constexpr VolumeRate<Number> Volume<Number>::operator/(const Time<Number>& time) const {
-  return VolumeRate<Number>{*this, time};
+template <typename NumericType>
+inline constexpr VolumeRate<NumericType> Volume<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return VolumeRate<NumericType>{*this, time};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::VolumeRate<Number>> {
-  inline size_t operator()(const PhQ::VolumeRate<Number>& volume_rate) const {
-    return hash<Number>()(volume_rate.Value());
+template <typename NumericType>
+struct hash<PhQ::VolumeRate<NumericType>> {
+  inline size_t operator()(const PhQ::VolumeRate<NumericType>& volume_rate) const {
+    return hash<NumericType>()(volume_rate.Value());
   }
 };
 

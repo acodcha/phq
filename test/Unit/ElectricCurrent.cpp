@@ -108,19 +108,19 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       value * 3600.0L / 1.602176634E-19L);
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<ElectricCurrent>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ElectricCurrent>("A"), ElectricCurrent::Ampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("kA"), ElectricCurrent::Kiloampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("MA"), ElectricCurrent::Megaampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("GA"), ElectricCurrent::Gigaampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("TA"), ElectricCurrent::Teraampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("mA"), ElectricCurrent::Milliampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("μA"), ElectricCurrent::Microampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("nA"), ElectricCurrent::Nanoampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("e/s"), ElectricCurrent::ElementaryChargePerSecond);
-  EXPECT_EQ(Parse<ElectricCurrent>("e/min"), ElectricCurrent::ElementaryChargePerMinute);
-  EXPECT_EQ(Parse<ElectricCurrent>("e/hr"), ElectricCurrent::ElementaryChargePerHour);
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("A"), ElectricCurrent::Ampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("kA"), ElectricCurrent::Kiloampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("MA"), ElectricCurrent::Megaampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("GA"), ElectricCurrent::Gigaampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("TA"), ElectricCurrent::Teraampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("mA"), ElectricCurrent::Milliampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("μA"), ElectricCurrent::Microampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("nA"), ElectricCurrent::Nanoampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("e/s"), ElectricCurrent::ElementaryChargePerSecond);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("e/min"), ElectricCurrent::ElementaryChargePerMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("e/hr"), ElectricCurrent::ElementaryChargePerHour);
 }
 
 TEST(UnitAngle, RelatedDimensions) {

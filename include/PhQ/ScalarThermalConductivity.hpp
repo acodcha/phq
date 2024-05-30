@@ -37,31 +37,31 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::ScalarThermalConductivity.
-template <typename Number>
+template <typename NumericType>
 class DynamicViscosity;
 
 // Forward declaration for class PhQ::ScalarThermalConductivity.
-template <typename Number>
+template <typename NumericType>
 class MassDensity;
 
 // Forward declaration for class PhQ::ScalarThermalConductivity.
-template <typename Number>
+template <typename NumericType>
 class PrandtlNumber;
 
 // Forward declaration for class PhQ::ScalarThermalConductivity.
-template <typename Number>
+template <typename NumericType>
 class SpecificIsobaricHeatCapacity;
 
 // Forward declaration for class PhQ::ScalarThermalConductivity.
-template <typename Number>
+template <typename NumericType>
 class ThermalDiffusivity;
 
 /// \brief Scalar component or resultant of a three-dimensional Euclidean thermal conductivity
 /// symmetric dyadic tensor. In general, thermal conductivity is a tensor; however, in isotropic
 /// materials, thermal conductivity simplifies to a scalar. For the related tensor, see
 /// PhQ::ThermalConductivity.
-template <typename Number = double>
-class ScalarThermalConductivity : public DimensionalScalar<Unit::ThermalConductivity, Number> {
+template <typename NumericType = double>
+class ScalarThermalConductivity : public DimensionalScalar<Unit::ThermalConductivity, NumericType> {
 public:
   /// \brief Default constructor. Constructs a scalar thermal conductivity with an uninitialized
   /// value.
@@ -69,169 +69,174 @@ public:
 
   /// \brief Constructor. Constructs a scalar thermal conductivity with a given value expressed in a
   /// given thermal conductivity unit.
-  ScalarThermalConductivity(const Number value, const Unit::ThermalConductivity unit)
-    : DimensionalScalar<Unit::ThermalConductivity, Number>(value, unit) {}
+  ScalarThermalConductivity(const NumericType value, const Unit::ThermalConductivity unit)
+    : DimensionalScalar<Unit::ThermalConductivity, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a scalar thermal conductivity from a given mass density,
   /// specific isobaric heat capacity, and thermal diffusivity using the definition of thermal
   /// diffusivity.
   constexpr ScalarThermalConductivity(
-      const MassDensity<Number>& mass_density,
-      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-      const ThermalDiffusivity<Number>& thermal_diffusivity);
+      const MassDensity<NumericType>& mass_density,
+      const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+      const ThermalDiffusivity<NumericType>& thermal_diffusivity);
 
   /// \brief Constructor. Constructs a scalar thermal conductivity from a given specific isobaric
   /// heat capacity, dynamic viscosity, and Prandtl number using the definition of the Prandtl
   /// number.
   constexpr ScalarThermalConductivity(
-      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-      const DynamicViscosity<Number>& dynamic_viscosity,
-      const PrandtlNumber<Number>& prandtl_number);
+      const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+      const DynamicViscosity<NumericType>& dynamic_viscosity,
+      const PrandtlNumber<NumericType>& prandtl_number);
 
   /// \brief Destructor. Destroys this scalar thermal conductivity.
   ~ScalarThermalConductivity() noexcept = default;
 
   /// \brief Copy constructor. Constructs a scalar thermal conductivity by copying another one.
-  constexpr ScalarThermalConductivity(const ScalarThermalConductivity<Number>& other) = default;
+  constexpr ScalarThermalConductivity(
+      const ScalarThermalConductivity<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a scalar thermal conductivity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ScalarThermalConductivity(const ScalarThermalConductivity<OtherNumber>& other)
-    : ScalarThermalConductivity(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ScalarThermalConductivity(
+      const ScalarThermalConductivity<OtherNumericType>& other)
+    : ScalarThermalConductivity(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a scalar thermal conductivity by moving another one.
-  constexpr ScalarThermalConductivity(ScalarThermalConductivity<Number>&& other) noexcept = default;
+  constexpr ScalarThermalConductivity(
+      ScalarThermalConductivity<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this scalar thermal conductivity by copying another
   /// one.
-  constexpr ScalarThermalConductivity<Number>& operator=(
-      const ScalarThermalConductivity<Number>& other) = default;
+  constexpr ScalarThermalConductivity<NumericType>& operator=(
+      const ScalarThermalConductivity<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this scalar thermal conductivity by copying another
   /// one.
-  template <typename OtherNumber>
-  constexpr ScalarThermalConductivity<Number>& operator=(
-      const ScalarThermalConductivity<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ScalarThermalConductivity<NumericType>& operator=(
+      const ScalarThermalConductivity<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this scalar thermal conductivity by moving another
   /// one.
-  constexpr ScalarThermalConductivity<Number>& operator=(
-      ScalarThermalConductivity<Number>&& other) noexcept = default;
+  constexpr ScalarThermalConductivity<NumericType>& operator=(
+      ScalarThermalConductivity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar thermal conductivity of zero.
-  static constexpr ScalarThermalConductivity<Number> Zero() {
-    return ScalarThermalConductivity<Number>{static_cast<Number>(0)};
+  static constexpr ScalarThermalConductivity<NumericType> Zero() {
+    return ScalarThermalConductivity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar thermal conductivity with a given value expressed in a
   /// given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ScalarThermalConductivity<Number> Create(const Number value) {
-    return ScalarThermalConductivity<Number>{
+  static constexpr ScalarThermalConductivity<NumericType> Create(const NumericType value) {
+    return ScalarThermalConductivity<NumericType>{
         StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             value)};
   }
 
-  constexpr ScalarThermalConductivity<Number> operator+(
-      const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const {
-    return ScalarThermalConductivity<Number>{this->value + thermal_conductivity_scalar.value};
+  constexpr ScalarThermalConductivity<NumericType> operator+(
+      const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) const {
+    return ScalarThermalConductivity<NumericType>{this->value + thermal_conductivity_scalar.value};
   }
 
-  constexpr ScalarThermalConductivity<Number> operator-(
-      const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const {
-    return ScalarThermalConductivity<Number>{this->value - thermal_conductivity_scalar.value};
+  constexpr ScalarThermalConductivity<NumericType> operator-(
+      const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) const {
+    return ScalarThermalConductivity<NumericType>{this->value - thermal_conductivity_scalar.value};
   }
 
-  constexpr ScalarThermalConductivity<Number> operator*(const Number number) const {
-    return ScalarThermalConductivity<Number>{this->value * number};
+  constexpr ScalarThermalConductivity<NumericType> operator*(const NumericType number) const {
+    return ScalarThermalConductivity<NumericType>{this->value * number};
   }
 
-  constexpr ScalarThermalConductivity<Number> operator/(const Number number) const {
-    return ScalarThermalConductivity<Number>{this->value / number};
+  constexpr ScalarThermalConductivity<NumericType> operator/(const NumericType number) const {
+    return ScalarThermalConductivity<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(
-      const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const noexcept {
+  constexpr NumericType operator/(
+      const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) const noexcept {
     return this->value / thermal_conductivity_scalar.value;
   }
 
   constexpr void operator+=(
-      const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) noexcept {
+      const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) noexcept {
     this->value += thermal_conductivity_scalar.value;
   }
 
   constexpr void operator-=(
-      const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) noexcept {
+      const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) noexcept {
     this->value -= thermal_conductivity_scalar.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a scalar thermal conductivity with a given value expressed in
   /// the standard thermal conductivity unit.
-  explicit constexpr ScalarThermalConductivity(const Number value)
-    : DimensionalScalar<Unit::ThermalConductivity, Number>(value) {}
+  explicit constexpr ScalarThermalConductivity(const NumericType value)
+    : DimensionalScalar<Unit::ThermalConductivity, NumericType>(value) {}
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class ThermalConductivity;
 };
 
-template <typename Number>
-inline constexpr bool operator==(const ScalarThermalConductivity<Number>& left,
-                                 const ScalarThermalConductivity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const ScalarThermalConductivity<NumericType>& left,
+                                 const ScalarThermalConductivity<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const ScalarThermalConductivity<Number>& left,
-                                 const ScalarThermalConductivity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const ScalarThermalConductivity<NumericType>& left,
+                                 const ScalarThermalConductivity<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const ScalarThermalConductivity<Number>& left,
-                                const ScalarThermalConductivity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const ScalarThermalConductivity<NumericType>& left,
+                                const ScalarThermalConductivity<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const ScalarThermalConductivity<Number>& left,
-                                const ScalarThermalConductivity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const ScalarThermalConductivity<NumericType>& left,
+                                const ScalarThermalConductivity<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const ScalarThermalConductivity<Number>& left,
-                                 const ScalarThermalConductivity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const ScalarThermalConductivity<NumericType>& left,
+                                 const ScalarThermalConductivity<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const ScalarThermalConductivity<Number>& left,
-                                 const ScalarThermalConductivity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const ScalarThermalConductivity<NumericType>& left,
+                                 const ScalarThermalConductivity<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) {
+    std::ostream& stream,
+    const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) {
   stream << thermal_conductivity_scalar.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ScalarThermalConductivity<Number> operator*(
-    const Number number, const ScalarThermalConductivity<Number>& thermal_conductivity_scalar) {
+template <typename NumericType>
+inline constexpr ScalarThermalConductivity<NumericType> operator*(
+    const NumericType number,
+    const ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) {
   return thermal_conductivity_scalar * number;
 }
 
@@ -239,11 +244,11 @@ inline constexpr ScalarThermalConductivity<Number> operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ScalarThermalConductivity<Number>> {
+template <typename NumericType>
+struct hash<PhQ::ScalarThermalConductivity<NumericType>> {
   inline size_t operator()(
-      const PhQ::ScalarThermalConductivity<Number>& thermal_conductivity_scalar) const {
-    return hash<Number>()(thermal_conductivity_scalar.Value());
+      const PhQ::ScalarThermalConductivity<NumericType>& thermal_conductivity_scalar) const {
+    return hash<NumericType>()(thermal_conductivity_scalar.Value());
   }
 };
 

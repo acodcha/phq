@@ -42,7 +42,7 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensional dyadic tensor physical quantity. Such
 /// a physical quantity is composed of a value and a unit of measure where the value is a
 /// three-dimensional dyadic tensor. The tensor may be non-symmetric.
-template <typename UnitType, typename Number = double>
+template <typename UnitType, typename NumericType = double>
 class DimensionalDyad {
 public:
   /// \brief Physical dimension set of this physical quantity.
@@ -57,13 +57,13 @@ public:
   }
 
   /// \brief Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const PhQ::Dyad<Number>& Value() const noexcept {
+  [[nodiscard]] constexpr const PhQ::Dyad<NumericType>& Value() const noexcept {
     return value;
   }
 
   /// \brief Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] PhQ::Dyad<Number> Value(const UnitType unit) const {
-    PhQ::Dyad<Number> result{value};
+  [[nodiscard]] PhQ::Dyad<NumericType> Value(const UnitType unit) const {
+    PhQ::Dyad<NumericType> result{value};
     PhQ::Convert(result, PhQ::Standard<UnitType>, unit);
     return result;
   }
@@ -71,19 +71,19 @@ public:
   /// \brief Value of this physical quantity expressed in a given unit of measure. This method can
   /// be evaluated statically at compile-time.
   template <UnitType NewUnit>
-  [[nodiscard]] constexpr PhQ::Dyad<Number> StaticValue() const {
+  [[nodiscard]] constexpr PhQ::Dyad<NumericType> StaticValue() const {
     return PhQ::StaticConvertCopy<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
   }
 
   /// \brief Returns the value of this physical quantity expressed in its standard unit of measure
   /// as a mutable value.
-  constexpr PhQ::Dyad<Number>& MutableValue() noexcept {
+  constexpr PhQ::Dyad<NumericType>& MutableValue() noexcept {
     return value;
   }
 
   /// \brief Sets the value of this physical quantity expressed in its standard unit of measure to
   /// the given value.
-  constexpr void SetValue(const PhQ::Dyad<Number>& value) noexcept {
+  constexpr void SetValue(const PhQ::Dyad<NumericType>& value) noexcept {
     this->value = value;
   }
 
@@ -166,11 +166,11 @@ protected:
 
   /// \brief Constructor. Constructs a dimensional dyadic tensor physical quantity with a given
   /// value expressed in its standard unit of measure.
-  explicit constexpr DimensionalDyad(const PhQ::Dyad<Number>& value) : value(value) {}
+  explicit constexpr DimensionalDyad(const PhQ::Dyad<NumericType>& value) : value(value) {}
 
   /// \brief Constructor. Constructs a dimensional dimensional dyadic tensor physical quantity with
   /// a given value expressed in a given unit of measure.
-  DimensionalDyad(const PhQ::Dyad<Number>& value, const UnitType unit) : value(value) {
+  DimensionalDyad(const PhQ::Dyad<NumericType>& value, const UnitType unit) : value(value) {
     Convert(this->value, unit, PhQ::Standard<UnitType>);
   }
 
@@ -179,39 +179,39 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensional dyadic tensor physical quantity by copying
   /// another one.
-  constexpr DimensionalDyad(const DimensionalDyad<UnitType, Number>& other) = default;
+  constexpr DimensionalDyad(const DimensionalDyad<UnitType, NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a dimensional dyadic tensor physical quantity by copying
   /// another one.
-  template <typename OtherNumber>
-  explicit constexpr DimensionalDyad(const DimensionalDyad<UnitType, OtherNumber>& other)
-    : value(static_cast<PhQ::Dyad<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr DimensionalDyad(const DimensionalDyad<UnitType, OtherNumericType>& other)
+    : value(static_cast<PhQ::Dyad<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a dimensional dyadic tensor physical quantity by moving
   /// another one.
-  constexpr DimensionalDyad(DimensionalDyad<UnitType, Number>&& other) noexcept = default;
+  constexpr DimensionalDyad(DimensionalDyad<UnitType, NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this dimensional dyadic tensor physical quantity by
   /// copying another one.
-  constexpr DimensionalDyad<UnitType, Number>& operator=(
-      const DimensionalDyad<UnitType, Number>& other) = default;
+  constexpr DimensionalDyad<UnitType, NumericType>& operator=(
+      const DimensionalDyad<UnitType, NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this dimensional dyadic tensor physical quantity by
   /// copying another one.
-  template <typename OtherNumber>
-  constexpr DimensionalDyad<UnitType, Number>& operator=(
-      const DimensionalDyad<UnitType, OtherNumber>& other) {
-    value = static_cast<PhQ::Dyad<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr DimensionalDyad<UnitType, NumericType>& operator=(
+      const DimensionalDyad<UnitType, OtherNumericType>& other) {
+    value = static_cast<PhQ::Dyad<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this dimensional dyadic tensor physical quantity by
   /// moving another one.
-  constexpr DimensionalDyad<UnitType, Number>& operator=(
-      DimensionalDyad<UnitType, Number>&& other) noexcept = default;
+  constexpr DimensionalDyad<UnitType, NumericType>& operator=(
+      DimensionalDyad<UnitType, NumericType>&& other) noexcept = default;
 
   /// \brief Value of this physical quantity expressed in its standard unit of measure.
-  PhQ::Dyad<Number> value;
+  PhQ::Dyad<NumericType> value;
 };
 
 }  // namespace PhQ

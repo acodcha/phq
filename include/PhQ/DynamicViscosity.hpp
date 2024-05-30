@@ -39,15 +39,15 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::DynamicViscosity.
-template <typename Number>
+template <typename NumericType>
 class ReynoldsNumber;
 
 // Forward declaration for class PhQ::DynamicViscosity.
-template <typename Number>
+template <typename NumericType>
 class ScalarThermalConductivity;
 
 // Forward declaration for class PhQ::DynamicViscosity.
-template <typename Number>
+template <typename NumericType>
 class SpecificIsobaricHeatCapacity;
 
 /// \brief Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic viscosity is the
@@ -55,211 +55,216 @@ class SpecificIsobaricHeatCapacity;
 /// be confused with kinematic viscosity, which is dynamic viscosity divided by mass density; see
 /// PhQ::KinematicViscosity and PhQ::MassDensity. Also not to be confused with bulk dynamic
 /// viscosity; see PhQ::BulkDynamicViscosity.
-template <typename Number = double>
-class DynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, Number> {
+template <typename NumericType = double>
+class DynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, NumericType> {
 public:
   /// \brief Default constructor. Constructs a dynamic viscosity with an uninitialized value.
   DynamicViscosity() = default;
 
   /// \brief Constructor. Constructs a dynamic viscosity with a given value expressed in a given
   /// dynamic viscosity unit.
-  DynamicViscosity(const Number value, const Unit::DynamicViscosity unit)
-    : DimensionalScalar<Unit::DynamicViscosity, Number>(value, unit) {}
+  DynamicViscosity(const NumericType value, const Unit::DynamicViscosity unit)
+    : DimensionalScalar<Unit::DynamicViscosity, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a dynamic viscosity from a given mass density and kinematic
   /// viscosity using the definition of kinematic viscosity.
-  constexpr DynamicViscosity(const MassDensity<Number>& mass_density,
-                             const KinematicViscosity<Number>& kinematic_viscosity)
-    : DynamicViscosity<Number>(mass_density.Value() * kinematic_viscosity.Value()) {}
+  constexpr DynamicViscosity(const MassDensity<NumericType>& mass_density,
+                             const KinematicViscosity<NumericType>& kinematic_viscosity)
+    : DynamicViscosity<NumericType>(mass_density.Value() * kinematic_viscosity.Value()) {}
 
   /// \brief Constructor. Constructs a dynamic viscosity from a given mass density, speed, length,
   /// and Reynolds number using the definition of the Reynolds number.
   constexpr DynamicViscosity(
-      const MassDensity<Number>& mass_density, const Speed<Number>& speed,
-      const Length<Number>& length, const ReynoldsNumber<Number>& reynolds_number);
+      const MassDensity<NumericType>& mass_density, const Speed<NumericType>& speed,
+      const Length<NumericType>& length, const ReynoldsNumber<NumericType>& reynolds_number);
 
   /// \brief Constructor. Constructs a dynamic viscosity from a given Prandtl number, scalar thermal
   /// conductivity, and specific isobaric heat capacity using the definition of the Prandtl number.
   constexpr DynamicViscosity(
-      const PrandtlNumber<Number>& prandtl_number,
-      const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
-      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity);
+      const PrandtlNumber<NumericType>& prandtl_number,
+      const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
+      const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity);
 
   /// \brief Destructor. Destroys this dynamic viscosity.
   ~DynamicViscosity() noexcept = default;
 
   /// \brief Copy constructor. Constructs a dynamic viscosity by copying another one.
-  constexpr DynamicViscosity(const DynamicViscosity<Number>& other) = default;
+  constexpr DynamicViscosity(const DynamicViscosity<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a dynamic viscosity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr DynamicViscosity(const DynamicViscosity<OtherNumber>& other)
-    : DynamicViscosity(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr DynamicViscosity(const DynamicViscosity<OtherNumericType>& other)
+    : DynamicViscosity(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a dynamic viscosity by moving another one.
-  constexpr DynamicViscosity(DynamicViscosity<Number>&& other) noexcept = default;
+  constexpr DynamicViscosity(DynamicViscosity<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this dynamic viscosity by copying another one.
-  constexpr DynamicViscosity<Number>& operator=(const DynamicViscosity<Number>& other) = default;
+  constexpr DynamicViscosity<NumericType>& operator=(
+      const DynamicViscosity<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this dynamic viscosity by copying another one.
-  template <typename OtherNumber>
-  constexpr DynamicViscosity<Number>& operator=(const DynamicViscosity<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr DynamicViscosity<NumericType>& operator=(
+      const DynamicViscosity<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this dynamic viscosity by moving another one.
-  constexpr DynamicViscosity<Number>& operator=(
-      DynamicViscosity<Number>&& other) noexcept = default;
+  constexpr DynamicViscosity<NumericType>& operator=(
+      DynamicViscosity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a dynamic viscosity of zero.
-  static constexpr DynamicViscosity<Number> Zero() {
-    return DynamicViscosity<Number>{static_cast<Number>(0)};
+  static constexpr DynamicViscosity<NumericType> Zero() {
+    return DynamicViscosity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a dynamic viscosity with a given value expressed in a given dynamic
   /// viscosity unit.
   template <Unit::DynamicViscosity Unit>
-  static constexpr DynamicViscosity<Number> Create(const Number value) {
-    return DynamicViscosity<Number>{
+  static constexpr DynamicViscosity<NumericType> Create(const NumericType value) {
+    return DynamicViscosity<NumericType>{
         StaticConvertCopy<Unit::DynamicViscosity, Unit, Standard<Unit::DynamicViscosity>>(value)};
   }
 
-  constexpr DynamicViscosity<Number> operator+(
-      const DynamicViscosity<Number>& dynamic_viscosity) const {
-    return DynamicViscosity<Number>{this->value + dynamic_viscosity.value};
+  constexpr DynamicViscosity<NumericType> operator+(
+      const DynamicViscosity<NumericType>& dynamic_viscosity) const {
+    return DynamicViscosity<NumericType>{this->value + dynamic_viscosity.value};
   }
 
-  constexpr DynamicViscosity<Number> operator-(
-      const DynamicViscosity<Number>& dynamic_viscosity) const {
-    return DynamicViscosity<Number>{this->value - dynamic_viscosity.value};
+  constexpr DynamicViscosity<NumericType> operator-(
+      const DynamicViscosity<NumericType>& dynamic_viscosity) const {
+    return DynamicViscosity<NumericType>{this->value - dynamic_viscosity.value};
   }
 
-  constexpr DynamicViscosity<Number> operator*(const Number number) const {
-    return DynamicViscosity<Number>{this->value * number};
+  constexpr DynamicViscosity<NumericType> operator*(const NumericType number) const {
+    return DynamicViscosity<NumericType>{this->value * number};
   }
 
-  constexpr DynamicViscosity<Number> operator/(const Number number) const {
-    return DynamicViscosity<Number>{this->value / number};
+  constexpr DynamicViscosity<NumericType> operator/(const NumericType number) const {
+    return DynamicViscosity<NumericType>{this->value / number};
   }
 
-  constexpr KinematicViscosity<Number> operator/(const MassDensity<Number>& mass_density) const {
-    return KinematicViscosity<Number>{*this, mass_density};
+  constexpr KinematicViscosity<NumericType> operator/(
+      const MassDensity<NumericType>& mass_density) const {
+    return KinematicViscosity<NumericType>{*this, mass_density};
   }
 
-  constexpr MassDensity<Number> operator/(
-      const KinematicViscosity<Number>& kinematic_viscosity) const {
-    return MassDensity<Number>{*this, kinematic_viscosity};
+  constexpr MassDensity<NumericType> operator/(
+      const KinematicViscosity<NumericType>& kinematic_viscosity) const {
+    return MassDensity<NumericType>{*this, kinematic_viscosity};
   }
 
-  constexpr Number operator/(const DynamicViscosity<Number>& dynamic_viscosity) const noexcept {
+  constexpr NumericType operator/(
+      const DynamicViscosity<NumericType>& dynamic_viscosity) const noexcept {
     return this->value / dynamic_viscosity.value;
   }
 
-  constexpr void operator+=(const DynamicViscosity<Number>& dynamic_viscosity) noexcept {
+  constexpr void operator+=(const DynamicViscosity<NumericType>& dynamic_viscosity) noexcept {
     this->value += dynamic_viscosity.value;
   }
 
-  constexpr void operator-=(const DynamicViscosity<Number>& dynamic_viscosity) noexcept {
+  constexpr void operator-=(const DynamicViscosity<NumericType>& dynamic_viscosity) noexcept {
     this->value -= dynamic_viscosity.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a dynamic viscosity with a given value expressed in the
   /// standard dynamic viscosity unit.
-  explicit constexpr DynamicViscosity(const Number value)
-    : DimensionalScalar<Unit::DynamicViscosity, Number>(value) {}
+  explicit constexpr DynamicViscosity(const NumericType value)
+    : DimensionalScalar<Unit::DynamicViscosity, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const DynamicViscosity<Number>& left, const DynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const DynamicViscosity<NumericType>& left,
+                                 const DynamicViscosity<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const DynamicViscosity<Number>& left, const DynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const DynamicViscosity<NumericType>& left,
+                                 const DynamicViscosity<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const DynamicViscosity<Number>& left, const DynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const DynamicViscosity<NumericType>& left,
+                                const DynamicViscosity<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const DynamicViscosity<Number>& left, const DynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const DynamicViscosity<NumericType>& left,
+                                const DynamicViscosity<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const DynamicViscosity<Number>& left, const DynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const DynamicViscosity<NumericType>& left,
+                                 const DynamicViscosity<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const DynamicViscosity<Number>& left, const DynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const DynamicViscosity<NumericType>& left,
+                                 const DynamicViscosity<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const DynamicViscosity<Number>& dynamic_viscosity) {
+    std::ostream& stream, const DynamicViscosity<NumericType>& dynamic_viscosity) {
   stream << dynamic_viscosity.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr DynamicViscosity<Number> operator*(
-    const Number number, const DynamicViscosity<Number>& dynamic_viscosity) {
+template <typename NumericType>
+inline constexpr DynamicViscosity<NumericType> operator*(
+    const NumericType number, const DynamicViscosity<NumericType>& dynamic_viscosity) {
   return dynamic_viscosity * number;
 }
 
-template <typename Number>
-inline constexpr MassDensity<Number>::MassDensity(
-    const DynamicViscosity<Number>& dynamic_viscosity,
-    const KinematicViscosity<Number>& kinematic_viscosity)
-  : MassDensity<Number>(dynamic_viscosity.Value() / kinematic_viscosity.Value()) {}
+template <typename NumericType>
+inline constexpr MassDensity<NumericType>::MassDensity(
+    const DynamicViscosity<NumericType>& dynamic_viscosity,
+    const KinematicViscosity<NumericType>& kinematic_viscosity)
+  : MassDensity<NumericType>(dynamic_viscosity.Value() / kinematic_viscosity.Value()) {}
 
-template <typename Number>
-inline constexpr KinematicViscosity<Number>::KinematicViscosity(
-    const DynamicViscosity<Number>& dynamic_viscosity, const MassDensity<Number>& mass_density)
-  : KinematicViscosity<Number>(dynamic_viscosity.Value() / mass_density.Value()) {}
+template <typename NumericType>
+inline constexpr KinematicViscosity<NumericType>::KinematicViscosity(
+    const DynamicViscosity<NumericType>& dynamic_viscosity,
+    const MassDensity<NumericType>& mass_density)
+  : KinematicViscosity<NumericType>(dynamic_viscosity.Value() / mass_density.Value()) {}
 
-template <typename Number>
-inline constexpr DynamicViscosity<Number> KinematicViscosity<Number>::operator*(
-    const MassDensity<Number>& mass_density) const {
-  return DynamicViscosity<Number>{mass_density, *this};
+template <typename NumericType>
+inline constexpr DynamicViscosity<NumericType> KinematicViscosity<NumericType>::operator*(
+    const MassDensity<NumericType>& mass_density) const {
+  return DynamicViscosity<NumericType>{mass_density, *this};
 }
 
-template <typename Number>
-inline constexpr DynamicViscosity<Number> MassDensity<Number>::operator*(
-    const KinematicViscosity<Number>& kinematic_viscosity) const {
-  return DynamicViscosity<Number>{*this, kinematic_viscosity};
+template <typename NumericType>
+inline constexpr DynamicViscosity<NumericType> MassDensity<NumericType>::operator*(
+    const KinematicViscosity<NumericType>& kinematic_viscosity) const {
+  return DynamicViscosity<NumericType>{*this, kinematic_viscosity};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::DynamicViscosity<Number>> {
-  inline size_t operator()(const PhQ::DynamicViscosity<Number>& dynamic_viscosity) const {
-    return hash<Number>()(dynamic_viscosity.Value());
+template <typename NumericType>
+struct hash<PhQ::DynamicViscosity<NumericType>> {
+  inline size_t operator()(const PhQ::DynamicViscosity<NumericType>& dynamic_viscosity) const {
+    return hash<NumericType>()(dynamic_viscosity.Value());
   }
 };
 

@@ -49,7 +49,7 @@ namespace PhQ {
 /// model for a compressible fluid. It is similar to the model for an incompressible Newtonian
 /// fluid, but also includes the effect of the volumetric component of the strain rate tensor in
 /// addition to its deviatoric component.
-template <typename Number = double>
+template <typename NumericType = double>
 class ConstitutiveModel::CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   /// \brief Default constructor. Constructs a compressible Newtonian fluid constitutive model with
@@ -58,15 +58,17 @@ public:
 
   /// \brief Constructor. Constructs a compressible Newtonian fluid constitutive model from a given
   /// dynamic viscosity. Initializes the bulk dynamic viscosity as -2/3 of the dynamic viscosity.
-  explicit constexpr CompressibleNewtonianFluid(const DynamicViscosity<Number>& dynamic_viscosity)
+  explicit constexpr CompressibleNewtonianFluid(
+      const DynamicViscosity<NumericType>& dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
       bulk_dynamic_viscosity(
-          static_cast<Number>(-2) / static_cast<Number>(3) * dynamic_viscosity.Value()) {}
+          static_cast<NumericType>(-2) / static_cast<NumericType>(3) * dynamic_viscosity.Value()) {}
 
   /// \brief Constructor. Constructs a compressible Newtonian fluid constitutive model from a given
   /// dynamic viscosity and bulk dynamic viscosity.
-  constexpr CompressibleNewtonianFluid(const DynamicViscosity<Number>& dynamic_viscosity,
-                                       const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity)
+  constexpr CompressibleNewtonianFluid(
+      const DynamicViscosity<NumericType>& dynamic_viscosity,
+      const BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
       bulk_dynamic_viscosity(bulk_dynamic_viscosity) {}
 
@@ -90,13 +92,13 @@ public:
   CompressibleNewtonianFluid& operator=(CompressibleNewtonianFluid&& other) noexcept = default;
 
   /// \brief Dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::DynamicViscosity<Number>&
+  [[nodiscard]] inline constexpr const PhQ::DynamicViscosity<NumericType>&
   DynamicViscosity() const noexcept {
     return dynamic_viscosity;
   }
 
   /// \brief Bulk dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  [[nodiscard]] inline constexpr const PhQ::BulkDynamicViscosity<Number>&
+  [[nodiscard]] inline constexpr const PhQ::BulkDynamicViscosity<NumericType>&
   BulkDynamicViscosity() const noexcept {
     return bulk_dynamic_viscosity;
   }
@@ -315,87 +317,87 @@ public:
 
   /// \brief Serializes this compressible Newtonian fluid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
-    return {R"({"type":")" + SnakeCaseCopy(Abbreviation(this->GetType()))
-            + R"(","dynamic_viscosity":)" + dynamic_viscosity.JSON()
+    return {R"({"type":")" + SnakeCase(Abbreviation(this->GetType())) + R"(","dynamic_viscosity":)"
+            + dynamic_viscosity.JSON()
             + ",\"bulk_dynamic_viscosity\":" + bulk_dynamic_viscosity.JSON() + "}"};
   }
 
   /// \brief Serializes this compressible Newtonian fluid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
-    return {"<type>" + SnakeCaseCopy(Abbreviation(this->GetType())) + "</type><dynamic_viscosity>"
+    return {"<type>" + SnakeCase(Abbreviation(this->GetType())) + "</type><dynamic_viscosity>"
             + dynamic_viscosity.XML() + "</dynamic_viscosity><bulk_dynamic_viscosity>"
             + bulk_dynamic_viscosity.XML() + "</bulk_dynamic_viscosity>"};
   }
 
   /// \brief Serializes this compressible Newtonian fluid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
-    return {"{type:\"" + SnakeCaseCopy(Abbreviation(this->GetType()))
+    return {"{type:\"" + SnakeCase(Abbreviation(this->GetType()))
             + "\",dynamic_viscosity:" + dynamic_viscosity.YAML()
             + ",bulk_dynamic_viscosity:" + bulk_dynamic_viscosity.YAML() + "}"};
   }
 
 private:
   /// \brief Dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  PhQ::DynamicViscosity<Number> dynamic_viscosity;
+  PhQ::DynamicViscosity<NumericType> dynamic_viscosity;
 
   /// \brief Bulk dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  PhQ::BulkDynamicViscosity<Number> bulk_dynamic_viscosity;
+  PhQ::BulkDynamicViscosity<NumericType> bulk_dynamic_viscosity;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& left,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& right) noexcept {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& left,
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& right) noexcept {
   return left.DynamicViscosity() == right.DynamicViscosity()
          && left.BulkDynamicViscosity() == right.BulkDynamicViscosity();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& left,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& right) noexcept {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& left,
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& right) noexcept {
   return left.DynamicViscosity() != right.DynamicViscosity()
          || left.BulkDynamicViscosity() != right.BulkDynamicViscosity();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& left,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& right) noexcept {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& left,
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& right) noexcept {
   if (left.DynamicViscosity() != right.DynamicViscosity()) {
     return left.DynamicViscosity() < right.DynamicViscosity();
   }
   return left.BulkDynamicViscosity() < right.BulkDynamicViscosity();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& left,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& right) noexcept {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& left,
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& right) noexcept {
   if (left.DynamicViscosity() != right.DynamicViscosity()) {
     return left.DynamicViscosity() > right.DynamicViscosity();
   }
   return left.BulkDynamicViscosity() > right.BulkDynamicViscosity();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& left,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& right) noexcept {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& left,
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& right) noexcept {
   return !(left > right);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& left,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& right) noexcept {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& left,
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& right) noexcept {
   return !(left < right);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const typename ConstitutiveModel::CompressibleNewtonianFluid<Number>& model) {
+    const typename ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& model) {
   stream << model.Print();
   return stream;
 }
@@ -404,15 +406,15 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template <typename Number>
-struct hash<typename PhQ::ConstitutiveModel::CompressibleNewtonianFluid<Number>> {
+template <typename NumericType>
+struct hash<typename PhQ::ConstitutiveModel::CompressibleNewtonianFluid<NumericType>> {
   size_t operator()(
-      const typename PhQ::ConstitutiveModel::CompressibleNewtonianFluid<Number>& model) const {
+      const typename PhQ::ConstitutiveModel::CompressibleNewtonianFluid<NumericType>& model) const {
     size_t result{17};
     result = static_cast<size_t>(31) * result
-             + hash<PhQ::DynamicViscosity<Number>>()(model.DynamicViscosity());
+             + hash<PhQ::DynamicViscosity<NumericType>>()(model.DynamicViscosity());
     result = static_cast<size_t>(31) * result
-             + hash<PhQ::BulkDynamicViscosity<Number>>()(model.BulkDynamicViscosity());
+             + hash<PhQ::BulkDynamicViscosity<NumericType>>()(model.BulkDynamicViscosity());
     return result;
   }
 };

@@ -82,12 +82,14 @@ TEST(UnitSpecificPower, ConvertAndConvertCopy) {
       value / std::pow(0.0254L, 2));
 }
 
-TEST(UnitSpecificPower, Parse) {
-  EXPECT_EQ(Parse<SpecificPower>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SpecificPower>("W/kg"), SpecificPower::WattPerKilogram);
-  EXPECT_EQ(Parse<SpecificPower>("nW/g"), SpecificPower::NanowattPerGram);
-  EXPECT_EQ(Parse<SpecificPower>("ft·lbf/slug/s"), SpecificPower::FootPoundPerSlugPerSecond);
-  EXPECT_EQ(Parse<SpecificPower>("in·lbf/slinch/s"), SpecificPower::InchPoundPerSlinchPerSecond);
+TEST(UnitSpecificPower, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SpecificPower>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SpecificPower>("W/kg"), SpecificPower::WattPerKilogram);
+  EXPECT_EQ(ParseEnumeration<SpecificPower>("nW/g"), SpecificPower::NanowattPerGram);
+  EXPECT_EQ(
+      ParseEnumeration<SpecificPower>("ft·lbf/slug/s"), SpecificPower::FootPoundPerSlugPerSecond);
+  EXPECT_EQ(ParseEnumeration<SpecificPower>("in·lbf/slinch/s"),
+            SpecificPower::InchPoundPerSlinchPerSecond);
 }
 
 TEST(UnitSpecificPower, RelatedDimensions) {

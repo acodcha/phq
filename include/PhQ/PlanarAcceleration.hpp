@@ -48,8 +48,8 @@ namespace PhQ {
 /// Cartesian coordinates: x and y. For a three-dimensional Euclidean acceleration vector, see
 /// PhQ::Acceleration. For scalar acceleration components or for the magnitude of an acceleration
 /// vector, see PhQ::ScalarAcceleration.
-template <typename Number = double>
-class PlanarAcceleration : public DimensionalPlanarVector<Unit::Acceleration, Number> {
+template <typename NumericType = double>
+class PlanarAcceleration : public DimensionalPlanarVector<Unit::Acceleration, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar acceleration vector with an uninitialized
   /// value.
@@ -57,281 +57,287 @@ public:
 
   /// \brief Constructor. Constructs a planar acceleration vector with a given value expressed in a
   /// given acceleration unit.
-  PlanarAcceleration(const PlanarVector<Number>& value, const Unit::Acceleration unit)
-    : DimensionalPlanarVector<Unit::Acceleration, Number>(value, unit) {}
+  PlanarAcceleration(const PlanarVector<NumericType>& value, const Unit::Acceleration unit)
+    : DimensionalPlanarVector<Unit::Acceleration, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar acceleration vector from a given set of scalar
   /// acceleration components.
-  PlanarAcceleration(const ScalarAcceleration<Number>& x, const ScalarAcceleration<Number>& y)
-    : PlanarAcceleration<Number>({x.Value(), y.Value()}) {}
+  PlanarAcceleration(
+      const ScalarAcceleration<NumericType>& x, const ScalarAcceleration<NumericType>& y)
+    : PlanarAcceleration<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar acceleration vector from a given scalar acceleration
   /// magnitude and planar direction.
-  constexpr PlanarAcceleration(const ScalarAcceleration<Number>& scalar_acceleration,
-                               const PlanarDirection<Number>& planar_direction)
-    : PlanarAcceleration<Number>(scalar_acceleration.Value() * planar_direction.Value()) {}
+  constexpr PlanarAcceleration(const ScalarAcceleration<NumericType>& scalar_acceleration,
+                               const PlanarDirection<NumericType>& planar_direction)
+    : PlanarAcceleration<NumericType>(scalar_acceleration.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar acceleration vector from a given acceleration vector
   /// by projecting the acceleration vector onto the XY plane.
-  explicit constexpr PlanarAcceleration(const Acceleration<Number>& acceleration);
+  explicit constexpr PlanarAcceleration(const Acceleration<NumericType>& acceleration);
 
   /// \brief Constructor. Constructs a planar acceleration vector from a given planar velocity and
   /// time using the definition of acceleration.
   constexpr PlanarAcceleration(
-      const PlanarVelocity<Number>& planar_velocity, const Time<Number>& time)
-    : PlanarAcceleration<Number>(planar_velocity.Value() / time.Value()) {}
+      const PlanarVelocity<NumericType>& planar_velocity, const Time<NumericType>& time)
+    : PlanarAcceleration<NumericType>(planar_velocity.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a planar acceleration vector from a given planar velocity and
   /// frequency using the definition of acceleration.
   constexpr PlanarAcceleration(
-      const PlanarVelocity<Number>& planar_velocity, const Frequency<Number>& frequency)
-    : PlanarAcceleration<Number>(planar_velocity.Value() * frequency.Value()) {}
+      const PlanarVelocity<NumericType>& planar_velocity, const Frequency<NumericType>& frequency)
+    : PlanarAcceleration<NumericType>(planar_velocity.Value() * frequency.Value()) {}
 
   /// \brief Destructor. Destroys this acceleration vector.
   ~PlanarAcceleration() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar acceleration vector by copying another one.
-  constexpr PlanarAcceleration(const PlanarAcceleration<Number>& other) = default;
+  constexpr PlanarAcceleration(const PlanarAcceleration<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar acceleration vector by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarAcceleration(const PlanarAcceleration<OtherNumber>& other)
-    : PlanarAcceleration(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarAcceleration(const PlanarAcceleration<OtherNumericType>& other)
+    : PlanarAcceleration(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar acceleration vector by moving another one.
-  constexpr PlanarAcceleration(PlanarAcceleration<Number>&& other) noexcept = default;
+  constexpr PlanarAcceleration(PlanarAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this acceleration vector by copying another one.
-  constexpr PlanarAcceleration<Number>& operator=(
-      const PlanarAcceleration<Number>& other) = default;
+  constexpr PlanarAcceleration<NumericType>& operator=(
+      const PlanarAcceleration<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this acceleration vector by copying another one.
-  template <typename OtherNumber>
-  constexpr PlanarAcceleration<Number>& operator=(const PlanarAcceleration<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarAcceleration<NumericType>& operator=(
+      const PlanarAcceleration<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this acceleration vector by moving another one.
-  constexpr PlanarAcceleration<Number>& operator=(
-      PlanarAcceleration<Number>&& other) noexcept = default;
+  constexpr PlanarAcceleration<NumericType>& operator=(
+      PlanarAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar acceleration vector of zero.
-  static constexpr PlanarAcceleration<Number> Zero() {
-    return PlanarAcceleration<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarAcceleration<NumericType> Zero() {
+    return PlanarAcceleration<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar acceleration vector from the given x and y Cartesian
   /// components expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr PlanarAcceleration<Number> Create(const Number x, const Number y) {
-    return PlanarAcceleration<Number>{
+  static constexpr PlanarAcceleration<NumericType> Create(
+      const NumericType x, const NumericType y) {
+    return PlanarAcceleration<NumericType>{
         StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
-            PlanarVector<Number>{x, y})};
+            PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar acceleration vector from the given x and y Cartesian
   /// components expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr PlanarAcceleration<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarAcceleration<Number>{
+  static constexpr PlanarAcceleration<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+    return PlanarAcceleration<NumericType>{
         StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
-            PlanarVector<Number>{x_y})};
+            PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar acceleration vector with a given value expressed in a given
   /// acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr PlanarAcceleration<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarAcceleration<Number>{
+  static constexpr PlanarAcceleration<NumericType> Create(const PlanarVector<NumericType>& value) {
+    return PlanarAcceleration<NumericType>{
         StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this acceleration vector.
-  [[nodiscard]] constexpr ScalarAcceleration<Number> x() const noexcept {
-    return ScalarAcceleration<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarAcceleration<NumericType> x() const noexcept {
+    return ScalarAcceleration<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this acceleration vector.
-  [[nodiscard]] constexpr ScalarAcceleration<Number> y() const noexcept {
-    return ScalarAcceleration<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarAcceleration<NumericType> y() const noexcept {
+    return ScalarAcceleration<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this acceleration vector.
-  [[nodiscard]] ScalarAcceleration<Number> Magnitude() const {
-    return ScalarAcceleration<Number>{this->value.Magnitude()};
+  [[nodiscard]] ScalarAcceleration<NumericType> Magnitude() const {
+    return ScalarAcceleration<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the planar direction of this acceleration vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this acceleration vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarAcceleration<Number>& other) const {
-    return PhQ::Angle<Number>{*this, other};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const PlanarAcceleration<NumericType>& other) const {
+    return PhQ::Angle<NumericType>{*this, other};
   }
 
-  constexpr PlanarAcceleration<Number> operator+(const PlanarAcceleration<Number>& other) const {
-    return PlanarAcceleration<Number>{this->value + other.value};
+  constexpr PlanarAcceleration<NumericType> operator+(
+      const PlanarAcceleration<NumericType>& other) const {
+    return PlanarAcceleration<NumericType>{this->value + other.value};
   }
 
-  constexpr PlanarAcceleration<Number> operator-(const PlanarAcceleration<Number>& other) const {
-    return PlanarAcceleration<Number>{this->value - other.value};
+  constexpr PlanarAcceleration<NumericType> operator-(
+      const PlanarAcceleration<NumericType>& other) const {
+    return PlanarAcceleration<NumericType>{this->value - other.value};
   }
 
-  constexpr PlanarAcceleration<Number> operator*(const Number number) const {
-    return PlanarAcceleration<Number>{this->value * number};
+  constexpr PlanarAcceleration<NumericType> operator*(const NumericType number) const {
+    return PlanarAcceleration<NumericType>{this->value * number};
   }
 
-  constexpr PlanarVelocity<Number> operator*(const Time<Number>& time) const {
-    return PlanarVelocity<Number>{*this, time};
+  constexpr PlanarVelocity<NumericType> operator*(const Time<NumericType>& time) const {
+    return PlanarVelocity<NumericType>{*this, time};
   }
 
-  constexpr PlanarAcceleration<Number> operator/(const Number number) const {
-    return PlanarAcceleration<Number>{this->value / number};
+  constexpr PlanarAcceleration<NumericType> operator/(const NumericType number) const {
+    return PlanarAcceleration<NumericType>{this->value / number};
   }
 
-  constexpr PlanarVelocity<Number> operator/(const Frequency<Number>& frequency) const {
-    return PlanarVelocity<Number>{*this, frequency};
+  constexpr PlanarVelocity<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return PlanarVelocity<NumericType>{*this, frequency};
   }
 
-  constexpr void operator+=(const PlanarAcceleration<Number>& other) noexcept {
+  constexpr void operator+=(const PlanarAcceleration<NumericType>& other) noexcept {
     this->value += other.value;
   }
 
-  constexpr void operator-=(const PlanarAcceleration<Number>& other) noexcept {
+  constexpr void operator-=(const PlanarAcceleration<NumericType>& other) noexcept {
     this->value -= other.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar acceleration vector with a given value expressed in
   /// the standard acceleration unit.
-  explicit constexpr PlanarAcceleration(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::Acceleration, Number>(value) {}
+  explicit constexpr PlanarAcceleration(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::Acceleration, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const PlanarAcceleration<Number>& left, const PlanarAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const PlanarAcceleration<NumericType>& left,
+                                 const PlanarAcceleration<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const PlanarAcceleration<Number>& left, const PlanarAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const PlanarAcceleration<NumericType>& left,
+                                 const PlanarAcceleration<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const PlanarAcceleration<Number>& left, const PlanarAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const PlanarAcceleration<NumericType>& left,
+                                const PlanarAcceleration<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const PlanarAcceleration<Number>& left, const PlanarAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const PlanarAcceleration<NumericType>& left,
+                                const PlanarAcceleration<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const PlanarAcceleration<Number>& left, const PlanarAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const PlanarAcceleration<NumericType>& left,
+                                 const PlanarAcceleration<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const PlanarAcceleration<Number>& left, const PlanarAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const PlanarAcceleration<NumericType>& left,
+                                 const PlanarAcceleration<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const PlanarAcceleration<Number>& planar_acceleration) {
+    std::ostream& stream, const PlanarAcceleration<NumericType>& planar_acceleration) {
   stream << planar_acceleration.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarAcceleration<Number> operator*(
-    const Number number, const PlanarAcceleration<Number>& planar_acceleration) {
+template <typename NumericType>
+inline constexpr PlanarAcceleration<NumericType> operator*(
+    const NumericType number, const PlanarAcceleration<NumericType>& planar_acceleration) {
   return planar_acceleration * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(
-    const PlanarAcceleration<Number>& planar_acceleration)
-  : PlanarDirection<Number>(planar_acceleration.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(
+    const PlanarAcceleration<NumericType>& planar_acceleration)
+  : PlanarDirection<NumericType>(planar_acceleration.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const PlanarAcceleration<Number>& planar_acceleration_1,
-                            const PlanarAcceleration<Number>& planar_acceleration_2)
-  : Angle<Number>(planar_acceleration_1.Value(), planar_acceleration_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(const PlanarAcceleration<NumericType>& planar_acceleration_1,
+                                 const PlanarAcceleration<NumericType>& planar_acceleration_2)
+  : Angle<NumericType>(planar_acceleration_1.Value(), planar_acceleration_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number>::PlanarVelocity(
-    const PlanarAcceleration<Number>& planar_acceleration, const Time<Number>& time)
-  : PlanarVelocity<Number>(planar_acceleration.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType>::PlanarVelocity(
+    const PlanarAcceleration<NumericType>& planar_acceleration, const Time<NumericType>& time)
+  : PlanarVelocity<NumericType>(planar_acceleration.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number>::PlanarVelocity(
-    const PlanarAcceleration<Number>& planar_acceleration, const Frequency<Number>& frequency)
-  : PlanarVelocity<Number>(planar_acceleration.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType>::PlanarVelocity(
+    const PlanarAcceleration<NumericType>& planar_acceleration,
+    const Frequency<NumericType>& frequency)
+  : PlanarVelocity<NumericType>(planar_acceleration.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarAcceleration<Number> PlanarDirection<Number>::operator*(
-    const ScalarAcceleration<Number>& scalar_acceleration) const {
-  return PlanarAcceleration<Number>{scalar_acceleration, *this};
+template <typename NumericType>
+inline constexpr PlanarAcceleration<NumericType> PlanarDirection<NumericType>::operator*(
+    const ScalarAcceleration<NumericType>& scalar_acceleration) const {
+  return PlanarAcceleration<NumericType>{scalar_acceleration, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> Time<Number>::operator*(
-    const PlanarAcceleration<Number>& planar_acceleration) const {
-  return PlanarVelocity<Number>{planar_acceleration, *this};
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> Time<NumericType>::operator*(
+    const PlanarAcceleration<NumericType>& planar_acceleration) const {
+  return PlanarVelocity<NumericType>{planar_acceleration, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarAcceleration<Number> ScalarAcceleration<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarAcceleration<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarAcceleration<NumericType> ScalarAcceleration<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarAcceleration<NumericType>{*this, planar_direction};
 }
 
-template <typename Number>
-inline constexpr PlanarAcceleration<Number> PlanarVelocity<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return PlanarAcceleration<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr PlanarAcceleration<NumericType> PlanarVelocity<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return PlanarAcceleration<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr PlanarAcceleration<Number> Frequency<Number>::operator*(
-    const PlanarVelocity<Number>& planar_velocity) const {
-  return PlanarAcceleration<Number>{planar_velocity, *this};
+template <typename NumericType>
+inline constexpr PlanarAcceleration<NumericType> Frequency<NumericType>::operator*(
+    const PlanarVelocity<NumericType>& planar_velocity) const {
+  return PlanarAcceleration<NumericType>{planar_velocity, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarAcceleration<Number> PlanarVelocity<Number>::operator/(
-    const Time<Number>& time) const {
-  return PlanarAcceleration<Number>{*this, time};
+template <typename NumericType>
+inline constexpr PlanarAcceleration<NumericType> PlanarVelocity<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return PlanarAcceleration<NumericType>{*this, time};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarAcceleration<Number>> {
-  inline size_t operator()(const PhQ::PlanarAcceleration<Number>& planar_acceleration) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_acceleration.Value());
+template <typename NumericType>
+struct hash<PhQ::PlanarAcceleration<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarAcceleration<NumericType>& planar_acceleration) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_acceleration.Value());
   }
 };
 

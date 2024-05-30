@@ -81,12 +81,14 @@ TEST(UnitThermalConductivity, ConvertAndConvertCopy) {
       value, value / (0.45359237L * 9.80665L * 1.8L));
 }
 
-TEST(UnitThermalConductivity, Parse) {
-  EXPECT_EQ(Parse<ThermalConductivity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ThermalConductivity>("W/m/K"), ThermalConductivity::WattPerMetrePerKelvin);
+TEST(UnitThermalConductivity, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<ThermalConductivity>("Hello world!"), std::nullopt);
   EXPECT_EQ(
-      Parse<ThermalConductivity>("nW/mm/°C"), ThermalConductivity::NanowattPerMillimetrePerKelvin);
-  EXPECT_EQ(Parse<ThermalConductivity>("lbf/s/°R"), ThermalConductivity::PoundPerSecondPerRankine);
+      ParseEnumeration<ThermalConductivity>("W/m/K"), ThermalConductivity::WattPerMetrePerKelvin);
+  EXPECT_EQ(ParseEnumeration<ThermalConductivity>("nW/mm/°C"),
+            ThermalConductivity::NanowattPerMillimetrePerKelvin);
+  EXPECT_EQ(ParseEnumeration<ThermalConductivity>("lbf/s/°R"),
+            ThermalConductivity::PoundPerSecondPerRankine);
 }
 
 TEST(UnitThermalConductivity, RelatedDimensions) {

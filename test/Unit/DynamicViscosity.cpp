@@ -96,15 +96,17 @@ TEST(UnitDynamicViscosity, ConvertFromStandard) {
       value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitDynamicViscosity, Parse) {
-  EXPECT_EQ(Parse<DynamicViscosity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<DynamicViscosity>("Pa·s"), DynamicViscosity::PascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("kPa·s"), DynamicViscosity::KilopascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("MPa·s"), DynamicViscosity::MegapascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("GPa·s"), DynamicViscosity::GigapascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("P"), DynamicViscosity::Poise);
-  EXPECT_EQ(Parse<DynamicViscosity>("lbf·s/ft^2"), DynamicViscosity::PoundSecondPerSquareFoot);
-  EXPECT_EQ(Parse<DynamicViscosity>("lbf·s/in^2"), DynamicViscosity::PoundSecondPerSquareInch);
+TEST(UnitDynamicViscosity, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<DynamicViscosity>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<DynamicViscosity>("Pa·s"), DynamicViscosity::PascalSecond);
+  EXPECT_EQ(ParseEnumeration<DynamicViscosity>("kPa·s"), DynamicViscosity::KilopascalSecond);
+  EXPECT_EQ(ParseEnumeration<DynamicViscosity>("MPa·s"), DynamicViscosity::MegapascalSecond);
+  EXPECT_EQ(ParseEnumeration<DynamicViscosity>("GPa·s"), DynamicViscosity::GigapascalSecond);
+  EXPECT_EQ(ParseEnumeration<DynamicViscosity>("P"), DynamicViscosity::Poise);
+  EXPECT_EQ(
+      ParseEnumeration<DynamicViscosity>("lbf·s/ft^2"), DynamicViscosity::PoundSecondPerSquareFoot);
+  EXPECT_EQ(
+      ParseEnumeration<DynamicViscosity>("lbf·s/in^2"), DynamicViscosity::PoundSecondPerSquareInch);
 }
 
 TEST(UnitDynamicViscosity, RelatedDimensions) {

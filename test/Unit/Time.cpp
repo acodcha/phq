@@ -74,14 +74,14 @@ TEST(UnitTime, ConvertAndConvertCopy) {
   Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Hour, value, value / 3600.0L);
 }
 
-TEST(UnitTime, Parse) {
-  EXPECT_EQ(Parse<Time>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Time>("ns"), Time::Nanosecond);
-  EXPECT_EQ(Parse<Time>("μs"), Time::Microsecond);
-  EXPECT_EQ(Parse<Time>("ms"), Time::Millisecond);
-  EXPECT_EQ(Parse<Time>("s"), Time::Second);
-  EXPECT_EQ(Parse<Time>("min"), Time::Minute);
-  EXPECT_EQ(Parse<Time>("hr"), Time::Hour);
+TEST(UnitTime, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Time>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Time>("ns"), Time::Nanosecond);
+  EXPECT_EQ(ParseEnumeration<Time>("μs"), Time::Microsecond);
+  EXPECT_EQ(ParseEnumeration<Time>("ms"), Time::Millisecond);
+  EXPECT_EQ(ParseEnumeration<Time>("s"), Time::Second);
+  EXPECT_EQ(ParseEnumeration<Time>("min"), Time::Minute);
+  EXPECT_EQ(ParseEnumeration<Time>("hr"), Time::Hour);
 }
 
 TEST(UnitTime, RelatedDimensions) {

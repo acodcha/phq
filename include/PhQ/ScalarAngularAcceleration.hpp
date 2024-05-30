@@ -42,8 +42,8 @@ namespace PhQ {
 /// @brief Scalar angular acceleration. Represents the time rate of change of an angular speed; see
 /// also PhQ::AngularSpeed, PhQ::Time, and PhQ::Frequency. Can also represent a component or the
 /// magnitude of an angular acceleration pseudovector.
-template <typename Number = double>
-class ScalarAngularAcceleration : public DimensionalScalar<Unit::AngularAcceleration, Number> {
+template <typename NumericType = double>
+class ScalarAngularAcceleration : public DimensionalScalar<Unit::AngularAcceleration, NumericType> {
 public:
   /// \brief Default constructor. Constructs a scalar angular acceleration with an uninitialized
   /// value.
@@ -51,239 +51,245 @@ public:
 
   /// \brief Constructor. Constructs a scalar angular acceleration with a given value expressed in a
   /// given angular acceleration unit.
-  ScalarAngularAcceleration(const Number value, const Unit::AngularAcceleration unit)
-    : DimensionalScalar<Unit::AngularAcceleration, Number>(value, unit) {}
+  ScalarAngularAcceleration(const NumericType value, const Unit::AngularAcceleration unit)
+    : DimensionalScalar<Unit::AngularAcceleration, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a scalar angular acceleration from a given angular speed and
   /// time using the definition of angular acceleration.
   constexpr ScalarAngularAcceleration(
-      const AngularSpeed<Number>& angular_speed, const Time<Number>& time)
-    : ScalarAngularAcceleration<Number>(angular_speed.Value() / time.Value()) {}
+      const AngularSpeed<NumericType>& angular_speed, const Time<NumericType>& time)
+    : ScalarAngularAcceleration<NumericType>(angular_speed.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a scalar angular acceleration from a given angular speed and
   /// frequency using the definition of angular acceleration.
   constexpr ScalarAngularAcceleration(
-      const AngularSpeed<Number>& angular_speed, const Frequency<Number>& frequency)
-    : ScalarAngularAcceleration<Number>(angular_speed.Value() * frequency.Value()) {}
+      const AngularSpeed<NumericType>& angular_speed, const Frequency<NumericType>& frequency)
+    : ScalarAngularAcceleration<NumericType>(angular_speed.Value() * frequency.Value()) {}
 
   /// \brief Destructor. Destroys this scalar angular acceleration.
   ~ScalarAngularAcceleration() noexcept = default;
 
   /// \brief Copy constructor. Constructs a scalar angular acceleration by copying another one.
-  constexpr ScalarAngularAcceleration(const ScalarAngularAcceleration<Number>& other) = default;
+  constexpr ScalarAngularAcceleration(
+      const ScalarAngularAcceleration<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a scalar angular acceleration by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ScalarAngularAcceleration(const ScalarAngularAcceleration<OtherNumber>& other)
-    : ScalarAngularAcceleration(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ScalarAngularAcceleration(
+      const ScalarAngularAcceleration<OtherNumericType>& other)
+    : ScalarAngularAcceleration(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a scalar angular acceleration by moving another one.
-  constexpr ScalarAngularAcceleration(ScalarAngularAcceleration<Number>&& other) noexcept = default;
+  constexpr ScalarAngularAcceleration(
+      ScalarAngularAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this scalar angular acceleration by copying another
   /// one.
-  constexpr ScalarAngularAcceleration<Number>& operator=(
-      const ScalarAngularAcceleration<Number>& other) = default;
+  constexpr ScalarAngularAcceleration<NumericType>& operator=(
+      const ScalarAngularAcceleration<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this scalar angular acceleration by copying another
   /// one.
-  template <typename OtherNumber>
-  constexpr ScalarAngularAcceleration<Number>& operator=(
-      const ScalarAngularAcceleration<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ScalarAngularAcceleration<NumericType>& operator=(
+      const ScalarAngularAcceleration<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this scalar angular acceleration by moving another
   /// one.
-  constexpr ScalarAngularAcceleration<Number>& operator=(
-      ScalarAngularAcceleration<Number>&& other) noexcept = default;
+  constexpr ScalarAngularAcceleration<NumericType>& operator=(
+      ScalarAngularAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar angular acceleration of zero.
-  static constexpr ScalarAngularAcceleration<Number> Zero() {
-    return ScalarAngularAcceleration<Number>{static_cast<Number>(0)};
+  static constexpr ScalarAngularAcceleration<NumericType> Zero() {
+    return ScalarAngularAcceleration<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar angular acceleration with a given value expressed in a
   /// given angular acceleration unit.
   template <Unit::AngularAcceleration Unit>
-  static constexpr ScalarAngularAcceleration<Number> Create(const Number value) {
-    return ScalarAngularAcceleration<Number>{
+  static constexpr ScalarAngularAcceleration<NumericType> Create(const NumericType value) {
+    return ScalarAngularAcceleration<NumericType>{
         StaticConvertCopy<Unit::AngularAcceleration, Unit, Standard<Unit::AngularAcceleration>>(
             value)};
   }
 
-  constexpr ScalarAngularAcceleration<Number> operator+(
-      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
-    return ScalarAngularAcceleration<Number>{this->value + scalar_angular_acceleration.value};
+  constexpr ScalarAngularAcceleration<NumericType> operator+(
+      const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) const {
+    return ScalarAngularAcceleration<NumericType>{this->value + scalar_angular_acceleration.value};
   }
 
-  constexpr ScalarAngularAcceleration<Number> operator-(
-      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
-    return ScalarAngularAcceleration<Number>{this->value - scalar_angular_acceleration.value};
+  constexpr ScalarAngularAcceleration<NumericType> operator-(
+      const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) const {
+    return ScalarAngularAcceleration<NumericType>{this->value - scalar_angular_acceleration.value};
   }
 
-  constexpr ScalarAngularAcceleration<Number> operator*(const Number number) const {
-    return ScalarAngularAcceleration<Number>{this->value * number};
+  constexpr ScalarAngularAcceleration<NumericType> operator*(const NumericType number) const {
+    return ScalarAngularAcceleration<NumericType>{this->value * number};
   }
 
-  constexpr AngularSpeed<Number> operator*(const Time<Number>& time) const {
-    return AngularSpeed<Number>{*this, time};
+  constexpr AngularSpeed<NumericType> operator*(const Time<NumericType>& time) const {
+    return AngularSpeed<NumericType>{*this, time};
   }
 
-  constexpr ScalarAngularAcceleration<Number> operator/(const Number number) const {
-    return ScalarAngularAcceleration<Number>{this->value / number};
+  constexpr ScalarAngularAcceleration<NumericType> operator/(const NumericType number) const {
+    return ScalarAngularAcceleration<NumericType>{this->value / number};
   }
 
-  constexpr AngularSpeed<Number> operator/(const Frequency<Number>& frequency) const {
-    return AngularSpeed<Number>{*this, frequency};
+  constexpr AngularSpeed<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return AngularSpeed<NumericType>{*this, frequency};
   }
 
-  constexpr Frequency<Number> operator/(const AngularSpeed<Number>& angular_speed) const {
-    return Frequency<Number>{*this, angular_speed};
+  constexpr Frequency<NumericType> operator/(const AngularSpeed<NumericType>& angular_speed) const {
+    return Frequency<NumericType>{*this, angular_speed};
   }
 
-  constexpr Number operator/(
-      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const noexcept {
+  constexpr NumericType operator/(
+      const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) const noexcept {
     return this->value / scalar_angular_acceleration.value;
   }
 
   constexpr void operator+=(
-      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) noexcept {
+      const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) noexcept {
     this->value += scalar_angular_acceleration.value;
   }
 
   constexpr void operator-=(
-      const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) noexcept {
+      const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) noexcept {
     this->value -= scalar_angular_acceleration.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a scalar angular acceleration with a given value expressed in
   /// the standard angular acceleration unit.
-  explicit constexpr ScalarAngularAcceleration(const Number value)
-    : DimensionalScalar<Unit::AngularAcceleration, Number>(value) {}
+  explicit constexpr ScalarAngularAcceleration(const NumericType value)
+    : DimensionalScalar<Unit::AngularAcceleration, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(const ScalarAngularAcceleration<Number>& left,
-                                 const ScalarAngularAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const ScalarAngularAcceleration<NumericType>& left,
+                                 const ScalarAngularAcceleration<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const ScalarAngularAcceleration<Number>& left,
-                                 const ScalarAngularAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const ScalarAngularAcceleration<NumericType>& left,
+                                 const ScalarAngularAcceleration<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const ScalarAngularAcceleration<Number>& left,
-                                const ScalarAngularAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const ScalarAngularAcceleration<NumericType>& left,
+                                const ScalarAngularAcceleration<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const ScalarAngularAcceleration<Number>& left,
-                                const ScalarAngularAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const ScalarAngularAcceleration<NumericType>& left,
+                                const ScalarAngularAcceleration<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const ScalarAngularAcceleration<Number>& left,
-                                 const ScalarAngularAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const ScalarAngularAcceleration<NumericType>& left,
+                                 const ScalarAngularAcceleration<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const ScalarAngularAcceleration<Number>& left,
-                                 const ScalarAngularAcceleration<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const ScalarAngularAcceleration<NumericType>& left,
+                                 const ScalarAngularAcceleration<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) {
+    std::ostream& stream,
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) {
   stream << scalar_angular_acceleration.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ScalarAngularAcceleration<Number> operator*(
-    const Number number, const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) {
+template <typename NumericType>
+inline constexpr ScalarAngularAcceleration<NumericType> operator*(
+    const NumericType number,
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) {
   return scalar_angular_acceleration * number;
 }
 
-template <typename Number>
-inline constexpr Time<Number>::Time(
-    const AngularSpeed<Number>& angular_speed,
-    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration)
-  : Time<Number>(angular_speed.Value() / scalar_angular_acceleration.Value()) {}
+template <typename NumericType>
+inline constexpr Time<NumericType>::Time(
+    const AngularSpeed<NumericType>& angular_speed,
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration)
+  : Time<NumericType>(angular_speed.Value() / scalar_angular_acceleration.Value()) {}
 
-template <typename Number>
-inline constexpr Frequency<Number>::Frequency(
-    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
-    const AngularSpeed<Number>& angular_speed)
-  : Frequency<Number>(scalar_angular_acceleration.Value() / angular_speed.Value()) {}
+template <typename NumericType>
+inline constexpr Frequency<NumericType>::Frequency(
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration,
+    const AngularSpeed<NumericType>& angular_speed)
+  : Frequency<NumericType>(scalar_angular_acceleration.Value() / angular_speed.Value()) {}
 
-template <typename Number>
-inline constexpr AngularSpeed<Number>::AngularSpeed(
-    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration, const Time<Number>& time)
-  : AngularSpeed<Number>(scalar_angular_acceleration.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr AngularSpeed<NumericType>::AngularSpeed(
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration,
+    const Time<NumericType>& time)
+  : AngularSpeed<NumericType>(scalar_angular_acceleration.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr AngularSpeed<Number>::AngularSpeed(
-    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
-    const Frequency<Number>& frequency)
-  : AngularSpeed<Number>(scalar_angular_acceleration.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr AngularSpeed<NumericType>::AngularSpeed(
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration,
+    const Frequency<NumericType>& frequency)
+  : AngularSpeed<NumericType>(scalar_angular_acceleration.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr AngularSpeed<Number> Time<Number>::operator*(
-    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
-  return AngularSpeed<Number>(scalar_angular_acceleration, *this);
+template <typename NumericType>
+inline constexpr AngularSpeed<NumericType> Time<NumericType>::operator*(
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) const {
+  return AngularSpeed<NumericType>(scalar_angular_acceleration, *this);
 }
 
-template <typename Number>
-inline constexpr ScalarAngularAcceleration<Number> Frequency<Number>::operator*(
-    const AngularSpeed<Number>& angular_speed) const {
-  return ScalarAngularAcceleration<Number>{angular_speed, *this};
+template <typename NumericType>
+inline constexpr ScalarAngularAcceleration<NumericType> Frequency<NumericType>::operator*(
+    const AngularSpeed<NumericType>& angular_speed) const {
+  return ScalarAngularAcceleration<NumericType>{angular_speed, *this};
 }
 
-template <typename Number>
-inline constexpr ScalarAngularAcceleration<Number> AngularSpeed<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return ScalarAngularAcceleration<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr ScalarAngularAcceleration<NumericType> AngularSpeed<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return ScalarAngularAcceleration<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr ScalarAngularAcceleration<Number> AngularSpeed<Number>::operator/(
-    const Time<Number>& time) const {
-  return ScalarAngularAcceleration<Number>{*this, time};
+template <typename NumericType>
+inline constexpr ScalarAngularAcceleration<NumericType> AngularSpeed<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return ScalarAngularAcceleration<NumericType>{*this, time};
 }
 
-template <typename Number>
-inline constexpr Time<Number> AngularSpeed<Number>::operator/(
-    const ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
-  return Time<Number>{*this, scalar_angular_acceleration};
+template <typename NumericType>
+inline constexpr Time<NumericType> AngularSpeed<NumericType>::operator/(
+    const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) const {
+  return Time<NumericType>{*this, scalar_angular_acceleration};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ScalarAngularAcceleration<Number>> {
+template <typename NumericType>
+struct hash<PhQ::ScalarAngularAcceleration<NumericType>> {
   inline size_t operator()(
-      const PhQ::ScalarAngularAcceleration<Number>& scalar_angular_acceleration) const {
-    return hash<Number>()(scalar_angular_acceleration.Value());
+      const PhQ::ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration) const {
+    return hash<NumericType>()(scalar_angular_acceleration.Value());
   }
 };
 

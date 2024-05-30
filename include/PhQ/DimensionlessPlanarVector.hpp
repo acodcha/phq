@@ -43,11 +43,11 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensionless planar vector physical quantity.
 /// Such a physical quantity is composed only of a value where the value is a two-dimensional planar
 /// vector in the XY plane. Such a physical quantity has no unit of measure and no dimension set.
-template <typename Number = double>
+template <typename NumericType = double>
 class DimensionlessPlanarVector {
-  static_assert(
-      std::is_floating_point<Number>::value,
-      "The Number template parameter of a physical quantity must be a floating-point number type.");
+  static_assert(std::is_floating_point<NumericType>::value,
+                "The NumericType template parameter of a physical quantity must be a numeric "
+                "floating-point type: float, double, or long double.");
 
 public:
   /// \brief Physical dimension set of this physical quantity. Since this physical quantity is
@@ -57,7 +57,7 @@ public:
   }
 
   /// \brief Value of this physical quantity.
-  [[nodiscard]] constexpr const PhQ::PlanarVector<Number>& Value() const noexcept {
+  [[nodiscard]] constexpr const PhQ::PlanarVector<NumericType>& Value() const noexcept {
     return value;
   }
 
@@ -88,15 +88,16 @@ protected:
 
   /// \brief Constructor. Constructs a dimensionless planar vector physical quantity whose value has
   /// the given x, y, and z Cartesian components.
-  constexpr DimensionlessPlanarVector(const Number x, const Number y) : value(x, y) {}
+  constexpr DimensionlessPlanarVector(const NumericType x, const NumericType y) : value(x, y) {}
 
   /// \brief Constructor. Constructs a dimensionless planar vector physical quantity from a given
   /// array representing its value's x and y Cartesian components.
-  explicit constexpr DimensionlessPlanarVector(const std::array<Number, 2>& x_y) : value(x_y) {}
+  explicit constexpr DimensionlessPlanarVector(const std::array<NumericType, 2>& x_y)
+    : value(x_y) {}
 
   /// \brief Constructor. Constructs a dimensionless planar vector physical quantity with a given
   /// value.
-  explicit constexpr DimensionlessPlanarVector(const PhQ::PlanarVector<Number>& value)
+  explicit constexpr DimensionlessPlanarVector(const PhQ::PlanarVector<NumericType>& value)
     : value(value) {}
 
   /// \brief Destructor. Destroys this dimensionless planar vector physical quantity.
@@ -104,39 +105,42 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensionless planar vector physical quantity by copying
   /// another one.
-  constexpr DimensionlessPlanarVector(const DimensionlessPlanarVector<Number>& other) = default;
+  constexpr DimensionlessPlanarVector(
+      const DimensionlessPlanarVector<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a dimensionless planar vector physical quantity by copying
   /// another one.
-  template <typename OtherNumber>
-  explicit constexpr DimensionlessPlanarVector(const DimensionlessPlanarVector<OtherNumber>& other)
-    : value(static_cast<PhQ::PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr DimensionlessPlanarVector(
+      const DimensionlessPlanarVector<OtherNumericType>& other)
+    : value(static_cast<PhQ::PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a dimensionless planar vector physical quantity by moving
   /// another one.
-  constexpr DimensionlessPlanarVector(DimensionlessPlanarVector<Number>&& other) noexcept = default;
+  constexpr DimensionlessPlanarVector(
+      DimensionlessPlanarVector<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this dimensionless planar vector physical quantity by
   /// copying another one.
-  constexpr DimensionlessPlanarVector<Number>& operator=(
-      const DimensionlessPlanarVector<Number>& other) = default;
+  constexpr DimensionlessPlanarVector<NumericType>& operator=(
+      const DimensionlessPlanarVector<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this dimensionless planar vector physical quantity by
   /// copying another one.
-  template <typename OtherNumber>
-  constexpr DimensionlessPlanarVector<Number>& operator=(
-      const DimensionlessPlanarVector<OtherNumber>& other) {
-    value = static_cast<PhQ::PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr DimensionlessPlanarVector<NumericType>& operator=(
+      const DimensionlessPlanarVector<OtherNumericType>& other) {
+    value = static_cast<PhQ::PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this dimensionless planar vector physical quantity by
   /// moving another one.
-  constexpr DimensionlessPlanarVector<Number>& operator=(
-      DimensionlessPlanarVector<Number>&& other) noexcept = default;
+  constexpr DimensionlessPlanarVector<NumericType>& operator=(
+      DimensionlessPlanarVector<NumericType>&& other) noexcept = default;
 
   /// \brief Value of this physical quantity.
-  PhQ::PlanarVector<Number> value;
+  PhQ::PlanarVector<NumericType> value;
 };
 
 }  // namespace PhQ

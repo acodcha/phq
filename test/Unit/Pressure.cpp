@@ -96,16 +96,16 @@ TEST(UnitPressure, ConvertAndConvertCopy) {
       value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitPressure, Parse) {
-  EXPECT_EQ(Parse<Pressure>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Pressure>("Pa"), Pressure::Pascal);
-  EXPECT_EQ(Parse<Pressure>("kPa"), Pressure::Kilopascal);
-  EXPECT_EQ(Parse<Pressure>("MPa"), Pressure::Megapascal);
-  EXPECT_EQ(Parse<Pressure>("GPa"), Pressure::Gigapascal);
-  EXPECT_EQ(Parse<Pressure>("bar"), Pressure::Bar);
-  EXPECT_EQ(Parse<Pressure>("atm"), Pressure::Atmosphere);
-  EXPECT_EQ(Parse<Pressure>("lbf/ft^2"), Pressure::PoundPerSquareFoot);
-  EXPECT_EQ(Parse<Pressure>("lbf/in^2"), Pressure::PoundPerSquareInch);
+TEST(UnitPressure, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Pressure>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Pressure>("Pa"), Pressure::Pascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("kPa"), Pressure::Kilopascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("MPa"), Pressure::Megapascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("GPa"), Pressure::Gigapascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("bar"), Pressure::Bar);
+  EXPECT_EQ(ParseEnumeration<Pressure>("atm"), Pressure::Atmosphere);
+  EXPECT_EQ(ParseEnumeration<Pressure>("lbf/ft^2"), Pressure::PoundPerSquareFoot);
+  EXPECT_EQ(ParseEnumeration<Pressure>("lbf/in^2"), Pressure::PoundPerSquareInch);
 }
 
 TEST(UnitPressure, RelatedDimensions) {

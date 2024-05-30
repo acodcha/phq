@@ -119,23 +119,23 @@ TEST(UnitMassRate, ConvertAndConvertCopy) {
       MassRate::KilogramPerSecond, MassRate::PoundPerHour, value, value * 3600.0L / 0.45359237L);
 }
 
-TEST(UnitMassRate, Parse) {
-  EXPECT_EQ(Parse<MassRate>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<MassRate>("kg/s"), MassRate::KilogramPerSecond);
-  EXPECT_EQ(Parse<MassRate>("g/s"), MassRate::GramPerSecond);
-  EXPECT_EQ(Parse<MassRate>("slug/s"), MassRate::SlugPerSecond);
-  EXPECT_EQ(Parse<MassRate>("slinch/s"), MassRate::SlinchPerSecond);
-  EXPECT_EQ(Parse<MassRate>("lbm/s"), MassRate::PoundPerSecond);
-  EXPECT_EQ(Parse<MassRate>("kg/min"), MassRate::KilogramPerMinute);
-  EXPECT_EQ(Parse<MassRate>("g/min"), MassRate::GramPerMinute);
-  EXPECT_EQ(Parse<MassRate>("slug/min"), MassRate::SlugPerMinute);
-  EXPECT_EQ(Parse<MassRate>("slinch/min"), MassRate::SlinchPerMinute);
-  EXPECT_EQ(Parse<MassRate>("lbm/min"), MassRate::PoundPerMinute);
-  EXPECT_EQ(Parse<MassRate>("kg/hr"), MassRate::KilogramPerHour);
-  EXPECT_EQ(Parse<MassRate>("g/hr"), MassRate::GramPerHour);
-  EXPECT_EQ(Parse<MassRate>("slug/hr"), MassRate::SlugPerHour);
-  EXPECT_EQ(Parse<MassRate>("slinch/hr"), MassRate::SlinchPerHour);
-  EXPECT_EQ(Parse<MassRate>("lbm/hr"), MassRate::PoundPerHour);
+TEST(UnitMassRate, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<MassRate>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<MassRate>("kg/s"), MassRate::KilogramPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("g/s"), MassRate::GramPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slug/s"), MassRate::SlugPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slinch/s"), MassRate::SlinchPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("lbm/s"), MassRate::PoundPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("kg/min"), MassRate::KilogramPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("g/min"), MassRate::GramPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slug/min"), MassRate::SlugPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slinch/min"), MassRate::SlinchPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("lbm/min"), MassRate::PoundPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("kg/hr"), MassRate::KilogramPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("g/hr"), MassRate::GramPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slug/hr"), MassRate::SlugPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slinch/hr"), MassRate::SlinchPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("lbm/hr"), MassRate::PoundPerHour);
 }
 
 TEST(UnitMassRate, RelatedDimensions) {

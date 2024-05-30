@@ -130,28 +130,38 @@ TEST(UnitAngularAcceleration, ConvertAndConvertCopy) {
       value, value * 6480000.0L / Pi<long double>);
 }
 
-TEST(UnitAngularAcceleration, Parse) {
-  EXPECT_EQ(Parse<AngularAcceleration>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<AngularAcceleration>("rad/s^2"), AngularAcceleration::RadianPerSquareSecond);
-  EXPECT_EQ(Parse<AngularAcceleration>("rad/min^2"), AngularAcceleration::RadianPerSquareMinute);
-  EXPECT_EQ(Parse<AngularAcceleration>("rad/hr^2"), AngularAcceleration::RadianPerSquareHour);
-  EXPECT_EQ(Parse<AngularAcceleration>("deg/s^2"), AngularAcceleration::DegreePerSquareSecond);
-  EXPECT_EQ(Parse<AngularAcceleration>("deg/min^2"), AngularAcceleration::DegreePerSquareMinute);
-  EXPECT_EQ(Parse<AngularAcceleration>("deg/hr^2"), AngularAcceleration::DegreePerSquareHour);
+TEST(UnitAngularAcceleration, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(
-      Parse<AngularAcceleration>("arcmin/s^2"), AngularAcceleration::ArcminutePerSquareSecond);
+      ParseEnumeration<AngularAcceleration>("rad/s^2"), AngularAcceleration::RadianPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("rad/min^2"),
+            AngularAcceleration::RadianPerSquareMinute);
   EXPECT_EQ(
-      Parse<AngularAcceleration>("arcmin/min^2"), AngularAcceleration::ArcminutePerSquareMinute);
-  EXPECT_EQ(Parse<AngularAcceleration>("arcmin/hr^2"), AngularAcceleration::ArcminutePerSquareHour);
+      ParseEnumeration<AngularAcceleration>("rad/hr^2"), AngularAcceleration::RadianPerSquareHour);
   EXPECT_EQ(
-      Parse<AngularAcceleration>("arcsec/s^2"), AngularAcceleration::ArcsecondPerSquareSecond);
+      ParseEnumeration<AngularAcceleration>("deg/s^2"), AngularAcceleration::DegreePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("deg/min^2"),
+            AngularAcceleration::DegreePerSquareMinute);
   EXPECT_EQ(
-      Parse<AngularAcceleration>("arcsec/min^2"), AngularAcceleration::ArcsecondPerSquareMinute);
-  EXPECT_EQ(Parse<AngularAcceleration>("arcsec/hr^2"), AngularAcceleration::ArcsecondPerSquareHour);
-  EXPECT_EQ(Parse<AngularAcceleration>("rev/s^2"), AngularAcceleration::RevolutionPerSquareSecond);
-  EXPECT_EQ(
-      Parse<AngularAcceleration>("rev/min^2"), AngularAcceleration::RevolutionPerSquareMinute);
-  EXPECT_EQ(Parse<AngularAcceleration>("rev/hr^2"), AngularAcceleration::RevolutionPerSquareHour);
+      ParseEnumeration<AngularAcceleration>("deg/hr^2"), AngularAcceleration::DegreePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("arcmin/s^2"),
+            AngularAcceleration::ArcminutePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("arcmin/min^2"),
+            AngularAcceleration::ArcminutePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("arcmin/hr^2"),
+            AngularAcceleration::ArcminutePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("arcsec/s^2"),
+            AngularAcceleration::ArcsecondPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("arcsec/min^2"),
+            AngularAcceleration::ArcsecondPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("arcsec/hr^2"),
+            AngularAcceleration::ArcsecondPerSquareHour);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("rev/s^2"),
+            AngularAcceleration::RevolutionPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("rev/min^2"),
+            AngularAcceleration::RevolutionPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<AngularAcceleration>("rev/hr^2"),
+            AngularAcceleration::RevolutionPerSquareHour);
 }
 
 TEST(UnitAngularAcceleration, RelatedDimensions) {

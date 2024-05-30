@@ -174,329 +174,339 @@ inline const std::unordered_map<std::string_view, Unit::AngularSpeed> Spellings<
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>::ToStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>::ToStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(180.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(180.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(180.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(180.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(10800.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(10800.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(10800.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(10800.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(648000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(648000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(648000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(648000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerSecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(10800.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(10800.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(10800.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(10800.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerMinute>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(648000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(648000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(648000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(648000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(38880000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(38880000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(38880000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(38880000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerSecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(648000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(648000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(648000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(648000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerMinute>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(38880000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(38880000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(38880000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(38880000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(2332800000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(2332800000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(2332800000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(2332800000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.5L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.5L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(2.0L) * Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(2.0L) * Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(30.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(30.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(30.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(30.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1800.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1800.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(1800.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(1800.0L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::AngularSpeed,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::AngularSpeed, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::AngularSpeed, NumericType>{
         {Unit::AngularSpeed::RadianPerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RadianPerSecond>::FromStandard<Number>                              },
+         Unit::AngularSpeed::RadianPerSecond>::FromStandard<NumericType>    },
         {Unit::AngularSpeed::RadianPerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RadianPerMinute>::FromStandard<Number>                              },
+         Unit::AngularSpeed::RadianPerMinute>::FromStandard<NumericType>    },
         {Unit::AngularSpeed::RadianPerHour,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>::FromStandard<Number>},
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::RadianPerHour>::FromStandard<NumericType>      },
         {Unit::AngularSpeed::DegreePerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::DegreePerSecond>::FromStandard<Number>                              },
+         Unit::AngularSpeed::DegreePerSecond>::FromStandard<NumericType>    },
         {Unit::AngularSpeed::DegreePerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::DegreePerMinute>::FromStandard<Number>                              },
+         Unit::AngularSpeed::DegreePerMinute>::FromStandard<NumericType>    },
         {Unit::AngularSpeed::DegreePerHour,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>::FromStandard<Number>},
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::DegreePerHour>::FromStandard<NumericType>      },
         {Unit::AngularSpeed::ArcminutePerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcminutePerSecond>::FromStandard<Number>                           },
+         Unit::AngularSpeed::ArcminutePerSecond>::FromStandard<NumericType> },
         {Unit::AngularSpeed::ArcminutePerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcminutePerMinute>::FromStandard<Number>                           },
+         Unit::AngularSpeed::ArcminutePerMinute>::FromStandard<NumericType> },
         {Unit::AngularSpeed::ArcminutePerHour,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcminutePerHour>::FromStandard<Number>                             },
+         Unit::AngularSpeed::ArcminutePerHour>::FromStandard<NumericType>   },
         {Unit::AngularSpeed::ArcsecondPerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcsecondPerSecond>::FromStandard<Number>                           },
+         Unit::AngularSpeed::ArcsecondPerSecond>::FromStandard<NumericType> },
         {Unit::AngularSpeed::ArcsecondPerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcsecondPerMinute>::FromStandard<Number>                           },
+         Unit::AngularSpeed::ArcsecondPerMinute>::FromStandard<NumericType> },
         {Unit::AngularSpeed::ArcsecondPerHour,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcsecondPerHour>::FromStandard<Number>                             },
+         Unit::AngularSpeed::ArcsecondPerHour>::FromStandard<NumericType>   },
         {Unit::AngularSpeed::RevolutionPerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RevolutionPerSecond>::FromStandard<Number>                          },
+         Unit::AngularSpeed::RevolutionPerSecond>::FromStandard<NumericType>},
         {Unit::AngularSpeed::RevolutionPerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RevolutionPerMinute>::FromStandard<Number>                          },
+         Unit::AngularSpeed::RevolutionPerMinute>::FromStandard<NumericType>},
         {Unit::AngularSpeed::RevolutionPerHour,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RevolutionPerHour>::FromStandard<Number>                            },
+         Unit::AngularSpeed::RevolutionPerHour>::FromStandard<NumericType>  },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::AngularSpeed,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::AngularSpeed, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::AngularSpeed, NumericType>{
         {Unit::AngularSpeed::RadianPerSecond,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>::ToStandard<Number> },
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::RadianPerSecond>::ToStandard<NumericType>    },
         {Unit::AngularSpeed::RadianPerMinute,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>::ToStandard<Number> },
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::RadianPerMinute>::ToStandard<NumericType>    },
         {Unit::AngularSpeed::RadianPerHour,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>::ToStandard<Number>   },
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::RadianPerHour>::ToStandard<NumericType>      },
         {Unit::AngularSpeed::DegreePerSecond,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>::ToStandard<Number> },
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::DegreePerSecond>::ToStandard<NumericType>    },
         {Unit::AngularSpeed::DegreePerMinute,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>::ToStandard<Number> },
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::DegreePerMinute>::ToStandard<NumericType>    },
         {Unit::AngularSpeed::DegreePerHour,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>::ToStandard<Number>   },
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::DegreePerHour>::ToStandard<NumericType>      },
         {Unit::AngularSpeed::ArcminutePerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcminutePerSecond>::ToStandard<Number>                              },
+         Unit::AngularSpeed::ArcminutePerSecond>::ToStandard<NumericType> },
         {Unit::AngularSpeed::ArcminutePerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcminutePerMinute>::ToStandard<Number>                              },
+         Unit::AngularSpeed::ArcminutePerMinute>::ToStandard<NumericType> },
         {Unit::AngularSpeed::ArcminutePerHour,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>::ToStandard<Number>},
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerHour>::ToStandard<NumericType>   },
         {Unit::AngularSpeed::ArcsecondPerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcsecondPerSecond>::ToStandard<Number>                              },
+         Unit::AngularSpeed::ArcsecondPerSecond>::ToStandard<NumericType> },
         {Unit::AngularSpeed::ArcsecondPerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::ArcsecondPerMinute>::ToStandard<Number>                              },
+         Unit::AngularSpeed::ArcsecondPerMinute>::ToStandard<NumericType> },
         {Unit::AngularSpeed::ArcsecondPerHour,
-         Conversions<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>::ToStandard<Number>},
+         Conversions<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerHour>::ToStandard<NumericType>   },
         {Unit::AngularSpeed::RevolutionPerSecond,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RevolutionPerSecond>::ToStandard<Number>                             },
+         Unit::AngularSpeed::RevolutionPerSecond>::ToStandard<NumericType>},
         {Unit::AngularSpeed::RevolutionPerMinute,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RevolutionPerMinute>::ToStandard<Number>                             },
+         Unit::AngularSpeed::RevolutionPerMinute>::ToStandard<NumericType>},
         {Unit::AngularSpeed::RevolutionPerHour,
          Conversions<Unit::AngularSpeed,
-         Unit::AngularSpeed::RevolutionPerHour>::ToStandard<Number>                               },
+         Unit::AngularSpeed::RevolutionPerHour>::ToStandard<NumericType>  },
 };
 
 }  // namespace Internal

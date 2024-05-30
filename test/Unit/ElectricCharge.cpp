@@ -149,33 +149,33 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       ElectricCharge::Coulomb, ElectricCharge::NanoampereHour, value, value / 3.6E-6L);
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<ElectricCharge>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ElectricCharge>("C"), ElectricCharge::Coulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("kC"), ElectricCharge::Kilocoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("MC"), ElectricCharge::Megacoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("GC"), ElectricCharge::Gigacoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("TC"), ElectricCharge::Teracoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("mC"), ElectricCharge::Millicoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("μC"), ElectricCharge::Microcoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("nC"), ElectricCharge::Nanocoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("e"), ElectricCharge::ElementaryCharge);
-  EXPECT_EQ(Parse<ElectricCharge>("A·min"), ElectricCharge::AmpereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("A·hr"), ElectricCharge::AmpereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("kA·min"), ElectricCharge::KiloampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("kA·hr"), ElectricCharge::KiloampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("MA·min"), ElectricCharge::MegaampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("MA·hr"), ElectricCharge::MegaampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("GA·min"), ElectricCharge::GigaampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("GA·hr"), ElectricCharge::GigaampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("TA·min"), ElectricCharge::TeraampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("TA·hr"), ElectricCharge::TeraampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("mA·min"), ElectricCharge::MilliampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("mA·hr"), ElectricCharge::MilliampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("μA·min"), ElectricCharge::MicroampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("μA·hr"), ElectricCharge::MicroampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("nA·min"), ElectricCharge::NanoampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("nA·hr"), ElectricCharge::NanoampereHour);
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("C"), ElectricCharge::Coulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("kC"), ElectricCharge::Kilocoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("MC"), ElectricCharge::Megacoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("GC"), ElectricCharge::Gigacoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("TC"), ElectricCharge::Teracoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("mC"), ElectricCharge::Millicoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("μC"), ElectricCharge::Microcoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("nC"), ElectricCharge::Nanocoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("e"), ElectricCharge::ElementaryCharge);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("A·min"), ElectricCharge::AmpereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("A·hr"), ElectricCharge::AmpereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("kA·min"), ElectricCharge::KiloampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("kA·hr"), ElectricCharge::KiloampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("MA·min"), ElectricCharge::MegaampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("MA·hr"), ElectricCharge::MegaampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("GA·min"), ElectricCharge::GigaampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("GA·hr"), ElectricCharge::GigaampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("TA·min"), ElectricCharge::TeraampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("TA·hr"), ElectricCharge::TeraampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("mA·min"), ElectricCharge::MilliampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("mA·hr"), ElectricCharge::MilliampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("μA·min"), ElectricCharge::MicroampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("μA·hr"), ElectricCharge::MicroampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("nA·min"), ElectricCharge::NanoampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("nA·hr"), ElectricCharge::NanoampereHour);
 }
 
 TEST(UnitAngle, RelatedDimensions) {

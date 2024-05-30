@@ -89,13 +89,15 @@ TEST(UnitSpecificHeatCapacity, ConvertAndConvertCopy) {
       value / (1.8L * std::pow(0.0254L, 2)));
 }
 
-TEST(UnitSpecificHeatCapacity, Parse) {
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("J/kg/K"), SpecificHeatCapacity::JoulePerKilogramPerKelvin);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("nJ/g/K"), SpecificHeatCapacity::NanojoulePerGramPerKelvin);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("ft·lbf/slug/°R"),
+TEST(UnitSpecificHeatCapacity, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SpecificHeatCapacity>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SpecificHeatCapacity>("J/kg/K"),
+            SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+  EXPECT_EQ(ParseEnumeration<SpecificHeatCapacity>("nJ/g/K"),
+            SpecificHeatCapacity::NanojoulePerGramPerKelvin);
+  EXPECT_EQ(ParseEnumeration<SpecificHeatCapacity>("ft·lbf/slug/°R"),
             SpecificHeatCapacity::FootPoundPerSlugPerRankine);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("in·lbf/slinch/°R"),
+  EXPECT_EQ(ParseEnumeration<SpecificHeatCapacity>("in·lbf/slinch/°R"),
             SpecificHeatCapacity::InchPoundPerSlinchPerRankine);
 }
 

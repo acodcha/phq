@@ -38,255 +38,264 @@
 namespace PhQ {
 
 /// \brief Frequency. Inverse of a time duration. See also PhQ::Time.
-template <typename Number = double>
-class Frequency : public DimensionalScalar<Unit::Frequency, Number> {
+template <typename NumericType = double>
+class Frequency : public DimensionalScalar<Unit::Frequency, NumericType> {
 public:
   /// \brief Default constructor. Constructs a frequency with an uninitialized value.
   Frequency() = default;
 
   /// \brief Constructor. Constructs a frequency with a given value expressed in a given frequency
   /// unit.
-  Frequency(const Number value, const Unit::Frequency unit)
-    : DimensionalScalar<Unit::Frequency, Number>(value, unit) {}
+  Frequency(const NumericType value, const Unit::Frequency unit)
+    : DimensionalScalar<Unit::Frequency, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a frequency from a given time period using the definition of
   /// frequency.
-  constexpr explicit Frequency(const Time<Number>& time) : Frequency<Number>(1.0 / time.Value()) {}
+  constexpr explicit Frequency(const Time<NumericType>& time)
+    : Frequency<NumericType>(1.0 / time.Value()) {}
 
   /// \brief Constructor. Constructs a frequency from a given scalar acceleration and speed using
   /// the definitions of acceleration and frequency.
   constexpr Frequency(
-      const ScalarAcceleration<Number>& scalar_acceleration, const Speed<Number>& speed);
+      const ScalarAcceleration<NumericType>& scalar_acceleration, const Speed<NumericType>& speed);
 
   /// \brief Constructor. Constructs a frequency from a given scalar angular acceleration and
   /// angular speed using the definitions of angular acceleration and frequency.
-  constexpr Frequency(const ScalarAngularAcceleration<Number>& scalar_angular_acceleration,
-                      const AngularSpeed<Number>& angular_speed);
+  constexpr Frequency(const ScalarAngularAcceleration<NumericType>& scalar_angular_acceleration,
+                      const AngularSpeed<NumericType>& angular_speed);
 
   /// \brief Constructor. Constructs a frequency from a given angular speed and angle using the
   /// definitions of angular speed and frequency.
-  constexpr Frequency(const AngularSpeed<Number>& angular_speed, const Angle<Number>& angle);
+  constexpr Frequency(
+      const AngularSpeed<NumericType>& angular_speed, const Angle<NumericType>& angle);
 
   /// \brief Constructor. Constructs a frequency from a given electric current and electric charge
   /// using the definitions of electric current and frequency.
-  constexpr Frequency(const ElectricCurrent<Number>& electric_current,
-                      const ElectricCharge<Number>& electric_charge);
+  constexpr Frequency(const ElectricCurrent<NumericType>& electric_current,
+                      const ElectricCharge<NumericType>& electric_charge);
 
   /// \brief Constructor. Constructs a frequency from a given mass rate and mass using the
   /// definitions of mass rate and frequency.
-  constexpr Frequency(const MassRate<Number>& mass_rate, const Mass<Number>& mass);
+  constexpr Frequency(const MassRate<NumericType>& mass_rate, const Mass<NumericType>& mass);
 
   /// \brief Constructor. Constructs a frequency from a given memory rate and memory using the
   /// definitions of memory rate and frequency.
-  constexpr Frequency(const MemoryRate<Number>& memory_rate, const Memory<Number>& memory);
+  constexpr Frequency(
+      const MemoryRate<NumericType>& memory_rate, const Memory<NumericType>& memory);
 
   /// \brief Constructor. Constructs a frequency from a given power and energy using the definitions
   /// of power and frequency.
-  constexpr Frequency(const Power<Number>& power, const Energy<Number>& energy);
+  constexpr Frequency(const Power<NumericType>& power, const Energy<NumericType>& energy);
 
   /// \brief Constructor. Constructs a frequency from a given specific power and specific energy
   /// using the definitions of specific power and frequency.
-  constexpr Frequency(
-      const SpecificPower<Number>& specific_power, const SpecificEnergy<Number>& specific_energy);
+  constexpr Frequency(const SpecificPower<NumericType>& specific_power,
+                      const SpecificEnergy<NumericType>& specific_energy);
 
   /// \brief Constructor. Constructs a frequency from a given speed and length using the definitions
   /// of speed and frequency.
-  constexpr Frequency(const Speed<Number>& speed, const Length<Number>& length);
+  constexpr Frequency(const Speed<NumericType>& speed, const Length<NumericType>& length);
 
   /// \brief Constructor. Constructs a frequency from a given volume rate and volume using the
   /// definitions of volume rate and frequency.
-  constexpr Frequency(const VolumeRate<Number>& volume_rate, const Volume<Number>& volume);
+  constexpr Frequency(
+      const VolumeRate<NumericType>& volume_rate, const Volume<NumericType>& volume);
 
   /// \brief Destructor. Destroys this frequency.
   ~Frequency() noexcept = default;
 
   /// \brief Copy constructor. Constructs a frequency by copying another one.
-  constexpr Frequency(const Frequency<Number>& other) = default;
+  constexpr Frequency(const Frequency<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a frequency by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Frequency(const Frequency<OtherNumber>& other)
-    : Frequency(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Frequency(const Frequency<OtherNumericType>& other)
+    : Frequency(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a frequency by moving another one.
-  constexpr Frequency(Frequency<Number>&& other) noexcept = default;
+  constexpr Frequency(Frequency<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this frequency by copying another one.
-  constexpr Frequency<Number>& operator=(const Frequency<Number>& other) = default;
+  constexpr Frequency<NumericType>& operator=(const Frequency<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this frequency by copying another one.
-  template <typename OtherNumber>
-  constexpr Frequency<Number>& operator=(const Frequency<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Frequency<NumericType>& operator=(const Frequency<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this frequency by moving another one.
-  constexpr Frequency<Number>& operator=(Frequency<Number>&& other) noexcept = default;
+  constexpr Frequency<NumericType>& operator=(Frequency<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a frequency of zero.
-  static constexpr Frequency<Number> Zero() {
-    return Frequency<Number>{static_cast<Number>(0)};
+  static constexpr Frequency<NumericType> Zero() {
+    return Frequency<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a frequency with a given value expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr Frequency<Number> Create(const Number value) {
-    return Frequency<Number>{
+  static constexpr Frequency<NumericType> Create(const NumericType value) {
+    return Frequency<NumericType>{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Time period that corresponds to this frequency.
-  [[nodiscard]] constexpr Time<Number> Period() const {
-    return Time<Number>{*this};
+  [[nodiscard]] constexpr Time<NumericType> Period() const {
+    return Time<NumericType>{*this};
   }
 
-  constexpr Frequency<Number> operator+(const Frequency<Number>& frequency) const {
-    return Frequency<Number>{this->value + frequency.value};
+  constexpr Frequency<NumericType> operator+(const Frequency<NumericType>& frequency) const {
+    return Frequency<NumericType>{this->value + frequency.value};
   }
 
-  constexpr Frequency<Number> operator-(const Frequency<Number>& frequency) const {
-    return Frequency<Number>{this->value - frequency.value};
+  constexpr Frequency<NumericType> operator-(const Frequency<NumericType>& frequency) const {
+    return Frequency<NumericType>{this->value - frequency.value};
   }
 
-  constexpr Frequency<Number> operator*(const Number number) const {
-    return Frequency<Number>{this->value * number};
+  constexpr Frequency<NumericType> operator*(const NumericType number) const {
+    return Frequency<NumericType>{this->value * number};
   }
 
-  constexpr Frequency<Number> operator/(const Number number) const {
-    return Frequency<Number>{this->value / number};
+  constexpr Frequency<NumericType> operator/(const NumericType number) const {
+    return Frequency<NumericType>{this->value / number};
   }
 
-  constexpr Number operator*(const Time<Number>& time) const noexcept {
+  constexpr NumericType operator*(const Time<NumericType>& time) const noexcept {
     return this->value * time.Value();
   }
 
-  constexpr Speed<Number> operator*(const Length<Number>& length) const;
+  constexpr Speed<NumericType> operator*(const Length<NumericType>& length) const;
 
-  constexpr AngularSpeed<Number> operator*(const Angle<Number>& angle) const;
+  constexpr AngularSpeed<NumericType> operator*(const Angle<NumericType>& angle) const;
 
-  constexpr ElectricCurrent<Number> operator*(const ElectricCharge<Number>& electric_charge) const;
+  constexpr ElectricCurrent<NumericType> operator*(
+      const ElectricCharge<NumericType>& electric_charge) const;
 
-  constexpr PlanarVelocity<Number> operator*(const PlanarDisplacement<Number>& displacement) const;
+  constexpr PlanarVelocity<NumericType> operator*(
+      const PlanarDisplacement<NumericType>& displacement) const;
 
-  constexpr Velocity<Number> operator*(const Displacement<Number>& displacement) const;
+  constexpr Velocity<NumericType> operator*(const Displacement<NumericType>& displacement) const;
 
-  constexpr PlanarAcceleration<Number> operator*(const PlanarVelocity<Number>& displacement) const;
+  constexpr PlanarAcceleration<NumericType> operator*(
+      const PlanarVelocity<NumericType>& displacement) const;
 
-  constexpr Acceleration<Number> operator*(const Velocity<Number>& displacement) const;
+  constexpr Acceleration<NumericType> operator*(const Velocity<NumericType>& displacement) const;
 
-  constexpr VelocityGradient<Number> operator*(
-      const DisplacementGradient<Number>& displacement_gradient) const;
+  constexpr VelocityGradient<NumericType> operator*(
+      const DisplacementGradient<NumericType>& displacement_gradient) const;
 
-  constexpr ScalarVelocityGradient<Number> operator*(
-      const ScalarDisplacementGradient<Number>& scalar_displacement_gradient) const;
+  constexpr ScalarVelocityGradient<NumericType> operator*(
+      const ScalarDisplacementGradient<NumericType>& scalar_displacement_gradient) const;
 
-  constexpr MemoryRate<Number> operator*(const Memory<Number>& memory) const;
+  constexpr MemoryRate<NumericType> operator*(const Memory<NumericType>& memory) const;
 
-  constexpr ScalarAcceleration<Number> operator*(const Speed<Number>& speed) const;
+  constexpr ScalarAcceleration<NumericType> operator*(const Speed<NumericType>& speed) const;
 
-  constexpr ScalarAngularAcceleration<Number> operator*(
-      const AngularSpeed<Number>& angular_speed) const;
+  constexpr ScalarAngularAcceleration<NumericType> operator*(
+      const AngularSpeed<NumericType>& angular_speed) const;
 
-  constexpr MassRate<Number> operator*(const Mass<Number>& mass) const;
+  constexpr MassRate<NumericType> operator*(const Mass<NumericType>& mass) const;
 
-  constexpr VolumeRate<Number> operator*(const Volume<Number>& volume) const;
+  constexpr VolumeRate<NumericType> operator*(const Volume<NumericType>& volume) const;
 
-  constexpr Power<Number> operator*(const Energy<Number>& energy) const;
+  constexpr Power<NumericType> operator*(const Energy<NumericType>& energy) const;
 
-  constexpr SpecificPower<Number> operator*(const SpecificEnergy<Number>& specific_energy) const;
+  constexpr SpecificPower<NumericType> operator*(
+      const SpecificEnergy<NumericType>& specific_energy) const;
 
-  constexpr StrainRate<Number> operator*(const Strain<Number>& strain) const;
+  constexpr StrainRate<NumericType> operator*(const Strain<NumericType>& strain) const;
 
-  constexpr ScalarStrainRate<Number> operator*(const ScalarStrain<Number>& scalar_strain) const;
+  constexpr ScalarStrainRate<NumericType> operator*(
+      const ScalarStrain<NumericType>& scalar_strain) const;
 
-  constexpr Number operator/(const Frequency<Number>& frequency) const noexcept {
+  constexpr NumericType operator/(const Frequency<NumericType>& frequency) const noexcept {
     return this->value / frequency.value;
   }
 
-  constexpr void operator+=(const Frequency<Number>& frequency) noexcept {
+  constexpr void operator+=(const Frequency<NumericType>& frequency) noexcept {
     this->value += frequency.value;
   }
 
-  constexpr void operator-=(const Frequency<Number>& frequency) noexcept {
+  constexpr void operator-=(const Frequency<NumericType>& frequency) noexcept {
     this->value -= frequency.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a frequency with a given value expressed in the standard
   /// frequency unit.
-  explicit constexpr Frequency(const Number value)
-    : DimensionalScalar<Unit::Frequency, Number>(value) {}
+  explicit constexpr Frequency(const NumericType value)
+    : DimensionalScalar<Unit::Frequency, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const Frequency<Number>& left, const Frequency<Number>& right) noexcept {
+    const Frequency<NumericType>& left, const Frequency<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const Frequency<Number>& left, const Frequency<Number>& right) noexcept {
+    const Frequency<NumericType>& left, const Frequency<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const Frequency<Number>& left, const Frequency<Number>& right) noexcept {
+    const Frequency<NumericType>& left, const Frequency<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const Frequency<Number>& left, const Frequency<Number>& right) noexcept {
+    const Frequency<NumericType>& left, const Frequency<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const Frequency<Number>& left, const Frequency<Number>& right) noexcept {
+    const Frequency<NumericType>& left, const Frequency<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const Frequency<Number>& left, const Frequency<Number>& right) noexcept {
+    const Frequency<NumericType>& left, const Frequency<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Frequency<Number>& frequency) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Frequency<NumericType>& frequency) {
   stream << frequency.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Frequency<Number> operator*(
-    const Number number, const Frequency<Number>& frequency) {
+template <typename NumericType>
+inline constexpr Frequency<NumericType> operator*(
+    const NumericType number, const Frequency<NumericType>& frequency) {
   return frequency * number;
 }
 
-template <typename Number>
-inline constexpr Time<Number>::Time(const PhQ::Frequency<Number>& frequency)
-  : Time<Number>(1.0 / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr Time<NumericType>::Time(const PhQ::Frequency<NumericType>& frequency)
+  : Time<NumericType>(1.0 / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr PhQ::Frequency<Number> Time<Number>::Frequency() const {
-  return PhQ::Frequency<Number>{*this};
+template <typename NumericType>
+inline constexpr PhQ::Frequency<NumericType> Time<NumericType>::Frequency() const {
+  return PhQ::Frequency<NumericType>{*this};
 }
 
-template <typename Number>
-inline constexpr Number Time<Number>::operator*(
-    const PhQ::Frequency<Number>& frequency) const noexcept {
+template <typename NumericType>
+inline constexpr NumericType Time<NumericType>::operator*(
+    const PhQ::Frequency<NumericType>& frequency) const noexcept {
   return this->value * frequency.Value();
 }
 
@@ -294,10 +303,10 @@ inline constexpr Number Time<Number>::operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Frequency<Number>> {
-  inline size_t operator()(const PhQ::Frequency<Number>& frequency) const {
-    return hash<Number>()(frequency.Value());
+template <typename NumericType>
+struct hash<PhQ::Frequency<NumericType>> {
+  inline size_t operator()(const PhQ::Frequency<NumericType>& frequency) const {
+    return hash<NumericType>()(frequency.Value());
   }
 };
 

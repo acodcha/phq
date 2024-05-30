@@ -44,11 +44,11 @@ namespace PhQ {
 /// quantity. Such a physical quantity is composed only of a value where the value is a
 /// three-dimensional symmetric dyadic tensor. Such a physical quantity has no unit of measure and
 /// no dimension set.
-template <typename Number = double>
+template <typename NumericType = double>
 class DimensionlessSymmetricDyad {
-  static_assert(
-      std::is_floating_point<Number>::value,
-      "The Number template parameter of a physical quantity must be a floating-point number type.");
+  static_assert(std::is_floating_point<NumericType>::value,
+                "The NumericType template parameter of a physical quantity must be a numeric "
+                "floating-point type: float, double, or long double.");
 
 public:
   /// \brief Physical dimension set of this physical quantity. Since this physical quantity is
@@ -58,17 +58,17 @@ public:
   }
 
   /// \brief Value of this physical quantity.
-  [[nodiscard]] constexpr const PhQ::SymmetricDyad<Number>& Value() const noexcept {
+  [[nodiscard]] constexpr const PhQ::SymmetricDyad<NumericType>& Value() const noexcept {
     return value;
   }
 
   /// \brief Returns the value of this physical quantity as a mutable value.
-  constexpr PhQ::SymmetricDyad<Number>& MutableValue() noexcept {
+  constexpr PhQ::SymmetricDyad<NumericType>& MutableValue() noexcept {
     return value;
   }
 
   /// \brief Sets the value of this physical quantity to the given value.
-  constexpr void SetValue(const PhQ::SymmetricDyad<Number>& value) noexcept {
+  constexpr void SetValue(const PhQ::SymmetricDyad<NumericType>& value) noexcept {
     this->value = value;
   }
 
@@ -99,18 +99,19 @@ protected:
 
   /// \brief Constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity whose
   /// value has the given xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr DimensionlessSymmetricDyad(const Number xx, const Number xy, const Number xz,
-                                       const Number yy, const Number yz, const Number zz)
+  constexpr DimensionlessSymmetricDyad(
+      const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
+      const NumericType yz, const NumericType zz)
     : value(xx, xy, xz, yy, yz, zz) {}
 
   /// \brief Constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity from
   /// a given array representing its value's xx, xy, xz, yy, yz, and zz Cartesian components.
-  explicit constexpr DimensionlessSymmetricDyad(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz)
+  explicit constexpr DimensionlessSymmetricDyad(const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz)
     : value(xx_xy_xz_yy_yz_zz) {}
 
   /// \brief Constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity with
   /// a given value.
-  explicit constexpr DimensionlessSymmetricDyad(const PhQ::SymmetricDyad<Number>& value)
+  explicit constexpr DimensionlessSymmetricDyad(const PhQ::SymmetricDyad<NumericType>& value)
     : value(value) {}
 
   /// \brief Destructor. Destroys this dimensionless symmetric dyadic tensor physical quantity.
@@ -118,41 +119,42 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity
   /// by copying another one.
-  constexpr DimensionlessSymmetricDyad(const DimensionlessSymmetricDyad<Number>& other) = default;
+  constexpr DimensionlessSymmetricDyad(
+      const DimensionlessSymmetricDyad<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity
   /// by copying another one.
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   explicit constexpr DimensionlessSymmetricDyad(
-      const DimensionlessSymmetricDyad<OtherNumber>& other)
-    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.Value())) {}
+      const DimensionlessSymmetricDyad<OtherNumericType>& other)
+    : value(static_cast<PhQ::SymmetricDyad<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity
   /// by moving another one.
   constexpr DimensionlessSymmetricDyad(
-      DimensionlessSymmetricDyad<Number>&& other) noexcept = default;
+      DimensionlessSymmetricDyad<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this dimensionless symmetric dyadic tensor physical
   /// quantity by copying another one.
-  constexpr DimensionlessSymmetricDyad<Number>& operator=(
-      const DimensionlessSymmetricDyad<Number>& other) = default;
+  constexpr DimensionlessSymmetricDyad<NumericType>& operator=(
+      const DimensionlessSymmetricDyad<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this dimensionless symmetric dyadic tensor physical
   /// quantity by copying another one.
-  template <typename OtherNumber>
-  constexpr DimensionlessSymmetricDyad<Number>& operator=(
-      const DimensionlessSymmetricDyad<OtherNumber>& other) {
-    value = static_cast<PhQ::SymmetricDyad<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr DimensionlessSymmetricDyad<NumericType>& operator=(
+      const DimensionlessSymmetricDyad<OtherNumericType>& other) {
+    value = static_cast<PhQ::SymmetricDyad<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this dimensionless symmetric dyadic tensor physical
   /// quantity by moving another one.
-  constexpr DimensionlessSymmetricDyad<Number>& operator=(
-      DimensionlessSymmetricDyad<Number>&& other) noexcept = default;
+  constexpr DimensionlessSymmetricDyad<NumericType>& operator=(
+      DimensionlessSymmetricDyad<NumericType>&& other) noexcept = default;
 
   /// \brief Value of this physical quantity.
-  PhQ::SymmetricDyad<Number> value;
+  PhQ::SymmetricDyad<NumericType> value;
 };
 
 }  // namespace PhQ

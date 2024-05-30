@@ -240,99 +240,99 @@ inline const std::unordered_map<std::string_view, Unit::SpecificPower> Spellings
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinchPerSecond>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinchPerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::SpecificPower,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificPower, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::SpecificPower, NumericType>{
         {Unit::SpecificPower::WattPerKilogram,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::WattPerKilogram>::FromStandard<Number>            },
+         Unit::SpecificPower::WattPerKilogram>::FromStandard<NumericType>            },
         {Unit::SpecificPower::NanowattPerGram,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::NanowattPerGram>::FromStandard<Number>            },
+         Unit::SpecificPower::NanowattPerGram>::FromStandard<NumericType>            },
         {Unit::SpecificPower::FootPoundPerSlugPerSecond,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::FootPoundPerSlugPerSecond>::FromStandard<Number>  },
+         Unit::SpecificPower::FootPoundPerSlugPerSecond>::FromStandard<NumericType>  },
         {Unit::SpecificPower::InchPoundPerSlinchPerSecond,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::InchPoundPerSlinchPerSecond>::FromStandard<Number>},
+         Unit::SpecificPower::InchPoundPerSlinchPerSecond>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::SpecificPower,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SpecificPower, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::SpecificPower, NumericType>{
         {Unit::SpecificPower::WattPerKilogram,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::WattPerKilogram>::ToStandard<Number>            },
+         Unit::SpecificPower::WattPerKilogram>::ToStandard<NumericType>            },
         {Unit::SpecificPower::NanowattPerGram,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::NanowattPerGram>::ToStandard<Number>            },
+         Unit::SpecificPower::NanowattPerGram>::ToStandard<NumericType>            },
         {Unit::SpecificPower::FootPoundPerSlugPerSecond,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::FootPoundPerSlugPerSecond>::ToStandard<Number>  },
+         Unit::SpecificPower::FootPoundPerSlugPerSecond>::ToStandard<NumericType>  },
         {Unit::SpecificPower::InchPoundPerSlinchPerSecond,
          Conversions<Unit::SpecificPower,
-         Unit::SpecificPower::InchPoundPerSlinchPerSecond>::ToStandard<Number>},
+         Unit::SpecificPower::InchPoundPerSlinchPerSecond>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

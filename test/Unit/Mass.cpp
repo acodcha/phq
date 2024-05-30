@@ -74,13 +74,13 @@ TEST(UnitMass, ConvertAndConvertCopy) {
       Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
 }
 
-TEST(UnitMass, Parse) {
-  EXPECT_EQ(Parse<Mass>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Mass>("kg"), Mass::Kilogram);
-  EXPECT_EQ(Parse<Mass>("g"), Mass::Gram);
-  EXPECT_EQ(Parse<Mass>("slug"), Mass::Slug);
-  EXPECT_EQ(Parse<Mass>("slinch"), Mass::Slinch);
-  EXPECT_EQ(Parse<Mass>("lbm"), Mass::Pound);
+TEST(UnitMass, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Mass>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Mass>("kg"), Mass::Kilogram);
+  EXPECT_EQ(ParseEnumeration<Mass>("g"), Mass::Gram);
+  EXPECT_EQ(ParseEnumeration<Mass>("slug"), Mass::Slug);
+  EXPECT_EQ(ParseEnumeration<Mass>("slinch"), Mass::Slinch);
+  EXPECT_EQ(ParseEnumeration<Mass>("lbm"), Mass::Pound);
 }
 
 TEST(UnitMass, RelatedDimensions) {

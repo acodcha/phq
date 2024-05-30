@@ -43,7 +43,7 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::PlanarTraction.
-template <typename Number>
+template <typename NumericType>
 class Stress;
 
 /// \brief Two-dimensional Euclidean traction vector in the XY plane. Contains two components in
@@ -51,255 +51,264 @@ class Stress;
 /// any direction, whereas pressure always acts compressively perpendicular to a surface. For a
 /// three-dimensional Euclidean traction vector, see PhQ::Traction. For scalar traction components
 /// or for the magnitude of a traction vector, see PhQ::ScalarTraction.
-template <typename Number = double>
-class PlanarTraction : public DimensionalPlanarVector<Unit::Pressure, Number> {
+template <typename NumericType = double>
+class PlanarTraction : public DimensionalPlanarVector<Unit::Pressure, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar traction vector with an uninitialized value.
   PlanarTraction() = default;
 
   /// \brief Constructor. Constructs a planar traction vector with a given value expressed in a
   /// given pressure unit.
-  PlanarTraction(const PlanarVector<Number>& value, const Unit::Pressure unit)
-    : DimensionalPlanarVector<Unit::Pressure, Number>(value, unit) {}
+  PlanarTraction(const PlanarVector<NumericType>& value, const Unit::Pressure unit)
+    : DimensionalPlanarVector<Unit::Pressure, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar traction vector from a given set of scalar traction
   /// components.
-  PlanarTraction(const ScalarTraction<Number>& x, const ScalarTraction<Number>& y)
-    : PlanarTraction<Number>({x.Value(), y.Value()}) {}
+  PlanarTraction(const ScalarTraction<NumericType>& x, const ScalarTraction<NumericType>& y)
+    : PlanarTraction<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar traction vector from a given scalar traction and
   /// planar direction.
-  constexpr PlanarTraction(const ScalarTraction<Number>& scalar_traction,
-                           const PlanarDirection<Number>& planar_direction)
-    : PlanarTraction<Number>(scalar_traction.Value() * planar_direction.Value()) {}
+  constexpr PlanarTraction(const ScalarTraction<NumericType>& scalar_traction,
+                           const PlanarDirection<NumericType>& planar_direction)
+    : PlanarTraction<NumericType>(scalar_traction.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar traction vector from a given traction vector by
   /// projecting the traction vector onto the XY plane.
-  explicit constexpr PlanarTraction(const Traction<Number>& traction);
+  explicit constexpr PlanarTraction(const Traction<NumericType>& traction);
 
   /// \brief Constructor. Constructs a planar traction vector from a given planar force and area
   /// using the definition of traction.
-  constexpr PlanarTraction(const PlanarForce<Number>& planar_force, const Area<Number>& area)
-    : PlanarTraction<Number>(planar_force.Value() / area.Value()) {}
+  constexpr PlanarTraction(
+      const PlanarForce<NumericType>& planar_force, const Area<NumericType>& area)
+    : PlanarTraction<NumericType>(planar_force.Value() / area.Value()) {}
 
   /// \brief Constructor. Constructs a planar traction vector from a given stress and direction
   /// using the definition of traction.
   constexpr PlanarTraction(
-      const Stress<Number>& stress, const PlanarDirection<Number>& planar_direction);
+      const Stress<NumericType>& stress, const PlanarDirection<NumericType>& planar_direction);
 
   /// \brief Destructor. Destroys this planar traction vector.
   ~PlanarTraction() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar traction vector by copying another one.
-  constexpr PlanarTraction(const PlanarTraction<Number>& other) = default;
+  constexpr PlanarTraction(const PlanarTraction<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar traction vector by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarTraction(const PlanarTraction<OtherNumber>& other)
-    : PlanarTraction(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarTraction(const PlanarTraction<OtherNumericType>& other)
+    : PlanarTraction(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar traction vector by moving another one.
-  constexpr PlanarTraction(PlanarTraction<Number>&& other) noexcept = default;
+  constexpr PlanarTraction(PlanarTraction<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this planar traction vector by copying another one.
-  constexpr PlanarTraction<Number>& operator=(const PlanarTraction<Number>& other) = default;
+  constexpr PlanarTraction<NumericType>& operator=(
+      const PlanarTraction<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this planar traction vector by copying another one.
-  template <typename OtherNumber>
-  constexpr PlanarTraction<Number>& operator=(const PlanarTraction<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarTraction<NumericType>& operator=(const PlanarTraction<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this planar traction vector by moving another one.
-  constexpr PlanarTraction<Number>& operator=(PlanarTraction<Number>&& other) noexcept = default;
+  constexpr PlanarTraction<NumericType>& operator=(
+      PlanarTraction<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar traction vector of zero.
-  static constexpr PlanarTraction<Number> Zero() {
-    return PlanarTraction<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarTraction<NumericType> Zero() {
+    return PlanarTraction<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar traction vector from the given x and y Cartesian components
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PlanarTraction<Number> Create(const Number x, const Number y) {
-    return PlanarTraction<Number>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-        PlanarVector<Number>{x, y})};
+  static constexpr PlanarTraction<NumericType> Create(const NumericType x, const NumericType y) {
+    return PlanarTraction<NumericType>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+            PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar traction vector from the given x and y Cartesian components
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PlanarTraction<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarTraction<Number>{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-        PlanarVector<Number>{x_y})};
+  static constexpr PlanarTraction<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+    return PlanarTraction<NumericType>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+            PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar traction vector with a given value expressed in a given
   /// pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PlanarTraction<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarTraction<Number>{
+  static constexpr PlanarTraction<NumericType> Create(const PlanarVector<NumericType>& value) {
+    return PlanarTraction<NumericType>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar traction vector.
-  [[nodiscard]] constexpr ScalarTraction<Number> x() const noexcept {
-    return ScalarTraction<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarTraction<NumericType> x() const noexcept {
+    return ScalarTraction<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this planar traction vector.
-  [[nodiscard]] constexpr ScalarTraction<Number> y() const noexcept {
-    return ScalarTraction<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarTraction<NumericType> y() const noexcept {
+    return ScalarTraction<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this planar traction vector.
-  [[nodiscard]] ScalarTraction<Number> Magnitude() const {
-    return ScalarTraction<Number>{this->value.Magnitude()};
+  [[nodiscard]] ScalarTraction<NumericType> Magnitude() const {
+    return ScalarTraction<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this planar traction vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this planar traction vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarTraction<Number>& planar_traction) const {
-    return PhQ::Angle<Number>{*this, planar_traction};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(
+      const PlanarTraction<NumericType>& planar_traction) const {
+    return PhQ::Angle<NumericType>{*this, planar_traction};
   }
 
-  constexpr PlanarTraction<Number> operator+(const PlanarTraction<Number>& planar_traction) const {
-    return PlanarTraction<Number>{this->value + planar_traction.value};
+  constexpr PlanarTraction<NumericType> operator+(
+      const PlanarTraction<NumericType>& planar_traction) const {
+    return PlanarTraction<NumericType>{this->value + planar_traction.value};
   }
 
-  constexpr PlanarTraction<Number> operator-(const PlanarTraction<Number>& planar_traction) const {
-    return PlanarTraction<Number>{this->value - planar_traction.value};
+  constexpr PlanarTraction<NumericType> operator-(
+      const PlanarTraction<NumericType>& planar_traction) const {
+    return PlanarTraction<NumericType>{this->value - planar_traction.value};
   }
 
-  constexpr PlanarTraction<Number> operator*(const Number number) const {
-    return PlanarTraction<Number>{this->value * number};
+  constexpr PlanarTraction<NumericType> operator*(const NumericType number) const {
+    return PlanarTraction<NumericType>{this->value * number};
   }
 
-  constexpr PlanarForce<Number> operator*(const Area<Number>& area) const {
-    return PlanarForce<Number>{*this, area};
+  constexpr PlanarForce<NumericType> operator*(const Area<NumericType>& area) const {
+    return PlanarForce<NumericType>{*this, area};
   }
 
-  constexpr PlanarTraction<Number> operator/(const Number number) const {
-    return PlanarTraction<Number>{this->value / number};
+  constexpr PlanarTraction<NumericType> operator/(const NumericType number) const {
+    return PlanarTraction<NumericType>{this->value / number};
   }
 
-  constexpr void operator+=(const PlanarTraction<Number>& planar_traction) noexcept {
+  constexpr void operator+=(const PlanarTraction<NumericType>& planar_traction) noexcept {
     this->value += planar_traction.value;
   }
 
-  constexpr void operator-=(const PlanarTraction<Number>& planar_traction) noexcept {
+  constexpr void operator-=(const PlanarTraction<NumericType>& planar_traction) noexcept {
     this->value -= planar_traction.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar traction vector with a given value expressed in the
   /// standard pressure unit.
-  explicit constexpr PlanarTraction(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::Pressure, Number>(value) {}
+  explicit constexpr PlanarTraction(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::Pressure, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PlanarTraction<Number>& left, const PlanarTraction<Number>& right) noexcept {
+    const PlanarTraction<NumericType>& left, const PlanarTraction<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PlanarTraction<Number>& left, const PlanarTraction<Number>& right) noexcept {
+    const PlanarTraction<NumericType>& left, const PlanarTraction<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PlanarTraction<Number>& left, const PlanarTraction<Number>& right) noexcept {
+    const PlanarTraction<NumericType>& left, const PlanarTraction<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PlanarTraction<Number>& left, const PlanarTraction<Number>& right) noexcept {
+    const PlanarTraction<NumericType>& left, const PlanarTraction<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PlanarTraction<Number>& left, const PlanarTraction<Number>& right) noexcept {
+    const PlanarTraction<NumericType>& left, const PlanarTraction<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PlanarTraction<Number>& left, const PlanarTraction<Number>& right) noexcept {
+    const PlanarTraction<NumericType>& left, const PlanarTraction<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const PlanarTraction<Number>& planar_traction) {
+    std::ostream& stream, const PlanarTraction<NumericType>& planar_traction) {
   stream << planar_traction.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarTraction<Number> operator*(
-    const Number number, const PlanarTraction<Number>& planar_traction) {
+template <typename NumericType>
+inline constexpr PlanarTraction<NumericType> operator*(
+    const NumericType number, const PlanarTraction<NumericType>& planar_traction) {
   return planar_traction * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(const PlanarTraction<Number>& planar_traction)
-  : PlanarDirection<Number>(planar_traction.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(
+    const PlanarTraction<NumericType>& planar_traction)
+  : PlanarDirection<NumericType>(planar_traction.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const PlanarTraction<Number>& planar_traction_1,
-                            const PlanarTraction<Number>& planar_traction_2)
-  : Angle<Number>(planar_traction_1.Value(), planar_traction_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(const PlanarTraction<NumericType>& planar_traction_1,
+                                 const PlanarTraction<NumericType>& planar_traction_2)
+  : Angle<NumericType>(planar_traction_1.Value(), planar_traction_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarForce<Number>::PlanarForce(
-    const PlanarTraction<Number>& planar_traction, const Area<Number>& area)
-  : PlanarForce<Number>(planar_traction.Value() * area.Value()) {}
+template <typename NumericType>
+inline constexpr PlanarForce<NumericType>::PlanarForce(
+    const PlanarTraction<NumericType>& planar_traction, const Area<NumericType>& area)
+  : PlanarForce<NumericType>(planar_traction.Value() * area.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarTraction<Number> PlanarDirection<Number>::operator*(
-    const ScalarTraction<Number>& scalar_traction) const {
-  return PlanarTraction<Number>{scalar_traction, *this};
+template <typename NumericType>
+inline constexpr PlanarTraction<NumericType> PlanarDirection<NumericType>::operator*(
+    const ScalarTraction<NumericType>& scalar_traction) const {
+  return PlanarTraction<NumericType>{scalar_traction, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarTraction<Number> ScalarTraction<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarTraction<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarTraction<NumericType> ScalarTraction<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarTraction<NumericType>{*this, planar_direction};
 }
 
-template <typename Number>
-inline constexpr PlanarTraction<Number> PlanarForce<Number>::operator/(
-    const Area<Number>& area) const {
-  return PlanarTraction<Number>{*this, area};
+template <typename NumericType>
+inline constexpr PlanarTraction<NumericType> PlanarForce<NumericType>::operator/(
+    const Area<NumericType>& area) const {
+  return PlanarTraction<NumericType>{*this, area};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarTraction<Number>> {
-  inline size_t operator()(const PhQ::PlanarTraction<Number>& planar_traction) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_traction.Value());
+template <typename NumericType>
+struct hash<PhQ::PlanarTraction<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarTraction<NumericType>& planar_traction) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_traction.Value());
   }
 };
 

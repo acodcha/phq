@@ -119,23 +119,23 @@ TEST(UnitArea, ConvertAndConvertCopy) {
       Area::SquareMetre, Area::SquareMicroinch, value, value / std::pow(0.0000000254L, 2));
 }
 
-TEST(UnitArea, Parse) {
-  EXPECT_EQ(Parse<Area>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Area>("nmi^2"), Area::SquareNauticalMile);
-  EXPECT_EQ(Parse<Area>("mi^2"), Area::SquareMile);
-  EXPECT_EQ(Parse<Area>("km^2"), Area::SquareKilometre);
-  EXPECT_EQ(Parse<Area>("ha"), Area::Hectare);
-  EXPECT_EQ(Parse<Area>("ac"), Area::Acre);
-  EXPECT_EQ(Parse<Area>("m^2"), Area::SquareMetre);
-  EXPECT_EQ(Parse<Area>("yd^2"), Area::SquareYard);
-  EXPECT_EQ(Parse<Area>("ft^2"), Area::SquareFoot);
-  EXPECT_EQ(Parse<Area>("dm^2"), Area::SquareDecimetre);
-  EXPECT_EQ(Parse<Area>("in^2"), Area::SquareInch);
-  EXPECT_EQ(Parse<Area>("cm^2"), Area::SquareCentimetre);
-  EXPECT_EQ(Parse<Area>("mm^2"), Area::SquareMillimetre);
-  EXPECT_EQ(Parse<Area>("mil^2"), Area::SquareMilliinch);
-  EXPECT_EQ(Parse<Area>("μm^2"), Area::SquareMicrometre);
-  EXPECT_EQ(Parse<Area>("μin^2"), Area::SquareMicroinch);
+TEST(UnitArea, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Area>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Area>("nmi^2"), Area::SquareNauticalMile);
+  EXPECT_EQ(ParseEnumeration<Area>("mi^2"), Area::SquareMile);
+  EXPECT_EQ(ParseEnumeration<Area>("km^2"), Area::SquareKilometre);
+  EXPECT_EQ(ParseEnumeration<Area>("ha"), Area::Hectare);
+  EXPECT_EQ(ParseEnumeration<Area>("ac"), Area::Acre);
+  EXPECT_EQ(ParseEnumeration<Area>("m^2"), Area::SquareMetre);
+  EXPECT_EQ(ParseEnumeration<Area>("yd^2"), Area::SquareYard);
+  EXPECT_EQ(ParseEnumeration<Area>("ft^2"), Area::SquareFoot);
+  EXPECT_EQ(ParseEnumeration<Area>("dm^2"), Area::SquareDecimetre);
+  EXPECT_EQ(ParseEnumeration<Area>("in^2"), Area::SquareInch);
+  EXPECT_EQ(ParseEnumeration<Area>("cm^2"), Area::SquareCentimetre);
+  EXPECT_EQ(ParseEnumeration<Area>("mm^2"), Area::SquareMillimetre);
+  EXPECT_EQ(ParseEnumeration<Area>("mil^2"), Area::SquareMilliinch);
+  EXPECT_EQ(ParseEnumeration<Area>("μm^2"), Area::SquareMicrometre);
+  EXPECT_EQ(ParseEnumeration<Area>("μin^2"), Area::SquareMicroinch);
 }
 
 TEST(UnitArea, RelatedDimensions) {

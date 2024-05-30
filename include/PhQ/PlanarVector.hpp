@@ -40,7 +40,7 @@
 namespace PhQ {
 
 // Forward declarations for class PhQ::PlanarVector.
-template <typename Number>
+template <typename NumericType>
 class Angle;
 
 // Forward declaration for class PhQ::PlanarVector.
@@ -48,22 +48,22 @@ template <typename>
 class Dyad;
 
 // Forward declaration for class PhQ::PlanarVector.
-template <typename Number>
+template <typename NumericType>
 class PlanarDirection;
 
 // Forward declaration for class PhQ::PlanarVector.
-template <typename Number>
+template <typename NumericType>
 class Vector;
 
 /// \brief Two-dimensional Euclidean vector in the XY plane. Contains two components in Cartesian
 /// coordinates: x and y. For a three-dimensional Euclidean vector, see PhQ::Vector. For a
 /// three-dimensional Euclidean dyadic tensor, see PhQ::Dyad. For a three-dimensional symmetric
 /// Euclidean dyadic tensor, see PhQ::SymmetricDyad.
-template <typename Number = double>
+template <typename NumericType = double>
 class PlanarVector {
-  static_assert(std::is_floating_point<Number>::value,
-                "The Number template parameter of PhQ::PlanarVector<Number> must be a "
-                "floating-point number type.");
+  static_assert(std::is_floating_point<NumericType>::value,
+                "The NumericType template parameter of PhQ::PlanarVector<NumericType> must be a "
+                "numeric floating-point type: float, double, or long double.");
 
 public:
   /// \brief Default constructor. Constructs a two-dimensional planar vector with uninitialized x
@@ -72,170 +72,174 @@ public:
 
   /// \brief Constructor. Constructs a two-dimensional planar vector from the given x and y
   /// Cartesian components.
-  constexpr PlanarVector(const Number x, const Number y) : x_y_({x, y}) {}
+  constexpr PlanarVector(const NumericType x, const NumericType y) : x_y_({x, y}) {}
 
   /// \brief Constructor. Constructs a two-dimensional planar vector from a given array representing
   /// its x and y Cartesian components.
-  explicit constexpr PlanarVector(const std::array<Number, 2>& x_y) : x_y_(x_y) {}
+  explicit constexpr PlanarVector(const std::array<NumericType, 2>& x_y) : x_y_(x_y) {}
 
   /// \brief Constructor. Constructs a two-dimensional planar vector from a given three-dimensional
   /// vector. Projects the three-dimensional vector onto the XY plane.
-  explicit constexpr PlanarVector(const Vector<Number>& vector);
+  explicit constexpr PlanarVector(const Vector<NumericType>& vector);
 
   /// \brief Constructor. Constructs a two-dimensional planar vector given a magnitude and a planar
   /// direction.
-  constexpr PlanarVector(Number magnitude, const PlanarDirection<Number>& direction);
+  constexpr PlanarVector(NumericType magnitude, const PlanarDirection<NumericType>& direction);
 
   /// \brief Destructor. Destroys this two-dimensional planar vector.
   ~PlanarVector() noexcept = default;
 
   /// \brief Copy constructor. Constructs a two-dimensional planar vector by copying another one.
-  constexpr PlanarVector(const PlanarVector<Number>& other) = default;
+  constexpr PlanarVector(const PlanarVector<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a two-dimensional planar vector by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarVector(const PlanarVector<OtherNumber>& other)
-    : x_y_({static_cast<Number>(other.x()), static_cast<Number>(other.y())}) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarVector(const PlanarVector<OtherNumericType>& other)
+    : x_y_({static_cast<NumericType>(other.x()), static_cast<NumericType>(other.y())}) {}
 
   /// \brief Move constructor. Constructs a two-dimensional planar vector by moving another one.
-  constexpr PlanarVector(PlanarVector<Number>&& other) noexcept = default;
+  constexpr PlanarVector(PlanarVector<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this two-dimensional planar vector by copying another
   /// one.
-  constexpr PlanarVector<Number>& operator=(const PlanarVector<Number>& other) = default;
+  constexpr PlanarVector<NumericType>& operator=(const PlanarVector<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this two-dimensional planar vector by copying another
   /// one.
-  template <typename OtherNumber>
-  constexpr PlanarVector<Number>& operator=(const PlanarVector<OtherNumber>& other) {
-    x_y_[0] = static_cast<Number>(other.x());
-    x_y_[1] = static_cast<Number>(other.y());
+  template <typename OtherNumericType>
+  constexpr PlanarVector<NumericType>& operator=(const PlanarVector<OtherNumericType>& other) {
+    x_y_[0] = static_cast<NumericType>(other.x());
+    x_y_[1] = static_cast<NumericType>(other.y());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this two-dimensional planar vector by moving another
   /// one.
-  constexpr PlanarVector<Number>& operator=(PlanarVector<Number>&& other) noexcept = default;
+  constexpr PlanarVector<NumericType>& operator=(
+      PlanarVector<NumericType>&& other) noexcept = default;
 
   /// \brief Assignment operator. Assigns this two-dimensional planar vector by copying a given
   /// array representing its x and y Cartesian components.
-  constexpr PlanarVector<Number>& operator=(const std::array<Number, 2>& x_y) {
+  constexpr PlanarVector<NumericType>& operator=(const std::array<NumericType, 2>& x_y) {
     x_y_ = x_y;
     return *this;
   }
 
   /// \brief Statically creates a two-dimensional planar vector with its x and y Cartesian
   /// components initialized to zero.
-  static constexpr PlanarVector<Number> Zero() {
-    return PlanarVector<Number>{
-        std::array<Number, 2>{static_cast<Number>(0), static_cast<Number>(0)}
+  static constexpr PlanarVector<NumericType> Zero() {
+    return PlanarVector<NumericType>{
+        std::array<NumericType, 2>{static_cast<NumericType>(0), static_cast<NumericType>(0)}
     };
   }
 
   /// \brief Returns this two-dimensional planar vector's x and y Cartesian components as an array.
-  [[nodiscard]] constexpr const std::array<Number, 2>& x_y() const noexcept {
+  [[nodiscard]] constexpr const std::array<NumericType, 2>& x_y() const noexcept {
     return x_y_;
   }
 
   /// \brief Returns this two-dimensional planar vector's x Cartesian component.
-  [[nodiscard]] constexpr Number x() const noexcept {
+  [[nodiscard]] constexpr NumericType x() const noexcept {
     return x_y_[0];
   }
 
   /// \brief Returns this two-dimensional planar vector's y Cartesian component.
-  [[nodiscard]] constexpr Number y() const noexcept {
+  [[nodiscard]] constexpr NumericType y() const noexcept {
     return x_y_[1];
   }
 
   /// \brief Returns this two-dimensional planar vector's x and y Cartesian components as a mutable
   /// array.
-  constexpr std::array<Number, 2>& Mutable_x_y() noexcept {
+  constexpr std::array<NumericType, 2>& Mutable_x_y() noexcept {
     return x_y_;
   }
 
   /// \brief Returns this two-dimensional planar vector's x Cartesian component as a mutable value.
-  constexpr Number& Mutable_x() noexcept {
+  constexpr NumericType& Mutable_x() noexcept {
     return x_y_[0];
   }
 
   /// \brief Returns this two-dimensional planar vector's y Cartesian component as a mutable value.
-  constexpr Number& Mutable_y() noexcept {
+  constexpr NumericType& Mutable_y() noexcept {
     return x_y_[1];
   }
 
   /// \brief Sets this two-dimensional planar vector's x and y Cartesian components to the given
   /// values.
-  constexpr void Set_x_y(const std::array<Number, 2>& x_y) noexcept {
+  constexpr void Set_x_y(const std::array<NumericType, 2>& x_y) noexcept {
     x_y_ = x_y;
   }
 
   /// \brief Sets this two-dimensional planar vector's x and y Cartesian components to the given
   /// values.
-  constexpr void Set_x_y(const Number x, const Number y) noexcept {
+  constexpr void Set_x_y(const NumericType x, const NumericType y) noexcept {
     x_y_[0] = x;
     x_y_[1] = y;
   }
 
   /// \brief Sets this two-dimensional planar vector's x Cartesian component to a given value.
-  constexpr void Set_x(const Number x) noexcept {
+  constexpr void Set_x(const NumericType x) noexcept {
     x_y_[0] = x;
   }
 
   /// \brief Sets this two-dimensional planar vector's y Cartesian component to a given value.
-  constexpr void Set_y(const Number y) noexcept {
+  constexpr void Set_y(const NumericType y) noexcept {
     x_y_[1] = y;
   }
 
   /// \brief Returns the square of the magnitude of this two-dimensional planar vector.
-  [[nodiscard]] constexpr Number MagnitudeSquared() const noexcept {
+  [[nodiscard]] constexpr NumericType MagnitudeSquared() const noexcept {
     return x_y_[0] * x_y_[0] + x_y_[1] * x_y_[1];
   }
 
   /// \brief Returns the magnitude (also known as the L2 norm) of this two-dimensional planar
   /// vector.
-  [[nodiscard]] Number Magnitude() const noexcept {
+  [[nodiscard]] NumericType Magnitude() const noexcept {
     return std::sqrt(MagnitudeSquared());
   }
 
   /// \brief Returns the planar direction of this two-dimensional planar vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const;
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const;
 
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
   /// two-dimensional planar vector and another one.
-  [[nodiscard]] constexpr Number Dot(const PlanarVector<Number>& planar_vector) const noexcept {
+  [[nodiscard]] constexpr NumericType Dot(
+      const PlanarVector<NumericType>& planar_vector) const noexcept {
     return x_y_[0] * planar_vector.x_y_[0] + x_y_[1] * planar_vector.x_y_[1];
   }
 
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
   /// two-dimensional planar vector and a given planar direction.
-  [[nodiscard]] constexpr Number Dot(
-      const PhQ::PlanarDirection<Number>& planar_direction) const noexcept;
+  [[nodiscard]] constexpr NumericType Dot(
+      const PhQ::PlanarDirection<NumericType>& planar_direction) const noexcept;
 
   /// \brief Returns the cross product (also known as the vector product) of this two-dimensional
   /// planar vector and another one.
-  [[nodiscard]] constexpr Vector<Number> Cross(const PlanarVector<Number>& planar_vector) const;
+  [[nodiscard]] constexpr Vector<NumericType> Cross(
+      const PlanarVector<NumericType>& planar_vector) const;
 
   /// \brief Returns the cross product (also known as the vector product) of this two-dimensional
   /// planar vector and a given planar direction.
-  [[nodiscard]] constexpr Vector<Number> Cross(
-      const PhQ::PlanarDirection<Number>& planar_direction) const;
+  [[nodiscard]] constexpr Vector<NumericType> Cross(
+      const PhQ::PlanarDirection<NumericType>& planar_direction) const;
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// two-dimensional planar vector and another one.
-  [[nodiscard]] constexpr Dyad<Number> Dyadic(const PlanarVector<Number>& planar_vector) const;
+  [[nodiscard]] constexpr Dyad<NumericType> Dyadic(
+      const PlanarVector<NumericType>& planar_vector) const;
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// two-dimensional planar vector and a given planar direction.
-  [[nodiscard]] constexpr Dyad<Number> Dyadic(
-      const PhQ::PlanarDirection<Number>& planar_direction) const;
+  [[nodiscard]] constexpr Dyad<NumericType> Dyadic(
+      const PhQ::PlanarDirection<NumericType>& planar_direction) const;
 
   /// \brief Returns the angle between this two-dimensional planar vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarVector<Number>& planar_vector) const;
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const PlanarVector<NumericType>& planar_vector) const;
 
   /// \brief Returns the angle between this two-dimensional planar vector and a given planar
   /// direction.
-  [[nodiscard]] PhQ::Angle<Number> Angle(
-      const PhQ::PlanarDirection<Number>& planar_direction) const;
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(
+      const PhQ::PlanarDirection<NumericType>& planar_direction) const;
 
   /// \brief Prints this two-dimensional planar vector as a string.
   [[nodiscard]] std::string Print() const {
@@ -257,109 +261,110 @@ public:
     return "{x:" + PhQ::Print(x_y_[0]) + ",y:" + PhQ::Print(x_y_[1]) + "}";
   }
 
-  constexpr void operator+=(const PlanarVector<Number>& planar_vector) noexcept {
+  constexpr void operator+=(const PlanarVector<NumericType>& planar_vector) noexcept {
     x_y_[0] += planar_vector.x_y_[0];
     x_y_[1] += planar_vector.x_y_[1];
   }
 
-  constexpr void operator-=(const PlanarVector<Number>& planar_vector) noexcept {
+  constexpr void operator-=(const PlanarVector<NumericType>& planar_vector) noexcept {
     x_y_[0] -= planar_vector.x_y_[0];
     x_y_[1] -= planar_vector.x_y_[1];
   }
 
-  template <typename OtherNumber>
-  constexpr void operator*=(const OtherNumber number) noexcept {
-    x_y_[0] *= static_cast<Number>(number);
-    x_y_[1] *= static_cast<Number>(number);
+  template <typename OtherNumericType>
+  constexpr void operator*=(const OtherNumericType number) noexcept {
+    x_y_[0] *= static_cast<NumericType>(number);
+    x_y_[1] *= static_cast<NumericType>(number);
   }
 
-  template <typename OtherNumber>
-  constexpr void operator/=(const OtherNumber number) noexcept {
-    x_y_[0] /= static_cast<Number>(number);
-    x_y_[1] /= static_cast<Number>(number);
+  template <typename OtherNumericType>
+  constexpr void operator/=(const OtherNumericType number) noexcept {
+    x_y_[0] /= static_cast<NumericType>(number);
+    x_y_[1] /= static_cast<NumericType>(number);
   }
 
 private:
   /// \brief Cartesian components of this two-dimensional planar vector.
-  std::array<Number, 2> x_y_;
+  std::array<NumericType, 2> x_y_;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) noexcept {
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) noexcept {
   return left.x() == right.x() && left.y() == right.y();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) noexcept {
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) noexcept {
   return left.x() != right.x() || left.y() != right.y();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) noexcept {
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) noexcept {
   if (left.x() != right.x()) {
     return left.x() < right.x();
   }
   return left.y() < right.y();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) noexcept {
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) noexcept {
   if (left.x() != right.x()) {
     return left.x() > right.x();
   }
   return left.y() > right.y();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) noexcept {
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) noexcept {
   return !(left > right);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) noexcept {
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) noexcept {
   return !(left < right);
 }
 
-template <typename Number>
-inline constexpr PlanarVector<Number> operator+(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) {
-  return PlanarVector<Number>{left.x() + right.x(), left.y() + right.y()};
+template <typename NumericType>
+inline constexpr PlanarVector<NumericType> operator+(
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) {
+  return PlanarVector<NumericType>{left.x() + right.x(), left.y() + right.y()};
 }
 
-template <typename Number>
-inline constexpr PlanarVector<Number> operator-(
-    const PlanarVector<Number>& left, const PlanarVector<Number>& right) {
-  return PlanarVector<Number>{left.x() - right.x(), left.y() - right.y()};
+template <typename NumericType>
+inline constexpr PlanarVector<NumericType> operator-(
+    const PlanarVector<NumericType>& left, const PlanarVector<NumericType>& right) {
+  return PlanarVector<NumericType>{left.x() - right.x(), left.y() - right.y()};
 }
 
-template <typename Number, typename OtherNumber>
-inline constexpr PlanarVector<Number> operator*(
-    const PlanarVector<Number>& planar_vector, const OtherNumber number) {
-  return PlanarVector<Number>{planar_vector.x() * static_cast<Number>(number),
-                              planar_vector.y() * static_cast<Number>(number)};
+template <typename NumericType, typename OtherNumericType>
+inline constexpr PlanarVector<NumericType> operator*(
+    const PlanarVector<NumericType>& planar_vector, const OtherNumericType number) {
+  return PlanarVector<NumericType>{planar_vector.x() * static_cast<NumericType>(number),
+                                   planar_vector.y() * static_cast<NumericType>(number)};
 }
 
-template <typename Number, typename OtherNumber>
-inline constexpr PlanarVector<Number> operator*(
-    const OtherNumber number, const PlanarVector<Number>& planar_vector) {
-  return PlanarVector<Number>{planar_vector * number};
+template <typename NumericType, typename OtherNumericType>
+inline constexpr PlanarVector<NumericType> operator*(
+    const OtherNumericType number, const PlanarVector<NumericType>& planar_vector) {
+  return PlanarVector<NumericType>{planar_vector * number};
 }
 
-template <typename Number, typename OtherNumber>
-inline constexpr PlanarVector<Number> operator/(
-    const PlanarVector<Number>& planar_vector, const OtherNumber number) {
-  return PlanarVector<Number>{planar_vector.x() / static_cast<Number>(number),
-                              planar_vector.y() / static_cast<Number>(number)};
+template <typename NumericType, typename OtherNumericType>
+inline constexpr PlanarVector<NumericType> operator/(
+    const PlanarVector<NumericType>& planar_vector, const OtherNumericType number) {
+  return PlanarVector<NumericType>{planar_vector.x() / static_cast<NumericType>(number),
+                                   planar_vector.y() / static_cast<NumericType>(number)};
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const PlanarVector<Number>& planar_vector) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PlanarVector<NumericType>& planar_vector) {
   stream << planar_vector.Print();
   return stream;
 }
@@ -368,12 +373,12 @@ inline std::ostream& operator<<(std::ostream& stream, const PlanarVector<Number>
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarVector<Number>> {
-  inline size_t operator()(const PhQ::PlanarVector<Number>& planar_vector) const {
+template <typename NumericType>
+struct hash<PhQ::PlanarVector<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarVector<NumericType>& planar_vector) const {
     size_t result{17};
-    result = static_cast<size_t>(31) * result + hash<Number>()(planar_vector.x());
-    result = static_cast<size_t>(31) * result + hash<Number>()(planar_vector.y());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(planar_vector.x());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(planar_vector.y());
     return result;
   }
 };

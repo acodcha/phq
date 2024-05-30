@@ -150,146 +150,151 @@ inline const std::unordered_map<std::string_view, Unit::MassDensity> Spellings<U
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
-           * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
-           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L)
+           * static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L)
+           / (static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
-           / std::pow(static_cast<Number>(0.3048L), 4);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L)
+           / std::pow(static_cast<NumericType>(0.3048L), 4);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
-           * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
-           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L)
+           * static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L)
+           / (static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
-           / std::pow(static_cast<Number>(0.0254L), 4);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L)
+           / std::pow(static_cast<NumericType>(0.0254L), 4);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
-           * static_cast<Number>(0.3048L) / static_cast<Number>(0.45359237L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L)
+           * static_cast<NumericType>(0.3048L) / static_cast<NumericType>(0.45359237L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) / std::pow(static_cast<Number>(0.3048L), 3);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) / std::pow(static_cast<NumericType>(0.3048L), 3);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
-           * static_cast<Number>(0.0254L) / static_cast<Number>(0.45359237L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L)
+           * static_cast<NumericType>(0.0254L) / static_cast<NumericType>(0.45359237L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) / std::pow(static_cast<Number>(0.0254L), 3);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) / std::pow(static_cast<NumericType>(0.0254L), 3);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::MassDensity,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::MassDensity, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::MassDensity, NumericType>{
         {Unit::MassDensity::KilogramPerCubicMetre,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::KilogramPerCubicMetre>::FromStandard<Number>                          },
+         Unit::MassDensity::KilogramPerCubicMetre>::FromStandard<NumericType> },
         {Unit::MassDensity::GramPerCubicMillimetre,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::GramPerCubicMillimetre>::FromStandard<Number>                         },
+         Unit::MassDensity::GramPerCubicMillimetre>::FromStandard<NumericType>},
         {Unit::MassDensity::SlugPerCubicFoot,
-         Conversions<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>::FromStandard<Number>},
+         Conversions<Unit::MassDensity,
+         Unit::MassDensity::SlugPerCubicFoot>::FromStandard<NumericType>      },
         {Unit::MassDensity::SlinchPerCubicInch,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::SlinchPerCubicInch>::FromStandard<Number>                             },
+         Unit::MassDensity::SlinchPerCubicInch>::FromStandard<NumericType>    },
         {Unit::MassDensity::PoundPerCubicFoot,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::PoundPerCubicFoot>::FromStandard<Number>                              },
+         Unit::MassDensity::PoundPerCubicFoot>::FromStandard<NumericType>     },
         {Unit::MassDensity::PoundPerCubicInch,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::PoundPerCubicInch>::FromStandard<Number>                              },
+         Unit::MassDensity::PoundPerCubicInch>::FromStandard<NumericType>     },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::MassDensity,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::MassDensity, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::MassDensity, NumericType>{
         {Unit::MassDensity::KilogramPerCubicMetre,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::KilogramPerCubicMetre>::ToStandard<Number>                            },
+         Unit::MassDensity::KilogramPerCubicMetre>::ToStandard<NumericType> },
         {Unit::MassDensity::GramPerCubicMillimetre,
          Conversions<Unit::MassDensity,
-         Unit::MassDensity::GramPerCubicMillimetre>::ToStandard<Number>                           },
+         Unit::MassDensity::GramPerCubicMillimetre>::ToStandard<NumericType>},
         {Unit::MassDensity::SlugPerCubicFoot,
-         Conversions<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>::ToStandard<Number>  },
+         Conversions<Unit::MassDensity,
+         Unit::MassDensity::SlugPerCubicFoot>::ToStandard<NumericType>      },
         {Unit::MassDensity::SlinchPerCubicInch,
-         Conversions<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>::ToStandard<Number>},
+         Conversions<Unit::MassDensity,
+         Unit::MassDensity::SlinchPerCubicInch>::ToStandard<NumericType>    },
         {Unit::MassDensity::PoundPerCubicFoot,
-         Conversions<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>::ToStandard<Number> },
+         Conversions<Unit::MassDensity,
+         Unit::MassDensity::PoundPerCubicFoot>::ToStandard<NumericType>     },
         {Unit::MassDensity::PoundPerCubicInch,
-         Conversions<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>::ToStandard<Number> },
+         Conversions<Unit::MassDensity,
+         Unit::MassDensity::PoundPerCubicInch>::ToStandard<NumericType>     },
 };
 
 }  // namespace Internal

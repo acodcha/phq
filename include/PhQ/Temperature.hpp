@@ -39,189 +39,193 @@ namespace PhQ {
 
 /// \brief Temperature. For a temperature difference, see PhQ::TemperatureDifference. For the
 /// gradient of temperature, see PhQ::TemperatureGradient.
-template <typename Number = double>
-class Temperature : public DimensionalScalar<Unit::Temperature, Number> {
+template <typename NumericType = double>
+class Temperature : public DimensionalScalar<Unit::Temperature, NumericType> {
 public:
   /// \brief Default constructor. Constructs a temperature with an uninitialized value.
   Temperature() = default;
 
   /// \brief Constructor. Constructs a temperature with a given value expressed in a given
   /// temperature unit.
-  Temperature(const Number value, const Unit::Temperature unit)
-    : DimensionalScalar<Unit::Temperature, Number>(value, unit) {}
+  Temperature(const NumericType value, const Unit::Temperature unit)
+    : DimensionalScalar<Unit::Temperature, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this temperature.
   ~Temperature() noexcept = default;
 
   /// \brief Copy constructor. Constructs a temperature by copying another one.
-  constexpr Temperature(const Temperature<Number>& other) = default;
+  constexpr Temperature(const Temperature<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a temperature by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Temperature(const Temperature<OtherNumber>& other)
-    : Temperature(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Temperature(const Temperature<OtherNumericType>& other)
+    : Temperature(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a temperature by moving another one.
-  constexpr Temperature(Temperature<Number>&& other) noexcept = default;
+  constexpr Temperature(Temperature<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this temperature by copying another one.
-  constexpr Temperature<Number>& operator=(const Temperature<Number>& other) = default;
+  constexpr Temperature<NumericType>& operator=(const Temperature<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this temperature by copying another one.
-  template <typename OtherNumber>
-  constexpr Temperature<Number>& operator=(const Temperature<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Temperature<NumericType>& operator=(const Temperature<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this temperature by moving another one.
-  constexpr Temperature<Number>& operator=(Temperature<Number>&& other) noexcept = default;
+  constexpr Temperature<NumericType>& operator=(
+      Temperature<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a temperature of absolute zero.
-  static constexpr Temperature<Number> Zero() {
-    return Temperature<Number>{static_cast<Number>(0)};
+  static constexpr Temperature<NumericType> Zero() {
+    return Temperature<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a temperature with a given value expressed in a given temperature
   /// unit.
   template <Unit::Temperature Unit>
-  static constexpr Temperature<Number> Create(const Number value) {
-    return Temperature<Number>{
+  static constexpr Temperature<NumericType> Create(const NumericType value) {
+    return Temperature<NumericType>{
         StaticConvertCopy<Unit::Temperature, Unit, Standard<Unit::Temperature>>(value)};
   }
 
-  constexpr Temperature<Number> operator+(const Temperature<Number>& temperature) const {
-    return Temperature<Number>{this->value + temperature.value};
+  constexpr Temperature<NumericType> operator+(const Temperature<NumericType>& temperature) const {
+    return Temperature<NumericType>{this->value + temperature.value};
   }
 
-  constexpr Temperature<Number> operator+(
-      const TemperatureDifference<Number>& temperature_difference) const {
-    return Temperature<Number>{this->value + temperature_difference.Value()};
+  constexpr Temperature<NumericType> operator+(
+      const TemperatureDifference<NumericType>& temperature_difference) const {
+    return Temperature<NumericType>{this->value + temperature_difference.Value()};
   }
 
-  constexpr TemperatureDifference<Number> operator-(const Temperature<Number>& temperature) const {
-    return TemperatureDifference<Number>{this->value - temperature.value};
+  constexpr TemperatureDifference<NumericType> operator-(
+      const Temperature<NumericType>& temperature) const {
+    return TemperatureDifference<NumericType>{this->value - temperature.value};
   }
 
-  constexpr Temperature<Number> operator-(
-      const TemperatureDifference<Number>& temperature_difference) const {
-    return Temperature<Number>{this->value - temperature_difference.Value()};
+  constexpr Temperature<NumericType> operator-(
+      const TemperatureDifference<NumericType>& temperature_difference) const {
+    return Temperature<NumericType>{this->value - temperature_difference.Value()};
   }
 
-  constexpr Temperature<Number> operator*(const Number number) const {
-    return Temperature<Number>{this->value * number};
+  constexpr Temperature<NumericType> operator*(const NumericType number) const {
+    return Temperature<NumericType>{this->value * number};
   }
 
-  constexpr Temperature<Number> operator/(const Number number) const {
-    return Temperature<Number>{this->value / number};
+  constexpr Temperature<NumericType> operator/(const NumericType number) const {
+    return Temperature<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const Temperature<Number>& temperature) const noexcept {
+  constexpr NumericType operator/(const Temperature<NumericType>& temperature) const noexcept {
     return this->value / temperature.value;
   }
 
-  constexpr void operator+=(const Temperature<Number>& temperature) noexcept {
+  constexpr void operator+=(const Temperature<NumericType>& temperature) noexcept {
     this->value += temperature.value;
   }
 
-  constexpr void operator+=(const TemperatureDifference<Number>& temperature_difference) noexcept {
+  constexpr void operator+=(
+      const TemperatureDifference<NumericType>& temperature_difference) noexcept {
     this->value += temperature_difference.Value();
   }
 
-  constexpr void operator-=(const Temperature<Number>& temperature) noexcept {
+  constexpr void operator-=(const Temperature<NumericType>& temperature) noexcept {
     this->value -= temperature.value;
   }
 
-  constexpr void operator-=(const TemperatureDifference<Number>& temperature_difference) noexcept {
+  constexpr void operator-=(
+      const TemperatureDifference<NumericType>& temperature_difference) noexcept {
     this->value -= temperature_difference.Value();
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a temperature with a given value expressed in the standard
   /// temperature unit.
-  explicit constexpr Temperature(const Number value)
-    : DimensionalScalar<Unit::Temperature, Number>(value) {}
+  explicit constexpr Temperature(const NumericType value)
+    : DimensionalScalar<Unit::Temperature, NumericType>(value) {}
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class TemperatureDifference;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const Temperature<Number>& left, const Temperature<Number>& right) noexcept {
+    const Temperature<NumericType>& left, const Temperature<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const Temperature<Number>& left, const Temperature<Number>& right) noexcept {
+    const Temperature<NumericType>& left, const Temperature<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const Temperature<Number>& left, const Temperature<Number>& right) noexcept {
+    const Temperature<NumericType>& left, const Temperature<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const Temperature<Number>& left, const Temperature<Number>& right) noexcept {
+    const Temperature<NumericType>& left, const Temperature<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const Temperature<Number>& left, const Temperature<Number>& right) noexcept {
+    const Temperature<NumericType>& left, const Temperature<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const Temperature<Number>& left, const Temperature<Number>& right) noexcept {
+    const Temperature<NumericType>& left, const Temperature<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Temperature<Number>& temperature) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Temperature<NumericType>& temperature) {
   stream << temperature.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Temperature<Number> operator*(
-    const Number number, const Temperature<Number>& temperature) {
+template <typename NumericType>
+inline constexpr Temperature<NumericType> operator*(
+    const NumericType number, const Temperature<NumericType>& temperature) {
   return temperature * number;
 }
 
-template <typename Number>
-inline constexpr Temperature<Number> TemperatureDifference<Number>::operator+(
-    const Temperature<Number>& temperature) const {
-  return Temperature<Number>{this->value + temperature.Value()};
+template <typename NumericType>
+inline constexpr Temperature<NumericType> TemperatureDifference<NumericType>::operator+(
+    const Temperature<NumericType>& temperature) const {
+  return Temperature<NumericType>{this->value + temperature.Value()};
 }
 
-template <typename Number>
-inline constexpr Temperature<Number> TemperatureDifference<Number>::operator-(
-    const Temperature<Number>& temperature) const {
-  return Temperature<Number>{this->value - temperature.Value()};
+template <typename NumericType>
+inline constexpr Temperature<NumericType> TemperatureDifference<NumericType>::operator-(
+    const Temperature<NumericType>& temperature) const {
+  return Temperature<NumericType>{this->value - temperature.Value()};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Temperature<Number>> {
-  inline size_t operator()(const PhQ::Temperature<Number>& temperature) const {
-    return hash<Number>()(temperature.Value());
+template <typename NumericType>
+struct hash<PhQ::Temperature<NumericType>> {
+  inline size_t operator()(const PhQ::Temperature<NumericType>& temperature) const {
+    return hash<NumericType>()(temperature.Value());
   }
 };
 

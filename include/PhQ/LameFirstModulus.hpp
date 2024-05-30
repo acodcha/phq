@@ -41,151 +41,154 @@ namespace PhQ {
 /// material's elastic modulus, see PhQ::YoungModulus, PhQ::ShearModulus,
 /// PhQ::IsentropicBulkModulus, PhQ::IsothermalBulkModulus, PhQ::PWaveModulus, and
 /// PhQ::PoissonRatio.
-template <typename Number = double>
-class LameFirstModulus : public DimensionalScalar<Unit::Pressure, Number> {
+template <typename NumericType = double>
+class LameFirstModulus : public DimensionalScalar<Unit::Pressure, NumericType> {
 public:
   /// \brief Default constructor. Constructs a Lamé's first modulus with an uninitialized value.
   LameFirstModulus() = default;
 
   /// \brief Constructor. Constructs a Lamé's first modulus with a given value expressed in a given
   /// pressure unit.
-  LameFirstModulus(const Number value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
+  LameFirstModulus(const NumericType value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this Lamé's first modulus.
   ~LameFirstModulus() noexcept = default;
 
   /// \brief Copy constructor. Constructs a Lamé's first modulus by copying another one.
-  constexpr LameFirstModulus(const LameFirstModulus<Number>& other) = default;
+  constexpr LameFirstModulus(const LameFirstModulus<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a Lamé's first modulus by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr LameFirstModulus(const LameFirstModulus<OtherNumber>& other)
-    : LameFirstModulus(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr LameFirstModulus(const LameFirstModulus<OtherNumericType>& other)
+    : LameFirstModulus(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a Lamé's first modulus by moving another one.
-  constexpr LameFirstModulus(LameFirstModulus<Number>&& other) noexcept = default;
+  constexpr LameFirstModulus(LameFirstModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
-  constexpr LameFirstModulus<Number>& operator=(const LameFirstModulus<Number>& other) = default;
+  constexpr LameFirstModulus<NumericType>& operator=(
+      const LameFirstModulus<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this Lamé's first modulus by copying another one.
-  template <typename OtherNumber>
-  constexpr LameFirstModulus<Number>& operator=(const LameFirstModulus<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr LameFirstModulus<NumericType>& operator=(
+      const LameFirstModulus<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this Lamé's first modulus by moving another one.
-  constexpr LameFirstModulus<Number>& operator=(
-      LameFirstModulus<Number>&& other) noexcept = default;
+  constexpr LameFirstModulus<NumericType>& operator=(
+      LameFirstModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Lamé's first modulus of zero.
-  static constexpr LameFirstModulus<Number> Zero() {
-    return LameFirstModulus<Number>{static_cast<Number>(0)};
+  static constexpr LameFirstModulus<NumericType> Zero() {
+    return LameFirstModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a Lamé's first modulus with a given value expressed in a given
   /// pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr LameFirstModulus<Number> Create(const Number value) {
-    return LameFirstModulus<Number>{
+  static constexpr LameFirstModulus<NumericType> Create(const NumericType value) {
+    return LameFirstModulus<NumericType>{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr LameFirstModulus<Number> operator+(
-      const LameFirstModulus<Number>& lame_first_modulus) const {
-    return LameFirstModulus<Number>{this->value + lame_first_modulus.value};
+  constexpr LameFirstModulus<NumericType> operator+(
+      const LameFirstModulus<NumericType>& lame_first_modulus) const {
+    return LameFirstModulus<NumericType>{this->value + lame_first_modulus.value};
   }
 
-  constexpr LameFirstModulus<Number> operator-(
-      const LameFirstModulus<Number>& lame_first_modulus) const {
-    return LameFirstModulus<Number>{this->value - lame_first_modulus.value};
+  constexpr LameFirstModulus<NumericType> operator-(
+      const LameFirstModulus<NumericType>& lame_first_modulus) const {
+    return LameFirstModulus<NumericType>{this->value - lame_first_modulus.value};
   }
 
-  constexpr LameFirstModulus<Number> operator*(const Number number) const {
-    return LameFirstModulus<Number>{this->value * number};
+  constexpr LameFirstModulus<NumericType> operator*(const NumericType number) const {
+    return LameFirstModulus<NumericType>{this->value * number};
   }
 
-  constexpr LameFirstModulus<Number> operator/(const Number number) const {
-    return LameFirstModulus<Number>{this->value / number};
+  constexpr LameFirstModulus<NumericType> operator/(const NumericType number) const {
+    return LameFirstModulus<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const LameFirstModulus<Number>& lame_first_modulus) const noexcept {
+  constexpr NumericType operator/(
+      const LameFirstModulus<NumericType>& lame_first_modulus) const noexcept {
     return this->value / lame_first_modulus.value;
   }
 
-  constexpr void operator+=(const LameFirstModulus<Number>& lame_first_modulus) noexcept {
+  constexpr void operator+=(const LameFirstModulus<NumericType>& lame_first_modulus) noexcept {
     this->value += lame_first_modulus.value;
   }
 
-  constexpr void operator-=(const LameFirstModulus<Number>& lame_first_modulus) noexcept {
+  constexpr void operator-=(const LameFirstModulus<NumericType>& lame_first_modulus) noexcept {
     this->value -= lame_first_modulus.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a Lamé's first modulus with a given value expressed in the
   /// standard pressure unit.
-  explicit constexpr LameFirstModulus(const Number value)
-    : DimensionalScalar<Unit::Pressure, Number>(value) {}
+  explicit constexpr LameFirstModulus(const NumericType value)
+    : DimensionalScalar<Unit::Pressure, NumericType>(value) {}
 
   friend class ConstitutiveModel;
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const LameFirstModulus<Number>& left, const LameFirstModulus<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const LameFirstModulus<NumericType>& left,
+                                 const LameFirstModulus<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const LameFirstModulus<Number>& left, const LameFirstModulus<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const LameFirstModulus<NumericType>& left,
+                                 const LameFirstModulus<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const LameFirstModulus<Number>& left, const LameFirstModulus<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const LameFirstModulus<NumericType>& left,
+                                const LameFirstModulus<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const LameFirstModulus<Number>& left, const LameFirstModulus<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const LameFirstModulus<NumericType>& left,
+                                const LameFirstModulus<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const LameFirstModulus<Number>& left, const LameFirstModulus<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const LameFirstModulus<NumericType>& left,
+                                 const LameFirstModulus<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const LameFirstModulus<Number>& left, const LameFirstModulus<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const LameFirstModulus<NumericType>& left,
+                                 const LameFirstModulus<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const LameFirstModulus<Number>& lame_first_modulus) {
+    std::ostream& stream, const LameFirstModulus<NumericType>& lame_first_modulus) {
   stream << lame_first_modulus.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr LameFirstModulus<Number> operator*(
-    const Number number, const LameFirstModulus<Number>& lame_first_modulus) {
+template <typename NumericType>
+inline constexpr LameFirstModulus<NumericType> operator*(
+    const NumericType number, const LameFirstModulus<NumericType>& lame_first_modulus) {
   return lame_first_modulus * number;
 }
 
@@ -193,10 +196,10 @@ inline constexpr LameFirstModulus<Number> operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::LameFirstModulus<Number>> {
-  inline size_t operator()(const PhQ::LameFirstModulus<Number>& lame_first_modulus) const {
-    return hash<Number>()(lame_first_modulus.Value());
+template <typename NumericType>
+struct hash<PhQ::LameFirstModulus<NumericType>> {
+  inline size_t operator()(const PhQ::LameFirstModulus<NumericType>& lame_first_modulus) const {
+    return hash<NumericType>()(lame_first_modulus.Value());
   }
 };
 

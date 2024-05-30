@@ -72,13 +72,13 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       Angle::Radian, Angle::Revolution, value, value / (2.0L * Pi<long double>));
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<Angle>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Angle>("rad"), Angle::Radian);
-  EXPECT_EQ(Parse<Angle>("deg"), Angle::Degree);
-  EXPECT_EQ(Parse<Angle>("arcmin"), Angle::Arcminute);
-  EXPECT_EQ(Parse<Angle>("arcsec"), Angle::Arcsecond);
-  EXPECT_EQ(Parse<Angle>("rev"), Angle::Revolution);
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Angle>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Angle>("rad"), Angle::Radian);
+  EXPECT_EQ(ParseEnumeration<Angle>("deg"), Angle::Degree);
+  EXPECT_EQ(ParseEnumeration<Angle>("arcmin"), Angle::Arcminute);
+  EXPECT_EQ(ParseEnumeration<Angle>("arcsec"), Angle::Arcsecond);
+  EXPECT_EQ(ParseEnumeration<Angle>("rev"), Angle::Revolution);
 }
 
 TEST(UnitAngle, RelatedDimensions) {

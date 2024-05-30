@@ -91,14 +91,14 @@ TEST(UnitMassDensity, ConvertAndConvertCopy) {
       value * std::pow(0.0254L, 3) / 0.45359237L);
 }
 
-TEST(UnitMassDensity, Parse) {
-  EXPECT_EQ(Parse<MassDensity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
-  EXPECT_EQ(Parse<MassDensity>("g/mm^3"), MassDensity::GramPerCubicMillimetre);
-  EXPECT_EQ(Parse<MassDensity>("slug/ft^3"), MassDensity::SlugPerCubicFoot);
-  EXPECT_EQ(Parse<MassDensity>("slinch/in^3"), MassDensity::SlinchPerCubicInch);
-  EXPECT_EQ(Parse<MassDensity>("lbm/ft^3"), MassDensity::PoundPerCubicFoot);
-  EXPECT_EQ(Parse<MassDensity>("lbm/in^3"), MassDensity::PoundPerCubicInch);
+TEST(UnitMassDensity, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<MassDensity>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("g/mm^3"), MassDensity::GramPerCubicMillimetre);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("slug/ft^3"), MassDensity::SlugPerCubicFoot);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("slinch/in^3"), MassDensity::SlinchPerCubicInch);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("lbm/ft^3"), MassDensity::PoundPerCubicFoot);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("lbm/in^3"), MassDensity::PoundPerCubicInch);
 }
 
 TEST(UnitMassDensity, RelatedDimensions) {

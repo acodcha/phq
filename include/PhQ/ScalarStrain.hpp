@@ -36,183 +36,188 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::ScalarStrain.
-template <typename Number>
+template <typename NumericType>
 class Frequency;
 
 // Forward declaration for class PhQ::ScalarStrain.
-template <typename Number>
+template <typename NumericType>
 class LinearThermalExpansionCoefficient;
 
 // Forward declaration for class PhQ::ScalarStrain.
-template <typename Number>
+template <typename NumericType>
 class ScalarStrainRate;
 
 // Forward declaration for class PhQ::ScalarStrain.
-template <typename Number>
+template <typename NumericType>
 class TemperatureDifference;
 
 // Forward declaration for class PhQ::ScalarStrain.
-template <typename Number>
+template <typename NumericType>
 class Time;
 
 /// \brief Scalar component or resultant of a three-dimensional Euclidean strain symmetric dyadic
 /// tensor. For the related tensor, see PhQ::Strain. For the time rate of change of scalar strain,
 /// see PhQ::ScalarStrainRate, PhQ::Time, and PhQ::Frequency.
-template <typename Number = double>
-class ScalarStrain : public DimensionlessScalar<Number> {
+template <typename NumericType = double>
+class ScalarStrain : public DimensionlessScalar<NumericType> {
 public:
   /// \brief Default constructor. Constructs a scalar strain with an uninitialized value.
   ScalarStrain() = default;
 
   /// \brief Constructor. Constructs a scalar strain with a given value.
-  explicit constexpr ScalarStrain(const Number value) : DimensionlessScalar<Number>(value) {}
+  explicit constexpr ScalarStrain(const NumericType value)
+    : DimensionlessScalar<NumericType>(value) {}
 
   /// \brief Constructor. Constructs a scalar strain from a given scalar strain rate and time using
   /// the definition of strain rate.
   constexpr ScalarStrain(
-      const ScalarStrainRate<Number>& scalar_strain_rate, const Time<Number>& time);
+      const ScalarStrainRate<NumericType>& scalar_strain_rate, const Time<NumericType>& time);
 
   /// \brief Constructor. Constructs a scalar strain from a given scalar strain rate and frequency
   /// using the definition of strain rate.
-  constexpr ScalarStrain(
-      const ScalarStrainRate<Number>& scalar_strain_rate, const Frequency<Number>& frequency);
+  constexpr ScalarStrain(const ScalarStrainRate<NumericType>& scalar_strain_rate,
+                         const Frequency<NumericType>& frequency);
 
   /// \brief Constructor. Constructs a scalar strain from a given linear thermal expansion
   /// coefficient and temperature difference using the definition of the linear thermal expansion
   /// coefficient.
   constexpr ScalarStrain(
-      const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient,
-      const TemperatureDifference<Number>& temperature_difference);
+      const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient,
+      const TemperatureDifference<NumericType>& temperature_difference);
 
   /// \brief Destructor. Destroys this scalar strain.
   ~ScalarStrain() noexcept = default;
 
   /// \brief Copy constructor. Constructs a scalar strain by copying another one.
-  constexpr ScalarStrain(const ScalarStrain<Number>& other) = default;
+  constexpr ScalarStrain(const ScalarStrain<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a scalar strain by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ScalarStrain(const ScalarStrain<OtherNumber>& other)
-    : ScalarStrain(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ScalarStrain(const ScalarStrain<OtherNumericType>& other)
+    : ScalarStrain(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a scalar strain by moving another one.
-  constexpr ScalarStrain(ScalarStrain<Number>&& other) noexcept = default;
+  constexpr ScalarStrain(ScalarStrain<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this scalar strain by copying another one.
-  constexpr ScalarStrain<Number>& operator=(const ScalarStrain<Number>& other) = default;
+  constexpr ScalarStrain<NumericType>& operator=(const ScalarStrain<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this scalar strain by copying another one.
-  template <typename OtherNumber>
-  constexpr ScalarStrain<Number>& operator=(const ScalarStrain<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ScalarStrain<NumericType>& operator=(const ScalarStrain<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this scalar strain by moving another one.
-  constexpr ScalarStrain<Number>& operator=(ScalarStrain<Number>&& other) noexcept = default;
+  constexpr ScalarStrain<NumericType>& operator=(
+      ScalarStrain<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar strain of zero.
-  static constexpr ScalarStrain<Number> Zero() {
-    return ScalarStrain<Number>{static_cast<Number>(0)};
+  static constexpr ScalarStrain<NumericType> Zero() {
+    return ScalarStrain<NumericType>{static_cast<NumericType>(0)};
   }
 
-  constexpr ScalarStrain<Number> operator+(const ScalarStrain<Number>& scalar_strain) const {
-    return ScalarStrain<Number>{this->value + scalar_strain.value};
+  constexpr ScalarStrain<NumericType> operator+(
+      const ScalarStrain<NumericType>& scalar_strain) const {
+    return ScalarStrain<NumericType>{this->value + scalar_strain.value};
   }
 
-  constexpr ScalarStrain<Number> operator-(const ScalarStrain<Number>& scalar_strain) const {
-    return ScalarStrain<Number>{this->value - scalar_strain.value};
+  constexpr ScalarStrain<NumericType> operator-(
+      const ScalarStrain<NumericType>& scalar_strain) const {
+    return ScalarStrain<NumericType>{this->value - scalar_strain.value};
   }
 
-  constexpr ScalarStrain<Number> operator*(const Number number) const {
-    return ScalarStrain<Number>{this->value * number};
+  constexpr ScalarStrain<NumericType> operator*(const NumericType number) const {
+    return ScalarStrain<NumericType>{this->value * number};
   }
 
-  constexpr ScalarStrainRate<Number> operator*(const Frequency<Number>& frequency) const;
+  constexpr ScalarStrainRate<NumericType> operator*(const Frequency<NumericType>& frequency) const;
 
-  constexpr ScalarStrain<Number> operator/(const Number number) const {
-    return ScalarStrain<Number>{this->value / number};
+  constexpr ScalarStrain<NumericType> operator/(const NumericType number) const {
+    return ScalarStrain<NumericType>{this->value / number};
   }
 
-  constexpr ScalarStrainRate<Number> operator/(const Time<Number>& time) const;
+  constexpr ScalarStrainRate<NumericType> operator/(const Time<NumericType>& time) const;
 
-  constexpr Number operator/(const ScalarStrain<Number>& scalar_strain) const noexcept {
+  constexpr NumericType operator/(const ScalarStrain<NumericType>& scalar_strain) const noexcept {
     return this->value / scalar_strain.value;
   }
 
-  constexpr void operator+=(const ScalarStrain<Number>& scalar_strain) noexcept {
+  constexpr void operator+=(const ScalarStrain<NumericType>& scalar_strain) noexcept {
     this->value += scalar_strain.value;
   }
 
-  constexpr void operator-=(const ScalarStrain<Number>& scalar_strain) noexcept {
+  constexpr void operator-=(const ScalarStrain<NumericType>& scalar_strain) noexcept {
     this->value -= scalar_strain.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const ScalarStrain<Number>& left, const ScalarStrain<Number>& right) noexcept {
+    const ScalarStrain<NumericType>& left, const ScalarStrain<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const ScalarStrain<Number>& left, const ScalarStrain<Number>& right) noexcept {
+    const ScalarStrain<NumericType>& left, const ScalarStrain<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const ScalarStrain<Number>& left, const ScalarStrain<Number>& right) noexcept {
+    const ScalarStrain<NumericType>& left, const ScalarStrain<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const ScalarStrain<Number>& left, const ScalarStrain<Number>& right) noexcept {
+    const ScalarStrain<NumericType>& left, const ScalarStrain<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const ScalarStrain<Number>& left, const ScalarStrain<Number>& right) noexcept {
+    const ScalarStrain<NumericType>& left, const ScalarStrain<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const ScalarStrain<Number>& left, const ScalarStrain<Number>& right) noexcept {
+    const ScalarStrain<NumericType>& left, const ScalarStrain<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const ScalarStrain<Number>& scalar_strain) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const ScalarStrain<NumericType>& scalar_strain) {
   stream << scalar_strain.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ScalarStrain<Number> operator*(
-    const Number number, const ScalarStrain<Number>& scalar_strain) {
-  return ScalarStrain<Number>{number * scalar_strain.Value()};
+template <typename NumericType>
+inline constexpr ScalarStrain<NumericType> operator*(
+    const NumericType number, const ScalarStrain<NumericType>& scalar_strain) {
+  return ScalarStrain<NumericType>{number * scalar_strain.Value()};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ScalarStrain<Number>> {
-  inline size_t operator()(const PhQ::ScalarStrain<Number>& scalar_strain) const {
-    return hash<Number>()(scalar_strain.Value());
+template <typename NumericType>
+struct hash<PhQ::ScalarStrain<NumericType>> {
+  inline size_t operator()(const PhQ::ScalarStrain<NumericType>& scalar_strain) const {
+    return hash<NumericType>()(scalar_strain.Value());
   }
 };
 

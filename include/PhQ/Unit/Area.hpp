@@ -189,287 +189,290 @@ inline const std::unordered_map<std::string_view, Unit::Area> Spellings<Unit::Ar
     {"mil2",        Unit::Area::SquareMilliinch   },
     {"thou^2",      Unit::Area::SquareMilliinch   },
     {"thou2",       Unit::Area::SquareMilliinch   },
-    {"μm^2",        Unit::Area::SquareMicrometre  },
-    {"μm2",         Unit::Area::SquareMicrometre  },
+    {"μm^2",       Unit::Area::SquareMicrometre  },
+    {"μm2",        Unit::Area::SquareMicrometre  },
     {"um^2",        Unit::Area::SquareMicrometre  },
     {"um2",         Unit::Area::SquareMicrometre  },
-    {"μin^2",       Unit::Area::SquareMicroinch   },
-    {"μin2",        Unit::Area::SquareMicroinch   },
+    {"μin^2",      Unit::Area::SquareMicroinch   },
+    {"μin2",       Unit::Area::SquareMicroinch   },
     {"uin^2",       Unit::Area::SquareMicroinch   },
     {"uin2",        Unit::Area::SquareMicroinch   },
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareNauticalMile>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1852.0L) * static_cast<NumericType>(1852.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareNauticalMile>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1852.0L) * static_cast<NumericType>(1852.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMile>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMile>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareKilometre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareKilometre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::Hectare>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::Hectare>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(10000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(10000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::Acre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(640.0L)
-           / (static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L));
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(640.0L)
+           / (static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L));
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<Unit::Area, Unit::Area::Acre>::ToStandard(Number& value) noexcept {
-  value *=
-      static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L) / static_cast<Number>(640.0L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Area, Unit::Area::Acre>::ToStandard(
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L)
+           / static_cast<NumericType>(640.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMetre>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMetre>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareYard>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.9144L) * static_cast<NumericType>(0.9144L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareYard>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.9144L) * static_cast<NumericType>(0.9144L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareFoot>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareFoot>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareDecimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(100.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(100.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareDecimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.01L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.01L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareInch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareInch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareCentimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(10000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(10000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareCentimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMillimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMillimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMilliinch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0000254L) * static_cast<NumericType>(0.0000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMilliinch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0000254L) * static_cast<NumericType>(0.0000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMicrometre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMicrometre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMicroinch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0000000254L) * static_cast<NumericType>(0.0000000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMicroinch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0000000254L) * static_cast<NumericType>(0.0000000254L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Area, std::function<void(Number* const, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Area, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Area, std::function<void(NumericType* const, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Area, NumericType>{
         {Unit::Area::SquareNauticalMile,
-         Conversions<Unit::Area,                                 Unit::Area::SquareNauticalMile>::FromStandard<Number>},
+         Conversions<Unit::Area,                                 Unit::Area::SquareNauticalMile>::FromStandard<NumericType>},
         {Unit::Area::SquareMile,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMile>::FromStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMile>::FromStandard<NumericType>        },
         {Unit::Area::SquareKilometre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareKilometre>::FromStandard<Number>   },
-        {Unit::Area::Hectare,            Conversions<Unit::Area, Unit::Area::Hectare>::FromStandard<Number>           },
-        {Unit::Area::Acre,               Conversions<Unit::Area, Unit::Area::Acre>::FromStandard<Number>              },
+         Conversions<Unit::Area,                                 Unit::Area::SquareKilometre>::FromStandard<NumericType>   },
+        {Unit::Area::Hectare,
+         Conversions<Unit::Area,                                 Unit::Area::Hectare>::FromStandard<NumericType>           },
+        {Unit::Area::Acre,               Conversions<Unit::Area, Unit::Area::Acre>::FromStandard<NumericType>              },
         {Unit::Area::SquareMetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::FromStandard<Number>       },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::FromStandard<NumericType>       },
         {Unit::Area::SquareYard,
-         Conversions<Unit::Area,                                 Unit::Area::SquareYard>::FromStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareYard>::FromStandard<NumericType>        },
         {Unit::Area::SquareFoot,
-         Conversions<Unit::Area,                                 Unit::Area::SquareFoot>::FromStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareFoot>::FromStandard<NumericType>        },
         {Unit::Area::SquareDecimetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareDecimetre>::FromStandard<Number>   },
+         Conversions<Unit::Area,                                 Unit::Area::SquareDecimetre>::FromStandard<NumericType>   },
         {Unit::Area::SquareInch,
-         Conversions<Unit::Area,                                 Unit::Area::SquareInch>::FromStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareInch>::FromStandard<NumericType>        },
         {Unit::Area::SquareCentimetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareCentimetre>::FromStandard<Number>  },
+         Conversions<Unit::Area,                                 Unit::Area::SquareCentimetre>::FromStandard<NumericType>  },
         {Unit::Area::SquareMillimetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMillimetre>::FromStandard<Number>  },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMillimetre>::FromStandard<NumericType>  },
         {Unit::Area::SquareMilliinch,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMilliinch>::FromStandard<Number>   },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMilliinch>::FromStandard<NumericType>   },
         {Unit::Area::SquareMicrometre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMicrometre>::FromStandard<Number>  },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMicrometre>::FromStandard<NumericType>  },
         {Unit::Area::SquareMicroinch,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMicroinch>::FromStandard<Number>   },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMicroinch>::FromStandard<NumericType>   },
 };
 
-template <typename Number>
-inline const std::map<Unit::Area, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Area, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Area, std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Area, NumericType>{
         {Unit::Area::SquareNauticalMile,
-         Conversions<Unit::Area,                                 Unit::Area::SquareNauticalMile>::ToStandard<Number>},
+         Conversions<Unit::Area,                                 Unit::Area::SquareNauticalMile>::ToStandard<NumericType>},
         {Unit::Area::SquareMile,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMile>::ToStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMile>::ToStandard<NumericType>        },
         {Unit::Area::SquareKilometre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareKilometre>::ToStandard<Number>   },
-        {Unit::Area::Hectare,            Conversions<Unit::Area, Unit::Area::Hectare>::ToStandard<Number>           },
-        {Unit::Area::Acre,               Conversions<Unit::Area, Unit::Area::Acre>::ToStandard<Number>              },
+         Conversions<Unit::Area,                                 Unit::Area::SquareKilometre>::ToStandard<NumericType>   },
+        {Unit::Area::Hectare,
+         Conversions<Unit::Area,                                 Unit::Area::Hectare>::ToStandard<NumericType>           },
+        {Unit::Area::Acre,               Conversions<Unit::Area, Unit::Area::Acre>::ToStandard<NumericType>              },
         {Unit::Area::SquareMetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::ToStandard<Number>       },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::ToStandard<NumericType>       },
         {Unit::Area::SquareYard,
-         Conversions<Unit::Area,                                 Unit::Area::SquareYard>::ToStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareYard>::ToStandard<NumericType>        },
         {Unit::Area::SquareFoot,
-         Conversions<Unit::Area,                                 Unit::Area::SquareFoot>::ToStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareFoot>::ToStandard<NumericType>        },
         {Unit::Area::SquareDecimetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareDecimetre>::ToStandard<Number>   },
+         Conversions<Unit::Area,                                 Unit::Area::SquareDecimetre>::ToStandard<NumericType>   },
         {Unit::Area::SquareInch,
-         Conversions<Unit::Area,                                 Unit::Area::SquareInch>::ToStandard<Number>        },
+         Conversions<Unit::Area,                                 Unit::Area::SquareInch>::ToStandard<NumericType>        },
         {Unit::Area::SquareCentimetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareCentimetre>::ToStandard<Number>  },
+         Conversions<Unit::Area,                                 Unit::Area::SquareCentimetre>::ToStandard<NumericType>  },
         {Unit::Area::SquareMillimetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMillimetre>::ToStandard<Number>  },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMillimetre>::ToStandard<NumericType>  },
         {Unit::Area::SquareMilliinch,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMilliinch>::ToStandard<Number>   },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMilliinch>::ToStandard<NumericType>   },
         {Unit::Area::SquareMicrometre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMicrometre>::ToStandard<Number>  },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMicrometre>::ToStandard<NumericType>  },
         {Unit::Area::SquareMicroinch,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMicroinch>::ToStandard<Number>   },
+         Conversions<Unit::Area,                                 Unit::Area::SquareMicroinch>::ToStandard<NumericType>   },
 };
 
 }  // namespace Internal

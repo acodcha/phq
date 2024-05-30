@@ -80,12 +80,12 @@ TEST(UnitTemperature, ConvertAndConvertCopy) {
       Temperature::Kelvin, Temperature::Fahrenheit, value, (value * 1.8L) - 459.67L);
 }
 
-TEST(UnitTemperature, Parse) {
-  EXPECT_EQ(Parse<Temperature>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Temperature>("K"), Temperature::Kelvin);
-  EXPECT_EQ(Parse<Temperature>("°C"), Temperature::Celsius);
-  EXPECT_EQ(Parse<Temperature>("°R"), Temperature::Rankine);
-  EXPECT_EQ(Parse<Temperature>("°F"), Temperature::Fahrenheit);
+TEST(UnitTemperature, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Temperature>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Temperature>("K"), Temperature::Kelvin);
+  EXPECT_EQ(ParseEnumeration<Temperature>("°C"), Temperature::Celsius);
+  EXPECT_EQ(ParseEnumeration<Temperature>("°R"), Temperature::Rankine);
+  EXPECT_EQ(ParseEnumeration<Temperature>("°F"), Temperature::Fahrenheit);
 }
 
 TEST(UnitTemperature, RelatedDimensions) {

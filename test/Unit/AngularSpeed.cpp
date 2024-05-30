@@ -127,23 +127,23 @@ TEST(UnitAngularSpeed, ConvertFromStandard) {
       value * 1800.0L / Pi<long double>);
 }
 
-TEST(UnitAngularSpeed, Parse) {
-  EXPECT_EQ(Parse<AngularSpeed>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<AngularSpeed>("rad/s"), AngularSpeed::RadianPerSecond);
-  EXPECT_EQ(Parse<AngularSpeed>("rad/min"), AngularSpeed::RadianPerMinute);
-  EXPECT_EQ(Parse<AngularSpeed>("rad/hr"), AngularSpeed::RadianPerHour);
-  EXPECT_EQ(Parse<AngularSpeed>("deg/s"), AngularSpeed::DegreePerSecond);
-  EXPECT_EQ(Parse<AngularSpeed>("deg/min"), AngularSpeed::DegreePerMinute);
-  EXPECT_EQ(Parse<AngularSpeed>("deg/hr"), AngularSpeed::DegreePerHour);
-  EXPECT_EQ(Parse<AngularSpeed>("arcmin/s"), AngularSpeed::ArcminutePerSecond);
-  EXPECT_EQ(Parse<AngularSpeed>("arcmin/min"), AngularSpeed::ArcminutePerMinute);
-  EXPECT_EQ(Parse<AngularSpeed>("arcmin/hr"), AngularSpeed::ArcminutePerHour);
-  EXPECT_EQ(Parse<AngularSpeed>("arcsec/s"), AngularSpeed::ArcsecondPerSecond);
-  EXPECT_EQ(Parse<AngularSpeed>("arcsec/min"), AngularSpeed::ArcsecondPerMinute);
-  EXPECT_EQ(Parse<AngularSpeed>("arcsec/hr"), AngularSpeed::ArcsecondPerHour);
-  EXPECT_EQ(Parse<AngularSpeed>("rev/s"), AngularSpeed::RevolutionPerSecond);
-  EXPECT_EQ(Parse<AngularSpeed>("rev/min"), AngularSpeed::RevolutionPerMinute);
-  EXPECT_EQ(Parse<AngularSpeed>("rev/hr"), AngularSpeed::RevolutionPerHour);
+TEST(UnitAngularSpeed, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("rad/s"), AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("rad/min"), AngularSpeed::RadianPerMinute);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("rad/hr"), AngularSpeed::RadianPerHour);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("deg/s"), AngularSpeed::DegreePerSecond);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("deg/min"), AngularSpeed::DegreePerMinute);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("deg/hr"), AngularSpeed::DegreePerHour);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("arcmin/s"), AngularSpeed::ArcminutePerSecond);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("arcmin/min"), AngularSpeed::ArcminutePerMinute);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("arcmin/hr"), AngularSpeed::ArcminutePerHour);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("arcsec/s"), AngularSpeed::ArcsecondPerSecond);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("arcsec/min"), AngularSpeed::ArcsecondPerMinute);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("arcsec/hr"), AngularSpeed::ArcsecondPerHour);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("rev/s"), AngularSpeed::RevolutionPerSecond);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("rev/min"), AngularSpeed::RevolutionPerMinute);
+  EXPECT_EQ(ParseEnumeration<AngularSpeed>("rev/hr"), AngularSpeed::RevolutionPerHour);
 }
 
 TEST(UnitAngularSpeed, RelatedDimensions) {

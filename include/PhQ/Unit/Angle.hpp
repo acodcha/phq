@@ -132,96 +132,100 @@ inline const std::unordered_map<std::string_view, Unit::Angle> Spellings<Unit::A
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Radian>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Radian>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Degree>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(180.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(180.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Degree>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(180.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(180.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcminute>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(10800.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(10800.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcminute>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(10800.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(10800.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcsecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(648000.0L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(648000.0L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Arcsecond>::ToStandard(
-    Number& value) noexcept {
-  value *= Pi<Number> / static_cast<Number>(648000.0L);
+    NumericType& value) noexcept {
+  value *= Pi<NumericType> / static_cast<NumericType>(648000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Revolution>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.5L) / Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.5L) / Pi<NumericType>;
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Angle, Unit::Angle::Revolution>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(2.0L) * Pi<Number>;
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(2.0L) * Pi<NumericType>;
 }
 
-template <typename Number>
-inline const std::map<Unit::Angle, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Angle, Number>{
-        {Unit::Angle::Radian,     Conversions<Unit::Angle, Unit::Angle::Radian>::FromStandard<Number>    },
-        {Unit::Angle::Degree,     Conversions<Unit::Angle, Unit::Angle::Degree>::FromStandard<Number>    },
+template <typename NumericType>
+inline const std::map<Unit::Angle, std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Angle, NumericType>{
+        {Unit::Angle::Radian,
+         Conversions<Unit::Angle, Unit::Angle::Radian>::FromStandard<NumericType>    },
+        {Unit::Angle::Degree,
+         Conversions<Unit::Angle, Unit::Angle::Degree>::FromStandard<NumericType>    },
         {Unit::Angle::Arcminute,
-         Conversions<Unit::Angle,                          Unit::Angle::Arcminute>::FromStandard<Number> },
+         Conversions<Unit::Angle, Unit::Angle::Arcminute>::FromStandard<NumericType> },
         {Unit::Angle::Arcsecond,
-         Conversions<Unit::Angle,                          Unit::Angle::Arcsecond>::FromStandard<Number> },
+         Conversions<Unit::Angle, Unit::Angle::Arcsecond>::FromStandard<NumericType> },
         {Unit::Angle::Revolution,
-         Conversions<Unit::Angle,                          Unit::Angle::Revolution>::FromStandard<Number>},
+         Conversions<Unit::Angle, Unit::Angle::Revolution>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Angle,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Angle, Number>{
-        {Unit::Angle::Radian,     Conversions<Unit::Angle, Unit::Angle::Radian>::ToStandard<Number>    },
-        {Unit::Angle::Degree,     Conversions<Unit::Angle, Unit::Angle::Degree>::ToStandard<Number>    },
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Angle, NumericType>{
+        {Unit::Angle::Radian,
+         Conversions<Unit::Angle, Unit::Angle::Radian>::ToStandard<NumericType>    },
+        {Unit::Angle::Degree,
+         Conversions<Unit::Angle, Unit::Angle::Degree>::ToStandard<NumericType>    },
         {Unit::Angle::Arcminute,
-         Conversions<Unit::Angle,                          Unit::Angle::Arcminute>::ToStandard<Number> },
+         Conversions<Unit::Angle, Unit::Angle::Arcminute>::ToStandard<NumericType> },
         {Unit::Angle::Arcsecond,
-         Conversions<Unit::Angle,                          Unit::Angle::Arcsecond>::ToStandard<Number> },
+         Conversions<Unit::Angle, Unit::Angle::Arcsecond>::ToStandard<NumericType> },
         {Unit::Angle::Revolution,
-         Conversions<Unit::Angle,                          Unit::Angle::Revolution>::ToStandard<Number>},
+         Conversions<Unit::Angle, Unit::Angle::Revolution>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

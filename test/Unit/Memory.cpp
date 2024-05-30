@@ -125,30 +125,30 @@ TEST(UnitMemory, ConvertAndConvertCopy) {
       Memory::Bit, Memory::Pebibyte, value, value / (8.0L * std::pow(1024.0L, 5)));
 }
 
-TEST(UnitMemory, Parse) {
-  EXPECT_EQ(Parse<Memory>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Memory>("b"), Memory::Bit);
-  EXPECT_EQ(Parse<Memory>("B"), Memory::Byte);
-  EXPECT_EQ(Parse<Memory>("kb"), Memory::Kilobit);
-  EXPECT_EQ(Parse<Memory>("kib"), Memory::Kibibit);
-  EXPECT_EQ(Parse<Memory>("kB"), Memory::Kilobyte);
-  EXPECT_EQ(Parse<Memory>("kiB"), Memory::Kibibyte);
-  EXPECT_EQ(Parse<Memory>("Mb"), Memory::Megabit);
-  EXPECT_EQ(Parse<Memory>("Mib"), Memory::Mebibit);
-  EXPECT_EQ(Parse<Memory>("MB"), Memory::Megabyte);
-  EXPECT_EQ(Parse<Memory>("MiB"), Memory::Mebibyte);
-  EXPECT_EQ(Parse<Memory>("Gb"), Memory::Gigabit);
-  EXPECT_EQ(Parse<Memory>("Gib"), Memory::Gibibit);
-  EXPECT_EQ(Parse<Memory>("GB"), Memory::Gigabyte);
-  EXPECT_EQ(Parse<Memory>("GiB"), Memory::Gibibyte);
-  EXPECT_EQ(Parse<Memory>("Tb"), Memory::Terabit);
-  EXPECT_EQ(Parse<Memory>("Tib"), Memory::Tebibit);
-  EXPECT_EQ(Parse<Memory>("TB"), Memory::Terabyte);
-  EXPECT_EQ(Parse<Memory>("TiB"), Memory::Tebibyte);
-  EXPECT_EQ(Parse<Memory>("Pb"), Memory::Petabit);
-  EXPECT_EQ(Parse<Memory>("Pib"), Memory::Pebibit);
-  EXPECT_EQ(Parse<Memory>("PB"), Memory::Petabyte);
-  EXPECT_EQ(Parse<Memory>("PiB"), Memory::Pebibyte);
+TEST(UnitMemory, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Memory>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Memory>("b"), Memory::Bit);
+  EXPECT_EQ(ParseEnumeration<Memory>("B"), Memory::Byte);
+  EXPECT_EQ(ParseEnumeration<Memory>("kb"), Memory::Kilobit);
+  EXPECT_EQ(ParseEnumeration<Memory>("kib"), Memory::Kibibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("kB"), Memory::Kilobyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("kiB"), Memory::Kibibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Mb"), Memory::Megabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Mib"), Memory::Mebibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("MB"), Memory::Megabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("MiB"), Memory::Mebibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Gb"), Memory::Gigabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Gib"), Memory::Gibibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("GB"), Memory::Gigabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("GiB"), Memory::Gibibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Tb"), Memory::Terabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Tib"), Memory::Tebibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("TB"), Memory::Terabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("TiB"), Memory::Tebibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Pb"), Memory::Petabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Pib"), Memory::Pebibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("PB"), Memory::Petabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("PiB"), Memory::Pebibyte);
 }
 
 TEST(UnitMemory, RelatedDimensions) {

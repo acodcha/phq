@@ -78,12 +78,12 @@ TEST(UnitAngle, ConvertAndConvertCopy) {
       value * 648000.0L * 648000.0L / (Pi<long double> * Pi<long double>));
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<SolidAngle>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SolidAngle>("sr"), SolidAngle::Steradian);
-  EXPECT_EQ(Parse<SolidAngle>("deg^2"), SolidAngle::SquareDegree);
-  EXPECT_EQ(Parse<SolidAngle>("arcmin^2"), SolidAngle::SquareArcminute);
-  EXPECT_EQ(Parse<SolidAngle>("arcsec^2"), SolidAngle::SquareArcsecond);
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("sr"), SolidAngle::Steradian);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("deg^2"), SolidAngle::SquareDegree);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("arcmin^2"), SolidAngle::SquareArcminute);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("arcsec^2"), SolidAngle::SquareArcsecond);
 }
 
 TEST(UnitAngle, RelatedDimensions) {

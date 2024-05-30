@@ -47,273 +47,280 @@ namespace PhQ {
 /// two-dimensional Euclidean displacement vector in the XY plane, see PhQ::PlanarDisplacement. For
 /// a three-dimensional Euclidean position vector, see PhQ::Position. For scalar position components
 /// or for the magnitude of a position vector, see PhQ::Length.
-template <typename Number = double>
-class PlanarPosition : public DimensionalPlanarVector<Unit::Length, Number> {
+template <typename NumericType = double>
+class PlanarPosition : public DimensionalPlanarVector<Unit::Length, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar position vector with an uninitialized value.
   PlanarPosition() = default;
 
   /// \brief Constructor. Constructs a planar position vector with a given value expressed in a
   /// given length unit.
-  PlanarPosition(const PlanarVector<Number>& value, const Unit::Length unit)
-    : DimensionalPlanarVector<Unit::Length, Number>(value, unit) {}
+  PlanarPosition(const PlanarVector<NumericType>& value, const Unit::Length unit)
+    : DimensionalPlanarVector<Unit::Length, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar position vector from a given set of length components.
-  PlanarPosition(const Length<Number>& x, const Length<Number>& y)
-    : PlanarPosition<Number>({x.Value(), y.Value()}) {}
+  PlanarPosition(const Length<NumericType>& x, const Length<NumericType>& y)
+    : PlanarPosition<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar position vector from a given length and planar
   /// direction.
   constexpr PlanarPosition(
-      const Length<Number>& length, const PlanarDirection<Number>& planar_direction)
-    : PlanarPosition<Number>(length.Value() * planar_direction.Value()) {}
+      const Length<NumericType>& length, const PlanarDirection<NumericType>& planar_direction)
+    : PlanarPosition<NumericType>(length.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar position vector from a given position vector by
   /// projecting the position vector onto the XY plane.
-  explicit constexpr PlanarPosition(const Position<Number>& position);
+  explicit constexpr PlanarPosition(const Position<NumericType>& position);
 
   /// \brief Constructor. Constructs a planar position vector from a given planar displacement
   /// vector from the origin.
-  explicit constexpr PlanarPosition(const PlanarDisplacement<Number>& planar_displacement)
-    : PlanarPosition<Number>(planar_displacement.Value()) {}
+  explicit constexpr PlanarPosition(const PlanarDisplacement<NumericType>& planar_displacement)
+    : PlanarPosition<NumericType>(planar_displacement.Value()) {}
 
   /// \brief Destructor. Destroys this planar position vector.
   ~PlanarPosition() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar position vector by copying another one.
-  constexpr PlanarPosition(const PlanarPosition<Number>& other) = default;
+  constexpr PlanarPosition(const PlanarPosition<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar position by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarPosition(const PlanarPosition<OtherNumber>& other)
-    : PlanarPosition(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarPosition(const PlanarPosition<OtherNumericType>& other)
+    : PlanarPosition(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar position vector by moving another one.
-  constexpr PlanarPosition(PlanarPosition<Number>&& other) noexcept = default;
+  constexpr PlanarPosition(PlanarPosition<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this planar position vector by copying another one.
-  constexpr PlanarPosition<Number>& operator=(const PlanarPosition<Number>& other) = default;
+  constexpr PlanarPosition<NumericType>& operator=(
+      const PlanarPosition<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this planar position by copying another one.
-  template <typename OtherNumber>
-  constexpr PlanarPosition<Number>& operator=(const PlanarPosition<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarPosition<NumericType>& operator=(const PlanarPosition<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this planar position vector by moving another one.
-  constexpr PlanarPosition<Number>& operator=(PlanarPosition<Number>&& other) noexcept = default;
+  constexpr PlanarPosition<NumericType>& operator=(
+      PlanarPosition<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar position vector of zero.
-  static constexpr PlanarPosition<Number> Zero() {
-    return PlanarPosition<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarPosition<NumericType> Zero() {
+    return PlanarPosition<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar position vector from the given x and y Cartesian components
   /// expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarPosition<Number> Create(const Number x, const Number y) {
-    return PlanarPosition<Number>{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(PlanarVector<Number>{x, y})};
+  static constexpr PlanarPosition<NumericType> Create(const NumericType x, const NumericType y) {
+    return PlanarPosition<NumericType>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
+            PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar position vector from the given x and y Cartesian components
   /// expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarPosition<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarPosition<Number>{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(PlanarVector<Number>{x_y})};
+  static constexpr PlanarPosition<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+    return PlanarPosition<NumericType>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
+            PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar position vector with a given value expressed in a given
   /// length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarPosition<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarPosition<Number>{
+  static constexpr PlanarPosition<NumericType> Create(const PlanarVector<NumericType>& value) {
+    return PlanarPosition<NumericType>{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar position vector.
-  [[nodiscard]] constexpr Length<Number> x() const noexcept {
-    return Length<Number>{this->value.x()};
+  [[nodiscard]] constexpr Length<NumericType> x() const noexcept {
+    return Length<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this planar position vector.
-  [[nodiscard]] constexpr Length<Number> y() const noexcept {
-    return Length<Number>{this->value.y()};
+  [[nodiscard]] constexpr Length<NumericType> y() const noexcept {
+    return Length<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this planar position vector.
-  [[nodiscard]] Length<Number> Magnitude() const {
-    return Length<Number>{this->value.Magnitude()};
+  [[nodiscard]] Length<NumericType> Magnitude() const {
+    return Length<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the planar direction of this planar position vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this planar position vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarPosition<Number>& planar_position) const {
-    return PhQ::Angle<Number>{*this, planar_position};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(
+      const PlanarPosition<NumericType>& planar_position) const {
+    return PhQ::Angle<NumericType>{*this, planar_position};
   }
 
-  constexpr PlanarPosition<Number> operator+(const PlanarPosition<Number>& planar_position) const {
-    return PlanarPosition<Number>{this->value + planar_position.value};
+  constexpr PlanarPosition<NumericType> operator+(
+      const PlanarPosition<NumericType>& planar_position) const {
+    return PlanarPosition<NumericType>{this->value + planar_position.value};
   }
 
-  constexpr PlanarPosition<Number> operator+(
-      const PlanarDisplacement<Number>& planar_displacement) const {
-    return PlanarPosition<Number>{this->value + planar_displacement.Value()};
+  constexpr PlanarPosition<NumericType> operator+(
+      const PlanarDisplacement<NumericType>& planar_displacement) const {
+    return PlanarPosition<NumericType>{this->value + planar_displacement.Value()};
   }
 
-  constexpr PlanarDisplacement<Number> operator-(
-      const PlanarPosition<Number>& planar_position) const {
-    return PlanarDisplacement<Number>{this->value - planar_position.value};
+  constexpr PlanarDisplacement<NumericType> operator-(
+      const PlanarPosition<NumericType>& planar_position) const {
+    return PlanarDisplacement<NumericType>{this->value - planar_position.value};
   }
 
-  constexpr PlanarPosition<Number> operator-(
-      const PlanarDisplacement<Number>& planar_displacement) const {
-    return PlanarPosition<Number>{this->value - planar_displacement.Value()};
+  constexpr PlanarPosition<NumericType> operator-(
+      const PlanarDisplacement<NumericType>& planar_displacement) const {
+    return PlanarPosition<NumericType>{this->value - planar_displacement.Value()};
   }
 
-  constexpr PlanarPosition<Number> operator*(const Number number) const {
-    return PlanarPosition<Number>{this->value * number};
+  constexpr PlanarPosition<NumericType> operator*(const NumericType number) const {
+    return PlanarPosition<NumericType>{this->value * number};
   }
 
-  constexpr PlanarPosition<Number> operator/(const Number number) const {
-    return PlanarPosition<Number>{this->value / number};
+  constexpr PlanarPosition<NumericType> operator/(const NumericType number) const {
+    return PlanarPosition<NumericType>{this->value / number};
   }
 
-  constexpr void operator+=(const PlanarPosition<Number>& planar_position) noexcept {
+  constexpr void operator+=(const PlanarPosition<NumericType>& planar_position) noexcept {
     this->value += planar_position.value;
   }
 
-  constexpr void operator+=(const PlanarDisplacement<Number>& planar_displacement) noexcept {
+  constexpr void operator+=(const PlanarDisplacement<NumericType>& planar_displacement) noexcept {
     this->value += planar_displacement.Value();
   }
 
-  constexpr void operator-=(const PlanarPosition<Number>& planar_position) noexcept {
+  constexpr void operator-=(const PlanarPosition<NumericType>& planar_position) noexcept {
     this->value -= planar_position.value;
   }
 
-  constexpr void operator-=(const PlanarDisplacement<Number>& planar_displacement) noexcept {
+  constexpr void operator-=(const PlanarDisplacement<NumericType>& planar_displacement) noexcept {
     this->value -= planar_displacement.Value();
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar position vector with a given value expressed in the
   /// standard length unit.
-  explicit constexpr PlanarPosition(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::Length, Number>(value) {}
+  explicit constexpr PlanarPosition(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::Length, NumericType>(value) {}
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class PlanarDisplacement;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PlanarPosition<Number>& left, const PlanarPosition<Number>& right) noexcept {
+    const PlanarPosition<NumericType>& left, const PlanarPosition<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PlanarPosition<Number>& left, const PlanarPosition<Number>& right) noexcept {
+    const PlanarPosition<NumericType>& left, const PlanarPosition<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PlanarPosition<Number>& left, const PlanarPosition<Number>& right) noexcept {
+    const PlanarPosition<NumericType>& left, const PlanarPosition<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PlanarPosition<Number>& left, const PlanarPosition<Number>& right) noexcept {
+    const PlanarPosition<NumericType>& left, const PlanarPosition<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PlanarPosition<Number>& left, const PlanarPosition<Number>& right) noexcept {
+    const PlanarPosition<NumericType>& left, const PlanarPosition<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PlanarPosition<Number>& left, const PlanarPosition<Number>& right) noexcept {
+    const PlanarPosition<NumericType>& left, const PlanarPosition<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const PlanarPosition<Number>& planar_position) {
+    std::ostream& stream, const PlanarPosition<NumericType>& planar_position) {
   stream << planar_position.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarPosition<Number> operator*(
-    const Number number, const PlanarPosition<Number>& planar_position) {
+template <typename NumericType>
+inline constexpr PlanarPosition<NumericType> operator*(
+    const NumericType number, const PlanarPosition<NumericType>& planar_position) {
   return planar_position * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(const PlanarPosition<Number>& planar_position)
-  : PlanarDirection<Number>(planar_position.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(
+    const PlanarPosition<NumericType>& planar_position)
+  : PlanarDirection<NumericType>(planar_position.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const PlanarPosition<Number>& planar_position_1,
-                            const PlanarPosition<Number>& planar_position_2)
-  : Angle<Number>(planar_position_1.Value(), planar_position_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(const PlanarPosition<NumericType>& planar_position_1,
+                                 const PlanarPosition<NumericType>& planar_position_2)
+  : Angle<NumericType>(planar_position_1.Value(), planar_position_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarDisplacement<Number>::PlanarDisplacement(
-    const PlanarPosition<Number>& planar_position)
-  : PlanarDisplacement<Number>(planar_position.Value()) {}
+template <typename NumericType>
+inline constexpr PlanarDisplacement<NumericType>::PlanarDisplacement(
+    const PlanarPosition<NumericType>& planar_position)
+  : PlanarDisplacement<NumericType>(planar_position.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarPosition<Number> PlanarDisplacement<Number>::operator+(
-    const PlanarPosition<Number>& planar_position) const {
-  return PlanarPosition<Number>{this->value + planar_position.Value()};
+template <typename NumericType>
+inline constexpr PlanarPosition<NumericType> PlanarDisplacement<NumericType>::operator+(
+    const PlanarPosition<NumericType>& planar_position) const {
+  return PlanarPosition<NumericType>{this->value + planar_position.Value()};
 }
 
-template <typename Number>
-inline constexpr PlanarPosition<Number> PlanarDisplacement<Number>::operator-(
-    const PlanarPosition<Number>& planar_position) const {
-  return PlanarPosition<Number>{this->value - planar_position.Value()};
+template <typename NumericType>
+inline constexpr PlanarPosition<NumericType> PlanarDisplacement<NumericType>::operator-(
+    const PlanarPosition<NumericType>& planar_position) const {
+  return PlanarPosition<NumericType>{this->value - planar_position.Value()};
 }
 
-template <typename Number>
-inline constexpr PlanarPosition<Number> PlanarDirection<Number>::operator*(
-    const Length<Number>& length) const {
-  return PlanarPosition<Number>{length, *this};
+template <typename NumericType>
+inline constexpr PlanarPosition<NumericType> PlanarDirection<NumericType>::operator*(
+    const Length<NumericType>& length) const {
+  return PlanarPosition<NumericType>{length, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarPosition<Number> Length<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarPosition<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarPosition<NumericType> Length<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarPosition<NumericType>{*this, planar_direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarPosition<Number>> {
-  inline size_t operator()(const PhQ::PlanarPosition<Number>& planar_position) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_position.Value());
+template <typename NumericType>
+struct hash<PhQ::PlanarPosition<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarPosition<NumericType>& planar_position) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_position.Value());
   }
 };
 

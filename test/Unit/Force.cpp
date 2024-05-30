@@ -87,17 +87,17 @@ TEST(UnitForce, ConvertAndConvertCopy) {
       Force::Newton, Force::Pound, value, value / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitForce, Parse) {
-  EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Force>("N"), Force::Newton);
-  EXPECT_EQ(Parse<Force>("kN"), Force::Kilonewton);
-  EXPECT_EQ(Parse<Force>("MN"), Force::Meganewton);
-  EXPECT_EQ(Parse<Force>("GN"), Force::Giganewton);
-  EXPECT_EQ(Parse<Force>("mN"), Force::Millinewton);
-  EXPECT_EQ(Parse<Force>("μN"), Force::Micronewton);
-  EXPECT_EQ(Parse<Force>("nN"), Force::Nanonewton);
-  EXPECT_EQ(Parse<Force>("dyn"), Force::Dyne);
-  EXPECT_EQ(Parse<Force>("lbf"), Force::Pound);
+TEST(UnitForce, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Force>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Force>("N"), Force::Newton);
+  EXPECT_EQ(ParseEnumeration<Force>("kN"), Force::Kilonewton);
+  EXPECT_EQ(ParseEnumeration<Force>("MN"), Force::Meganewton);
+  EXPECT_EQ(ParseEnumeration<Force>("GN"), Force::Giganewton);
+  EXPECT_EQ(ParseEnumeration<Force>("mN"), Force::Millinewton);
+  EXPECT_EQ(ParseEnumeration<Force>("μN"), Force::Micronewton);
+  EXPECT_EQ(ParseEnumeration<Force>("nN"), Force::Nanonewton);
+  EXPECT_EQ(ParseEnumeration<Force>("dyn"), Force::Dyne);
+  EXPECT_EQ(ParseEnumeration<Force>("lbf"), Force::Pound);
 }
 
 TEST(UnitForce, RelatedDimensions) {

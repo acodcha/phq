@@ -140,110 +140,114 @@ inline const std::unordered_map<std::string_view, Unit::Time> Spellings<Unit::Ti
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Nanosecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Nanosecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Microsecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Microsecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Millisecond>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Millisecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Second>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Second>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Minute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Minute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Hour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<Unit::Time, Unit::Time::Hour>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Time, Unit::Time::Hour>::ToStandard(
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Time, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Time, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Time, std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Time, NumericType>{
         {Unit::Time::Nanosecond,
-         Conversions<Unit::Time,                          Unit::Time::Nanosecond>::FromStandard<Number> },
+         Conversions<Unit::Time,                          Unit::Time::Nanosecond>::FromStandard<NumericType> },
         {Unit::Time::Microsecond,
-         Conversions<Unit::Time,                          Unit::Time::Microsecond>::FromStandard<Number>},
+         Conversions<Unit::Time,                          Unit::Time::Microsecond>::FromStandard<NumericType>},
         {Unit::Time::Millisecond,
-         Conversions<Unit::Time,                          Unit::Time::Millisecond>::FromStandard<Number>},
-        {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::FromStandard<Number>     },
-        {Unit::Time::Minute,      Conversions<Unit::Time, Unit::Time::Minute>::FromStandard<Number>     },
-        {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::FromStandard<Number>       },
+         Conversions<Unit::Time,                          Unit::Time::Millisecond>::FromStandard<NumericType>},
+        {Unit::Time::Second,
+         Conversions<Unit::Time,                          Unit::Time::Second>::FromStandard<NumericType>     },
+        {Unit::Time::Minute,
+         Conversions<Unit::Time,                          Unit::Time::Minute>::FromStandard<NumericType>     },
+        {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::FromStandard<NumericType>       },
 };
 
-template <typename Number>
-inline const std::map<Unit::Time, std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Time, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Time,
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Time, NumericType>{
         {Unit::Time::Nanosecond,
-         Conversions<Unit::Time,                          Unit::Time::Nanosecond>::ToStandard<Number> },
+         Conversions<Unit::Time,                          Unit::Time::Nanosecond>::ToStandard<NumericType> },
         {Unit::Time::Microsecond,
-         Conversions<Unit::Time,                          Unit::Time::Microsecond>::ToStandard<Number>},
+         Conversions<Unit::Time,                          Unit::Time::Microsecond>::ToStandard<NumericType>},
         {Unit::Time::Millisecond,
-         Conversions<Unit::Time,                          Unit::Time::Millisecond>::ToStandard<Number>},
-        {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::ToStandard<Number>     },
-        {Unit::Time::Minute,      Conversions<Unit::Time, Unit::Time::Minute>::ToStandard<Number>     },
-        {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::ToStandard<Number>       },
+         Conversions<Unit::Time,                          Unit::Time::Millisecond>::ToStandard<NumericType>},
+        {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::ToStandard<NumericType>     },
+        {Unit::Time::Minute,      Conversions<Unit::Time, Unit::Time::Minute>::ToStandard<NumericType>     },
+        {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::ToStandard<NumericType>       },
 };
 
 }  // namespace Internal

@@ -87,17 +87,17 @@ TEST(UnitPower, ConvertAndConvertCopy) {
       Power::Watt, Power::InchPoundPerSecond, value, value / (0.0254L * 0.45359237L * 9.80665L));
 }
 
-TEST(UnitPower, Parse) {
-  EXPECT_EQ(Parse<Power>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Power>("W"), Power::Watt);
-  EXPECT_EQ(Parse<Power>("mW"), Power::Milliwatt);
-  EXPECT_EQ(Parse<Power>("μW"), Power::Microwatt);
-  EXPECT_EQ(Parse<Power>("nW"), Power::Nanowatt);
-  EXPECT_EQ(Parse<Power>("kW"), Power::Kilowatt);
-  EXPECT_EQ(Parse<Power>("MW"), Power::Megawatt);
-  EXPECT_EQ(Parse<Power>("GW"), Power::Gigawatt);
-  EXPECT_EQ(Parse<Power>("ft·lbf/s"), Power::FootPoundPerSecond);
-  EXPECT_EQ(Parse<Power>("in·lbf/s"), Power::InchPoundPerSecond);
+TEST(UnitPower, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Power>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Power>("W"), Power::Watt);
+  EXPECT_EQ(ParseEnumeration<Power>("mW"), Power::Milliwatt);
+  EXPECT_EQ(ParseEnumeration<Power>("μW"), Power::Microwatt);
+  EXPECT_EQ(ParseEnumeration<Power>("nW"), Power::Nanowatt);
+  EXPECT_EQ(ParseEnumeration<Power>("kW"), Power::Kilowatt);
+  EXPECT_EQ(ParseEnumeration<Power>("MW"), Power::Megawatt);
+  EXPECT_EQ(ParseEnumeration<Power>("GW"), Power::Gigawatt);
+  EXPECT_EQ(ParseEnumeration<Power>("ft·lbf/s"), Power::FootPoundPerSecond);
+  EXPECT_EQ(ParseEnumeration<Power>("in·lbf/s"), Power::InchPoundPerSecond);
 }
 
 TEST(UnitPower, RelatedDimensions) {
