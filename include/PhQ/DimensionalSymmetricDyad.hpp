@@ -63,7 +63,7 @@ public:
 
   /// \brief Value of this physical quantity expressed in a given unit of measure.
   [[nodiscard]] PhQ::SymmetricDyad<NumericType> Value(const UnitType unit) const {
-    return PhQ::ConvertCopy(value, PhQ::Standard<UnitType>, unit);
+    return PhQ::Convert(value, PhQ::Standard<UnitType>, unit);
   }
 
   /// \brief Value of this physical quantity expressed in a given unit of measure. This method can

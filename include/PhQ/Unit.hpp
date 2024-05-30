@@ -52,33 +52,32 @@ namespace Internal {
 
 /// \brief Abstract class for converting a value expressed in a unit of measure to or from the
 /// standard unit of measure of that type. Internal implementation detail not intended to be used
-/// outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
+/// outside of the PhQ::ConvertInPlace, PhQ::Convert, and PhQ::ConvertStatically functions.
 template <typename Unit, Unit UnitValue>
 class Conversion {
 public:
   /// \brief Converts a value expressed in the standard unit of measure of a given unit type to any
   /// given unit of measure of that type. Internal implementation detail not intended to be used
-  /// outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
+  /// outside of the PhQ::ConvertInPlace, PhQ::Convert, and PhQ::ConvertStatically functions.
   template <typename NumericType>
   static inline constexpr void FromStandard(NumericType& value) noexcept;
 
   /// \brief Converts a value expressed in any given unit of measure of a given unit type to the
   /// standard unit of measure of that type. Internal implementation detail not intended to be used
-  /// outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
+  /// outside of the PhQ::ConvertInPlace, PhQ::Convert, and PhQ::ConvertStatically functions.
   template <typename NumericType>
   static inline constexpr void ToStandard(NumericType& value) noexcept;
 };
 
 /// \brief Abstract class for converting a sequence of values expressed in a unit of measure to or
 /// from the standard unit of measure of that type. Internal implementation detail not intended to
-/// be used outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and PhQ::ConvertStatically
-/// functions.
+/// be used outside of the PhQ::ConvertInPlace, PhQ::Convert, and PhQ::ConvertStatically functions.
 template <typename Unit, Unit UnitValue>
 class Conversions {
 public:
   /// \brief Converts a sequence of values expressed in the standard unit of measure of a given unit
   /// type to any given unit of measure of that type. Internal implementation detail not intended to
-  /// be used outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and PhQ::ConvertStatically
+  /// be used outside of the PhQ::ConvertInPlace, PhQ::Convert, and PhQ::ConvertStatically
   /// functions.
   template <typename NumericType>
   static inline constexpr void FromStandard(NumericType* values, const std::size_t size) noexcept {
@@ -93,7 +92,7 @@ public:
 
   /// \brief Converts a sequence of values expressed in any given unit of measure of a given unit
   /// type to the standard unit of measure of that type. Internal implementation detail not intended
-  /// to be used outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and PhQ::ConvertStatically
+  /// to be used outside of the PhQ::ConvertInPlace, PhQ::Convert, and PhQ::ConvertStatically
   /// functions.
   template <typename NumericType>
   static inline constexpr void ToStandard(NumericType* values, const std::size_t size) noexcept {
@@ -109,15 +108,15 @@ public:
 
 /// \brief Abstract map of functions for converting a sequence of values expressed in the standard
 /// unit of measure of a given type to any given unit of measure of that type. Internal
-/// implementation detail not intended to be used outside of the PhQ::ConvertInPlace,
-/// PhQ::ConvertCopy, and PhQ::ConvertStatically functions.
+/// implementation detail not intended to be used outside of the PhQ::ConvertInPlace, PhQ::Convert,
+/// and PhQ::ConvertStatically functions.
 template <typename Unit, typename NumericType>
 inline const std::map<Unit, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard;
 
 /// \brief Abstract map of functions for converting a sequence of values expressed in any given unit
 /// of measure of a given type to the standard unit of measure of that type. Internal implementation
-/// detail not intended to be used outside of the PhQ::ConvertInPlace, PhQ::ConvertCopy, and
+/// detail not intended to be used outside of the PhQ::ConvertInPlace, PhQ::Convert, and
 /// PhQ::ConvertStatically functions.
 template <typename Unit, typename NumericType>
 inline const std::map<Unit, std::function<void(NumericType* values, const std::size_t size)>>
@@ -174,53 +173,52 @@ inline void ConvertInPlace(
   }
 }
 
-/// \brief Converts a two-dimensional planar vector in the XY plane expressed in a given unit of
-/// measure to a new unit of measure. The conversion is performed in-place.
+/// \brief Converts a two-dimensional Euclidean planar vector in the XY plane expressed in a given
+/// unit of measure to a new unit of measure. The conversion is performed in-place.
 template <typename Unit, typename NumericType>
 inline void ConvertInPlace(
-    PlanarVector<NumericType>& value, const Unit original_unit, const Unit new_unit) {
-  ConvertInPlace<Unit, 2, NumericType>(value.Mutable_x_y(), original_unit, new_unit);
+    PlanarVector<NumericType>& planar_vector, const Unit original_unit, const Unit new_unit) {
+  ConvertInPlace<Unit, 2, NumericType>(planar_vector.Mutable_x_y(), original_unit, new_unit);
 }
 
-/// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
-/// measure. The conversion is performed in-place.
+/// \brief Converts a three-dimensional Euclidean vector expressed in a given unit of measure to a
+/// new unit of measure. The conversion is performed in-place.
 template <typename Unit, typename NumericType>
 inline void ConvertInPlace(
-    Vector<NumericType>& value, const Unit original_unit, const Unit new_unit) {
-  ConvertInPlace<Unit, 3, NumericType>(value.Mutable_x_y_z(), original_unit, new_unit);
+    Vector<NumericType>& vector, const Unit original_unit, const Unit new_unit) {
+  ConvertInPlace<Unit, 3, NumericType>(vector.Mutable_x_y_z(), original_unit, new_unit);
 }
 
-/// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
+/// \brief Converts a three-dimensional Euclidean symmetric dyadic tensor expressed in a given unit
+/// of measure to a new unit of measure. The conversion is performed in-place.
+template <typename Unit, typename NumericType>
+inline void ConvertInPlace(
+    SymmetricDyad<NumericType>& symmetric_dyad, const Unit original_unit, const Unit new_unit) {
+  ConvertInPlace<Unit, 6, NumericType>(
+      symmetric_dyad.Mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
+}
+
+/// \brief Converts a three-dimensional Euclidean dyadic tensor expressed in a given unit of measure
 /// to a new unit of measure. The conversion is performed in-place.
 template <typename Unit, typename NumericType>
-inline void ConvertInPlace(
-    SymmetricDyad<NumericType>& value, const Unit original_unit, const Unit new_unit) {
-  ConvertInPlace<Unit, 6, NumericType>(value.Mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
-}
-
-/// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
-/// unit of measure. The conversion is performed in-place.
-template <typename Unit, typename NumericType>
-inline void ConvertInPlace(
-    Dyad<NumericType>& value, const Unit original_unit, const Unit new_unit) {
+inline void ConvertInPlace(Dyad<NumericType>& dyad, const Unit original_unit, const Unit new_unit) {
   ConvertInPlace<Unit, 9, NumericType>(
-      value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
+      dyad.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
 }
 
-/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns a
-/// copy of the converted value. The original value remains unchanged.
+/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns
+/// the converted value. The original value remains unchanged.
 template <typename Unit, typename NumericType>
-inline NumericType ConvertCopy(
-    const NumericType value, const Unit original_unit, const Unit new_unit) {
+inline NumericType Convert(const NumericType value, const Unit original_unit, const Unit new_unit) {
   NumericType result{value};
   ConvertInPlace<Unit, NumericType>(result, original_unit, new_unit);
   return result;
 }
 
 /// \brief Converts an array of values expressed in a given unit of measure to a new unit of
-/// measure. Returns a copy of the converted values. The original values remain unchanged.
+/// measure. Returns the converted values. The original values remain unchanged.
 template <typename Unit, std::size_t Size, typename NumericType>
-inline std::array<NumericType, Size> ConvertCopy(
+inline std::array<NumericType, Size> Convert(
     const std::array<NumericType, Size>& values, const Unit original_unit, const Unit new_unit) {
   std::array<NumericType, Size> result{values};
   ConvertInPlace<Unit, Size, NumericType>(result, original_unit, new_unit);
@@ -228,54 +226,54 @@ inline std::array<NumericType, Size> ConvertCopy(
 }
 
 /// \brief Converts a vector of values expressed in a given unit of measure to a new unit of
-/// measure. Returns a copy of the converted values. The original values remain unchanged.
+/// measure. Returns the converted values. The original values remain unchanged.
 template <typename Unit, typename NumericType>
-inline std::vector<NumericType> ConvertCopy(
+inline std::vector<NumericType> Convert(
     const std::vector<NumericType>& values, const Unit original_unit, const Unit new_unit) {
   std::vector<NumericType> result{values};
   ConvertInPlace<Unit, NumericType>(result, original_unit, new_unit);
   return result;
 }
 
-/// \brief Converts a two-dimensional planar vector in the XY plane expressed in a given unit of
-/// measure to a new unit of measure. Returns a copy of the converted value. The original value
+/// \brief Converts a two-dimensional Euclidean planar vector in the XY plane expressed in a given
+/// unit of measure to a new unit of measure. Returns the converted vector. The original vector
 /// remains unchanged.
 template <typename Unit, typename NumericType>
-inline PlanarVector<NumericType> ConvertCopy(
-    const PlanarVector<NumericType>& value, const Unit original_unit, const Unit new_unit) {
-  return PlanarVector{ConvertCopy<Unit, 2, NumericType>(value.x_y(), original_unit, new_unit)};
+inline PlanarVector<NumericType> Convert(
+    const PlanarVector<NumericType>& planar_vector, const Unit original_unit, const Unit new_unit) {
+  return PlanarVector{Convert<Unit, 2, NumericType>(planar_vector.x_y(), original_unit, new_unit)};
 }
 
-/// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
-/// measure. Returns a copy of the converted value. The original value remains unchanged.
+/// \brief Converts a three-dimensional Euclidean vector expressed in a given unit of measure to a
+/// new unit of measure. Returns the converted vector. The original vector remains unchanged.
 template <typename Unit, typename NumericType>
-inline Vector<NumericType> ConvertCopy(
-    const Vector<NumericType>& value, const Unit original_unit, const Unit new_unit) {
-  return Vector{ConvertCopy<Unit, 3, NumericType>(value.x_y_z(), original_unit, new_unit)};
+inline Vector<NumericType> Convert(
+    const Vector<NumericType>& vector, const Unit original_unit, const Unit new_unit) {
+  return Vector{Convert<Unit, 3, NumericType>(vector.x_y_z(), original_unit, new_unit)};
 }
 
-/// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
-/// to a new unit of measure. Returns a copy of the converted value. The original value remains
+/// \brief Converts a three-dimensional Euclidean symmetric dyadic tensor expressed in a given unit
+/// of measure to a new unit of measure. Returns the converted tensor. The original tensor remains
 /// unchanged.
 template <typename Unit, typename NumericType>
-inline SymmetricDyad<NumericType> ConvertCopy(
-    const SymmetricDyad<NumericType>& value, const Unit original_unit, const Unit new_unit) {
+inline SymmetricDyad<NumericType> Convert(const SymmetricDyad<NumericType>& symmetric_dyad,
+                                          const Unit original_unit, const Unit new_unit) {
   return SymmetricDyad{
-      ConvertCopy<Unit, 6, NumericType>(value.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
+      Convert<Unit, 6, NumericType>(symmetric_dyad.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
 }
 
-/// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
-/// unit of measure. Returns a copy of the converted value. The original value remains unchanged.
+/// \brief Converts a three-dimensional Euclidean dyadic tensor expressed in a given unit of measure
+/// to a new unit of measure. Returns the converted tensor. The original tensor remains unchanged.
 template <typename Unit, typename NumericType>
-inline Dyad<NumericType> ConvertCopy(
-    const Dyad<NumericType>& value, const Unit original_unit, const Unit new_unit) {
-  return Dyad{ConvertCopy<Unit, 9, NumericType>(
-      value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
+inline Dyad<NumericType> Convert(
+    const Dyad<NumericType>& dyad, const Unit original_unit, const Unit new_unit) {
+  return Dyad{
+      Convert<Unit, 9, NumericType>(dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
 }
 
-/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns a
-/// copy of the converted value. The original value remains unchanged. This function can be
-/// evaluated at compile time.
+/// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns
+/// the converted value. The original value remains unchanged. This function can be evaluated at
+/// compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
 inline constexpr NumericType ConvertStatically(const NumericType value) {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -288,8 +286,8 @@ inline constexpr NumericType ConvertStatically(const NumericType value) {
 }
 
 /// \brief Converts an array of values expressed in a given unit of measure to a new unit of
-/// measure. Returns a copy of the converted values. The original values remain unchanged. This
-/// function can be evaluated at compile time.
+/// measure. Returns the converted values. The original values remain unchanged. This function can
+/// be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size, typename NumericType>
 inline constexpr std::array<NumericType, Size> ConvertStatically(
     const std::array<NumericType, Size>& values) {
@@ -302,40 +300,41 @@ inline constexpr std::array<NumericType, Size> ConvertStatically(
   return result;
 }
 
-/// \brief Converts a two-dimensional planar vector in the XY plane expressed in a given unit of
-/// measure to a new unit of measure. Returns a copy of the converted value. The original value
+/// \brief Converts a two-dimensional Euclidean planar vector in the XY plane expressed in a given
+/// unit of measure to a new unit of measure. Returns the converted vector. The original vector
 /// remains unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
 inline constexpr PlanarVector<NumericType> ConvertStatically(
-    const PlanarVector<NumericType>& value) {
-  return PlanarVector{ConvertStatically<Unit, OriginalUnit, NewUnit, 2, NumericType>(value.x_y())};
+    const PlanarVector<NumericType>& planar_vector) {
+  return PlanarVector{
+      ConvertStatically<Unit, OriginalUnit, NewUnit, 2, NumericType>(planar_vector.x_y())};
 }
 
-/// \brief Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
-/// measure. Returns a copy of the converted value. The original value remains unchanged. This
+/// \brief Converts a three-dimensional Euclidean vector expressed in a given unit of measure to a
+/// new unit of measure. Returns the converted vector. The original vector remains unchanged. This
 /// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr Vector<NumericType> ConvertStatically(const Vector<NumericType>& value) {
-  return Vector{ConvertStatically<Unit, OriginalUnit, NewUnit, 3, NumericType>(value.x_y_z())};
+inline constexpr Vector<NumericType> ConvertStatically(const Vector<NumericType>& vector) {
+  return Vector{ConvertStatically<Unit, OriginalUnit, NewUnit, 3, NumericType>(vector.x_y_z())};
 }
 
-/// \brief Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure
-/// to a new unit of measure. Returns a copy of the converted value. The original value remains
+/// \brief Converts a three-dimensional Euclidean symmetric dyadic tensor expressed in a given unit
+/// of measure to a new unit of measure. Returns the converted tensor. The original tensor remains
 /// unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
 inline constexpr SymmetricDyad<NumericType> ConvertStatically(
-    const SymmetricDyad<NumericType>& value) {
-  return SymmetricDyad{
-      ConvertStatically<Unit, OriginalUnit, NewUnit, 6, NumericType>(value.xx_xy_xz_yy_yz_zz())};
+    const SymmetricDyad<NumericType>& symmetric_dyad) {
+  return SymmetricDyad{ConvertStatically<Unit, OriginalUnit, NewUnit, 6, NumericType>(
+      symmetric_dyad.xx_xy_xz_yy_yz_zz())};
 }
 
-/// \brief Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new
-/// unit of measure. Returns a copy of the converted value. The original value remains unchanged.
+/// \brief Converts a three-dimensional Euclidean dyadic tensor expressed in a given unit of measure
+/// to a new unit of measure. Returns the converted tensor. The original tensor remains unchanged.
 /// This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr Dyad<NumericType> ConvertStatically(const Dyad<NumericType>& value) {
+inline constexpr Dyad<NumericType> ConvertStatically(const Dyad<NumericType>& dyad) {
   return Dyad{ConvertStatically<Unit, OriginalUnit, NewUnit, 9, NumericType>(
-      value.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
+      dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
 }
 
 }  // namespace PhQ
