@@ -424,100 +424,111 @@ inline const std::unordered_map<std::string_view, Unit::SpecificHeatCapacity> Sp
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>::
-    FromStandard(Number& /*value*/) noexcept {}
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>::
-    ToStandard(Number& /*value*/) noexcept {}
+    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(1.8L) * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.8L) * static_cast<NumericType>(0.3048L)
+           * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1.8L) * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.8L) * static_cast<NumericType>(0.3048L)
+           * static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(1.8L) * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.8L) * static_cast<NumericType>(0.0254L)
+           * static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SpecificHeatCapacity, Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1.8L) * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.8L) * static_cast<NumericType>(0.0254L)
+           * static_cast<NumericType>(0.0254L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::SpecificHeatCapacity,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificHeatCapacity, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::SpecificHeatCapacity, NumericType>{
         {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>::FromStandard<Number>   },
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>::FromStandard<NumericType>   },
         {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>::FromStandard<Number>   },
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>::FromStandard<NumericType>   },
         {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>::FromStandard<Number>  },
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>::FromStandard<NumericType>  },
         {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
          Conversions<
              Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>::FromStandard<Number>},
+         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::SpecificHeatCapacity,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SpecificHeatCapacity, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::SpecificHeatCapacity, NumericType>{
         {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>::ToStandard<Number>   },
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>::ToStandard<NumericType>   },
         {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>::ToStandard<Number>   },
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>::ToStandard<NumericType>   },
         {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>::ToStandard<Number>  },
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>::ToStandard<NumericType>  },
         {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
-         Conversions<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>::ToStandard<Number>},
+         Conversions<
+             Unit::SpecificHeatCapacity,
+         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

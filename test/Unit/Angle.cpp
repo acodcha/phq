@@ -59,26 +59,32 @@ TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::InchPoundSecondRankine), Angle::Radian);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Angle>(Angle::Radian, Angle::Radian, value, value);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(Angle::Radian, Angle::Radian, value, value);
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Degree, value, value * 180.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Arcminute, value, value * 10800.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Arcsecond, value, value * 648000.0L / Pi<long double>);
-  Internal::TestConvertAndConvertCopy<Angle>(
+  Internal::TestConvert<Angle>(
       Angle::Radian, Angle::Revolution, value, value / (2.0L * Pi<long double>));
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<Angle>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Angle>("rad"), Angle::Radian);
-  EXPECT_EQ(Parse<Angle>("deg"), Angle::Degree);
-  EXPECT_EQ(Parse<Angle>("arcmin"), Angle::Arcminute);
-  EXPECT_EQ(Parse<Angle>("arcsec"), Angle::Arcsecond);
-  EXPECT_EQ(Parse<Angle>("rev"), Angle::Revolution);
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Angle, Angle::Radian, Angle::Degree>(
+      value, value * 180.0L / Pi<long double>);
+}
+
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Angle>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Angle>("rad"), Angle::Radian);
+  EXPECT_EQ(ParseEnumeration<Angle>("deg"), Angle::Degree);
+  EXPECT_EQ(ParseEnumeration<Angle>("arcmin"), Angle::Arcminute);
+  EXPECT_EQ(ParseEnumeration<Angle>("arcsec"), Angle::Arcsecond);
+  EXPECT_EQ(ParseEnumeration<Angle>("rev"), Angle::Revolution);
 }
 
 TEST(UnitAngle, RelatedDimensions) {
@@ -95,12 +101,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<Angle>, Angle::Radian);
-}
-
-TEST(UnitAngle, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Angle, Angle::Radian, Angle::Degree>(
-      value, value * 180.0L / Pi<long double>);
 }
 
 TEST(UnitAngle, Stream) {

@@ -39,140 +39,145 @@ namespace PhQ {
 /// solid material subjected to a load in directions perpendicular to the direction of loading.
 /// Poisson's ratios range from -1 to 0.5, though most deformable solid materials have a
 /// Poisson's ratio between 0 and 0.5.
-template <typename Number = double>
-class PoissonRatio : public DimensionlessScalar<Number> {
+template <typename NumericType = double>
+class PoissonRatio : public DimensionlessScalar<NumericType> {
 public:
   /// \brief Default constructor. Constructs a Poisson's ratio with an uninitialized value.
   PoissonRatio() = default;
 
   /// \brief Constructor. Constructs a Poisson's ratio with a given value.
-  explicit constexpr PoissonRatio(const Number value) : DimensionlessScalar<Number>(value) {}
+  explicit constexpr PoissonRatio(const NumericType value)
+    : DimensionlessScalar<NumericType>(value) {}
 
   /// \brief Destructor. Destroys this Poisson's ratio.
   ~PoissonRatio() noexcept = default;
 
   /// \brief Copy constructor. Constructs a Poisson's ratio by copying another one.
-  constexpr PoissonRatio(const PoissonRatio<Number>& other) = default;
+  constexpr PoissonRatio(const PoissonRatio<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a Poisson's ratio by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PoissonRatio(const PoissonRatio<OtherNumber>& other)
-    : PoissonRatio(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PoissonRatio(const PoissonRatio<OtherNumericType>& other)
+    : PoissonRatio(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a Poisson's ratio by moving another one.
-  constexpr PoissonRatio(PoissonRatio<Number>&& other) noexcept = default;
+  constexpr PoissonRatio(PoissonRatio<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this Poisson's ratio by copying another one.
-  constexpr PoissonRatio<Number>& operator=(const PoissonRatio<Number>& other) = default;
+  constexpr PoissonRatio<NumericType>& operator=(const PoissonRatio<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this Poisson's ratio by copying another one.
-  template <typename OtherNumber>
-  constexpr PoissonRatio<Number>& operator=(const PoissonRatio<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PoissonRatio<NumericType>& operator=(const PoissonRatio<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this Poisson's ratio by moving another one.
-  constexpr PoissonRatio<Number>& operator=(PoissonRatio<Number>&& other) noexcept = default;
+  constexpr PoissonRatio<NumericType>& operator=(
+      PoissonRatio<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Poisson's ratio of zero.
-  static constexpr PoissonRatio<Number> Zero() {
-    return PoissonRatio<Number>{static_cast<Number>(0)};
+  static constexpr PoissonRatio<NumericType> Zero() {
+    return PoissonRatio<NumericType>{static_cast<NumericType>(0)};
   }
 
-  constexpr PoissonRatio<Number> operator+(const PoissonRatio<Number>& poisson_ratio) const {
-    return PoissonRatio<Number>{this->value + poisson_ratio.value};
+  constexpr PoissonRatio<NumericType> operator+(
+      const PoissonRatio<NumericType>& poisson_ratio) const {
+    return PoissonRatio<NumericType>{this->value + poisson_ratio.value};
   }
 
-  constexpr PoissonRatio<Number> operator-(const PoissonRatio<Number>& poisson_ratio) const {
-    return PoissonRatio<Number>{this->value - poisson_ratio.value};
+  constexpr PoissonRatio<NumericType> operator-(
+      const PoissonRatio<NumericType>& poisson_ratio) const {
+    return PoissonRatio<NumericType>{this->value - poisson_ratio.value};
   }
 
-  constexpr PoissonRatio<Number> operator*(const Number number) const {
-    return PoissonRatio<Number>{this->value * number};
+  constexpr PoissonRatio<NumericType> operator*(const NumericType number) const {
+    return PoissonRatio<NumericType>{this->value * number};
   }
 
-  constexpr PoissonRatio<Number> operator/(const Number number) const {
-    return PoissonRatio<Number>{this->value / number};
+  constexpr PoissonRatio<NumericType> operator/(const NumericType number) const {
+    return PoissonRatio<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const PoissonRatio<Number>& poisson_ratio) const noexcept {
+  constexpr NumericType operator/(const PoissonRatio<NumericType>& poisson_ratio) const noexcept {
     return this->value / poisson_ratio.value;
   }
 
-  constexpr void operator+=(const PoissonRatio<Number>& poisson_ratio) noexcept {
+  constexpr void operator+=(const PoissonRatio<NumericType>& poisson_ratio) noexcept {
     this->value += poisson_ratio.value;
   }
 
-  constexpr void operator-=(const PoissonRatio<Number>& poisson_ratio) noexcept {
+  constexpr void operator-=(const PoissonRatio<NumericType>& poisson_ratio) noexcept {
     this->value -= poisson_ratio.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PoissonRatio<Number>& left, const PoissonRatio<Number>& right) noexcept {
+    const PoissonRatio<NumericType>& left, const PoissonRatio<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PoissonRatio<Number>& left, const PoissonRatio<Number>& right) noexcept {
+    const PoissonRatio<NumericType>& left, const PoissonRatio<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PoissonRatio<Number>& left, const PoissonRatio<Number>& right) noexcept {
+    const PoissonRatio<NumericType>& left, const PoissonRatio<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PoissonRatio<Number>& left, const PoissonRatio<Number>& right) noexcept {
+    const PoissonRatio<NumericType>& left, const PoissonRatio<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PoissonRatio<Number>& left, const PoissonRatio<Number>& right) noexcept {
+    const PoissonRatio<NumericType>& left, const PoissonRatio<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PoissonRatio<Number>& left, const PoissonRatio<Number>& right) noexcept {
+    const PoissonRatio<NumericType>& left, const PoissonRatio<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const PoissonRatio<Number>& poisson_ratio) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PoissonRatio<NumericType>& poisson_ratio) {
   stream << poisson_ratio.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PoissonRatio<Number> operator*(
-    const Number number, const PoissonRatio<Number>& poisson_ratio) {
-  return PoissonRatio<Number>{number * poisson_ratio.Value()};
+template <typename NumericType>
+inline constexpr PoissonRatio<NumericType> operator*(
+    const NumericType number, const PoissonRatio<NumericType>& poisson_ratio) {
+  return PoissonRatio<NumericType>{number * poisson_ratio.Value()};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PoissonRatio<Number>> {
-  inline size_t operator()(const PhQ::PoissonRatio<Number>& poisson_ratio) const {
-    return hash<Number>()(poisson_ratio.Value());
+template <typename NumericType>
+struct hash<PhQ::PoissonRatio<NumericType>> {
+  inline size_t operator()(const PhQ::PoissonRatio<NumericType>& poisson_ratio) const {
+    return hash<NumericType>()(poisson_ratio.Value());
   }
 };
 

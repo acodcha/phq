@@ -45,9 +45,9 @@ namespace PhQ {
 /// components in Cartesian coordinates: x and y. For a three-dimensional Euclidean temperature
 /// gradient vector, see PhQ::TemperatureGradient. For scalar temperature gradient components or for
 /// the magnitude of a temperature gradient vector, see PhQ::ScalarTemperatureGradient.
-template <typename Number = double>
+template <typename NumericType = double>
 class PlanarTemperatureGradient
-  : public DimensionalPlanarVector<Unit::TemperatureGradient, Number> {
+  : public DimensionalPlanarVector<Unit::TemperatureGradient, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar temperature gradient vector with an
   /// uninitialized value.
@@ -55,245 +55,257 @@ public:
 
   /// \brief Constructor. Constructs a planar temperature gradient vector with a given value
   /// expressed in a given temperature gradient unit.
-  PlanarTemperatureGradient(const PlanarVector<Number>& value, const Unit::TemperatureGradient unit)
-    : DimensionalPlanarVector<Unit::TemperatureGradient, Number>(value, unit) {}
+  PlanarTemperatureGradient(
+      const PlanarVector<NumericType>& value, const Unit::TemperatureGradient unit)
+    : DimensionalPlanarVector<Unit::TemperatureGradient, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar temperature gradient vector from a given set of scalar
   /// temperature gradient components.
-  PlanarTemperatureGradient(
-      const ScalarTemperatureGradient<Number>& x, const ScalarTemperatureGradient<Number>& y)
-    : PlanarTemperatureGradient<Number>({x.Value(), y.Value()}) {}
+  PlanarTemperatureGradient(const ScalarTemperatureGradient<NumericType>& x,
+                            const ScalarTemperatureGradient<NumericType>& y)
+    : PlanarTemperatureGradient<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar temperature gradient vector from a given scalar
   /// temperature gradient magnitude and planar direction.
   constexpr PlanarTemperatureGradient(
-      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
-      const PlanarDirection<Number>& planar_direction)
-    : PlanarTemperatureGradient<Number>(
+      const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient,
+      const PlanarDirection<NumericType>& planar_direction)
+    : PlanarTemperatureGradient<NumericType>(
         scalar_temperature_gradient.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar temperature gradient vector from a given temperature
   /// gradient vector by projecting the temperature gradient vector onto the XY plane.
   explicit constexpr PlanarTemperatureGradient(
-      const TemperatureGradient<Number>& temperature_gradient);
+      const TemperatureGradient<NumericType>& temperature_gradient);
 
   /// \brief Destructor. Destroys this planar temperature gradient vector.
   ~PlanarTemperatureGradient() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar temperature gradient vector by copying another
   /// one.
-  constexpr PlanarTemperatureGradient(const PlanarTemperatureGradient<Number>& other) = default;
+  constexpr PlanarTemperatureGradient(
+      const PlanarTemperatureGradient<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar temperature gradient vector by copying another
   /// one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarTemperatureGradient(const PlanarTemperatureGradient<OtherNumber>& other)
-    : PlanarTemperatureGradient(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarTemperatureGradient(
+      const PlanarTemperatureGradient<OtherNumericType>& other)
+    : PlanarTemperatureGradient(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar temperature gradient vector by moving another
   /// one.
-  constexpr PlanarTemperatureGradient(PlanarTemperatureGradient<Number>&& other) noexcept = default;
+  constexpr PlanarTemperatureGradient(
+      PlanarTemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this planar temperature gradient vector by copying
   /// another one.
-  constexpr PlanarTemperatureGradient<Number>& operator=(
-      const PlanarTemperatureGradient<Number>& other) = default;
+  constexpr PlanarTemperatureGradient<NumericType>& operator=(
+      const PlanarTemperatureGradient<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this planar temperature gradient vector by copying
   /// another one.
-  template <typename OtherNumber>
-  constexpr PlanarTemperatureGradient<Number>& operator=(
-      const PlanarTemperatureGradient<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarTemperatureGradient<NumericType>& operator=(
+      const PlanarTemperatureGradient<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this planar temperature gradient vector by moving
   /// another one.
-  constexpr PlanarTemperatureGradient<Number>& operator=(
-      PlanarTemperatureGradient<Number>&& other) noexcept = default;
+  constexpr PlanarTemperatureGradient<NumericType>& operator=(
+      PlanarTemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar temperature gradient vector of zero.
-  static constexpr PlanarTemperatureGradient<Number> Zero() {
-    return PlanarTemperatureGradient<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarTemperatureGradient<NumericType> Zero() {
+    return PlanarTemperatureGradient<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar temperature gradient vector from the given x and y
   /// Cartesian components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr PlanarTemperatureGradient<Number> Create(const Number x, const Number y) {
-    return PlanarTemperatureGradient<Number>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            PlanarVector<Number>{x, y})};
+  static constexpr PlanarTemperatureGradient<NumericType> Create(
+      const NumericType x, const NumericType y) {
+    return PlanarTemperatureGradient<NumericType>{
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+            PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar temperature gradient vector from the given x and y
   /// Cartesian components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr PlanarTemperatureGradient<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarTemperatureGradient<Number>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            PlanarVector<Number>{x_y})};
+  static constexpr PlanarTemperatureGradient<NumericType> Create(
+      const std::array<NumericType, 2>& x_y) {
+    return PlanarTemperatureGradient<NumericType>{
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+            PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar temperature gradient vector with a given value expressed in
   /// a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr PlanarTemperatureGradient<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarTemperatureGradient<Number>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+  static constexpr PlanarTemperatureGradient<NumericType> Create(
+      const PlanarVector<NumericType>& value) {
+    return PlanarTemperatureGradient<NumericType>{
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar temperature gradient vector.
-  [[nodiscard]] constexpr ScalarTemperatureGradient<Number> x() const noexcept {
-    return ScalarTemperatureGradient<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient<NumericType> x() const noexcept {
+    return ScalarTemperatureGradient<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this planar temperature gradient vector.
-  [[nodiscard]] constexpr ScalarTemperatureGradient<Number> y() const noexcept {
-    return ScalarTemperatureGradient<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient<NumericType> y() const noexcept {
+    return ScalarTemperatureGradient<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this planar temperature gradient vector.
-  [[nodiscard]] ScalarTemperatureGradient<Number> Magnitude() const {
-    return ScalarTemperatureGradient<Number>{this->value.Magnitude()};
+  [[nodiscard]] ScalarTemperatureGradient<NumericType> Magnitude() const {
+    return ScalarTemperatureGradient<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this planar temperature gradient vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this planar temperature gradient vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(
-      const PlanarTemperatureGradient<Number>& planar_temperature_gradient) const {
-    return PhQ::Angle<Number>{*this, planar_temperature_gradient};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) const {
+    return PhQ::Angle<NumericType>{*this, planar_temperature_gradient};
   }
 
-  constexpr PlanarTemperatureGradient<Number> operator+(
-      const PlanarTemperatureGradient<Number>& planar_temperature_gradient) const {
-    return PlanarTemperatureGradient<Number>{this->value + planar_temperature_gradient.value};
+  constexpr PlanarTemperatureGradient<NumericType> operator+(
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) const {
+    return PlanarTemperatureGradient<NumericType>{this->value + planar_temperature_gradient.value};
   }
 
-  constexpr PlanarTemperatureGradient<Number> operator-(
-      const PlanarTemperatureGradient<Number>& planar_temperature_gradient) const {
-    return PlanarTemperatureGradient<Number>{this->value - planar_temperature_gradient.value};
+  constexpr PlanarTemperatureGradient<NumericType> operator-(
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) const {
+    return PlanarTemperatureGradient<NumericType>{this->value - planar_temperature_gradient.value};
   }
 
-  constexpr PlanarTemperatureGradient<Number> operator*(const Number number) const {
-    return PlanarTemperatureGradient<Number>{this->value * number};
+  constexpr PlanarTemperatureGradient<NumericType> operator*(const NumericType number) const {
+    return PlanarTemperatureGradient<NumericType>{this->value * number};
   }
 
-  constexpr PlanarTemperatureGradient<Number> operator/(const Number number) const {
-    return PlanarTemperatureGradient<Number>{this->value / number};
+  constexpr PlanarTemperatureGradient<NumericType> operator/(const NumericType number) const {
+    return PlanarTemperatureGradient<NumericType>{this->value / number};
   }
 
   constexpr void operator+=(
-      const PlanarTemperatureGradient<Number>& planar_temperature_gradient) noexcept {
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) noexcept {
     this->value += planar_temperature_gradient.value;
   }
 
   constexpr void operator-=(
-      const PlanarTemperatureGradient<Number>& planar_temperature_gradient) noexcept {
+      const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) noexcept {
     this->value -= planar_temperature_gradient.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar temperature gradient vector with a given value
   /// expressed in the standard temperature gradient unit.
-  explicit constexpr PlanarTemperatureGradient(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::TemperatureGradient, Number>(value) {}
+  explicit constexpr PlanarTemperatureGradient(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::TemperatureGradient, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(const PlanarTemperatureGradient<Number>& left,
-                                 const PlanarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const PlanarTemperatureGradient<NumericType>& left,
+                                 const PlanarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const PlanarTemperatureGradient<Number>& left,
-                                 const PlanarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const PlanarTemperatureGradient<NumericType>& left,
+                                 const PlanarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const PlanarTemperatureGradient<Number>& left,
-                                const PlanarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const PlanarTemperatureGradient<NumericType>& left,
+                                const PlanarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const PlanarTemperatureGradient<Number>& left,
-                                const PlanarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const PlanarTemperatureGradient<NumericType>& left,
+                                const PlanarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const PlanarTemperatureGradient<Number>& left,
-                                 const PlanarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const PlanarTemperatureGradient<NumericType>& left,
+                                 const PlanarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const PlanarTemperatureGradient<Number>& left,
-                                 const PlanarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const PlanarTemperatureGradient<NumericType>& left,
+                                 const PlanarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const PlanarTemperatureGradient<Number>& planar_temperature_gradient) {
+    std::ostream& stream,
+    const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) {
   stream << planar_temperature_gradient.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarTemperatureGradient<Number> operator*(
-    const Number number, const PlanarTemperatureGradient<Number>& planar_temperature_gradient) {
+template <typename NumericType>
+inline constexpr PlanarTemperatureGradient<NumericType> operator*(
+    const NumericType number,
+    const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) {
   return planar_temperature_gradient * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(
-    const PlanarTemperatureGradient<Number>& planar_temperature_gradient)
-  : PlanarDirection<Number>(planar_temperature_gradient.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(
+    const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient)
+  : PlanarDirection<NumericType>(planar_temperature_gradient.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const PlanarTemperatureGradient<Number>& planar_temperature_gradient_1,
-                            const PlanarTemperatureGradient<Number>& planar_temperature_gradient_2)
-  : Angle<Number>(planar_temperature_gradient_1.Value(), planar_temperature_gradient_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(
+    const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient_1,
+    const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient_2)
+  : Angle<NumericType>(
+      planar_temperature_gradient_1.Value(), planar_temperature_gradient_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarTemperatureGradient<Number> PlanarDirection<Number>::operator*(
-    const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
-  return PlanarTemperatureGradient<Number>{scalar_temperature_gradient, *this};
+template <typename NumericType>
+inline constexpr PlanarTemperatureGradient<NumericType> PlanarDirection<NumericType>::operator*(
+    const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) const {
+  return PlanarTemperatureGradient<NumericType>{scalar_temperature_gradient, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarTemperatureGradient<Number> ScalarTemperatureGradient<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarTemperatureGradient<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarTemperatureGradient<NumericType>
+ScalarTemperatureGradient<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarTemperatureGradient<NumericType>{*this, planar_direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarTemperatureGradient<Number>> {
+template <typename NumericType>
+struct hash<PhQ::PlanarTemperatureGradient<NumericType>> {
   inline size_t operator()(
-      const PhQ::PlanarTemperatureGradient<Number>& planar_temperature_gradient) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_temperature_gradient.Value());
+      const PhQ::PlanarTemperatureGradient<NumericType>& planar_temperature_gradient) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_temperature_gradient.Value());
   }
 };
 

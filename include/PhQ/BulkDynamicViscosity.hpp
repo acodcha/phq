@@ -38,154 +38,156 @@ namespace PhQ {
 
 /// \brief Bulk dynamic viscosity, also known as volume dynamic viscosity or dilatational dynamic
 /// viscosity. Not to be confused with dynamic viscosity; see PhQ::DynamicViscosity.
-template <typename Number = double>
-class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, Number> {
+template <typename NumericType = double>
+class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, NumericType> {
 public:
   /// \brief Default constructor. Constructs a bulk dynamic viscosity with an uninitialized value.
   BulkDynamicViscosity() = default;
 
   /// \brief Constructor. Constructs a bulk dynamic viscosity with a given value expressed in a
   /// given dynamic viscosity unit.
-  BulkDynamicViscosity(const Number value, const Unit::DynamicViscosity unit)
-    : DimensionalScalar<Unit::DynamicViscosity, Number>(value, unit) {}
+  BulkDynamicViscosity(const NumericType value, const Unit::DynamicViscosity unit)
+    : DimensionalScalar<Unit::DynamicViscosity, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this bulk dynamic viscosity.
   ~BulkDynamicViscosity() noexcept = default;
 
   /// \brief Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
-  constexpr BulkDynamicViscosity(const BulkDynamicViscosity<Number>& other) = default;
+  constexpr BulkDynamicViscosity(const BulkDynamicViscosity<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a bulk dynamic viscosity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr BulkDynamicViscosity(const BulkDynamicViscosity<OtherNumber>& other)
-    : BulkDynamicViscosity(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr BulkDynamicViscosity(const BulkDynamicViscosity<OtherNumericType>& other)
+    : BulkDynamicViscosity(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a bulk dynamic viscosity by moving another one.
-  constexpr BulkDynamicViscosity(BulkDynamicViscosity<Number>&& other) noexcept = default;
+  constexpr BulkDynamicViscosity(BulkDynamicViscosity<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this bulk dynamic viscosity by copying another one.
-  constexpr BulkDynamicViscosity<Number>& operator=(
-      const BulkDynamicViscosity<Number>& other) = default;
+  constexpr BulkDynamicViscosity<NumericType>& operator=(
+      const BulkDynamicViscosity<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this bulk dynamic viscosity by copying another one.
-  template <typename OtherNumber>
-  constexpr BulkDynamicViscosity<Number>& operator=(
-      const BulkDynamicViscosity<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr BulkDynamicViscosity<NumericType>& operator=(
+      const BulkDynamicViscosity<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this bulk dynamic viscosity by moving another one.
-  constexpr BulkDynamicViscosity<Number>& operator=(
-      BulkDynamicViscosity<Number>&& other) noexcept = default;
+  constexpr BulkDynamicViscosity<NumericType>& operator=(
+      BulkDynamicViscosity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a bulk dynamic viscosity of zero.
-  static constexpr BulkDynamicViscosity<Number> Zero() {
-    return BulkDynamicViscosity<Number>{static_cast<Number>(0)};
+  static constexpr BulkDynamicViscosity<NumericType> Zero() {
+    return BulkDynamicViscosity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a bulk dynamic viscosity with a given value expressed in a given
   /// dynamic viscosity unit.
   template <Unit::DynamicViscosity Unit>
-  static constexpr BulkDynamicViscosity<Number> Create(const Number value) {
-    return BulkDynamicViscosity<Number>{
-        StaticConvertCopy<Unit::DynamicViscosity, Unit, Standard<Unit::DynamicViscosity>>(value)};
+  static constexpr BulkDynamicViscosity<NumericType> Create(const NumericType value) {
+    return BulkDynamicViscosity<NumericType>{
+        ConvertStatically<Unit::DynamicViscosity, Unit, Standard<Unit::DynamicViscosity>>(value)};
   }
 
-  constexpr BulkDynamicViscosity<Number> operator+(
-      const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const {
-    return BulkDynamicViscosity<Number>{this->value + bulk_dynamic_viscosity.value};
+  constexpr BulkDynamicViscosity<NumericType> operator+(
+      const BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity) const {
+    return BulkDynamicViscosity<NumericType>{this->value + bulk_dynamic_viscosity.value};
   }
 
-  constexpr BulkDynamicViscosity<Number> operator-(
-      const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const {
-    return BulkDynamicViscosity<Number>{this->value - bulk_dynamic_viscosity.value};
+  constexpr BulkDynamicViscosity<NumericType> operator-(
+      const BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity) const {
+    return BulkDynamicViscosity<NumericType>{this->value - bulk_dynamic_viscosity.value};
   }
 
-  constexpr BulkDynamicViscosity<Number> operator*(const Number number) const {
-    return BulkDynamicViscosity<Number>{this->value * number};
+  constexpr BulkDynamicViscosity<NumericType> operator*(const NumericType number) const {
+    return BulkDynamicViscosity<NumericType>{this->value * number};
   }
 
-  constexpr BulkDynamicViscosity<Number> operator/(const Number number) const {
-    return BulkDynamicViscosity<Number>{this->value / number};
+  constexpr BulkDynamicViscosity<NumericType> operator/(const NumericType number) const {
+    return BulkDynamicViscosity<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(
-      const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const noexcept {
+  constexpr NumericType operator/(
+      const BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity) const noexcept {
     return this->value / bulk_dynamic_viscosity.value;
   }
 
-  constexpr void operator+=(const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) noexcept {
+  constexpr void operator+=(
+      const BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity) noexcept {
     this->value += bulk_dynamic_viscosity.value;
   }
 
-  constexpr void operator-=(const BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) noexcept {
+  constexpr void operator-=(
+      const BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity) noexcept {
     this->value -= bulk_dynamic_viscosity.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a bulk dynamic viscosity with a given value expressed in the
   /// standard dynamic viscosity unit.
-  explicit constexpr BulkDynamicViscosity(const Number value)
-    : DimensionalScalar<Unit::DynamicViscosity, Number>(value) {}
+  explicit constexpr BulkDynamicViscosity(const NumericType value)
+    : DimensionalScalar<Unit::DynamicViscosity, NumericType>(value) {}
 
   friend class ConstitutiveModel;
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const BulkDynamicViscosity<Number>& left, const BulkDynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const BulkDynamicViscosity<NumericType>& left,
+                                 const BulkDynamicViscosity<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const BulkDynamicViscosity<Number>& left, const BulkDynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const BulkDynamicViscosity<NumericType>& left,
+                                 const BulkDynamicViscosity<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const BulkDynamicViscosity<Number>& left, const BulkDynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const BulkDynamicViscosity<NumericType>& left,
+                                const BulkDynamicViscosity<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const BulkDynamicViscosity<Number>& left, const BulkDynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const BulkDynamicViscosity<NumericType>& left,
+                                const BulkDynamicViscosity<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const BulkDynamicViscosity<Number>& left, const BulkDynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const BulkDynamicViscosity<NumericType>& left,
+                                 const BulkDynamicViscosity<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const BulkDynamicViscosity<Number>& left, const BulkDynamicViscosity<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const BulkDynamicViscosity<NumericType>& left,
+                                 const BulkDynamicViscosity<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const BulkDynamicViscosity<Number>& mass_density) {
+    std::ostream& stream, const BulkDynamicViscosity<NumericType>& mass_density) {
   stream << mass_density.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr BulkDynamicViscosity<Number> operator*(
-    const Number number, const BulkDynamicViscosity<Number>& mass_density) {
+template <typename NumericType>
+inline constexpr BulkDynamicViscosity<NumericType> operator*(
+    const NumericType number, const BulkDynamicViscosity<NumericType>& mass_density) {
   return mass_density * number;
 }
 
@@ -193,10 +195,11 @@ inline constexpr BulkDynamicViscosity<Number> operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::BulkDynamicViscosity<Number>> {
-  inline size_t operator()(const PhQ::BulkDynamicViscosity<Number>& bulk_dynamic_viscosity) const {
-    return hash<Number>()(bulk_dynamic_viscosity.Value());
+template <typename NumericType>
+struct hash<PhQ::BulkDynamicViscosity<NumericType>> {
+  inline size_t operator()(
+      const PhQ::BulkDynamicViscosity<NumericType>& bulk_dynamic_viscosity) const {
+    return hash<NumericType>()(bulk_dynamic_viscosity.Value());
   }
 };
 

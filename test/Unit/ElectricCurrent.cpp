@@ -79,48 +79,54 @@ TEST(UnitAngle, ConsistentUnit) {
       ConsistentUnit<ElectricCurrent>(UnitSystem::InchPoundSecondRankine), ElectricCurrent::Ampere);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Ampere, value, value);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Kiloampere, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Megaampere, value, value * 1.0E-6L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Gigaampere, value, value * 1.0E-9L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Teraampere, value, value * 1.0E-12L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Milliampere, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Microampere, value, value * 1.0E6L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::Nanoampere, value, value * 1.0E9L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::ElementaryChargePerSecond, value,
       value / 1.602176634E-19L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::ElementaryChargePerMinute, value,
       value * 60.0L / 1.602176634E-19L);
-  Internal::TestConvertAndConvertCopy<ElectricCurrent>(
+  Internal::TestConvert<ElectricCurrent>(
       ElectricCurrent::Ampere, ElectricCurrent::ElementaryChargePerHour, value,
       value * 3600.0L / 1.602176634E-19L);
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<ElectricCurrent>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ElectricCurrent>("A"), ElectricCurrent::Ampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("kA"), ElectricCurrent::Kiloampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("MA"), ElectricCurrent::Megaampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("GA"), ElectricCurrent::Gigaampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("TA"), ElectricCurrent::Teraampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("mA"), ElectricCurrent::Milliampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("μA"), ElectricCurrent::Microampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("nA"), ElectricCurrent::Nanoampere);
-  EXPECT_EQ(Parse<ElectricCurrent>("e/s"), ElectricCurrent::ElementaryChargePerSecond);
-  EXPECT_EQ(Parse<ElectricCurrent>("e/min"), ElectricCurrent::ElementaryChargePerMinute);
-  EXPECT_EQ(Parse<ElectricCurrent>("e/hr"), ElectricCurrent::ElementaryChargePerHour);
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ElectricCurrent, ElectricCurrent::Ampere,
+                                  ElectricCurrent::Kiloampere>(value, value * 0.001L);
+}
+
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("A"), ElectricCurrent::Ampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("kA"), ElectricCurrent::Kiloampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("MA"), ElectricCurrent::Megaampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("GA"), ElectricCurrent::Gigaampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("TA"), ElectricCurrent::Teraampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("mA"), ElectricCurrent::Milliampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("μA"), ElectricCurrent::Microampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("nA"), ElectricCurrent::Nanoampere);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("e/s"), ElectricCurrent::ElementaryChargePerSecond);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("e/min"), ElectricCurrent::ElementaryChargePerMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCurrent>("e/hr"), ElectricCurrent::ElementaryChargePerHour);
 }
 
 TEST(UnitAngle, RelatedDimensions) {
@@ -146,12 +152,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<ElectricCurrent>, ElectricCurrent::Ampere);
-}
-
-TEST(UnitAngle, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ElectricCurrent, ElectricCurrent::Ampere,
-                                  ElectricCurrent::Kiloampere>(value, value * 0.001L);
 }
 
 TEST(UnitAngle, Stream) {

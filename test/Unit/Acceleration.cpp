@@ -137,167 +137,165 @@ TEST(UnitAcceleration, ConsistentUnit) {
             Acceleration::InchPerSquareSecond);
 }
 
-TEST(UnitAcceleration, ConvertAndConvertCopy) {
+TEST(UnitAcceleration, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::NauticalMilePerSquareSecond, value,
       value / 1852.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareSecond, value,
-      value / 1609.344L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::MilePerSquareSecond, value, value / 1609.344L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareSecond, value,
       value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareSecond, value, value);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareSecond, value,
-      value / 0.9144L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareSecond, value,
-      value / 0.3048L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::DecimetrePerSquareSecond, value,
-      value * 10.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareSecond, value,
-      value / 0.0254L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::YardPerSquareSecond, value, value / 0.9144L);
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::FootPerSquareSecond, value, value / 0.3048L);
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::DecimetrePerSquareSecond, value, value * 10.0L);
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::InchPerSquareSecond, value, value / 0.0254L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareSecond, value,
       value * 100.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareSecond, value,
       value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareSecond, value,
       value / 0.0000254L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareSecond, value,
       value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareSecond, value,
       value / 0.0000000254L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::NauticalMilePerSquareMinute, value,
       value / 1852.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareMinute, value,
       value / 1609.344L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareMinute, value,
       value * 0.001L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareMinute, value,
-      value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::MetrePerSquareMinute, value, value * 3600.0L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareMinute, value,
       value / 0.9144L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareMinute, value,
       value / 0.3048L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::DecimetrePerSquareMinute, value,
       value * 10.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareMinute, value,
       value / 0.0254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareMinute, value,
       value * 100.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareMinute, value,
       value * 1000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareMinute, value,
       value / 0.0000254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareMinute, value,
       value * 1000000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareMinute, value,
       value / 0.0000000254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::KnotPerHour, value,
-      value / 1852.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond, Acceleration::KnotPerHour,
+                                      value, value / 1852.0L * 12960000.0L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareHour, value,
       value / 1609.344L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareHour, value,
       value * 0.001L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
-      Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareHour, value,
-      value * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(Acceleration::MetrePerSquareSecond,
+                                      Acceleration::MetrePerSquareHour, value, value * 12960000.0L);
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareHour, value,
       value / 0.9144L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareHour, value,
       value / 0.3048L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::DecimetrePerSquareHour, value,
       value * 10.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareHour, value,
       value / 0.0254L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareHour, value,
       value * 100.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareHour, value,
       value * 1000.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareHour, value,
       value / 0.0000254L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareHour, value,
       value * 1000000.0L * 12960000.0L);
-  Internal::TestConvertAndConvertCopy<Acceleration>(
+  Internal::TestConvert<Acceleration>(
       Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareHour, value,
       value / 0.0000000254L * 12960000.0L);
 }
 
-TEST(UnitAcceleration, Parse) {
-  EXPECT_EQ(Parse<Acceleration>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Acceleration>("nmi/s^2"), Acceleration::NauticalMilePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("mi/s^2"), Acceleration::MilePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("km/s^2"), Acceleration::KilometrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("yd/s^2"), Acceleration::YardPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("m/s^2"), Acceleration::MetrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("ft/s^2"), Acceleration::FootPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("dm/s^2"), Acceleration::DecimetrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("in/s^2"), Acceleration::InchPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("cm/s^2"), Acceleration::CentimetrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("mm/s^2"), Acceleration::MillimetrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("mil/s^2"), Acceleration::MilliinchPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("μm/s^2"), Acceleration::MicrometrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("μin/s^2"), Acceleration::MicroinchPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("nmi/min^2"), Acceleration::NauticalMilePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("mi/min^2"), Acceleration::MilePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("km/min^2"), Acceleration::KilometrePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("yd/min^2"), Acceleration::YardPerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("m/min^2"), Acceleration::MetrePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("ft/min^2"), Acceleration::FootPerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("dm/min^2"), Acceleration::DecimetrePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("in/min^2"), Acceleration::InchPerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("cm/min^2"), Acceleration::CentimetrePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("mm/min^2"), Acceleration::MillimetrePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("mil/min^2"), Acceleration::MilliinchPerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("μm/min^2"), Acceleration::MicrometrePerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("μin/min^2"), Acceleration::MicroinchPerSquareMinute);
-  EXPECT_EQ(Parse<Acceleration>("kn/hr"), Acceleration::KnotPerHour);
-  EXPECT_EQ(Parse<Acceleration>("mi/hr^2"), Acceleration::MilePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("km/hr^2"), Acceleration::KilometrePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("yd/hr^2"), Acceleration::YardPerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("m/hr^2"), Acceleration::MetrePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("ft/hr^2"), Acceleration::FootPerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("dm/hr^2"), Acceleration::DecimetrePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("in/hr^2"), Acceleration::InchPerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("cm/hr^2"), Acceleration::CentimetrePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("mm/hr^2"), Acceleration::MillimetrePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("mil/hr^2"), Acceleration::MilliinchPerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("μm/hr^2"), Acceleration::MicrometrePerSquareHour);
-  EXPECT_EQ(Parse<Acceleration>("μin/hr^2"), Acceleration::MicroinchPerSquareHour);
+TEST(UnitAcceleration, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Acceleration, Acceleration::MetrePerSquareSecond,
+                                  Acceleration::FootPerSquareSecond>(value, value / 0.3048L);
+}
+
+TEST(UnitAcceleration, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Acceleration>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("nmi/s^2"), Acceleration::NauticalMilePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mi/s^2"), Acceleration::MilePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("km/s^2"), Acceleration::KilometrePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("yd/s^2"), Acceleration::YardPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("m/s^2"), Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("ft/s^2"), Acceleration::FootPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("dm/s^2"), Acceleration::DecimetrePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("in/s^2"), Acceleration::InchPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("cm/s^2"), Acceleration::CentimetrePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mm/s^2"), Acceleration::MillimetrePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mil/s^2"), Acceleration::MilliinchPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("μm/s^2"), Acceleration::MicrometrePerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("μin/s^2"), Acceleration::MicroinchPerSquareSecond);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("nmi/min^2"), Acceleration::NauticalMilePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mi/min^2"), Acceleration::MilePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("km/min^2"), Acceleration::KilometrePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("yd/min^2"), Acceleration::YardPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("m/min^2"), Acceleration::MetrePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("ft/min^2"), Acceleration::FootPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("dm/min^2"), Acceleration::DecimetrePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("in/min^2"), Acceleration::InchPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("cm/min^2"), Acceleration::CentimetrePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mm/min^2"), Acceleration::MillimetrePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mil/min^2"), Acceleration::MilliinchPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("μm/min^2"), Acceleration::MicrometrePerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("μin/min^2"), Acceleration::MicroinchPerSquareMinute);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("kn/hr"), Acceleration::KnotPerHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mi/hr^2"), Acceleration::MilePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("km/hr^2"), Acceleration::KilometrePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("yd/hr^2"), Acceleration::YardPerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("m/hr^2"), Acceleration::MetrePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("ft/hr^2"), Acceleration::FootPerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("dm/hr^2"), Acceleration::DecimetrePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("in/hr^2"), Acceleration::InchPerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("cm/hr^2"), Acceleration::CentimetrePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mm/hr^2"), Acceleration::MillimetrePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("mil/hr^2"), Acceleration::MilliinchPerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("μm/hr^2"), Acceleration::MicrometrePerSquareHour);
+  EXPECT_EQ(ParseEnumeration<Acceleration>("μin/hr^2"), Acceleration::MicroinchPerSquareHour);
 }
 
 TEST(UnitAcceleration, RelatedDimensions) {
@@ -355,12 +353,6 @@ TEST(UnitAcceleration, RelatedUnitSystem) {
 
 TEST(UnitAcceleration, Standard) {
   EXPECT_EQ(Standard<Acceleration>, Acceleration::MetrePerSquareSecond);
-}
-
-TEST(UnitAcceleration, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Acceleration, Acceleration::MetrePerSquareSecond,
-                                  Acceleration::FootPerSquareSecond>(value, value / 0.3048L);
 }
 
 TEST(UnitAcceleration, Stream) {

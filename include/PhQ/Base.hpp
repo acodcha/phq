@@ -49,8 +49,8 @@
 namespace PhQ {
 
 /// \brief The mathematical constant π = 3.14...
-template <typename Number = double>
-inline constexpr Number Pi;
+template <typename NumericType = double>
+inline constexpr NumericType Pi;
 
 /// \brief The mathematical constant π = 3.14... expressed as a single-precision 32-bit binary
 /// floating-point number.
@@ -93,17 +93,18 @@ inline std::string_view Abbreviation(const Enumeration enumeration) {
 namespace Internal {
 
 /// \brief Map of spellings to their corresponding enumeration values. This is an internal
-/// implementation detail and is not intended to be used except by the PhQ::Parse function.
+/// implementation detail and is not intended to be used except by the PhQ::ParseEnumeration
+/// function.
 template <typename Enumeration>
 inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 
 }  // namespace Internal
 
-/// \brief Attempts to parse some given text into an enumeration. Returns the enumeration if one is
-/// found, or std::nullopt otherwise. For example, PhQ::Parse<PhQ::Unit::Time>("hr") returns
-/// PhQ::Unit::Time::Hour.
+/// \brief Attempts to parse the given string as an enumeration of the given type. Returns a
+/// std::optional container that contains the resulting enumeration if successful, or std::nullopt
+/// if the given string could not be parsed into an enumeration of the given type.
 template <typename Enumeration>
-std::optional<Enumeration> Parse(const std::string_view spelling) {
+std::optional<Enumeration> ParseEnumeration(const std::string_view spelling) {
   const typename std::unordered_map<std::string_view, Enumeration>::const_iterator found{
       Internal::Spellings<Enumeration>.find(spelling)};
   if (found != Internal::Spellings<Enumeration>.cend()) {
@@ -112,52 +113,48 @@ std::optional<Enumeration> Parse(const std::string_view spelling) {
   return std::nullopt;
 }
 
-/// \brief Transforms a given string such that all of its characters are lowercase.
-inline void Lowercase(std::string& text) {
-  std::transform(text.begin(), text.end(), text.begin(), [](int character) {
-    return std::tolower(character);
-  });
-}
+/// \brief Parses the given string as a number of the given numeric type. Returns a std::optional
+/// container that contains the resulting number if successful, or std::nullopt if the string could
+/// not be parsed into the given numeric type.
+template <typename NumericType = double>
+[[nodiscard]] inline std::optional<NumericType> ParseNumber(const std::string& string);
 
-/// \brief Returns a copy of a given string where all characters are lowercase.
-[[nodiscard]] inline std::string LowercaseCopy(const std::string_view text) {
-  std::string result{text};
-  std::transform(result.begin(), result.end(), result.begin(), [](int character) {
-    return std::tolower(character);
-  });
-  return result;
-}
-
-template <typename Number = double>
-[[nodiscard]] inline std::optional<Number> ParseToNumber(const std::string& text);
-
+/// \brief Parses the given string as a single-precision floating-point number (a float). Returns a
+/// std::optional container that contains the resulting number if successful, or std::nullopt if the
+/// string could not be parsed into a float.
 template <>
-[[nodiscard]] inline std::optional<float> ParseToNumber(const std::string& text) {
+[[nodiscard]] inline std::optional<float> ParseNumber(const std::string& string) {
   float number;
   try {
-    number = std::stof(text);
+    number = std::stof(string);
   } catch (...) {
     return std::nullopt;
   }
   return number;
 }
 
+/// \brief Parses the given string as a double-precision floating-point number (a double). Returns a
+/// std::optional container that contains the resulting number if successful, or std::nullopt if the
+/// string could not be parsed into a double.
 template <>
-[[nodiscard]] inline std::optional<double> ParseToNumber(const std::string& text) {
+[[nodiscard]] inline std::optional<double> ParseNumber(const std::string& string) {
   double number;
   try {
-    number = std::stod(text);
+    number = std::stod(string);
   } catch (...) {
     return std::nullopt;
   }
   return number;
 }
 
+/// \brief Parses the given string as an extended-precision floating-point number (a long double).
+/// Returns a std::optional container that contains the resulting number if successful, or
+/// std::nullopt if the string could not be parsed into a long double.
 template <>
-[[nodiscard]] inline std::optional<long double> ParseToNumber(const std::string& text) {
+[[nodiscard]] inline std::optional<long double> ParseNumber(const std::string& string) {
   long double number;
   try {
-    number = std::stold(text);
+    number = std::stold(string);
   } catch (...) {
     return std::nullopt;
   }
@@ -166,12 +163,12 @@ template <>
 
 /// \brief Prints a given floating-point number as a string. Prints enough digits to represent the
 /// number exactly. The printed number of digits depends on the type of the floating-point number.
-template <typename Number>
-[[nodiscard]] inline std::string Print(const Number value) {
-  static_assert(
-      std::is_floating_point<Number>::value,
-      "The Number template parameter of PhQ::Print<Number> must be a floating-point number type.");
-  const Number absolute{std::abs(value)};
+template <typename NumericType>
+[[nodiscard]] inline std::string Print(const NumericType value) {
+  static_assert(std::is_floating_point<NumericType>::value,
+                "The NumericType template parameter of PhQ::Print<NumericType> must be a numeric "
+                "floating-point type: float, double, or long double.");
+  const NumericType absolute{std::abs(value)};
   std::ostringstream stream;
   if (absolute < 1.0) {
     // Interval: [0, 1[
@@ -182,8 +179,8 @@ template <typename Number>
         stream << 0;
       } else {
         // Interval: ]0, 0.001[
-        stream << std::scientific << std::setprecision(std::numeric_limits<Number>::max_digits10)
-               << value;
+        stream << std::scientific
+               << std::setprecision(std::numeric_limits<NumericType>::max_digits10) << value;
       }
     } else {
       // Interval: [0.001, 1[
@@ -191,17 +188,17 @@ template <typename Number>
         // Interval: [0.001, 0.1[
         if (absolute < 0.01) {
           // Interval: [0.001, 0.01[
-          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 + 3)
-                 << value;
+          stream << std::fixed
+                 << std::setprecision(std::numeric_limits<NumericType>::max_digits10 + 3) << value;
         } else {
           // Interval: [0.01, 0.1[
-          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 + 2)
-                 << value;
+          stream << std::fixed
+                 << std::setprecision(std::numeric_limits<NumericType>::max_digits10 + 2) << value;
         }
       } else {
         // Interval: [0.1, 1[
-        stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 + 1)
-               << value;
+        stream << std::fixed
+               << std::setprecision(std::numeric_limits<NumericType>::max_digits10 + 1) << value;
       }
     }
   } else {
@@ -210,85 +207,59 @@ template <typename Number>
       // Interval: [1, 1000[
       if (absolute < 10.0) {
         // Interval: [1, 10[
-        stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10)
+        stream << std::fixed << std::setprecision(std::numeric_limits<NumericType>::max_digits10)
                << value;
       } else {
         // Interval: [10, 1000[
         if (absolute < 100.0) {
           // Interval: [10, 100[
-          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 - 1)
-                 << value;
+          stream << std::fixed
+                 << std::setprecision(std::numeric_limits<NumericType>::max_digits10 - 1) << value;
         } else {
           // Interval: [100, 1000[
-          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 - 2)
-                 << value;
+          stream << std::fixed
+                 << std::setprecision(std::numeric_limits<NumericType>::max_digits10 - 2) << value;
         }
       }
     } else {
       // Interval: [1000, +inf[
       if (absolute < 10000.0) {
         // Interval: [1000, 10000[
-        stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 - 3)
-               << value;
+        stream << std::fixed
+               << std::setprecision(std::numeric_limits<NumericType>::max_digits10 - 3) << value;
       } else {
         // Interval: [10000, +inf[
-        stream << std::scientific << std::setprecision(std::numeric_limits<Number>::max_digits10)
-               << value;
+        stream << std::scientific
+               << std::setprecision(std::numeric_limits<NumericType>::max_digits10) << value;
       }
     }
   }
   return stream.str();
 }
 
-/// \brief Replaces all occurrences of a given character in a given string with a different given
-/// character.
-inline void Replace(std::string& text, const char from, const char to) {
-  std::replace(text.begin(), text.end(), from, to);
-}
-
-/// \brief Returns a copy of a given string where all occurrences of a given character have been
-/// replaced with a different given character.
-[[nodiscard]] inline std::string ReplaceCopy(
-    const std::string_view text, const char from, const char to) {
-  std::string result{text};
-  std::replace_copy(text.cbegin(), text.cend(), result.begin(), from, to);
+/// \brief Returns a copy of the given string where all characters are lowercase.
+[[nodiscard]] inline std::string Lowercase(const std::string_view string) {
+  std::string result{string};
+  std::transform(result.begin(), result.end(), result.begin(), [](int character) {
+    return std::tolower(character);
+  });
   return result;
 }
 
-/// \brief Transforms a given string into snake case; that is, all characters are lowercase and all
-/// spaces are replaced with underscores.
-inline void SnakeCase(std::string& text) {
-  Lowercase(text);
-  Replace(text, ' ', '_');
-}
-
-/// \brief Returns a copy of a given string in snake case; that is, all characters are lowercase and
-/// all spaces are replaced with underscores.
-[[nodiscard]] inline std::string SnakeCaseCopy(const std::string_view text) {
-  return LowercaseCopy(ReplaceCopy(text, ' ', '_'));
-}
-
-/// \brief Splits a given string by whitespace and returns the collection of resulting strings.
-[[nodiscard]] inline std::vector<std::string> SplitByWhitespace(const std::string& text) {
-  std::istringstream stream{text};
-  std::vector<std::string> words{
-      std::istream_iterator<std::string>{stream}, std::istream_iterator<std::string>{}};
-  return words;
-}
-
-/// \brief Transforms a given string such that all of its characters are uppercase.
-inline void Uppercase(std::string& text) {
-  std::transform(text.begin(), text.end(), text.begin(), [](int character) {
-    return std::toupper(character);
-  });
-}
-
-/// \brief Returns a copy of a given string where all characters are uppercase.
-[[nodiscard]] inline std::string UppercaseCopy(const std::string_view text) {
-  std::string result{text};
+/// \brief Returns a copy of the given string where all characters are uppercase.
+[[nodiscard]] inline std::string Uppercase(const std::string_view string) {
+  std::string result{string};
   std::transform(result.begin(), result.end(), result.begin(), [](int character) {
     return std::toupper(character);
   });
+  return result;
+}
+
+/// \brief Returns a copy of the given string in snake case: all characters are lowercase and all
+/// spaces are replaced with underscores.
+[[nodiscard]] inline std::string SnakeCase(const std::string_view string) {
+  std::string result{Lowercase(string)};
+  std::replace(result.begin(), result.end(), ' ', '_');
   return result;
 }
 

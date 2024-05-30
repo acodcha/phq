@@ -68,36 +68,38 @@ TEST(UnitPower, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Power>(UnitSystem::InchPoundSecondRankine), Power::InchPoundPerSecond);
 }
 
-TEST(UnitPower, ConvertAndConvertCopy) {
+TEST(UnitPower, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Power>(Power::Watt, Power::Watt, value, value);
-  Internal::TestConvertAndConvertCopy<Power>(Power::Watt, Power::Milliwatt, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Microwatt, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Nanowatt, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<Power>(Power::Watt, Power::Kilowatt, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Megawatt, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Power>(
-      Power::Watt, Power::Gigawatt, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Power>(
+  Internal::TestConvert<Power>(Power::Watt, Power::Watt, value, value);
+  Internal::TestConvert<Power>(Power::Watt, Power::Milliwatt, value, value * 1000.0L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Microwatt, value, value * 1000000.0L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Nanowatt, value, value * 1000000000.0L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Kilowatt, value, value * 0.001L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Megawatt, value, value * 0.000001L);
+  Internal::TestConvert<Power>(Power::Watt, Power::Gigawatt, value, value * 0.000000001L);
+  Internal::TestConvert<Power>(
       Power::Watt, Power::FootPoundPerSecond, value, value / (0.3048L * 0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Power>(
+  Internal::TestConvert<Power>(
       Power::Watt, Power::InchPoundPerSecond, value, value / (0.0254L * 0.45359237L * 9.80665L));
 }
 
-TEST(UnitPower, Parse) {
-  EXPECT_EQ(Parse<Power>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Power>("W"), Power::Watt);
-  EXPECT_EQ(Parse<Power>("mW"), Power::Milliwatt);
-  EXPECT_EQ(Parse<Power>("μW"), Power::Microwatt);
-  EXPECT_EQ(Parse<Power>("nW"), Power::Nanowatt);
-  EXPECT_EQ(Parse<Power>("kW"), Power::Kilowatt);
-  EXPECT_EQ(Parse<Power>("MW"), Power::Megawatt);
-  EXPECT_EQ(Parse<Power>("GW"), Power::Gigawatt);
-  EXPECT_EQ(Parse<Power>("ft·lbf/s"), Power::FootPoundPerSecond);
-  EXPECT_EQ(Parse<Power>("in·lbf/s"), Power::InchPoundPerSecond);
+TEST(UnitPower, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Power, Power::Watt, Power::FootPoundPerSecond>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L));
+}
+
+TEST(UnitPower, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Power>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Power>("W"), Power::Watt);
+  EXPECT_EQ(ParseEnumeration<Power>("mW"), Power::Milliwatt);
+  EXPECT_EQ(ParseEnumeration<Power>("μW"), Power::Microwatt);
+  EXPECT_EQ(ParseEnumeration<Power>("nW"), Power::Nanowatt);
+  EXPECT_EQ(ParseEnumeration<Power>("kW"), Power::Kilowatt);
+  EXPECT_EQ(ParseEnumeration<Power>("MW"), Power::Megawatt);
+  EXPECT_EQ(ParseEnumeration<Power>("GW"), Power::Gigawatt);
+  EXPECT_EQ(ParseEnumeration<Power>("ft·lbf/s"), Power::FootPoundPerSecond);
+  EXPECT_EQ(ParseEnumeration<Power>("in·lbf/s"), Power::InchPoundPerSecond);
 }
 
 TEST(UnitPower, RelatedDimensions) {
@@ -121,12 +123,6 @@ TEST(UnitPower, RelatedUnitSystem) {
 
 TEST(UnitPower, Standard) {
   EXPECT_EQ(Standard<Power>, Power::Watt);
-}
-
-TEST(UnitPower, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Power, Power::Watt, Power::FootPoundPerSecond>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 
 TEST(UnitPower, Stream) {

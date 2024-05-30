@@ -70,35 +70,41 @@ TEST(UnitMassDensity, ConsistentUnit) {
             MassDensity::SlinchPerCubicInch);
 }
 
-TEST(UnitMassDensity, ConvertAndConvertCopy) {
+TEST(UnitMassDensity, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::KilogramPerCubicMetre, value, value);
-  Internal::TestConvertAndConvertCopy<MassDensity>(
-      MassDensity::KilogramPerCubicMetre, MassDensity::GramPerCubicMillimetre, value,
-      value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(MassDensity::KilogramPerCubicMetre,
+                                     MassDensity::GramPerCubicMillimetre, value, value * 0.000001L);
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::SlugPerCubicFoot, value,
       value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::SlinchPerCubicInch, value,
       value * std::pow(0.0254L, 4) / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::PoundPerCubicFoot, value,
       value * std::pow(0.3048L, 3) / 0.45359237L);
-  Internal::TestConvertAndConvertCopy<MassDensity>(
+  Internal::TestConvert<MassDensity>(
       MassDensity::KilogramPerCubicMetre, MassDensity::PoundPerCubicInch, value,
       value * std::pow(0.0254L, 3) / 0.45359237L);
 }
 
-TEST(UnitMassDensity, Parse) {
-  EXPECT_EQ(Parse<MassDensity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
-  EXPECT_EQ(Parse<MassDensity>("g/mm^3"), MassDensity::GramPerCubicMillimetre);
-  EXPECT_EQ(Parse<MassDensity>("slug/ft^3"), MassDensity::SlugPerCubicFoot);
-  EXPECT_EQ(Parse<MassDensity>("slinch/in^3"), MassDensity::SlinchPerCubicInch);
-  EXPECT_EQ(Parse<MassDensity>("lbm/ft^3"), MassDensity::PoundPerCubicFoot);
-  EXPECT_EQ(Parse<MassDensity>("lbm/in^3"), MassDensity::PoundPerCubicInch);
+TEST(UnitMassDensity, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                  MassDensity::SlugPerCubicFoot>(
+      value, value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitMassDensity, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<MassDensity>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("g/mm^3"), MassDensity::GramPerCubicMillimetre);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("slug/ft^3"), MassDensity::SlugPerCubicFoot);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("slinch/in^3"), MassDensity::SlinchPerCubicInch);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("lbm/ft^3"), MassDensity::PoundPerCubicFoot);
+  EXPECT_EQ(ParseEnumeration<MassDensity>("lbm/in^3"), MassDensity::PoundPerCubicInch);
 }
 
 TEST(UnitMassDensity, RelatedDimensions) {
@@ -121,13 +127,6 @@ TEST(UnitMassDensity, RelatedUnitSystem) {
 
 TEST(UnitMassDensity, Standard) {
   EXPECT_EQ(Standard<MassDensity>, MassDensity::KilogramPerCubicMetre);
-}
-
-TEST(UnitMassDensity, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<MassDensity, MassDensity::KilogramPerCubicMetre,
-                                  MassDensity::SlugPerCubicFoot>(
-      value, value * std::pow(0.3048L, 4) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMassDensity, Stream) {

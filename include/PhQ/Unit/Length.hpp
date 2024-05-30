@@ -214,234 +214,245 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::NauticalMile>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1852.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1852.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::NauticalMile>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1852.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1852.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Mile>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1609.344L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Mile>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Kilometre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Kilometre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Metre>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Metre>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Yard>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.9144L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.9144L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Yard>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.9144L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.9144L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Foot>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Foot>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Decimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(10.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(10.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Decimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.1L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.1L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Inch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Inch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Centimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(100.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(100.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Centimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.01L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.01L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Millimetre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Millimetre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Milliinch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0000254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Milliinch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0000254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Micrometre>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Micrometre>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Microinch>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.0000000254L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.0000000254L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::Microinch>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0000000254L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0000000254L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Length, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Length, Number>{
+template <typename NumericType>
+inline const std::map<Unit::Length,
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Length, NumericType>{
         {Unit::Length::NauticalMile,
-         Conversions<Unit::Length,                             Unit::Length::NauticalMile>::FromStandard<Number>},
-        {Unit::Length::Mile,         Conversions<Unit::Length, Unit::Length::Mile>::FromStandard<Number>        },
+         Conversions<Unit::Length, Unit::Length::NauticalMile>::FromStandard<NumericType>},
+        {Unit::Length::Mile,
+         Conversions<Unit::Length, Unit::Length::Mile>::FromStandard<NumericType>        },
         {Unit::Length::Kilometre,
-         Conversions<Unit::Length,                             Unit::Length::Kilometre>::FromStandard<Number>   },
-        {Unit::Length::Metre,        Conversions<Unit::Length, Unit::Length::Metre>::FromStandard<Number>       },
-        {Unit::Length::Yard,         Conversions<Unit::Length, Unit::Length::Yard>::FromStandard<Number>        },
-        {Unit::Length::Foot,         Conversions<Unit::Length, Unit::Length::Foot>::FromStandard<Number>        },
+         Conversions<Unit::Length, Unit::Length::Kilometre>::FromStandard<NumericType>   },
+        {Unit::Length::Metre,
+         Conversions<Unit::Length, Unit::Length::Metre>::FromStandard<NumericType>       },
+        {Unit::Length::Yard,
+         Conversions<Unit::Length, Unit::Length::Yard>::FromStandard<NumericType>        },
+        {Unit::Length::Foot,
+         Conversions<Unit::Length, Unit::Length::Foot>::FromStandard<NumericType>        },
         {Unit::Length::Decimetre,
-         Conversions<Unit::Length,                             Unit::Length::Decimetre>::FromStandard<Number>   },
-        {Unit::Length::Inch,         Conversions<Unit::Length, Unit::Length::Inch>::FromStandard<Number>        },
+         Conversions<Unit::Length, Unit::Length::Decimetre>::FromStandard<NumericType>   },
+        {Unit::Length::Inch,
+         Conversions<Unit::Length, Unit::Length::Inch>::FromStandard<NumericType>        },
         {Unit::Length::Centimetre,
-         Conversions<Unit::Length,                             Unit::Length::Centimetre>::FromStandard<Number>  },
+         Conversions<Unit::Length, Unit::Length::Centimetre>::FromStandard<NumericType>  },
         {Unit::Length::Millimetre,
-         Conversions<Unit::Length,                             Unit::Length::Millimetre>::FromStandard<Number>  },
+         Conversions<Unit::Length, Unit::Length::Millimetre>::FromStandard<NumericType>  },
         {Unit::Length::Milliinch,
-         Conversions<Unit::Length,                             Unit::Length::Milliinch>::FromStandard<Number>   },
+         Conversions<Unit::Length, Unit::Length::Milliinch>::FromStandard<NumericType>   },
         {Unit::Length::Micrometre,
-         Conversions<Unit::Length,                             Unit::Length::Micrometre>::FromStandard<Number>  },
+         Conversions<Unit::Length, Unit::Length::Micrometre>::FromStandard<NumericType>  },
         {Unit::Length::Microinch,
-         Conversions<Unit::Length,                             Unit::Length::Microinch>::FromStandard<Number>   },
+         Conversions<Unit::Length, Unit::Length::Microinch>::FromStandard<NumericType>   },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Length,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Length, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Length, NumericType>{
         {Unit::Length::NauticalMile,
-         Conversions<Unit::Length,                             Unit::Length::NauticalMile>::ToStandard<Number>},
-        {Unit::Length::Mile,         Conversions<Unit::Length, Unit::Length::Mile>::ToStandard<Number>        },
+         Conversions<Unit::Length, Unit::Length::NauticalMile>::ToStandard<NumericType>},
+        {Unit::Length::Mile,
+         Conversions<Unit::Length, Unit::Length::Mile>::ToStandard<NumericType>        },
         {Unit::Length::Kilometre,
-         Conversions<Unit::Length,                             Unit::Length::Kilometre>::ToStandard<Number>   },
-        {Unit::Length::Metre,        Conversions<Unit::Length, Unit::Length::Metre>::ToStandard<Number>       },
-        {Unit::Length::Yard,         Conversions<Unit::Length, Unit::Length::Yard>::ToStandard<Number>        },
-        {Unit::Length::Foot,         Conversions<Unit::Length, Unit::Length::Foot>::ToStandard<Number>        },
+         Conversions<Unit::Length, Unit::Length::Kilometre>::ToStandard<NumericType>   },
+        {Unit::Length::Metre,
+         Conversions<Unit::Length, Unit::Length::Metre>::ToStandard<NumericType>       },
+        {Unit::Length::Yard,
+         Conversions<Unit::Length, Unit::Length::Yard>::ToStandard<NumericType>        },
+        {Unit::Length::Foot,
+         Conversions<Unit::Length, Unit::Length::Foot>::ToStandard<NumericType>        },
         {Unit::Length::Decimetre,
-         Conversions<Unit::Length,                             Unit::Length::Decimetre>::ToStandard<Number>   },
-        {Unit::Length::Inch,         Conversions<Unit::Length, Unit::Length::Inch>::ToStandard<Number>        },
+         Conversions<Unit::Length, Unit::Length::Decimetre>::ToStandard<NumericType>   },
+        {Unit::Length::Inch,
+         Conversions<Unit::Length, Unit::Length::Inch>::ToStandard<NumericType>        },
         {Unit::Length::Centimetre,
-         Conversions<Unit::Length,                             Unit::Length::Centimetre>::ToStandard<Number>  },
+         Conversions<Unit::Length, Unit::Length::Centimetre>::ToStandard<NumericType>  },
         {Unit::Length::Millimetre,
-         Conversions<Unit::Length,                             Unit::Length::Millimetre>::ToStandard<Number>  },
+         Conversions<Unit::Length, Unit::Length::Millimetre>::ToStandard<NumericType>  },
         {Unit::Length::Milliinch,
-         Conversions<Unit::Length,                             Unit::Length::Milliinch>::ToStandard<Number>   },
+         Conversions<Unit::Length, Unit::Length::Milliinch>::ToStandard<NumericType>   },
         {Unit::Length::Micrometre,
-         Conversions<Unit::Length,                             Unit::Length::Micrometre>::ToStandard<Number>  },
+         Conversions<Unit::Length, Unit::Length::Micrometre>::ToStandard<NumericType>  },
         {Unit::Length::Microinch,
-         Conversions<Unit::Length,                             Unit::Length::Microinch>::ToStandard<Number>   },
+         Conversions<Unit::Length, Unit::Length::Microinch>::ToStandard<NumericType>   },
 };
 
 }  // namespace Internal

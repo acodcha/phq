@@ -70,26 +70,33 @@ TEST(UnitHeatCapacity, ConsistentUnit) {
             HeatCapacity::InchPoundPerRankine);
 }
 
-TEST(UnitHeatCapacity, ConvertAndConvertCopy) {
+TEST(UnitHeatCapacity, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::NanojoulePerKelvin, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::FootPoundPerRankine, value,
       value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
-  Internal::TestConvertAndConvertCopy<HeatCapacity>(
+  Internal::TestConvert<HeatCapacity>(
       HeatCapacity::JoulePerKelvin, HeatCapacity::InchPoundPerRankine, value,
       value / (0.0254L * 0.45359237L * 9.80665L * 1.8L));
 }
 
-TEST(UnitHeatCapacity, Parse) {
-  EXPECT_EQ(Parse<HeatCapacity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<HeatCapacity>("J/K"), HeatCapacity::JoulePerKelvin);
-  EXPECT_EQ(Parse<HeatCapacity>("nJ/K"), HeatCapacity::NanojoulePerKelvin);
-  EXPECT_EQ(Parse<HeatCapacity>("ft·lbf/°R"), HeatCapacity::FootPoundPerRankine);
-  EXPECT_EQ(Parse<HeatCapacity>("in·lbf/°R"), HeatCapacity::InchPoundPerRankine);
+TEST(UnitHeatCapacity, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                  HeatCapacity::FootPoundPerRankine>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
+}
+
+TEST(UnitHeatCapacity, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<HeatCapacity>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<HeatCapacity>("J/K"), HeatCapacity::JoulePerKelvin);
+  EXPECT_EQ(ParseEnumeration<HeatCapacity>("nJ/K"), HeatCapacity::NanojoulePerKelvin);
+  EXPECT_EQ(ParseEnumeration<HeatCapacity>("ft·lbf/°R"), HeatCapacity::FootPoundPerRankine);
+  EXPECT_EQ(ParseEnumeration<HeatCapacity>("in·lbf/°R"), HeatCapacity::InchPoundPerRankine);
 }
 
 TEST(UnitHeatCapacity, RelatedDimensions) {
@@ -111,13 +118,6 @@ TEST(UnitHeatCapacity, RelatedUnitSystem) {
 
 TEST(UnitHeatCapacity, Standard) {
   EXPECT_EQ(Standard<HeatCapacity>, HeatCapacity::JoulePerKelvin);
-}
-
-TEST(UnitHeatCapacity, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<HeatCapacity, HeatCapacity::JoulePerKelvin,
-                                  HeatCapacity::FootPoundPerRankine>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L * 1.8L));
 }
 
 TEST(UnitHeatCapacity, Stream) {

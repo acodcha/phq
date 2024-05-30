@@ -156,166 +156,169 @@ inline const std::unordered_map<std::string_view, Unit::Force> Spellings<Unit::F
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Newton>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Newton>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Kilonewton>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Kilonewton>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Meganewton>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Meganewton>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Giganewton>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Giganewton>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Millinewton>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Millinewton>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Micronewton>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Micronewton>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Nanonewton>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Nanonewton>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Dyne>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(100000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(100000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Dyne>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.00001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.00001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Pound>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Force, Unit::Force::Pound>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Force, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Force, Number>{
-        {Unit::Force::Newton,      Conversions<Unit::Force, Unit::Force::Newton>::FromStandard<Number>     },
+template <typename NumericType>
+inline const std::map<Unit::Force, std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Force, NumericType>{
+        {Unit::Force::Newton,
+         Conversions<Unit::Force,                           Unit::Force::Newton>::FromStandard<NumericType>     },
         {Unit::Force::Kilonewton,
-         Conversions<Unit::Force,                           Unit::Force::Kilonewton>::FromStandard<Number> },
+         Conversions<Unit::Force,                           Unit::Force::Kilonewton>::FromStandard<NumericType> },
         {Unit::Force::Meganewton,
-         Conversions<Unit::Force,                           Unit::Force::Meganewton>::FromStandard<Number> },
+         Conversions<Unit::Force,                           Unit::Force::Meganewton>::FromStandard<NumericType> },
         {Unit::Force::Giganewton,
-         Conversions<Unit::Force,                           Unit::Force::Giganewton>::FromStandard<Number> },
+         Conversions<Unit::Force,                           Unit::Force::Giganewton>::FromStandard<NumericType> },
         {Unit::Force::Millinewton,
-         Conversions<Unit::Force,                           Unit::Force::Millinewton>::FromStandard<Number>},
+         Conversions<Unit::Force,                           Unit::Force::Millinewton>::FromStandard<NumericType>},
         {Unit::Force::Micronewton,
-         Conversions<Unit::Force,                           Unit::Force::Micronewton>::FromStandard<Number>},
+         Conversions<Unit::Force,                           Unit::Force::Micronewton>::FromStandard<NumericType>},
         {Unit::Force::Nanonewton,
-         Conversions<Unit::Force,                           Unit::Force::Nanonewton>::FromStandard<Number> },
-        {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::FromStandard<Number>       },
-        {Unit::Force::Pound,       Conversions<Unit::Force, Unit::Force::Pound>::FromStandard<Number>      },
+         Conversions<Unit::Force,                           Unit::Force::Nanonewton>::FromStandard<NumericType> },
+        {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::FromStandard<NumericType>       },
+        {Unit::Force::Pound,
+         Conversions<Unit::Force,                           Unit::Force::Pound>::FromStandard<NumericType>      },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Force,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Force, Number>{
-        {Unit::Force::Newton,      Conversions<Unit::Force, Unit::Force::Newton>::ToStandard<Number>     },
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Force, NumericType>{
+        {Unit::Force::Newton,
+         Conversions<Unit::Force,                           Unit::Force::Newton>::ToStandard<NumericType>     },
         {Unit::Force::Kilonewton,
-         Conversions<Unit::Force,                           Unit::Force::Kilonewton>::ToStandard<Number> },
+         Conversions<Unit::Force,                           Unit::Force::Kilonewton>::ToStandard<NumericType> },
         {Unit::Force::Meganewton,
-         Conversions<Unit::Force,                           Unit::Force::Meganewton>::ToStandard<Number> },
+         Conversions<Unit::Force,                           Unit::Force::Meganewton>::ToStandard<NumericType> },
         {Unit::Force::Giganewton,
-         Conversions<Unit::Force,                           Unit::Force::Giganewton>::ToStandard<Number> },
+         Conversions<Unit::Force,                           Unit::Force::Giganewton>::ToStandard<NumericType> },
         {Unit::Force::Millinewton,
-         Conversions<Unit::Force,                           Unit::Force::Millinewton>::ToStandard<Number>},
+         Conversions<Unit::Force,                           Unit::Force::Millinewton>::ToStandard<NumericType>},
         {Unit::Force::Micronewton,
-         Conversions<Unit::Force,                           Unit::Force::Micronewton>::ToStandard<Number>},
+         Conversions<Unit::Force,                           Unit::Force::Micronewton>::ToStandard<NumericType>},
         {Unit::Force::Nanonewton,
-         Conversions<Unit::Force,                           Unit::Force::Nanonewton>::ToStandard<Number> },
-        {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::ToStandard<Number>       },
-        {Unit::Force::Pound,       Conversions<Unit::Force, Unit::Force::Pound>::ToStandard<Number>      },
+         Conversions<Unit::Force,                           Unit::Force::Nanonewton>::ToStandard<NumericType> },
+        {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::ToStandard<NumericType>       },
+        {Unit::Force::Pound,       Conversions<Unit::Force, Unit::Force::Pound>::ToStandard<NumericType>      },
 };
 
 }  // namespace Internal

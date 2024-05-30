@@ -98,106 +98,116 @@ TEST(UnitTransportEnergyConsumption, ConsistentUnit) {
             TransportEnergyConsumption::InchPoundPerInch);
 }
 
-TEST(UnitTransportEnergyConsumption, ConvertAndConvertCopy) {
+TEST(UnitTransportEnergyConsumption, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerMile, value,
       value * 1609.344L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerKilometre,
       value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::JoulePerMetre, value,
       value);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::NanojoulePerMillimetre,
       value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilojoulePerMile,
       value, value * 1.609344L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerMile,
       value, value * 1609.344L / 60.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerMile, value,
       value * 1609.344L / 3600.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerKilometre,
       value, value / 0.06L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerKilometre,
       value, value / 3.6L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerMetre,
       value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerMetre,
       value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattMinutePerMile,
       value, value * 1609.344L / 60000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattHourPerMile,
       value, value * 1609.344L / 3600000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre,
       TransportEnergyConsumption::KilowattMinutePerKilometre, value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre,
       TransportEnergyConsumption::KilowattHourPerKilometre, value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattMinutePerMetre,
       value, value / 60000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattHourPerMetre,
       value, value / 3600000.0L);
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::FootPoundPerFoot,
       value, value / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<TransportEnergyConsumption>(
+  Internal::TestConvert<TransportEnergyConsumption>(
       TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::InchPoundPerInch,
       value, value / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitTransportEnergyConsumption, Parse) {
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("J/m"), TransportEnergyConsumption::JoulePerMetre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("J/mi"), TransportEnergyConsumption::JoulePerMile);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("J/km"), TransportEnergyConsumption::JoulePerKilometre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("J/m"), TransportEnergyConsumption::JoulePerMetre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("nJ/mm"),
+TEST(UnitTransportEnergyConsumption, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<
+      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
+      TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitTransportEnergyConsumption, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("J/m"),
+            TransportEnergyConsumption::JoulePerMetre);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("J/mi"),
+            TransportEnergyConsumption::JoulePerMile);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("J/km"),
+            TransportEnergyConsumption::JoulePerKilometre);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("J/m"),
+            TransportEnergyConsumption::JoulePerMetre);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("nJ/mm"),
             TransportEnergyConsumption::NanojoulePerMillimetre);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("kJ/mi"), TransportEnergyConsumption::KilojoulePerMile);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("W·min/mi"), TransportEnergyConsumption::WattMinutePerMile);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("W·hr/mi"), TransportEnergyConsumption::WattHourPerMile);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("W·min/km"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kJ/mi"),
+            TransportEnergyConsumption::KilojoulePerMile);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("W·min/mi"),
+            TransportEnergyConsumption::WattMinutePerMile);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("W·hr/mi"),
+            TransportEnergyConsumption::WattHourPerMile);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("W·min/km"),
             TransportEnergyConsumption::WattMinutePerKilometre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("W·hr/km"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("W·hr/km"),
             TransportEnergyConsumption::WattHourPerKilometre);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("W·min/m"), TransportEnergyConsumption::WattMinutePerMetre);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("W·hr/m"), TransportEnergyConsumption::WattHourPerMetre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("kW·min/mi"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("W·min/m"),
+            TransportEnergyConsumption::WattMinutePerMetre);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("W·hr/m"),
+            TransportEnergyConsumption::WattHourPerMetre);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kW·min/mi"),
             TransportEnergyConsumption::KilowattMinutePerMile);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("kW·hr/mi"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kW·hr/mi"),
             TransportEnergyConsumption::KilowattHourPerMile);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("kW·min/km"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kW·min/km"),
             TransportEnergyConsumption::KilowattMinutePerKilometre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("kW·hr/km"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kW·hr/km"),
             TransportEnergyConsumption::KilowattHourPerKilometre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("kW·min/m"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kW·min/m"),
             TransportEnergyConsumption::KilowattMinutePerMetre);
-  EXPECT_EQ(Parse<TransportEnergyConsumption>("kW·hr/m"),
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("kW·hr/m"),
             TransportEnergyConsumption::KilowattHourPerMetre);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("ft·lbf/ft"), TransportEnergyConsumption::FootPoundPerFoot);
-  EXPECT_EQ(
-      Parse<TransportEnergyConsumption>("in·lbf/in"), TransportEnergyConsumption::InchPoundPerInch);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("ft·lbf/ft"),
+            TransportEnergyConsumption::FootPoundPerFoot);
+  EXPECT_EQ(ParseEnumeration<TransportEnergyConsumption>("in·lbf/in"),
+            TransportEnergyConsumption::InchPoundPerInch);
 }
 
 TEST(UnitTransportEnergyConsumption, RelatedDimensions) {
@@ -236,13 +246,6 @@ TEST(UnitTransportEnergyConsumption, RelatedUnitSystem) {
 
 TEST(UnitTransportEnergyConsumption, Standard) {
   EXPECT_EQ(Standard<TransportEnergyConsumption>, TransportEnergyConsumption::JoulePerMetre);
-}
-
-TEST(UnitTransportEnergyConsumption, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitTransportEnergyConsumption, Stream) {

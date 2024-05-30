@@ -119,204 +119,204 @@ public:
 
   /// \brief Prints this physical dimension set as a string.
   [[nodiscard]] std::string Print() const {
-    std::string text;
-    text.append(time.Print());
+    std::string string;
+    string.append(time.Print());
     {
       const std::string length_string{length.Print()};
       if (!length_string.empty()) {
-        if (!text.empty()) {
-          text.append("·");
+        if (!string.empty()) {
+          string.append("·");
         }
-        text.append(length_string);
+        string.append(length_string);
       }
     }
     {
       const std::string mass_string{mass.Print()};
       if (!mass_string.empty()) {
-        if (!text.empty()) {
-          text.append("·");
+        if (!string.empty()) {
+          string.append("·");
         }
-        text.append(mass_string);
+        string.append(mass_string);
       }
     }
     {
       const std::string electric_current_string{electric_current.Print()};
       if (!electric_current_string.empty()) {
-        if (!text.empty()) {
-          text.append("·");
+        if (!string.empty()) {
+          string.append("·");
         }
-        text.append(electric_current_string);
+        string.append(electric_current_string);
       }
     }
     {
       const std::string temperature_string{temperature.Print()};
       if (!temperature_string.empty()) {
-        if (!text.empty()) {
-          text.append("·");
+        if (!string.empty()) {
+          string.append("·");
         }
-        text.append(temperature_string);
+        string.append(temperature_string);
       }
     }
     {
       const std::string substance_amount_string{substance_amount.Print()};
       if (!substance_amount_string.empty()) {
-        if (!text.empty()) {
-          text.append("·");
+        if (!string.empty()) {
+          string.append("·");
         }
-        text.append(substance_amount_string);
+        string.append(substance_amount_string);
       }
     }
     {
       const std::string luminous_intensity_string{luminous_intensity.Print()};
       if (!luminous_intensity_string.empty()) {
-        if (!text.empty()) {
-          text.append("·");
+        if (!string.empty()) {
+          string.append("·");
         }
-        text.append(luminous_intensity_string);
+        string.append(luminous_intensity_string);
       }
     }
-    if (text.empty()) {
+    if (string.empty()) {
       return "1";
     }
-    return text;
+    return string;
   }
 
   /// \brief Serializes this physical dimension set as a JSON message.
   [[nodiscard]] std::string JSON() const {
-    std::string text;
+    std::string message;
     if (time.Value() != 0) {
-      text.append(
-          "\"" + SnakeCaseCopy(Dimension::Time::Label()) + "\":" + std::to_string(time.Value()));
+      message.append(
+          "\"" + SnakeCase(Dimension::Time::Label()) + "\":" + std::to_string(time.Value()));
     }
     if (length.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append("\"" + SnakeCaseCopy(Dimension::Length::Label())
-                  + "\":" + std::to_string(length.Value()));
+      message.append(
+          "\"" + SnakeCase(Dimension::Length::Label()) + "\":" + std::to_string(length.Value()));
     }
     if (mass.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(
-          "\"" + SnakeCaseCopy(Dimension::Mass::Label()) + "\":" + std::to_string(mass.Value()));
+      message.append(
+          "\"" + SnakeCase(Dimension::Mass::Label()) + "\":" + std::to_string(mass.Value()));
     }
     if (electric_current.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append("\"" + SnakeCaseCopy(Dimension::ElectricCurrent::Label())
-                  + "\":" + std::to_string(electric_current.Value()));
+      message.append("\"" + SnakeCase(Dimension::ElectricCurrent::Label())
+                     + "\":" + std::to_string(electric_current.Value()));
     }
     if (temperature.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append("\"" + SnakeCaseCopy(Dimension::Temperature::Label())
-                  + "\":" + std::to_string(temperature.Value()));
+      message.append("\"" + SnakeCase(Dimension::Temperature::Label())
+                     + "\":" + std::to_string(temperature.Value()));
     }
     if (substance_amount.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append("\"" + SnakeCaseCopy(Dimension::SubstanceAmount::Label())
-                  + "\":" + std::to_string(substance_amount.Value()));
+      message.append("\"" + SnakeCase(Dimension::SubstanceAmount::Label())
+                     + "\":" + std::to_string(substance_amount.Value()));
     }
     if (luminous_intensity.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append("\"" + SnakeCaseCopy(Dimension::LuminousIntensity::Label())
-                  + "\":" + std::to_string(luminous_intensity.Value()));
+      message.append("\"" + SnakeCase(Dimension::LuminousIntensity::Label())
+                     + "\":" + std::to_string(luminous_intensity.Value()));
     }
-    return "{" + text + "}";
+    return "{" + message + "}";
   }
 
   /// \brief Serializes this physical dimension set as an XML message.
   [[nodiscard]] std::string XML() const {
-    std::string text;
+    std::string message;
     if (time.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::Time::Label())};
-      text.append("<" + label + ">" + std::to_string(time.Value()) + "</" + label + ">");
+      const std::string label{SnakeCase(Dimension::Time::Label())};
+      message.append("<" + label + ">" + std::to_string(time.Value()) + "</" + label + ">");
     }
     if (length.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::Length::Label())};
-      text.append("<" + label + ">" + std::to_string(length.Value()) + "</" + label + ">");
+      const std::string label{SnakeCase(Dimension::Length::Label())};
+      message.append("<" + label + ">" + std::to_string(length.Value()) + "</" + label + ">");
     }
     if (mass.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::Mass::Label())};
-      text.append("<" + label + ">" + std::to_string(mass.Value()) + "</" + label + ">");
+      const std::string label{SnakeCase(Dimension::Mass::Label())};
+      message.append("<" + label + ">" + std::to_string(mass.Value()) + "</" + label + ">");
     }
     if (electric_current.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::ElectricCurrent::Label())};
-      text.append(
+      const std::string label{SnakeCase(Dimension::ElectricCurrent::Label())};
+      message.append(
           "<" + label + ">" + std::to_string(electric_current.Value()) + "</" + label + ">");
     }
     if (temperature.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::Temperature::Label())};
-      text.append("<" + label + ">" + std::to_string(temperature.Value()) + "</" + label + ">");
+      const std::string label{SnakeCase(Dimension::Temperature::Label())};
+      message.append("<" + label + ">" + std::to_string(temperature.Value()) + "</" + label + ">");
     }
     if (substance_amount.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::SubstanceAmount::Label())};
-      text.append(
+      const std::string label{SnakeCase(Dimension::SubstanceAmount::Label())};
+      message.append(
           "<" + label + ">" + std::to_string(substance_amount.Value()) + "</" + label + ">");
     }
     if (luminous_intensity.Value() != 0) {
-      const std::string label{SnakeCaseCopy(Dimension::LuminousIntensity::Label())};
-      text.append(
+      const std::string label{SnakeCase(Dimension::LuminousIntensity::Label())};
+      message.append(
           "<" + label + ">" + std::to_string(luminous_intensity.Value()) + "</" + label + ">");
     }
-    return text;
+    return message;
   }
 
   /// \brief Serializes this physical dimension set as a YAML message.
   [[nodiscard]] std::string YAML() const {
-    std::string text;
+    std::string message;
     if (time.Value() != 0) {
-      text.append(SnakeCaseCopy(Dimension::Time::Label()) + ":" + std::to_string(time.Value()));
+      message.append(SnakeCase(Dimension::Time::Label()) + ":" + std::to_string(time.Value()));
     }
     if (length.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::Length::Label()) + ":" + std::to_string(length.Value()));
+      message.append(SnakeCase(Dimension::Length::Label()) + ":" + std::to_string(length.Value()));
     }
     if (mass.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::Mass::Label()) + ":" + std::to_string(mass.Value()));
+      message.append(SnakeCase(Dimension::Mass::Label()) + ":" + std::to_string(mass.Value()));
     }
     if (electric_current.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::ElectricCurrent::Label()) + ":"
-                  + std::to_string(electric_current.Value()));
+      message.append(SnakeCase(Dimension::ElectricCurrent::Label()) + ":"
+                     + std::to_string(electric_current.Value()));
     }
     if (temperature.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::Temperature::Label()) + ":"
-                  + std::to_string(temperature.Value()));
+      message.append(
+          SnakeCase(Dimension::Temperature::Label()) + ":" + std::to_string(temperature.Value()));
     }
     if (substance_amount.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::SubstanceAmount::Label()) + ":"
-                  + std::to_string(substance_amount.Value()));
+      message.append(SnakeCase(Dimension::SubstanceAmount::Label()) + ":"
+                     + std::to_string(substance_amount.Value()));
     }
     if (luminous_intensity.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
+      if (!message.empty()) {
+        message.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::LuminousIntensity::Label()) + ":"
-                  + std::to_string(luminous_intensity.Value()));
+      message.append(SnakeCase(Dimension::LuminousIntensity::Label()) + ":"
+                     + std::to_string(luminous_intensity.Value()));
     }
-    return "{" + text + "}";
+    return "{" + message + "}";
   }
 
 private:

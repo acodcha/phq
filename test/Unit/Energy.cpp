@@ -120,107 +120,94 @@ TEST(UnitEnergy, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::InchPoundSecondRankine), Energy::InchPound);
 }
 
-TEST(UnitEnergy, ConvertAndConvertCopy) {
+TEST(UnitEnergy, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Energy>(Energy::Joule, Energy::Joule, value, value);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Millijoule, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Microjoule, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Nanojoule, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Kilojoule, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Megajoule, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Gigajoule, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::WattMinute, value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::WattHour, value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::KilowattMinute, value, value / 60000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::KilowattHour, value, value / 3600000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::MegawattMinute, value, value / 60000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::MegawattHour, value, value / 3600000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Joule, value, value);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Millijoule, value, value * 1000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Microjoule, value, value * 1000000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Nanojoule, value, value * 1000000000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Kilojoule, value, value * 0.001L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Megajoule, value, value * 0.000001L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Gigajoule, value, value * 0.000000001L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::WattMinute, value, value / 60.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::WattHour, value, value / 3600.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::KilowattMinute, value, value / 60000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::KilowattHour, value, value / 3600000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::MegawattMinute, value, value / 60000000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::MegawattHour, value, value / 3600000000.0L);
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::GigawattMinute, value, value / 60000000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::GigawattHour, value, value / 3600000000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::FootPound, value, value / (0.3048L * 0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::InchPound, value, value / (0.0254L * 0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Calorie, value, value / 4.184L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Millicalorie, value, value / 0.004184L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Microcalorie, value, value / 0.000004184L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Nanocalorie, value, value / 0.000000004184L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Kilocalorie, value, value / 4184.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Megacalorie, value, value / 4184000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
-      Energy::Joule, Energy::Gigacalorie, value, value / 4184000000.0L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Calorie, value, value / 4.184L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Millicalorie, value, value / 0.004184L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Microcalorie, value, value / 0.000004184L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Nanocalorie, value, value / 0.000000004184L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Kilocalorie, value, value / 4184.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Megacalorie, value, value / 4184000.0L);
+  Internal::TestConvert<Energy>(Energy::Joule, Energy::Gigacalorie, value, value / 4184000000.0L);
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Electronvolt, value, value / 1.602176634e-19L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Millielectronvolt, value, value / 1.602176634e-22L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Microelectronvolt, value, value / 1.602176634e-25L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Nanoelectronvolt, value, value / 1.602176634e-28L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Kiloelectronvolt, value, value / 1.602176634e-16L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Megaelectronvolt, value, value / 1.602176634e-13L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::Gigaelectronvolt, value, value / 1.602176634e-10L);
-  Internal::TestConvertAndConvertCopy<Energy>(
+  Internal::TestConvert<Energy>(
       Energy::Joule, Energy::BritishThermalUnit, value, value * 1.8L / (4.1868L * 453.59237L));
 }
 
-TEST(UnitEnergy, Parse) {
-  EXPECT_EQ(Parse<Energy>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Energy>("J"), Energy::Joule);
-  EXPECT_EQ(Parse<Energy>("mJ"), Energy::Millijoule);
-  EXPECT_EQ(Parse<Energy>("μJ"), Energy::Microjoule);
-  EXPECT_EQ(Parse<Energy>("nJ"), Energy::Nanojoule);
-  EXPECT_EQ(Parse<Energy>("kJ"), Energy::Kilojoule);
-  EXPECT_EQ(Parse<Energy>("MJ"), Energy::Megajoule);
-  EXPECT_EQ(Parse<Energy>("GJ"), Energy::Gigajoule);
-  EXPECT_EQ(Parse<Energy>("W·min"), Energy::WattMinute);
-  EXPECT_EQ(Parse<Energy>("W·hr"), Energy::WattHour);
-  EXPECT_EQ(Parse<Energy>("kW·min"), Energy::KilowattMinute);
-  EXPECT_EQ(Parse<Energy>("kW·hr"), Energy::KilowattHour);
-  EXPECT_EQ(Parse<Energy>("MW·min"), Energy::MegawattMinute);
-  EXPECT_EQ(Parse<Energy>("MW·hr"), Energy::MegawattHour);
-  EXPECT_EQ(Parse<Energy>("GW·min"), Energy::GigawattMinute);
-  EXPECT_EQ(Parse<Energy>("GW·hr"), Energy::GigawattHour);
-  EXPECT_EQ(Parse<Energy>("ft·lbf"), Energy::FootPound);
-  EXPECT_EQ(Parse<Energy>("in·lbf"), Energy::InchPound);
-  EXPECT_EQ(Parse<Energy>("cal"), Energy::Calorie);
-  EXPECT_EQ(Parse<Energy>("mcal"), Energy::Millicalorie);
-  EXPECT_EQ(Parse<Energy>("μcal"), Energy::Microcalorie);
-  EXPECT_EQ(Parse<Energy>("ncal"), Energy::Nanocalorie);
-  EXPECT_EQ(Parse<Energy>("kcal"), Energy::Kilocalorie);
-  EXPECT_EQ(Parse<Energy>("Mcal"), Energy::Megacalorie);
-  EXPECT_EQ(Parse<Energy>("Gcal"), Energy::Gigacalorie);
-  EXPECT_EQ(Parse<Energy>("eV"), Energy::Electronvolt);
-  EXPECT_EQ(Parse<Energy>("meV"), Energy::Millielectronvolt);
-  EXPECT_EQ(Parse<Energy>("μeV"), Energy::Microelectronvolt);
-  EXPECT_EQ(Parse<Energy>("neV"), Energy::Nanoelectronvolt);
-  EXPECT_EQ(Parse<Energy>("keV"), Energy::Kiloelectronvolt);
-  EXPECT_EQ(Parse<Energy>("MeV"), Energy::Megaelectronvolt);
-  EXPECT_EQ(Parse<Energy>("GeV"), Energy::Gigaelectronvolt);
-  EXPECT_EQ(Parse<Energy>("BTU"), Energy::BritishThermalUnit);
+TEST(UnitEnergy, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Energy, Energy::Joule, Energy::FootPound>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L));
+}
+
+TEST(UnitEnergy, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Energy>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Energy>("J"), Energy::Joule);
+  EXPECT_EQ(ParseEnumeration<Energy>("mJ"), Energy::Millijoule);
+  EXPECT_EQ(ParseEnumeration<Energy>("μJ"), Energy::Microjoule);
+  EXPECT_EQ(ParseEnumeration<Energy>("nJ"), Energy::Nanojoule);
+  EXPECT_EQ(ParseEnumeration<Energy>("kJ"), Energy::Kilojoule);
+  EXPECT_EQ(ParseEnumeration<Energy>("MJ"), Energy::Megajoule);
+  EXPECT_EQ(ParseEnumeration<Energy>("GJ"), Energy::Gigajoule);
+  EXPECT_EQ(ParseEnumeration<Energy>("W·min"), Energy::WattMinute);
+  EXPECT_EQ(ParseEnumeration<Energy>("W·hr"), Energy::WattHour);
+  EXPECT_EQ(ParseEnumeration<Energy>("kW·min"), Energy::KilowattMinute);
+  EXPECT_EQ(ParseEnumeration<Energy>("kW·hr"), Energy::KilowattHour);
+  EXPECT_EQ(ParseEnumeration<Energy>("MW·min"), Energy::MegawattMinute);
+  EXPECT_EQ(ParseEnumeration<Energy>("MW·hr"), Energy::MegawattHour);
+  EXPECT_EQ(ParseEnumeration<Energy>("GW·min"), Energy::GigawattMinute);
+  EXPECT_EQ(ParseEnumeration<Energy>("GW·hr"), Energy::GigawattHour);
+  EXPECT_EQ(ParseEnumeration<Energy>("ft·lbf"), Energy::FootPound);
+  EXPECT_EQ(ParseEnumeration<Energy>("in·lbf"), Energy::InchPound);
+  EXPECT_EQ(ParseEnumeration<Energy>("cal"), Energy::Calorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("mcal"), Energy::Millicalorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("μcal"), Energy::Microcalorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("ncal"), Energy::Nanocalorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("kcal"), Energy::Kilocalorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("Mcal"), Energy::Megacalorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("Gcal"), Energy::Gigacalorie);
+  EXPECT_EQ(ParseEnumeration<Energy>("eV"), Energy::Electronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("meV"), Energy::Millielectronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("μeV"), Energy::Microelectronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("neV"), Energy::Nanoelectronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("keV"), Energy::Kiloelectronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("MeV"), Energy::Megaelectronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("GeV"), Energy::Gigaelectronvolt);
+  EXPECT_EQ(ParseEnumeration<Energy>("BTU"), Energy::BritishThermalUnit);
 }
 
 TEST(UnitEnergy, RelatedDimensions) {
@@ -259,12 +246,6 @@ TEST(UnitEnergy, RelatedUnitSystem) {
 
 TEST(UnitEnergy, Standard) {
   EXPECT_EQ(Standard<Energy>, Energy::Joule);
-}
-
-TEST(UnitEnergy, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Energy, Energy::Joule, Energy::FootPound>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 
 TEST(UnitEnergy, Stream) {

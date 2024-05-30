@@ -39,225 +39,233 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::Strain.
-template <typename Number>
+template <typename NumericType>
 class DisplacementGradient;
 
 // Forward declaration for class PhQ::Strain.
-template <typename Number>
+template <typename NumericType>
 class Time;
 
 // Forward declaration for class PhQ::Strain.
-template <typename Number>
+template <typename NumericType>
 class Frequency;
 
 // Forward declaration for class PhQ::Strain.
-template <typename Number>
+template <typename NumericType>
 class StrainRate;
 
 // Forward declaration for class PhQ::Strain.
-template <typename Number>
+template <typename NumericType>
 class TemperatureDifference;
 
 // Forward declaration for class PhQ::Strain.
-template <typename Number>
+template <typename NumericType>
 class VolumetricThermalExpansionCoefficient;
 
 /// \brief Three-dimensional Euclidean strain symmetric dyadic tensor. Contains six components in
 /// Cartesian coordinates: xx, xy = yx, xz = zx, yy, yz = zy, and zz. For the scalar components or
 /// resultants of a strain tensor, see PhQ::ScalarStrain. For the time rate of change of strain, see
 /// PhQ::StrainRate, PhQ::Time, and PhQ::Frequency.
-template <typename Number = double>
-class Strain : public DimensionlessSymmetricDyad<Number> {
+template <typename NumericType = double>
+class Strain : public DimensionlessSymmetricDyad<NumericType> {
 public:
   /// \brief Default constructor. Constructs a strain tensor with an uninitialized value.
   Strain() = default;
 
   /// \brief Constructor. Constructs a strain tensor whose value has the given xx, xy, xz, yy, yz,
   /// and zz Cartesian components.
-  constexpr Strain(const Number xx, const Number xy, const Number xz, const Number yy,
-                   const Number yz, const Number zz)
-    : DimensionlessSymmetricDyad<Number>(xx, xy, xz, yy, yz, zz) {}
+  constexpr Strain(const NumericType xx, const NumericType xy, const NumericType xz,
+                   const NumericType yy, const NumericType yz, const NumericType zz)
+    : DimensionlessSymmetricDyad<NumericType>(xx, xy, xz, yy, yz, zz) {}
 
   /// \brief Constructor. Constructs a strain tensor from a given array representing its value's xx,
   /// xy, xz, yy, yz, and zz Cartesian components.
-  explicit constexpr Strain(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz)
-    : DimensionlessSymmetricDyad<Number>(xx_xy_xz_yy_yz_zz) {}
+  explicit constexpr Strain(const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz)
+    : DimensionlessSymmetricDyad<NumericType>(xx_xy_xz_yy_yz_zz) {}
 
   /// \brief Constructor. Constructs a strain tensor with a given value.
-  explicit constexpr Strain(const SymmetricDyad<Number>& value)
-    : DimensionlessSymmetricDyad<Number>(value) {}
+  explicit constexpr Strain(const SymmetricDyad<NumericType>& value)
+    : DimensionlessSymmetricDyad<NumericType>(value) {}
 
   /// \brief Constructor. Constructs a strain tensor from a given strain rate tensor and time using
   /// the definition of the strain rate tensor.
-  constexpr Strain(const StrainRate<Number>& strain_rate, const Time<Number>& time);
+  constexpr Strain(const StrainRate<NumericType>& strain_rate, const Time<NumericType>& time);
 
   /// \brief Constructor. Constructs a strain tensor from a given strain rate tensor and frequency
   /// using the definition of the strain rate tensor.
-  constexpr Strain(const StrainRate<Number>& strain_rate, const Frequency<Number>& frequency);
+  constexpr Strain(
+      const StrainRate<NumericType>& strain_rate, const Frequency<NumericType>& frequency);
 
   /// \brief Constructor. Constructs a strain tensor from a given displacement gradient using the
   /// definition of the strain tensor.
-  explicit constexpr Strain(const DisplacementGradient<Number>& displacement_gradient);
+  explicit constexpr Strain(const DisplacementGradient<NumericType>& displacement_gradient);
 
   /// \brief Constructor. Constructs a strain tensor from a given volumetric thermal expansion
   /// coefficient and temperature difference using the definition of the volumetric thermal
   /// expansion coefficient.
-  constexpr Strain(
-      const VolumetricThermalExpansionCoefficient<Number>& volumetric_thermal_expansion_coefficient,
-      const TemperatureDifference<Number>& temperature_difference);
+  constexpr Strain(const VolumetricThermalExpansionCoefficient<NumericType>&
+                       volumetric_thermal_expansion_coefficient,
+                   const TemperatureDifference<NumericType>& temperature_difference);
 
   /// \brief Destructor. Destroys this strain tensor.
   ~Strain() noexcept = default;
 
   /// \brief Copy constructor. Constructs a strain tensor by copying another one.
-  constexpr Strain(const Strain<Number>& other) = default;
+  constexpr Strain(const Strain<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a strain tensor by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Strain(const Strain<OtherNumber>& other)
-    : Strain(static_cast<SymmetricDyad<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Strain(const Strain<OtherNumericType>& other)
+    : Strain(static_cast<SymmetricDyad<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a strain tensor by moving another one.
-  constexpr Strain(Strain<Number>&& other) noexcept = default;
+  constexpr Strain(Strain<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this strain tensor by copying another one.
-  constexpr Strain<Number>& operator=(const Strain<Number>& other) = default;
+  constexpr Strain<NumericType>& operator=(const Strain<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this strain tensor by copying another one.
-  template <typename OtherNumber>
-  constexpr Strain<Number>& operator=(const Strain<OtherNumber>& other) {
-    this->value = static_cast<SymmetricDyad<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Strain<NumericType>& operator=(const Strain<OtherNumericType>& other) {
+    this->value = static_cast<SymmetricDyad<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this strain tensor by moving another one.
-  constexpr Strain<Number>& operator=(Strain<Number>&& other) noexcept = default;
+  constexpr Strain<NumericType>& operator=(Strain<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a strain tensor of zero.
-  static constexpr Strain<Number> Zero() {
-    return Strain<Number>{SymmetricDyad<Number>::Zero()};
+  static constexpr Strain<NumericType> Zero() {
+    return Strain<NumericType>{SymmetricDyad<NumericType>::Zero()};
   }
 
   /// \brief Returns the xx Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> xx() const noexcept {
-    return ScalarStrain<Number>{this->value.xx()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> xx() const noexcept {
+    return ScalarStrain<NumericType>{this->value.xx()};
   }
 
   /// \brief Returns the xy = yx Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> xy() const noexcept {
-    return ScalarStrain<Number>{this->value.xy()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> xy() const noexcept {
+    return ScalarStrain<NumericType>{this->value.xy()};
   }
 
   /// \brief Returns the xz = zx Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> xz() const noexcept {
-    return ScalarStrain<Number>{this->value.xz()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> xz() const noexcept {
+    return ScalarStrain<NumericType>{this->value.xz()};
   }
 
   /// \brief Returns the yx = xy Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> yx() const noexcept {
-    return ScalarStrain<Number>{this->value.yx()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> yx() const noexcept {
+    return ScalarStrain<NumericType>{this->value.yx()};
   }
 
   /// \brief Returns the yy Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> yy() const noexcept {
-    return ScalarStrain<Number>{this->value.yy()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> yy() const noexcept {
+    return ScalarStrain<NumericType>{this->value.yy()};
   }
 
   /// \brief Returns the yz = zy Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> yz() const noexcept {
-    return ScalarStrain<Number>{this->value.yz()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> yz() const noexcept {
+    return ScalarStrain<NumericType>{this->value.yz()};
   }
 
   /// \brief Returns the zx = xz Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> zx() const noexcept {
-    return ScalarStrain<Number>{this->value.zx()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> zx() const noexcept {
+    return ScalarStrain<NumericType>{this->value.zx()};
   }
 
   /// \brief Returns the zy = yz Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> zy() const noexcept {
-    return ScalarStrain<Number>{this->value.zy()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> zy() const noexcept {
+    return ScalarStrain<NumericType>{this->value.zy()};
   }
 
   /// \brief Returns the zz Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr ScalarStrain<Number> zz() const noexcept {
-    return ScalarStrain<Number>{this->value.zz()};
+  [[nodiscard]] constexpr ScalarStrain<NumericType> zz() const noexcept {
+    return ScalarStrain<NumericType>{this->value.zz()};
   }
 
-  constexpr Strain<Number> operator+(const Strain<Number>& strain) const {
-    return Strain<Number>{this->value + strain.value};
+  constexpr Strain<NumericType> operator+(const Strain<NumericType>& strain) const {
+    return Strain<NumericType>{this->value + strain.value};
   }
 
-  constexpr Strain<Number> operator-(const Strain<Number>& strain) const {
-    return Strain<Number>{this->value - strain.value};
+  constexpr Strain<NumericType> operator-(const Strain<NumericType>& strain) const {
+    return Strain<NumericType>{this->value - strain.value};
   }
 
-  constexpr Strain<Number> operator*(const Number number) const {
-    return Strain<Number>{this->value * number};
+  constexpr Strain<NumericType> operator*(const NumericType number) const {
+    return Strain<NumericType>{this->value * number};
   }
 
-  constexpr StrainRate<Number> operator*(const Frequency<Number>& frequency) const;
+  constexpr StrainRate<NumericType> operator*(const Frequency<NumericType>& frequency) const;
 
-  constexpr Strain<Number> operator/(const Number number) const {
-    return Strain<Number>{this->value / number};
+  constexpr Strain<NumericType> operator/(const NumericType number) const {
+    return Strain<NumericType>{this->value / number};
   }
 
-  constexpr StrainRate<Number> operator/(const Time<Number>& time) const;
+  constexpr StrainRate<NumericType> operator/(const Time<NumericType>& time) const;
 
-  constexpr void operator+=(const Strain<Number>& strain) noexcept {
+  constexpr void operator+=(const Strain<NumericType>& strain) noexcept {
     this->value += strain.value;
   }
 
-  constexpr void operator-=(const Strain<Number>& strain) noexcept {
+  constexpr void operator-=(const Strain<NumericType>& strain) noexcept {
     this->value -= strain.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 };
 
-template <typename Number>
-inline constexpr bool operator==(const Strain<Number>& left, const Strain<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(
+    const Strain<NumericType>& left, const Strain<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const Strain<Number>& left, const Strain<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(
+    const Strain<NumericType>& left, const Strain<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const Strain<Number>& left, const Strain<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(
+    const Strain<NumericType>& left, const Strain<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const Strain<Number>& left, const Strain<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(
+    const Strain<NumericType>& left, const Strain<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const Strain<Number>& left, const Strain<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(
+    const Strain<NumericType>& left, const Strain<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const Strain<Number>& left, const Strain<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(
+    const Strain<NumericType>& left, const Strain<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Strain<Number>& strain) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Strain<NumericType>& strain) {
   stream << strain.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Strain<Number> operator*(const Number number, const Strain<Number>& strain) {
+template <typename NumericType>
+inline constexpr Strain<NumericType> operator*(
+    const NumericType number, const Strain<NumericType>& strain) {
   return strain * number;
 }
 
@@ -265,10 +273,10 @@ inline constexpr Strain<Number> operator*(const Number number, const Strain<Numb
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Strain<Number>> {
-  inline size_t operator()(const PhQ::Strain<Number>& strain) const {
-    return hash<PhQ::SymmetricDyad<Number>>()(strain.Value());
+template <typename NumericType>
+struct hash<PhQ::Strain<NumericType>> {
+  inline size_t operator()(const PhQ::Strain<NumericType>& strain) const {
+    return hash<PhQ::SymmetricDyad<NumericType>>()(strain.Value());
   }
 };
 

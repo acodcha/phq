@@ -46,224 +46,227 @@ namespace PhQ {
 /// Euclidean vector representation of an area. Any closed surface has a vector area: it is the
 /// surface integral of its surface normal direction. For the scalar components of a vector area or
 /// for the magnitude of a vector area, see PhQ::Area.
-template <typename Number = double>
-class VectorArea : public DimensionalVector<Unit::Area, Number> {
+template <typename NumericType = double>
+class VectorArea : public DimensionalVector<Unit::Area, NumericType> {
 public:
   /// \brief Default constructor. Constructs a vector area with an uninitialized value.
   VectorArea() = default;
 
   /// \brief Constructor. Constructs a vector area with a given value expressed in a given area
   /// unit.
-  VectorArea(const Vector<Number>& value, const Unit::Area unit)
-    : DimensionalVector<Unit::Area, Number>(value, unit) {}
+  VectorArea(const Vector<NumericType>& value, const Unit::Area unit)
+    : DimensionalVector<Unit::Area, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a vector area from a given set of area components.
-  VectorArea(const Area<Number>& x, const Area<Number>& y, const Area<Number>& z)
-    : VectorArea<Number>({x.Value(), y.Value(), z.Value()}) {}
+  VectorArea(const Area<NumericType>& x, const Area<NumericType>& y, const Area<NumericType>& z)
+    : VectorArea<NumericType>({x.Value(), y.Value(), z.Value()}) {}
 
   /// \brief Constructor. Constructs a vector area from a given area and direction.
-  constexpr VectorArea(const Area<Number>& area, const Direction<Number>& direction)
-    : VectorArea<Number>(area.Value() * direction.Value()) {}
+  constexpr VectorArea(const Area<NumericType>& area, const Direction<NumericType>& direction)
+    : VectorArea<NumericType>(area.Value() * direction.Value()) {}
 
   /// \brief Destructor. Destroys this vector area.
   ~VectorArea() noexcept = default;
 
   /// \brief Copy constructor. Constructs a vector area by copying another one.
-  constexpr VectorArea(const VectorArea<Number>& other) = default;
+  constexpr VectorArea(const VectorArea<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a vector area by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr VectorArea(const VectorArea<OtherNumber>& other)
-    : VectorArea(static_cast<Vector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr VectorArea(const VectorArea<OtherNumericType>& other)
+    : VectorArea(static_cast<Vector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a vector area by moving another one.
-  constexpr VectorArea(VectorArea<Number>&& other) noexcept = default;
+  constexpr VectorArea(VectorArea<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this vector area by copying another one.
-  constexpr VectorArea<Number>& operator=(const VectorArea<Number>& other) = default;
+  constexpr VectorArea<NumericType>& operator=(const VectorArea<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this vector area by copying another one.
-  template <typename OtherNumber>
-  constexpr VectorArea<Number>& operator=(const VectorArea<OtherNumber>& other) {
-    this->value = static_cast<Vector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr VectorArea<NumericType>& operator=(const VectorArea<OtherNumericType>& other) {
+    this->value = static_cast<Vector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this vector area by moving another one.
-  constexpr VectorArea<Number>& operator=(VectorArea<Number>&& other) noexcept = default;
+  constexpr VectorArea<NumericType>& operator=(VectorArea<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a vector area of zero.
-  static constexpr VectorArea<Number> Zero() {
-    return VectorArea<Number>{Vector<Number>::Zero()};
+  static constexpr VectorArea<NumericType> Zero() {
+    return VectorArea<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a vector area from the given x, y, and z Cartesian components
   /// expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea<Number> Create(const Number x, const Number y, const Number z) {
-    return VectorArea<Number>{
-        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector<Number>{x, y, z})};
+  static constexpr VectorArea<NumericType> Create(
+      const NumericType x, const NumericType y, const NumericType z) {
+    return VectorArea<NumericType>{
+        ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a vector area from the given x, y, and z Cartesian components
   /// expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea<Number> Create(const std::array<Number, 3>& x_y_z) {
-    return VectorArea<Number>{
-        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector<Number>{x_y_z})};
+  static constexpr VectorArea<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+    return VectorArea<NumericType>{
+        ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a vector area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea<Number> Create(const Vector<Number>& value) {
-    return VectorArea<Number>{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
+  static constexpr VectorArea<NumericType> Create(const Vector<NumericType>& value) {
+    return VectorArea<NumericType>{
+        ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this vector area.
-  [[nodiscard]] constexpr Area<Number> x() const noexcept {
-    return Area<Number>{this->value.x()};
+  [[nodiscard]] constexpr Area<NumericType> x() const noexcept {
+    return Area<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this vector area.
-  [[nodiscard]] constexpr Area<Number> y() const noexcept {
-    return Area<Number>{this->value.y()};
+  [[nodiscard]] constexpr Area<NumericType> y() const noexcept {
+    return Area<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the z Cartesian component of this vector area.
-  [[nodiscard]] constexpr Area<Number> z() const noexcept {
-    return Area<Number>{this->value.z()};
+  [[nodiscard]] constexpr Area<NumericType> z() const noexcept {
+    return Area<NumericType>{this->value.z()};
   }
 
   /// \brief Returns the magnitude of this vector area.
-  [[nodiscard]] Area<Number> Magnitude() const {
-    return Area<Number>{this->value.Magnitude()};
+  [[nodiscard]] Area<NumericType> Magnitude() const {
+    return Area<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this vector area.
-  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+  [[nodiscard]] PhQ::Direction<NumericType> Direction() const {
     return this->value.Direction();
   }
 
   /// \brief Returns the angle between this vector area and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const VectorArea<Number>& vector_area) const {
-    return PhQ::Angle<Number>{*this, vector_area};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const VectorArea<NumericType>& vector_area) const {
+    return PhQ::Angle<NumericType>{*this, vector_area};
   }
 
-  constexpr VectorArea<Number> operator+(const VectorArea<Number>& vector_area) const {
-    return VectorArea<Number>{this->value + vector_area.value};
+  constexpr VectorArea<NumericType> operator+(const VectorArea<NumericType>& vector_area) const {
+    return VectorArea<NumericType>{this->value + vector_area.value};
   }
 
-  constexpr VectorArea<Number> operator-(const VectorArea<Number>& vector_area) const {
-    return VectorArea<Number>{this->value - vector_area.value};
+  constexpr VectorArea<NumericType> operator-(const VectorArea<NumericType>& vector_area) const {
+    return VectorArea<NumericType>{this->value - vector_area.value};
   }
 
-  constexpr VectorArea<Number> operator*(const Number number) const {
-    return VectorArea<Number>{this->value * number};
+  constexpr VectorArea<NumericType> operator*(const NumericType number) const {
+    return VectorArea<NumericType>{this->value * number};
   }
 
-  constexpr VectorArea<Number> operator/(const Number number) const {
-    return VectorArea<Number>{this->value / number};
+  constexpr VectorArea<NumericType> operator/(const NumericType number) const {
+    return VectorArea<NumericType>{this->value / number};
   }
 
-  constexpr void operator+=(const VectorArea<Number>& vector_area) noexcept {
+  constexpr void operator+=(const VectorArea<NumericType>& vector_area) noexcept {
     this->value += vector_area.value;
   }
 
-  constexpr void operator-=(const VectorArea<Number>& vector_area) noexcept {
+  constexpr void operator-=(const VectorArea<NumericType>& vector_area) noexcept {
     this->value -= vector_area.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a vector area with a given value expressed in the standard area
   /// unit.
-  explicit constexpr VectorArea(const Vector<Number>& value)
-    : DimensionalVector<Unit::Area, Number>(value) {}
+  explicit constexpr VectorArea(const Vector<NumericType>& value)
+    : DimensionalVector<Unit::Area, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const VectorArea<Number>& left, const VectorArea<Number>& right) noexcept {
+    const VectorArea<NumericType>& left, const VectorArea<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const VectorArea<Number>& left, const VectorArea<Number>& right) noexcept {
+    const VectorArea<NumericType>& left, const VectorArea<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const VectorArea<Number>& left, const VectorArea<Number>& right) noexcept {
+    const VectorArea<NumericType>& left, const VectorArea<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const VectorArea<Number>& left, const VectorArea<Number>& right) noexcept {
+    const VectorArea<NumericType>& left, const VectorArea<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const VectorArea<Number>& left, const VectorArea<Number>& right) noexcept {
+    const VectorArea<NumericType>& left, const VectorArea<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const VectorArea<Number>& left, const VectorArea<Number>& right) noexcept {
+    const VectorArea<NumericType>& left, const VectorArea<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const VectorArea<Number>& vector_area) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const VectorArea<NumericType>& vector_area) {
   stream << vector_area.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr VectorArea<Number> operator*(
-    const Number number, const VectorArea<Number>& vector_area) {
+template <typename NumericType>
+inline constexpr VectorArea<NumericType> operator*(
+    const NumericType number, const VectorArea<NumericType>& vector_area) {
   return vector_area * number;
 }
 
-template <typename Number>
-inline Direction<Number>::Direction(const VectorArea<Number>& vector_area)
-  : Direction<Number>(vector_area.Value()) {}
+template <typename NumericType>
+inline Direction<NumericType>::Direction(const VectorArea<NumericType>& vector_area)
+  : Direction<NumericType>(vector_area.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(
-    const VectorArea<Number>& vector_area_1, const VectorArea<Number>& vector_area_2)
-  : Angle<Number>(vector_area_1.Value(), vector_area_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(
+    const VectorArea<NumericType>& vector_area_1, const VectorArea<NumericType>& vector_area_2)
+  : Angle<NumericType>(vector_area_1.Value(), vector_area_2.Value()) {}
 
-template <typename Number>
-inline constexpr VectorArea<Number> Direction<Number>::operator*(const Area<Number>& area) const {
-  return VectorArea<Number>{area, *this};
+template <typename NumericType>
+inline constexpr VectorArea<NumericType> Direction<NumericType>::operator*(
+    const Area<NumericType>& area) const {
+  return VectorArea<NumericType>{area, *this};
 }
 
-template <typename Number>
-inline constexpr VectorArea<Number> Area<Number>::operator*(
-    const Direction<Number>& direction) const {
-  return VectorArea<Number>{*this, direction};
+template <typename NumericType>
+inline constexpr VectorArea<NumericType> Area<NumericType>::operator*(
+    const Direction<NumericType>& direction) const {
+  return VectorArea<NumericType>{*this, direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::VectorArea<Number>> {
-  inline size_t operator()(const PhQ::VectorArea<Number>& vector_area) const {
-    return hash<PhQ::Vector<Number>>()(vector_area.Value());
+template <typename NumericType>
+struct hash<PhQ::VectorArea<NumericType>> {
+  inline size_t operator()(const PhQ::VectorArea<NumericType>& vector_area) const {
+    return hash<PhQ::Vector<NumericType>>()(vector_area.Value());
   }
 };
 

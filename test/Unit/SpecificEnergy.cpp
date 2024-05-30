@@ -68,27 +68,34 @@ TEST(UnitSpecificEnergy, ConsistentUnit) {
             SpecificEnergy::InchPoundPerSlinch);
 }
 
-TEST(UnitSpecificEnergy, ConvertAndConvertCopy) {
+TEST(UnitSpecificEnergy, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::NanojoulePerGram, value,
       value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::FootPoundPerSlug, value,
       value / std::pow(0.3048L, 2));
-  Internal::TestConvertAndConvertCopy<SpecificEnergy>(
+  Internal::TestConvert<SpecificEnergy>(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::InchPoundPerSlinch, value,
       value / std::pow(0.0254L, 2));
 }
 
-TEST(UnitSpecificEnergy, Parse) {
-  EXPECT_EQ(Parse<SpecificEnergy>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SpecificEnergy>("J/kg"), SpecificEnergy::JoulePerKilogram);
-  EXPECT_EQ(Parse<SpecificEnergy>("nJ/g"), SpecificEnergy::NanojoulePerGram);
-  EXPECT_EQ(Parse<SpecificEnergy>("ft·lbf/slug"), SpecificEnergy::FootPoundPerSlug);
-  EXPECT_EQ(Parse<SpecificEnergy>("in·lbf/slinch"), SpecificEnergy::InchPoundPerSlinch);
+TEST(UnitSpecificEnergy, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
+                                  SpecificEnergy::FootPoundPerSlug>(
+      value, value / std::pow(0.3048L, 2));
+}
+
+TEST(UnitSpecificEnergy, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SpecificEnergy>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SpecificEnergy>("J/kg"), SpecificEnergy::JoulePerKilogram);
+  EXPECT_EQ(ParseEnumeration<SpecificEnergy>("nJ/g"), SpecificEnergy::NanojoulePerGram);
+  EXPECT_EQ(ParseEnumeration<SpecificEnergy>("ft·lbf/slug"), SpecificEnergy::FootPoundPerSlug);
+  EXPECT_EQ(ParseEnumeration<SpecificEnergy>("in·lbf/slinch"), SpecificEnergy::InchPoundPerSlinch);
 }
 
 TEST(UnitSpecificEnergy, RelatedDimensions) {
@@ -111,13 +118,6 @@ TEST(UnitSpecificEnergy, RelatedUnitSystem) {
 
 TEST(UnitSpecificEnergy, Standard) {
   EXPECT_EQ(Standard<SpecificEnergy>, SpecificEnergy::JoulePerKilogram);
-}
-
-TEST(UnitSpecificEnergy, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                  SpecificEnergy::FootPoundPerSlug>(
-      value, value / std::pow(0.3048L, 2));
 }
 
 TEST(UnitSpecificEnergy, Stream) {

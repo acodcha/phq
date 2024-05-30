@@ -77,56 +77,62 @@ TEST(UnitVolume, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Volume>(UnitSystem::InchPoundSecondRankine), Volume::CubicInch);
 }
 
-TEST(UnitVolume, ConvertAndConvertCopy) {
+TEST(UnitVolume, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicNauticalMile, value, value / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMile, value, value / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicKilometre, value, value * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(Volume::CubicMetre, Volume::CubicMetre, value, value);
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(Volume::CubicMetre, Volume::CubicMetre, value, value);
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicYard, value, value / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicFoot, value, value / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicDecimetre, value, value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::Litre, value, value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicInch, value, value / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicCentimetre, value, value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::Millilitre, value, value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMillimetre, value, value * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMilliinch, value, value / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMicrometre, value, value * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<Volume>(
+  Internal::TestConvert<Volume>(
       Volume::CubicMetre, Volume::CubicMicroinch, value, value / std::pow(0.0000000254L, 3));
 }
 
-TEST(UnitVolume, Parse) {
-  EXPECT_EQ(Parse<Volume>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Volume>("nmi^3"), Volume::CubicNauticalMile);
-  EXPECT_EQ(Parse<Volume>("mi^3"), Volume::CubicMile);
-  EXPECT_EQ(Parse<Volume>("km^3"), Volume::CubicKilometre);
-  EXPECT_EQ(Parse<Volume>("m^3"), Volume::CubicMetre);
-  EXPECT_EQ(Parse<Volume>("yd^3"), Volume::CubicYard);
-  EXPECT_EQ(Parse<Volume>("ft^3"), Volume::CubicFoot);
-  EXPECT_EQ(Parse<Volume>("dm^3"), Volume::CubicDecimetre);
-  EXPECT_EQ(Parse<Volume>("L"), Volume::Litre);
-  EXPECT_EQ(Parse<Volume>("in^3"), Volume::CubicInch);
-  EXPECT_EQ(Parse<Volume>("cm^3"), Volume::CubicCentimetre);
-  EXPECT_EQ(Parse<Volume>("mL"), Volume::Millilitre);
-  EXPECT_EQ(Parse<Volume>("mm^3"), Volume::CubicMillimetre);
-  EXPECT_EQ(Parse<Volume>("mil^3"), Volume::CubicMilliinch);
-  EXPECT_EQ(Parse<Volume>("μm^3"), Volume::CubicMicrometre);
-  EXPECT_EQ(Parse<Volume>("μin^3"), Volume::CubicMicroinch);
+TEST(UnitVolume, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Volume, Volume::CubicMetre, Volume::CubicFoot>(
+      value, value / std::pow(0.3048L, 3));
+}
+
+TEST(UnitVolume, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Volume>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Volume>("nmi^3"), Volume::CubicNauticalMile);
+  EXPECT_EQ(ParseEnumeration<Volume>("mi^3"), Volume::CubicMile);
+  EXPECT_EQ(ParseEnumeration<Volume>("km^3"), Volume::CubicKilometre);
+  EXPECT_EQ(ParseEnumeration<Volume>("m^3"), Volume::CubicMetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("yd^3"), Volume::CubicYard);
+  EXPECT_EQ(ParseEnumeration<Volume>("ft^3"), Volume::CubicFoot);
+  EXPECT_EQ(ParseEnumeration<Volume>("dm^3"), Volume::CubicDecimetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("L"), Volume::Litre);
+  EXPECT_EQ(ParseEnumeration<Volume>("in^3"), Volume::CubicInch);
+  EXPECT_EQ(ParseEnumeration<Volume>("cm^3"), Volume::CubicCentimetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("mL"), Volume::Millilitre);
+  EXPECT_EQ(ParseEnumeration<Volume>("mm^3"), Volume::CubicMillimetre);
+  EXPECT_EQ(ParseEnumeration<Volume>("mil^3"), Volume::CubicMilliinch);
+  EXPECT_EQ(ParseEnumeration<Volume>("μm^3"), Volume::CubicMicrometre);
+  EXPECT_EQ(ParseEnumeration<Volume>("μin^3"), Volume::CubicMicroinch);
 }
 
 TEST(UnitVolume, RelatedDimensions) {
@@ -156,12 +162,6 @@ TEST(UnitVolume, RelatedUnitSystem) {
 
 TEST(UnitVolume, Standard) {
   EXPECT_EQ(Standard<Volume>, Volume::CubicMetre);
-}
-
-TEST(UnitVolume, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Volume, Volume::CubicMetre, Volume::CubicFoot>(
-      value, value / std::pow(0.3048L, 3));
 }
 
 TEST(UnitVolume, Stream) {

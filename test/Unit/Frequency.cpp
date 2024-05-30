@@ -62,29 +62,32 @@ TEST(UnitFrequency, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Frequency>(UnitSystem::InchPoundSecondRankine), Frequency::Hertz);
 }
 
-TEST(UnitFrequency, ConvertAndConvertCopy) {
+TEST(UnitFrequency, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Frequency>(Frequency::Hertz, Frequency::Hertz, value, value);
-  Internal::TestConvertAndConvertCopy<Frequency>(
-      Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::Hertz, value, value);
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001L);
+  Internal::TestConvert<Frequency>(
       Frequency::Hertz, Frequency::Megahertz, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
+  Internal::TestConvert<Frequency>(
       Frequency::Hertz, Frequency::Gigahertz, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
-      Frequency::Hertz, Frequency::PerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<Frequency>(
-      Frequency::Hertz, Frequency::PerHour, value, value * 3600.0L);
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::PerMinute, value, value * 60.0L);
+  Internal::TestConvert<Frequency>(Frequency::Hertz, Frequency::PerHour, value, value * 3600.0L);
 }
 
-TEST(UnitFrequency, Parse) {
-  EXPECT_EQ(Parse<Frequency>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Frequency>("Hz"), Frequency::Hertz);
-  EXPECT_EQ(Parse<Frequency>("kHz"), Frequency::Kilohertz);
-  EXPECT_EQ(Parse<Frequency>("MHz"), Frequency::Megahertz);
-  EXPECT_EQ(Parse<Frequency>("GHz"), Frequency::Gigahertz);
-  EXPECT_EQ(Parse<Frequency>("/min"), Frequency::PerMinute);
-  EXPECT_EQ(Parse<Frequency>("/hr"), Frequency::PerHour);
+TEST(UnitFrequency, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
+      value, value * 0.001L);
+}
+
+TEST(UnitFrequency, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Frequency>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Frequency>("Hz"), Frequency::Hertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("kHz"), Frequency::Kilohertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("MHz"), Frequency::Megahertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("GHz"), Frequency::Gigahertz);
+  EXPECT_EQ(ParseEnumeration<Frequency>("/min"), Frequency::PerMinute);
+  EXPECT_EQ(ParseEnumeration<Frequency>("/hr"), Frequency::PerHour);
 }
 
 TEST(UnitFrequency, RelatedDimensions) {
@@ -103,12 +106,6 @@ TEST(UnitFrequency, RelatedUnitSystem) {
 
 TEST(UnitFrequency, Standard) {
   EXPECT_EQ(Standard<Frequency>, Frequency::Hertz);
-}
-
-TEST(UnitFrequency, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
-      value, value * 0.001L);
 }
 
 TEST(UnitFrequency, Stream) {

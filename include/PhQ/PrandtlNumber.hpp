@@ -44,221 +44,229 @@ namespace PhQ {
 /// thermal diffusivity of a fluid. See also PhQ::KinematicViscosity,
 /// PhQ::SpecificIsobaricHeatCapacity, PhQ::DynamicViscosity, PhQ::ScalarThermalConductivity, and
 /// PhQ::ThermalDiffusivity.
-template <typename Number = double>
-class PrandtlNumber : public DimensionlessScalar<Number> {
+template <typename NumericType = double>
+class PrandtlNumber : public DimensionlessScalar<NumericType> {
 public:
   /// \brief Default constructor. Constructs a Prandtl number with an uninitialized value.
   PrandtlNumber() = default;
 
   /// \brief Constructor. Constructs a Prandtl number with a given value.
-  explicit constexpr PrandtlNumber(const Number value) : DimensionlessScalar<Number>(value) {}
+  explicit constexpr PrandtlNumber(const NumericType value)
+    : DimensionlessScalar<NumericType>(value) {}
 
   /// \brief Constructor. Constructs a Prandtl number from a given kinematic viscosity and thermal
   /// diffusivity using the definition of the Prandtl number.
-  constexpr PrandtlNumber(const KinematicViscosity<Number>& kinematic_viscosity,
-                          const ThermalDiffusivity<Number>& thermal_diffusivity)
-    : PrandtlNumber<Number>(kinematic_viscosity.Value() / thermal_diffusivity.Value()) {}
+  constexpr PrandtlNumber(const KinematicViscosity<NumericType>& kinematic_viscosity,
+                          const ThermalDiffusivity<NumericType>& thermal_diffusivity)
+    : PrandtlNumber<NumericType>(kinematic_viscosity.Value() / thermal_diffusivity.Value()) {}
 
   /// \brief Constructor. Constructs a Prandtl number from a given specific isobaric heat capacity,
   /// dynamic viscosity, and scalar thermal conductivity using the definition of the Prandtl number.
   constexpr PrandtlNumber(
-      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-      const DynamicViscosity<Number>& dynamic_viscosity,
-      const ScalarThermalConductivity<Number>& scalar_thermal_conductivity)
-    : PrandtlNumber<Number>(specific_isobaric_heat_capacity.Value() * dynamic_viscosity.Value()
-                            / scalar_thermal_conductivity.Value()) {}
+      const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+      const DynamicViscosity<NumericType>& dynamic_viscosity,
+      const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity)
+    : PrandtlNumber<NumericType>(specific_isobaric_heat_capacity.Value() * dynamic_viscosity.Value()
+                                 / scalar_thermal_conductivity.Value()) {}
 
   /// \brief Destructor. Destroys this Prandtl number.
   ~PrandtlNumber() noexcept = default;
 
   /// \brief Copy constructor. Constructs a Prandtl number by copying another one.
-  constexpr PrandtlNumber(const PrandtlNumber<Number>& other) = default;
+  constexpr PrandtlNumber(const PrandtlNumber<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a Prandtl number by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PrandtlNumber(const PrandtlNumber<OtherNumber>& other)
-    : PrandtlNumber(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PrandtlNumber(const PrandtlNumber<OtherNumericType>& other)
+    : PrandtlNumber(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a Prandtl number by moving another one.
-  constexpr PrandtlNumber(PrandtlNumber<Number>&& other) noexcept = default;
+  constexpr PrandtlNumber(PrandtlNumber<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this Prandtl number by copying another one.
-  constexpr PrandtlNumber<Number>& operator=(const PrandtlNumber<Number>& other) = default;
+  constexpr PrandtlNumber<NumericType>& operator=(
+      const PrandtlNumber<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this Prandtl number by copying another one.
-  template <typename OtherNumber>
-  constexpr PrandtlNumber<Number>& operator=(const PrandtlNumber<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PrandtlNumber<NumericType>& operator=(const PrandtlNumber<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this Prandtl number by moving another one.
-  constexpr PrandtlNumber<Number>& operator=(PrandtlNumber<Number>&& other) noexcept = default;
+  constexpr PrandtlNumber<NumericType>& operator=(
+      PrandtlNumber<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Prandtl number of zero.
-  static constexpr PrandtlNumber<Number> Zero() {
-    return PrandtlNumber<Number>{static_cast<Number>(0)};
+  static constexpr PrandtlNumber<NumericType> Zero() {
+    return PrandtlNumber<NumericType>{static_cast<NumericType>(0)};
   }
 
-  [[nodiscard]] constexpr PhQ::DynamicViscosity<Number> DynamicViscosity(
-      const PhQ::ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
-      const PhQ::SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const {
-    return PhQ::DynamicViscosity<Number>{
+  [[nodiscard]] constexpr PhQ::DynamicViscosity<NumericType> DynamicViscosity(
+      const PhQ::ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
+      const PhQ::SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity) const {
+    return PhQ::DynamicViscosity<NumericType>{
         *this, scalar_thermal_conductivity, specific_isobaric_heat_capacity};
   }
 
-  [[nodiscard]] constexpr PhQ::KinematicViscosity<Number> KinematicViscosity(
-      const PhQ::ThermalDiffusivity<Number>& thermal_diffusivity) const {
-    return PhQ::KinematicViscosity<Number>{*this, thermal_diffusivity};
+  [[nodiscard]] constexpr PhQ::KinematicViscosity<NumericType> KinematicViscosity(
+      const PhQ::ThermalDiffusivity<NumericType>& thermal_diffusivity) const {
+    return PhQ::KinematicViscosity<NumericType>{*this, thermal_diffusivity};
   }
 
-  [[nodiscard]] constexpr PhQ::SpecificIsobaricHeatCapacity<Number> SpecificIsobaricHeatCapacity(
-      const PhQ::ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
-      const PhQ::DynamicViscosity<Number>& dynamic_viscosity) const {
-    return PhQ::SpecificIsobaricHeatCapacity<Number>{
+  [[nodiscard]] constexpr PhQ::SpecificIsobaricHeatCapacity<NumericType>
+  SpecificIsobaricHeatCapacity(
+      const PhQ::ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
+      const PhQ::DynamicViscosity<NumericType>& dynamic_viscosity) const {
+    return PhQ::SpecificIsobaricHeatCapacity<NumericType>{
         *this, scalar_thermal_conductivity, dynamic_viscosity};
   }
 
-  [[nodiscard]] constexpr PhQ::ScalarThermalConductivity<Number> ScalarThermalConductivity(
-      const PhQ::SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-      const PhQ::DynamicViscosity<Number>& dynamic_viscosity) const {
-    return PhQ::ScalarThermalConductivity<Number>{
+  [[nodiscard]] constexpr PhQ::ScalarThermalConductivity<NumericType> ScalarThermalConductivity(
+      const PhQ::SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+      const PhQ::DynamicViscosity<NumericType>& dynamic_viscosity) const {
+    return PhQ::ScalarThermalConductivity<NumericType>{
         specific_isobaric_heat_capacity, dynamic_viscosity, *this};
   }
 
-  [[nodiscard]] constexpr PhQ::ThermalDiffusivity<Number> ThermalDiffusivity(
-      const PhQ::KinematicViscosity<Number>& kinematic_viscosity) const {
-    return PhQ::ThermalDiffusivity<Number>{kinematic_viscosity, *this};
+  [[nodiscard]] constexpr PhQ::ThermalDiffusivity<NumericType> ThermalDiffusivity(
+      const PhQ::KinematicViscosity<NumericType>& kinematic_viscosity) const {
+    return PhQ::ThermalDiffusivity<NumericType>{kinematic_viscosity, *this};
   }
 
-  constexpr PrandtlNumber<Number> operator+(const PrandtlNumber<Number>& prandtl_number) const {
-    return PrandtlNumber<Number>{this->value + prandtl_number.value};
+  constexpr PrandtlNumber<NumericType> operator+(
+      const PrandtlNumber<NumericType>& prandtl_number) const {
+    return PrandtlNumber<NumericType>{this->value + prandtl_number.value};
   }
 
-  constexpr PrandtlNumber<Number> operator-(const PrandtlNumber<Number>& prandtl_number) const {
-    return PrandtlNumber<Number>{this->value - prandtl_number.value};
+  constexpr PrandtlNumber<NumericType> operator-(
+      const PrandtlNumber<NumericType>& prandtl_number) const {
+    return PrandtlNumber<NumericType>{this->value - prandtl_number.value};
   }
 
-  constexpr PrandtlNumber<Number> operator*(const Number number) const {
-    return PrandtlNumber<Number>{this->value * number};
+  constexpr PrandtlNumber<NumericType> operator*(const NumericType number) const {
+    return PrandtlNumber<NumericType>{this->value * number};
   }
 
-  constexpr PrandtlNumber<Number> operator/(const Number number) const {
-    return PrandtlNumber<Number>{this->value / number};
+  constexpr PrandtlNumber<NumericType> operator/(const NumericType number) const {
+    return PrandtlNumber<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const PrandtlNumber<Number>& prandtl_number) const noexcept {
+  constexpr NumericType operator/(const PrandtlNumber<NumericType>& prandtl_number) const noexcept {
     return this->value / prandtl_number.value;
   }
 
-  constexpr void operator+=(const PrandtlNumber<Number>& prandtl_number) noexcept {
+  constexpr void operator+=(const PrandtlNumber<NumericType>& prandtl_number) noexcept {
     this->value += prandtl_number.value;
   }
 
-  constexpr void operator-=(const PrandtlNumber<Number>& prandtl_number) noexcept {
+  constexpr void operator-=(const PrandtlNumber<NumericType>& prandtl_number) noexcept {
     this->value -= prandtl_number.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PrandtlNumber<Number>& left, const PrandtlNumber<Number>& right) noexcept {
+    const PrandtlNumber<NumericType>& left, const PrandtlNumber<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PrandtlNumber<Number>& left, const PrandtlNumber<Number>& right) noexcept {
+    const PrandtlNumber<NumericType>& left, const PrandtlNumber<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PrandtlNumber<Number>& left, const PrandtlNumber<Number>& right) noexcept {
+    const PrandtlNumber<NumericType>& left, const PrandtlNumber<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PrandtlNumber<Number>& left, const PrandtlNumber<Number>& right) noexcept {
+    const PrandtlNumber<NumericType>& left, const PrandtlNumber<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PrandtlNumber<Number>& left, const PrandtlNumber<Number>& right) noexcept {
+    const PrandtlNumber<NumericType>& left, const PrandtlNumber<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PrandtlNumber<Number>& left, const PrandtlNumber<Number>& right) noexcept {
+    const PrandtlNumber<NumericType>& left, const PrandtlNumber<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const PrandtlNumber<Number>& prandtl_number) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PrandtlNumber<NumericType>& prandtl_number) {
   stream << prandtl_number.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PrandtlNumber<Number> operator*(
-    const Number number, const PrandtlNumber<Number>& prandtl_number) {
-  return PrandtlNumber<Number>{number * prandtl_number.Value()};
+template <typename NumericType>
+inline constexpr PrandtlNumber<NumericType> operator*(
+    const NumericType number, const PrandtlNumber<NumericType>& prandtl_number) {
+  return PrandtlNumber<NumericType>{number * prandtl_number.Value()};
 }
 
-template <typename Number>
-inline constexpr ThermalDiffusivity<Number>::ThermalDiffusivity(
-    const KinematicViscosity<Number>& kinematic_viscosity,
-    const PrandtlNumber<Number>& prandtl_number)
-  : ThermalDiffusivity<Number>(kinematic_viscosity.Value() / prandtl_number.Value()) {}
+template <typename NumericType>
+inline constexpr ThermalDiffusivity<NumericType>::ThermalDiffusivity(
+    const KinematicViscosity<NumericType>& kinematic_viscosity,
+    const PrandtlNumber<NumericType>& prandtl_number)
+  : ThermalDiffusivity<NumericType>(kinematic_viscosity.Value() / prandtl_number.Value()) {}
 
-template <typename Number>
-inline constexpr ScalarThermalConductivity<Number>::ScalarThermalConductivity(
-    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-    const DynamicViscosity<Number>& dynamic_viscosity, const PrandtlNumber<Number>& prandtl_number)
-  : ScalarThermalConductivity<Number>(specific_isobaric_heat_capacity.Value()
-                                      * dynamic_viscosity.Value() / prandtl_number.Value()) {}
+template <typename NumericType>
+inline constexpr ScalarThermalConductivity<NumericType>::ScalarThermalConductivity(
+    const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+    const DynamicViscosity<NumericType>& dynamic_viscosity,
+    const PrandtlNumber<NumericType>& prandtl_number)
+  : ScalarThermalConductivity<NumericType>(specific_isobaric_heat_capacity.Value()
+                                           * dynamic_viscosity.Value() / prandtl_number.Value()) {}
 
-template <typename Number>
-inline constexpr SpecificIsobaricHeatCapacity<Number>::SpecificIsobaricHeatCapacity(
-    const PrandtlNumber<Number>& prandtl_number,
-    const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
-    const DynamicViscosity<Number>& dynamic_viscosity)
-  : SpecificIsobaricHeatCapacity<Number>(
+template <typename NumericType>
+inline constexpr SpecificIsobaricHeatCapacity<NumericType>::SpecificIsobaricHeatCapacity(
+    const PrandtlNumber<NumericType>& prandtl_number,
+    const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
+    const DynamicViscosity<NumericType>& dynamic_viscosity)
+  : SpecificIsobaricHeatCapacity<NumericType>(
       prandtl_number.Value() * scalar_thermal_conductivity.Value() / dynamic_viscosity.Value()) {}
 
-template <typename Number>
-inline constexpr DynamicViscosity<Number>::DynamicViscosity(
-    const PrandtlNumber<Number>& prandtl_number,
-    const ScalarThermalConductivity<Number>& scalar_thermal_conductivity,
-    const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity)
-  : DynamicViscosity<Number>(prandtl_number.Value() * scalar_thermal_conductivity.Value()
-                             / specific_isobaric_heat_capacity.Value()) {}
+template <typename NumericType>
+inline constexpr DynamicViscosity<NumericType>::DynamicViscosity(
+    const PrandtlNumber<NumericType>& prandtl_number,
+    const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
+    const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity)
+  : DynamicViscosity<NumericType>(prandtl_number.Value() * scalar_thermal_conductivity.Value()
+                                  / specific_isobaric_heat_capacity.Value()) {}
 
-template <typename Number>
-inline constexpr KinematicViscosity<Number>::KinematicViscosity(
-    const PrandtlNumber<Number>& prandtl_number,
-    const ThermalDiffusivity<Number>& thermal_diffusivity)
-  : KinematicViscosity<Number>(prandtl_number.Value() * thermal_diffusivity.Value()) {}
+template <typename NumericType>
+inline constexpr KinematicViscosity<NumericType>::KinematicViscosity(
+    const PrandtlNumber<NumericType>& prandtl_number,
+    const ThermalDiffusivity<NumericType>& thermal_diffusivity)
+  : KinematicViscosity<NumericType>(prandtl_number.Value() * thermal_diffusivity.Value()) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PrandtlNumber<Number>> {
-  inline size_t operator()(const PhQ::PrandtlNumber<Number>& prandtl_number) const {
-    return hash<Number>()(prandtl_number.Value());
+template <typename NumericType>
+struct hash<PhQ::PrandtlNumber<NumericType>> {
+  inline size_t operator()(const PhQ::PrandtlNumber<NumericType>& prandtl_number) const {
+    return hash<NumericType>()(prandtl_number.Value());
   }
 };
 

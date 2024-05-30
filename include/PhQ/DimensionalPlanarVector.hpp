@@ -42,7 +42,7 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensional planar vector physical quantity. Such
 /// a physical quantity is composed of a value and a unit of measure where the value is a two-
 /// dimensional planar vector in the XY plane.
-template <typename UnitType, typename Number = double>
+template <typename UnitType, typename NumericType = double>
 class DimensionalPlanarVector {
 public:
   /// \brief Physical dimension set of this physical quantity.
@@ -57,33 +57,31 @@ public:
   }
 
   /// \brief Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const PhQ::PlanarVector<Number>& Value() const noexcept {
+  [[nodiscard]] constexpr const PhQ::PlanarVector<NumericType>& Value() const noexcept {
     return value;
   }
 
   /// \brief Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] PhQ::PlanarVector<Number> Value(const UnitType unit) const {
-    PhQ::PlanarVector<Number> result{value};
-    PhQ::Convert(result, PhQ::Standard<UnitType>, unit);
-    return result;
+  [[nodiscard]] PhQ::PlanarVector<NumericType> Value(const UnitType unit) const {
+    return PhQ::Convert(value, PhQ::Standard<UnitType>, unit);
   }
 
   /// \brief Value of this physical quantity expressed in a given unit of measure. This method can
   /// be evaluated statically at compile-time.
   template <UnitType NewUnit>
-  [[nodiscard]] constexpr PhQ::PlanarVector<Number> StaticValue() const {
-    return PhQ::StaticConvertCopy<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
+  [[nodiscard]] constexpr PhQ::PlanarVector<NumericType> StaticValue() const {
+    return PhQ::ConvertStatically<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
   }
 
   /// \brief Returns the value of this physical quantity expressed in its standard unit of measure
   /// as a mutable value.
-  constexpr PhQ::PlanarVector<Number>& MutableValue() noexcept {
+  constexpr PhQ::PlanarVector<NumericType>& MutableValue() noexcept {
     return value;
   }
 
   /// \brief Sets the value of this physical quantity expressed in its standard unit of measure to
   /// the given value.
-  constexpr void SetValue(const PhQ::PlanarVector<Number>& value) noexcept {
+  constexpr void SetValue(const PhQ::PlanarVector<NumericType>& value) noexcept {
     this->value = value;
   }
 
@@ -166,14 +164,14 @@ protected:
 
   /// \brief Constructor. Constructs a dimensional planar vector physical quantity with a given
   /// value expressed in its standard unit of measure.
-  explicit constexpr DimensionalPlanarVector(const PhQ::PlanarVector<Number>& value)
+  explicit constexpr DimensionalPlanarVector(const PhQ::PlanarVector<NumericType>& value)
     : value(value) {}
 
   /// \brief Constructor. Constructs a dimensional planar vector physical quantity with a given
   /// value expressed in a given unit of measure.
-  DimensionalPlanarVector(const PhQ::PlanarVector<Number>& value, const UnitType unit)
+  DimensionalPlanarVector(const PhQ::PlanarVector<NumericType>& value, const UnitType unit)
     : value(value) {
-    Convert(this->value, unit, PhQ::Standard<UnitType>);
+    PhQ::ConvertInPlace(this->value, unit, PhQ::Standard<UnitType>);
   }
 
   /// \brief Destructor. Destroys this dimensional planar vector physical quantity.
@@ -182,41 +180,41 @@ protected:
   /// \brief Copy constructor. Constructs a dimensional planar vector physical quantity by copying
   /// another one.
   constexpr DimensionalPlanarVector(
-      const DimensionalPlanarVector<UnitType, Number>& other) = default;
+      const DimensionalPlanarVector<UnitType, NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a dimensional planar vector physical quantity by copying
   /// another one.
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   explicit constexpr DimensionalPlanarVector(
-      const DimensionalPlanarVector<UnitType, OtherNumber>& other)
-    : value(static_cast<PhQ::PlanarVector<Number>>(other.Value())) {}
+      const DimensionalPlanarVector<UnitType, OtherNumericType>& other)
+    : value(static_cast<PhQ::PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a dimensional planar vector physical quantity by moving
   /// another one.
   constexpr DimensionalPlanarVector(
-      DimensionalPlanarVector<UnitType, Number>&& other) noexcept = default;
+      DimensionalPlanarVector<UnitType, NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this dimensional planar vector physical quantity by
   /// copying another one.
-  constexpr DimensionalPlanarVector<UnitType, Number>& operator=(
-      const DimensionalPlanarVector<UnitType, Number>& other) = default;
+  constexpr DimensionalPlanarVector<UnitType, NumericType>& operator=(
+      const DimensionalPlanarVector<UnitType, NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this dimensional planar vector physical quantity by
   /// copying another one.
-  template <typename OtherNumber>
-  constexpr DimensionalPlanarVector<UnitType, Number>& operator=(
-      const DimensionalPlanarVector<UnitType, OtherNumber>& other) {
-    value = static_cast<PhQ::PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr DimensionalPlanarVector<UnitType, NumericType>& operator=(
+      const DimensionalPlanarVector<UnitType, OtherNumericType>& other) {
+    value = static_cast<PhQ::PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this dimensional planar vector physical quantity by
   /// moving another one.
-  constexpr DimensionalPlanarVector<UnitType, Number>& operator=(
-      DimensionalPlanarVector<UnitType, Number>&& other) noexcept = default;
+  constexpr DimensionalPlanarVector<UnitType, NumericType>& operator=(
+      DimensionalPlanarVector<UnitType, NumericType>&& other) noexcept = default;
 
   /// \brief Value of this physical quantity expressed in its standard unit of measure.
-  PhQ::PlanarVector<Number> value;
+  PhQ::PlanarVector<NumericType> value;
 };
 
 }  // namespace PhQ

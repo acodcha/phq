@@ -70,24 +70,30 @@ TEST(UnitThermalExpansion, ConsistentUnit) {
             ThermalExpansion::PerRankine);
 }
 
-TEST(UnitThermalExpansion, ConvertAndConvertCopy) {
+TEST(UnitThermalExpansion, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerKelvin, value, value);
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerCelsius, value, value);
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerRankine, value, value / 1.8L);
-  Internal::TestConvertAndConvertCopy<ThermalExpansion>(
+  Internal::TestConvert<ThermalExpansion>(
       ThermalExpansion::PerKelvin, ThermalExpansion::PerFahrenheit, value, value / 1.8L);
 }
 
-TEST(UnitThermalExpansion, Parse) {
-  EXPECT_EQ(Parse<ThermalExpansion>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ThermalExpansion>("/K"), ThermalExpansion::PerKelvin);
-  EXPECT_EQ(Parse<ThermalExpansion>("/°C"), ThermalExpansion::PerCelsius);
-  EXPECT_EQ(Parse<ThermalExpansion>("/°R"), ThermalExpansion::PerRankine);
-  EXPECT_EQ(Parse<ThermalExpansion>("/°F"), ThermalExpansion::PerFahrenheit);
+TEST(UnitThermalExpansion, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ThermalExpansion, ThermalExpansion::PerKelvin,
+                                  ThermalExpansion::PerFahrenheit>(value, value / 1.8L);
+}
+
+TEST(UnitThermalExpansion, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<ThermalExpansion>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<ThermalExpansion>("/K"), ThermalExpansion::PerKelvin);
+  EXPECT_EQ(ParseEnumeration<ThermalExpansion>("/°C"), ThermalExpansion::PerCelsius);
+  EXPECT_EQ(ParseEnumeration<ThermalExpansion>("/°R"), ThermalExpansion::PerRankine);
+  EXPECT_EQ(ParseEnumeration<ThermalExpansion>("/°F"), ThermalExpansion::PerFahrenheit);
 }
 
 TEST(UnitThermalExpansion, RelatedDimensions) {
@@ -106,12 +112,6 @@ TEST(UnitThermalExpansion, RelatedUnitSystem) {
 
 TEST(UnitThermalExpansion, Standard) {
   EXPECT_EQ(Standard<ThermalExpansion>, ThermalExpansion::PerKelvin);
-}
-
-TEST(UnitThermalExpansion, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ThermalExpansion, ThermalExpansion::PerKelvin,
-                                  ThermalExpansion::PerFahrenheit>(value, value / 1.8L);
 }
 
 TEST(UnitThermalExpansion, Stream) {

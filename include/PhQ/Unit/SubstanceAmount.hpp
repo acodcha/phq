@@ -123,110 +123,118 @@ inline const std::unordered_map<std::string_view, Unit::SubstanceAmount>
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(6.02214076E23L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(6.02214076E23L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>::ToStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(6.02214076E23L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(6.02214076E23L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::SubstanceAmount,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SubstanceAmount, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::SubstanceAmount, NumericType>{
         {Unit::SubstanceAmount::Mole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>::FromStandard<Number>    },
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Mole>::FromStandard<NumericType>     },
         {Unit::SubstanceAmount::Kilomole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>::FromStandard<Number>},
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Kilomole>::FromStandard<NumericType> },
         {Unit::SubstanceAmount::Megamole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>::FromStandard<Number>},
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Megamole>::FromStandard<NumericType> },
         {Unit::SubstanceAmount::Gigamole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>::FromStandard<Number>},
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Gigamole>::FromStandard<NumericType> },
         {Unit::SubstanceAmount::Particles,
          Conversions<Unit::SubstanceAmount,
-         Unit::SubstanceAmount::Particles>::FromStandard<Number>                                  },
+         Unit::SubstanceAmount::Particles>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::SubstanceAmount,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SubstanceAmount, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::SubstanceAmount, NumericType>{
         {Unit::SubstanceAmount::Mole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>::ToStandard<Number>     },
+         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>::ToStandard<NumericType>},
         {Unit::SubstanceAmount::Kilomole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>::ToStandard<Number> },
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Kilomole>::ToStandard<NumericType>                               },
         {Unit::SubstanceAmount::Megamole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>::ToStandard<Number> },
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Megamole>::ToStandard<NumericType>                               },
         {Unit::SubstanceAmount::Gigamole,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>::ToStandard<Number> },
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Gigamole>::ToStandard<NumericType>                               },
         {Unit::SubstanceAmount::Particles,
-         Conversions<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>::ToStandard<Number>},
+         Conversions<Unit::SubstanceAmount,
+         Unit::SubstanceAmount::Particles>::ToStandard<NumericType>                              },
 };
 
 }  // namespace Internal

@@ -42,214 +42,220 @@ namespace PhQ {
 /// \brief Scalar component or resultant of a three-dimensional Euclidean strain rate symmetric
 /// dyadic tensor. For the related tensor, see PhQ::StrainRate. See also PhQ::ScalarStrain,
 /// PhQ::Time, and PhQ::Frequency.
-template <typename Number = double>
-class ScalarStrainRate : public DimensionalScalar<Unit::Frequency, Number> {
+template <typename NumericType = double>
+class ScalarStrainRate : public DimensionalScalar<Unit::Frequency, NumericType> {
 public:
   /// \brief Default constructor. Constructs a scalar strain rate with an uninitialized value.
   ScalarStrainRate() = default;
 
   /// \brief Constructor. Constructs a scalar strain rate with a given value expressed in a given
   /// frequency unit.
-  ScalarStrainRate(const Number value, const Unit::Frequency unit)
-    : DimensionalScalar<Unit::Frequency, Number>(value, unit) {}
+  ScalarStrainRate(const NumericType value, const Unit::Frequency unit)
+    : DimensionalScalar<Unit::Frequency, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a scalar strain rate from a given scalar strain and time using
   /// the definition of strain rate.
-  constexpr ScalarStrainRate(const ScalarStrain<Number>& scalar_strain, const Time<Number>& time)
-    : ScalarStrainRate<Number>(scalar_strain.Value() / time.Value()) {}
+  constexpr ScalarStrainRate(
+      const ScalarStrain<NumericType>& scalar_strain, const Time<NumericType>& time)
+    : ScalarStrainRate<NumericType>(scalar_strain.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a scalar strain rate from a given scalar strain and frequency
   /// using the definition of strain rate.
   constexpr ScalarStrainRate(
-      const ScalarStrain<Number>& scalar_strain, const Frequency<Number>& frequency)
-    : ScalarStrainRate<Number>(scalar_strain.Value() * frequency.Value()) {}
+      const ScalarStrain<NumericType>& scalar_strain, const Frequency<NumericType>& frequency)
+    : ScalarStrainRate<NumericType>(scalar_strain.Value() * frequency.Value()) {}
 
   /// \brief Destructor. Destroys this scalar strain rate.
   ~ScalarStrainRate() noexcept = default;
 
   /// \brief Copy constructor. Constructs a scalar strain rate by copying another one.
-  constexpr ScalarStrainRate(const ScalarStrainRate<Number>& other) = default;
+  constexpr ScalarStrainRate(const ScalarStrainRate<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a scalar strain rate by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ScalarStrainRate(const ScalarStrainRate<OtherNumber>& other)
-    : ScalarStrainRate(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ScalarStrainRate(const ScalarStrainRate<OtherNumericType>& other)
+    : ScalarStrainRate(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a scalar strain rate by moving another one.
-  constexpr ScalarStrainRate(ScalarStrainRate<Number>&& other) noexcept = default;
+  constexpr ScalarStrainRate(ScalarStrainRate<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this scalar strain rate by copying another one.
-  constexpr ScalarStrainRate<Number>& operator=(const ScalarStrainRate<Number>& other) = default;
+  constexpr ScalarStrainRate<NumericType>& operator=(
+      const ScalarStrainRate<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this scalar strain rate by copying another one.
-  template <typename OtherNumber>
-  constexpr ScalarStrainRate<Number>& operator=(const ScalarStrainRate<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ScalarStrainRate<NumericType>& operator=(
+      const ScalarStrainRate<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this scalar strain rate by moving another one.
-  constexpr ScalarStrainRate<Number>& operator=(
-      ScalarStrainRate<Number>&& other) noexcept = default;
+  constexpr ScalarStrainRate<NumericType>& operator=(
+      ScalarStrainRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar strain rate of zero.
-  static constexpr ScalarStrainRate<Number> Zero() {
-    return ScalarStrainRate<Number>{static_cast<Number>(0)};
+  static constexpr ScalarStrainRate<NumericType> Zero() {
+    return ScalarStrainRate<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar strain rate with a given value expressed in a given
   /// frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr ScalarStrainRate<Number> Create(const Number value) {
-    return ScalarStrainRate<Number>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+  static constexpr ScalarStrainRate<NumericType> Create(const NumericType value) {
+    return ScalarStrainRate<NumericType>{
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
-  constexpr ScalarStrainRate<Number> operator+(const ScalarStrainRate<Number>& other) const {
-    return ScalarStrainRate<Number>{this->value + other.value};
+  constexpr ScalarStrainRate<NumericType> operator+(
+      const ScalarStrainRate<NumericType>& other) const {
+    return ScalarStrainRate<NumericType>{this->value + other.value};
   }
 
-  constexpr ScalarStrainRate<Number> operator-(const ScalarStrainRate<Number>& other) const {
-    return ScalarStrainRate<Number>{this->value - other.value};
+  constexpr ScalarStrainRate<NumericType> operator-(
+      const ScalarStrainRate<NumericType>& other) const {
+    return ScalarStrainRate<NumericType>{this->value - other.value};
   }
 
-  constexpr ScalarStrainRate<Number> operator*(const Number number) const {
-    return ScalarStrainRate<Number>{this->value * number};
+  constexpr ScalarStrainRate<NumericType> operator*(const NumericType number) const {
+    return ScalarStrainRate<NumericType>{this->value * number};
   }
 
-  constexpr ScalarStrainRate<Number> operator/(const Number number) const {
-    return ScalarStrainRate<Number>{this->value / number};
+  constexpr ScalarStrainRate<NumericType> operator/(const NumericType number) const {
+    return ScalarStrainRate<NumericType>{this->value / number};
   }
 
-  constexpr ScalarStrain<Number> operator*(const Time<Number>& time) const {
-    return ScalarStrain<Number>{*this, time};
+  constexpr ScalarStrain<NumericType> operator*(const Time<NumericType>& time) const {
+    return ScalarStrain<NumericType>{*this, time};
   }
 
-  constexpr Number operator/(const ScalarStrainRate<Number>& other) const noexcept {
+  constexpr NumericType operator/(const ScalarStrainRate<NumericType>& other) const noexcept {
     return this->value / other.value;
   }
 
-  constexpr ScalarStrain<Number> operator/(const Frequency<Number>& frequency) const {
-    return ScalarStrain<Number>{*this, frequency};
+  constexpr ScalarStrain<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return ScalarStrain<NumericType>{*this, frequency};
   }
 
-  constexpr void operator+=(const ScalarStrainRate<Number>& other) noexcept {
+  constexpr void operator+=(const ScalarStrainRate<NumericType>& other) noexcept {
     this->value += other.value;
   }
 
-  constexpr void operator-=(const ScalarStrainRate<Number>& other) noexcept {
+  constexpr void operator-=(const ScalarStrainRate<NumericType>& other) noexcept {
     this->value -= other.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a scalar strain rate with a given value expressed in the
   /// standard frequency unit.
-  explicit constexpr ScalarStrainRate(const Number value)
-    : DimensionalScalar<Unit::Frequency, Number>(value) {}
+  explicit constexpr ScalarStrainRate(const NumericType value)
+    : DimensionalScalar<Unit::Frequency, NumericType>(value) {}
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class StrainRate;
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const ScalarStrainRate<Number>& left, const ScalarStrainRate<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const ScalarStrainRate<NumericType>& left,
+                                 const ScalarStrainRate<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const ScalarStrainRate<Number>& left, const ScalarStrainRate<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const ScalarStrainRate<NumericType>& left,
+                                 const ScalarStrainRate<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const ScalarStrainRate<Number>& left, const ScalarStrainRate<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const ScalarStrainRate<NumericType>& left,
+                                const ScalarStrainRate<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const ScalarStrainRate<Number>& left, const ScalarStrainRate<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const ScalarStrainRate<NumericType>& left,
+                                const ScalarStrainRate<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const ScalarStrainRate<Number>& left, const ScalarStrainRate<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const ScalarStrainRate<NumericType>& left,
+                                 const ScalarStrainRate<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const ScalarStrainRate<Number>& left, const ScalarStrainRate<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const ScalarStrainRate<NumericType>& left,
+                                 const ScalarStrainRate<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarStrainRate<Number>& scalar_strain_rate) {
+    std::ostream& stream, const ScalarStrainRate<NumericType>& scalar_strain_rate) {
   stream << scalar_strain_rate.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ScalarStrainRate<Number> operator*(
-    const Number number, const ScalarStrainRate<Number>& scalar_strain_rate) {
+template <typename NumericType>
+inline constexpr ScalarStrainRate<NumericType> operator*(
+    const NumericType number, const ScalarStrainRate<NumericType>& scalar_strain_rate) {
   return scalar_strain_rate * number;
 }
 
-template <typename Number>
-inline constexpr ScalarStrain<Number>::ScalarStrain(
-    const ScalarStrainRate<Number>& scalar_strain_rate, const Time<Number>& time)
-  : ScalarStrain<Number>(scalar_strain_rate.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr ScalarStrain<NumericType>::ScalarStrain(
+    const ScalarStrainRate<NumericType>& scalar_strain_rate, const Time<NumericType>& time)
+  : ScalarStrain<NumericType>(scalar_strain_rate.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr ScalarStrain<Number>::ScalarStrain(
-    const ScalarStrainRate<Number>& scalar_strain_rate, const Frequency<Number>& frequency)
-  : ScalarStrain<Number>(scalar_strain_rate.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr ScalarStrain<NumericType>::ScalarStrain(
+    const ScalarStrainRate<NumericType>& scalar_strain_rate,
+    const Frequency<NumericType>& frequency)
+  : ScalarStrain<NumericType>(scalar_strain_rate.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr ScalarStrainRate<Number> ScalarStrain<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return ScalarStrainRate<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr ScalarStrainRate<NumericType> ScalarStrain<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return ScalarStrainRate<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr ScalarStrainRate<Number> ScalarStrain<Number>::operator/(
-    const Time<Number>& time) const {
-  return ScalarStrainRate<Number>{*this, time};
+template <typename NumericType>
+inline constexpr ScalarStrainRate<NumericType> ScalarStrain<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return ScalarStrainRate<NumericType>{*this, time};
 }
 
-template <typename Number>
-inline constexpr ScalarStrain<Number> Time<Number>::operator*(
-    const ScalarStrainRate<Number>& scalar_strain_rate) const {
-  return ScalarStrain<Number>{scalar_strain_rate, *this};
+template <typename NumericType>
+inline constexpr ScalarStrain<NumericType> Time<NumericType>::operator*(
+    const ScalarStrainRate<NumericType>& scalar_strain_rate) const {
+  return ScalarStrain<NumericType>{scalar_strain_rate, *this};
 }
 
-template <typename Number>
-inline constexpr ScalarStrainRate<Number> Frequency<Number>::operator*(
-    const ScalarStrain<Number>& scalar_strain) const {
-  return ScalarStrainRate<Number>{scalar_strain, *this};
+template <typename NumericType>
+inline constexpr ScalarStrainRate<NumericType> Frequency<NumericType>::operator*(
+    const ScalarStrain<NumericType>& scalar_strain) const {
+  return ScalarStrainRate<NumericType>{scalar_strain, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ScalarStrainRate<Number>> {
-  inline size_t operator()(const PhQ::ScalarStrainRate<Number>& scalar_strain_rate) const {
-    return hash<Number>()(scalar_strain_rate.Value());
+template <typename NumericType>
+struct hash<PhQ::ScalarStrainRate<NumericType>> {
+  inline size_t operator()(const PhQ::ScalarStrainRate<NumericType>& scalar_strain_rate) const {
+    return hash<NumericType>()(scalar_strain_rate.Value());
   }
 };
 

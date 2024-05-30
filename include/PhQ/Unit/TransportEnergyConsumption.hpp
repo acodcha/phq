@@ -216,437 +216,458 @@ inline const std::unordered_map<std::string_view, Unit::TransportEnergyConsumpti
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
-Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::JoulePerMile>::FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L);
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMile>::
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
-Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::JoulePerMile>::ToStandard(Number& value) noexcept {
-  value /= static_cast<Number>(1609.344L);
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMile>::
+    ToStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerKilometre>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerKilometre>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMetre>::
-    FromStandard(Number& /*value*/) noexcept {}
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMetre>::
-    ToStandard(Number& /*value*/) noexcept {}
+    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::KilojoulePerMile>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1.609344L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.609344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
-Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::KilojoulePerMile>::ToStandard(Number& value) noexcept {
-  value /= static_cast<Number>(1.609344L);
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::KilojoulePerMile>::
+    ToStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.609344L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void
-Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattMinutePerMile>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) / static_cast<Number>(60.0L);
-}
-
-template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattMinutePerMile>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(60.0L) / static_cast<Number>(1609.344L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) / static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattMinutePerMile>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1609.344L);
+}
+
+template <>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattHourPerMile>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) / static_cast<Number>(3600.0L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) / static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
-Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::WattHourPerMile>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L) / static_cast<Number>(1609.344L);
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattHourPerMile>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L) / static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::WattMinutePerKilometre>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(0.06L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.06L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::WattMinutePerKilometre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(0.06L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::WattMinutePerKilometre>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.06L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::WattHourPerKilometre>::FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(3.6L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::WattHourPerKilometre>::
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3.6L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::WattHourPerKilometre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3.6L);
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::TransportEnergyConsumption,
+           Unit::TransportEnergyConsumption::WattHourPerKilometre>::ToStandard(NumericType&
+                                                                                   value) noexcept {
+  value *= static_cast<NumericType>(3.6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattMinutePerMetre>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(60.0L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattMinutePerMetre>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(60.0L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattHourPerMetre>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(3600.0L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::WattHourPerMetre>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::KilowattMinutePerMile>::
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) / static_cast<NumericType>(60000.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::KilowattMinutePerMile>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000.0L) / static_cast<NumericType>(1609.344L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::KilowattHourPerMile>::
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1609.344L) / static_cast<NumericType>(3600000.0L);
+}
+
+template <>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::WattHourPerMetre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L);
+           Unit::TransportEnergyConsumption::KilowattHourPerMile>::ToStandard(NumericType&
+                                                                                  value) noexcept {
+  value *= static_cast<NumericType>(3600000.0L) / static_cast<NumericType>(1609.344L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattMinutePerMile>::FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) / static_cast<Number>(60000.0L);
-}
-
-template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattMinutePerMile>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(60000.0L) / static_cast<Number>(1609.344L);
-}
-
-template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattHourPerMile>::FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1609.344L) / static_cast<Number>(3600000.0L);
-}
-
-template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattHourPerMile>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3600000.0L) / static_cast<Number>(1609.344L);
-}
-
-template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(60.0L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(60.0L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::KilowattHourPerKilometre>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(3600.0L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::KilowattHourPerKilometre>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::TransportEnergyConsumption,
                                  Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(60000.0L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000.0L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(60000.0L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000.0L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattHourPerMetre>::FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(3600000.0L);
+template <typename NumericType>
+inline constexpr void Conversion<Unit::TransportEnergyConsumption,
+                                 Unit::TransportEnergyConsumption::KilowattHourPerMetre>::
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000.0L);
 }
 
 template <>
-template <typename Number>
-inline constexpr void Conversion<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattHourPerMetre>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(3600000.0L);
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::TransportEnergyConsumption,
+           Unit::TransportEnergyConsumption::KilowattHourPerMetre>::ToStandard(NumericType&
+                                                                                   value) noexcept {
+  value *= static_cast<NumericType>(3600000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::FootPoundPerFoot>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
-Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::FootPoundPerFoot>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L);
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::FootPoundPerFoot>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::InchPoundPerInch>::
-    FromStandard(Number& value) noexcept {
-  value /= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L);
+    FromStandard(NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
-Conversion<Unit::TransportEnergyConsumption,
-           Unit::TransportEnergyConsumption::InchPoundPerInch>::ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L);
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::InchPoundPerInch>::
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::TransportEnergyConsumption,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::TransportEnergyConsumption, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::TransportEnergyConsumption, NumericType>{
         {Unit::TransportEnergyConsumption::JoulePerMile,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerMile>::FromStandard<Number>              },
+         Unit::TransportEnergyConsumption::JoulePerMile>::FromStandard<NumericType>          },
         {Unit::TransportEnergyConsumption::JoulePerKilometre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerKilometre>::FromStandard<Number>         },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::JoulePerKilometre>::FromStandard<NumericType>     },
         {Unit::TransportEnergyConsumption::JoulePerMetre,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerMetre>::FromStandard<Number>             },
+         Unit::TransportEnergyConsumption::JoulePerMetre>::FromStandard<NumericType>         },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
          Conversions<
              Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::FromStandard<Number>    },
+         Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::FromStandard<NumericType>},
         {Unit::TransportEnergyConsumption::KilojoulePerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilojoulePerMile>::FromStandard<Number>          },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilojoulePerMile>::FromStandard<NumericType>      },
         {Unit::TransportEnergyConsumption::WattMinutePerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattMinutePerMile>::FromStandard<Number>         },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattMinutePerMile>::FromStandard<NumericType>     },
         {Unit::TransportEnergyConsumption::WattHourPerMile,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattHourPerMile>::FromStandard<Number>           },
+         Unit::TransportEnergyConsumption::WattHourPerMile>::FromStandard<NumericType>       },
         {Unit::TransportEnergyConsumption::WattMinutePerKilometre,
          Conversions<
              Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattMinutePerKilometre>::FromStandard<Number>    },
+         Unit::TransportEnergyConsumption::WattMinutePerKilometre>::FromStandard<NumericType>},
         {Unit::TransportEnergyConsumption::WattHourPerKilometre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattHourPerKilometre>::FromStandard<Number>      },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattHourPerKilometre>::FromStandard<NumericType>  },
         {Unit::TransportEnergyConsumption::WattMinutePerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattMinutePerMetre>::FromStandard<Number>        },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattMinutePerMetre>::FromStandard<NumericType>    },
         {Unit::TransportEnergyConsumption::WattHourPerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattHourPerMetre>::FromStandard<Number>          },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattHourPerMetre>::FromStandard<NumericType>      },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMile,
          Conversions<
              Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattMinutePerMile>::FromStandard<Number>     },
+         Unit::TransportEnergyConsumption::KilowattMinutePerMile>::FromStandard<NumericType> },
         {Unit::TransportEnergyConsumption::KilowattHourPerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattHourPerMile>::FromStandard<Number>       },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattHourPerMile>::FromStandard<NumericType>   },
         {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre,
-         Conversions<
-             Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>::FromStandard<Number>},
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>::
+             FromStandard<NumericType>                                                       },
         {Unit::TransportEnergyConsumption::KilowattHourPerKilometre,
-         Conversions<
-             Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattHourPerKilometre>::FromStandard<Number>  },
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattHourPerKilometre>::
+             FromStandard<NumericType>                                                       },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMetre,
          Conversions<
              Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::FromStandard<Number>    },
+         Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::FromStandard<NumericType>},
         {Unit::TransportEnergyConsumption::KilowattHourPerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattHourPerMetre>::FromStandard<Number>      },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattHourPerMetre>::FromStandard<NumericType>  },
         {Unit::TransportEnergyConsumption::FootPoundPerFoot,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::FootPoundPerFoot>::FromStandard<Number>          },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::FootPoundPerFoot>::FromStandard<NumericType>      },
         {Unit::TransportEnergyConsumption::InchPoundPerInch,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::InchPoundPerInch>::FromStandard<Number>          },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::InchPoundPerInch>::FromStandard<NumericType>      },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::TransportEnergyConsumption,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::TransportEnergyConsumption, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::TransportEnergyConsumption, NumericType>{
         {Unit::TransportEnergyConsumption::JoulePerMile,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerMile>::ToStandard<Number>              },
+         Unit::TransportEnergyConsumption::JoulePerMile>::ToStandard<NumericType>            },
         {Unit::TransportEnergyConsumption::JoulePerKilometre,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerKilometre>::ToStandard<Number>         },
+         Unit::TransportEnergyConsumption::JoulePerKilometre>::ToStandard<NumericType>       },
         {Unit::TransportEnergyConsumption::JoulePerMetre,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerMetre>::ToStandard<Number>             },
+         Unit::TransportEnergyConsumption::JoulePerMetre>::ToStandard<NumericType>           },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::ToStandard<Number>    },
-        {Unit::TransportEnergyConsumption::KilojoulePerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilojoulePerMile>::ToStandard<Number>          },
-        {Unit::TransportEnergyConsumption::WattMinutePerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattMinutePerMile>::ToStandard<Number>         },
-        {Unit::TransportEnergyConsumption::WattHourPerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattHourPerMile>::ToStandard<Number>           },
-        {Unit::TransportEnergyConsumption::WattMinutePerKilometre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattMinutePerKilometre>::ToStandard<Number>    },
-        {Unit::TransportEnergyConsumption::WattHourPerKilometre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattHourPerKilometre>::ToStandard<Number>      },
-        {Unit::TransportEnergyConsumption::WattMinutePerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattMinutePerMetre>::ToStandard<Number>        },
-        {Unit::TransportEnergyConsumption::WattHourPerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::WattHourPerMetre>::ToStandard<Number>          },
-        {Unit::TransportEnergyConsumption::KilowattMinutePerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattMinutePerMile>::ToStandard<Number>     },
-        {Unit::TransportEnergyConsumption::KilowattHourPerMile,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattHourPerMile>::ToStandard<Number>       },
-        {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre,
          Conversions<
              Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>::ToStandard<Number>},
+         Unit::TransportEnergyConsumption::NanojoulePerMillimetre>::ToStandard<NumericType>  },
+        {Unit::TransportEnergyConsumption::KilojoulePerMile,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilojoulePerMile>::ToStandard<NumericType>        },
+        {Unit::TransportEnergyConsumption::WattMinutePerMile,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattMinutePerMile>::ToStandard<NumericType>       },
+        {Unit::TransportEnergyConsumption::WattHourPerMile,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattHourPerMile>::ToStandard<NumericType>         },
+        {Unit::TransportEnergyConsumption::WattMinutePerKilometre,
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattMinutePerKilometre>::ToStandard<NumericType>  },
+        {Unit::TransportEnergyConsumption::WattHourPerKilometre,
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattHourPerKilometre>::ToStandard<NumericType>    },
+        {Unit::TransportEnergyConsumption::WattMinutePerMetre,
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattMinutePerMetre>::ToStandard<NumericType>      },
+        {Unit::TransportEnergyConsumption::WattHourPerMetre,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::WattHourPerMetre>::ToStandard<NumericType>        },
+        {Unit::TransportEnergyConsumption::KilowattMinutePerMile,
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattMinutePerMile>::ToStandard<NumericType>   },
+        {Unit::TransportEnergyConsumption::KilowattHourPerMile,
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattHourPerMile>::ToStandard<NumericType>     },
+        {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>::
+             ToStandard<NumericType>                                                         },
         {Unit::TransportEnergyConsumption::KilowattHourPerKilometre,
          Conversions<
              Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattHourPerKilometre>::ToStandard<Number>  },
+         Unit::TransportEnergyConsumption::KilowattHourPerKilometre>::ToStandard<NumericType>},
         {Unit::TransportEnergyConsumption::KilowattMinutePerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::ToStandard<Number>    },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattMinutePerMetre>::ToStandard<NumericType>  },
         {Unit::TransportEnergyConsumption::KilowattHourPerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::KilowattHourPerMetre>::ToStandard<Number>      },
+         Conversions<
+             Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::KilowattHourPerMetre>::ToStandard<NumericType>    },
         {Unit::TransportEnergyConsumption::FootPoundPerFoot,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::FootPoundPerFoot>::ToStandard<Number>          },
+         Unit::TransportEnergyConsumption::FootPoundPerFoot>::ToStandard<NumericType>        },
         {Unit::TransportEnergyConsumption::InchPoundPerInch,
          Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::InchPoundPerInch>::ToStandard<Number>          },
+         Unit::TransportEnergyConsumption::InchPoundPerInch>::ToStandard<NumericType>        },
 };
 
 }  // namespace Internal

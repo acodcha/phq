@@ -46,302 +46,310 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::Velocity.
-template <typename Number>
+template <typename NumericType>
 class Acceleration;
 
 /// \brief Three-dimensional Euclidean velocity vector. Contains three components in Cartesian
 /// coordinates: x, y, and z. For a two-dimensional Euclidean velocity vector in the XY plane, see
 /// PhQ::PlanarVelocity. For scalar velocity components or for the magnitude of a velocity vector,
 /// see PhQ::Speed.
-template <typename Number = double>
-class Velocity : public DimensionalVector<Unit::Speed, Number> {
+template <typename NumericType = double>
+class Velocity : public DimensionalVector<Unit::Speed, NumericType> {
 public:
   /// \brief Default constructor. Constructs a velocity vector with an uninitialized value.
   Velocity() = default;
 
   /// \brief Constructor. Constructs a velocity vector with a given value expressed in a given speed
   /// unit.
-  Velocity(const Vector<Number>& value, const Unit::Speed unit)
-    : DimensionalVector<Unit::Speed, Number>(value, unit) {}
+  Velocity(const Vector<NumericType>& value, const Unit::Speed unit)
+    : DimensionalVector<Unit::Speed, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given set of speed components.
-  Velocity(const Speed<Number>& x, const Speed<Number>& y, const Speed<Number>& z)
-    : Velocity<Number>({x.Value(), y.Value(), z.Value()}) {}
+  Velocity(const Speed<NumericType>& x, const Speed<NumericType>& y, const Speed<NumericType>& z)
+    : Velocity<NumericType>({x.Value(), y.Value(), z.Value()}) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given speed and direction.
-  constexpr Velocity(const Speed<Number>& speed, const Direction<Number>& direction)
-    : Velocity<Number>(speed.Value() * direction.Value()) {}
+  constexpr Velocity(const Speed<NumericType>& speed, const Direction<NumericType>& direction)
+    : Velocity<NumericType>(speed.Value() * direction.Value()) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given planar velocity vector in the XY
   /// plane. This velocity vector's z-component is initialized to zero.
-  explicit constexpr Velocity(const PlanarVelocity<Number>& planar_velocity)
-    : Velocity<Number>(Vector<Number>{planar_velocity.Value()}) {}
+  explicit constexpr Velocity(const PlanarVelocity<NumericType>& planar_velocity)
+    : Velocity<NumericType>(Vector<NumericType>{planar_velocity.Value()}) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given displacement vector and time
   /// using the definition of velocity.
-  constexpr Velocity(const Displacement<Number>& displacement, const Time<Number>& time)
-    : Velocity<Number>(displacement.Value() / time.Value()) {}
+  constexpr Velocity(const Displacement<NumericType>& displacement, const Time<NumericType>& time)
+    : Velocity<NumericType>(displacement.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given displacement vector and
   /// frequency using the definition of velocity.
-  constexpr Velocity(const Displacement<Number>& displacement, const Frequency<Number>& frequency)
-    : Velocity<Number>(displacement.Value() * frequency.Value()) {}
+  constexpr Velocity(
+      const Displacement<NumericType>& displacement, const Frequency<NumericType>& frequency)
+    : Velocity<NumericType>(displacement.Value() * frequency.Value()) {}
 
   /// \brief Constructor. Constructs a velocity vector from a given acceleration vector and time
   /// using the definition of acceleration.
-  constexpr Velocity(const Acceleration<Number>& acceleration, const Time<Number>& time);
+  constexpr Velocity(const Acceleration<NumericType>& acceleration, const Time<NumericType>& time);
 
   /// \brief Constructor. Constructs a velocity vector from a given acceleration vector and
   /// frequency using the definition of acceleration.
-  constexpr Velocity(const Acceleration<Number>& acceleration, const Frequency<Number>& frequency);
+  constexpr Velocity(
+      const Acceleration<NumericType>& acceleration, const Frequency<NumericType>& frequency);
 
   /// \brief Destructor. Destroys this velocity vector.
   ~Velocity() noexcept = default;
 
   /// \brief Copy constructor. Constructs a velocity vector by copying another one.
-  constexpr Velocity(const Velocity<Number>& other) = default;
+  constexpr Velocity(const Velocity<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a velocity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Velocity(const Velocity<OtherNumber>& other)
-    : Velocity(static_cast<Vector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Velocity(const Velocity<OtherNumericType>& other)
+    : Velocity(static_cast<Vector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a velocity vector by moving another one.
-  constexpr Velocity(Velocity<Number>&& other) noexcept = default;
+  constexpr Velocity(Velocity<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this velocity vector by copying another one.
-  constexpr Velocity<Number>& operator=(const Velocity<Number>& other) = default;
+  constexpr Velocity<NumericType>& operator=(const Velocity<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this velocity by copying another one.
-  template <typename OtherNumber>
-  constexpr Velocity<Number>& operator=(const Velocity<OtherNumber>& other) {
-    this->value = static_cast<Vector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Velocity<NumericType>& operator=(const Velocity<OtherNumericType>& other) {
+    this->value = static_cast<Vector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this velocity vector by moving another one.
-  constexpr Velocity<Number>& operator=(Velocity<Number>&& other) noexcept = default;
+  constexpr Velocity<NumericType>& operator=(Velocity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a velocity vector of zero.
-  static constexpr Velocity<Number> Zero() {
-    return Velocity<Number>{Vector<Number>::Zero()};
+  static constexpr Velocity<NumericType> Zero() {
+    return Velocity<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
   /// expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity<Number> Create(const Number x, const Number y, const Number z) {
-    return Velocity<Number>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<Number>{x, y, z})};
+  static constexpr Velocity<NumericType> Create(
+      const NumericType x, const NumericType y, const NumericType z) {
+    return Velocity<NumericType>{
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
   /// expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity<Number> Create(const std::array<Number, 3>& x_y_z) {
-    return Velocity<Number>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<Number>{x_y_z})};
+  static constexpr Velocity<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+    return Velocity<NumericType>{
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a velocity vector with a given value expressed in a given speed
   /// unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity<Number> Create(const Vector<Number>& value) {
-    return Velocity<Number>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+  static constexpr Velocity<NumericType> Create(const Vector<NumericType>& value) {
+    return Velocity<NumericType>{
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this velocity vector.
-  [[nodiscard]] constexpr Speed<Number> x() const noexcept {
-    return Speed<Number>{this->value.x()};
+  [[nodiscard]] constexpr Speed<NumericType> x() const noexcept {
+    return Speed<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this velocity vector.
-  [[nodiscard]] constexpr Speed<Number> y() const noexcept {
-    return Speed<Number>{this->value.y()};
+  [[nodiscard]] constexpr Speed<NumericType> y() const noexcept {
+    return Speed<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the z Cartesian component of this velocity vector.
-  [[nodiscard]] constexpr Speed<Number> z() const noexcept {
-    return Speed<Number>{this->value.z()};
+  [[nodiscard]] constexpr Speed<NumericType> z() const noexcept {
+    return Speed<NumericType>{this->value.z()};
   }
 
   /// \brief Returns the magnitude of this velocity vector.
-  [[nodiscard]] Speed<Number> Magnitude() const {
-    return Speed<Number>{this->value.Magnitude()};
+  [[nodiscard]] Speed<NumericType> Magnitude() const {
+    return Speed<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the direction of this velocity vector.
-  [[nodiscard]] PhQ::Direction<Number> Direction() const {
+  [[nodiscard]] PhQ::Direction<NumericType> Direction() const {
     return this->value.Direction();
   }
 
   /// \brief Returns the angle between this velocity vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const Velocity<Number>& velocity) const {
-    return PhQ::Angle<Number>{*this, velocity};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const Velocity<NumericType>& velocity) const {
+    return PhQ::Angle<NumericType>{*this, velocity};
   }
 
-  constexpr Velocity<Number> operator+(const Velocity<Number>& velocity) const {
-    return Velocity<Number>{this->value + velocity.value};
+  constexpr Velocity<NumericType> operator+(const Velocity<NumericType>& velocity) const {
+    return Velocity<NumericType>{this->value + velocity.value};
   }
 
-  constexpr Velocity<Number> operator-(const Velocity<Number>& velocity) const {
-    return Velocity<Number>{this->value - velocity.value};
+  constexpr Velocity<NumericType> operator-(const Velocity<NumericType>& velocity) const {
+    return Velocity<NumericType>{this->value - velocity.value};
   }
 
-  constexpr Velocity<Number> operator*(const Number number) const {
-    return Velocity<Number>{this->value * number};
+  constexpr Velocity<NumericType> operator*(const NumericType number) const {
+    return Velocity<NumericType>{this->value * number};
   }
 
-  constexpr Displacement<Number> operator*(const Time<Number>& time) const {
-    return Displacement<Number>{*this, time};
+  constexpr Displacement<NumericType> operator*(const Time<NumericType>& time) const {
+    return Displacement<NumericType>{*this, time};
   }
 
-  constexpr Acceleration<Number> operator*(const Frequency<Number>& frequency) const;
+  constexpr Acceleration<NumericType> operator*(const Frequency<NumericType>& frequency) const;
 
-  constexpr Velocity<Number> operator/(const Number number) const {
-    return Velocity<Number>{this->value / number};
+  constexpr Velocity<NumericType> operator/(const NumericType number) const {
+    return Velocity<NumericType>{this->value / number};
   }
 
-  constexpr Acceleration<Number> operator/(const Time<Number>& time) const;
+  constexpr Acceleration<NumericType> operator/(const Time<NumericType>& time) const;
 
-  constexpr Displacement<Number> operator/(const Frequency<Number>& frequency) const {
-    return Displacement<Number>{*this, frequency};
+  constexpr Displacement<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return Displacement<NumericType>{*this, frequency};
   }
 
-  constexpr void operator+=(const Velocity<Number>& velocity) noexcept {
+  constexpr void operator+=(const Velocity<NumericType>& velocity) noexcept {
     this->value += velocity.value;
   }
 
-  constexpr void operator-=(const Velocity<Number>& velocity) noexcept {
+  constexpr void operator-=(const Velocity<NumericType>& velocity) noexcept {
     this->value -= velocity.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a velocity vector with a given value expressed in the standard
   /// speed unit.
-  explicit constexpr Velocity(const Vector<Number>& value)
-    : DimensionalVector<Unit::Speed, Number>(value) {}
+  explicit constexpr Velocity(const Vector<NumericType>& value)
+    : DimensionalVector<Unit::Speed, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const Velocity<Number>& left, const Velocity<Number>& right) noexcept {
+    const Velocity<NumericType>& left, const Velocity<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const Velocity<Number>& left, const Velocity<Number>& right) noexcept {
+    const Velocity<NumericType>& left, const Velocity<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const Velocity<Number>& left, const Velocity<Number>& right) noexcept {
+    const Velocity<NumericType>& left, const Velocity<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const Velocity<Number>& left, const Velocity<Number>& right) noexcept {
+    const Velocity<NumericType>& left, const Velocity<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const Velocity<Number>& left, const Velocity<Number>& right) noexcept {
+    const Velocity<NumericType>& left, const Velocity<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const Velocity<Number>& left, const Velocity<Number>& right) noexcept {
+    const Velocity<NumericType>& left, const Velocity<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Velocity<Number>& velocity) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Velocity<NumericType>& velocity) {
   stream << velocity.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Velocity<Number> operator*(const Number number, const Velocity<Number>& velocity) {
+template <typename NumericType>
+inline constexpr Velocity<NumericType> operator*(
+    const NumericType number, const Velocity<NumericType>& velocity) {
   return velocity * number;
 }
 
-template <typename Number>
-inline Direction<Number>::Direction(const Velocity<Number>& velocity)
-  : Direction<Number>(velocity.Value()) {}
+template <typename NumericType>
+inline Direction<NumericType>::Direction(const Velocity<NumericType>& velocity)
+  : Direction<NumericType>(velocity.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const Velocity<Number>& velocity1, const Velocity<Number>& velocity2)
-  : Angle<Number>(velocity1.Value(), velocity2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(
+    const Velocity<NumericType>& velocity1, const Velocity<NumericType>& velocity2)
+  : Angle<NumericType>(velocity1.Value(), velocity2.Value()) {}
 
-template <typename Number>
-inline constexpr Displacement<Number>::Displacement(
-    const Velocity<Number>& velocity, const Time<Number>& time)
-  : Displacement<Number>(velocity.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr Displacement<NumericType>::Displacement(
+    const Velocity<NumericType>& velocity, const Time<NumericType>& time)
+  : Displacement<NumericType>(velocity.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr Displacement<Number>::Displacement(
-    const Velocity<Number>& velocity, const Frequency<Number>& frequency)
-  : Displacement<Number>(velocity.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr Displacement<NumericType>::Displacement(
+    const Velocity<NumericType>& velocity, const Frequency<NumericType>& frequency)
+  : Displacement<NumericType>(velocity.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number>::PlanarVelocity(const Velocity<Number>& velocity)
-  : PlanarVelocity(PlanarVector<Number>{velocity.Value()}) {}
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType>::PlanarVelocity(const Velocity<NumericType>& velocity)
+  : PlanarVelocity(PlanarVector<NumericType>{velocity.Value()}) {}
 
-template <typename Number>
-inline constexpr Velocity<Number> Direction<Number>::operator*(const Speed<Number>& speed) const {
-  return Velocity<Number>{speed, *this};
+template <typename NumericType>
+inline constexpr Velocity<NumericType> Direction<NumericType>::operator*(
+    const Speed<NumericType>& speed) const {
+  return Velocity<NumericType>{speed, *this};
 }
 
-template <typename Number>
-inline constexpr Displacement<Number> Time<Number>::operator*(
-    const Velocity<Number>& velocity) const {
-  return Displacement<Number>{velocity, *this};
+template <typename NumericType>
+inline constexpr Displacement<NumericType> Time<NumericType>::operator*(
+    const Velocity<NumericType>& velocity) const {
+  return Displacement<NumericType>{velocity, *this};
 }
 
-template <typename Number>
-inline constexpr Velocity<Number> Speed<Number>::operator*(
-    const Direction<Number>& direction) const {
-  return Velocity<Number>{*this, direction};
+template <typename NumericType>
+inline constexpr Velocity<NumericType> Speed<NumericType>::operator*(
+    const Direction<NumericType>& direction) const {
+  return Velocity<NumericType>{*this, direction};
 }
 
-template <typename Number>
-inline constexpr Velocity<Number> Frequency<Number>::operator*(
-    const Displacement<Number>& displacement) const {
-  return Velocity<Number>{displacement, *this};
+template <typename NumericType>
+inline constexpr Velocity<NumericType> Frequency<NumericType>::operator*(
+    const Displacement<NumericType>& displacement) const {
+  return Velocity<NumericType>{displacement, *this};
 }
 
-template <typename Number>
-inline constexpr Velocity<Number> Displacement<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return Velocity<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr Velocity<NumericType> Displacement<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return Velocity<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr Velocity<Number> Displacement<Number>::operator/(const Time<Number>& time) const {
-  return Velocity<Number>{*this, time};
+template <typename NumericType>
+inline constexpr Velocity<NumericType> Displacement<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return Velocity<NumericType>{*this, time};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Velocity<Number>> {
-  inline size_t operator()(const PhQ::Velocity<Number>& velocity) const {
-    return hash<PhQ::Vector<Number>>()(velocity.Value());
+template <typename NumericType>
+struct hash<PhQ::Velocity<NumericType>> {
+  inline size_t operator()(const PhQ::Velocity<NumericType>& velocity) const {
+    return hash<PhQ::Vector<NumericType>>()(velocity.Value());
   }
 };
 

@@ -41,232 +41,239 @@ namespace PhQ {
 
 /// \brief Electric current, also known as amperage. Represents a flow of electric charge or a time
 /// rate of change of electric charge.
-template <typename Number = double>
-class ElectricCurrent : public DimensionalScalar<Unit::ElectricCurrent, Number> {
+template <typename NumericType = double>
+class ElectricCurrent : public DimensionalScalar<Unit::ElectricCurrent, NumericType> {
 public:
   /// \brief Default constructor. Constructs an electric current with an uninitialized value.
   ElectricCurrent() = default;
 
   /// \brief Constructor. Constructs an electric current with a given value expressed in a given
   /// electric current unit.
-  ElectricCurrent(const Number value, const Unit::ElectricCurrent unit)
-    : DimensionalScalar<Unit::ElectricCurrent, Number>(value, unit) {}
+  ElectricCurrent(const NumericType value, const Unit::ElectricCurrent unit)
+    : DimensionalScalar<Unit::ElectricCurrent, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs an electric current from a given electric charge and time using
   /// the definition of electric current.
-  constexpr ElectricCurrent(const ElectricCharge<Number>& electric_charge, const Time<Number>& time)
-    : ElectricCurrent<Number>(electric_charge.Value() / time.Value()) {}
+  constexpr ElectricCurrent(
+      const ElectricCharge<NumericType>& electric_charge, const Time<NumericType>& time)
+    : ElectricCurrent<NumericType>(electric_charge.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs an electric current from a given electric charge and frequency
   /// using the definition of electric current.
   constexpr ElectricCurrent(
-      const ElectricCharge<Number>& electric_charge, const Frequency<Number>& frequency)
-    : ElectricCurrent<Number>(electric_charge.Value() * frequency.Value()) {}
+      const ElectricCharge<NumericType>& electric_charge, const Frequency<NumericType>& frequency)
+    : ElectricCurrent<NumericType>(electric_charge.Value() * frequency.Value()) {}
 
   /// \brief Destructor. Destroys this electric current.
   ~ElectricCurrent() noexcept = default;
 
   /// \brief Copy constructor. Constructs an electric current by copying another one.
-  constexpr ElectricCurrent(const ElectricCurrent<Number>& other) = default;
+  constexpr ElectricCurrent(const ElectricCurrent<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs an electric current by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ElectricCurrent(const ElectricCurrent<OtherNumber>& other)
-    : ElectricCurrent(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ElectricCurrent(const ElectricCurrent<OtherNumericType>& other)
+    : ElectricCurrent(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs an electric current by moving another one.
-  constexpr ElectricCurrent(ElectricCurrent<Number>&& other) noexcept = default;
+  constexpr ElectricCurrent(ElectricCurrent<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this electric current by copying another one.
-  constexpr ElectricCurrent<Number>& operator=(const ElectricCurrent<Number>& other) = default;
+  constexpr ElectricCurrent<NumericType>& operator=(
+      const ElectricCurrent<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this electric current by copying another one.
-  template <typename OtherNumber>
-  constexpr ElectricCurrent<Number>& operator=(const ElectricCurrent<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ElectricCurrent<NumericType>& operator=(
+      const ElectricCurrent<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this electric current by moving another one.
-  constexpr ElectricCurrent<Number>& operator=(ElectricCurrent<Number>&& other) noexcept = default;
+  constexpr ElectricCurrent<NumericType>& operator=(
+      ElectricCurrent<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an electric current of zero.
-  static constexpr ElectricCurrent<Number> Zero() {
-    return ElectricCurrent<Number>{static_cast<Number>(0)};
+  static constexpr ElectricCurrent<NumericType> Zero() {
+    return ElectricCurrent<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an electric current with a given value expressed in a given electric
   /// current unit.
   template <Unit::ElectricCurrent Unit>
-  static constexpr ElectricCurrent<Number> Create(const Number value) {
-    return ElectricCurrent<Number>{
-        StaticConvertCopy<Unit::ElectricCurrent, Unit, Standard<Unit::ElectricCurrent>>(value)};
+  static constexpr ElectricCurrent<NumericType> Create(const NumericType value) {
+    return ElectricCurrent<NumericType>{
+        ConvertStatically<Unit::ElectricCurrent, Unit, Standard<Unit::ElectricCurrent>>(value)};
   }
 
-  constexpr ElectricCurrent<Number> operator+(
-      const ElectricCurrent<Number>& electric_current) const {
-    return ElectricCurrent<Number>{this->value + electric_current.value};
+  constexpr ElectricCurrent<NumericType> operator+(
+      const ElectricCurrent<NumericType>& electric_current) const {
+    return ElectricCurrent<NumericType>{this->value + electric_current.value};
   }
 
-  constexpr ElectricCurrent<Number> operator-(
-      const ElectricCurrent<Number>& electric_current) const {
-    return ElectricCurrent<Number>{this->value - electric_current.value};
+  constexpr ElectricCurrent<NumericType> operator-(
+      const ElectricCurrent<NumericType>& electric_current) const {
+    return ElectricCurrent<NumericType>{this->value - electric_current.value};
   }
 
-  constexpr ElectricCurrent<Number> operator*(const Number number) const {
-    return ElectricCurrent<Number>{this->value * number};
+  constexpr ElectricCurrent<NumericType> operator*(const NumericType number) const {
+    return ElectricCurrent<NumericType>{this->value * number};
   }
 
-  constexpr ElectricCharge<Number> operator*(const Time<Number>& time) const {
-    return ElectricCharge<Number>{*this, time};
+  constexpr ElectricCharge<NumericType> operator*(const Time<NumericType>& time) const {
+    return ElectricCharge<NumericType>{*this, time};
   }
 
-  constexpr ElectricCurrent<Number> operator/(const Number number) const {
-    return ElectricCurrent<Number>{this->value / number};
+  constexpr ElectricCurrent<NumericType> operator/(const NumericType number) const {
+    return ElectricCurrent<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const ElectricCurrent<Number>& electric_current) const noexcept {
+  constexpr NumericType operator/(
+      const ElectricCurrent<NumericType>& electric_current) const noexcept {
     return this->value / electric_current.value;
   }
 
-  constexpr ElectricCharge<Number> operator/(const Frequency<Number>& frequency) const {
-    return ElectricCharge<Number>{*this, frequency};
+  constexpr ElectricCharge<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return ElectricCharge<NumericType>{*this, frequency};
   }
 
-  constexpr Frequency<Number> operator/(const ElectricCharge<Number>& electric_charge) const {
-    return Frequency<Number>{*this, electric_charge};
+  constexpr Frequency<NumericType> operator/(
+      const ElectricCharge<NumericType>& electric_charge) const {
+    return Frequency<NumericType>{*this, electric_charge};
   }
 
-  constexpr void operator+=(const ElectricCurrent<Number>& electric_current) noexcept {
+  constexpr void operator+=(const ElectricCurrent<NumericType>& electric_current) noexcept {
     this->value += electric_current.value;
   }
 
-  constexpr void operator-=(const ElectricCurrent<Number>& electric_current) noexcept {
+  constexpr void operator-=(const ElectricCurrent<NumericType>& electric_current) noexcept {
     this->value -= electric_current.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs an electric current with a given value expressed in the
   /// standard electric current unit.
-  explicit constexpr ElectricCurrent(const Number value)
-    : DimensionalScalar<Unit::ElectricCurrent, Number>(value) {}
+  explicit constexpr ElectricCurrent(const NumericType value)
+    : DimensionalScalar<Unit::ElectricCurrent, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const ElectricCurrent<Number>& left, const ElectricCurrent<Number>& right) noexcept {
+    const ElectricCurrent<NumericType>& left, const ElectricCurrent<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const ElectricCurrent<Number>& left, const ElectricCurrent<Number>& right) noexcept {
+    const ElectricCurrent<NumericType>& left, const ElectricCurrent<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const ElectricCurrent<Number>& left, const ElectricCurrent<Number>& right) noexcept {
+    const ElectricCurrent<NumericType>& left, const ElectricCurrent<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const ElectricCurrent<Number>& left, const ElectricCurrent<Number>& right) noexcept {
+    const ElectricCurrent<NumericType>& left, const ElectricCurrent<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const ElectricCurrent<Number>& left, const ElectricCurrent<Number>& right) noexcept {
+    const ElectricCurrent<NumericType>& left, const ElectricCurrent<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const ElectricCurrent<Number>& left, const ElectricCurrent<Number>& right) noexcept {
+    const ElectricCurrent<NumericType>& left, const ElectricCurrent<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ElectricCurrent<Number>& electric_current) {
+    std::ostream& stream, const ElectricCurrent<NumericType>& electric_current) {
   stream << electric_current.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ElectricCurrent<Number> operator*(
-    const Number number, const ElectricCurrent<Number>& electric_current) {
+template <typename NumericType>
+inline constexpr ElectricCurrent<NumericType> operator*(
+    const NumericType number, const ElectricCurrent<NumericType>& electric_current) {
   return electric_current * number;
 }
 
-template <typename Number>
-inline constexpr Time<Number>::Time(
-    const ElectricCharge<Number>& electric_charge, const ElectricCurrent<Number>& electric_current)
-  : Time<Number>(electric_charge.Value() / electric_current.Value()) {}
+template <typename NumericType>
+inline constexpr Time<NumericType>::Time(const ElectricCharge<NumericType>& electric_charge,
+                                         const ElectricCurrent<NumericType>& electric_current)
+  : Time<NumericType>(electric_charge.Value() / electric_current.Value()) {}
 
-template <typename Number>
-inline constexpr Frequency<Number>::Frequency(
-    const ElectricCurrent<Number>& electric_current, const ElectricCharge<Number>& electric_charge)
-  : Frequency<Number>(electric_current.Value() / electric_charge.Value()) {}
+template <typename NumericType>
+inline constexpr Frequency<NumericType>::Frequency(
+    const ElectricCurrent<NumericType>& electric_current,
+    const ElectricCharge<NumericType>& electric_charge)
+  : Frequency<NumericType>(electric_current.Value() / electric_charge.Value()) {}
 
-template <typename Number>
-inline constexpr ElectricCharge<Number>::ElectricCharge(
-    const ElectricCurrent<Number>& electric_current, const Time<Number>& time)
-  : ElectricCharge<Number>(electric_current.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr ElectricCharge<NumericType>::ElectricCharge(
+    const ElectricCurrent<NumericType>& electric_current, const Time<NumericType>& time)
+  : ElectricCharge<NumericType>(electric_current.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr ElectricCharge<Number>::ElectricCharge(
-    const ElectricCurrent<Number>& electric_current, const Frequency<Number>& frequency)
-  : ElectricCharge<Number>(electric_current.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr ElectricCharge<NumericType>::ElectricCharge(
+    const ElectricCurrent<NumericType>& electric_current, const Frequency<NumericType>& frequency)
+  : ElectricCharge<NumericType>(electric_current.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr ElectricCharge<Number> Time<Number>::operator*(
-    const ElectricCurrent<Number>& electric_current) const {
-  return ElectricCharge<Number>{electric_current, *this};
+template <typename NumericType>
+inline constexpr ElectricCharge<NumericType> Time<NumericType>::operator*(
+    const ElectricCurrent<NumericType>& electric_current) const {
+  return ElectricCharge<NumericType>{electric_current, *this};
 }
 
-template <typename Number>
-inline constexpr ElectricCurrent<Number> Frequency<Number>::operator*(
-    const ElectricCharge<Number>& electric_charge) const {
-  return ElectricCurrent<Number>{electric_charge, *this};
+template <typename NumericType>
+inline constexpr ElectricCurrent<NumericType> Frequency<NumericType>::operator*(
+    const ElectricCharge<NumericType>& electric_charge) const {
+  return ElectricCurrent<NumericType>{electric_charge, *this};
 }
 
-template <typename Number>
-inline constexpr ElectricCurrent<Number> ElectricCharge<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return ElectricCurrent<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr ElectricCurrent<NumericType> ElectricCharge<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return ElectricCurrent<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr ElectricCurrent<Number> ElectricCharge<Number>::operator/(
-    const Time<Number>& time) const {
-  return ElectricCurrent<Number>{*this, time};
+template <typename NumericType>
+inline constexpr ElectricCurrent<NumericType> ElectricCharge<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return ElectricCurrent<NumericType>{*this, time};
 }
 
-template <typename Number>
-inline constexpr Time<Number> ElectricCharge<Number>::operator/(
-    const ElectricCurrent<Number>& electric_current) const {
-  return Time<Number>{*this, electric_current};
+template <typename NumericType>
+inline constexpr Time<NumericType> ElectricCharge<NumericType>::operator/(
+    const ElectricCurrent<NumericType>& electric_current) const {
+  return Time<NumericType>{*this, electric_current};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ElectricCurrent<Number>> {
-  inline size_t operator()(const PhQ::ElectricCurrent<Number>& electric_current) const {
-    return hash<Number>()(electric_current.Value());
+template <typename NumericType>
+struct hash<PhQ::ElectricCurrent<NumericType>> {
+  inline size_t operator()(const PhQ::ElectricCurrent<NumericType>& electric_current) const {
+    return hash<NumericType>()(electric_current.Value());
   }
 };
 

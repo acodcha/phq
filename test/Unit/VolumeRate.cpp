@@ -150,189 +150,180 @@ TEST(UnitVolumeRate, ConsistentUnit) {
             VolumeRate::CubicInchPerSecond);
 }
 
-TEST(UnitVolumeRate, ConvertAndConvertCopy) {
+TEST(UnitVolumeRate, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerSecond, value,
       value / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerSecond, value,
-      value / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerSecond,
+                                    value, value / std::pow(1609.344L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerSecond, value,
       value * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMetrePerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerSecond, value,
-      value / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerSecond, value,
-      value / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerSecond,
+                                    value, value / std::pow(0.9144L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerSecond,
+                                    value, value / std::pow(0.3048L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicDecimetrePerSecond, value,
       value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerSecond, value,
-      value * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerSecond, value,
-      value / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerSecond,
+                                    value, value * std::pow(10.0L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerSecond,
+                                    value, value / std::pow(0.0254L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicCentimetrePerSecond, value,
       value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerSecond, value,
       value * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMillimetrePerSecond, value,
       value * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilliinchPerSecond, value,
       value / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicrometrePerSecond, value,
       value * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerSecond, value,
       value / std::pow(0.0000000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerMinute, value,
       value * 60.0L / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerMinute, value,
-      value * 60.0L / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerMinute,
+                                    value, value * 60.0L / std::pow(1609.344L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerMinute, value,
       value * 60.0L * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMetrePerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerMinute, value,
-      value * 60.0L / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerMinute, value,
-      value * 60.0L / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerMinute,
+                                    value, value * 60.0L / std::pow(0.9144L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerMinute,
+                                    value, value * 60.0L / std::pow(0.3048L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicDecimetrePerMinute, value,
       value * 60.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerMinute, value,
-      value * 60.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerMinute, value,
-      value * 60.0L / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerMinute,
+                                    value, value * 60.0L * std::pow(10.0L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerMinute,
+                                    value, value * 60.0L / std::pow(0.0254L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicCentimetrePerMinute, value,
       value * 60.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerMinute, value,
       value * 60.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMillimetrePerMinute, value,
       value * 60.0L * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilliinchPerMinute, value,
       value * 60.0L / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicrometrePerMinute, value,
       value * 60.0L * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerMinute, value,
       value * 60.0L / std::pow(0.0000000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerHour, value,
       value * 3600.0L / std::pow(1852.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerHour, value,
-      value * 3600.0L / std::pow(1609.344L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerHour,
+                                    value, value * 3600.0L / std::pow(1609.344L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerHour, value,
       value * 3600.0L * std::pow(0.001L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMetrePerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerHour, value,
-      value * 3600.0L / std::pow(0.9144L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerHour, value,
-      value * 3600.0L / std::pow(0.3048L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicYardPerHour,
+                                    value, value * 3600.0L / std::pow(0.9144L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicFootPerHour,
+                                    value, value * 3600.0L / std::pow(0.3048L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicDecimetrePerHour, value,
       value * 3600.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerHour, value,
-      value * 3600.0L * std::pow(10.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerHour, value,
-      value * 3600.0L / std::pow(0.0254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::LitrePerHour,
+                                    value, value * 3600.0L * std::pow(10.0L, 3));
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicInchPerHour,
+                                    value, value * 3600.0L / std::pow(0.0254L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicCentimetrePerHour, value,
       value * 3600.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
-      VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerHour, value,
-      value * 3600.0L * std::pow(100.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(VolumeRate::CubicMetrePerSecond, VolumeRate::MillilitrePerHour,
+                                    value, value * 3600.0L * std::pow(100.0L, 3));
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMillimetrePerHour, value,
       value * 3600.0L * std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilliinchPerHour, value,
       value * 3600.0L / std::pow(0.0000254L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicrometrePerHour, value,
       value * 3600.0L * std::pow(1000000.0L, 3));
-  Internal::TestConvertAndConvertCopy<VolumeRate>(
+  Internal::TestConvert<VolumeRate>(
       VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerHour, value,
       value * 3600.0L / std::pow(0.0000000254L, 3));
 }
 
-TEST(UnitVolumeRate, Parse) {
-  EXPECT_EQ(Parse<VolumeRate>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<VolumeRate>("nmi^3/s"), VolumeRate::CubicNauticalMilePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("mi^3/s"), VolumeRate::CubicMilePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("km^3/s"), VolumeRate::CubicKilometrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("m^3/s"), VolumeRate::CubicMetrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("yd^3/s"), VolumeRate::CubicYardPerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("ft^3/s"), VolumeRate::CubicFootPerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("dm^3/s"), VolumeRate::CubicDecimetrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("L/s"), VolumeRate::LitrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("in^3/s"), VolumeRate::CubicInchPerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("cm^3/s"), VolumeRate::CubicCentimetrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("mL/s"), VolumeRate::MillilitrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("mm^3/s"), VolumeRate::CubicMillimetrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("mil^3/s"), VolumeRate::CubicMilliinchPerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("μm^3/s"), VolumeRate::CubicMicrometrePerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("μin^3/s"), VolumeRate::CubicMicroinchPerSecond);
-  EXPECT_EQ(Parse<VolumeRate>("nmi^3/min"), VolumeRate::CubicNauticalMilePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("mi^3/min"), VolumeRate::CubicMilePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("km^3/min"), VolumeRate::CubicKilometrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("m^3/min"), VolumeRate::CubicMetrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("yd^3/min"), VolumeRate::CubicYardPerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("ft^3/min"), VolumeRate::CubicFootPerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("dm^3/min"), VolumeRate::CubicDecimetrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("L/min"), VolumeRate::LitrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("in^3/min"), VolumeRate::CubicInchPerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("cm^3/min"), VolumeRate::CubicCentimetrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("mL/min"), VolumeRate::MillilitrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("mm^3/min"), VolumeRate::CubicMillimetrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("mil^3/min"), VolumeRate::CubicMilliinchPerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("μm^3/min"), VolumeRate::CubicMicrometrePerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("μin^3/min"), VolumeRate::CubicMicroinchPerMinute);
-  EXPECT_EQ(Parse<VolumeRate>("nmi^3/hr"), VolumeRate::CubicNauticalMilePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("mi^3/hr"), VolumeRate::CubicMilePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("km^3/hr"), VolumeRate::CubicKilometrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("m^3/hr"), VolumeRate::CubicMetrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("yd^3/hr"), VolumeRate::CubicYardPerHour);
-  EXPECT_EQ(Parse<VolumeRate>("ft^3/hr"), VolumeRate::CubicFootPerHour);
-  EXPECT_EQ(Parse<VolumeRate>("dm^3/hr"), VolumeRate::CubicDecimetrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("L/hr"), VolumeRate::LitrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("in^3/hr"), VolumeRate::CubicInchPerHour);
-  EXPECT_EQ(Parse<VolumeRate>("cm^3/hr"), VolumeRate::CubicCentimetrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("mL/hr"), VolumeRate::MillilitrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("mm^3/hr"), VolumeRate::CubicMillimetrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("mil^3/hr"), VolumeRate::CubicMilliinchPerHour);
-  EXPECT_EQ(Parse<VolumeRate>("μm^3/hr"), VolumeRate::CubicMicrometrePerHour);
-  EXPECT_EQ(Parse<VolumeRate>("μin^3/hr"), VolumeRate::CubicMicroinchPerHour);
+TEST(UnitVolumeRate, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<VolumeRate, VolumeRate::CubicMetrePerSecond,
+                                  VolumeRate::CubicFootPerSecond>(
+      value, value / std::pow(0.3048L, 3));
+}
+
+TEST(UnitVolumeRate, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("nmi^3/s"), VolumeRate::CubicNauticalMilePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mi^3/s"), VolumeRate::CubicMilePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("km^3/s"), VolumeRate::CubicKilometrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("m^3/s"), VolumeRate::CubicMetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("yd^3/s"), VolumeRate::CubicYardPerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("ft^3/s"), VolumeRate::CubicFootPerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("dm^3/s"), VolumeRate::CubicDecimetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("L/s"), VolumeRate::LitrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("in^3/s"), VolumeRate::CubicInchPerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("cm^3/s"), VolumeRate::CubicCentimetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mL/s"), VolumeRate::MillilitrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mm^3/s"), VolumeRate::CubicMillimetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mil^3/s"), VolumeRate::CubicMilliinchPerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("μm^3/s"), VolumeRate::CubicMicrometrePerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("μin^3/s"), VolumeRate::CubicMicroinchPerSecond);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("nmi^3/min"), VolumeRate::CubicNauticalMilePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mi^3/min"), VolumeRate::CubicMilePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("km^3/min"), VolumeRate::CubicKilometrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("m^3/min"), VolumeRate::CubicMetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("yd^3/min"), VolumeRate::CubicYardPerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("ft^3/min"), VolumeRate::CubicFootPerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("dm^3/min"), VolumeRate::CubicDecimetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("L/min"), VolumeRate::LitrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("in^3/min"), VolumeRate::CubicInchPerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("cm^3/min"), VolumeRate::CubicCentimetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mL/min"), VolumeRate::MillilitrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mm^3/min"), VolumeRate::CubicMillimetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mil^3/min"), VolumeRate::CubicMilliinchPerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("μm^3/min"), VolumeRate::CubicMicrometrePerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("μin^3/min"), VolumeRate::CubicMicroinchPerMinute);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("nmi^3/hr"), VolumeRate::CubicNauticalMilePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mi^3/hr"), VolumeRate::CubicMilePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("km^3/hr"), VolumeRate::CubicKilometrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("m^3/hr"), VolumeRate::CubicMetrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("yd^3/hr"), VolumeRate::CubicYardPerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("ft^3/hr"), VolumeRate::CubicFootPerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("dm^3/hr"), VolumeRate::CubicDecimetrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("L/hr"), VolumeRate::LitrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("in^3/hr"), VolumeRate::CubicInchPerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("cm^3/hr"), VolumeRate::CubicCentimetrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mL/hr"), VolumeRate::MillilitrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mm^3/hr"), VolumeRate::CubicMillimetrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("mil^3/hr"), VolumeRate::CubicMilliinchPerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("μm^3/hr"), VolumeRate::CubicMicrometrePerHour);
+  EXPECT_EQ(ParseEnumeration<VolumeRate>("μin^3/hr"), VolumeRate::CubicMicroinchPerHour);
 }
 
 TEST(UnitVolumeRate, RelatedDimensions) {
@@ -394,13 +385,6 @@ TEST(UnitVolumeRate, RelatedUnitSystem) {
 
 TEST(UnitVolumeRate, Standard) {
   EXPECT_EQ(Standard<VolumeRate>, VolumeRate::CubicMetrePerSecond);
-}
-
-TEST(UnitVolumeRate, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                  VolumeRate::CubicFootPerSecond>(
-      value, value / std::pow(0.3048L, 3));
 }
 
 TEST(UnitVolumeRate, Stream) {

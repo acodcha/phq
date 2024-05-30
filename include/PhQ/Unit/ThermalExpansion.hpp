@@ -139,95 +139,95 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.8L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::ThermalExpansion,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::ThermalExpansion, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::ThermalExpansion, NumericType>{
         {Unit::ThermalExpansion::PerKelvin,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerKelvin>::FromStandard<Number>    },
+         Unit::ThermalExpansion::PerKelvin>::FromStandard<NumericType>    },
         {Unit::ThermalExpansion::PerCelsius,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerCelsius>::FromStandard<Number>   },
+         Unit::ThermalExpansion::PerCelsius>::FromStandard<NumericType>   },
         {Unit::ThermalExpansion::PerRankine,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerRankine>::FromStandard<Number>   },
+         Unit::ThermalExpansion::PerRankine>::FromStandard<NumericType>   },
         {Unit::ThermalExpansion::PerFahrenheit,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerFahrenheit>::FromStandard<Number>},
+         Unit::ThermalExpansion::PerFahrenheit>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::ThermalExpansion,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::ThermalExpansion, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::ThermalExpansion, NumericType>{
         {Unit::ThermalExpansion::PerKelvin,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerKelvin>::ToStandard<Number>    },
+         Unit::ThermalExpansion::PerKelvin>::ToStandard<NumericType>    },
         {Unit::ThermalExpansion::PerCelsius,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerCelsius>::ToStandard<Number>   },
+         Unit::ThermalExpansion::PerCelsius>::ToStandard<NumericType>   },
         {Unit::ThermalExpansion::PerRankine,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerRankine>::ToStandard<Number>   },
+         Unit::ThermalExpansion::PerRankine>::ToStandard<NumericType>   },
         {Unit::ThermalExpansion::PerFahrenheit,
          Conversions<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerFahrenheit>::ToStandard<Number>},
+         Unit::ThermalExpansion::PerFahrenheit>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

@@ -40,147 +40,151 @@ namespace PhQ {
 /// solid material's elastic modulus. For other measures of a material's elastic modulus, see
 /// PhQ::YoungModulus, PhQ::IsentropicBulkModulus, PhQ::IsothermalBulkModulus, PhQ::LameModulus,
 /// PhQ::PWaveModulus, and PhQ::PoissonRatio.
-template <typename Number = double>
-class ShearModulus : public DimensionalScalar<Unit::Pressure, Number> {
+template <typename NumericType = double>
+class ShearModulus : public DimensionalScalar<Unit::Pressure, NumericType> {
 public:
   /// \brief Default constructor. Constructs a shear modulus with an uninitialized value.
   ShearModulus() = default;
 
   /// \brief Constructor. Constructs a shear modulus with a given value expressed in a given
   /// pressure unit.
-  ShearModulus(const Number value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
+  ShearModulus(const NumericType value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this shear modulus.
   ~ShearModulus() noexcept = default;
 
   /// \brief Copy constructor. Constructs a shear modulus by copying another one.
-  constexpr ShearModulus(const ShearModulus<Number>& other) = default;
+  constexpr ShearModulus(const ShearModulus<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a shear modulus by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ShearModulus(const ShearModulus<OtherNumber>& other)
-    : ShearModulus(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ShearModulus(const ShearModulus<OtherNumericType>& other)
+    : ShearModulus(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a shear modulus by moving another one.
-  constexpr ShearModulus(ShearModulus<Number>&& other) noexcept = default;
+  constexpr ShearModulus(ShearModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this shear modulus by copying another one.
-  constexpr ShearModulus<Number>& operator=(const ShearModulus<Number>& other) = default;
+  constexpr ShearModulus<NumericType>& operator=(const ShearModulus<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this shear modulus by copying another one.
-  template <typename OtherNumber>
-  constexpr ShearModulus<Number>& operator=(const ShearModulus<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ShearModulus<NumericType>& operator=(const ShearModulus<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this shear modulus by moving another one.
-  constexpr ShearModulus<Number>& operator=(ShearModulus<Number>&& other) noexcept = default;
+  constexpr ShearModulus<NumericType>& operator=(
+      ShearModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a shear modulus of zero.
-  static constexpr ShearModulus<Number> Zero() {
-    return ShearModulus<Number>{static_cast<Number>(0)};
+  static constexpr ShearModulus<NumericType> Zero() {
+    return ShearModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a shear modulus with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr ShearModulus<Number> Create(const Number value) {
-    return ShearModulus<Number>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+  static constexpr ShearModulus<NumericType> Create(const NumericType value) {
+    return ShearModulus<NumericType>{
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr ShearModulus<Number> operator+(const ShearModulus<Number>& shear_modulus) const {
-    return ShearModulus<Number>{this->value + shear_modulus.value};
+  constexpr ShearModulus<NumericType> operator+(
+      const ShearModulus<NumericType>& shear_modulus) const {
+    return ShearModulus<NumericType>{this->value + shear_modulus.value};
   }
 
-  constexpr ShearModulus<Number> operator-(const ShearModulus<Number>& shear_modulus) const {
-    return ShearModulus<Number>{this->value - shear_modulus.value};
+  constexpr ShearModulus<NumericType> operator-(
+      const ShearModulus<NumericType>& shear_modulus) const {
+    return ShearModulus<NumericType>{this->value - shear_modulus.value};
   }
 
-  constexpr ShearModulus<Number> operator*(const Number number) const {
-    return ShearModulus<Number>{this->value * number};
+  constexpr ShearModulus<NumericType> operator*(const NumericType number) const {
+    return ShearModulus<NumericType>{this->value * number};
   }
 
-  constexpr ShearModulus<Number> operator/(const Number number) const {
-    return ShearModulus<Number>{this->value / number};
+  constexpr ShearModulus<NumericType> operator/(const NumericType number) const {
+    return ShearModulus<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const ShearModulus<Number>& shear_modulus) const noexcept {
+  constexpr NumericType operator/(const ShearModulus<NumericType>& shear_modulus) const noexcept {
     return this->value / shear_modulus.value;
   }
 
-  constexpr void operator+=(const ShearModulus<Number>& shear_modulus) noexcept {
+  constexpr void operator+=(const ShearModulus<NumericType>& shear_modulus) noexcept {
     this->value += shear_modulus.value;
   }
 
-  constexpr void operator-=(const ShearModulus<Number>& shear_modulus) noexcept {
+  constexpr void operator-=(const ShearModulus<NumericType>& shear_modulus) noexcept {
     this->value -= shear_modulus.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a shear modulus with a given value expressed in the standard
   /// pressure unit.
-  explicit constexpr ShearModulus(const Number value)
-    : DimensionalScalar<Unit::Pressure, Number>(value) {}
+  explicit constexpr ShearModulus(const NumericType value)
+    : DimensionalScalar<Unit::Pressure, NumericType>(value) {}
 
   friend class ConstitutiveModel;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
+    const ShearModulus<NumericType>& left, const ShearModulus<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
+    const ShearModulus<NumericType>& left, const ShearModulus<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
+    const ShearModulus<NumericType>& left, const ShearModulus<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
+    const ShearModulus<NumericType>& left, const ShearModulus<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
+    const ShearModulus<NumericType>& left, const ShearModulus<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
+    const ShearModulus<NumericType>& left, const ShearModulus<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const ShearModulus<Number>& shear_modulus) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const ShearModulus<NumericType>& shear_modulus) {
   stream << shear_modulus.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ShearModulus<Number> operator*(
-    const Number number, const ShearModulus<Number>& shear_modulus) {
+template <typename NumericType>
+inline constexpr ShearModulus<NumericType> operator*(
+    const NumericType number, const ShearModulus<NumericType>& shear_modulus) {
   return shear_modulus * number;
 }
 
@@ -188,10 +192,10 @@ inline constexpr ShearModulus<Number> operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ShearModulus<Number>> {
-  inline size_t operator()(const PhQ::ShearModulus<Number>& shear_modulus) const {
-    return hash<Number>()(shear_modulus.Value());
+template <typename NumericType>
+struct hash<PhQ::ShearModulus<NumericType>> {
+  inline size_t operator()(const PhQ::ShearModulus<NumericType>& shear_modulus) const {
+    return hash<NumericType>()(shear_modulus.Value());
   }
 };
 

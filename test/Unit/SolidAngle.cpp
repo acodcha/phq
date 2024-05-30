@@ -63,27 +63,31 @@ TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<SolidAngle>(UnitSystem::InchPoundSecondRankine), SolidAngle::Steradian);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
-      SolidAngle::Steradian, SolidAngle::Steradian, value, value);
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
-      SolidAngle::Steradian, SolidAngle::SquareDegree, value,
-      value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
+  Internal::TestConvert<SolidAngle>(SolidAngle::Steradian, SolidAngle::Steradian, value, value);
+  Internal::TestConvert<SolidAngle>(SolidAngle::Steradian, SolidAngle::SquareDegree, value,
+                                    value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
+  Internal::TestConvert<SolidAngle>(
       SolidAngle::Steradian, SolidAngle::SquareArcminute, value,
       value * 10800.0L * 10800.0L / (Pi<long double> * Pi<long double>));
-  Internal::TestConvertAndConvertCopy<SolidAngle>(
+  Internal::TestConvert<SolidAngle>(
       SolidAngle::Steradian, SolidAngle::SquareArcsecond, value,
       value * 648000.0L * 648000.0L / (Pi<long double> * Pi<long double>));
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<SolidAngle>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SolidAngle>("sr"), SolidAngle::Steradian);
-  EXPECT_EQ(Parse<SolidAngle>("deg^2"), SolidAngle::SquareDegree);
-  EXPECT_EQ(Parse<SolidAngle>("arcmin^2"), SolidAngle::SquareArcminute);
-  EXPECT_EQ(Parse<SolidAngle>("arcsec^2"), SolidAngle::SquareArcsecond);
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SolidAngle, SolidAngle::Steradian, SolidAngle::SquareDegree>(
+      value, value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
+}
+
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("sr"), SolidAngle::Steradian);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("deg^2"), SolidAngle::SquareDegree);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("arcmin^2"), SolidAngle::SquareArcminute);
+  EXPECT_EQ(ParseEnumeration<SolidAngle>("arcsec^2"), SolidAngle::SquareArcsecond);
 }
 
 TEST(UnitAngle, RelatedDimensions) {
@@ -99,12 +103,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<SolidAngle>, SolidAngle::Steradian);
-}
-
-TEST(UnitAngle, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SolidAngle, SolidAngle::Steradian, SolidAngle::SquareDegree>(
-      value, value * 180.0L * 180.0L / (Pi<long double> * Pi<long double>));
 }
 
 TEST(UnitAngle, Stream) {

@@ -74,42 +74,51 @@ TEST(UnitTemperatureGradient, ConsistentUnit) {
             TemperatureGradient::RankinePerInch);
 }
 
-TEST(UnitTemperatureGradient, ConvertAndConvertCopy) {
+TEST(UnitTemperatureGradient, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMetre, value, value);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMillimetre, value,
       value * 0.001L);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::CelsiusPerMetre, value, value);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::CelsiusPerMillimetre, value,
       value * 0.001L);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::RankinePerFoot, value,
       value * 1.8L * 0.3048L);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::RankinePerInch, value,
       value * 1.8L * 0.0254L);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::FahrenheitPerFoot, value,
       value * 1.8L * 0.3048L);
-  Internal::TestConvertAndConvertCopy<TemperatureGradient>(
+  Internal::TestConvert<TemperatureGradient>(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::FahrenheitPerInch, value,
       value * 1.8L * 0.0254L);
 }
 
-TEST(UnitTemperatureGradient, Parse) {
-  EXPECT_EQ(Parse<TemperatureGradient>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<TemperatureGradient>("K/m"), TemperatureGradient::KelvinPerMetre);
-  EXPECT_EQ(Parse<TemperatureGradient>("K/mm"), TemperatureGradient::KelvinPerMillimetre);
-  EXPECT_EQ(Parse<TemperatureGradient>("°C/m"), TemperatureGradient::CelsiusPerMetre);
-  EXPECT_EQ(Parse<TemperatureGradient>("°C/mm"), TemperatureGradient::CelsiusPerMillimetre);
-  EXPECT_EQ(Parse<TemperatureGradient>("°R/ft"), TemperatureGradient::RankinePerFoot);
-  EXPECT_EQ(Parse<TemperatureGradient>("°R/in"), TemperatureGradient::RankinePerInch);
-  EXPECT_EQ(Parse<TemperatureGradient>("°F/ft"), TemperatureGradient::FahrenheitPerFoot);
-  EXPECT_EQ(Parse<TemperatureGradient>("°F/in"), TemperatureGradient::FahrenheitPerInch);
+TEST(UnitTemperatureGradient, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                                  TemperatureGradient::FahrenheitPerFoot>(
+      value, value * 1.8L * 0.3048L);
+}
+
+TEST(UnitTemperatureGradient, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("K/m"), TemperatureGradient::KelvinPerMetre);
+  EXPECT_EQ(
+      ParseEnumeration<TemperatureGradient>("K/mm"), TemperatureGradient::KelvinPerMillimetre);
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("°C/m"), TemperatureGradient::CelsiusPerMetre);
+  EXPECT_EQ(
+      ParseEnumeration<TemperatureGradient>("°C/mm"), TemperatureGradient::CelsiusPerMillimetre);
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("°R/ft"), TemperatureGradient::RankinePerFoot);
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("°R/in"), TemperatureGradient::RankinePerInch);
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("°F/ft"), TemperatureGradient::FahrenheitPerFoot);
+  EXPECT_EQ(ParseEnumeration<TemperatureGradient>("°F/in"), TemperatureGradient::FahrenheitPerInch);
 }
 
 TEST(UnitTemperatureGradient, RelatedDimensions) {
@@ -136,13 +145,6 @@ TEST(UnitTemperatureGradient, RelatedUnitSystem) {
 
 TEST(UnitTemperatureGradient, Standard) {
   EXPECT_EQ(Standard<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
-}
-
-TEST(UnitTemperatureGradient, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
-                                  TemperatureGradient::FahrenheitPerFoot>(
-      value, value * 1.8L * 0.3048L);
 }
 
 TEST(UnitTemperatureGradient, Stream) {

@@ -37,153 +37,157 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::ScalarStress.
-template <typename Number>
+template <typename NumericType>
 class Stress;
 
 /// \brief Scalar component or resultant of a three-dimensional Euclidean Cauchy stress symmetric
 /// dyadic tensor. For the related tensor, see PhQ::Stress.
-template <typename Number = double>
-class ScalarStress : public DimensionalScalar<Unit::Pressure, Number> {
+template <typename NumericType = double>
+class ScalarStress : public DimensionalScalar<Unit::Pressure, NumericType> {
 public:
   /// \brief Default constructor. Constructs a scalar stress with an uninitialized value.
   ScalarStress() = default;
 
   /// \brief Constructor. Constructs a scalar stress with a given value expressed in a given
   /// pressure unit.
-  ScalarStress(const Number value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
+  ScalarStress(const NumericType value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this scalar stress.
   ~ScalarStress() noexcept = default;
 
   /// \brief Copy constructor. Constructs a scalar stress by copying another one.
-  constexpr ScalarStress(const ScalarStress<Number>& other) = default;
+  constexpr ScalarStress(const ScalarStress<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a scalar stress by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ScalarStress(const ScalarStress<OtherNumber>& other)
-    : ScalarStress(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ScalarStress(const ScalarStress<OtherNumericType>& other)
+    : ScalarStress(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a scalar stress by moving another one.
-  constexpr ScalarStress(ScalarStress<Number>&& other) noexcept = default;
+  constexpr ScalarStress(ScalarStress<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this scalar stress by copying another one.
-  constexpr ScalarStress<Number>& operator=(const ScalarStress<Number>& other) = default;
+  constexpr ScalarStress<NumericType>& operator=(const ScalarStress<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this scalar stress by copying another one.
-  template <typename OtherNumber>
-  constexpr ScalarStress<Number>& operator=(const ScalarStress<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ScalarStress<NumericType>& operator=(const ScalarStress<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this scalar stress by moving another one.
-  constexpr ScalarStress<Number>& operator=(ScalarStress<Number>&& other) noexcept = default;
+  constexpr ScalarStress<NumericType>& operator=(
+      ScalarStress<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar stress of zero.
-  static constexpr ScalarStress<Number> Zero() {
-    return ScalarStress<Number>{static_cast<Number>(0)};
+  static constexpr ScalarStress<NumericType> Zero() {
+    return ScalarStress<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar stress with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr ScalarStress<Number> Create(const Number value) {
-    return ScalarStress<Number>{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+  static constexpr ScalarStress<NumericType> Create(const NumericType value) {
+    return ScalarStress<NumericType>{
+        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr ScalarStress<Number> operator+(const ScalarStress<Number>& scalar_stress) const {
-    return ScalarStress<Number>{this->value + scalar_stress.value};
+  constexpr ScalarStress<NumericType> operator+(
+      const ScalarStress<NumericType>& scalar_stress) const {
+    return ScalarStress<NumericType>{this->value + scalar_stress.value};
   }
 
-  constexpr ScalarStress<Number> operator-(const ScalarStress<Number>& scalar_stress) const {
-    return ScalarStress<Number>{this->value - scalar_stress.value};
+  constexpr ScalarStress<NumericType> operator-(
+      const ScalarStress<NumericType>& scalar_stress) const {
+    return ScalarStress<NumericType>{this->value - scalar_stress.value};
   }
 
-  constexpr ScalarStress<Number> operator*(const Number number) const {
-    return ScalarStress<Number>{this->value * number};
+  constexpr ScalarStress<NumericType> operator*(const NumericType number) const {
+    return ScalarStress<NumericType>{this->value * number};
   }
 
-  constexpr ScalarStress<Number> operator/(const Number number) const {
-    return ScalarStress<Number>{this->value / number};
+  constexpr ScalarStress<NumericType> operator/(const NumericType number) const {
+    return ScalarStress<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const ScalarStress<Number>& scalar_stress) const noexcept {
+  constexpr NumericType operator/(const ScalarStress<NumericType>& scalar_stress) const noexcept {
     return this->value / scalar_stress.value;
   }
 
-  constexpr void operator+=(const ScalarStress<Number>& scalar_stress) noexcept {
+  constexpr void operator+=(const ScalarStress<NumericType>& scalar_stress) noexcept {
     this->value += scalar_stress.value;
   }
 
-  constexpr void operator-=(const ScalarStress<Number>& scalar_stress) noexcept {
+  constexpr void operator-=(const ScalarStress<NumericType>& scalar_stress) noexcept {
     this->value -= scalar_stress.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a scalar stress with a given value expressed in the standard
   /// pressure unit.
-  explicit constexpr ScalarStress(const Number value)
-    : DimensionalScalar<Unit::Pressure, Number>(value) {}
+  explicit constexpr ScalarStress(const NumericType value)
+    : DimensionalScalar<Unit::Pressure, NumericType>(value) {}
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class Stress;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const ScalarStress<Number>& left, const ScalarStress<Number>& right) noexcept {
+    const ScalarStress<NumericType>& left, const ScalarStress<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const ScalarStress<Number>& left, const ScalarStress<Number>& right) noexcept {
+    const ScalarStress<NumericType>& left, const ScalarStress<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const ScalarStress<Number>& left, const ScalarStress<Number>& right) noexcept {
+    const ScalarStress<NumericType>& left, const ScalarStress<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const ScalarStress<Number>& left, const ScalarStress<Number>& right) noexcept {
+    const ScalarStress<NumericType>& left, const ScalarStress<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const ScalarStress<Number>& left, const ScalarStress<Number>& right) noexcept {
+    const ScalarStress<NumericType>& left, const ScalarStress<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const ScalarStress<Number>& left, const ScalarStress<Number>& right) noexcept {
+    const ScalarStress<NumericType>& left, const ScalarStress<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const ScalarStress<Number>& scalar_stress) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const ScalarStress<NumericType>& scalar_stress) {
   stream << scalar_stress.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ScalarStress<Number> operator*(
-    const Number number, const ScalarStress<Number>& scalar_stress) {
+template <typename NumericType>
+inline constexpr ScalarStress<NumericType> operator*(
+    const NumericType number, const ScalarStress<NumericType>& scalar_stress) {
   return scalar_stress * number;
 }
 
@@ -191,10 +195,10 @@ inline constexpr ScalarStress<Number> operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ScalarStress<Number>> {
-  inline size_t operator()(const PhQ::ScalarStress<Number>& scalar_stress) const {
-    return hash<Number>()(scalar_stress.Value());
+template <typename NumericType>
+struct hash<PhQ::ScalarStress<NumericType>> {
+  inline size_t operator()(const PhQ::ScalarStress<NumericType>& scalar_stress) const {
+    return hash<NumericType>()(scalar_stress.Value());
   }
 };
 

@@ -42,228 +42,230 @@ namespace PhQ {
 
 /// \brief Total kinematic pressure, which is total pressure divided by mass density; see
 /// PhQ::TotalPressure and PhQ::MassDensity.
-template <typename Number = double>
-class TotalKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
+template <typename NumericType = double>
+class TotalKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, NumericType> {
 public:
   /// \brief Default constructor. Constructs a total kinematic pressure with an uninitialized value.
   TotalKinematicPressure() = default;
 
   /// \brief Constructor. Constructs a total kinematic pressure with a given value expressed in a
   /// given specific energy unit.
-  TotalKinematicPressure(const Number value, const Unit::SpecificEnergy unit)
-    : DimensionalScalar<Unit::SpecificEnergy, Number>(value, unit) {}
+  TotalKinematicPressure(const NumericType value, const Unit::SpecificEnergy unit)
+    : DimensionalScalar<Unit::SpecificEnergy, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a total kinematic pressure from a given static kinematic
   /// pressure and dynamic kinematic pressure using the definition of total kinematic pressure.
   constexpr TotalKinematicPressure(
-      const StaticKinematicPressure<Number>& static_kinematic_pressure,
-      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure)
-    : TotalKinematicPressure<Number>(
+      const StaticKinematicPressure<NumericType>& static_kinematic_pressure,
+      const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure)
+    : TotalKinematicPressure<NumericType>(
         static_kinematic_pressure.Value() + dynamic_kinematic_pressure.Value()) {}
 
   /// \brief Constructor. Constructs a total kinematic pressure from a given total pressure and mass
   /// density using the definition of total kinematic pressure.
-  constexpr TotalKinematicPressure(
-      const TotalPressure<Number>& total_pressure, const MassDensity<Number>& mass_density)
-    : TotalKinematicPressure<Number>(total_pressure.Value() / mass_density.Value()) {}
+  constexpr TotalKinematicPressure(const TotalPressure<NumericType>& total_pressure,
+                                   const MassDensity<NumericType>& mass_density)
+    : TotalKinematicPressure<NumericType>(total_pressure.Value() / mass_density.Value()) {}
 
   /// \brief Destructor. Destroys this total kinematic pressure.
   ~TotalKinematicPressure() noexcept = default;
 
   /// \brief Copy constructor. Constructs a total kinematic pressure by copying another one.
-  constexpr TotalKinematicPressure(const TotalKinematicPressure<Number>& other) = default;
+  constexpr TotalKinematicPressure(const TotalKinematicPressure<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a total kinematic pressure by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr TotalKinematicPressure(const TotalKinematicPressure<OtherNumber>& other)
-    : TotalKinematicPressure(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr TotalKinematicPressure(const TotalKinematicPressure<OtherNumericType>& other)
+    : TotalKinematicPressure(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a total kinematic pressure by moving another one.
-  constexpr TotalKinematicPressure(TotalKinematicPressure<Number>&& other) noexcept = default;
+  constexpr TotalKinematicPressure(TotalKinematicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this total kinematic pressure by copying another one.
-  constexpr TotalKinematicPressure<Number>& operator=(
-      const TotalKinematicPressure<Number>& other) = default;
+  constexpr TotalKinematicPressure<NumericType>& operator=(
+      const TotalKinematicPressure<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this total kinematic pressure by copying another one.
-  template <typename OtherNumber>
-  constexpr TotalKinematicPressure<Number>& operator=(
-      const TotalKinematicPressure<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr TotalKinematicPressure<NumericType>& operator=(
+      const TotalKinematicPressure<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this total kinematic pressure by moving another one.
-  constexpr TotalKinematicPressure<Number>& operator=(
-      TotalKinematicPressure<Number>&& other) noexcept = default;
+  constexpr TotalKinematicPressure<NumericType>& operator=(
+      TotalKinematicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a total kinematic pressure of zero.
-  static constexpr TotalKinematicPressure<Number> Zero() {
-    return TotalKinematicPressure<Number>{static_cast<Number>(0)};
+  static constexpr TotalKinematicPressure<NumericType> Zero() {
+    return TotalKinematicPressure<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a total kinematic pressure with a given value expressed in a given
   /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr TotalKinematicPressure<Number> Create(const Number value) {
-    return TotalKinematicPressure<Number>{
-        StaticConvertCopy<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
+  static constexpr TotalKinematicPressure<NumericType> Create(const NumericType value) {
+    return TotalKinematicPressure<NumericType>{
+        ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  constexpr TotalKinematicPressure<Number> operator+(
-      const TotalKinematicPressure<Number>& total_kinematic_pressure) const {
-    return TotalKinematicPressure<Number>{this->value + total_kinematic_pressure.value};
+  constexpr TotalKinematicPressure<NumericType> operator+(
+      const TotalKinematicPressure<NumericType>& total_kinematic_pressure) const {
+    return TotalKinematicPressure<NumericType>{this->value + total_kinematic_pressure.value};
   }
 
-  constexpr TotalKinematicPressure<Number> operator-(
-      const TotalKinematicPressure<Number>& total_kinematic_pressure) const {
-    return TotalKinematicPressure<Number>{this->value - total_kinematic_pressure.value};
+  constexpr TotalKinematicPressure<NumericType> operator-(
+      const TotalKinematicPressure<NumericType>& total_kinematic_pressure) const {
+    return TotalKinematicPressure<NumericType>{this->value - total_kinematic_pressure.value};
   }
 
-  constexpr DynamicKinematicPressure<Number> operator-(
-      const StaticKinematicPressure<Number>& static_kinematic_pressure) const {
-    return DynamicKinematicPressure<Number>{*this, static_kinematic_pressure};
+  constexpr DynamicKinematicPressure<NumericType> operator-(
+      const StaticKinematicPressure<NumericType>& static_kinematic_pressure) const {
+    return DynamicKinematicPressure<NumericType>{*this, static_kinematic_pressure};
   }
 
-  constexpr StaticKinematicPressure<Number> operator-(
-      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const {
-    return StaticKinematicPressure<Number>{*this, dynamic_kinematic_pressure};
+  constexpr StaticKinematicPressure<NumericType> operator-(
+      const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure) const {
+    return StaticKinematicPressure<NumericType>{*this, dynamic_kinematic_pressure};
   }
 
-  constexpr TotalKinematicPressure<Number> operator*(const Number number) const {
-    return TotalKinematicPressure<Number>{this->value * number};
+  constexpr TotalKinematicPressure<NumericType> operator*(const NumericType number) const {
+    return TotalKinematicPressure<NumericType>{this->value * number};
   }
 
-  constexpr TotalKinematicPressure<Number> operator/(const Number number) const {
-    return TotalKinematicPressure<Number>{this->value / number};
+  constexpr TotalKinematicPressure<NumericType> operator/(const NumericType number) const {
+    return TotalKinematicPressure<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(
-      const TotalKinematicPressure<Number>& total_kinematic_pressure) const noexcept {
+  constexpr NumericType operator/(
+      const TotalKinematicPressure<NumericType>& total_kinematic_pressure) const noexcept {
     return this->value / total_kinematic_pressure.value;
   }
 
   constexpr void operator+=(
-      const TotalKinematicPressure<Number>& total_kinematic_pressure) noexcept {
+      const TotalKinematicPressure<NumericType>& total_kinematic_pressure) noexcept {
     this->value += total_kinematic_pressure.value;
   }
 
   constexpr void operator-=(
-      const TotalKinematicPressure<Number>& total_kinematic_pressure) noexcept {
+      const TotalKinematicPressure<NumericType>& total_kinematic_pressure) noexcept {
     this->value -= total_kinematic_pressure.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a total kinematic pressure with a given value expressed in the
   /// standard specific energy unit.
-  explicit constexpr TotalKinematicPressure(const Number value)
-    : DimensionalScalar<Unit::SpecificEnergy, Number>(value) {}
+  explicit constexpr TotalKinematicPressure(const NumericType value)
+    : DimensionalScalar<Unit::SpecificEnergy, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(const TotalKinematicPressure<Number>& left,
-                                 const TotalKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const TotalKinematicPressure<NumericType>& left,
+                                 const TotalKinematicPressure<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const TotalKinematicPressure<Number>& left,
-                                 const TotalKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const TotalKinematicPressure<NumericType>& left,
+                                 const TotalKinematicPressure<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const TotalKinematicPressure<Number>& left,
-                                const TotalKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const TotalKinematicPressure<NumericType>& left,
+                                const TotalKinematicPressure<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const TotalKinematicPressure<Number>& left,
-                                const TotalKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const TotalKinematicPressure<NumericType>& left,
+                                const TotalKinematicPressure<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const TotalKinematicPressure<Number>& left,
-                                 const TotalKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const TotalKinematicPressure<NumericType>& left,
+                                 const TotalKinematicPressure<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const TotalKinematicPressure<Number>& left,
-                                 const TotalKinematicPressure<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const TotalKinematicPressure<NumericType>& left,
+                                 const TotalKinematicPressure<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const TotalKinematicPressure<Number>& total_kinematic_pressure) {
+    std::ostream& stream, const TotalKinematicPressure<NumericType>& total_kinematic_pressure) {
   stream << total_kinematic_pressure.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr TotalKinematicPressure<Number> operator*(
-    const Number number, const TotalKinematicPressure<Number>& total_kinematic_pressure) {
+template <typename NumericType>
+inline constexpr TotalKinematicPressure<NumericType> operator*(
+    const NumericType number, const TotalKinematicPressure<NumericType>& total_kinematic_pressure) {
   return total_kinematic_pressure * number;
 }
 
-template <typename Number>
-inline constexpr TotalPressure<Number>::TotalPressure(
-    const MassDensity<Number>& mass_density,
-    const TotalKinematicPressure<Number>& total_kinematic_pressure)
-  : TotalPressure<Number>(mass_density.Value() * total_kinematic_pressure.Value()) {}
+template <typename NumericType>
+inline constexpr TotalPressure<NumericType>::TotalPressure(
+    const MassDensity<NumericType>& mass_density,
+    const TotalKinematicPressure<NumericType>& total_kinematic_pressure)
+  : TotalPressure<NumericType>(mass_density.Value() * total_kinematic_pressure.Value()) {}
 
-template <typename Number>
-inline constexpr StaticKinematicPressure<Number>::StaticKinematicPressure(
-    const TotalKinematicPressure<Number>& total_kinematic_pressure,
-    const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure)
-  : StaticKinematicPressure<Number>(
+template <typename NumericType>
+inline constexpr StaticKinematicPressure<NumericType>::StaticKinematicPressure(
+    const TotalKinematicPressure<NumericType>& total_kinematic_pressure,
+    const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure)
+  : StaticKinematicPressure<NumericType>(
       total_kinematic_pressure.Value() - dynamic_kinematic_pressure.Value()) {}
 
-template <typename Number>
-inline constexpr DynamicKinematicPressure<Number>::DynamicKinematicPressure(
-    const TotalKinematicPressure<Number>& total_kinematic_pressure,
-    const StaticKinematicPressure<Number>& static_kinematic_pressure)
-  : DynamicKinematicPressure<Number>(
+template <typename NumericType>
+inline constexpr DynamicKinematicPressure<NumericType>::DynamicKinematicPressure(
+    const TotalKinematicPressure<NumericType>& total_kinematic_pressure,
+    const StaticKinematicPressure<NumericType>& static_kinematic_pressure)
+  : DynamicKinematicPressure<NumericType>(
       total_kinematic_pressure.Value() - static_kinematic_pressure.Value()) {}
 
-template <typename Number>
-inline constexpr TotalKinematicPressure<Number> StaticKinematicPressure<Number>::operator+(
-    const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const {
-  return TotalKinematicPressure<Number>{*this, dynamic_kinematic_pressure};
+template <typename NumericType>
+inline constexpr TotalKinematicPressure<NumericType>
+StaticKinematicPressure<NumericType>::operator+(
+    const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure) const {
+  return TotalKinematicPressure<NumericType>{*this, dynamic_kinematic_pressure};
 }
 
-template <typename Number>
-inline constexpr TotalKinematicPressure<Number> DynamicKinematicPressure<Number>::operator+(
-    const StaticKinematicPressure<Number>& static_kinematic_pressure) const {
-  return TotalKinematicPressure<Number>{static_kinematic_pressure, *this};
+template <typename NumericType>
+inline constexpr TotalKinematicPressure<NumericType>
+DynamicKinematicPressure<NumericType>::operator+(
+    const StaticKinematicPressure<NumericType>& static_kinematic_pressure) const {
+  return TotalKinematicPressure<NumericType>{static_kinematic_pressure, *this};
 }
 
-template <typename Number>
-inline constexpr TotalKinematicPressure<Number> TotalPressure<Number>::operator/(
-    const MassDensity<Number>& mass_density) const {
-  return TotalKinematicPressure<Number>{*this, mass_density};
+template <typename NumericType>
+inline constexpr TotalKinematicPressure<NumericType> TotalPressure<NumericType>::operator/(
+    const MassDensity<NumericType>& mass_density) const {
+  return TotalKinematicPressure<NumericType>{*this, mass_density};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::TotalKinematicPressure<Number>> {
+template <typename NumericType>
+struct hash<PhQ::TotalKinematicPressure<NumericType>> {
   inline size_t operator()(
-      const PhQ::TotalKinematicPressure<Number>& total_kinematic_pressure) const {
-    return hash<Number>()(total_kinematic_pressure.Value());
+      const PhQ::TotalKinematicPressure<NumericType>& total_kinematic_pressure) const {
+    return hash<NumericType>()(total_kinematic_pressure.Value());
   }
 };
 

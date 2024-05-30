@@ -243,547 +243,558 @@ inline const std::unordered_map<std::string_view, Unit::ElectricCharge> Spelling
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Coulomb>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Coulomb>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Kilocoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Kilocoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Megacoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Megacoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Gigacoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Gigacoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Teracoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-12L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-12L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Teracoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E12L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E12L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Millicoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Millicoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Microcoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Microcoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Nanocoulomb>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::Nanocoulomb>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::ElementaryCharge>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634E-19L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634E-19L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::ElementaryCharge>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634E-19L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634E-19L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::AmpereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::AmpereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::AmpereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::AmpereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::KiloampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::KiloampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::KiloampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::KiloampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MegaampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MegaampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MegaampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MegaampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::GigaampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::GigaampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::GigaampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::GigaampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::TeraampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000000000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::TeraampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::TeraampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000000000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::TeraampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MilliampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.06L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.06L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MilliampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.06L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.06L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MilliampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3.6L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3.6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MilliampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3.6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3.6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MicroampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(6.0E-5L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(6.0E-5L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MicroampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(6.0E-5L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(6.0E-5L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MicroampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3.6E-3L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3.6E-3L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::MicroampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3.6E-3L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3.6E-3L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::NanoampereMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(6.0E-8L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(6.0E-8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::NanoampereMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(6.0E-8L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(6.0E-8L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::NanoampereHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3.6E-6L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3.6E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ElectricCharge, Unit::ElectricCharge::NanoampereHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3.6E-6L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3.6E-6L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::ElectricCharge,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::ElectricCharge, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::ElectricCharge, NumericType>{
         {Unit::ElectricCharge::Coulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Coulomb>::FromStandard<Number>   },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Coulomb>::FromStandard<NumericType>          },
         {Unit::ElectricCharge::Kilocoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Kilocoulomb>::FromStandard<Number>                                 },
+         Unit::ElectricCharge::Kilocoulomb>::FromStandard<NumericType>      },
         {Unit::ElectricCharge::Megacoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Megacoulomb>::FromStandard<Number>                                 },
+         Unit::ElectricCharge::Megacoulomb>::FromStandard<NumericType>      },
         {Unit::ElectricCharge::Gigacoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Gigacoulomb>::FromStandard<Number>                                 },
+         Unit::ElectricCharge::Gigacoulomb>::FromStandard<NumericType>      },
         {Unit::ElectricCharge::Teracoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Teracoulomb>::FromStandard<Number>                                 },
+         Unit::ElectricCharge::Teracoulomb>::FromStandard<NumericType>      },
         {Unit::ElectricCharge::Millicoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Millicoulomb>::FromStandard<Number>                                },
+         Unit::ElectricCharge::Millicoulomb>::FromStandard<NumericType>     },
         {Unit::ElectricCharge::Microcoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Microcoulomb>::FromStandard<Number>                                },
+         Unit::ElectricCharge::Microcoulomb>::FromStandard<NumericType>     },
         {Unit::ElectricCharge::Nanocoulomb,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::Nanocoulomb>::FromStandard<Number>                                 },
+         Unit::ElectricCharge::Nanocoulomb>::FromStandard<NumericType>      },
         {Unit::ElectricCharge::ElementaryCharge,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::ElementaryCharge>::FromStandard<Number>                            },
+         Unit::ElectricCharge::ElementaryCharge>::FromStandard<NumericType> },
         {Unit::ElectricCharge::AmpereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::AmpereMinute>::FromStandard<Number>                                },
+         Unit::ElectricCharge::AmpereMinute>::FromStandard<NumericType>     },
         {Unit::ElectricCharge::AmpereHour,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::AmpereHour>::FromStandard<Number>},
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::AmpereHour>::FromStandard<NumericType>       },
         {Unit::ElectricCharge::KiloampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::KiloampereMinute>::FromStandard<Number>                            },
+         Unit::ElectricCharge::KiloampereMinute>::FromStandard<NumericType> },
         {Unit::ElectricCharge::KiloampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::KiloampereHour>::FromStandard<Number>                              },
+         Unit::ElectricCharge::KiloampereHour>::FromStandard<NumericType>   },
         {Unit::ElectricCharge::MegaampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MegaampereMinute>::FromStandard<Number>                            },
+         Unit::ElectricCharge::MegaampereMinute>::FromStandard<NumericType> },
         {Unit::ElectricCharge::MegaampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MegaampereHour>::FromStandard<Number>                              },
+         Unit::ElectricCharge::MegaampereHour>::FromStandard<NumericType>   },
         {Unit::ElectricCharge::GigaampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::GigaampereMinute>::FromStandard<Number>                            },
+         Unit::ElectricCharge::GigaampereMinute>::FromStandard<NumericType> },
         {Unit::ElectricCharge::GigaampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::GigaampereHour>::FromStandard<Number>                              },
+         Unit::ElectricCharge::GigaampereHour>::FromStandard<NumericType>   },
         {Unit::ElectricCharge::TeraampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::TeraampereMinute>::FromStandard<Number>                            },
+         Unit::ElectricCharge::TeraampereMinute>::FromStandard<NumericType> },
         {Unit::ElectricCharge::TeraampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::TeraampereHour>::FromStandard<Number>                              },
+         Unit::ElectricCharge::TeraampereHour>::FromStandard<NumericType>   },
         {Unit::ElectricCharge::MilliampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MilliampereMinute>::FromStandard<Number>                           },
+         Unit::ElectricCharge::MilliampereMinute>::FromStandard<NumericType>},
         {Unit::ElectricCharge::MilliampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MilliampereHour>::FromStandard<Number>                             },
+         Unit::ElectricCharge::MilliampereHour>::FromStandard<NumericType>  },
         {Unit::ElectricCharge::MicroampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MicroampereMinute>::FromStandard<Number>                           },
+         Unit::ElectricCharge::MicroampereMinute>::FromStandard<NumericType>},
         {Unit::ElectricCharge::MicroampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MicroampereHour>::FromStandard<Number>                             },
+         Unit::ElectricCharge::MicroampereHour>::FromStandard<NumericType>  },
         {Unit::ElectricCharge::NanoampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::NanoampereMinute>::FromStandard<Number>                            },
+         Unit::ElectricCharge::NanoampereMinute>::FromStandard<NumericType> },
         {Unit::ElectricCharge::NanoampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::NanoampereHour>::FromStandard<Number>                              },
+         Unit::ElectricCharge::NanoampereHour>::FromStandard<NumericType>   },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::ElectricCharge,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::ElectricCharge, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::ElectricCharge, NumericType>{
         {Unit::ElectricCharge::Coulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Coulomb>::ToStandard<Number>     },
+         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Coulomb>::ToStandard<NumericType>},
         {Unit::ElectricCharge::Kilocoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Kilocoulomb>::ToStandard<Number> },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Kilocoulomb>::ToStandard<NumericType>                              },
         {Unit::ElectricCharge::Megacoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Megacoulomb>::ToStandard<Number> },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Megacoulomb>::ToStandard<NumericType>                              },
         {Unit::ElectricCharge::Gigacoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Gigacoulomb>::ToStandard<Number> },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Gigacoulomb>::ToStandard<NumericType>                              },
         {Unit::ElectricCharge::Teracoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Teracoulomb>::ToStandard<Number> },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Teracoulomb>::ToStandard<NumericType>                              },
         {Unit::ElectricCharge::Millicoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Millicoulomb>::ToStandard<Number>},
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Millicoulomb>::ToStandard<NumericType>                             },
         {Unit::ElectricCharge::Microcoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Microcoulomb>::ToStandard<Number>},
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Microcoulomb>::ToStandard<NumericType>                             },
         {Unit::ElectricCharge::Nanocoulomb,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::Nanocoulomb>::ToStandard<Number> },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::Nanocoulomb>::ToStandard<NumericType>                              },
         {Unit::ElectricCharge::ElementaryCharge,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::ElementaryCharge>::ToStandard<Number>                              },
+         Unit::ElectricCharge::ElementaryCharge>::ToStandard<NumericType>                         },
         {Unit::ElectricCharge::AmpereMinute,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::AmpereMinute>::ToStandard<Number>},
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::AmpereMinute>::ToStandard<NumericType>                             },
         {Unit::ElectricCharge::AmpereHour,
-         Conversions<Unit::ElectricCharge, Unit::ElectricCharge::AmpereHour>::ToStandard<Number>  },
+         Conversions<Unit::ElectricCharge,
+         Unit::ElectricCharge::AmpereHour>::ToStandard<NumericType>                               },
         {Unit::ElectricCharge::KiloampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::KiloampereMinute>::ToStandard<Number>                              },
+         Unit::ElectricCharge::KiloampereMinute>::ToStandard<NumericType>                         },
         {Unit::ElectricCharge::KiloampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::KiloampereHour>::ToStandard<Number>                                },
+         Unit::ElectricCharge::KiloampereHour>::ToStandard<NumericType>                           },
         {Unit::ElectricCharge::MegaampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MegaampereMinute>::ToStandard<Number>                              },
+         Unit::ElectricCharge::MegaampereMinute>::ToStandard<NumericType>                         },
         {Unit::ElectricCharge::MegaampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MegaampereHour>::ToStandard<Number>                                },
+         Unit::ElectricCharge::MegaampereHour>::ToStandard<NumericType>                           },
         {Unit::ElectricCharge::GigaampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::GigaampereMinute>::ToStandard<Number>                              },
+         Unit::ElectricCharge::GigaampereMinute>::ToStandard<NumericType>                         },
         {Unit::ElectricCharge::GigaampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::GigaampereHour>::ToStandard<Number>                                },
+         Unit::ElectricCharge::GigaampereHour>::ToStandard<NumericType>                           },
         {Unit::ElectricCharge::TeraampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::TeraampereMinute>::ToStandard<Number>                              },
+         Unit::ElectricCharge::TeraampereMinute>::ToStandard<NumericType>                         },
         {Unit::ElectricCharge::TeraampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::TeraampereHour>::ToStandard<Number>                                },
+         Unit::ElectricCharge::TeraampereHour>::ToStandard<NumericType>                           },
         {Unit::ElectricCharge::MilliampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MilliampereMinute>::ToStandard<Number>                             },
+         Unit::ElectricCharge::MilliampereMinute>::ToStandard<NumericType>                        },
         {Unit::ElectricCharge::MilliampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MilliampereHour>::ToStandard<Number>                               },
+         Unit::ElectricCharge::MilliampereHour>::ToStandard<NumericType>                          },
         {Unit::ElectricCharge::MicroampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MicroampereMinute>::ToStandard<Number>                             },
+         Unit::ElectricCharge::MicroampereMinute>::ToStandard<NumericType>                        },
         {Unit::ElectricCharge::MicroampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::MicroampereHour>::ToStandard<Number>                               },
+         Unit::ElectricCharge::MicroampereHour>::ToStandard<NumericType>                          },
         {Unit::ElectricCharge::NanoampereMinute,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::NanoampereMinute>::ToStandard<Number>                              },
+         Unit::ElectricCharge::NanoampereMinute>::ToStandard<NumericType>                         },
         {Unit::ElectricCharge::NanoampereHour,
          Conversions<Unit::ElectricCharge,
-         Unit::ElectricCharge::NanoampereHour>::ToStandard<Number>                                },
+         Unit::ElectricCharge::NanoampereHour>::ToStandard<NumericType>                           },
 };
 
 }  // namespace Internal

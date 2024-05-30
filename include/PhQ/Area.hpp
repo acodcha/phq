@@ -38,160 +38,163 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class Direction;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class Force;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class PlanarVectorArea;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class ScalarForce;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class ScalarTraction;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class StaticPressure;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class Traction;
 
 // Forward declaration for class PhQ::Area.
-template <typename Number>
+template <typename NumericType>
 class VectorArea;
 
 /// \brief Surface area or cross-sectional area. Can also represent a scalar component of a vector
 /// area or the magnitude of a vector area. Any closed surface has a vector area: it is the surface
 /// integral of its surface normal direction. A vector area is an oriented area; it is the
 /// three-dimensional Euclidean vector representation of an area; see PhQ::VectorArea.
-template <typename Number = double>
-class Area : public DimensionalScalar<Unit::Area, Number> {
+template <typename NumericType = double>
+class Area : public DimensionalScalar<Unit::Area, NumericType> {
 public:
   /// \brief Default constructor. Constructs an area with an uninitialized value.
   Area() = default;
 
   /// \brief Constructor. Constructs an area with a given value expressed in a given area unit.
-  Area(const Number value, const Unit::Area unit)
-    : DimensionalScalar<Unit::Area, Number>(value, unit) {}
+  Area(const NumericType value, const Unit::Area unit)
+    : DimensionalScalar<Unit::Area, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs an area from two given lengths.
-  constexpr Area(const Length<Number>& length1, const Length<Number>& length2)
-    : Area<Number>(length1.Value() * length2.Value()) {}
+  constexpr Area(const Length<NumericType>& length1, const Length<NumericType>& length2)
+    : Area<NumericType>(length1.Value() * length2.Value()) {}
 
   /// \brief Constructor. Constructs an area from a given volume and length.
-  constexpr Area(const Volume<Number>& volume, const Length<Number>& length);
+  constexpr Area(const Volume<NumericType>& volume, const Length<NumericType>& length);
 
   /// \brief Constructor. Constructs an area from a given scalar force magnitude and scalar traction
   /// magnitude using the definition of traction.
-  constexpr Area(
-      const ScalarForce<Number>& scalar_force, const ScalarTraction<Number>& scalar_traction);
+  constexpr Area(const ScalarForce<NumericType>& scalar_force,
+                 const ScalarTraction<NumericType>& scalar_traction);
 
   /// \brief Constructor. Constructs an area from a given scalar force magnitude and static pressure
   /// using the definition of pressure.
-  constexpr Area(
-      const ScalarForce<Number>& scalar_force, const StaticPressure<Number>& static_pressure);
+  constexpr Area(const ScalarForce<NumericType>& scalar_force,
+                 const StaticPressure<NumericType>& static_pressure);
 
   /// \brief Destructor. Destroys this area.
   ~Area() noexcept = default;
 
   /// \brief Copy constructor. Constructs an area by copying another one.
-  constexpr Area(const Area<Number>& other) = default;
+  constexpr Area(const Area<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs an area by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Area(const Area<OtherNumber>& other)
-    : Area(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Area(const Area<OtherNumericType>& other)
+    : Area(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs an area by moving another one.
-  constexpr Area(Area<Number>&& other) noexcept = default;
+  constexpr Area(Area<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this area by copying another one.
-  constexpr Area<Number>& operator=(const Area<Number>& other) = default;
+  constexpr Area<NumericType>& operator=(const Area<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this area by copying another one.
-  template <typename OtherNumber>
-  constexpr Area<Number>& operator=(const Area<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Area<NumericType>& operator=(const Area<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this area by moving another one.
-  constexpr Area<Number>& operator=(Area<Number>&& other) noexcept = default;
+  constexpr Area<NumericType>& operator=(Area<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an area of zero.
-  static constexpr Area<Number> Zero() {
-    return Area<Number>{static_cast<Number>(0)};
+  static constexpr Area<NumericType> Zero() {
+    return Area<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr Area<Number> Create(const Number value) {
-    return Area<Number>{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
+  static constexpr Area<NumericType> Create(const NumericType value) {
+    return Area<NumericType>{ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  constexpr Area<Number> operator+(const Area<Number>& area) const {
-    return Area<Number>{this->value + area.value};
+  constexpr Area<NumericType> operator+(const Area<NumericType>& area) const {
+    return Area<NumericType>{this->value + area.value};
   }
 
-  constexpr Area<Number> operator-(const Area<Number>& area) const {
-    return Area<Number>{this->value - area.value};
+  constexpr Area<NumericType> operator-(const Area<NumericType>& area) const {
+    return Area<NumericType>{this->value - area.value};
   }
 
-  constexpr Area<Number> operator*(const Number number) const {
-    return Area<Number>{this->value * number};
+  constexpr Area<NumericType> operator*(const NumericType number) const {
+    return Area<NumericType>{this->value * number};
   }
 
-  constexpr Volume<Number> operator*(const Length<Number>& length) const;
+  constexpr Volume<NumericType> operator*(const Length<NumericType>& length) const;
 
-  constexpr ScalarForce<Number> operator*(const ScalarTraction<Number>& scalar_traction) const;
+  constexpr ScalarForce<NumericType> operator*(
+      const ScalarTraction<NumericType>& scalar_traction) const;
 
-  constexpr ScalarForce<Number> operator*(const StaticPressure<Number>& static_pressure) const;
+  constexpr ScalarForce<NumericType> operator*(
+      const StaticPressure<NumericType>& static_pressure) const;
 
-  constexpr PlanarVectorArea<Number> operator*(
-      const PlanarDirection<Number>& planar_direction) const;
+  constexpr PlanarVectorArea<NumericType> operator*(
+      const PlanarDirection<NumericType>& planar_direction) const;
 
-  constexpr VectorArea<Number> operator*(const Direction<Number>& direction) const;
+  constexpr VectorArea<NumericType> operator*(const Direction<NumericType>& direction) const;
 
-  constexpr Area<Number> operator/(const Number number) const {
-    return Area<Number>{this->value / number};
+  constexpr Area<NumericType> operator/(const NumericType number) const {
+    return Area<NumericType>{this->value / number};
   }
 
-  constexpr Length<Number> operator/(const Length<Number>& length) const {
-    return Length<Number>{*this, length};
+  constexpr Length<NumericType> operator/(const Length<NumericType>& length) const {
+    return Length<NumericType>{*this, length};
   }
 
-  constexpr Number operator/(const Area<Number>& area) const noexcept {
+  constexpr NumericType operator/(const Area<NumericType>& area) const noexcept {
     return this->value / area.value;
   }
 
-  constexpr void operator+=(const Area<Number>& area) noexcept {
+  constexpr void operator+=(const Area<NumericType>& area) noexcept {
     this->value += area.value;
   }
 
-  constexpr void operator-=(const Area<Number>& area) noexcept {
+  constexpr void operator-=(const Area<NumericType>& area) noexcept {
     this->value -= area.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs an area with a given value expressed in the standard area unit.
-  explicit constexpr Area(const Number value) : DimensionalScalar<Unit::Area, Number>(value) {}
+  explicit constexpr Area(const NumericType value)
+    : DimensionalScalar<Unit::Area, NumericType>(value) {}
 
   template <typename OtherArea>
   friend class PlanarVectorArea;
@@ -200,64 +203,73 @@ private:
   friend class VectorArea;
 };
 
-template <typename Number>
-inline constexpr bool operator==(const Area<Number>& left, const Area<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(
+    const Area<NumericType>& left, const Area<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const Area<Number>& left, const Area<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(
+    const Area<NumericType>& left, const Area<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const Area<Number>& left, const Area<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(
+    const Area<NumericType>& left, const Area<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const Area<Number>& left, const Area<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(
+    const Area<NumericType>& left, const Area<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const Area<Number>& left, const Area<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(
+    const Area<NumericType>& left, const Area<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const Area<Number>& left, const Area<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(
+    const Area<NumericType>& left, const Area<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Area<Number>& area) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Area<NumericType>& area) {
   stream << area.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Area<Number> operator*(const Number number, const Area<Number>& area) {
+template <typename NumericType>
+inline constexpr Area<NumericType> operator*(
+    const NumericType number, const Area<NumericType>& area) {
   return area * number;
 }
 
-template <typename Number>
-inline constexpr Length<Number>::Length(const Area<Number>& area, const Length<Number>& length)
-  : Length<Number>(area.Value() / length.Value()) {}
+template <typename NumericType>
+inline constexpr Length<NumericType>::Length(
+    const Area<NumericType>& area, const Length<NumericType>& length)
+  : Length<NumericType>(area.Value() / length.Value()) {}
 
-template <typename Number>
-inline constexpr Area<Number> Length<Number>::operator*(const Length<Number>& length) const {
-  return Area<Number>{*this, length};
+template <typename NumericType>
+inline constexpr Area<NumericType> Length<NumericType>::operator*(
+    const Length<NumericType>& length) const {
+  return Area<NumericType>{*this, length};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Area<Number>> {
-  inline size_t operator()(const PhQ::Area<Number>& area) const {
-    return hash<Number>()(area.Value());
+template <typename NumericType>
+struct hash<PhQ::Area<NumericType>> {
+  inline size_t operator()(const PhQ::Area<NumericType>& area) const {
+    return hash<NumericType>()(area.Value());
   }
 };
 

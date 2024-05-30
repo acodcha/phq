@@ -44,15 +44,15 @@ namespace PhQ {
 class ConstitutiveModel {
 public:
   // Forward declaration for class PhQ::ConstitutiveModel.
-  template <typename Number = double>
+  template <typename NumericType = double>
   class CompressibleNewtonianFluid;
 
   // Forward declaration for class PhQ::ConstitutiveModel.
-  template <typename Number = double>
+  template <typename NumericType = double>
   class ElasticIsotropicSolid;
 
   // Forward declaration for class PhQ::ConstitutiveModel.
-  template <typename Number = double>
+  template <typename NumericType = double>
   class IncompressibleNewtonianFluid;
 
   /// \brief Type of a material's constitutive model.

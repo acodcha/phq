@@ -42,265 +42,274 @@
 namespace PhQ {
 
 /// \brief Mass-specific power. Power per unit mass; see PhQ::Power and PhQ::Mass.
-template <typename Number = double>
-class SpecificPower : public DimensionalScalar<Unit::SpecificPower, Number> {
+template <typename NumericType = double>
+class SpecificPower : public DimensionalScalar<Unit::SpecificPower, NumericType> {
 public:
   /// \brief Default constructor. Constructs a specific power quantity with an uninitialized value.
   SpecificPower() = default;
 
   /// \brief Constructor. Constructs a specific power quantity with a given value expressed in a
   /// given specific power unit.
-  SpecificPower(const Number value, const Unit::SpecificPower unit)
-    : DimensionalScalar<Unit::SpecificPower, Number>(value, unit) {}
+  SpecificPower(const NumericType value, const Unit::SpecificPower unit)
+    : DimensionalScalar<Unit::SpecificPower, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a specific power quantity from a given specific energy and time
   /// duration using the definition of specific power.
-  constexpr SpecificPower(const SpecificEnergy<Number>& specific_energy, const Time<Number>& time)
-    : SpecificPower<Number>(specific_energy.Value() / time.Value()) {}
+  constexpr SpecificPower(
+      const SpecificEnergy<NumericType>& specific_energy, const Time<NumericType>& time)
+    : SpecificPower<NumericType>(specific_energy.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a specific power quantity from a given specific energy and
   /// frequency using the definition of specific power.
   constexpr SpecificPower(
-      const SpecificEnergy<Number>& specific_energy, const Frequency<Number>& frequency)
-    : SpecificPower<Number>(specific_energy.Value() * frequency.Value()) {}
+      const SpecificEnergy<NumericType>& specific_energy, const Frequency<NumericType>& frequency)
+    : SpecificPower<NumericType>(specific_energy.Value() * frequency.Value()) {}
 
   /// \brief Constructor. Constructs a specific power quantity from a given power and mass using the
   /// definition of specific power.
-  constexpr SpecificPower(const Power<Number>& power, const Mass<Number>& mass)
-    : SpecificPower<Number>(power.Value() / mass.Value()) {}
+  constexpr SpecificPower(const Power<NumericType>& power, const Mass<NumericType>& mass)
+    : SpecificPower<NumericType>(power.Value() / mass.Value()) {}
 
   /// \brief Destructor. Destroys this specific power quantity.
   ~SpecificPower() noexcept = default;
 
   /// \brief Copy constructor. Constructs a specific power quantity by copying another one.
-  constexpr SpecificPower(const SpecificPower<Number>& other) = default;
+  constexpr SpecificPower(const SpecificPower<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a specific power quantity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr SpecificPower(const SpecificPower<OtherNumber>& other)
-    : SpecificPower(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr SpecificPower(const SpecificPower<OtherNumericType>& other)
+    : SpecificPower(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a specific power quantity by moving another one.
-  constexpr SpecificPower(SpecificPower<Number>&& other) noexcept = default;
+  constexpr SpecificPower(SpecificPower<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this specific power quantity by copying another one.
-  constexpr SpecificPower<Number>& operator=(const SpecificPower<Number>& other) = default;
+  constexpr SpecificPower<NumericType>& operator=(
+      const SpecificPower<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this specific power quantity by copying another one.
-  template <typename OtherNumber>
-  constexpr SpecificPower<Number>& operator=(const SpecificPower<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr SpecificPower<NumericType>& operator=(const SpecificPower<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this specific power quantity by moving another one.
-  constexpr SpecificPower<Number>& operator=(SpecificPower<Number>&& other) noexcept = default;
+  constexpr SpecificPower<NumericType>& operator=(
+      SpecificPower<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a specific power quantity of zero.
-  static constexpr SpecificPower<Number> Zero() {
-    return SpecificPower<Number>{static_cast<Number>(0)};
+  static constexpr SpecificPower<NumericType> Zero() {
+    return SpecificPower<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a specific power quantity with a given value expressed in a given
   /// specific power unit.
   template <Unit::SpecificPower Unit>
-  static constexpr SpecificPower<Number> Create(const Number value) {
-    return SpecificPower<Number>{
-        StaticConvertCopy<Unit::SpecificPower, Unit, Standard<Unit::SpecificPower>>(value)};
+  static constexpr SpecificPower<NumericType> Create(const NumericType value) {
+    return SpecificPower<NumericType>{
+        ConvertStatically<Unit::SpecificPower, Unit, Standard<Unit::SpecificPower>>(value)};
   }
 
-  constexpr SpecificPower<Number> operator+(const SpecificPower<Number>& specific_power) const {
-    return SpecificPower<Number>{this->value + specific_power.value};
+  constexpr SpecificPower<NumericType> operator+(
+      const SpecificPower<NumericType>& specific_power) const {
+    return SpecificPower<NumericType>{this->value + specific_power.value};
   }
 
-  constexpr SpecificPower<Number> operator-(const SpecificPower<Number>& specific_power) const {
-    return SpecificPower<Number>{this->value - specific_power.value};
+  constexpr SpecificPower<NumericType> operator-(
+      const SpecificPower<NumericType>& specific_power) const {
+    return SpecificPower<NumericType>{this->value - specific_power.value};
   }
 
-  constexpr SpecificPower<Number> operator*(const Number number) const {
-    return SpecificPower<Number>{this->value * number};
+  constexpr SpecificPower<NumericType> operator*(const NumericType number) const {
+    return SpecificPower<NumericType>{this->value * number};
   }
 
-  constexpr SpecificEnergy<Number> operator*(const Time<Number>& time) const {
-    return SpecificEnergy<Number>{*this, time};
+  constexpr SpecificEnergy<NumericType> operator*(const Time<NumericType>& time) const {
+    return SpecificEnergy<NumericType>{*this, time};
   }
 
-  constexpr Power<Number> operator*(const Mass<Number>& mass) const {
-    return Power<Number>{*this, mass};
+  constexpr Power<NumericType> operator*(const Mass<NumericType>& mass) const {
+    return Power<NumericType>{*this, mass};
   }
 
-  constexpr SpecificPower<Number> operator/(const Number number) const {
-    return SpecificPower<Number>{this->value / number};
+  constexpr SpecificPower<NumericType> operator/(const NumericType number) const {
+    return SpecificPower<NumericType>{this->value / number};
   }
 
-  constexpr SpecificEnergy<Number> operator/(const Frequency<Number>& frequency) const {
-    return SpecificEnergy<Number>{*this, frequency};
+  constexpr SpecificEnergy<NumericType> operator/(const Frequency<NumericType>& frequency) const {
+    return SpecificEnergy<NumericType>{*this, frequency};
   }
 
-  constexpr Frequency<Number> operator/(const SpecificEnergy<Number>& specific_energy) const {
-    return Frequency<Number>{*this, specific_energy};
+  constexpr Frequency<NumericType> operator/(
+      const SpecificEnergy<NumericType>& specific_energy) const {
+    return Frequency<NumericType>{*this, specific_energy};
   }
 
-  constexpr Number operator/(const SpecificPower<Number>& specific_power) const noexcept {
+  constexpr NumericType operator/(const SpecificPower<NumericType>& specific_power) const noexcept {
     return this->value / specific_power.value;
   }
 
-  constexpr void operator+=(const SpecificPower<Number>& specific_power) noexcept {
+  constexpr void operator+=(const SpecificPower<NumericType>& specific_power) noexcept {
     this->value += specific_power.value;
   }
 
-  constexpr void operator-=(const SpecificPower<Number>& specific_power) noexcept {
+  constexpr void operator-=(const SpecificPower<NumericType>& specific_power) noexcept {
     this->value -= specific_power.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a specific power quantity with a given value expressed in the
   /// standard specific power unit.
-  explicit constexpr SpecificPower(const Number value)
-    : DimensionalScalar<Unit::SpecificPower, Number>(value) {}
+  explicit constexpr SpecificPower(const NumericType value)
+    : DimensionalScalar<Unit::SpecificPower, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const SpecificPower<Number>& left, const SpecificPower<Number>& right) noexcept {
+    const SpecificPower<NumericType>& left, const SpecificPower<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const SpecificPower<Number>& left, const SpecificPower<Number>& right) noexcept {
+    const SpecificPower<NumericType>& left, const SpecificPower<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const SpecificPower<Number>& left, const SpecificPower<Number>& right) noexcept {
+    const SpecificPower<NumericType>& left, const SpecificPower<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const SpecificPower<Number>& left, const SpecificPower<Number>& right) noexcept {
+    const SpecificPower<NumericType>& left, const SpecificPower<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const SpecificPower<Number>& left, const SpecificPower<Number>& right) noexcept {
+    const SpecificPower<NumericType>& left, const SpecificPower<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const SpecificPower<Number>& left, const SpecificPower<Number>& right) noexcept {
+    const SpecificPower<NumericType>& left, const SpecificPower<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const SpecificPower<Number>& specific_power) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const SpecificPower<NumericType>& specific_power) {
   stream << specific_power.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr SpecificPower<Number> operator*(
-    const Number number, const SpecificPower<Number>& specific_power) {
+template <typename NumericType>
+inline constexpr SpecificPower<NumericType> operator*(
+    const NumericType number, const SpecificPower<NumericType>& specific_power) {
   return specific_power * number;
 }
 
-template <typename Number>
-inline constexpr Time<Number>::Time(
-    const SpecificEnergy<Number>& specific_energy, const SpecificPower<Number>& specific_power)
-  : Time<Number>(specific_energy.Value() / specific_power.Value()) {}
+template <typename NumericType>
+inline constexpr Time<NumericType>::Time(const SpecificEnergy<NumericType>& specific_energy,
+                                         const SpecificPower<NumericType>& specific_power)
+  : Time<NumericType>(specific_energy.Value() / specific_power.Value()) {}
 
-template <typename Number>
-inline constexpr Frequency<Number>::Frequency(
-    const SpecificPower<Number>& specific_power, const SpecificEnergy<Number>& specific_energy)
-  : Frequency<Number>(specific_power.Value() / specific_energy.Value()) {}
+template <typename NumericType>
+inline constexpr Frequency<NumericType>::Frequency(
+    const SpecificPower<NumericType>& specific_power,
+    const SpecificEnergy<NumericType>& specific_energy)
+  : Frequency<NumericType>(specific_power.Value() / specific_energy.Value()) {}
 
-template <typename Number>
-inline constexpr Mass<Number>::Mass(
-    const Power<Number>& power, const SpecificPower<Number>& specific_power)
-  : Mass<Number>(power.Value() / specific_power.Value()) {}
+template <typename NumericType>
+inline constexpr Mass<NumericType>::Mass(
+    const Power<NumericType>& power, const SpecificPower<NumericType>& specific_power)
+  : Mass<NumericType>(power.Value() / specific_power.Value()) {}
 
-template <typename Number>
-inline constexpr Power<Number>::Power(
-    const SpecificPower<Number>& specific_power, const Mass<Number>& mass)
-  : Power<Number>(specific_power.Value() * mass.Value()) {}
+template <typename NumericType>
+inline constexpr Power<NumericType>::Power(
+    const SpecificPower<NumericType>& specific_power, const Mass<NumericType>& mass)
+  : Power<NumericType>(specific_power.Value() * mass.Value()) {}
 
-template <typename Number>
-inline constexpr SpecificEnergy<Number>::SpecificEnergy(
-    const SpecificPower<Number>& specific_power, const Time<Number>& time)
-  : SpecificEnergy<Number>(specific_power.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr SpecificEnergy<NumericType>::SpecificEnergy(
+    const SpecificPower<NumericType>& specific_power, const Time<NumericType>& time)
+  : SpecificEnergy<NumericType>(specific_power.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr SpecificEnergy<Number>::SpecificEnergy(
-    const SpecificPower<Number>& specific_power, const Frequency<Number>& frequency)
-  : SpecificEnergy<Number>(specific_power.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr SpecificEnergy<NumericType>::SpecificEnergy(
+    const SpecificPower<NumericType>& specific_power, const Frequency<NumericType>& frequency)
+  : SpecificEnergy<NumericType>(specific_power.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr Power<Number> Mass<Number>::operator*(
-    const SpecificPower<Number>& specific_power) const {
-  return Power<Number>{specific_power, *this};
+template <typename NumericType>
+inline constexpr Power<NumericType> Mass<NumericType>::operator*(
+    const SpecificPower<NumericType>& specific_power) const {
+  return Power<NumericType>{specific_power, *this};
 }
 
-template <typename Number>
-inline constexpr SpecificEnergy<Number> Time<Number>::operator*(
-    const SpecificPower<Number>& specific_power) const {
-  return SpecificEnergy<Number>{specific_power, *this};
+template <typename NumericType>
+inline constexpr SpecificEnergy<NumericType> Time<NumericType>::operator*(
+    const SpecificPower<NumericType>& specific_power) const {
+  return SpecificEnergy<NumericType>{specific_power, *this};
 }
 
-template <typename Number>
-inline constexpr SpecificPower<Number> Frequency<Number>::operator*(
-    const SpecificEnergy<Number>& specific_energy) const {
-  return SpecificPower<Number>{specific_energy, *this};
+template <typename NumericType>
+inline constexpr SpecificPower<NumericType> Frequency<NumericType>::operator*(
+    const SpecificEnergy<NumericType>& specific_energy) const {
+  return SpecificPower<NumericType>{specific_energy, *this};
 }
 
-template <typename Number>
-inline constexpr SpecificPower<Number> SpecificEnergy<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return SpecificPower<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr SpecificPower<NumericType> SpecificEnergy<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return SpecificPower<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr Mass<Number> Power<Number>::operator/(
-    const SpecificPower<Number>& specific_power) const {
-  return Mass<Number>{*this, specific_power};
+template <typename NumericType>
+inline constexpr Mass<NumericType> Power<NumericType>::operator/(
+    const SpecificPower<NumericType>& specific_power) const {
+  return Mass<NumericType>{*this, specific_power};
 }
 
-template <typename Number>
-inline constexpr SpecificPower<Number> Power<Number>::operator/(const Mass<Number>& mass) const {
-  return SpecificPower<Number>{*this, mass};
+template <typename NumericType>
+inline constexpr SpecificPower<NumericType> Power<NumericType>::operator/(
+    const Mass<NumericType>& mass) const {
+  return SpecificPower<NumericType>{*this, mass};
 }
 
-template <typename Number>
-inline constexpr SpecificPower<Number> SpecificEnergy<Number>::operator/(
-    const Time<Number>& time) const {
-  return SpecificPower<Number>{*this, time};
+template <typename NumericType>
+inline constexpr SpecificPower<NumericType> SpecificEnergy<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return SpecificPower<NumericType>{*this, time};
 }
 
-template <typename Number>
-inline constexpr Time<Number> SpecificEnergy<Number>::operator/(
-    const SpecificPower<Number>& specific_power) const {
-  return Time<Number>{*this, specific_power};
+template <typename NumericType>
+inline constexpr Time<NumericType> SpecificEnergy<NumericType>::operator/(
+    const SpecificPower<NumericType>& specific_power) const {
+  return Time<NumericType>{*this, specific_power};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::SpecificPower<Number>> {
-  inline size_t operator()(const PhQ::SpecificPower<Number>& specific_power) const {
-    return hash<Number>()(specific_power.Value());
+template <typename NumericType>
+struct hash<PhQ::SpecificPower<NumericType>> {
+  inline size_t operator()(const PhQ::SpecificPower<NumericType>& specific_power) const {
+    return hash<NumericType>()(specific_power.Value());
   }
 };
 

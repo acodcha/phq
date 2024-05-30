@@ -87,13 +87,13 @@ public:
     if (value == 0) {
       return {};
     }
-    std::string text{Abbreviation()};
-    if (value >= 2) {
-      text.append("^" + std::to_string(value));
-    } else if (value <= -1) {
-      text.append("^(" + std::to_string(value) + ")");
+    std::string string{Abbreviation()};
+    if (value > 1) {
+      string.append("^" + std::to_string(value));
+    } else if (value < 0) {
+      string.append("^(" + std::to_string(value) + ")");
     }
-    return text;
+    return string;
   }
 
 private:

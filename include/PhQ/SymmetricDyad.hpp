@@ -46,11 +46,11 @@ namespace PhQ {
 /// three-dimensional Euclidean dyadic tensor which may be symmetric or asymmetric, see PhQ::Dyad.
 /// For a three-dimensional Euclidean vector, see PhQ::Vector. For a two-dimensional Euclidean
 /// vector in the XY plane, see PhQ::PlanarVector.
-template <typename Number = double>
+template <typename NumericType = double>
 class SymmetricDyad {
-  static_assert(std::is_floating_point<Number>::value,
-                "The Number template parameter of PhQ::SymmetricDyad<Number> must be a "
-                "floating-point number type.");
+  static_assert(std::is_floating_point<NumericType>::value,
+                "The NumericType template parameter of PhQ::SymmetricDyad<NumericType> must be a "
+                "numeric floating-point type: float, double, or long double.");
 
 public:
   /// \brief Default constructor. Constructs a three-dimensional symmetric dyadic tensor with
@@ -59,13 +59,13 @@ public:
 
   /// \brief Constructor. Constructs a three-dimensional symmetric dyadic tensor from the given xx,
   /// xy, xz, yy, yz, and zz Cartesian components.
-  constexpr SymmetricDyad(const Number xx, const Number xy, const Number xz, const Number yy,
-                          const Number yz, const Number zz)
+  constexpr SymmetricDyad(const NumericType xx, const NumericType xy, const NumericType xz,
+                          const NumericType yy, const NumericType yz, const NumericType zz)
     : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
   /// \brief Constructor. Constructs a three-dimensional symmetric dyadic tensor from a given array
   /// representing its xx, xy, xz, yy, yz, and zz Cartesian components.
-  explicit constexpr SymmetricDyad(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz)
+  explicit constexpr SymmetricDyad(const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz)
     : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
   /// \brief Destructor. Destroys this three-dimensional symmetric dyadic tensor.
@@ -73,179 +73,185 @@ public:
 
   /// \brief Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying
   /// another one.
-  constexpr SymmetricDyad(const SymmetricDyad<Number>& other) = default;
+  constexpr SymmetricDyad(const SymmetricDyad<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying
   /// another one.
-  template <typename OtherNumber>
-  explicit constexpr SymmetricDyad<Number>(const SymmetricDyad<OtherNumber>& other)
-    : xx_xy_xz_yy_yz_zz_({static_cast<Number>(other.xx()), static_cast<Number>(other.xy()),
-                          static_cast<Number>(other.xz()), static_cast<Number>(other.yy()),
-                          static_cast<Number>(other.yz()), static_cast<Number>(other.zz())}) {}
+  template <typename OtherNumericType>
+  explicit constexpr SymmetricDyad<NumericType>(const SymmetricDyad<OtherNumericType>& other)
+    : xx_xy_xz_yy_yz_zz_(
+        {static_cast<NumericType>(other.xx()), static_cast<NumericType>(other.xy()),
+         static_cast<NumericType>(other.xz()), static_cast<NumericType>(other.yy()),
+         static_cast<NumericType>(other.yz()), static_cast<NumericType>(other.zz())}) {}
 
   /// \brief Move constructor. Constructs a three-dimensional symmetric dyadic tensor by moving
   /// another one.
-  constexpr SymmetricDyad<Number>(SymmetricDyad<Number>&& other) noexcept = default;
+  constexpr SymmetricDyad<NumericType>(SymmetricDyad<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by
   /// copying another one.
-  constexpr SymmetricDyad<Number>& operator=(const SymmetricDyad<Number>& other) = default;
+  constexpr SymmetricDyad<NumericType>& operator=(
+      const SymmetricDyad<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by
   /// copying another one.
-  template <typename OtherNumber>
-  constexpr SymmetricDyad<Number>& operator=(const SymmetricDyad<OtherNumber>& other) {
-    xx_xy_xz_yy_yz_zz_[0] = static_cast<Number>(other.xx());
-    xx_xy_xz_yy_yz_zz_[1] = static_cast<Number>(other.xy());
-    xx_xy_xz_yy_yz_zz_[2] = static_cast<Number>(other.xz());
-    xx_xy_xz_yy_yz_zz_[3] = static_cast<Number>(other.yy());
-    xx_xy_xz_yy_yz_zz_[4] = static_cast<Number>(other.yz());
-    xx_xy_xz_yy_yz_zz_[5] = static_cast<Number>(other.zz());
+  template <typename OtherNumericType>
+  constexpr SymmetricDyad<NumericType>& operator=(const SymmetricDyad<OtherNumericType>& other) {
+    xx_xy_xz_yy_yz_zz_[0] = static_cast<NumericType>(other.xx());
+    xx_xy_xz_yy_yz_zz_[1] = static_cast<NumericType>(other.xy());
+    xx_xy_xz_yy_yz_zz_[2] = static_cast<NumericType>(other.xz());
+    xx_xy_xz_yy_yz_zz_[3] = static_cast<NumericType>(other.yy());
+    xx_xy_xz_yy_yz_zz_[4] = static_cast<NumericType>(other.yz());
+    xx_xy_xz_yy_yz_zz_[5] = static_cast<NumericType>(other.zz());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this three-dimensional symmetric dyadic tensor by
   /// moving another one.
-  constexpr SymmetricDyad<Number>& operator=(SymmetricDyad<Number>&& other) noexcept = default;
+  constexpr SymmetricDyad<NumericType>& operator=(
+      SymmetricDyad<NumericType>&& other) noexcept = default;
 
   /// \brief Assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying
   /// a given array representing its xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr SymmetricDyad<Number>& operator=(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
+  constexpr SymmetricDyad<NumericType>& operator=(
+      const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
     return *this;
   }
 
   /// \brief Statically creates a three-dimensional symmetric dyadic tensor with its xx, xy, xz, yy,
   /// yz, and zz Cartesian components initialized to zero.
-  static constexpr SymmetricDyad<Number> Zero() {
-    return SymmetricDyad<Number>{
-        std::array<Number, 6>{
-                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0),
-                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0)}
+  static constexpr SymmetricDyad<NumericType> Zero() {
+    return SymmetricDyad<NumericType>{
+        std::array<NumericType, 6>{
+                                   static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0),
+                                   static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0)}
     };
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
   /// Cartesian components as an array.
-  [[nodiscard]] constexpr const std::array<Number, 6>& xx_xy_xz_yy_yz_zz() const noexcept {
+  [[nodiscard]] constexpr const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xx Cartesian component.
-  [[nodiscard]] constexpr Number xx() const noexcept {
+  [[nodiscard]] constexpr NumericType xx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[0];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component.
-  [[nodiscard]] constexpr Number xy() const noexcept {
+  [[nodiscard]] constexpr NumericType xy() const noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component.
-  [[nodiscard]] constexpr Number xz() const noexcept {
+  [[nodiscard]] constexpr NumericType xz() const noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component.
-  [[nodiscard]] constexpr Number yx() const noexcept {
+  [[nodiscard]] constexpr NumericType yx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's yy Cartesian component.
-  [[nodiscard]] constexpr Number yy() const noexcept {
+  [[nodiscard]] constexpr NumericType yy() const noexcept {
     return xx_xy_xz_yy_yz_zz_[3];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component.
-  [[nodiscard]] constexpr Number yz() const noexcept {
+  [[nodiscard]] constexpr NumericType yz() const noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component.
-  [[nodiscard]] constexpr Number zx() const noexcept {
+  [[nodiscard]] constexpr NumericType zx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component.
-  [[nodiscard]] constexpr Number zy() const noexcept {
+  [[nodiscard]] constexpr NumericType zy() const noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's zz Cartesian component.
-  [[nodiscard]] constexpr Number zz() const noexcept {
+  [[nodiscard]] constexpr NumericType zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_[5];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
   /// Cartesian components as a mutable array.
-  constexpr std::array<Number, 6>& Mutable_xx_xy_xz_yy_yz_zz() noexcept {
+  constexpr std::array<NumericType, 6>& Mutable_xx_xy_xz_yy_yz_zz() noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xx Cartesian component as a
   /// mutable value.
-  constexpr Number& Mutable_xx() noexcept {
+  constexpr NumericType& Mutable_xx() noexcept {
     return xx_xy_xz_yy_yz_zz_[0];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component as
   /// a mutable value.
-  constexpr Number& Mutable_xy() noexcept {
+  constexpr NumericType& Mutable_xy() noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component as
   /// a mutable value.
-  constexpr Number& Mutable_xz() noexcept {
+  constexpr NumericType& Mutable_xz() noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component as
   /// a mutable value.
-  constexpr Number& Mutable_yx() noexcept {
+  constexpr NumericType& Mutable_yx() noexcept {
     return xx_xy_xz_yy_yz_zz_[1];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's yy Cartesian component as a
   /// mutable value.
-  constexpr Number& Mutable_yy() noexcept {
+  constexpr NumericType& Mutable_yy() noexcept {
     return xx_xy_xz_yy_yz_zz_[3];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component as
   /// a mutable value.
-  constexpr Number& Mutable_yz() noexcept {
+  constexpr NumericType& Mutable_yz() noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component as
   /// a mutable value.
-  constexpr Number& Mutable_zx() noexcept {
+  constexpr NumericType& Mutable_zx() noexcept {
     return xx_xy_xz_yy_yz_zz_[2];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component as
   /// a mutable value.
-  constexpr Number& Mutable_zy() noexcept {
+  constexpr NumericType& Mutable_zy() noexcept {
     return xx_xy_xz_yy_yz_zz_[4];
   }
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's zz Cartesian component as a
   /// mutable value.
-  constexpr Number& Mutable_zz() noexcept {
+  constexpr NumericType& Mutable_zz() noexcept {
     return xx_xy_xz_yy_yz_zz_[5];
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
   /// Cartesian components to the given values.
-  constexpr void Set_xx_xy_xz_yy_yz_zz(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) noexcept {
+  constexpr void Set_xx_xy_xz_yy_yz_zz(
+      const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) noexcept {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's xx, xy, xz, yy, yz, and zz
   /// Cartesian components to the given values.
-  constexpr void Set_xx_xy_xz_yy_yz_zz(const Number xx, const Number xy, const Number xz,
-                                       const Number yy, const Number yz, const Number zz) noexcept {
+  constexpr void Set_xx_xy_xz_yy_yz_zz(
+      const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
+      const NumericType yz, const NumericType zz) noexcept {
     xx_xy_xz_yy_yz_zz_[0] = xx;
     xx_xy_xz_yy_yz_zz_[1] = xy;
     xx_xy_xz_yy_yz_zz_[2] = xz;
@@ -256,88 +262,88 @@ public:
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's xx Cartesian component to a given
   /// value.
-  constexpr void Set_xx(const Number xx) noexcept {
+  constexpr void Set_xx(const NumericType xx) noexcept {
     xx_xy_xz_yy_yz_zz_[0] = xx;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's xy = yx Cartesian component to a
   /// given value.
-  constexpr void Set_xy(const Number xy) noexcept {
+  constexpr void Set_xy(const NumericType xy) noexcept {
     xx_xy_xz_yy_yz_zz_[1] = xy;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's xz = zx Cartesian component to a
   /// given value.
-  constexpr void Set_xz(const Number xz) noexcept {
+  constexpr void Set_xz(const NumericType xz) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = xz;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's yx = xy Cartesian component to a
   /// given value.
-  constexpr void Set_yx(const Number yx) noexcept {
+  constexpr void Set_yx(const NumericType yx) noexcept {
     xx_xy_xz_yy_yz_zz_[1] = yx;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's yy Cartesian component to a given
   /// value.
-  constexpr void Set_yy(const Number yy) noexcept {
+  constexpr void Set_yy(const NumericType yy) noexcept {
     xx_xy_xz_yy_yz_zz_[3] = yy;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's yz = zy Cartesian component to a
   /// given value.
-  constexpr void Set_yz(const Number yz) noexcept {
+  constexpr void Set_yz(const NumericType yz) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = yz;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's zx = xz Cartesian component to a
   /// given value.
-  constexpr void Set_zx(const Number zx) noexcept {
+  constexpr void Set_zx(const NumericType zx) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = zx;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's zy = yz Cartesian component to a
   /// given value.
-  constexpr void Set_zy(const Number zy) noexcept {
+  constexpr void Set_zy(const NumericType zy) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = zy;
   }
 
   /// \brief Sets this three-dimensional symmetric dyadic tensor's zz Cartesian component to a given
   /// value.
-  constexpr void Set_zz(const Number zz) noexcept {
+  constexpr void Set_zz(const NumericType zz) noexcept {
     xx_xy_xz_yy_yz_zz_[5] = zz;
   }
 
   /// \brief Returns the trace of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr Number Trace() const noexcept {
+  [[nodiscard]] constexpr NumericType Trace() const noexcept {
     return xx() + yy() + zz();
   }
 
   /// \brief Returns the determinant of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr Number Determinant() const noexcept {
+  [[nodiscard]] constexpr NumericType Determinant() const noexcept {
     return xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
            + xz() * (yx() * zy() - yy() * zx());
   }
 
   /// \brief Returns the transpose of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr const SymmetricDyad<Number>& Transpose() const noexcept {
+  [[nodiscard]] constexpr const SymmetricDyad<NumericType>& Transpose() const noexcept {
     return *this;
   }
 
   /// \brief Returns the cofactors of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr SymmetricDyad<Number> Cofactors() const {
-    const Number cofactor_xx{yy() * zz() - yz() * yz()};
-    const Number cofactor_xy{xz() * yz() - xy() * zz()};
-    const Number cofactor_xz{xy() * yz() - xz() * yy()};
-    const Number cofactor_yy{xx() * zz() - xz() * xz()};
-    const Number cofactor_yz{xy() * xz() - xx() * yz()};
-    const Number cofactor_zz{xx() * yy() - xy() * xy()};
-    return SymmetricDyad<Number>{
+  [[nodiscard]] constexpr SymmetricDyad<NumericType> Cofactors() const {
+    const NumericType cofactor_xx{yy() * zz() - yz() * yz()};
+    const NumericType cofactor_xy{xz() * yz() - xy() * zz()};
+    const NumericType cofactor_xz{xy() * yz() - xz() * yy()};
+    const NumericType cofactor_yy{xx() * zz() - xz() * xz()};
+    const NumericType cofactor_yz{xy() * xz() - xx() * yz()};
+    const NumericType cofactor_zz{xx() * yy() - xy() * xy()};
+    return SymmetricDyad<NumericType>{
         cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
   /// \brief Returns the adjugate of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr SymmetricDyad<Number> Adjugate() const {
+  [[nodiscard]] constexpr SymmetricDyad<NumericType> Adjugate() const {
     // In general, for a dyadic tensor, this is cofactors().transpose(), but since this is a
     // symmetric dyadic tensor, the transpose is redundant.
     return Cofactors();
@@ -345,7 +351,7 @@ public:
 
   /// \brief Returns the inverse of this three-dimensional symmetric dyadic tensor if it exists, or
   /// std::nullopt otherwise.
-  [[nodiscard]] std::optional<SymmetricDyad<Number>> Inverse() const;
+  [[nodiscard]] std::optional<SymmetricDyad<NumericType>> Inverse() const;
 
   /// \brief Prints this three-dimensional symmetric dyadic tensor as a string.
   [[nodiscard]] std::string Print() const {
@@ -380,7 +386,7 @@ public:
            + "}";
   }
 
-  constexpr void operator+=(const SymmetricDyad<Number>& symmetric_dyad) noexcept {
+  constexpr void operator+=(const SymmetricDyad<NumericType>& symmetric_dyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
@@ -389,7 +395,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator-=(const SymmetricDyad<Number>& symmetric_dyad) noexcept {
+  constexpr void operator-=(const SymmetricDyad<NumericType>& symmetric_dyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
@@ -398,48 +404,48 @@ public:
     xx_xy_xz_yy_yz_zz_[5] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  template <typename OtherNumber>
-  constexpr void operator*=(const OtherNumber number) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] *= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[1] *= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[2] *= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[3] *= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[4] *= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[5] *= static_cast<Number>(number);
+  template <typename OtherNumericType>
+  constexpr void operator*=(const OtherNumericType number) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] *= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[1] *= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[2] *= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[3] *= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[4] *= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[5] *= static_cast<NumericType>(number);
   }
 
-  template <typename OtherNumber>
-  constexpr void operator/=(const OtherNumber number) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] /= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[1] /= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[2] /= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[3] /= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[4] /= static_cast<Number>(number);
-    xx_xy_xz_yy_yz_zz_[5] /= static_cast<Number>(number);
+  template <typename OtherNumericType>
+  constexpr void operator/=(const OtherNumericType number) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] /= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[1] /= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[2] /= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[3] /= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[4] /= static_cast<NumericType>(number);
+    xx_xy_xz_yy_yz_zz_[5] /= static_cast<NumericType>(number);
   }
 
 private:
   /// \brief Cartesian components of this three-dimensional symmetric dyadic tensor.
-  std::array<Number, 6> xx_xy_xz_yy_yz_zz_;
+  std::array<NumericType, 6> xx_xy_xz_yy_yz_zz_;
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) noexcept {
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) noexcept {
   return (left.xx() == right.xx() && left.xy() == right.xy() && left.xz() == right.xz()
           && left.yy() == right.yy() && left.yz() == right.yz() && left.zz() == right.zz());
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) noexcept {
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) noexcept {
   return (left.xx() != right.xx() || left.xy() != right.xy() || left.xz() != right.xz()
           || left.yy() != right.yy() || left.yz() != right.yz() || left.zz() != right.zz());
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) noexcept {
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) noexcept {
   if (left.xx() != right.xx()) {
     return left.xx() < right.xx();
   }
@@ -458,9 +464,9 @@ inline constexpr bool operator<(
   return left.zz() < right.zz();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) noexcept {
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) noexcept {
   if (left.xx() != right.xx()) {
     return left.xx() > right.xx();
   }
@@ -479,65 +485,65 @@ inline constexpr bool operator>(
   return left.zz() > right.zz();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) noexcept {
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) noexcept {
   return !(left > right);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) noexcept {
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) noexcept {
   return !(left < right);
 }
 
-template <typename Number>
-inline constexpr SymmetricDyad<Number> operator+(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) {
-  return SymmetricDyad<Number>{
+template <typename NumericType>
+inline constexpr SymmetricDyad<NumericType> operator+(
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) {
+  return SymmetricDyad<NumericType>{
       left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
       left.yy() + right.yy(), left.yz() + right.yz(), left.zz() + right.zz()};
 }
 
-template <typename Number>
-inline constexpr SymmetricDyad<Number> operator-(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right) {
-  return SymmetricDyad<Number>{
+template <typename NumericType>
+inline constexpr SymmetricDyad<NumericType> operator-(
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) {
+  return SymmetricDyad<NumericType>{
       left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
       left.yy() - right.yy(), left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
-template <typename Number, typename OtherNumber>
-inline constexpr SymmetricDyad<Number> operator*(
-    const SymmetricDyad<Number>& symmetric_dyad, const OtherNumber number) {
-  return SymmetricDyad<Number>{
-      symmetric_dyad.xx() * static_cast<Number>(number),
-      symmetric_dyad.xy() * static_cast<Number>(number),
-      symmetric_dyad.xz() * static_cast<Number>(number),
-      symmetric_dyad.yy() * static_cast<Number>(number),
-      symmetric_dyad.yz() * static_cast<Number>(number),
-      symmetric_dyad.zz() * static_cast<Number>(number)};
+template <typename NumericType, typename OtherNumericType>
+inline constexpr SymmetricDyad<NumericType> operator*(
+    const SymmetricDyad<NumericType>& symmetric_dyad, const OtherNumericType number) {
+  return SymmetricDyad<NumericType>{
+      symmetric_dyad.xx() * static_cast<NumericType>(number),
+      symmetric_dyad.xy() * static_cast<NumericType>(number),
+      symmetric_dyad.xz() * static_cast<NumericType>(number),
+      symmetric_dyad.yy() * static_cast<NumericType>(number),
+      symmetric_dyad.yz() * static_cast<NumericType>(number),
+      symmetric_dyad.zz() * static_cast<NumericType>(number)};
 }
 
-template <typename Number, typename OtherNumber>
-inline constexpr SymmetricDyad<Number> operator*(
-    const OtherNumber number, const SymmetricDyad<Number>& symmetric_dyad) {
-  return SymmetricDyad<Number>{symmetric_dyad * number};
+template <typename NumericType, typename OtherNumericType>
+inline constexpr SymmetricDyad<NumericType> operator*(
+    const OtherNumericType number, const SymmetricDyad<NumericType>& symmetric_dyad) {
+  return SymmetricDyad<NumericType>{symmetric_dyad * number};
 }
 
-template <typename Number>
-inline constexpr Vector<Number> operator*(
-    const SymmetricDyad<Number>& symmetric_dyad, const PlanarVector<Number>& planar_vector) {
-  return Vector<Number>{
+template <typename NumericType>
+inline constexpr Vector<NumericType> operator*(const SymmetricDyad<NumericType>& symmetric_dyad,
+                                               const PlanarVector<NumericType>& planar_vector) {
+  return Vector<NumericType>{
       symmetric_dyad.xx() * planar_vector.x() + symmetric_dyad.xy() * planar_vector.y(),
       symmetric_dyad.xy() * planar_vector.x() + symmetric_dyad.yy() * planar_vector.y(),
       symmetric_dyad.xz() * planar_vector.x() + symmetric_dyad.yz() * planar_vector.y()};
 }
 
-template <typename Number>
-inline constexpr Vector<Number> operator*(
-    const SymmetricDyad<Number>& symmetric_dyad, const Vector<Number>& vector) {
-  return Vector<Number>{
+template <typename NumericType>
+inline constexpr Vector<NumericType> operator*(
+    const SymmetricDyad<NumericType>& symmetric_dyad, const Vector<NumericType>& vector) {
+  return Vector<NumericType>{
       symmetric_dyad.xx() * vector.x() + symmetric_dyad.xy() * vector.y()
           + symmetric_dyad.xz() * vector.z(),
       symmetric_dyad.xy() * vector.x() + symmetric_dyad.yy() * vector.y()
@@ -546,37 +552,37 @@ inline constexpr Vector<Number> operator*(
           + symmetric_dyad.zz() * vector.z()};
 }
 
-template <typename Number>
-inline constexpr Dyad<Number> operator*(
-    const SymmetricDyad<Number>& left, const SymmetricDyad<Number>& right);
+template <typename NumericType>
+inline constexpr Dyad<NumericType> operator*(
+    const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right);
 
-template <typename Number>
-inline constexpr Dyad<Number> operator*(
-    const SymmetricDyad<Number>& symmetric_dyad, const Dyad<Number>& dyad);
+template <typename NumericType>
+inline constexpr Dyad<NumericType> operator*(
+    const SymmetricDyad<NumericType>& symmetric_dyad, const Dyad<NumericType>& dyad);
 
-template <typename Number, typename OtherNumber>
-inline constexpr SymmetricDyad<Number> operator/(
-    const SymmetricDyad<Number>& symmetric_dyad, const OtherNumber number) {
-  return SymmetricDyad<Number>{
-      symmetric_dyad.xx() / static_cast<Number>(number),
-      symmetric_dyad.xy() / static_cast<Number>(number),
-      symmetric_dyad.xz() / static_cast<Number>(number),
-      symmetric_dyad.yy() / static_cast<Number>(number),
-      symmetric_dyad.yz() / static_cast<Number>(number),
-      symmetric_dyad.zz() / static_cast<Number>(number)};
+template <typename NumericType, typename OtherNumericType>
+inline constexpr SymmetricDyad<NumericType> operator/(
+    const SymmetricDyad<NumericType>& symmetric_dyad, const OtherNumericType number) {
+  return SymmetricDyad<NumericType>{
+      symmetric_dyad.xx() / static_cast<NumericType>(number),
+      symmetric_dyad.xy() / static_cast<NumericType>(number),
+      symmetric_dyad.xz() / static_cast<NumericType>(number),
+      symmetric_dyad.yy() / static_cast<NumericType>(number),
+      symmetric_dyad.yz() / static_cast<NumericType>(number),
+      symmetric_dyad.zz() / static_cast<NumericType>(number)};
 }
 
-template <typename Number>
-inline std::optional<SymmetricDyad<Number>> SymmetricDyad<Number>::Inverse() const {
-  const Number determinant_{Determinant()};
+template <typename NumericType>
+inline std::optional<SymmetricDyad<NumericType>> SymmetricDyad<NumericType>::Inverse() const {
+  const NumericType determinant_{Determinant()};
   if (determinant_ != 0.0) {
     return std::optional<SymmetricDyad>{Adjugate() / determinant_};
   }
   return std::nullopt;
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const SymmetricDyad<Number>& symmetric) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const SymmetricDyad<NumericType>& symmetric) {
   stream << symmetric.Print();
   return stream;
 }
@@ -585,16 +591,16 @@ inline std::ostream& operator<<(std::ostream& stream, const SymmetricDyad<Number
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::SymmetricDyad<Number>> {
-  inline size_t operator()(const PhQ::SymmetricDyad<Number>& symmetric) const {
+template <typename NumericType>
+struct hash<PhQ::SymmetricDyad<NumericType>> {
+  inline size_t operator()(const PhQ::SymmetricDyad<NumericType>& symmetric) const {
     size_t result{17};
-    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.xx());
-    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.xy());
-    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.xz());
-    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.yy());
-    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.yz());
-    result = static_cast<size_t>(31) * result + hash<Number>()(symmetric.zz());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(symmetric.xx());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(symmetric.xy());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(symmetric.xz());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(symmetric.yy());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(symmetric.yz());
+    result = static_cast<size_t>(31) * result + hash<NumericType>()(symmetric.zz());
     return result;
   }
 };

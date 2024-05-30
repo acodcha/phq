@@ -75,37 +75,37 @@ TEST(UnitPressure, ConsistentUnit) {
       ConsistentUnit<Pressure>(UnitSystem::InchPoundSecondRankine), Pressure::PoundPerSquareInch);
 }
 
-TEST(UnitPressure, ConvertAndConvertCopy) {
+TEST(UnitPressure, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Pressure>(Pressure::Pascal, Pressure::Pascal, value, value);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Megapascal, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Pascal, value, value);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001L);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Megapascal, value, value * 0.000001L);
+  Internal::TestConvert<Pressure>(
       Pressure::Pascal, Pressure::Gigapascal, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Bar, value, value * 0.00001L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::Atmosphere, value, value / 101325.0L);
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::PoundPerSquareFoot, value,
-      value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Pressure>(
-      Pressure::Pascal, Pressure::PoundPerSquareInch, value,
-      value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Bar, value, value * 0.00001L);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::Atmosphere, value, value / 101325.0L);
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::PoundPerSquareFoot, value,
+                                  value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
+  Internal::TestConvert<Pressure>(Pressure::Pascal, Pressure::PoundPerSquareInch, value,
+                                  value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitPressure, Parse) {
-  EXPECT_EQ(Parse<Pressure>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Pressure>("Pa"), Pressure::Pascal);
-  EXPECT_EQ(Parse<Pressure>("kPa"), Pressure::Kilopascal);
-  EXPECT_EQ(Parse<Pressure>("MPa"), Pressure::Megapascal);
-  EXPECT_EQ(Parse<Pressure>("GPa"), Pressure::Gigapascal);
-  EXPECT_EQ(Parse<Pressure>("bar"), Pressure::Bar);
-  EXPECT_EQ(Parse<Pressure>("atm"), Pressure::Atmosphere);
-  EXPECT_EQ(Parse<Pressure>("lbf/ft^2"), Pressure::PoundPerSquareFoot);
-  EXPECT_EQ(Parse<Pressure>("lbf/in^2"), Pressure::PoundPerSquareInch);
+TEST(UnitPressure, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
+      value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitPressure, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Pressure>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Pressure>("Pa"), Pressure::Pascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("kPa"), Pressure::Kilopascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("MPa"), Pressure::Megapascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("GPa"), Pressure::Gigapascal);
+  EXPECT_EQ(ParseEnumeration<Pressure>("bar"), Pressure::Bar);
+  EXPECT_EQ(ParseEnumeration<Pressure>("atm"), Pressure::Atmosphere);
+  EXPECT_EQ(ParseEnumeration<Pressure>("lbf/ft^2"), Pressure::PoundPerSquareFoot);
+  EXPECT_EQ(ParseEnumeration<Pressure>("lbf/in^2"), Pressure::PoundPerSquareInch);
 }
 
 TEST(UnitPressure, RelatedDimensions) {
@@ -128,12 +128,6 @@ TEST(UnitPressure, RelatedUnitSystem) {
 
 TEST(UnitPressure, Standard) {
   EXPECT_EQ(Standard<Pressure>, Pressure::Pascal);
-}
-
-TEST(UnitPressure, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
-      value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitPressure, Stream) {

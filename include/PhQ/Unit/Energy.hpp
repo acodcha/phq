@@ -295,590 +295,593 @@ inline const std::unordered_map<std::string_view, Unit::Energy> Spellings<Unit::
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Joule>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Joule>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Millijoule>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Millijoule>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Microjoule>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Microjoule>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Nanojoule>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Nanojoule>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Kilojoule>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Kilojoule>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Megajoule>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Megajoule>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Gigajoule>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Gigajoule>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::WattMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::WattMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::WattHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::WattHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::KilowattMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::KilowattMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::KilowattHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::KilowattHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::MegawattMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::MegawattMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::MegawattHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::MegawattHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::GigawattMinute>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(60000000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::GigawattMinute>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(60000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::GigawattHour>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(3600000000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::GigawattHour>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(3600000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::FootPound>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
-            * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.45359237L)
+            * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::FootPound>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
-           * static_cast<Number>(9.80665L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.45359237L)
+           * static_cast<NumericType>(9.80665L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::InchPound>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
-            * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.45359237L)
+            * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::InchPound>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
-           * static_cast<Number>(9.80665L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.45359237L)
+           * static_cast<NumericType>(9.80665L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Calorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(4.184L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(4.184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Calorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(4.184L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(4.184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Millicalorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.004184L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.004184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Millicalorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.004184L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.004184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Microcalorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.000004184L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.000004184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Microcalorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000004184L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000004184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Nanocalorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(0.000000004184L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(0.000000004184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Nanocalorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000004184L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000004184L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Kilocalorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(4184.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(4184.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Kilocalorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(4184.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(4184.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Megacalorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(4184000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(4184000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Megacalorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(4184000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(4184000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Gigacalorie>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(4184000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(4184000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Gigacalorie>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(4184000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(4184000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Electronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-19L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-19L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Electronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-19L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-19L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Millielectronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-22L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-22L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Millielectronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-22L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-22L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Microelectronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-25L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-25L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Microelectronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-25L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-25L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Nanoelectronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-28L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-28L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Nanoelectronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-28L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-28L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Kiloelectronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-16L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-16L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Kiloelectronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-16L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-16L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Megaelectronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-13L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-13L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Megaelectronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-13L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-13L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Gigaelectronvolt>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1.602176634e-10L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1.602176634e-10L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::Gigaelectronvolt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.602176634e-10L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.602176634e-10L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::BritishThermalUnit>::FromStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(1.8L) / (static_cast<Number>(4.1868L) * static_cast<Number>(453.59237L));
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.8L)
+           / (static_cast<NumericType>(4.1868L) * static_cast<NumericType>(453.59237L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Energy, Unit::Energy::BritishThermalUnit>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(4.1868L) * static_cast<Number>(453.59237L) / static_cast<Number>(1.8L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(4.1868L) * static_cast<NumericType>(453.59237L)
+           / static_cast<NumericType>(1.8L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Energy, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Energy, Number>{
-        {Unit::Energy::Joule,              Conversions<Unit::Energy, Unit::Energy::Joule>::FromStandard<Number>             },
+template <typename NumericType>
+inline const std::map<Unit::Energy,
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Energy, NumericType>{
+        {Unit::Energy::Joule,
+         Conversions<Unit::Energy, Unit::Energy::Joule>::FromStandard<NumericType>             },
         {Unit::Energy::Millijoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Millijoule>::FromStandard<Number>        },
+         Conversions<Unit::Energy, Unit::Energy::Millijoule>::FromStandard<NumericType>        },
         {Unit::Energy::Microjoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Microjoule>::FromStandard<Number>        },
+         Conversions<Unit::Energy, Unit::Energy::Microjoule>::FromStandard<NumericType>        },
         {Unit::Energy::Nanojoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Nanojoule>::FromStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Nanojoule>::FromStandard<NumericType>         },
         {Unit::Energy::Kilojoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Kilojoule>::FromStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Kilojoule>::FromStandard<NumericType>         },
         {Unit::Energy::Megajoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Megajoule>::FromStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Megajoule>::FromStandard<NumericType>         },
         {Unit::Energy::Gigajoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Gigajoule>::FromStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Gigajoule>::FromStandard<NumericType>         },
         {Unit::Energy::WattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::WattMinute>::FromStandard<Number>        },
+         Conversions<Unit::Energy, Unit::Energy::WattMinute>::FromStandard<NumericType>        },
         {Unit::Energy::WattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::WattHour>::FromStandard<Number>          },
+         Conversions<Unit::Energy, Unit::Energy::WattHour>::FromStandard<NumericType>          },
         {Unit::Energy::KilowattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::KilowattMinute>::FromStandard<Number>    },
+         Conversions<Unit::Energy, Unit::Energy::KilowattMinute>::FromStandard<NumericType>    },
         {Unit::Energy::KilowattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::KilowattHour>::FromStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::KilowattHour>::FromStandard<NumericType>      },
         {Unit::Energy::MegawattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::MegawattMinute>::FromStandard<Number>    },
+         Conversions<Unit::Energy, Unit::Energy::MegawattMinute>::FromStandard<NumericType>    },
         {Unit::Energy::MegawattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::MegawattHour>::FromStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::MegawattHour>::FromStandard<NumericType>      },
         {Unit::Energy::GigawattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::GigawattMinute>::FromStandard<Number>    },
+         Conversions<Unit::Energy, Unit::Energy::GigawattMinute>::FromStandard<NumericType>    },
         {Unit::Energy::GigawattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::GigawattHour>::FromStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::GigawattHour>::FromStandard<NumericType>      },
         {Unit::Energy::FootPound,
-         Conversions<Unit::Energy,                                   Unit::Energy::FootPound>::FromStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::FootPound>::FromStandard<NumericType>         },
         {Unit::Energy::InchPound,
-         Conversions<Unit::Energy,                                   Unit::Energy::InchPound>::FromStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::InchPound>::FromStandard<NumericType>         },
         {Unit::Energy::Calorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Calorie>::FromStandard<Number>           },
+         Conversions<Unit::Energy, Unit::Energy::Calorie>::FromStandard<NumericType>           },
         {Unit::Energy::Millicalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Millicalorie>::FromStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::Millicalorie>::FromStandard<NumericType>      },
         {Unit::Energy::Microcalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Microcalorie>::FromStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::Microcalorie>::FromStandard<NumericType>      },
         {Unit::Energy::Nanocalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Nanocalorie>::FromStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Nanocalorie>::FromStandard<NumericType>       },
         {Unit::Energy::Kilocalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Kilocalorie>::FromStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Kilocalorie>::FromStandard<NumericType>       },
         {Unit::Energy::Megacalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Megacalorie>::FromStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Megacalorie>::FromStandard<NumericType>       },
         {Unit::Energy::Gigacalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Gigacalorie>::FromStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Gigacalorie>::FromStandard<NumericType>       },
         {Unit::Energy::Electronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Electronvolt>::FromStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::Electronvolt>::FromStandard<NumericType>      },
         {Unit::Energy::Millielectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Millielectronvolt>::FromStandard<Number> },
+         Conversions<Unit::Energy, Unit::Energy::Millielectronvolt>::FromStandard<NumericType> },
         {Unit::Energy::Microelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Microelectronvolt>::FromStandard<Number> },
+         Conversions<Unit::Energy, Unit::Energy::Microelectronvolt>::FromStandard<NumericType> },
         {Unit::Energy::Nanoelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Nanoelectronvolt>::FromStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Nanoelectronvolt>::FromStandard<NumericType>  },
         {Unit::Energy::Kiloelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Kiloelectronvolt>::FromStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Kiloelectronvolt>::FromStandard<NumericType>  },
         {Unit::Energy::Megaelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Megaelectronvolt>::FromStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Megaelectronvolt>::FromStandard<NumericType>  },
         {Unit::Energy::Gigaelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Gigaelectronvolt>::FromStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Gigaelectronvolt>::FromStandard<NumericType>  },
         {Unit::Energy::BritishThermalUnit,
-         Conversions<Unit::Energy,                                   Unit::Energy::BritishThermalUnit>::FromStandard<Number>},
+         Conversions<Unit::Energy, Unit::Energy::BritishThermalUnit>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Energy,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Energy, Number>{
-        {Unit::Energy::Joule,              Conversions<Unit::Energy, Unit::Energy::Joule>::ToStandard<Number>             },
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Energy, NumericType>{
+        {Unit::Energy::Joule,
+         Conversions<Unit::Energy, Unit::Energy::Joule>::ToStandard<NumericType>             },
         {Unit::Energy::Millijoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Millijoule>::ToStandard<Number>        },
+         Conversions<Unit::Energy, Unit::Energy::Millijoule>::ToStandard<NumericType>        },
         {Unit::Energy::Microjoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Microjoule>::ToStandard<Number>        },
+         Conversions<Unit::Energy, Unit::Energy::Microjoule>::ToStandard<NumericType>        },
         {Unit::Energy::Nanojoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Nanojoule>::ToStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Nanojoule>::ToStandard<NumericType>         },
         {Unit::Energy::Kilojoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Kilojoule>::ToStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Kilojoule>::ToStandard<NumericType>         },
         {Unit::Energy::Megajoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Megajoule>::ToStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Megajoule>::ToStandard<NumericType>         },
         {Unit::Energy::Gigajoule,
-         Conversions<Unit::Energy,                                   Unit::Energy::Gigajoule>::ToStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::Gigajoule>::ToStandard<NumericType>         },
         {Unit::Energy::WattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::WattMinute>::ToStandard<Number>        },
+         Conversions<Unit::Energy, Unit::Energy::WattMinute>::ToStandard<NumericType>        },
         {Unit::Energy::WattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::WattHour>::ToStandard<Number>          },
+         Conversions<Unit::Energy, Unit::Energy::WattHour>::ToStandard<NumericType>          },
         {Unit::Energy::KilowattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::KilowattMinute>::ToStandard<Number>    },
+         Conversions<Unit::Energy, Unit::Energy::KilowattMinute>::ToStandard<NumericType>    },
         {Unit::Energy::KilowattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::KilowattHour>::ToStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::KilowattHour>::ToStandard<NumericType>      },
         {Unit::Energy::MegawattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::MegawattMinute>::ToStandard<Number>    },
+         Conversions<Unit::Energy, Unit::Energy::MegawattMinute>::ToStandard<NumericType>    },
         {Unit::Energy::MegawattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::MegawattHour>::ToStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::MegawattHour>::ToStandard<NumericType>      },
         {Unit::Energy::GigawattMinute,
-         Conversions<Unit::Energy,                                   Unit::Energy::GigawattMinute>::ToStandard<Number>    },
+         Conversions<Unit::Energy, Unit::Energy::GigawattMinute>::ToStandard<NumericType>    },
         {Unit::Energy::GigawattHour,
-         Conversions<Unit::Energy,                                   Unit::Energy::GigawattHour>::ToStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::GigawattHour>::ToStandard<NumericType>      },
         {Unit::Energy::FootPound,
-         Conversions<Unit::Energy,                                   Unit::Energy::FootPound>::ToStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::FootPound>::ToStandard<NumericType>         },
         {Unit::Energy::InchPound,
-         Conversions<Unit::Energy,                                   Unit::Energy::InchPound>::ToStandard<Number>         },
+         Conversions<Unit::Energy, Unit::Energy::InchPound>::ToStandard<NumericType>         },
         {Unit::Energy::Calorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Calorie>::ToStandard<Number>           },
+         Conversions<Unit::Energy, Unit::Energy::Calorie>::ToStandard<NumericType>           },
         {Unit::Energy::Millicalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Millicalorie>::ToStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::Millicalorie>::ToStandard<NumericType>      },
         {Unit::Energy::Microcalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Microcalorie>::ToStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::Microcalorie>::ToStandard<NumericType>      },
         {Unit::Energy::Nanocalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Nanocalorie>::ToStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Nanocalorie>::ToStandard<NumericType>       },
         {Unit::Energy::Kilocalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Kilocalorie>::ToStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Kilocalorie>::ToStandard<NumericType>       },
         {Unit::Energy::Megacalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Megacalorie>::ToStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Megacalorie>::ToStandard<NumericType>       },
         {Unit::Energy::Gigacalorie,
-         Conversions<Unit::Energy,                                   Unit::Energy::Gigacalorie>::ToStandard<Number>       },
+         Conversions<Unit::Energy, Unit::Energy::Gigacalorie>::ToStandard<NumericType>       },
         {Unit::Energy::Electronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Electronvolt>::ToStandard<Number>      },
+         Conversions<Unit::Energy, Unit::Energy::Electronvolt>::ToStandard<NumericType>      },
         {Unit::Energy::Millielectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Millielectronvolt>::ToStandard<Number> },
+         Conversions<Unit::Energy, Unit::Energy::Millielectronvolt>::ToStandard<NumericType> },
         {Unit::Energy::Microelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Microelectronvolt>::ToStandard<Number> },
+         Conversions<Unit::Energy, Unit::Energy::Microelectronvolt>::ToStandard<NumericType> },
         {Unit::Energy::Nanoelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Nanoelectronvolt>::ToStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Nanoelectronvolt>::ToStandard<NumericType>  },
         {Unit::Energy::Kiloelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Kiloelectronvolt>::ToStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Kiloelectronvolt>::ToStandard<NumericType>  },
         {Unit::Energy::Megaelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Megaelectronvolt>::ToStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Megaelectronvolt>::ToStandard<NumericType>  },
         {Unit::Energy::Gigaelectronvolt,
-         Conversions<Unit::Energy,                                   Unit::Energy::Gigaelectronvolt>::ToStandard<Number>  },
+         Conversions<Unit::Energy, Unit::Energy::Gigaelectronvolt>::ToStandard<NumericType>  },
         {Unit::Energy::BritishThermalUnit,
-         Conversions<Unit::Energy,                                   Unit::Energy::BritishThermalUnit>::ToStandard<Number>},
+         Conversions<Unit::Energy, Unit::Energy::BritishThermalUnit>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

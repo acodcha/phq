@@ -174,174 +174,174 @@ inline const std::unordered_map<std::string_view, Unit::Power> Spellings<Unit::P
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Watt>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Watt>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Milliwatt>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Milliwatt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Microwatt>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Microwatt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Nanowatt>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Nanowatt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Kilowatt>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Kilowatt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Megawatt>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Megawatt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Gigawatt>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::Gigawatt>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::FootPoundPerSecond>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
-            * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.45359237L)
+            * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::FootPoundPerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
-           * static_cast<Number>(9.80665L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.45359237L)
+           * static_cast<NumericType>(9.80665L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::InchPoundPerSecond>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
-            * static_cast<Number>(9.80665L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.45359237L)
+            * static_cast<NumericType>(9.80665L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Power, Unit::Power::InchPoundPerSecond>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
-           * static_cast<Number>(9.80665L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.45359237L)
+           * static_cast<NumericType>(9.80665L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Power, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Power, Number>{
-        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::FromStandard<Number>              },
+template <typename NumericType>
+inline const std::map<Unit::Power, std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Power, NumericType>{
+        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::FromStandard<NumericType>              },
         {Unit::Power::Milliwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::FromStandard<Number>         },
+         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::FromStandard<NumericType>         },
         {Unit::Power::Microwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::FromStandard<Number>         },
+         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::FromStandard<NumericType>         },
         {Unit::Power::Nanowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::FromStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::FromStandard<NumericType>          },
         {Unit::Power::Kilowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::FromStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::FromStandard<NumericType>          },
         {Unit::Power::Megawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::FromStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::FromStandard<NumericType>          },
         {Unit::Power::Gigawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::FromStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::FromStandard<NumericType>          },
         {Unit::Power::FootPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::FromStandard<Number>},
+         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::FromStandard<NumericType>},
         {Unit::Power::InchPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::FromStandard<Number>},
+         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Power,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Power, Number>{
-        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::ToStandard<Number>              },
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Power, NumericType>{
+        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::ToStandard<NumericType>              },
         {Unit::Power::Milliwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::ToStandard<Number>         },
+         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::ToStandard<NumericType>         },
         {Unit::Power::Microwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::ToStandard<Number>         },
+         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::ToStandard<NumericType>         },
         {Unit::Power::Nanowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::ToStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::ToStandard<NumericType>          },
         {Unit::Power::Kilowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::ToStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::ToStandard<NumericType>          },
         {Unit::Power::Megawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::ToStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::ToStandard<NumericType>          },
         {Unit::Power::Gigawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::ToStandard<Number>          },
+         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::ToStandard<NumericType>          },
         {Unit::Power::FootPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::ToStandard<Number>},
+         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::ToStandard<NumericType>},
         {Unit::Power::InchPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::ToStandard<Number>},
+         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

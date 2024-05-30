@@ -48,254 +48,259 @@ namespace PhQ {
 /// xy, xz, yx, yy, yz, zx, zy, and zz. For the scalar components or resultants of a velocity
 /// gradient tensor, see PhQ::ScalarVelocityGradient. Can also represent the time rate of change of
 /// a displacement gradient; see PhQ::DisplacementGradient, PhQ::Time, and PhQ::Frequency.
-template <typename Number = double>
-class VelocityGradient : public DimensionalDyad<Unit::Frequency, Number> {
+template <typename NumericType = double>
+class VelocityGradient : public DimensionalDyad<Unit::Frequency, NumericType> {
 public:
   /// \brief Default constructor. Constructs a velocity gradient tensor with an uninitialized value.
   VelocityGradient() = default;
 
   /// \brief Constructor. Constructs a velocity gradient tensor with a given value expressed in a
   /// given frequency unit.
-  VelocityGradient(const Dyad<Number>& value, const Unit::Frequency& unit)
-    : DimensionalDyad<Unit::Frequency, Number>(value, unit) {}
+  VelocityGradient(const Dyad<NumericType>& value, const Unit::Frequency& unit)
+    : DimensionalDyad<Unit::Frequency, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a velocity gradient tensor from a given set of scalar velocity
   /// gradient components.
   VelocityGradient(
-      const ScalarVelocityGradient<Number>& xx, const ScalarVelocityGradient<Number>& xy,
-      const ScalarVelocityGradient<Number>& xz, const ScalarVelocityGradient<Number>& yx,
-      const ScalarVelocityGradient<Number>& yy, const ScalarVelocityGradient<Number>& yz,
-      const ScalarVelocityGradient<Number>& zx, const ScalarVelocityGradient<Number>& zy,
-      const ScalarVelocityGradient<Number>& zz)
-    : VelocityGradient<Number>({xx.Value(), xy.Value(), xz.Value(), yx.Value(), yy.Value(),
-                                yz.Value(), zx.Value(), zy.Value(), zz.Value()}) {}
+      const ScalarVelocityGradient<NumericType>& xx, const ScalarVelocityGradient<NumericType>& xy,
+      const ScalarVelocityGradient<NumericType>& xz, const ScalarVelocityGradient<NumericType>& yx,
+      const ScalarVelocityGradient<NumericType>& yy, const ScalarVelocityGradient<NumericType>& yz,
+      const ScalarVelocityGradient<NumericType>& zx, const ScalarVelocityGradient<NumericType>& zy,
+      const ScalarVelocityGradient<NumericType>& zz)
+    : VelocityGradient<NumericType>({xx.Value(), xy.Value(), xz.Value(), yx.Value(), yy.Value(),
+                                     yz.Value(), zx.Value(), zy.Value(), zz.Value()}) {}
 
   /// \brief Constructor. Constructs a velocity gradient tensor from a given displacement gradient
   /// tensor and time using the definition of speed.
   constexpr VelocityGradient(
-      const DisplacementGradient<Number>& displacement_gradient, const Time<Number>& time)
-    : VelocityGradient<Number>(displacement_gradient.Value() / time.Value()) {}
+      const DisplacementGradient<NumericType>& displacement_gradient, const Time<NumericType>& time)
+    : VelocityGradient<NumericType>(displacement_gradient.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a velocity gradient tensor from a given displacement gradient
   /// tensor and frequency using the definition of speed.
-  constexpr VelocityGradient(
-      const DisplacementGradient<Number>& displacement_gradient, const Frequency<Number>& frequency)
-    : VelocityGradient<Number>(displacement_gradient.Value() * frequency.Value()) {}
+  constexpr VelocityGradient(const DisplacementGradient<NumericType>& displacement_gradient,
+                             const Frequency<NumericType>& frequency)
+    : VelocityGradient<NumericType>(displacement_gradient.Value() * frequency.Value()) {}
 
   /// \brief Destructor. Destroys this velocity gradient tensor.
   ~VelocityGradient() noexcept = default;
 
   /// \brief Copy constructor. Constructs a velocity gradient tensor by copying another one.
-  constexpr VelocityGradient(const VelocityGradient<Number>& other) = default;
+  constexpr VelocityGradient(const VelocityGradient<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a velocity gradient tensor by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr VelocityGradient(const VelocityGradient<OtherNumber>& other)
-    : VelocityGradient(static_cast<Dyad<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr VelocityGradient(const VelocityGradient<OtherNumericType>& other)
+    : VelocityGradient(static_cast<Dyad<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a velocity gradient tensor by moving another one.
-  constexpr VelocityGradient(VelocityGradient<Number>&& other) noexcept = default;
+  constexpr VelocityGradient(VelocityGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
-  constexpr VelocityGradient<Number>& operator=(const VelocityGradient<Number>& other) = default;
+  constexpr VelocityGradient<NumericType>& operator=(
+      const VelocityGradient<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this velocity gradient tensor by copying another one.
-  template <typename OtherNumber>
-  constexpr VelocityGradient<Number>& operator=(const VelocityGradient<OtherNumber>& other) {
-    this->value = static_cast<Dyad<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr VelocityGradient<NumericType>& operator=(
+      const VelocityGradient<OtherNumericType>& other) {
+    this->value = static_cast<Dyad<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this velocity gradient tensor by moving another one.
-  constexpr VelocityGradient<Number>& operator=(
-      VelocityGradient<Number>&& other) noexcept = default;
+  constexpr VelocityGradient<NumericType>& operator=(
+      VelocityGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a velocity gradient tensor of zero.
-  static constexpr VelocityGradient<Number> Zero() {
-    return VelocityGradient<Number>{Dyad<Number>::Zero()};
+  static constexpr VelocityGradient<NumericType> Zero() {
+    return VelocityGradient<NumericType>{Dyad<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
   /// zx,zy, and zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient<Number> Create(
-      const Number xx, const Number xy, const Number xz, const Number yx, const Number yy,
-      const Number yz, const Number zx, const Number zy, const Number zz) {
-    return VelocityGradient<Number>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            Dyad<Number>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
+  static constexpr VelocityGradient<NumericType> Create(
+      const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yx,
+      const NumericType yy, const NumericType yz, const NumericType zx, const NumericType zy,
+      const NumericType zz) {
+    return VelocityGradient<NumericType>{
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+            Dyad<NumericType>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
   }
 
   /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
   /// zx,zy, and zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient<Number> Create(
-      const std::array<Number, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
-    return VelocityGradient<Number>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            Dyad<Number>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
+  static constexpr VelocityGradient<NumericType> Create(
+      const std::array<NumericType, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
+    return VelocityGradient<NumericType>{
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+            Dyad<NumericType>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
   }
 
   /// \brief Statically creates a velocity gradient tensor with a given value expressed in a given
   /// frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient<Number> Create(const Dyad<Number>& value) {
-    return VelocityGradient<Number>{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+  static constexpr VelocityGradient<NumericType> Create(const Dyad<NumericType>& value) {
+    return VelocityGradient<NumericType>{
+        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> xx() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.xx()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> xx() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.xx()};
   }
 
   /// \brief Returns the xy Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> xy() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.xy()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> xy() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.xy()};
   }
 
   /// \brief Returns the xz Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> xz() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.xz()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> xz() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.xz()};
   }
 
   /// \brief Returns the yx Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> yx() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.yx()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> yx() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.yx()};
   }
 
   /// \brief Returns the yy Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> yy() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.yy()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> yy() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.yy()};
   }
 
   /// \brief Returns the yz Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> yz() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.yz()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> yz() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.yz()};
   }
 
   /// \brief Returns the zx Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> zx() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.zx()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> zx() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.zx()};
   }
 
   /// \brief Returns the zy Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> zy() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.zy()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> zy() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.zy()};
   }
 
   /// \brief Returns the zz Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr ScalarVelocityGradient<Number> zz() const noexcept {
-    return ScalarVelocityGradient<Number>{this->value.zz()};
+  [[nodiscard]] constexpr ScalarVelocityGradient<NumericType> zz() const noexcept {
+    return ScalarVelocityGradient<NumericType>{this->value.zz()};
   }
 
   /// \brief Creates a strain rate tensor from this velocity gradient tensor using the definition of
   /// the strain rate tensor.
-  [[nodiscard]] constexpr PhQ::StrainRate<Number> StrainRate() const {
-    return PhQ::StrainRate<Number>{*this};
+  [[nodiscard]] constexpr PhQ::StrainRate<NumericType> StrainRate() const {
+    return PhQ::StrainRate<NumericType>{*this};
   }
 
-  constexpr VelocityGradient<Number> operator+(
-      const VelocityGradient<Number>& velocity_gradient) const {
-    return VelocityGradient<Number>{this->value + velocity_gradient.value};
+  constexpr VelocityGradient<NumericType> operator+(
+      const VelocityGradient<NumericType>& velocity_gradient) const {
+    return VelocityGradient<NumericType>{this->value + velocity_gradient.value};
   }
 
-  constexpr VelocityGradient<Number> operator-(
-      const VelocityGradient<Number>& velocity_gradient) const {
-    return VelocityGradient<Number>{this->value - velocity_gradient.value};
+  constexpr VelocityGradient<NumericType> operator-(
+      const VelocityGradient<NumericType>& velocity_gradient) const {
+    return VelocityGradient<NumericType>{this->value - velocity_gradient.value};
   }
 
-  constexpr VelocityGradient<Number> operator*(const Number number) const {
-    return VelocityGradient<Number>{this->value * number};
+  constexpr VelocityGradient<NumericType> operator*(const NumericType number) const {
+    return VelocityGradient<NumericType>{this->value * number};
   }
 
-  constexpr DisplacementGradient<Number> operator*(const Time<Number>& time) const {
-    return DisplacementGradient<Number>{*this, time};
+  constexpr DisplacementGradient<NumericType> operator*(const Time<NumericType>& time) const {
+    return DisplacementGradient<NumericType>{*this, time};
   }
 
-  constexpr VelocityGradient<Number> operator/(const Number number) const {
-    return VelocityGradient<Number>{this->value / number};
+  constexpr VelocityGradient<NumericType> operator/(const NumericType number) const {
+    return VelocityGradient<NumericType>{this->value / number};
   }
 
-  constexpr DisplacementGradient<Number> operator/(const Frequency<Number>& frequency) const {
-    return DisplacementGradient<Number>{*this, frequency};
+  constexpr DisplacementGradient<NumericType> operator/(
+      const Frequency<NumericType>& frequency) const {
+    return DisplacementGradient<NumericType>{*this, frequency};
   }
 
-  constexpr void operator+=(const VelocityGradient<Number>& velocity_gradient) noexcept {
+  constexpr void operator+=(const VelocityGradient<NumericType>& velocity_gradient) noexcept {
     this->value += velocity_gradient.value;
   }
 
-  constexpr void operator-=(const VelocityGradient<Number>& velocity_gradient) noexcept {
+  constexpr void operator-=(const VelocityGradient<NumericType>& velocity_gradient) noexcept {
     this->value -= velocity_gradient.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a velocity gradient tensor with a given value expressed in the
   /// standard frequency unit.
-  explicit constexpr VelocityGradient(const Dyad<Number>& value)
-    : DimensionalDyad<Unit::Frequency, Number>(value) {}
+  explicit constexpr VelocityGradient(const Dyad<NumericType>& value)
+    : DimensionalDyad<Unit::Frequency, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const VelocityGradient<Number>& left, const VelocityGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const VelocityGradient<NumericType>& left,
+                                 const VelocityGradient<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const VelocityGradient<Number>& left, const VelocityGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const VelocityGradient<NumericType>& left,
+                                 const VelocityGradient<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const VelocityGradient<Number>& left, const VelocityGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const VelocityGradient<NumericType>& left,
+                                const VelocityGradient<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const VelocityGradient<Number>& left, const VelocityGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const VelocityGradient<NumericType>& left,
+                                const VelocityGradient<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const VelocityGradient<Number>& left, const VelocityGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const VelocityGradient<NumericType>& left,
+                                 const VelocityGradient<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const VelocityGradient<Number>& left, const VelocityGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const VelocityGradient<NumericType>& left,
+                                 const VelocityGradient<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const VelocityGradient<Number>& velocity_gradient) {
+    std::ostream& stream, const VelocityGradient<NumericType>& velocity_gradient) {
   stream << velocity_gradient.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr VelocityGradient<Number> operator*(
-    const Number number, const VelocityGradient<Number>& velocity_gradient) {
+template <typename NumericType>
+inline constexpr VelocityGradient<NumericType> operator*(
+    const NumericType number, const VelocityGradient<NumericType>& velocity_gradient) {
   return velocity_gradient * number;
 }
 
-template <typename Number>
-inline constexpr StrainRate<Number>::StrainRate(const VelocityGradient<Number>& velocity_gradient)
-  : StrainRate<Number>(
+template <typename NumericType>
+inline constexpr StrainRate<NumericType>::StrainRate(
+    const VelocityGradient<NumericType>& velocity_gradient)
+  : StrainRate<NumericType>(
       {velocity_gradient.Value().xx(),
        0.5 * (velocity_gradient.Value().xy() + velocity_gradient.Value().yx()),
        0.5 * (velocity_gradient.Value().xz() + velocity_gradient.Value().zx()),
@@ -303,48 +308,49 @@ inline constexpr StrainRate<Number>::StrainRate(const VelocityGradient<Number>& 
        0.5 * (velocity_gradient.Value().yz() + velocity_gradient.Value().zy()),
        velocity_gradient.Value().zz()}) {}
 
-template <typename Number>
-inline constexpr DisplacementGradient<Number>::DisplacementGradient(
-    const VelocityGradient<Number>& scalar_velocity_gradient, const Time<Number>& time)
-  : DisplacementGradient<Number>(scalar_velocity_gradient.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr DisplacementGradient<NumericType>::DisplacementGradient(
+    const VelocityGradient<NumericType>& scalar_velocity_gradient, const Time<NumericType>& time)
+  : DisplacementGradient<NumericType>(scalar_velocity_gradient.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr DisplacementGradient<Number>::DisplacementGradient(
-    const VelocityGradient<Number>& scalar_velocity_gradient, const Frequency<Number>& frequency)
-  : DisplacementGradient<Number>(scalar_velocity_gradient.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr DisplacementGradient<NumericType>::DisplacementGradient(
+    const VelocityGradient<NumericType>& scalar_velocity_gradient,
+    const Frequency<NumericType>& frequency)
+  : DisplacementGradient<NumericType>(scalar_velocity_gradient.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr VelocityGradient<Number> DisplacementGradient<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return VelocityGradient<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr VelocityGradient<NumericType> DisplacementGradient<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return VelocityGradient<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr VelocityGradient<Number> DisplacementGradient<Number>::operator/(
-    const Time<Number>& time) const {
-  return VelocityGradient<Number>{*this, time};
+template <typename NumericType>
+inline constexpr VelocityGradient<NumericType> DisplacementGradient<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return VelocityGradient<NumericType>{*this, time};
 }
 
-template <typename Number>
-inline constexpr DisplacementGradient<Number> Time<Number>::operator*(
-    const VelocityGradient<Number>& velocity_gradient) const {
-  return DisplacementGradient<Number>{velocity_gradient, *this};
+template <typename NumericType>
+inline constexpr DisplacementGradient<NumericType> Time<NumericType>::operator*(
+    const VelocityGradient<NumericType>& velocity_gradient) const {
+  return DisplacementGradient<NumericType>{velocity_gradient, *this};
 }
 
-template <typename Number>
-inline constexpr VelocityGradient<Number> Frequency<Number>::operator*(
-    const DisplacementGradient<Number>& displacement_gradient) const {
-  return VelocityGradient<Number>{displacement_gradient, *this};
+template <typename NumericType>
+inline constexpr VelocityGradient<NumericType> Frequency<NumericType>::operator*(
+    const DisplacementGradient<NumericType>& displacement_gradient) const {
+  return VelocityGradient<NumericType>{displacement_gradient, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::VelocityGradient<Number>> {
-  inline size_t operator()(const PhQ::VelocityGradient<Number>& velocity_gradient) const {
-    return hash<PhQ::Dyad<Number>>()(velocity_gradient.Value());
+template <typename NumericType>
+struct hash<PhQ::VelocityGradient<NumericType>> {
+  inline size_t operator()(const PhQ::VelocityGradient<NumericType>& velocity_gradient) const {
+    return hash<PhQ::Dyad<NumericType>>()(velocity_gradient.Value());
   }
 };
 

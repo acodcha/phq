@@ -67,37 +67,37 @@ TEST(UnitForce, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::InchPoundSecondRankine), Force::Pound);
 }
 
-TEST(UnitForce, ConvertAndConvertCopy) {
+TEST(UnitForce, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Force>(Force::Newton, Force::Newton, value, value);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Kilonewton, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Meganewton, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Giganewton, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Millinewton, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Micronewton, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(
-      Force::Newton, Force::Nanonewton, value, value * 1000000000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(Force::Newton, Force::Dyne, value, value * 100000.0L);
-  Internal::TestConvertAndConvertCopy<Force>(
+  Internal::TestConvert<Force>(Force::Newton, Force::Newton, value, value);
+  Internal::TestConvert<Force>(Force::Newton, Force::Kilonewton, value, value * 0.001L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Meganewton, value, value * 0.000001L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Giganewton, value, value * 0.000000001L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Millinewton, value, value * 1000.0L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Micronewton, value, value * 1000000.0L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Nanonewton, value, value * 1000000000.0L);
+  Internal::TestConvert<Force>(Force::Newton, Force::Dyne, value, value * 100000.0L);
+  Internal::TestConvert<Force>(
       Force::Newton, Force::Pound, value, value / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitForce, Parse) {
-  EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Force>("N"), Force::Newton);
-  EXPECT_EQ(Parse<Force>("kN"), Force::Kilonewton);
-  EXPECT_EQ(Parse<Force>("MN"), Force::Meganewton);
-  EXPECT_EQ(Parse<Force>("GN"), Force::Giganewton);
-  EXPECT_EQ(Parse<Force>("mN"), Force::Millinewton);
-  EXPECT_EQ(Parse<Force>("μN"), Force::Micronewton);
-  EXPECT_EQ(Parse<Force>("nN"), Force::Nanonewton);
-  EXPECT_EQ(Parse<Force>("dyn"), Force::Dyne);
-  EXPECT_EQ(Parse<Force>("lbf"), Force::Pound);
+TEST(UnitForce, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Force, Force::Newton, Force::Pound>(
+      value, value / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitForce, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Force>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Force>("N"), Force::Newton);
+  EXPECT_EQ(ParseEnumeration<Force>("kN"), Force::Kilonewton);
+  EXPECT_EQ(ParseEnumeration<Force>("MN"), Force::Meganewton);
+  EXPECT_EQ(ParseEnumeration<Force>("GN"), Force::Giganewton);
+  EXPECT_EQ(ParseEnumeration<Force>("mN"), Force::Millinewton);
+  EXPECT_EQ(ParseEnumeration<Force>("μN"), Force::Micronewton);
+  EXPECT_EQ(ParseEnumeration<Force>("nN"), Force::Nanonewton);
+  EXPECT_EQ(ParseEnumeration<Force>("dyn"), Force::Dyne);
+  EXPECT_EQ(ParseEnumeration<Force>("lbf"), Force::Pound);
 }
 
 TEST(UnitForce, RelatedDimensions) {
@@ -121,12 +121,6 @@ TEST(UnitForce, RelatedUnitSystem) {
 
 TEST(UnitForce, Standard) {
   EXPECT_EQ(Standard<Force>, Force::Newton);
-}
-
-TEST(UnitForce, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Force, Force::Newton, Force::Pound>(
-      value, value / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitForce, Stream) {

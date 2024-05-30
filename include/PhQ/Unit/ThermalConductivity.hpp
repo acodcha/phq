@@ -237,81 +237,82 @@ inline const std::unordered_map<std::string_view, Unit::ThermalConductivity> Spe
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>::
-    FromStandard(Number& /*value*/) noexcept {}
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalConductivity, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::
-    FromStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1.0E6L);
+    FromStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalConductivity, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::
-    ToStandard(Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-6L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalConductivity, Unit::ThermalConductivity::PoundPerSecondPerRankine>::
-    FromStandard(Number& value) noexcept {
-  value /= (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
-            * static_cast<Number>(1.8L));
+    FromStandard(NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L)
+            * static_cast<NumericType>(1.8L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void
 Conversion<Unit::ThermalConductivity, Unit::ThermalConductivity::PoundPerSecondPerRankine>::
-    ToStandard(Number& value) noexcept {
-  value *=
-      static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L) * static_cast<Number>(1.8L);
+    ToStandard(NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.45359237L) * static_cast<NumericType>(9.80665L)
+           * static_cast<NumericType>(1.8L);
 }
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::ThermalConductivity,
-                      std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::ThermalConductivity, Number>{
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::ThermalConductivity, NumericType>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
          Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin>::FromStandard<Number>         },
+         Unit::ThermalConductivity::WattPerMetrePerKelvin>::FromStandard<NumericType>         },
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          Conversions<
              Unit::ThermalConductivity,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::FromStandard<Number>},
+         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::FromStandard<NumericType>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
-         Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine>::FromStandard<Number>      },
+         Conversions<
+             Unit::ThermalConductivity,
+         Unit::ThermalConductivity::PoundPerSecondPerRankine>::FromStandard<NumericType>      },
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::ThermalConductivity,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::ThermalConductivity, Number>{
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::ThermalConductivity, NumericType>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
          Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin>::ToStandard<Number>         },
+         Unit::ThermalConductivity::WattPerMetrePerKelvin>::ToStandard<NumericType>         },
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          Conversions<
              Unit::ThermalConductivity,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::ToStandard<Number>},
+         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::ToStandard<NumericType>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
          Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine>::ToStandard<Number>      },
+         Unit::ThermalConductivity::PoundPerSecondPerRankine>::ToStandard<NumericType>      },
 };
 
 }  // namespace Internal

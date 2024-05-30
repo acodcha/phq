@@ -42,240 +42,244 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::PlanarForce.
-template <typename Number>
+template <typename NumericType>
 class PlanarTraction;
 
 /// \brief Two-dimensional Euclidean force vector in the XY plane. Contains two components in
 /// Cartesian coordinates: x and y. For a three-dimensional Euclidean force vector, see PhQ::Force.
 /// For scalar force components or for the magnitude of a force vector, see PhQ::ScalarForce.
-template <typename Number = double>
-class PlanarForce : public DimensionalPlanarVector<Unit::Force, Number> {
+template <typename NumericType = double>
+class PlanarForce : public DimensionalPlanarVector<Unit::Force, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar force vector with an uninitialized value.
   PlanarForce() = default;
 
   /// \brief Constructor. Constructs a planar force vector with a given value expressed in a given
   /// force unit.
-  PlanarForce(const PlanarVector<Number>& value, const Unit::Force unit)
-    : DimensionalPlanarVector<Unit::Force, Number>(value, unit) {}
+  PlanarForce(const PlanarVector<NumericType>& value, const Unit::Force unit)
+    : DimensionalPlanarVector<Unit::Force, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar force vector from a given set of scalar force
   /// components.
-  PlanarForce(const ScalarForce<Number>& x, const ScalarForce<Number>& y)
-    : PlanarForce<Number>({x.Value(), y.Value()}) {}
+  PlanarForce(const ScalarForce<NumericType>& x, const ScalarForce<NumericType>& y)
+    : PlanarForce<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar force vector from a given scalar force magnitude and
   /// planar direction.
-  constexpr PlanarForce(
-      const ScalarForce<Number>& scalar_force, const PlanarDirection<Number>& planar_direction)
-    : PlanarForce<Number>(scalar_force.Value() * planar_direction.Value()) {}
+  constexpr PlanarForce(const ScalarForce<NumericType>& scalar_force,
+                        const PlanarDirection<NumericType>& planar_direction)
+    : PlanarForce<NumericType>(scalar_force.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar force vector from a given force vector by projecting
   /// the force vector onto the XY plane.
-  explicit constexpr PlanarForce(const Force<Number>& force);
+  explicit constexpr PlanarForce(const Force<NumericType>& force);
 
   /// \brief Constructor. Constructs a planar force vector from a given planar traction and area
   /// using the definition of traction.
-  constexpr PlanarForce(const PlanarTraction<Number>& planar_traction, const Area<Number>& area);
+  constexpr PlanarForce(
+      const PlanarTraction<NumericType>& planar_traction, const Area<NumericType>& area);
 
   /// \brief Destructor. Destroys this planar force vector.
   ~PlanarForce() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar force vector by copying another one.
-  constexpr PlanarForce(const PlanarForce<Number>& other) = default;
+  constexpr PlanarForce(const PlanarForce<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar force vector by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarForce(const PlanarForce<OtherNumber>& other)
-    : PlanarForce(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarForce(const PlanarForce<OtherNumericType>& other)
+    : PlanarForce(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar force vector by moving another one.
-  constexpr PlanarForce(PlanarForce<Number>&& other) noexcept = default;
+  constexpr PlanarForce(PlanarForce<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this planar force vector by copying another one.
-  constexpr PlanarForce<Number>& operator=(const PlanarForce<Number>& other) = default;
+  constexpr PlanarForce<NumericType>& operator=(const PlanarForce<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this planar force vector by copying another one.
-  template <typename OtherNumber>
-  constexpr PlanarForce<Number>& operator=(const PlanarForce<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarForce<NumericType>& operator=(const PlanarForce<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this planar force vector by moving another one.
-  constexpr PlanarForce<Number>& operator=(PlanarForce<Number>&& other) noexcept = default;
+  constexpr PlanarForce<NumericType>& operator=(
+      PlanarForce<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar force vector of zero.
-  static constexpr PlanarForce<Number> Zero() {
-    return PlanarForce<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarForce<NumericType> Zero() {
+    return PlanarForce<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar force vector from the given x and y Cartesian components
   /// expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr PlanarForce<Number> Create(const Number x, const Number y) {
-    return PlanarForce<Number>{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(PlanarVector<Number>{x, y})};
+  static constexpr PlanarForce<NumericType> Create(const NumericType x, const NumericType y) {
+    return PlanarForce<NumericType>{ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(
+        PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar force vector from the given x and y Cartesian components
   /// expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr PlanarForce<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarForce<Number>{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(PlanarVector<Number>{x_y})};
+  static constexpr PlanarForce<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+    return PlanarForce<NumericType>{ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(
+        PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar force vector with a given value expressed in a given force
   /// unit.
   template <Unit::Force Unit>
-  static constexpr PlanarForce<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarForce<Number>{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
+  static constexpr PlanarForce<NumericType> Create(const PlanarVector<NumericType>& value) {
+    return PlanarForce<NumericType>{
+        ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar force vector.
-  [[nodiscard]] constexpr ScalarForce<Number> x() const noexcept {
-    return ScalarForce<Number>{this->value.x()};
+  [[nodiscard]] constexpr ScalarForce<NumericType> x() const noexcept {
+    return ScalarForce<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this planar force vector.
-  [[nodiscard]] constexpr ScalarForce<Number> y() const noexcept {
-    return ScalarForce<Number>{this->value.y()};
+  [[nodiscard]] constexpr ScalarForce<NumericType> y() const noexcept {
+    return ScalarForce<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this planar force vector.
-  [[nodiscard]] ScalarForce<Number> Magnitude() const {
-    return ScalarForce<Number>{this->value.Magnitude()};
+  [[nodiscard]] ScalarForce<NumericType> Magnitude() const {
+    return ScalarForce<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the planar direction of this planar force vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this planar force vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarForce<Number>& planar_force) const {
-    return PhQ::Angle<Number>{*this, planar_force};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const PlanarForce<NumericType>& planar_force) const {
+    return PhQ::Angle<NumericType>{*this, planar_force};
   }
 
-  constexpr PlanarForce<Number> operator+(const PlanarForce<Number>& planar_force) const {
-    return PlanarForce<Number>{this->value + planar_force.value};
+  constexpr PlanarForce<NumericType> operator+(const PlanarForce<NumericType>& planar_force) const {
+    return PlanarForce<NumericType>{this->value + planar_force.value};
   }
 
-  constexpr PlanarForce<Number> operator-(const PlanarForce<Number>& planar_force) const {
-    return PlanarForce<Number>{this->value - planar_force.value};
+  constexpr PlanarForce<NumericType> operator-(const PlanarForce<NumericType>& planar_force) const {
+    return PlanarForce<NumericType>{this->value - planar_force.value};
   }
 
-  constexpr PlanarForce<Number> operator*(const Number number) const {
-    return PlanarForce<Number>{this->value * number};
+  constexpr PlanarForce<NumericType> operator*(const NumericType number) const {
+    return PlanarForce<NumericType>{this->value * number};
   }
 
-  constexpr PlanarForce<Number> operator/(const Number number) const {
-    return PlanarForce<Number>{this->value / number};
+  constexpr PlanarForce<NumericType> operator/(const NumericType number) const {
+    return PlanarForce<NumericType>{this->value / number};
   }
 
-  constexpr PlanarTraction<Number> operator/(const Area<Number>& area) const;
+  constexpr PlanarTraction<NumericType> operator/(const Area<NumericType>& area) const;
 
-  constexpr void operator+=(const PlanarForce<Number>& planar_force) noexcept {
+  constexpr void operator+=(const PlanarForce<NumericType>& planar_force) noexcept {
     this->value += planar_force.value;
   }
 
-  constexpr void operator-=(const PlanarForce<Number>& planar_force) noexcept {
+  constexpr void operator-=(const PlanarForce<NumericType>& planar_force) noexcept {
     this->value -= planar_force.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar force vector with a given value expressed in the
   /// standard force unit.
-  explicit constexpr PlanarForce(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::Force, Number>(value) {}
+  explicit constexpr PlanarForce(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::Force, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PlanarForce<Number>& left, const PlanarForce<Number>& right) noexcept {
+    const PlanarForce<NumericType>& left, const PlanarForce<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PlanarForce<Number>& left, const PlanarForce<Number>& right) noexcept {
+    const PlanarForce<NumericType>& left, const PlanarForce<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PlanarForce<Number>& left, const PlanarForce<Number>& right) noexcept {
+    const PlanarForce<NumericType>& left, const PlanarForce<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PlanarForce<Number>& left, const PlanarForce<Number>& right) noexcept {
+    const PlanarForce<NumericType>& left, const PlanarForce<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PlanarForce<Number>& left, const PlanarForce<Number>& right) noexcept {
+    const PlanarForce<NumericType>& left, const PlanarForce<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PlanarForce<Number>& left, const PlanarForce<Number>& right) noexcept {
+    const PlanarForce<NumericType>& left, const PlanarForce<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const PlanarForce<Number>& planar_force) {
+template <typename NumericType>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PlanarForce<NumericType>& planar_force) {
   stream << planar_force.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarForce<Number> operator*(
-    const Number number, const PlanarForce<Number>& planar_force) {
+template <typename NumericType>
+inline constexpr PlanarForce<NumericType> operator*(
+    const NumericType number, const PlanarForce<NumericType>& planar_force) {
   return planar_force * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(const PlanarForce<Number>& planar_force)
-  : PlanarDirection<Number>(planar_force.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(const PlanarForce<NumericType>& planar_force)
+  : PlanarDirection<NumericType>(planar_force.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(
-    const PlanarForce<Number>& planar_force_1, const PlanarForce<Number>& planar_force_2)
-  : Angle<Number>(planar_force_1.Value(), planar_force_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(
+    const PlanarForce<NumericType>& planar_force_1, const PlanarForce<NumericType>& planar_force_2)
+  : Angle<NumericType>(planar_force_1.Value(), planar_force_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarForce<Number> PlanarDirection<Number>::operator*(
-    const ScalarForce<Number>& scalar_force) const {
-  return PlanarForce<Number>{scalar_force, *this};
+template <typename NumericType>
+inline constexpr PlanarForce<NumericType> PlanarDirection<NumericType>::operator*(
+    const ScalarForce<NumericType>& scalar_force) const {
+  return PlanarForce<NumericType>{scalar_force, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarForce<Number> ScalarForce<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarForce<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarForce<NumericType> ScalarForce<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarForce<NumericType>{*this, planar_direction};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarForce<Number>> {
-  inline size_t operator()(const PhQ::PlanarForce<Number>& planar_force) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_force.Value());
+template <typename NumericType>
+struct hash<PhQ::PlanarForce<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarForce<NumericType>& planar_force) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_force.Value());
   }
 };
 

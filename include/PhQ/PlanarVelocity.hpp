@@ -45,304 +45,312 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::PlanarVelocity.
-template <typename Number>
+template <typename NumericType>
 class PlanarAcceleration;
 
 /// \brief Two-dimensional Euclidean velocity vector in the XY plane. Contains two components in
 /// Cartesian coordinates: x and y. For a three-dimensional Euclidean velocity vector, see
 /// PhQ::Velocity. For scalar velocity components or for the magnitude of a velocity vector, see
 /// PhQ::Speed.
-template <typename Number = double>
-class PlanarVelocity : public DimensionalPlanarVector<Unit::Speed, Number> {
+template <typename NumericType = double>
+class PlanarVelocity : public DimensionalPlanarVector<Unit::Speed, NumericType> {
 public:
   /// \brief Default constructor. Constructs a planar velocity vector with an uninitialized value.
   PlanarVelocity() = default;
 
   /// \brief Constructor. Constructs a planar velocity vector with a given value expressed in a
   /// given speed unit.
-  PlanarVelocity(const PlanarVector<Number>& value, const Unit::Speed unit)
-    : DimensionalPlanarVector<Unit::Speed, Number>(value, unit) {}
+  PlanarVelocity(const PlanarVector<NumericType>& value, const Unit::Speed unit)
+    : DimensionalPlanarVector<Unit::Speed, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a planar velocity vector from a given set of speed components.
-  PlanarVelocity(const Speed<Number>& x, const Speed<Number>& y)
-    : PlanarVelocity<Number>({x.Value(), y.Value()}) {}
+  PlanarVelocity(const Speed<NumericType>& x, const Speed<NumericType>& y)
+    : PlanarVelocity<NumericType>({x.Value(), y.Value()}) {}
 
   /// \brief Constructor. Constructs a planar velocity vector from a given speed and planar
   /// direction.
   constexpr PlanarVelocity(
-      const Speed<Number>& speed, const PlanarDirection<Number>& planar_direction)
-    : PlanarVelocity<Number>(speed.Value() * planar_direction.Value()) {}
+      const Speed<NumericType>& speed, const PlanarDirection<NumericType>& planar_direction)
+    : PlanarVelocity<NumericType>(speed.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar velocity vector from a given velocity vector by
   /// projecting the velocity vector onto the XY plane.
-  explicit constexpr PlanarVelocity(const Velocity<Number>& velocity);
+  explicit constexpr PlanarVelocity(const Velocity<NumericType>& velocity);
 
   /// \brief Constructor. Constructs a planar velocity vector from a given planar displacement
   /// vector and time using the definition of velocity.
   constexpr PlanarVelocity(
-      const PlanarDisplacement<Number>& planar_displacement, const Time<Number>& time)
-    : PlanarVelocity<Number>(planar_displacement.Value() / time.Value()) {}
+      const PlanarDisplacement<NumericType>& planar_displacement, const Time<NumericType>& time)
+    : PlanarVelocity<NumericType>(planar_displacement.Value() / time.Value()) {}
 
   /// \brief Constructor. Constructs a planar velocity vector from a given planar displacement
   /// vector and frequency using the definition of velocity.
-  constexpr PlanarVelocity(
-      const PlanarDisplacement<Number>& planar_displacement, const Frequency<Number>& frequency)
-    : PlanarVelocity<Number>(planar_displacement.Value() * frequency.Value()) {}
+  constexpr PlanarVelocity(const PlanarDisplacement<NumericType>& planar_displacement,
+                           const Frequency<NumericType>& frequency)
+    : PlanarVelocity<NumericType>(planar_displacement.Value() * frequency.Value()) {}
 
   /// \brief Constructor. Constructs a planar velocity vector from a given planar acceleration
   /// vector and time using the definition of acceleration.
   constexpr PlanarVelocity(
-      const PlanarAcceleration<Number>& planar_acceleration, const Time<Number>& time);
+      const PlanarAcceleration<NumericType>& planar_acceleration, const Time<NumericType>& time);
 
   /// \brief Constructor. Constructs a planar velocity vector from a given planar acceleration
   /// vector and frequency using the definition of acceleration.
-  constexpr PlanarVelocity(
-      const PlanarAcceleration<Number>& planar_acceleration, const Frequency<Number>& frequency);
+  constexpr PlanarVelocity(const PlanarAcceleration<NumericType>& planar_acceleration,
+                           const Frequency<NumericType>& frequency);
 
   /// \brief Destructor. Destroys this planar velocity vector.
   ~PlanarVelocity() noexcept = default;
 
   /// \brief Copy constructor. Constructs a planar velocity vector by copying another one.
-  constexpr PlanarVelocity(const PlanarVelocity<Number>& other) = default;
+  constexpr PlanarVelocity(const PlanarVelocity<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a planar velocity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr PlanarVelocity(const PlanarVelocity<OtherNumber>& other)
-    : PlanarVelocity(static_cast<PlanarVector<Number>>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr PlanarVelocity(const PlanarVelocity<OtherNumericType>& other)
+    : PlanarVelocity(static_cast<PlanarVector<NumericType>>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a planar velocity vector by moving another one.
-  constexpr PlanarVelocity(PlanarVelocity<Number>&& other) noexcept = default;
+  constexpr PlanarVelocity(PlanarVelocity<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this planar velocity vector by copying another one.
-  constexpr PlanarVelocity<Number>& operator=(const PlanarVelocity<Number>& other) = default;
+  constexpr PlanarVelocity<NumericType>& operator=(
+      const PlanarVelocity<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this planar velocity by copying another one.
-  template <typename OtherNumber>
-  constexpr PlanarVelocity<Number>& operator=(const PlanarVelocity<OtherNumber>& other) {
-    this->value = static_cast<PlanarVector<Number>>(other.Value());
+  template <typename OtherNumericType>
+  constexpr PlanarVelocity<NumericType>& operator=(const PlanarVelocity<OtherNumericType>& other) {
+    this->value = static_cast<PlanarVector<NumericType>>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this planar velocity vector by moving another one.
-  constexpr PlanarVelocity<Number>& operator=(PlanarVelocity<Number>&& other) noexcept = default;
+  constexpr PlanarVelocity<NumericType>& operator=(
+      PlanarVelocity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar velocity vector of zero.
-  static constexpr PlanarVelocity<Number> Zero() {
-    return PlanarVelocity<Number>{PlanarVector<Number>::Zero()};
+  static constexpr PlanarVelocity<NumericType> Zero() {
+    return PlanarVelocity<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar velocity vector from the given x and y Cartesian
   /// components expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr PlanarVelocity<Number> Create(const Number x, const Number y) {
-    return PlanarVelocity<Number>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(PlanarVector<Number>{x, y})};
+  static constexpr PlanarVelocity<NumericType> Create(const NumericType x, const NumericType y) {
+    return PlanarVelocity<NumericType>{ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(
+        PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar velocity vector from the given x and y Cartesian
   /// components expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr PlanarVelocity<Number> Create(const std::array<Number, 2>& x_y) {
-    return PlanarVelocity<Number>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(PlanarVector<Number>{x_y})};
+  static constexpr PlanarVelocity<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+    return PlanarVelocity<NumericType>{ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(
+        PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar velocity vector with a given value expressed in a given
   /// speed unit.
   template <Unit::Speed Unit>
-  static constexpr PlanarVelocity<Number> Create(const PlanarVector<Number>& value) {
-    return PlanarVelocity<Number>{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+  static constexpr PlanarVelocity<NumericType> Create(const PlanarVector<NumericType>& value) {
+    return PlanarVelocity<NumericType>{
+        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar velocity vector.
-  [[nodiscard]] constexpr Speed<Number> x() const noexcept {
-    return Speed<Number>{this->value.x()};
+  [[nodiscard]] constexpr Speed<NumericType> x() const noexcept {
+    return Speed<NumericType>{this->value.x()};
   }
 
   /// \brief Returns the y Cartesian component of this planar velocity vector.
-  [[nodiscard]] constexpr Speed<Number> y() const noexcept {
-    return Speed<Number>{this->value.y()};
+  [[nodiscard]] constexpr Speed<NumericType> y() const noexcept {
+    return Speed<NumericType>{this->value.y()};
   }
 
   /// \brief Returns the magnitude of this planar velocity vector.
-  [[nodiscard]] Speed<Number> Magnitude() const {
-    return Speed<Number>{this->value.Magnitude()};
+  [[nodiscard]] Speed<NumericType> Magnitude() const {
+    return Speed<NumericType>{this->value.Magnitude()};
   }
 
   /// \brief Returns the planar direction of this planar velocity vector.
-  [[nodiscard]] PhQ::PlanarDirection<Number> PlanarDirection() const {
+  [[nodiscard]] PhQ::PlanarDirection<NumericType> PlanarDirection() const {
     return this->value.PlanarDirection();
   }
 
   /// \brief Returns the angle between this planar velocity vector and another one.
-  [[nodiscard]] PhQ::Angle<Number> Angle(const PlanarVelocity<Number>& planar_velocity) const {
-    return PhQ::Angle<Number>{*this, planar_velocity};
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(
+      const PlanarVelocity<NumericType>& planar_velocity) const {
+    return PhQ::Angle<NumericType>{*this, planar_velocity};
   }
 
-  constexpr PlanarVelocity<Number> operator+(const PlanarVelocity<Number>& planar_velocity) const {
-    return PlanarVelocity<Number>{this->value + planar_velocity.value};
+  constexpr PlanarVelocity<NumericType> operator+(
+      const PlanarVelocity<NumericType>& planar_velocity) const {
+    return PlanarVelocity<NumericType>{this->value + planar_velocity.value};
   }
 
-  constexpr PlanarVelocity<Number> operator-(const PlanarVelocity<Number>& planar_velocity) const {
-    return PlanarVelocity<Number>{this->value - planar_velocity.value};
+  constexpr PlanarVelocity<NumericType> operator-(
+      const PlanarVelocity<NumericType>& planar_velocity) const {
+    return PlanarVelocity<NumericType>{this->value - planar_velocity.value};
   }
 
-  constexpr PlanarVelocity<Number> operator*(const Number number) const {
-    return PlanarVelocity<Number>{this->value * number};
+  constexpr PlanarVelocity<NumericType> operator*(const NumericType number) const {
+    return PlanarVelocity<NumericType>{this->value * number};
   }
 
-  constexpr PlanarDisplacement<Number> operator*(const Time<Number>& time) const {
-    return PlanarDisplacement<Number>{*this, time};
+  constexpr PlanarDisplacement<NumericType> operator*(const Time<NumericType>& time) const {
+    return PlanarDisplacement<NumericType>{*this, time};
   }
 
-  constexpr PlanarAcceleration<Number> operator*(const Frequency<Number>& frequency) const;
+  constexpr PlanarAcceleration<NumericType> operator*(
+      const Frequency<NumericType>& frequency) const;
 
-  constexpr PlanarVelocity<Number> operator/(const Number number) const {
-    return PlanarVelocity<Number>{this->value / number};
+  constexpr PlanarVelocity<NumericType> operator/(const NumericType number) const {
+    return PlanarVelocity<NumericType>{this->value / number};
   }
 
-  constexpr PlanarAcceleration<Number> operator/(const Time<Number>& time) const;
+  constexpr PlanarAcceleration<NumericType> operator/(const Time<NumericType>& time) const;
 
-  constexpr PlanarDisplacement<Number> operator/(const Frequency<Number>& frequency) const {
-    return PlanarDisplacement<Number>{*this, frequency};
+  constexpr PlanarDisplacement<NumericType> operator/(
+      const Frequency<NumericType>& frequency) const {
+    return PlanarDisplacement<NumericType>{*this, frequency};
   }
 
-  constexpr void operator+=(const PlanarVelocity<Number>& planar_velocity) noexcept {
+  constexpr void operator+=(const PlanarVelocity<NumericType>& planar_velocity) noexcept {
     this->value += planar_velocity.value;
   }
 
-  constexpr void operator-=(const PlanarVelocity<Number>& planar_velocity) noexcept {
+  constexpr void operator-=(const PlanarVelocity<NumericType>& planar_velocity) noexcept {
     this->value -= planar_velocity.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a planar velocity vector with a given value expressed in the
   /// standard speed unit.
-  explicit constexpr PlanarVelocity(const PlanarVector<Number>& value)
-    : DimensionalPlanarVector<Unit::Speed, Number>(value) {}
+  explicit constexpr PlanarVelocity(const PlanarVector<NumericType>& value)
+    : DimensionalPlanarVector<Unit::Speed, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const PlanarVelocity<Number>& left, const PlanarVelocity<Number>& right) noexcept {
+    const PlanarVelocity<NumericType>& left, const PlanarVelocity<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const PlanarVelocity<Number>& left, const PlanarVelocity<Number>& right) noexcept {
+    const PlanarVelocity<NumericType>& left, const PlanarVelocity<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const PlanarVelocity<Number>& left, const PlanarVelocity<Number>& right) noexcept {
+    const PlanarVelocity<NumericType>& left, const PlanarVelocity<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const PlanarVelocity<Number>& left, const PlanarVelocity<Number>& right) noexcept {
+    const PlanarVelocity<NumericType>& left, const PlanarVelocity<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const PlanarVelocity<Number>& left, const PlanarVelocity<Number>& right) noexcept {
+    const PlanarVelocity<NumericType>& left, const PlanarVelocity<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const PlanarVelocity<Number>& left, const PlanarVelocity<Number>& right) noexcept {
+    const PlanarVelocity<NumericType>& left, const PlanarVelocity<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const PlanarVelocity<Number>& planar_velocity) {
+    std::ostream& stream, const PlanarVelocity<NumericType>& planar_velocity) {
   stream << planar_velocity.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> operator*(
-    const Number number, const PlanarVelocity<Number>& planar_velocity) {
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> operator*(
+    const NumericType number, const PlanarVelocity<NumericType>& planar_velocity) {
   return planar_velocity * number;
 }
 
-template <typename Number>
-inline PlanarDirection<Number>::PlanarDirection(const PlanarVelocity<Number>& planar_velocity)
-  : PlanarDirection<Number>(planar_velocity.Value()) {}
+template <typename NumericType>
+inline PlanarDirection<NumericType>::PlanarDirection(
+    const PlanarVelocity<NumericType>& planar_velocity)
+  : PlanarDirection<NumericType>(planar_velocity.Value()) {}
 
-template <typename Number>
-inline Angle<Number>::Angle(const PlanarVelocity<Number>& planar_velocity_1,
-                            const PlanarVelocity<Number>& planar_velocity_2)
-  : Angle<Number>(planar_velocity_1.Value(), planar_velocity_2.Value()) {}
+template <typename NumericType>
+inline Angle<NumericType>::Angle(const PlanarVelocity<NumericType>& planar_velocity_1,
+                                 const PlanarVelocity<NumericType>& planar_velocity_2)
+  : Angle<NumericType>(planar_velocity_1.Value(), planar_velocity_2.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarDisplacement<Number>::PlanarDisplacement(
-    const PlanarVelocity<Number>& planar_velocity, const Time<Number>& time)
-  : PlanarDisplacement<Number>(planar_velocity.Value() * time.Value()) {}
+template <typename NumericType>
+inline constexpr PlanarDisplacement<NumericType>::PlanarDisplacement(
+    const PlanarVelocity<NumericType>& planar_velocity, const Time<NumericType>& time)
+  : PlanarDisplacement<NumericType>(planar_velocity.Value() * time.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarDisplacement<Number>::PlanarDisplacement(
-    const PlanarVelocity<Number>& planar_velocity, const Frequency<Number>& frequency)
-  : PlanarDisplacement<Number>(planar_velocity.Value() / frequency.Value()) {}
+template <typename NumericType>
+inline constexpr PlanarDisplacement<NumericType>::PlanarDisplacement(
+    const PlanarVelocity<NumericType>& planar_velocity, const Frequency<NumericType>& frequency)
+  : PlanarDisplacement<NumericType>(planar_velocity.Value() / frequency.Value()) {}
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> PlanarDirection<Number>::operator*(
-    const Speed<Number>& speed) const {
-  return PlanarVelocity<Number>{speed, *this};
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> PlanarDirection<NumericType>::operator*(
+    const Speed<NumericType>& speed) const {
+  return PlanarVelocity<NumericType>{speed, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarDisplacement<Number> Time<Number>::operator*(
-    const PlanarVelocity<Number>& planar_velocity) const {
-  return PlanarDisplacement<Number>{planar_velocity, *this};
+template <typename NumericType>
+inline constexpr PlanarDisplacement<NumericType> Time<NumericType>::operator*(
+    const PlanarVelocity<NumericType>& planar_velocity) const {
+  return PlanarDisplacement<NumericType>{planar_velocity, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> Speed<Number>::operator*(
-    const PlanarDirection<Number>& planar_direction) const {
-  return PlanarVelocity<Number>{*this, planar_direction};
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> Speed<NumericType>::operator*(
+    const PlanarDirection<NumericType>& planar_direction) const {
+  return PlanarVelocity<NumericType>{*this, planar_direction};
 }
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> Frequency<Number>::operator*(
-    const PlanarDisplacement<Number>& planar_displacement) const {
-  return PlanarVelocity<Number>{planar_displacement, *this};
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> Frequency<NumericType>::operator*(
+    const PlanarDisplacement<NumericType>& planar_displacement) const {
+  return PlanarVelocity<NumericType>{planar_displacement, *this};
 }
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> PlanarDisplacement<Number>::operator*(
-    const Frequency<Number>& frequency) const {
-  return PlanarVelocity<Number>{*this, frequency};
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> PlanarDisplacement<NumericType>::operator*(
+    const Frequency<NumericType>& frequency) const {
+  return PlanarVelocity<NumericType>{*this, frequency};
 }
 
-template <typename Number>
-inline constexpr PlanarVelocity<Number> PlanarDisplacement<Number>::operator/(
-    const Time<Number>& time) const {
-  return PlanarVelocity<Number>{*this, time};
+template <typename NumericType>
+inline constexpr PlanarVelocity<NumericType> PlanarDisplacement<NumericType>::operator/(
+    const Time<NumericType>& time) const {
+  return PlanarVelocity<NumericType>{*this, time};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::PlanarVelocity<Number>> {
-  inline size_t operator()(const PhQ::PlanarVelocity<Number>& planar_velocity) const {
-    return hash<PhQ::PlanarVector<Number>>()(planar_velocity.Value());
+template <typename NumericType>
+struct hash<PhQ::PlanarVelocity<NumericType>> {
+  inline size_t operator()(const PhQ::PlanarVelocity<NumericType>& planar_velocity) const {
+    return hash<PhQ::PlanarVector<NumericType>>()(planar_velocity.Value());
   }
 };
 

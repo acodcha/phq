@@ -95,87 +95,93 @@ TEST(UnitAngle, ConsistentUnit) {
       ConsistentUnit<ElectricCharge>(UnitSystem::InchPoundSecondRankine), ElectricCharge::Coulomb);
 }
 
-TEST(UnitAngle, ConvertAndConvertCopy) {
+TEST(UnitAngle, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Coulomb, value, value);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Kilocoulomb, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Megacoulomb, value, value * 1.0E-6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Gigacoulomb, value, value * 1.0E-9L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Teracoulomb, value, value * 1.0E-12L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Millicoulomb, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Microcoulomb, value, value * 1.0E6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::Nanocoulomb, value, value * 1.0E9L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::ElementaryCharge, value, value / 1.602176634E-19L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::AmpereMinute, value, value / 60.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::AmpereHour, value, value / 3600.0L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::KiloampereMinute, value, value / 6.0E4L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::KiloampereHour, value, value / 3.6E6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MegaampereMinute, value, value / 6.0E7L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MegaampereHour, value, value / 3.6E9L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::GigaampereMinute, value, value / 6.0E10L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::GigaampereHour, value, value / 3.6E12L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::TeraampereMinute, value, value / 6.0E13L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::TeraampereHour, value, value / 3.6E15L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MilliampereMinute, value, value / 0.06L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MilliampereHour, value, value / 3.6L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MicroampereMinute, value, value / 6.0E-5L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::MicroampereHour, value, value / 3.6E-3L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::NanoampereMinute, value, value / 6.0E-8L);
-  Internal::TestConvertAndConvertCopy<ElectricCharge>(
+  Internal::TestConvert<ElectricCharge>(
       ElectricCharge::Coulomb, ElectricCharge::NanoampereHour, value, value / 3.6E-6L);
 }
 
-TEST(UnitAngle, Parse) {
-  EXPECT_EQ(Parse<ElectricCharge>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ElectricCharge>("C"), ElectricCharge::Coulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("kC"), ElectricCharge::Kilocoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("MC"), ElectricCharge::Megacoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("GC"), ElectricCharge::Gigacoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("TC"), ElectricCharge::Teracoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("mC"), ElectricCharge::Millicoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("μC"), ElectricCharge::Microcoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("nC"), ElectricCharge::Nanocoulomb);
-  EXPECT_EQ(Parse<ElectricCharge>("e"), ElectricCharge::ElementaryCharge);
-  EXPECT_EQ(Parse<ElectricCharge>("A·min"), ElectricCharge::AmpereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("A·hr"), ElectricCharge::AmpereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("kA·min"), ElectricCharge::KiloampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("kA·hr"), ElectricCharge::KiloampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("MA·min"), ElectricCharge::MegaampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("MA·hr"), ElectricCharge::MegaampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("GA·min"), ElectricCharge::GigaampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("GA·hr"), ElectricCharge::GigaampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("TA·min"), ElectricCharge::TeraampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("TA·hr"), ElectricCharge::TeraampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("mA·min"), ElectricCharge::MilliampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("mA·hr"), ElectricCharge::MilliampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("μA·min"), ElectricCharge::MicroampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("μA·hr"), ElectricCharge::MicroampereHour);
-  EXPECT_EQ(Parse<ElectricCharge>("nA·min"), ElectricCharge::NanoampereMinute);
-  EXPECT_EQ(Parse<ElectricCharge>("nA·hr"), ElectricCharge::NanoampereHour);
+TEST(UnitAngle, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<ElectricCharge, ElectricCharge::Coulomb,
+                                  ElectricCharge::Kilocoulomb>(value, value * 0.001L);
+}
+
+TEST(UnitAngle, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("C"), ElectricCharge::Coulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("kC"), ElectricCharge::Kilocoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("MC"), ElectricCharge::Megacoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("GC"), ElectricCharge::Gigacoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("TC"), ElectricCharge::Teracoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("mC"), ElectricCharge::Millicoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("μC"), ElectricCharge::Microcoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("nC"), ElectricCharge::Nanocoulomb);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("e"), ElectricCharge::ElementaryCharge);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("A·min"), ElectricCharge::AmpereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("A·hr"), ElectricCharge::AmpereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("kA·min"), ElectricCharge::KiloampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("kA·hr"), ElectricCharge::KiloampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("MA·min"), ElectricCharge::MegaampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("MA·hr"), ElectricCharge::MegaampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("GA·min"), ElectricCharge::GigaampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("GA·hr"), ElectricCharge::GigaampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("TA·min"), ElectricCharge::TeraampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("TA·hr"), ElectricCharge::TeraampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("mA·min"), ElectricCharge::MilliampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("mA·hr"), ElectricCharge::MilliampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("μA·min"), ElectricCharge::MicroampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("μA·hr"), ElectricCharge::MicroampereHour);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("nA·min"), ElectricCharge::NanoampereMinute);
+  EXPECT_EQ(ParseEnumeration<ElectricCharge>("nA·hr"), ElectricCharge::NanoampereHour);
 }
 
 TEST(UnitAngle, RelatedDimensions) {
@@ -215,12 +221,6 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<ElectricCharge>, ElectricCharge::Coulomb);
-}
-
-TEST(UnitAngle, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<ElectricCharge, ElectricCharge::Coulomb,
-                                  ElectricCharge::Kilocoulomb>(value, value * 0.001L);
 }
 
 TEST(UnitAngle, Stream) {

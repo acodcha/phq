@@ -68,27 +68,36 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             EnergyFlux::InchPoundPerSquareInchPerSecond);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitEnergyFlux, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::WattPerSquareMetre, value, value);
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::NanowattPerSquareMillimetre, value,
       value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::FootPoundPerSquareFootPerSecond, value,
       value * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<EnergyFlux>(
+  Internal::TestConvert<EnergyFlux>(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::InchPoundPerSquareInchPerSecond, value,
       value * 0.0254L / (0.45359237L * 9.80665L));
 }
 
-TEST(UnitEnergyFlux, Parse) {
-  EXPECT_EQ(Parse<EnergyFlux>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<EnergyFlux>("W/m^2"), EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(Parse<EnergyFlux>("nW/mm^2"), EnergyFlux::NanowattPerSquareMillimetre);
-  EXPECT_EQ(Parse<EnergyFlux>("ft·lbf/ft^2/s"), EnergyFlux::FootPoundPerSquareFootPerSecond);
-  EXPECT_EQ(Parse<EnergyFlux>("in·lbf/in^2/s"), EnergyFlux::InchPoundPerSquareInchPerSecond);
+TEST(UnitEnergyFlux, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<EnergyFlux, EnergyFlux::WattPerSquareMetre,
+                                  EnergyFlux::FootPoundPerSquareFootPerSecond>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitEnergyFlux, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<EnergyFlux>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<EnergyFlux>("W/m^2"), EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(ParseEnumeration<EnergyFlux>("nW/mm^2"), EnergyFlux::NanowattPerSquareMillimetre);
+  EXPECT_EQ(
+      ParseEnumeration<EnergyFlux>("ft·lbf/ft^2/s"), EnergyFlux::FootPoundPerSquareFootPerSecond);
+  EXPECT_EQ(
+      ParseEnumeration<EnergyFlux>("in·lbf/in^2/s"), EnergyFlux::InchPoundPerSquareInchPerSecond);
 }
 
 TEST(UnitEnergyFlux, RelatedDimensions) {
@@ -111,13 +120,6 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
 
 TEST(UnitEnergyFlux, Standard) {
   EXPECT_EQ(Standard<EnergyFlux>, EnergyFlux::WattPerSquareMetre);
-}
-
-TEST(UnitEnergyFlux, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<EnergyFlux, EnergyFlux::WattPerSquareMetre,
-                                  EnergyFlux::FootPoundPerSquareFootPerSecond>(
-      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitEnergyFlux, Stream) {

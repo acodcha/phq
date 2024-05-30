@@ -81,74 +81,70 @@ TEST(UnitMemory, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Memory>(UnitSystem::InchPoundSecondRankine), Memory::Bit);
 }
 
-TEST(UnitMemory, ConvertAndConvertCopy) {
+TEST(UnitMemory, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Bit, value, value);
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Byte, value, value / 8.0L);
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Kilobit, value, value / 1000.0L);
-  Internal::TestConvertAndConvertCopy<Memory>(Memory::Bit, Memory::Kibibit, value, value / 1024.0L);
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Kilobyte, value, value / (8.0L * 1000.0L));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Kibibyte, value, value / (8.0L * 1024.0L));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Megabit, value, value / std::pow(1000.0L, 2));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Mebibit, value, value / std::pow(1024.0L, 2));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Bit, value, value);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Byte, value, value / 8.0L);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kilobit, value, value / 1000.0L);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kibibit, value, value / 1024.0L);
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kilobyte, value, value / (8.0L * 1000.0L));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Kibibyte, value, value / (8.0L * 1024.0L));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Megabit, value, value / std::pow(1000.0L, 2));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Mebibit, value, value / std::pow(1024.0L, 2));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Megabyte, value, value / (8.0L * std::pow(1000.0L, 2)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Mebibyte, value, value / (8.0L * std::pow(1024.0L, 2)));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Gigabit, value, value / std::pow(1000.0L, 3));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Gibibit, value, value / std::pow(1024.0L, 3));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Gigabit, value, value / std::pow(1000.0L, 3));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Gibibit, value, value / std::pow(1024.0L, 3));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Gigabyte, value, value / (8.0L * std::pow(1000.0L, 3)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Gibibyte, value, value / (8.0L * std::pow(1024.0L, 3)));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Terabit, value, value / std::pow(1000.0L, 4));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Tebibit, value, value / std::pow(1024.0L, 4));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Terabit, value, value / std::pow(1000.0L, 4));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Tebibit, value, value / std::pow(1024.0L, 4));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Terabyte, value, value / (8.0L * std::pow(1000.0L, 4)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Tebibyte, value, value / (8.0L * std::pow(1024.0L, 4)));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Petabit, value, value / std::pow(1000.0L, 5));
-  Internal::TestConvertAndConvertCopy<Memory>(
-      Memory::Bit, Memory::Pebibit, value, value / std::pow(1024.0L, 5));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Petabit, value, value / std::pow(1000.0L, 5));
+  Internal::TestConvert<Memory>(Memory::Bit, Memory::Pebibit, value, value / std::pow(1024.0L, 5));
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Petabyte, value, value / (8.0L * std::pow(1000.0L, 5)));
-  Internal::TestConvertAndConvertCopy<Memory>(
+  Internal::TestConvert<Memory>(
       Memory::Bit, Memory::Pebibyte, value, value / (8.0L * std::pow(1024.0L, 5)));
 }
 
-TEST(UnitMemory, Parse) {
-  EXPECT_EQ(Parse<Memory>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Memory>("b"), Memory::Bit);
-  EXPECT_EQ(Parse<Memory>("B"), Memory::Byte);
-  EXPECT_EQ(Parse<Memory>("kb"), Memory::Kilobit);
-  EXPECT_EQ(Parse<Memory>("kib"), Memory::Kibibit);
-  EXPECT_EQ(Parse<Memory>("kB"), Memory::Kilobyte);
-  EXPECT_EQ(Parse<Memory>("kiB"), Memory::Kibibyte);
-  EXPECT_EQ(Parse<Memory>("Mb"), Memory::Megabit);
-  EXPECT_EQ(Parse<Memory>("Mib"), Memory::Mebibit);
-  EXPECT_EQ(Parse<Memory>("MB"), Memory::Megabyte);
-  EXPECT_EQ(Parse<Memory>("MiB"), Memory::Mebibyte);
-  EXPECT_EQ(Parse<Memory>("Gb"), Memory::Gigabit);
-  EXPECT_EQ(Parse<Memory>("Gib"), Memory::Gibibit);
-  EXPECT_EQ(Parse<Memory>("GB"), Memory::Gigabyte);
-  EXPECT_EQ(Parse<Memory>("GiB"), Memory::Gibibyte);
-  EXPECT_EQ(Parse<Memory>("Tb"), Memory::Terabit);
-  EXPECT_EQ(Parse<Memory>("Tib"), Memory::Tebibit);
-  EXPECT_EQ(Parse<Memory>("TB"), Memory::Terabyte);
-  EXPECT_EQ(Parse<Memory>("TiB"), Memory::Tebibyte);
-  EXPECT_EQ(Parse<Memory>("Pb"), Memory::Petabit);
-  EXPECT_EQ(Parse<Memory>("Pib"), Memory::Pebibit);
-  EXPECT_EQ(Parse<Memory>("PB"), Memory::Petabyte);
-  EXPECT_EQ(Parse<Memory>("PiB"), Memory::Pebibyte);
+TEST(UnitMemory, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Memory, Memory::Bit, Memory::Kilobyte>(
+      value, value / (8.0L * 1000.0L));
+}
+
+TEST(UnitMemory, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Memory>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Memory>("b"), Memory::Bit);
+  EXPECT_EQ(ParseEnumeration<Memory>("B"), Memory::Byte);
+  EXPECT_EQ(ParseEnumeration<Memory>("kb"), Memory::Kilobit);
+  EXPECT_EQ(ParseEnumeration<Memory>("kib"), Memory::Kibibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("kB"), Memory::Kilobyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("kiB"), Memory::Kibibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Mb"), Memory::Megabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Mib"), Memory::Mebibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("MB"), Memory::Megabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("MiB"), Memory::Mebibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Gb"), Memory::Gigabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Gib"), Memory::Gibibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("GB"), Memory::Gigabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("GiB"), Memory::Gibibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Tb"), Memory::Terabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Tib"), Memory::Tebibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("TB"), Memory::Terabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("TiB"), Memory::Tebibyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("Pb"), Memory::Petabit);
+  EXPECT_EQ(ParseEnumeration<Memory>("Pib"), Memory::Pebibit);
+  EXPECT_EQ(ParseEnumeration<Memory>("PB"), Memory::Petabyte);
+  EXPECT_EQ(ParseEnumeration<Memory>("PiB"), Memory::Pebibyte);
 }
 
 TEST(UnitMemory, RelatedDimensions) {
@@ -182,12 +178,6 @@ TEST(UnitMemory, RelatedUnitSystem) {
 
 TEST(UnitMemory, Standard) {
   EXPECT_EQ(Standard<Memory>, Memory::Bit);
-}
-
-TEST(UnitMemory, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Memory, Memory::Bit, Memory::Kilobyte>(
-      value, value / (8.0L * 1000.0L));
 }
 
 TEST(UnitMemory, Stream) {

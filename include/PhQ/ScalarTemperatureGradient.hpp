@@ -39,27 +39,27 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::ScalarTemperatureGradient.
-template <typename Number>
+template <typename NumericType>
 class Direction;
 
 // Forward declaration for class PhQ::ScalarTemperatureGradient.
-template <typename Number>
+template <typename NumericType>
 class PlanarDirection;
 
 // Forward declaration for class PhQ::ScalarTemperatureGradient.
-template <typename Number>
+template <typename NumericType>
 class PlanarTemperatureGradient;
 
 // Forward declaration for class PhQ::ScalarTemperatureGradient.
-template <typename Number>
+template <typename NumericType>
 class TemperatureGradient;
 
 /// \brief Scalar temperature gradient component or magnitude of a temperature gradient vector. For
 /// a three-dimensional Euclidean temperature gradient vector, see PhQ::TemperatureGradient. For a
 /// two-dimensional Euclidean temperature gradient vector in the XY plane, see
 /// PhQ::PlanarTemperatureGradient.
-template <typename Number = double>
-class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient, Number> {
+template <typename NumericType = double>
+class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient, NumericType> {
 public:
   /// \brief Default constructor. Constructs a scalar temperature gradient with an uninitialized
   /// value.
@@ -67,195 +67,202 @@ public:
 
   /// \brief Constructor. Constructs a scalar temperature gradient with a given value expressed in a
   /// given temperature gradient unit.
-  ScalarTemperatureGradient(const Number value, const Unit::TemperatureGradient unit)
-    : DimensionalScalar<Unit::TemperatureGradient, Number>(value, unit) {}
+  ScalarTemperatureGradient(const NumericType value, const Unit::TemperatureGradient unit)
+    : DimensionalScalar<Unit::TemperatureGradient, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs a scalar temperature gradient from a given temperature
   /// difference and length using the definition of temperature gradient.
   constexpr ScalarTemperatureGradient(
-      const TemperatureDifference<Number>& temperature_difference, const Length<Number>& length)
-    : ScalarTemperatureGradient<Number>(temperature_difference.Value() / length.Value()) {}
+      const TemperatureDifference<NumericType>& temperature_difference,
+      const Length<NumericType>& length)
+    : ScalarTemperatureGradient<NumericType>(temperature_difference.Value() / length.Value()) {}
 
   /// \brief Destructor. Destroys this scalar temperature gradient.
   ~ScalarTemperatureGradient() noexcept = default;
 
   /// \brief Copy constructor. Constructs a scalar temperature gradient by copying another one.
-  constexpr ScalarTemperatureGradient(const ScalarTemperatureGradient<Number>& other) = default;
+  constexpr ScalarTemperatureGradient(
+      const ScalarTemperatureGradient<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a scalar temperature gradient by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr ScalarTemperatureGradient(const ScalarTemperatureGradient<OtherNumber>& other)
-    : ScalarTemperatureGradient(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr ScalarTemperatureGradient(
+      const ScalarTemperatureGradient<OtherNumericType>& other)
+    : ScalarTemperatureGradient(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a scalar temperature gradient by moving another one.
-  constexpr ScalarTemperatureGradient(ScalarTemperatureGradient<Number>&& other) noexcept = default;
+  constexpr ScalarTemperatureGradient(
+      ScalarTemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this scalar temperature gradient by copying another
   /// one.
-  constexpr ScalarTemperatureGradient<Number>& operator=(
-      const ScalarTemperatureGradient<Number>& other) = default;
+  constexpr ScalarTemperatureGradient<NumericType>& operator=(
+      const ScalarTemperatureGradient<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this scalar temperature gradient by copying another
   /// one.
-  template <typename OtherNumber>
-  constexpr ScalarTemperatureGradient<Number>& operator=(
-      const ScalarTemperatureGradient<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr ScalarTemperatureGradient<NumericType>& operator=(
+      const ScalarTemperatureGradient<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this scalar temperature gradient by moving another
   /// one.
-  constexpr ScalarTemperatureGradient<Number>& operator=(
-      ScalarTemperatureGradient<Number>&& other) noexcept = default;
+  constexpr ScalarTemperatureGradient<NumericType>& operator=(
+      ScalarTemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar temperature gradient of zero.
-  static constexpr ScalarTemperatureGradient<Number> Zero() {
-    return ScalarTemperatureGradient<Number>{static_cast<Number>(0)};
+  static constexpr ScalarTemperatureGradient<NumericType> Zero() {
+    return ScalarTemperatureGradient<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar temperature gradient with a given value expressed in a
   /// given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr ScalarTemperatureGradient<Number> Create(const Number value) {
-    return ScalarTemperatureGradient<Number>{
-        StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+  static constexpr ScalarTemperatureGradient<NumericType> Create(const NumericType value) {
+    return ScalarTemperatureGradient<NumericType>{
+        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 
-  constexpr ScalarTemperatureGradient<Number> operator+(
-      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
-    return ScalarTemperatureGradient<Number>{this->value + scalar_temperature_gradient.value};
+  constexpr ScalarTemperatureGradient<NumericType> operator+(
+      const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) const {
+    return ScalarTemperatureGradient<NumericType>{this->value + scalar_temperature_gradient.value};
   }
 
-  constexpr ScalarTemperatureGradient<Number> operator-(
-      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
-    return ScalarTemperatureGradient<Number>{this->value - scalar_temperature_gradient.value};
+  constexpr ScalarTemperatureGradient<NumericType> operator-(
+      const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) const {
+    return ScalarTemperatureGradient<NumericType>{this->value - scalar_temperature_gradient.value};
   }
 
-  constexpr ScalarTemperatureGradient<Number> operator*(const Number number) const {
-    return ScalarTemperatureGradient<Number>{this->value * number};
+  constexpr ScalarTemperatureGradient<NumericType> operator*(const NumericType number) const {
+    return ScalarTemperatureGradient<NumericType>{this->value * number};
   }
 
-  constexpr TemperatureDifference<Number> operator*(const Length<Number>& length) const {
-    return TemperatureDifference<Number>{*this, length};
+  constexpr TemperatureDifference<NumericType> operator*(const Length<NumericType>& length) const {
+    return TemperatureDifference<NumericType>{*this, length};
   }
 
-  constexpr PlanarTemperatureGradient<Number> operator*(
-      const PlanarDirection<Number>& planar_direction) const;
+  constexpr PlanarTemperatureGradient<NumericType> operator*(
+      const PlanarDirection<NumericType>& planar_direction) const;
 
-  constexpr TemperatureGradient<Number> operator*(const Direction<Number>& direction) const;
+  constexpr TemperatureGradient<NumericType> operator*(
+      const Direction<NumericType>& direction) const;
 
-  constexpr ScalarTemperatureGradient<Number> operator/(const Number number) const {
-    return ScalarTemperatureGradient<Number>{this->value / number};
+  constexpr ScalarTemperatureGradient<NumericType> operator/(const NumericType number) const {
+    return ScalarTemperatureGradient<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(
-      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const noexcept {
+  constexpr NumericType operator/(
+      const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) const noexcept {
     return this->value / scalar_temperature_gradient.value;
   }
 
   constexpr void operator+=(
-      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) noexcept {
+      const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) noexcept {
     this->value += scalar_temperature_gradient.value;
   }
 
   constexpr void operator-=(
-      const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) noexcept {
+      const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) noexcept {
     this->value -= scalar_temperature_gradient.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a scalar temperature gradient with a given value expressed in
   /// the standard temperature gradient unit.
-  explicit constexpr ScalarTemperatureGradient(const Number value)
-    : DimensionalScalar<Unit::TemperatureGradient, Number>(value) {}
+  explicit constexpr ScalarTemperatureGradient(const NumericType value)
+    : DimensionalScalar<Unit::TemperatureGradient, NumericType>(value) {}
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class PlanarTemperatureGradient;
 
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   friend class TemperatureGradient;
 };
 
-template <typename Number>
-inline constexpr bool operator==(const ScalarTemperatureGradient<Number>& left,
-                                 const ScalarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const ScalarTemperatureGradient<NumericType>& left,
+                                 const ScalarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const ScalarTemperatureGradient<Number>& left,
-                                 const ScalarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const ScalarTemperatureGradient<NumericType>& left,
+                                 const ScalarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const ScalarTemperatureGradient<Number>& left,
-                                const ScalarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const ScalarTemperatureGradient<NumericType>& left,
+                                const ScalarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const ScalarTemperatureGradient<Number>& left,
-                                const ScalarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const ScalarTemperatureGradient<NumericType>& left,
+                                const ScalarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const ScalarTemperatureGradient<Number>& left,
-                                 const ScalarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const ScalarTemperatureGradient<NumericType>& left,
+                                 const ScalarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const ScalarTemperatureGradient<Number>& left,
-                                 const ScalarTemperatureGradient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const ScalarTemperatureGradient<NumericType>& left,
+                                 const ScalarTemperatureGradient<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) {
+    std::ostream& stream,
+    const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) {
   stream << scalar_temperature_gradient.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr ScalarTemperatureGradient<Number> operator*(
-    const Number number, const ScalarTemperatureGradient<Number>& scalar_temperature_gradient) {
+template <typename NumericType>
+inline constexpr ScalarTemperatureGradient<NumericType> operator*(
+    const NumericType number,
+    const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) {
   return scalar_temperature_gradient * number;
 }
 
-template <typename Number>
-inline constexpr TemperatureDifference<Number>::TemperatureDifference(
-    const ScalarTemperatureGradient<Number>& scalar_temperature_gradient,
-    const Length<Number>& length)
-  : TemperatureDifference<Number>(scalar_temperature_gradient.Value() * length.Value()) {}
+template <typename NumericType>
+inline constexpr TemperatureDifference<NumericType>::TemperatureDifference(
+    const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient,
+    const Length<NumericType>& length)
+  : TemperatureDifference<NumericType>(scalar_temperature_gradient.Value() * length.Value()) {}
 
-template <typename Number>
-inline constexpr ScalarTemperatureGradient<Number> TemperatureDifference<Number>::operator/(
-    const Length<Number>& length) const {
-  return ScalarTemperatureGradient<Number>{*this, length};
+template <typename NumericType>
+inline constexpr ScalarTemperatureGradient<NumericType>
+TemperatureDifference<NumericType>::operator/(const Length<NumericType>& length) const {
+  return ScalarTemperatureGradient<NumericType>{*this, length};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::ScalarTemperatureGradient<Number>> {
+template <typename NumericType>
+struct hash<PhQ::ScalarTemperatureGradient<NumericType>> {
   inline size_t operator()(
-      const PhQ::ScalarTemperatureGradient<Number>& scalar_temperature_gradient) const {
-    return hash<Number>()(scalar_temperature_gradient.Value());
+      const PhQ::ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient) const {
+    return hash<NumericType>()(scalar_temperature_gradient.Value());
   }
 };
 

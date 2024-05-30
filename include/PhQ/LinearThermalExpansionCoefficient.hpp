@@ -42,8 +42,9 @@ namespace PhQ {
 /// expansion coefficient; see PhQ::VolumetricThermalExpansionCoefficient. For isotropic materials,
 /// the volumetric thermal expansion coefficient is usually three times the linear thermal expansion
 /// coefficient.
-template <typename Number = double>
-class LinearThermalExpansionCoefficient : public DimensionalScalar<Unit::ThermalExpansion, Number> {
+template <typename NumericType = double>
+class LinearThermalExpansionCoefficient
+  : public DimensionalScalar<Unit::ThermalExpansion, NumericType> {
 public:
   /// \brief Default constructor. Constructs a linear thermal expansion coefficient with an
   /// uninitialized value.
@@ -51,8 +52,8 @@ public:
 
   /// \brief Constructor. Constructs a linear thermal expansion coefficient with a given value
   /// expressed in a given thermal expansion unit.
-  LinearThermalExpansionCoefficient(const Number value, const Unit::ThermalExpansion unit)
-    : DimensionalScalar<Unit::ThermalExpansion, Number>(value, unit) {}
+  LinearThermalExpansionCoefficient(const NumericType value, const Unit::ThermalExpansion unit)
+    : DimensionalScalar<Unit::ThermalExpansion, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this linear thermal expansion coefficient.
   ~LinearThermalExpansionCoefficient() noexcept = default;
@@ -60,182 +61,192 @@ public:
   /// \brief Copy constructor. Constructs a linear thermal expansion coefficient by copying another
   /// one.
   constexpr LinearThermalExpansionCoefficient(
-      const LinearThermalExpansionCoefficient<Number>& other) = default;
+      const LinearThermalExpansionCoefficient<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a linear thermal expansion coefficient by copying another
   /// one.
-  template <typename OtherNumber>
+  template <typename OtherNumericType>
   explicit constexpr LinearThermalExpansionCoefficient(
-      const LinearThermalExpansionCoefficient<OtherNumber>& other)
-    : LinearThermalExpansionCoefficient(static_cast<Number>(other.Value())) {}
+      const LinearThermalExpansionCoefficient<OtherNumericType>& other)
+    : LinearThermalExpansionCoefficient(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a linear thermal expansion coefficient by moving another
   /// one.
   constexpr LinearThermalExpansionCoefficient(
-      LinearThermalExpansionCoefficient<Number>&& other) noexcept = default;
+      LinearThermalExpansionCoefficient<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this linear thermal expansion coefficient by copying
   /// another one.
-  constexpr LinearThermalExpansionCoefficient<Number>& operator=(
-      const LinearThermalExpansionCoefficient<Number>& other) = default;
+  constexpr LinearThermalExpansionCoefficient<NumericType>& operator=(
+      const LinearThermalExpansionCoefficient<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this linear thermal expansion coefficient by copying
   /// another one.
-  template <typename OtherNumber>
-  constexpr LinearThermalExpansionCoefficient<Number>& operator=(
-      const LinearThermalExpansionCoefficient<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr LinearThermalExpansionCoefficient<NumericType>& operator=(
+      const LinearThermalExpansionCoefficient<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this linear thermal expansion coefficient by moving
   /// another one.
-  constexpr LinearThermalExpansionCoefficient<Number>& operator=(
-      LinearThermalExpansionCoefficient<Number>&& other) noexcept = default;
+  constexpr LinearThermalExpansionCoefficient<NumericType>& operator=(
+      LinearThermalExpansionCoefficient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a linear thermal expansion coefficient of zero.
-  static constexpr LinearThermalExpansionCoefficient<Number> Zero() {
-    return LinearThermalExpansionCoefficient<Number>{static_cast<Number>(0)};
+  static constexpr LinearThermalExpansionCoefficient<NumericType> Zero() {
+    return LinearThermalExpansionCoefficient<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a linear thermal expansion coefficient with a given value expressed
   /// in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
-  static constexpr LinearThermalExpansionCoefficient<Number> Create(const Number value) {
-    return LinearThermalExpansionCoefficient<Number>{
-        StaticConvertCopy<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
+  static constexpr LinearThermalExpansionCoefficient<NumericType> Create(const NumericType value) {
+    return LinearThermalExpansionCoefficient<NumericType>{
+        ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
   }
 
-  constexpr LinearThermalExpansionCoefficient<Number> operator+(
-      const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const {
-    return LinearThermalExpansionCoefficient<Number>{
+  constexpr LinearThermalExpansionCoefficient<NumericType> operator+(
+      const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient)
+      const {
+    return LinearThermalExpansionCoefficient<NumericType>{
         this->value + linear_thermal_expansion_coefficient.value};
   }
 
-  constexpr LinearThermalExpansionCoefficient<Number> operator-(
-      const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const {
-    return LinearThermalExpansionCoefficient<Number>{
+  constexpr LinearThermalExpansionCoefficient<NumericType> operator-(
+      const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient)
+      const {
+    return LinearThermalExpansionCoefficient<NumericType>{
         this->value - linear_thermal_expansion_coefficient.value};
   }
 
-  constexpr LinearThermalExpansionCoefficient<Number> operator*(const Number number) const {
-    return LinearThermalExpansionCoefficient<Number>{this->value * number};
+  constexpr LinearThermalExpansionCoefficient<NumericType> operator*(
+      const NumericType number) const {
+    return LinearThermalExpansionCoefficient<NumericType>{this->value * number};
   }
 
-  constexpr ScalarStrain<Number> operator*(
-      const TemperatureDifference<Number>& temperature_difference) const {
-    return ScalarStrain<Number>{*this, temperature_difference};
+  constexpr ScalarStrain<NumericType> operator*(
+      const TemperatureDifference<NumericType>& temperature_difference) const {
+    return ScalarStrain<NumericType>{*this, temperature_difference};
   }
 
-  constexpr LinearThermalExpansionCoefficient<Number> operator/(const Number number) const {
-    return LinearThermalExpansionCoefficient<Number>{this->value / number};
+  constexpr LinearThermalExpansionCoefficient<NumericType> operator/(
+      const NumericType number) const {
+    return LinearThermalExpansionCoefficient<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(
-      const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient)
+  constexpr NumericType operator/(
+      const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient)
       const noexcept {
     return this->value / linear_thermal_expansion_coefficient.value;
   }
 
-  constexpr void operator+=(const LinearThermalExpansionCoefficient<Number>&
+  constexpr void operator+=(const LinearThermalExpansionCoefficient<NumericType>&
                                 linear_thermal_expansion_coefficient) noexcept {
     this->value += linear_thermal_expansion_coefficient.value;
   }
 
-  constexpr void operator-=(const LinearThermalExpansionCoefficient<Number>&
+  constexpr void operator-=(const LinearThermalExpansionCoefficient<NumericType>&
                                 linear_thermal_expansion_coefficient) noexcept {
     this->value -= linear_thermal_expansion_coefficient.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a linear thermal expansion coefficient with a given value
   /// expressed in the standard thermal expansion unit.
-  explicit constexpr LinearThermalExpansionCoefficient(const Number value)
-    : DimensionalScalar<Unit::ThermalExpansion, Number>(value) {}
+  explicit constexpr LinearThermalExpansionCoefficient(const NumericType value)
+    : DimensionalScalar<Unit::ThermalExpansion, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(const LinearThermalExpansionCoefficient<Number>& left,
-                                 const LinearThermalExpansionCoefficient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(
+    const LinearThermalExpansionCoefficient<NumericType>& left,
+    const LinearThermalExpansionCoefficient<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const LinearThermalExpansionCoefficient<Number>& left,
-                                 const LinearThermalExpansionCoefficient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(
+    const LinearThermalExpansionCoefficient<NumericType>& left,
+    const LinearThermalExpansionCoefficient<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const LinearThermalExpansionCoefficient<Number>& left,
-                                const LinearThermalExpansionCoefficient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(
+    const LinearThermalExpansionCoefficient<NumericType>& left,
+    const LinearThermalExpansionCoefficient<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const LinearThermalExpansionCoefficient<Number>& left,
-                                const LinearThermalExpansionCoefficient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(
+    const LinearThermalExpansionCoefficient<NumericType>& left,
+    const LinearThermalExpansionCoefficient<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const LinearThermalExpansionCoefficient<Number>& left,
-                                 const LinearThermalExpansionCoefficient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(
+    const LinearThermalExpansionCoefficient<NumericType>& left,
+    const LinearThermalExpansionCoefficient<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const LinearThermalExpansionCoefficient<Number>& left,
-                                 const LinearThermalExpansionCoefficient<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(
+    const LinearThermalExpansionCoefficient<NumericType>& left,
+    const LinearThermalExpansionCoefficient<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) {
+    const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient) {
   stream << linear_thermal_expansion_coefficient.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr LinearThermalExpansionCoefficient<Number> operator*(
-    const Number number,
-    const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) {
+template <typename NumericType>
+inline constexpr LinearThermalExpansionCoefficient<NumericType> operator*(
+    const NumericType number,
+    const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient) {
   return linear_thermal_expansion_coefficient * number;
 }
 
-template <typename Number>
-inline constexpr ScalarStrain<Number>::ScalarStrain(
-    const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient,
-    const TemperatureDifference<Number>& temperature_difference)
-  : ScalarStrain<Number>(
+template <typename NumericType>
+inline constexpr ScalarStrain<NumericType>::ScalarStrain(
+    const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient,
+    const TemperatureDifference<NumericType>& temperature_difference)
+  : ScalarStrain<NumericType>(
       linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
 
-template <typename Number>
-inline constexpr ScalarStrain<Number> TemperatureDifference<Number>::operator*(
-    const LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient) const {
-  return ScalarStrain<Number>{linear_thermal_expansion_coefficient, *this};
+template <typename NumericType>
+inline constexpr ScalarStrain<NumericType> TemperatureDifference<NumericType>::operator*(
+    const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient)
+    const {
+  return ScalarStrain<NumericType>{linear_thermal_expansion_coefficient, *this};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::LinearThermalExpansionCoefficient<Number>> {
-  inline size_t operator()(
-      const PhQ::LinearThermalExpansionCoefficient<Number>& linear_thermal_expansion_coefficient)
-      const {
-    return hash<Number>()(linear_thermal_expansion_coefficient.Value());
+template <typename NumericType>
+struct hash<PhQ::LinearThermalExpansionCoefficient<NumericType>> {
+  inline size_t operator()(const PhQ::LinearThermalExpansionCoefficient<NumericType>&
+                               linear_thermal_expansion_coefficient) const {
+    return hash<NumericType>()(linear_thermal_expansion_coefficient.Value());
   }
 };
 

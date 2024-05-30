@@ -79,63 +79,63 @@ TEST(UnitMassRate, ConsistentUnit) {
       ConsistentUnit<MassRate>(UnitSystem::InchPoundSecondRankine), MassRate::SlinchPerSecond);
 }
 
-TEST(UnitMassRate, ConvertAndConvertCopy) {
+TEST(UnitMassRate, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::GramPerSecond, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlugPerSecond, value,
-      value * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlinchPerSecond, value,
-      value * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlugPerSecond, value,
+                                  value * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlinchPerSecond, value,
+                                  value * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::PoundPerSecond, value, value / 0.45359237L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::GramPerMinute, value, value * 60000.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlugPerMinute, value,
-      value * 60.0L * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlinchPerMinute, value,
-      value * 60.0L * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlugPerMinute, value,
+                                  value * 60.0L * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlinchPerMinute, value,
+                                  value * 60.0L * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::PoundPerMinute, value, value * 60.0L / 0.45359237L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::KilogramPerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::GramPerHour, value, value * 3600000.0L);
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlugPerHour, value,
-      value * 3600.0L * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
-      MassRate::KilogramPerSecond, MassRate::SlinchPerHour, value,
-      value * 3600.0L * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<MassRate>(
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlugPerHour, value,
+                                  value * 3600.0L * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(MassRate::KilogramPerSecond, MassRate::SlinchPerHour, value,
+                                  value * 3600.0L * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvert<MassRate>(
       MassRate::KilogramPerSecond, MassRate::PoundPerHour, value, value * 3600.0L / 0.45359237L);
 }
 
-TEST(UnitMassRate, Parse) {
-  EXPECT_EQ(Parse<MassRate>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<MassRate>("kg/s"), MassRate::KilogramPerSecond);
-  EXPECT_EQ(Parse<MassRate>("g/s"), MassRate::GramPerSecond);
-  EXPECT_EQ(Parse<MassRate>("slug/s"), MassRate::SlugPerSecond);
-  EXPECT_EQ(Parse<MassRate>("slinch/s"), MassRate::SlinchPerSecond);
-  EXPECT_EQ(Parse<MassRate>("lbm/s"), MassRate::PoundPerSecond);
-  EXPECT_EQ(Parse<MassRate>("kg/min"), MassRate::KilogramPerMinute);
-  EXPECT_EQ(Parse<MassRate>("g/min"), MassRate::GramPerMinute);
-  EXPECT_EQ(Parse<MassRate>("slug/min"), MassRate::SlugPerMinute);
-  EXPECT_EQ(Parse<MassRate>("slinch/min"), MassRate::SlinchPerMinute);
-  EXPECT_EQ(Parse<MassRate>("lbm/min"), MassRate::PoundPerMinute);
-  EXPECT_EQ(Parse<MassRate>("kg/hr"), MassRate::KilogramPerHour);
-  EXPECT_EQ(Parse<MassRate>("g/hr"), MassRate::GramPerHour);
-  EXPECT_EQ(Parse<MassRate>("slug/hr"), MassRate::SlugPerHour);
-  EXPECT_EQ(Parse<MassRate>("slinch/hr"), MassRate::SlinchPerHour);
-  EXPECT_EQ(Parse<MassRate>("lbm/hr"), MassRate::PoundPerHour);
+TEST(UnitMassRate, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitMassRate, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<MassRate>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<MassRate>("kg/s"), MassRate::KilogramPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("g/s"), MassRate::GramPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slug/s"), MassRate::SlugPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slinch/s"), MassRate::SlinchPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("lbm/s"), MassRate::PoundPerSecond);
+  EXPECT_EQ(ParseEnumeration<MassRate>("kg/min"), MassRate::KilogramPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("g/min"), MassRate::GramPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slug/min"), MassRate::SlugPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slinch/min"), MassRate::SlinchPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("lbm/min"), MassRate::PoundPerMinute);
+  EXPECT_EQ(ParseEnumeration<MassRate>("kg/hr"), MassRate::KilogramPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("g/hr"), MassRate::GramPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slug/hr"), MassRate::SlugPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("slinch/hr"), MassRate::SlinchPerHour);
+  EXPECT_EQ(ParseEnumeration<MassRate>("lbm/hr"), MassRate::PoundPerHour);
 }
 
 TEST(UnitMassRate, RelatedDimensions) {
@@ -165,12 +165,6 @@ TEST(UnitMassRate, RelatedUnitSystem) {
 
 TEST(UnitMassRate, Standard) {
   EXPECT_EQ(Standard<MassRate>, MassRate::KilogramPerSecond);
-}
-
-TEST(UnitMassRate, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
-      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMassRate, Stream) {

@@ -352,11 +352,11 @@ std::cout << "Frequency: " << standard << " = " << kilohertz << std::endl;
 
 The above example creates a 1234.56789 Hz frequency and prints it both in hertz and in kilohertz.
 
-Unit conversions can also be performed explicitly on raw floating-point numbers without the use of physical quantities through the `PhQ::Convert` function, which takes one or more floating-point values, an original unit, and a new unit. For example:
+Unit conversions can also be performed explicitly on raw floating-point numbers without the use of physical quantities through the `PhQ::Convert`, `PhQ::ConvertInPlace`, and `PhQ::ConvertStatically` functions, which take one or more floating-point values, an original unit, and a new unit. For example:
 
 ```C++
 std::vector<double> values = {10.0, 20.0, 30.0, 40.0};
-PhQ::Convert(values, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound);
+PhQ::ConvertInPlace(values, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound);
 for (const double value : values) {
   std::cout << value << std::endl;
 }
@@ -366,7 +366,7 @@ for (const double value : values) {
 // 29.5025
 ```
 
-The above example converts a collection of values from joules to foot-pounds. The same can also be achieved with:
+The above example converts a collection of values from joules to foot-pounds. The same results can also be achieved using physical quantities instead of raw floating-point values. For example:
 
 ```C++
 const std::vector<PhQ::Energy<>> quantities = {
@@ -384,7 +384,7 @@ for (const PhQ::Energy<>& quantity : quantities) {
 // 29.5025
 ```
 
-In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than explicitly invoking the `PhQ::Convert` function.
+In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than to explicitly invoke conversion functions.
 
 [(Back to Usage)](#usage)
 

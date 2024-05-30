@@ -70,24 +70,30 @@ TEST(UnitTemperatureDifference, ConsistentUnit) {
             TemperatureDifference::Rankine);
 }
 
-TEST(UnitTemperatureDifference, ConvertAndConvertCopy) {
+TEST(UnitTemperatureDifference, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Celsius, value, value);
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Rankine, value, value * 1.8L);
-  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+  Internal::TestConvert<TemperatureDifference>(
       TemperatureDifference::Kelvin, TemperatureDifference::Fahrenheit, value, value * 1.8L);
 }
 
-TEST(UnitTemperatureDifference, Parse) {
-  EXPECT_EQ(Parse<TemperatureDifference>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<TemperatureDifference>("K"), TemperatureDifference::Kelvin);
-  EXPECT_EQ(Parse<TemperatureDifference>("°C"), TemperatureDifference::Celsius);
-  EXPECT_EQ(Parse<TemperatureDifference>("°R"), TemperatureDifference::Rankine);
-  EXPECT_EQ(Parse<TemperatureDifference>("°F"), TemperatureDifference::Fahrenheit);
+TEST(UnitTemperatureDifference, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<TemperatureDifference, TemperatureDifference::Kelvin,
+                                  TemperatureDifference::Fahrenheit>(value, value * 1.8L);
+}
+
+TEST(UnitTemperatureDifference, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<TemperatureDifference>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<TemperatureDifference>("K"), TemperatureDifference::Kelvin);
+  EXPECT_EQ(ParseEnumeration<TemperatureDifference>("°C"), TemperatureDifference::Celsius);
+  EXPECT_EQ(ParseEnumeration<TemperatureDifference>("°R"), TemperatureDifference::Rankine);
+  EXPECT_EQ(ParseEnumeration<TemperatureDifference>("°F"), TemperatureDifference::Fahrenheit);
 }
 
 TEST(UnitTemperatureDifference, RelatedDimensions) {
@@ -106,12 +112,6 @@ TEST(UnitTemperatureDifference, RelatedUnitSystem) {
 
 TEST(UnitTemperatureDifference, Standard) {
   EXPECT_EQ(Standard<TemperatureDifference>, TemperatureDifference::Kelvin);
-}
-
-TEST(UnitTemperatureDifference, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<TemperatureDifference, TemperatureDifference::Kelvin,
-                                  TemperatureDifference::Fahrenheit>(value, value * 1.8L);
 }
 
 TEST(UnitTemperatureDifference, Stream) {

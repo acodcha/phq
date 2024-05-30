@@ -108,129 +108,129 @@ TEST(UnitSpeed, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Speed>(UnitSystem::InchPoundSecondRankine), Speed::InchPerSecond);
 }
 
-TEST(UnitSpeed, ConvertFromStandard) {
+TEST(UnitSpeed, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::NauticalMilePerSecond, value, value / 1852.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilePerSecond, value, value / 1609.344L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::KilometrePerSecond, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::MetrePerSecond, value, value);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::YardPerSecond, value, value / 0.9144L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::FootPerSecond, value, value / 0.3048L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::MetrePerSecond, value, value);
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::YardPerSecond, value, value / 0.9144L);
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::FootPerSecond, value, value / 0.3048L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::DecimetrePerSecond, value, value * 10.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::InchPerSecond, value, value / 0.0254L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::InchPerSecond, value, value / 0.0254L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::CentimetrePerSecond, value, value * 100.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MillimetrePerSecond, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilliinchPerSecond, value, value / 0.0000254L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicrometrePerSecond, value, value * 1000000.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerSecond, value, value / 0.0000000254L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::NauticalMilePerMinute, value, value / 1852.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilePerMinute, value, value / 1609.344L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::KilometrePerMinute, value, value * 0.001L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::MetrePerMinute, value, value * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::MetrePerMinute, value, value * 60.0L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::YardPerMinute, value, value / 0.9144L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::FootPerMinute, value, value / 0.3048L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::DecimetrePerMinute, value, value * 10.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::InchPerMinute, value, value / 0.0254L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::CentimetrePerMinute, value, value * 100.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MillimetrePerMinute, value, value * 1000.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilliinchPerMinute, value, value / 0.0000254L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicrometrePerMinute, value, value * 1000000.0L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerMinute, value, value / 0.0000000254L * 60.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::Knot, value, value / 1852.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilePerHour, value, value / 1609.344L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::KilometrePerHour, value, value * 0.001L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
-      Speed::MetrePerSecond, Speed::MetrePerHour, value, value * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(Speed::MetrePerSecond, Speed::MetrePerHour, value, value * 3600.0L);
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::YardPerHour, value, value / 0.9144L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::FootPerHour, value, value / 0.3048L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::DecimetrePerHour, value, value * 10.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::InchPerHour, value, value / 0.0254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::CentimetrePerHour, value, value * 100.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MillimetrePerHour, value, value * 1000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MilliinchPerHour, value, value / 0.0000254L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicrometrePerHour, value, value * 1000000.0L * 3600.0L);
-  Internal::TestConvertAndConvertCopy<Speed>(
+  Internal::TestConvert<Speed>(
       Speed::MetrePerSecond, Speed::MicroinchPerHour, value, value / 0.0000000254L * 3600.0L);
 }
 
-TEST(UnitSpeed, Parse) {
-  EXPECT_EQ(Parse<Speed>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Speed>("nmi/s"), Speed::NauticalMilePerSecond);
-  EXPECT_EQ(Parse<Speed>("mi/s"), Speed::MilePerSecond);
-  EXPECT_EQ(Parse<Speed>("km/s"), Speed::KilometrePerSecond);
-  EXPECT_EQ(Parse<Speed>("m/s"), Speed::MetrePerSecond);
-  EXPECT_EQ(Parse<Speed>("yd/s"), Speed::YardPerSecond);
-  EXPECT_EQ(Parse<Speed>("ft/s"), Speed::FootPerSecond);
-  EXPECT_EQ(Parse<Speed>("dm/s"), Speed::DecimetrePerSecond);
-  EXPECT_EQ(Parse<Speed>("in/s"), Speed::InchPerSecond);
-  EXPECT_EQ(Parse<Speed>("cm/s"), Speed::CentimetrePerSecond);
-  EXPECT_EQ(Parse<Speed>("mm/s"), Speed::MillimetrePerSecond);
-  EXPECT_EQ(Parse<Speed>("mil/s"), Speed::MilliinchPerSecond);
-  EXPECT_EQ(Parse<Speed>("μm/s"), Speed::MicrometrePerSecond);
-  EXPECT_EQ(Parse<Speed>("μin/s"), Speed::MicroinchPerSecond);
-  EXPECT_EQ(Parse<Speed>("nmi/min"), Speed::NauticalMilePerMinute);
-  EXPECT_EQ(Parse<Speed>("mi/min"), Speed::MilePerMinute);
-  EXPECT_EQ(Parse<Speed>("km/min"), Speed::KilometrePerMinute);
-  EXPECT_EQ(Parse<Speed>("m/min"), Speed::MetrePerMinute);
-  EXPECT_EQ(Parse<Speed>("yd/min"), Speed::YardPerMinute);
-  EXPECT_EQ(Parse<Speed>("ft/min"), Speed::FootPerMinute);
-  EXPECT_EQ(Parse<Speed>("dm/min"), Speed::DecimetrePerMinute);
-  EXPECT_EQ(Parse<Speed>("in/min"), Speed::InchPerMinute);
-  EXPECT_EQ(Parse<Speed>("cm/min"), Speed::CentimetrePerMinute);
-  EXPECT_EQ(Parse<Speed>("mm/min"), Speed::MillimetrePerMinute);
-  EXPECT_EQ(Parse<Speed>("mil/min"), Speed::MilliinchPerMinute);
-  EXPECT_EQ(Parse<Speed>("μm/min"), Speed::MicrometrePerMinute);
-  EXPECT_EQ(Parse<Speed>("μin/min"), Speed::MicroinchPerMinute);
-  EXPECT_EQ(Parse<Speed>("kn"), Speed::Knot);
-  EXPECT_EQ(Parse<Speed>("mi/hr"), Speed::MilePerHour);
-  EXPECT_EQ(Parse<Speed>("km/hr"), Speed::KilometrePerHour);
-  EXPECT_EQ(Parse<Speed>("m/hr"), Speed::MetrePerHour);
-  EXPECT_EQ(Parse<Speed>("yd/hr"), Speed::YardPerHour);
-  EXPECT_EQ(Parse<Speed>("ft/hr"), Speed::FootPerHour);
-  EXPECT_EQ(Parse<Speed>("dm/hr"), Speed::DecimetrePerHour);
-  EXPECT_EQ(Parse<Speed>("in/hr"), Speed::InchPerHour);
-  EXPECT_EQ(Parse<Speed>("cm/hr"), Speed::CentimetrePerHour);
-  EXPECT_EQ(Parse<Speed>("mm/hr"), Speed::MillimetrePerHour);
-  EXPECT_EQ(Parse<Speed>("mil/hr"), Speed::MilliinchPerHour);
-  EXPECT_EQ(Parse<Speed>("μm/hr"), Speed::MicrometrePerHour);
-  EXPECT_EQ(Parse<Speed>("μin/hr"), Speed::MicroinchPerHour);
+TEST(UnitSpeed, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Speed, Speed::MetrePerSecond, Speed::FootPerSecond>(
+      value, value / 0.3048L);
+}
+
+TEST(UnitSpeed, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Speed>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Speed>("nmi/s"), Speed::NauticalMilePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("mi/s"), Speed::MilePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("km/s"), Speed::KilometrePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("m/s"), Speed::MetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("yd/s"), Speed::YardPerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("ft/s"), Speed::FootPerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("dm/s"), Speed::DecimetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("in/s"), Speed::InchPerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("cm/s"), Speed::CentimetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("mm/s"), Speed::MillimetrePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("mil/s"), Speed::MilliinchPerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("μm/s"), Speed::MicrometrePerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("μin/s"), Speed::MicroinchPerSecond);
+  EXPECT_EQ(ParseEnumeration<Speed>("nmi/min"), Speed::NauticalMilePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("mi/min"), Speed::MilePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("km/min"), Speed::KilometrePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("m/min"), Speed::MetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("yd/min"), Speed::YardPerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("ft/min"), Speed::FootPerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("dm/min"), Speed::DecimetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("in/min"), Speed::InchPerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("cm/min"), Speed::CentimetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("mm/min"), Speed::MillimetrePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("mil/min"), Speed::MilliinchPerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("μm/min"), Speed::MicrometrePerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("μin/min"), Speed::MicroinchPerMinute);
+  EXPECT_EQ(ParseEnumeration<Speed>("kn"), Speed::Knot);
+  EXPECT_EQ(ParseEnumeration<Speed>("mi/hr"), Speed::MilePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("km/hr"), Speed::KilometrePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("m/hr"), Speed::MetrePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("yd/hr"), Speed::YardPerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("ft/hr"), Speed::FootPerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("dm/hr"), Speed::DecimetrePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("in/hr"), Speed::InchPerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("cm/hr"), Speed::CentimetrePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("mm/hr"), Speed::MillimetrePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("mil/hr"), Speed::MilliinchPerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("μm/hr"), Speed::MicrometrePerHour);
+  EXPECT_EQ(ParseEnumeration<Speed>("μin/hr"), Speed::MicroinchPerHour);
 }
 
 TEST(UnitSpeed, RelatedDimensions) {
@@ -284,12 +284,6 @@ TEST(UnitSpeed, RelatedUnitSystem) {
 
 TEST(UnitSpeed, Standard) {
   EXPECT_EQ(Standard<Speed>, Speed::MetrePerSecond);
-}
-
-TEST(UnitSpeed, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Speed, Speed::MetrePerSecond, Speed::FootPerSecond>(
-      value, value / 0.3048L);
 }
 
 TEST(UnitSpeed, Stream) {

@@ -43,11 +43,11 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensionless scalar physical quantity. Such a
 /// physical quantity is composed only of a value where the value is a scalar number. Such a
 /// physical quantity has no unit of measure and no dimension set.
-template <typename Number = double>
+template <typename NumericType = double>
 class DimensionlessScalar {
-  static_assert(
-      std::is_floating_point<Number>::value,
-      "The Number template parameter of a physical quantity must be a floating-point number type.");
+  static_assert(std::is_floating_point<NumericType>::value,
+                "The NumericType template parameter of a physical quantity must be a numeric "
+                "floating-point type: float, double, or long double.");
 
 public:
   /// \brief Physical dimension set of this physical quantity. Since this physical quantity is
@@ -57,17 +57,17 @@ public:
   }
 
   /// \brief Value of this physical quantity.
-  [[nodiscard]] inline constexpr Number Value() const noexcept {
+  [[nodiscard]] inline constexpr NumericType Value() const noexcept {
     return value;
   }
 
   /// \brief Returns the value of this physical quantity as a mutable value.
-  inline constexpr Number& MutableValue() noexcept {
+  inline constexpr NumericType& MutableValue() noexcept {
     return value;
   }
 
   /// \brief Sets the value of this physical quantity to the given value.
-  inline constexpr void SetValue(const Number value) noexcept {
+  inline constexpr void SetValue(const NumericType value) noexcept {
     this->value = value;
   }
 
@@ -97,89 +97,95 @@ protected:
   DimensionlessScalar() = default;
 
   /// \brief Constructor. Constructs a dimensionless scalar physical quantity with a given value.
-  explicit constexpr DimensionlessScalar(const Number value) : value(value) {}
+  explicit constexpr DimensionlessScalar(const NumericType value) : value(value) {}
 
   /// \brief Destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalar() noexcept = default;
 
   /// \brief Copy constructor. Constructs a dimensionless scalar physical quantity by copying
   /// another one.
-  constexpr DimensionlessScalar(const DimensionlessScalar<Number>& other) = default;
+  constexpr DimensionlessScalar(const DimensionlessScalar<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a dimensionless scalar physical quantity by copying
   /// another one.
-  template <typename OtherNumber>
-  explicit constexpr DimensionlessScalar(const DimensionlessScalar<OtherNumber>& other)
-    : value(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr DimensionlessScalar(const DimensionlessScalar<OtherNumericType>& other)
+    : value(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a dimensionless scalar physical quantity by moving another
   /// one.
-  constexpr DimensionlessScalar(DimensionlessScalar<Number>&& other) noexcept = default;
+  constexpr DimensionlessScalar(DimensionlessScalar<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this dimensionless scalar physical quantity by
   /// copying another one.
-  constexpr DimensionlessScalar<Number>& operator=(
-      const DimensionlessScalar<Number>& other) = default;
+  constexpr DimensionlessScalar<NumericType>& operator=(
+      const DimensionlessScalar<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this dimensionless scalar physical quantity by
   /// copying another one.
-  template <typename OtherNumber>
-  constexpr DimensionlessScalar<Number>& operator=(const DimensionlessScalar<OtherNumber>& other) {
-    value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr DimensionlessScalar<NumericType>& operator=(
+      const DimensionlessScalar<OtherNumericType>& other) {
+    value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this dimensionless scalar physical quantity by moving
   /// another one.
-  constexpr DimensionlessScalar<Number>& operator=(
-      DimensionlessScalar<Number>&& other) noexcept = default;
+  constexpr DimensionlessScalar<NumericType>& operator=(
+      DimensionlessScalar<NumericType>&& other) noexcept = default;
 
   /// \brief Value of this physical quantity.
-  Number value;
+  NumericType value;
 };
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-inline constexpr Number abs(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) {
+template <typename NumericType>
+inline constexpr NumericType abs(
+    const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) {
   return abs(dimensionless_scalar.Value());
 }
 
-template <typename Number>
-inline Number cbrt(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+template <typename NumericType>
+inline NumericType cbrt(
+    const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) noexcept {
   return cbrt(dimensionless_scalar.Value());
 };
 
-template <typename Number>
-inline Number exp(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+template <typename NumericType>
+inline NumericType exp(const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) noexcept {
   return exp(dimensionless_scalar.Value());
 };
 
-template <typename Number>
-inline Number log(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+template <typename NumericType>
+inline NumericType log(const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) noexcept {
   return log(dimensionless_scalar.Value());
 };
 
-template <typename Number>
-inline Number log2(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+template <typename NumericType>
+inline NumericType log2(
+    const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) noexcept {
   return log2(dimensionless_scalar.Value());
 };
 
-template <typename Number>
-inline Number log10(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+template <typename NumericType>
+inline NumericType log10(
+    const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) noexcept {
   return log10(dimensionless_scalar.Value());
 };
 
-template <typename Number, typename OtherNumber>
-inline Number pow(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar,
-                  const OtherNumber exponent) noexcept {
+template <typename NumericType, typename OtherNumericType>
+inline NumericType pow(const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar,
+                       const OtherNumericType exponent) noexcept {
   return pow(dimensionless_scalar.Value(), exponent);
 };
 
-template <typename Number>
-inline Number sqrt(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+template <typename NumericType>
+inline NumericType sqrt(
+    const PhQ::DimensionlessScalar<NumericType>& dimensionless_scalar) noexcept {
   return sqrt(dimensionless_scalar.Value());
 };
 

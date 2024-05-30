@@ -62,25 +62,30 @@ TEST(UnitMass, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
 }
 
-TEST(UnitMass, ConvertAndConvertCopy) {
+TEST(UnitMass, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<Mass>(Mass::Kilogram, Mass::Kilogram, value, value);
-  Internal::TestConvertAndConvertCopy<Mass>(Mass::Kilogram, Mass::Gram, value, value * 1000.0L);
-  Internal::TestConvertAndConvertCopy<Mass>(
+  Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Kilogram, value, value);
+  Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Gram, value, value * 1000.0L);
+  Internal::TestConvert<Mass>(
       Mass::Kilogram, Mass::Slug, value, value * 0.3048L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Mass>(
+  Internal::TestConvert<Mass>(
       Mass::Kilogram, Mass::Slinch, value, value * 0.0254L / (0.45359237L * 9.80665L));
-  Internal::TestConvertAndConvertCopy<Mass>(
-      Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
+  Internal::TestConvert<Mass>(Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
 }
 
-TEST(UnitMass, Parse) {
-  EXPECT_EQ(Parse<Mass>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Mass>("kg"), Mass::Kilogram);
-  EXPECT_EQ(Parse<Mass>("g"), Mass::Gram);
-  EXPECT_EQ(Parse<Mass>("slug"), Mass::Slug);
-  EXPECT_EQ(Parse<Mass>("slinch"), Mass::Slinch);
-  EXPECT_EQ(Parse<Mass>("lbm"), Mass::Pound);
+TEST(UnitMass, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<Mass, Mass::Kilogram, Mass::Slug>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
+}
+
+TEST(UnitMass, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<Mass>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<Mass>("kg"), Mass::Kilogram);
+  EXPECT_EQ(ParseEnumeration<Mass>("g"), Mass::Gram);
+  EXPECT_EQ(ParseEnumeration<Mass>("slug"), Mass::Slug);
+  EXPECT_EQ(ParseEnumeration<Mass>("slinch"), Mass::Slinch);
+  EXPECT_EQ(ParseEnumeration<Mass>("lbm"), Mass::Pound);
 }
 
 TEST(UnitMass, RelatedDimensions) {
@@ -100,12 +105,6 @@ TEST(UnitMass, RelatedUnitSystem) {
 
 TEST(UnitMass, Standard) {
   EXPECT_EQ(Standard<Mass>, Mass::Kilogram);
-}
-
-TEST(UnitMass, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<Mass, Mass::Kilogram, Mass::Slug>(
-      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMass, Stream) {

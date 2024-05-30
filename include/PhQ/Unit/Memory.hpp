@@ -245,419 +245,426 @@ inline const std::unordered_map<std::string_view, Unit::Memory> Spellings<Unit::
 };
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Bit>::FromStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Bit>::ToStandard(
-    Number& /*value*/) noexcept {}
+    NumericType& /*value*/) noexcept {}
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Byte>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.125L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.125L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Byte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kilobit>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kilobit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kibibit>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kibibit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kilobyte>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(8000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(8000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kilobyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kibibyte>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(8.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Kibibyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Megabit>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(0.000001L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Megabit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Mebibit>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Mebibit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Megabyte>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(8000000.0L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(8000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Megabyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Mebibyte>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      (static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Mebibyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gigabit>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gigabit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1000000000.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1000000000.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gibibit>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      (static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gibibit>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gigabyte>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(8.0E9L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(8.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gigabyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0E9L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0E9L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gibibyte>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-            * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Gibibyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-           * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Terabit>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-12L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-12L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Terabit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E12L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E12L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Tebibit>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-            * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Tebibit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-           * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Terabyte>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(8.0E12L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(8.0E12L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Terabyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0E12L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0E12L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Tebibyte>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-            * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Tebibyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-           * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Petabit>::FromStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E-15L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E-15L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Petabit>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(1.0E15L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1.0E15L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Pebibit>::FromStandard(
-    Number& value) noexcept {
-  value /=
-      (static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-       * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Pebibit>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-      * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Petabyte>::FromStandard(
-    Number& value) noexcept {
-  value /= static_cast<Number>(8.0E15L);
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(8.0E15L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Petabyte>::ToStandard(
-    Number& value) noexcept {
-  value *= static_cast<Number>(8.0E15L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0E15L);
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Pebibyte>::FromStandard(
-    Number& value) noexcept {
-  value /= (static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-            * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-            * static_cast<Number>(1024.0L));
+    NumericType& value) noexcept {
+  value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+            * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
 
 template <>
-template <typename Number>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Memory, Unit::Memory::Pebibyte>::ToStandard(
-    Number& value) noexcept {
-  value *=
-      static_cast<Number>(8.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L)
-      * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L) * static_cast<Number>(1024.0L);
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
+           * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L);
 }
 
-template <typename Number>
-inline const std::map<Unit::Memory, std::function<void(Number* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Memory, Number>{
-        {Unit::Memory::Bit,      Conversions<Unit::Memory, Unit::Memory::Bit>::FromStandard<Number>     },
-        {Unit::Memory::Byte,     Conversions<Unit::Memory, Unit::Memory::Byte>::FromStandard<Number>    },
+template <typename NumericType>
+inline const std::map<Unit::Memory,
+                      std::function<void(NumericType* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Memory, NumericType>{
+        {Unit::Memory::Bit,
+         Conversions<Unit::Memory, Unit::Memory::Bit>::FromStandard<NumericType>     },
+        {Unit::Memory::Byte,
+         Conversions<Unit::Memory, Unit::Memory::Byte>::FromStandard<NumericType>    },
         {Unit::Memory::Kilobit,
-         Conversions<Unit::Memory,                         Unit::Memory::Kilobit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Kilobit>::FromStandard<NumericType> },
         {Unit::Memory::Kibibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Kibibit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Kibibit>::FromStandard<NumericType> },
         {Unit::Memory::Kilobyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Kilobyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Kilobyte>::FromStandard<NumericType>},
         {Unit::Memory::Kibibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Kibibyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Kibibyte>::FromStandard<NumericType>},
         {Unit::Memory::Megabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Megabit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Megabit>::FromStandard<NumericType> },
         {Unit::Memory::Mebibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Mebibit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Mebibit>::FromStandard<NumericType> },
         {Unit::Memory::Megabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Megabyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Megabyte>::FromStandard<NumericType>},
         {Unit::Memory::Mebibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Mebibyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Mebibyte>::FromStandard<NumericType>},
         {Unit::Memory::Gigabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Gigabit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Gigabit>::FromStandard<NumericType> },
         {Unit::Memory::Gibibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Gibibit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Gibibit>::FromStandard<NumericType> },
         {Unit::Memory::Gigabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Gigabyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Gigabyte>::FromStandard<NumericType>},
         {Unit::Memory::Gibibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Gibibyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Gibibyte>::FromStandard<NumericType>},
         {Unit::Memory::Terabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Terabit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Terabit>::FromStandard<NumericType> },
         {Unit::Memory::Tebibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Tebibit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Tebibit>::FromStandard<NumericType> },
         {Unit::Memory::Terabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Terabyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Terabyte>::FromStandard<NumericType>},
         {Unit::Memory::Tebibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Tebibyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Tebibyte>::FromStandard<NumericType>},
         {Unit::Memory::Petabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Petabit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Petabit>::FromStandard<NumericType> },
         {Unit::Memory::Pebibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Pebibit>::FromStandard<Number> },
+         Conversions<Unit::Memory, Unit::Memory::Pebibit>::FromStandard<NumericType> },
         {Unit::Memory::Petabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Petabyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Petabyte>::FromStandard<NumericType>},
         {Unit::Memory::Pebibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Pebibyte>::FromStandard<Number>},
+         Conversions<Unit::Memory, Unit::Memory::Pebibyte>::FromStandard<NumericType>},
 };
 
-template <typename Number>
+template <typename NumericType>
 inline const std::map<Unit::Memory,
-                      std::function<void(Number* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Memory, Number>{
-        {Unit::Memory::Bit,      Conversions<Unit::Memory, Unit::Memory::Bit>::ToStandard<Number>     },
-        {Unit::Memory::Byte,     Conversions<Unit::Memory, Unit::Memory::Byte>::ToStandard<Number>    },
+                      std::function<void(NumericType* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Memory, NumericType>{
+        {Unit::Memory::Bit,      Conversions<Unit::Memory, Unit::Memory::Bit>::ToStandard<NumericType>     },
+        {Unit::Memory::Byte,
+         Conversions<Unit::Memory,                         Unit::Memory::Byte>::ToStandard<NumericType>    },
         {Unit::Memory::Kilobit,
-         Conversions<Unit::Memory,                         Unit::Memory::Kilobit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Kilobit>::ToStandard<NumericType> },
         {Unit::Memory::Kibibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Kibibit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Kibibit>::ToStandard<NumericType> },
         {Unit::Memory::Kilobyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Kilobyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Kilobyte>::ToStandard<NumericType>},
         {Unit::Memory::Kibibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Kibibyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Kibibyte>::ToStandard<NumericType>},
         {Unit::Memory::Megabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Megabit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Megabit>::ToStandard<NumericType> },
         {Unit::Memory::Mebibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Mebibit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Mebibit>::ToStandard<NumericType> },
         {Unit::Memory::Megabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Megabyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Megabyte>::ToStandard<NumericType>},
         {Unit::Memory::Mebibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Mebibyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Mebibyte>::ToStandard<NumericType>},
         {Unit::Memory::Gigabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Gigabit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Gigabit>::ToStandard<NumericType> },
         {Unit::Memory::Gibibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Gibibit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Gibibit>::ToStandard<NumericType> },
         {Unit::Memory::Gigabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Gigabyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Gigabyte>::ToStandard<NumericType>},
         {Unit::Memory::Gibibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Gibibyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Gibibyte>::ToStandard<NumericType>},
         {Unit::Memory::Terabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Terabit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Terabit>::ToStandard<NumericType> },
         {Unit::Memory::Tebibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Tebibit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Tebibit>::ToStandard<NumericType> },
         {Unit::Memory::Terabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Terabyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Terabyte>::ToStandard<NumericType>},
         {Unit::Memory::Tebibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Tebibyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Tebibyte>::ToStandard<NumericType>},
         {Unit::Memory::Petabit,
-         Conversions<Unit::Memory,                         Unit::Memory::Petabit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Petabit>::ToStandard<NumericType> },
         {Unit::Memory::Pebibit,
-         Conversions<Unit::Memory,                         Unit::Memory::Pebibit>::ToStandard<Number> },
+         Conversions<Unit::Memory,                         Unit::Memory::Pebibit>::ToStandard<NumericType> },
         {Unit::Memory::Petabyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Petabyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Petabyte>::ToStandard<NumericType>},
         {Unit::Memory::Pebibyte,
-         Conversions<Unit::Memory,                         Unit::Memory::Pebibyte>::ToStandard<Number>},
+         Conversions<Unit::Memory,                         Unit::Memory::Pebibyte>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

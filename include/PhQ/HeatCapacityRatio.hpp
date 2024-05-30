@@ -36,216 +36,220 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class GasConstant;
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class IsobaricHeatCapacity;
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class IsochoricHeatCapacity;
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class Mass;
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class SpecificGasConstant;
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class SpecificIsobaricHeatCapacity;
 
 // Forward declaration for class PhQ::HeatCapacityRatio.
-template <typename Number>
+template <typename NumericType>
 class SpecificIsochoricHeatCapacity;
 
 /// \brief Heat capacity ratio, also known as ratio of specific heats, adiabatic index, or Laplace's
 /// coefficient. A material's heat capacity ratio is the ratio of its isobaric heat capacity to its
 /// isochoric heat capacity; see PhQ::IsobaricHeatCapacity and PhQ::IsochoricHeatCapacity.
-template <typename Number = double>
-class HeatCapacityRatio : public DimensionlessScalar<Number> {
+template <typename NumericType = double>
+class HeatCapacityRatio : public DimensionlessScalar<NumericType> {
 public:
   /// \brief Default constructor. Constructs a heat capacity ratio ratio with an uninitialized
   /// value.
   HeatCapacityRatio() = default;
 
   /// \brief Constructor. Constructs a heat capacity ratio with a given value.
-  explicit constexpr HeatCapacityRatio(const Number value) : DimensionlessScalar<Number>(value) {}
+  explicit constexpr HeatCapacityRatio(const NumericType value)
+    : DimensionlessScalar<NumericType>(value) {}
 
   /// \brief Constructor. Constructs a heat capacity ratio from a given specific gas constant and
   /// specific isobaric heat capacity using Mayer's relation and the definition of the heat capacity
   /// ratio.
   constexpr HeatCapacityRatio(
-      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-      const SpecificGasConstant<Number>& specific_gas_constant);
+      const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+      const SpecificGasConstant<NumericType>& specific_gas_constant);
 
   /// \brief Constructor. Constructs a heat capacity ratio from a given specific gas constant and
   /// specific isochoric heat capacity using Mayer's relation and the definition of the heat
   /// capacity ratio.
   constexpr HeatCapacityRatio(
-      const SpecificGasConstant<Number>& specific_gas_constant,
-      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity);
+      const SpecificGasConstant<NumericType>& specific_gas_constant,
+      const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity);
 
   /// \brief Constructor. Constructs a heat capacity ratio from a given specific isobaric heat
   /// capacity and specific isochoric heat capacity using the definition of the heat capacity ratio.
   constexpr HeatCapacityRatio(
-      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity,
-      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity);
+      const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
+      const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity);
 
   /// \brief Constructor. Constructs a heat capacity ratio from a given gas constant and isobaric
   /// heat capacity using Mayer's relation and the definition of the heat capacity ratio.
-  constexpr HeatCapacityRatio(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
-                              const GasConstant<Number>& gas_constant);
+  constexpr HeatCapacityRatio(const IsobaricHeatCapacity<NumericType>& isobaric_heat_capacity,
+                              const GasConstant<NumericType>& gas_constant);
 
   /// \brief Constructor. Constructs a heat capacity ratio from a given gas constant and isochoric
   /// heat capacity using Mayer's relation and the definition of the heat capacity ratio.
-  constexpr HeatCapacityRatio(const GasConstant<Number>& gas_constant,
-                              const IsochoricHeatCapacity<Number>& isochoric_heat_capacity);
+  constexpr HeatCapacityRatio(const GasConstant<NumericType>& gas_constant,
+                              const IsochoricHeatCapacity<NumericType>& isochoric_heat_capacity);
 
   /// \brief Constructor. Constructs a heat capacity ratio from a given isobaric heat capacity and
   /// isochoric heat capacity using the definition of the specific heat ratio.
-  constexpr HeatCapacityRatio(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
-                              const IsochoricHeatCapacity<Number>& isochoric_heat_capacity);
+  constexpr HeatCapacityRatio(const IsobaricHeatCapacity<NumericType>& isobaric_heat_capacity,
+                              const IsochoricHeatCapacity<NumericType>& isochoric_heat_capacity);
 
   /// \brief Destructor. Destroys this heat capacity ratio.
   ~HeatCapacityRatio() noexcept = default;
 
   /// \brief Copy constructor. Constructs a heat capacity ratio by copying another one.
-  constexpr HeatCapacityRatio(const HeatCapacityRatio<Number>& other) = default;
+  constexpr HeatCapacityRatio(const HeatCapacityRatio<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a heat capacity ratio by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr HeatCapacityRatio(const HeatCapacityRatio<OtherNumber>& other)
-    : HeatCapacityRatio(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr HeatCapacityRatio(const HeatCapacityRatio<OtherNumericType>& other)
+    : HeatCapacityRatio(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a heat capacity ratio by moving another one.
-  constexpr HeatCapacityRatio(HeatCapacityRatio<Number>&& other) noexcept = default;
+  constexpr HeatCapacityRatio(HeatCapacityRatio<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this heat capacity ratio by copying another one.
-  constexpr HeatCapacityRatio<Number>& operator=(const HeatCapacityRatio<Number>& other) = default;
+  constexpr HeatCapacityRatio<NumericType>& operator=(
+      const HeatCapacityRatio<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this heat capacity ratio by copying another one.
-  template <typename OtherNumber>
-  constexpr HeatCapacityRatio<Number>& operator=(const HeatCapacityRatio<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr HeatCapacityRatio<NumericType>& operator=(
+      const HeatCapacityRatio<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this heat capacity ratio by moving another one.
-  constexpr HeatCapacityRatio<Number>& operator=(
-      HeatCapacityRatio<Number>&& other) noexcept = default;
+  constexpr HeatCapacityRatio<NumericType>& operator=(
+      HeatCapacityRatio<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a heat capacity ratio of zero.
-  static constexpr HeatCapacityRatio<Number> Zero() {
-    return HeatCapacityRatio<Number>{static_cast<Number>(0)};
+  static constexpr HeatCapacityRatio<NumericType> Zero() {
+    return HeatCapacityRatio<NumericType>{static_cast<NumericType>(0)};
   }
 
-  constexpr HeatCapacityRatio<Number> operator+(
-      const HeatCapacityRatio<Number>& heat_capacity_ratio) const {
-    return HeatCapacityRatio<Number>{this->value + heat_capacity_ratio.value};
+  constexpr HeatCapacityRatio<NumericType> operator+(
+      const HeatCapacityRatio<NumericType>& heat_capacity_ratio) const {
+    return HeatCapacityRatio<NumericType>{this->value + heat_capacity_ratio.value};
   }
 
-  constexpr HeatCapacityRatio<Number> operator-(
-      const HeatCapacityRatio<Number>& heat_capacity_ratio) const {
-    return HeatCapacityRatio<Number>{this->value - heat_capacity_ratio.value};
+  constexpr HeatCapacityRatio<NumericType> operator-(
+      const HeatCapacityRatio<NumericType>& heat_capacity_ratio) const {
+    return HeatCapacityRatio<NumericType>{this->value - heat_capacity_ratio.value};
   }
 
-  constexpr HeatCapacityRatio<Number> operator*(const Number number) const {
-    return HeatCapacityRatio<Number>{this->value * number};
+  constexpr HeatCapacityRatio<NumericType> operator*(const NumericType number) const {
+    return HeatCapacityRatio<NumericType>{this->value * number};
   }
 
-  constexpr IsobaricHeatCapacity<Number> operator*(
-      const IsochoricHeatCapacity<Number>& isochoric_heat_capacity) const;
+  constexpr IsobaricHeatCapacity<NumericType> operator*(
+      const IsochoricHeatCapacity<NumericType>& isochoric_heat_capacity) const;
 
-  constexpr SpecificIsobaricHeatCapacity<Number> operator*(
-      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity) const;
+  constexpr SpecificIsobaricHeatCapacity<NumericType> operator*(
+      const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity) const;
 
-  constexpr HeatCapacityRatio<Number> operator/(const Number number) const {
-    return HeatCapacityRatio<Number>{this->value / number};
+  constexpr HeatCapacityRatio<NumericType> operator/(const NumericType number) const {
+    return HeatCapacityRatio<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const HeatCapacityRatio<Number>& heat_capacity_ratio) const noexcept {
+  constexpr NumericType operator/(
+      const HeatCapacityRatio<NumericType>& heat_capacity_ratio) const noexcept {
     return this->value / heat_capacity_ratio.value;
   }
 
-  constexpr void operator+=(const HeatCapacityRatio<Number>& heat_capacity_ratio) noexcept {
+  constexpr void operator+=(const HeatCapacityRatio<NumericType>& heat_capacity_ratio) noexcept {
     this->value += heat_capacity_ratio.value;
   }
 
-  constexpr void operator-=(const HeatCapacityRatio<Number>& heat_capacity_ratio) noexcept {
+  constexpr void operator-=(const HeatCapacityRatio<NumericType>& heat_capacity_ratio) noexcept {
     this->value -= heat_capacity_ratio.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 };
 
-template <typename Number>
-inline constexpr bool operator==(
-    const HeatCapacityRatio<Number>& left, const HeatCapacityRatio<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(const HeatCapacityRatio<NumericType>& left,
+                                 const HeatCapacityRatio<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(
-    const HeatCapacityRatio<Number>& left, const HeatCapacityRatio<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(const HeatCapacityRatio<NumericType>& left,
+                                 const HeatCapacityRatio<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(
-    const HeatCapacityRatio<Number>& left, const HeatCapacityRatio<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(const HeatCapacityRatio<NumericType>& left,
+                                const HeatCapacityRatio<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(
-    const HeatCapacityRatio<Number>& left, const HeatCapacityRatio<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(const HeatCapacityRatio<NumericType>& left,
+                                const HeatCapacityRatio<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(
-    const HeatCapacityRatio<Number>& left, const HeatCapacityRatio<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(const HeatCapacityRatio<NumericType>& left,
+                                 const HeatCapacityRatio<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(
-    const HeatCapacityRatio<Number>& left, const HeatCapacityRatio<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(const HeatCapacityRatio<NumericType>& left,
+                                 const HeatCapacityRatio<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline std::ostream& operator<<(
-    std::ostream& stream, const HeatCapacityRatio<Number>& heat_capacity_ratio) {
+    std::ostream& stream, const HeatCapacityRatio<NumericType>& heat_capacity_ratio) {
   stream << heat_capacity_ratio.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr HeatCapacityRatio<Number> operator*(
-    const Number number, const HeatCapacityRatio<Number>& heat_capacity_ratio) {
-  return HeatCapacityRatio<Number>{number * heat_capacity_ratio.Value()};
+template <typename NumericType>
+inline constexpr HeatCapacityRatio<NumericType> operator*(
+    const NumericType number, const HeatCapacityRatio<NumericType>& heat_capacity_ratio) {
+  return HeatCapacityRatio<NumericType>{number * heat_capacity_ratio.Value()};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::HeatCapacityRatio<Number>> {
-  inline size_t operator()(const PhQ::HeatCapacityRatio<Number>& heat_capacity_ratio) const {
-    return hash<Number>()(heat_capacity_ratio.Value());
+template <typename NumericType>
+struct hash<PhQ::HeatCapacityRatio<NumericType>> {
+  inline size_t operator()(const PhQ::HeatCapacityRatio<NumericType>& heat_capacity_ratio) const {
+    return hash<NumericType>()(heat_capacity_ratio.Value());
   }
 };
 

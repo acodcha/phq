@@ -37,202 +37,213 @@
 namespace PhQ {
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class Frequency;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class Length;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class Mass;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class Power;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class SpecificEnergy;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class SpecificPower;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class Time;
 
 // Forward declaration for class PhQ::Energy.
-template <typename Number>
+template <typename NumericType>
 class TransportEnergyConsumption;
 
 /// \brief Energy physical quantity. Can represent any kind of energy, such as kinetic energy,
 /// potential energy, internal energy, and so on. The time rate of change of energy is power; see
 /// PhQ::Power, PhQ::Time, and PhQ::Frequency.
-template <typename Number = double>
-class Energy : public DimensionalScalar<Unit::Energy, Number> {
+template <typename NumericType = double>
+class Energy : public DimensionalScalar<Unit::Energy, NumericType> {
 public:
   /// \brief Default constructor. Constructs an energy quantity with an uninitialized value.
   Energy() = default;
 
   /// \brief Constructor. Constructs an energy quantity with a given value expressed in a given
   /// energy unit.
-  Energy(const Number value, const Unit::Energy unit)
-    : DimensionalScalar<Unit::Energy, Number>(value, unit) {}
+  Energy(const NumericType value, const Unit::Energy unit)
+    : DimensionalScalar<Unit::Energy, NumericType>(value, unit) {}
 
   /// \brief Constructor. Constructs an energy quantity from a given power and time using the
   /// definition of power.
-  constexpr Energy(const Power<Number>& power, const Time<Number>& time);
+  constexpr Energy(const Power<NumericType>& power, const Time<NumericType>& time);
 
   /// \brief Constructor. Constructs an energy quantity from a given power and frequency using the
   /// definition of power.
-  constexpr Energy(const Power<Number>& power, const Frequency<Number>& frequency);
+  constexpr Energy(const Power<NumericType>& power, const Frequency<NumericType>& frequency);
 
   /// \brief Constructor. Constructs an energy quantity from a given specific energy quantity and
   /// mass using the definition of specific energy.
-  constexpr Energy(const SpecificEnergy<Number>& specific_energy, const Mass<Number>& mass);
+  constexpr Energy(
+      const SpecificEnergy<NumericType>& specific_energy, const Mass<NumericType>& mass);
 
   /// \brief Constructor. Constructs an energy quantity from a given transport energy consumption
   /// and length using the definition of transport energy consumption.
-  constexpr Energy(const TransportEnergyConsumption<Number>& transport_energy_consumption,
-                   const Length<Number>& length);
+  constexpr Energy(const TransportEnergyConsumption<NumericType>& transport_energy_consumption,
+                   const Length<NumericType>& length);
 
   /// \brief Destructor. Destroys this energy quantity.
   ~Energy() noexcept = default;
 
   /// \brief Copy constructor. Constructs an energy quantity by copying another one.
-  constexpr Energy(const Energy<Number>& other) = default;
+  constexpr Energy(const Energy<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs an energy quantity by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr Energy(const Energy<OtherNumber>& other)
-    : Energy(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr Energy(const Energy<OtherNumericType>& other)
+    : Energy(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs an energy quantity by moving another one.
-  constexpr Energy(Energy<Number>&& other) noexcept = default;
+  constexpr Energy(Energy<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this energy quantity by copying another one.
-  constexpr Energy<Number>& operator=(const Energy<Number>& other) = default;
+  constexpr Energy<NumericType>& operator=(const Energy<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this energy quantity by copying another one.
-  template <typename OtherNumber>
-  constexpr Energy<Number>& operator=(const Energy<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr Energy<NumericType>& operator=(const Energy<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this energy quantity by moving another one.
-  constexpr Energy<Number>& operator=(Energy<Number>&& other) noexcept = default;
+  constexpr Energy<NumericType>& operator=(Energy<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an energy quantity of zero.
-  static constexpr Energy<Number> Zero() {
-    return Energy<Number>{static_cast<Number>(0)};
+  static constexpr Energy<NumericType> Zero() {
+    return Energy<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an energy quantity with a given value expressed in a given energy
   /// unit.
   template <Unit::Energy Unit>
-  static constexpr Energy<Number> Create(const Number value) {
-    return Energy<Number>{StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
+  static constexpr Energy<NumericType> Create(const NumericType value) {
+    return Energy<NumericType>{
+        ConvertStatically<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }
 
-  constexpr Energy<Number> operator+(const Energy<Number>& energy) const {
-    return Energy<Number>{this->value + energy.value};
+  constexpr Energy<NumericType> operator+(const Energy<NumericType>& energy) const {
+    return Energy<NumericType>{this->value + energy.value};
   }
 
-  constexpr Energy<Number> operator-(const Energy<Number>& energy) const {
-    return Energy<Number>{this->value - energy.value};
+  constexpr Energy<NumericType> operator-(const Energy<NumericType>& energy) const {
+    return Energy<NumericType>{this->value - energy.value};
   }
 
-  constexpr Energy<Number> operator*(const Number number) const {
-    return Energy<Number>{this->value * number};
+  constexpr Energy<NumericType> operator*(const NumericType number) const {
+    return Energy<NumericType>{this->value * number};
   }
 
-  constexpr Power<Number> operator*(const Frequency<Number>& frequency) const;
+  constexpr Power<NumericType> operator*(const Frequency<NumericType>& frequency) const;
 
-  constexpr Energy<Number> operator/(const Number number) const {
-    return Energy<Number>{this->value / number};
+  constexpr Energy<NumericType> operator/(const NumericType number) const {
+    return Energy<NumericType>{this->value / number};
   }
 
-  constexpr Power<Number> operator/(const Time<Number>& time) const;
+  constexpr Power<NumericType> operator/(const Time<NumericType>& time) const;
 
-  constexpr Time<Number> operator/(const Power<Number>& power) const;
+  constexpr Time<NumericType> operator/(const Power<NumericType>& power) const;
 
-  constexpr SpecificEnergy<Number> operator/(const Mass<Number>& mass) const;
+  constexpr SpecificEnergy<NumericType> operator/(const Mass<NumericType>& mass) const;
 
-  constexpr Mass<Number> operator/(const SpecificEnergy<Number>& specific_energy) const;
+  constexpr Mass<NumericType> operator/(const SpecificEnergy<NumericType>& specific_energy) const;
 
-  constexpr TransportEnergyConsumption<Number> operator/(const Length<Number>& length) const;
+  constexpr TransportEnergyConsumption<NumericType> operator/(
+      const Length<NumericType>& length) const;
 
-  constexpr Length<Number> operator/(
-      const TransportEnergyConsumption<Number>& transport_energy_consumption) const;
+  constexpr Length<NumericType> operator/(
+      const TransportEnergyConsumption<NumericType>& transport_energy_consumption) const;
 
-  constexpr Number operator/(const Energy<Number>& energy) const noexcept {
+  constexpr NumericType operator/(const Energy<NumericType>& energy) const noexcept {
     return this->value / energy.value;
   }
 
-  constexpr void operator+=(const Energy<Number>& energy) noexcept {
+  constexpr void operator+=(const Energy<NumericType>& energy) noexcept {
     this->value += energy.value;
   }
 
-  constexpr void operator-=(const Energy<Number>& energy) noexcept {
+  constexpr void operator-=(const Energy<NumericType>& energy) noexcept {
     this->value -= energy.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs an energy quantity with a given value expressed in the standard
   /// energy unit.
-  explicit constexpr Energy(const Number value) : DimensionalScalar<Unit::Energy, Number>(value) {}
+  explicit constexpr Energy(const NumericType value)
+    : DimensionalScalar<Unit::Energy, NumericType>(value) {}
 };
 
-template <typename Number>
-inline constexpr bool operator==(const Energy<Number>& left, const Energy<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator==(
+    const Energy<NumericType>& left, const Energy<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator!=(const Energy<Number>& left, const Energy<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator!=(
+    const Energy<NumericType>& left, const Energy<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<(const Energy<Number>& left, const Energy<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<(
+    const Energy<NumericType>& left, const Energy<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>(const Energy<Number>& left, const Energy<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>(
+    const Energy<NumericType>& left, const Energy<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator<=(const Energy<Number>& left, const Energy<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator<=(
+    const Energy<NumericType>& left, const Energy<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
-inline constexpr bool operator>=(const Energy<Number>& left, const Energy<Number>& right) noexcept {
+template <typename NumericType>
+inline constexpr bool operator>=(
+    const Energy<NumericType>& left, const Energy<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const Energy<Number>& energy) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const Energy<NumericType>& energy) {
   stream << energy.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr Energy<Number> operator*(const Number number, const Energy<Number>& energy) {
+template <typename NumericType>
+inline constexpr Energy<NumericType> operator*(
+    const NumericType number, const Energy<NumericType>& energy) {
   return energy * number;
 }
 
@@ -240,10 +251,10 @@ inline constexpr Energy<Number> operator*(const Number number, const Energy<Numb
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::Energy<Number>> {
-  inline size_t operator()(const PhQ::Energy<Number>& energy) const {
-    return hash<Number>()(energy.Value());
+template <typename NumericType>
+struct hash<PhQ::Energy<NumericType>> {
+  inline size_t operator()(const PhQ::Energy<NumericType>& energy) const {
+    return hash<NumericType>()(energy.Value());
   }
 };
 

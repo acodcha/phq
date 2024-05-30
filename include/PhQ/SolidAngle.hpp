@@ -40,145 +40,145 @@ namespace PhQ {
 /// \brief Solid angle. Measures the field of view of a portion of the surface of the unit sphere
 /// viewed from the center of the unit sphere. Typically measured in steradians (sr), which are
 /// square radians. The unit sphere has a total solid angle of 4π steradians.
-template <typename Number = double>
-class SolidAngle : public DimensionalScalar<Unit::SolidAngle, Number> {
+template <typename NumericType = double>
+class SolidAngle : public DimensionalScalar<Unit::SolidAngle, NumericType> {
 public:
   /// \brief Default constructor. Constructs a solid angle with an uninitialized value.
   SolidAngle() = default;
 
   /// \brief Constructor. Constructs a solid angle with a given value expressed in a given solid
   /// angle unit.
-  SolidAngle(const Number value, const Unit::SolidAngle unit)
-    : DimensionalScalar<Unit::SolidAngle, Number>(value, unit) {}
+  SolidAngle(const NumericType value, const Unit::SolidAngle unit)
+    : DimensionalScalar<Unit::SolidAngle, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this solid angle.
   ~SolidAngle() noexcept = default;
 
   /// \brief Copy constructor. Constructs a solid angle by copying another one.
-  constexpr SolidAngle(const SolidAngle<Number>& other) = default;
+  constexpr SolidAngle(const SolidAngle<NumericType>& other) = default;
 
   /// \brief Copy constructor. Constructs a solid angle by copying another one.
-  template <typename OtherNumber>
-  explicit constexpr SolidAngle(const SolidAngle<OtherNumber>& other)
-    : SolidAngle(static_cast<Number>(other.Value())) {}
+  template <typename OtherNumericType>
+  explicit constexpr SolidAngle(const SolidAngle<OtherNumericType>& other)
+    : SolidAngle(static_cast<NumericType>(other.Value())) {}
 
   /// \brief Move constructor. Constructs a solid angle by moving another one.
-  constexpr SolidAngle(SolidAngle<Number>&& other) noexcept = default;
+  constexpr SolidAngle(SolidAngle<NumericType>&& other) noexcept = default;
 
   /// \brief Copy assignment operator. Assigns this solid angle by copying another one.
-  constexpr SolidAngle<Number>& operator=(const SolidAngle<Number>& other) = default;
+  constexpr SolidAngle<NumericType>& operator=(const SolidAngle<NumericType>& other) = default;
 
   /// \brief Copy assignment operator. Assigns this solid angle by copying another one.
-  template <typename OtherNumber>
-  constexpr SolidAngle<Number>& operator=(const SolidAngle<OtherNumber>& other) {
-    this->value = static_cast<Number>(other.Value());
+  template <typename OtherNumericType>
+  constexpr SolidAngle<NumericType>& operator=(const SolidAngle<OtherNumericType>& other) {
+    this->value = static_cast<NumericType>(other.Value());
     return *this;
   }
 
   /// \brief Move assignment operator. Assigns this solid angle by moving another one.
-  constexpr SolidAngle<Number>& operator=(SolidAngle<Number>&& other) noexcept = default;
+  constexpr SolidAngle<NumericType>& operator=(SolidAngle<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a solid angle of zero.
-  static constexpr SolidAngle<Number> Zero() {
-    return SolidAngle<Number>{static_cast<Number>(0)};
+  static constexpr SolidAngle<NumericType> Zero() {
+    return SolidAngle<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a solid angle with a given value expressed in a given solid angle
   /// unit.
   template <Unit::SolidAngle Unit>
-  static constexpr SolidAngle<Number> Create(const Number value) {
-    return SolidAngle<Number>{
-        StaticConvertCopy<Unit::SolidAngle, Unit, Standard<Unit::SolidAngle>>(value)};
+  static constexpr SolidAngle<NumericType> Create(const NumericType value) {
+    return SolidAngle<NumericType>{
+        ConvertStatically<Unit::SolidAngle, Unit, Standard<Unit::SolidAngle>>(value)};
   }
 
-  constexpr SolidAngle<Number> operator+(const SolidAngle<Number>& other) const {
-    return SolidAngle<Number>{this->value + other.value};
+  constexpr SolidAngle<NumericType> operator+(const SolidAngle<NumericType>& other) const {
+    return SolidAngle<NumericType>{this->value + other.value};
   }
 
-  constexpr SolidAngle<Number> operator-(const SolidAngle<Number>& other) const {
-    return SolidAngle<Number>{this->value - other.value};
+  constexpr SolidAngle<NumericType> operator-(const SolidAngle<NumericType>& other) const {
+    return SolidAngle<NumericType>{this->value - other.value};
   }
 
-  constexpr SolidAngle<Number> operator*(const Number number) const {
-    return SolidAngle<Number>{this->value * number};
+  constexpr SolidAngle<NumericType> operator*(const NumericType number) const {
+    return SolidAngle<NumericType>{this->value * number};
   }
 
-  constexpr SolidAngle<Number> operator/(const Number number) const {
-    return SolidAngle<Number>{this->value / number};
+  constexpr SolidAngle<NumericType> operator/(const NumericType number) const {
+    return SolidAngle<NumericType>{this->value / number};
   }
 
-  constexpr Number operator/(const SolidAngle<Number>& other) const noexcept {
+  constexpr NumericType operator/(const SolidAngle<NumericType>& other) const noexcept {
     return this->value / other.value;
   }
 
-  constexpr void operator+=(const SolidAngle<Number>& other) noexcept {
+  constexpr void operator+=(const SolidAngle<NumericType>& other) noexcept {
     this->value += other.value;
   }
 
-  constexpr void operator-=(const SolidAngle<Number>& other) noexcept {
+  constexpr void operator-=(const SolidAngle<NumericType>& other) noexcept {
     this->value -= other.value;
   }
 
-  constexpr void operator*=(const Number number) noexcept {
+  constexpr void operator*=(const NumericType number) noexcept {
     this->value *= number;
   }
 
-  constexpr void operator/=(const Number number) noexcept {
+  constexpr void operator/=(const NumericType number) noexcept {
     this->value /= number;
   }
 
 private:
   /// \brief Constructor. Constructs a solid angle with a given value expressed in the standard
   /// solid angle unit.
-  explicit constexpr SolidAngle(const Number value)
-    : DimensionalScalar<Unit::SolidAngle, Number>(value) {}
+  explicit constexpr SolidAngle(const NumericType value)
+    : DimensionalScalar<Unit::SolidAngle, NumericType>(value) {}
 };
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator==(
-    const SolidAngle<Number>& left, const SolidAngle<Number>& right) noexcept {
+    const SolidAngle<NumericType>& left, const SolidAngle<NumericType>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator!=(
-    const SolidAngle<Number>& left, const SolidAngle<Number>& right) noexcept {
+    const SolidAngle<NumericType>& left, const SolidAngle<NumericType>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<(
-    const SolidAngle<Number>& left, const SolidAngle<Number>& right) noexcept {
+    const SolidAngle<NumericType>& left, const SolidAngle<NumericType>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>(
-    const SolidAngle<Number>& left, const SolidAngle<Number>& right) noexcept {
+    const SolidAngle<NumericType>& left, const SolidAngle<NumericType>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator<=(
-    const SolidAngle<Number>& left, const SolidAngle<Number>& right) noexcept {
+    const SolidAngle<NumericType>& left, const SolidAngle<NumericType>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-template <typename Number>
+template <typename NumericType>
 inline constexpr bool operator>=(
-    const SolidAngle<Number>& left, const SolidAngle<Number>& right) noexcept {
+    const SolidAngle<NumericType>& left, const SolidAngle<NumericType>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-template <typename Number>
-inline std::ostream& operator<<(std::ostream& stream, const SolidAngle<Number>& solid_angle) {
+template <typename NumericType>
+inline std::ostream& operator<<(std::ostream& stream, const SolidAngle<NumericType>& solid_angle) {
   stream << solid_angle.Print();
   return stream;
 }
 
-template <typename Number>
-inline constexpr SolidAngle<Number> operator*(
-    const Number number, const SolidAngle<Number>& solid_angle) {
+template <typename NumericType>
+inline constexpr SolidAngle<NumericType> operator*(
+    const NumericType number, const SolidAngle<NumericType>& solid_angle) {
   return solid_angle * number;
 }
 
@@ -186,10 +186,10 @@ inline constexpr SolidAngle<Number> operator*(
 
 namespace std {
 
-template <typename Number>
-struct hash<PhQ::SolidAngle<Number>> {
-  inline size_t operator()(const PhQ::SolidAngle<Number>& solid_angle) const {
-    return hash<Number>()(solid_angle.Value());
+template <typename NumericType>
+struct hash<PhQ::SolidAngle<NumericType>> {
+  inline size_t operator()(const PhQ::SolidAngle<NumericType>& solid_angle) const {
+    return hash<NumericType>()(solid_angle.Value());
   }
 };
 

@@ -70,27 +70,33 @@ TEST(UnitSubstanceAmount, ConsistentUnit) {
       ConsistentUnit<SubstanceAmount>(UnitSystem::InchPoundSecondRankine), SubstanceAmount::Mole);
 }
 
-TEST(UnitSubstanceAmount, ConvertAndConvertCopy) {
+TEST(UnitSubstanceAmount, Convert) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Mole, value, value);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Kilomole, value, value * 0.001L);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Megamole, value, value * 0.000001L);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Gigamole, value, value * 0.000000001L);
-  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+  Internal::TestConvert<SubstanceAmount>(
       SubstanceAmount::Mole, SubstanceAmount::Particles, value, value * 6.02214076E23L);
 }
 
-TEST(UnitSubstanceAmount, Parse) {
-  EXPECT_EQ(Parse<SubstanceAmount>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SubstanceAmount>("mol"), SubstanceAmount::Mole);
-  EXPECT_EQ(Parse<SubstanceAmount>("kmol"), SubstanceAmount::Kilomole);
-  EXPECT_EQ(Parse<SubstanceAmount>("Mmol"), SubstanceAmount::Megamole);
-  EXPECT_EQ(Parse<SubstanceAmount>("Gmol"), SubstanceAmount::Gigamole);
-  EXPECT_EQ(Parse<SubstanceAmount>("particles"), SubstanceAmount::Particles);
+TEST(UnitSubstanceAmount, ConvertStatically) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertStatically<SubstanceAmount, SubstanceAmount::Mole,
+                                  SubstanceAmount::Particles>(value, value * 6.02214076E23L);
+}
+
+TEST(UnitSubstanceAmount, ParseEnumeration) {
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Hello world!"), std::nullopt);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("mol"), SubstanceAmount::Mole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("kmol"), SubstanceAmount::Kilomole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Mmol"), SubstanceAmount::Megamole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("Gmol"), SubstanceAmount::Gigamole);
+  EXPECT_EQ(ParseEnumeration<SubstanceAmount>("particles"), SubstanceAmount::Particles);
 }
 
 TEST(UnitSubstanceAmount, RelatedDimensions) {
@@ -110,12 +116,6 @@ TEST(UnitSubstanceAmount, RelatedUnitSystem) {
 
 TEST(UnitSubstanceAmount, Standard) {
   EXPECT_EQ(Standard<SubstanceAmount>, SubstanceAmount::Mole);
-}
-
-TEST(UnitSubstanceAmount, StaticConvertCopy) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestStaticConvertCopy<SubstanceAmount, SubstanceAmount::Mole,
-                                  SubstanceAmount::Particles>(value, value * 6.02214076E23L);
 }
 
 TEST(UnitSubstanceAmount, Stream) {
