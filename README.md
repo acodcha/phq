@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/acodcha/phq/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/phq/actions/workflows/tests.yaml)
 
-Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
+Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 
 - [Requirements](#requirements)
 - [Configuration](#configuration): [CMake](#configuration-cmake), [Bazel](#configuration-bazel)
@@ -582,11 +582,11 @@ bazel test //:all
 
 Copyright © 2020-2024 Alexandre Coderre-Chabot
 
-Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
+Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 
 The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
-Physical Quantities is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
+Physical Quantities (PhQ) is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
