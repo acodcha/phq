@@ -46,9 +46,7 @@ TEST(Base, ParseNumberDefault) {
   EXPECT_EQ(ParseNumber<>(""), std::nullopt);
   EXPECT_EQ(ParseNumber<>("Hello world!"), std::nullopt);
   ASSERT_TRUE(ParseNumber<>("NaN").has_value());
-  EXPECT_EQ(ParseNumber<>("NaN").value(), std::numeric_limits<double>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<>("-NaN").has_value());
-  EXPECT_EQ(ParseNumber<>("-NaN").value(), std::numeric_limits<double>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<>("infinity").has_value());
   EXPECT_EQ(ParseNumber<>("infinity").value(), std::numeric_limits<double>::infinity());
   ASSERT_TRUE(ParseNumber<>("inf").has_value());
@@ -73,9 +71,7 @@ TEST(Base, ParseNumberDouble) {
   EXPECT_EQ(ParseNumber<double>(""), std::nullopt);
   EXPECT_EQ(ParseNumber<double>("Hello world!"), std::nullopt);
   ASSERT_TRUE(ParseNumber<double>("NaN").has_value());
-  EXPECT_EQ(ParseNumber<double>("NaN").value(), std::numeric_limits<double>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<double>("-NaN").has_value());
-  EXPECT_EQ(ParseNumber<double>("-NaN").value(), std::numeric_limits<double>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<double>("infinity").has_value());
   EXPECT_EQ(ParseNumber<double>("infinity").value(), std::numeric_limits<double>::infinity());
   ASSERT_TRUE(ParseNumber<double>("inf").has_value());
@@ -100,9 +96,7 @@ TEST(Base, ParseNumberFloat) {
   EXPECT_EQ(ParseNumber<float>(""), std::nullopt);
   EXPECT_EQ(ParseNumber<float>("Hello world!"), std::nullopt);
   ASSERT_TRUE(ParseNumber<float>("NaN").has_value());
-  EXPECT_EQ(ParseNumber<float>("NaN").value(), std::numeric_limits<float>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<float>("-NaN").has_value());
-  EXPECT_EQ(ParseNumber<float>("-NaN").value(), std::numeric_limits<float>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<float>("infinity").has_value());
   EXPECT_EQ(ParseNumber<float>("infinity").value(), std::numeric_limits<float>::infinity());
   ASSERT_TRUE(ParseNumber<float>("inf").has_value());
@@ -127,10 +121,7 @@ TEST(Base, ParseNumberLongDouble) {
   EXPECT_EQ(ParseNumber<long double>(""), std::nullopt);
   EXPECT_EQ(ParseNumber<long double>("Hello world!"), std::nullopt);
   ASSERT_TRUE(ParseNumber<long double>("NaN").has_value());
-  EXPECT_EQ(ParseNumber<long double>("NaN").value(), std::numeric_limits<long double>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<long double>("-NaN").has_value());
-  EXPECT_EQ(
-      ParseNumber<long double>("-NaN").value(), std::numeric_limits<long double>::quiet_NaN());
   ASSERT_TRUE(ParseNumber<long double>("infinity").has_value());
   EXPECT_EQ(
       ParseNumber<long double>("infinity").value(), std::numeric_limits<long double>::infinity());

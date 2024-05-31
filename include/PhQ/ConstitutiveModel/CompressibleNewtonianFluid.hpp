@@ -57,12 +57,11 @@ public:
   CompressibleNewtonianFluid() : ConstitutiveModel() {}
 
   /// \brief Constructor. Constructs a compressible Newtonian fluid constitutive model from a given
-  /// dynamic viscosity. Initializes the bulk dynamic viscosity as -2/3 of the dynamic viscosity.
+  /// dynamic viscosity. Initializes the bulk dynamic viscosity to zero.
   explicit constexpr CompressibleNewtonianFluid(
       const DynamicViscosity<NumericType>& dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
-      bulk_dynamic_viscosity(
-          static_cast<NumericType>(-2) / static_cast<NumericType>(3) * dynamic_viscosity.Value()) {}
+      bulk_dynamic_viscosity(PhQ::BulkDynamicViscosity<NumericType>::Zero()) {}
 
   /// \brief Constructor. Constructs a compressible Newtonian fluid constitutive model from a given
   /// dynamic viscosity and bulk dynamic viscosity.
