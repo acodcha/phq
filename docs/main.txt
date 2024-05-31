@@ -1,6 +1,6 @@
 /// \mainpage Physical Quantities
 ///
-/// Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
+/// Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 ///
 /// - \ref requirements "Requirements"
 /// - \ref configuration "Configuration": \ref configuration_cmake "CMake", \ref configuration_bazel "Bazel"
@@ -593,7 +593,7 @@
 ///
 /// Copyright © 2020-2024 Alexandre Coderre-Chabot
 ///
-/// Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computation.
+/// Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 ///
 /// The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 ///
