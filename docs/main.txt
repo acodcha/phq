@@ -1,4 +1,4 @@
-/// \mainpage Physical Quantities
+/// \mainpage Physical Quantities (PhQ)
 ///
 /// Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 ///
