@@ -18,7 +18,7 @@ jobs:
         run: |
           mkdir --parents build
           cd build
-          cmake .. -DTEST_PHQ_LIBRARY=ON
+          cmake .. -D PHYSICAL_QUANTITIES_PHQ_TEST=ON
       - name: Build the PhQ tests
         run: |
           cd build

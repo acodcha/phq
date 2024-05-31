@@ -43,8 +43,13 @@ project(
   HOMEPAGE_URL "https://github.com/acodcha/phq"
 )
 option(
-  TEST_PHQ_LIBRARY
+  PHYSICAL_QUANTITIES_PHQ_TEST
   "Configure the Physical Quantities (PhQ) library tests."
+  OFF
+)
+option(
+  PHYSICAL_QUANTITIES_PHQ_COVERAGE
+  "Configure the Physical Quantities (PhQ) library code coverage computation."
   OFF
 )
 
@@ -61,7 +66,7 @@ target_include_directories(
 )
 
 # Configure the PhQ library tests.
-if(TEST_PHQ_LIBRARY)
+if(PHYSICAL_QUANTITIES_PHQ_TEST)
   # Search for the GoogleTest library.
   find_package(GTest QUIET)
 
@@ -672,7 +677,47 @@ if(TEST_PHQ_LIBRARY)
 
   message(STATUS "The Physical Quantities (PhQ) library tests were configured. Build the tests with \"make --jobs=16\" and run them with \"make test\"")
 else()
-  message(STATUS "The Physical Quantities (PhQ) library tests were not configured. Run \"cmake .. -DTEST_PHQ_LIBRARY=ON\" to configure the tests.")
+  message(STATUS "The Physical Quantities (PhQ) library tests were not configured. Run \"cmake .. -D PHYSICAL_QUANTITIES_PHQ_TEST=ON\" to configure the tests.")
+endif()
+
+# Configure the PhQ library code coverage.
+if(PHYSICAL_QUANTITIES_PHQ_TEST AND PHYSICAL_QUANTITIES_PHQ_COVERAGE)
+  # Set the compilation flags to compute the code coverage and disable optimizations.
+  if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    set(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage -O0")
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "-coverage -O0")
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+    message(FATAL_ERROR "Code coverage computation requires either the GCC or Clang C++ compiler." )
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    message(FATAL_ERROR "Code coverage computation requires either the GCC or Clang C++ compiler." )
+  endif()
+
+  # Find the "lcov" and "genhtml" programs.
+  find_program(LCOV lcov REQUIRED)
+  find_program(GENHTML genhtml REQUIRED)
+
+  # Add the "make coverage" command.
+  add_custom_target(coverage
+    COMMAND ${LCOV} --directory . --capture --output-file coverage.info
+    COMMAND ${GENHTML} --demangle-cpp --output-directory coverage coverage.info
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+  # Add a GoogleTest that contains all tests.
+  file(
+    GLOB
+    ALL_TEST_FILES
+    ${PROJECT_SOURCE_DIR}/test/ConstitutiveModel/*.cpp
+    ${PROJECT_SOURCE_DIR}/test/Dimension/*.cpp
+    ${PROJECT_SOURCE_DIR}/test/Unit/*.cpp
+    ${PROJECT_SOURCE_DIR}/test/*.cpp)
+  add_executable(all_tests ${ALL_TEST_FILES})
+  target_link_libraries(all_tests GTest::gtest_main)
+  gtest_discover_tests(all_tests)
+
+  message(STATUS "The Physical Quantities (PhQ) library code coverage computation was configured. Build the tests with \"make --jobs=16\" and compute their code coverage with \"./bin/all_tests && make coverage\"")
+else()
+  message(STATUS "The Physical Quantities (PhQ) library code coverage computation was not configured. Run \"cmake .. -D PHYSICAL_QUANTITIES_PHQ_TEST=ON -D PHYSICAL_QUANTITIES_PHQ_COVERAGE=ON\" to configure the code coverage computation.")
 endif()
 
 # Define the library directories to be installed.
