@@ -562,7 +562,7 @@ git clone git@github.com:acodcha/phq.git PhQ
 cd PhQ
 mkdir build
 cd build
-cmake .. -DTEST_PHQ_LIBRARY=ON
+cmake .. -D PHYSICAL_QUANTITIES_PHQ_TEST=ON
 make --jobs=16
 make test
 ```
