@@ -10,6 +10,7 @@ Physical Quantities (PhQ) is a C++ library of physical quantities, physical mode
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Testing](#testing)
+- [Coverage](#coverage)
 - [License](#license)
 
 Example:
@@ -512,7 +513,7 @@ The full documentation of the Physical Quantities library is hosted at <https://
 
 Alternatively, the documentation can be built locally on your system. Doing so requires the following additional package:
 
-- **Doxygen**: The Doxygen library (<https://www.doxygen.nl/index.html>) is used for building documentation. On Ubuntu, install it with `sudo apt install doxygen`.
+- **Doxygen**: The Doxygen program (<https://www.doxygen.nl/index.html>) is used for building documentation. On Ubuntu, install it with `sudo apt install doxygen`.
 
 Clone the Physical Quantities library's repository and build its documentation with:
 
@@ -551,7 +552,7 @@ The Physical Quantities library is automatically tested whenever it is updated.
 
 Testing can optionally be performed locally on your system. Doing so requires the following additional package:
 
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`. When testing is enabled, if the GoogleTest library is not found on your system, it is automatically downloaded and linked with this library.
+- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`.
 
 Testing instructions differ depending on your build system.
 
@@ -575,6 +576,33 @@ cd PhQ
 bazel build //:all
 bazel test //:all
 ```
+
+[(Back to Top)](#physical-quantities-phq)
+
+## Coverage
+
+Code coverage (also known as test coverage) measures the extent to which a library's source code is covered by its tests. The Physical Quantities library currently has 95% coverage overall.
+
+The Physical Quantities library's code coverage can optionally be computed locally on your system. Doing so requires the following additional package:
+
+- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`.
+- **LCOV**: The LCOV program (<https://github.com/linux-test-project/lcov>) is used for computing code coverage. On Ubuntu, install it with `sudo apt install lcov`.
+
+In addition to these requirements, code coverage computation also requires the CMake build system and either the GCC C++ compiler or the Clang C++ compiler; see the [Requirements](#requirements) section for more information on these.
+
+Compute the Physical Quantities library's code coverage with:
+
+```bash
+git clone git@github.com:acodcha/phq.git PhQ
+cd PhQ
+mkdir build
+cd build
+cmake .. -D PHYSICAL_QUANTITIES_PHQ_COVERAGE=ON
+make --jobs=16
+./bin/all_tests && make coverage
+```
+
+This generates an HTML report in the `PhQ/coverage/` directory. Browse the report by opening the `PhQ/coverage/index.html` file in a web browser.
 
 [(Back to Top)](#physical-quantities-phq)
 
