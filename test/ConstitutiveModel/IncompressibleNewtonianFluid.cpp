@@ -155,7 +155,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, Stream) {
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, StressAndStrainFloat) {
   const std::unique_ptr<ConstitutiveModel> model =
       std::make_unique<ConstitutiveModel::IncompressibleNewtonianFluid<float>>(
-          DynamicViscosity<float>(4.0F, Unit::DynamicViscosity::PascalSecond));
+          DynamicViscosity<float>(100.0F, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
   const Strain<float> strain{32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F};
   const StrainRate<float> strain_rate{

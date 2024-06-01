@@ -209,8 +209,8 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Stream) {
 TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrainFloat) {
   const std::unique_ptr<const ConstitutiveModel> model =
       std::make_unique<const ConstitutiveModel::CompressibleNewtonianFluid<float>>(
-          DynamicViscosity<float>(2.0F, Unit::DynamicViscosity::PascalSecond),
-          BulkDynamicViscosity<float>(0.0F, Unit::DynamicViscosity::PascalSecond));
+          DynamicViscosity<float>(128.0F, Unit::DynamicViscosity::PascalSecond),
+          BulkDynamicViscosity<float>(1.0F, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
   const Strain<float> strain{32.0F, 1.0F, -2.0F, 16.0F, -1.0F, 8.0F};
   const StrainRate<float> strain_rate{
@@ -229,7 +229,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrainFloat) {
 TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrainDouble) {
   const std::unique_ptr<const ConstitutiveModel> model =
       std::make_unique<const ConstitutiveModel::CompressibleNewtonianFluid<>>(
-          DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond),
+          DynamicViscosity(128.0, Unit::DynamicViscosity::PascalSecond),
           BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
   const Strain strain{32.0, 1.0, -2.0, 16.0, -1.0, 8.0};
@@ -249,7 +249,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrainDouble) {
 TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrainLongDouble) {
   const std::unique_ptr<const ConstitutiveModel> model =
       std::make_unique<const ConstitutiveModel::CompressibleNewtonianFluid<long double>>(
-          DynamicViscosity<long double>(2.0L, Unit::DynamicViscosity::PascalSecond),
+          DynamicViscosity<long double>(128.0L, Unit::DynamicViscosity::PascalSecond),
           BulkDynamicViscosity<long double>(1.0L, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
   const Strain<long double> strain{32.0L, 1.0L, -2.0L, 16.0L, -1.0L, 8.0L};
