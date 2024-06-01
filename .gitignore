@@ -1,5 +1,6 @@
 .vscode/*
 bazel-*
 build/*
+coverage/*
 docs/html/*
 MODULE.bazel*
