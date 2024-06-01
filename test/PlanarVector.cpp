@@ -215,55 +215,52 @@ TEST(PlanarVector, AssignmentOperatorSubtraction) {
 
 TEST(PlanarVector, ComparisonOperators) {
   {
-    constexpr PlanarVector first{1.0F, -2.000001F};
-    constexpr PlanarVector second{1.0F, -2.0F};
-    constexpr PlanarVector third{1.0F, 2.0F};
+    constexpr PlanarVector first{1.0, 0.0};
+    constexpr PlanarVector second{2.0, 0.0};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
+  }
+  {
+    constexpr PlanarVector first{1.0F, -2.000001F};
+    constexpr PlanarVector second{1.0F, -2.0F};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
   }
   {
     constexpr PlanarVector first{1.0, -2.000001};
     constexpr PlanarVector second{1.0, -2.0};
-    constexpr PlanarVector third{1.0, 2.0};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
   }
   {
     constexpr PlanarVector first{1.0L, -2.000001L};
     constexpr PlanarVector second{1.0L, -2.0L};
-    constexpr PlanarVector third{1.0L, 2.0L};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
   }
 }
 

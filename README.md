@@ -581,7 +581,7 @@ bazel test //:all
 
 ## Coverage
 
-Code coverage (also known as test coverage) measures the extent to which a library's source code is covered by its tests. The Physical Quantities library currently has 95% coverage overall.
+Code coverage (also known as test coverage) measures the extent to which a library's source code is covered by its tests. The Physical Quantities library currently has 100% coverage.
 
 The Physical Quantities library's code coverage can optionally be computed locally on your system. Doing so requires the following additional package:
 

@@ -121,59 +121,47 @@ public:
   [[nodiscard]] std::string Print() const {
     std::string string;
     string.append(time.Print());
-    {
-      const std::string length_string{length.Print()};
-      if (!length_string.empty()) {
-        if (!string.empty()) {
-          string.append("·");
-        }
-        string.append(length_string);
+    const std::string length_string{length.Print()};
+    if (!length_string.empty()) {
+      if (!string.empty()) {
+        string.append("·");
       }
+      string.append(length_string);
     }
-    {
-      const std::string mass_string{mass.Print()};
-      if (!mass_string.empty()) {
-        if (!string.empty()) {
-          string.append("·");
-        }
-        string.append(mass_string);
+    const std::string mass_string{mass.Print()};
+    if (!mass_string.empty()) {
+      if (!string.empty()) {
+        string.append("·");
       }
+      string.append(mass_string);
     }
-    {
-      const std::string electric_current_string{electric_current.Print()};
-      if (!electric_current_string.empty()) {
-        if (!string.empty()) {
-          string.append("·");
-        }
-        string.append(electric_current_string);
+    const std::string electric_current_string{electric_current.Print()};
+    if (!electric_current_string.empty()) {
+      if (!string.empty()) {
+        string.append("·");
       }
+      string.append(electric_current_string);
     }
-    {
-      const std::string temperature_string{temperature.Print()};
-      if (!temperature_string.empty()) {
-        if (!string.empty()) {
-          string.append("·");
-        }
-        string.append(temperature_string);
+    const std::string temperature_string{temperature.Print()};
+    if (!temperature_string.empty()) {
+      if (!string.empty()) {
+        string.append("·");
       }
+      string.append(temperature_string);
     }
-    {
-      const std::string substance_amount_string{substance_amount.Print()};
-      if (!substance_amount_string.empty()) {
-        if (!string.empty()) {
-          string.append("·");
-        }
-        string.append(substance_amount_string);
+    const std::string substance_amount_string{substance_amount.Print()};
+    if (!substance_amount_string.empty()) {
+      if (!string.empty()) {
+        string.append("·");
       }
+      string.append(substance_amount_string);
     }
-    {
-      const std::string luminous_intensity_string{luminous_intensity.Print()};
-      if (!luminous_intensity_string.empty()) {
-        if (!string.empty()) {
-          string.append("·");
-        }
-        string.append(luminous_intensity_string);
+    const std::string luminous_intensity_string{luminous_intensity.Print()};
+    if (!luminous_intensity_string.empty()) {
+      if (!string.empty()) {
+        string.append("·");
       }
+      string.append(luminous_intensity_string);
     }
     if (string.empty()) {
       return "1";
