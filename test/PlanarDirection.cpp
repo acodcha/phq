@@ -206,6 +206,21 @@ TEST(PlanarDirection, Print) {
 TEST(PlanarDirection, Set) {
   {
     PlanarDirection direction{1.0, -2.0};
+    direction.Set(0.0, 0.0);
+    EXPECT_EQ(direction.Value(), PlanarVector(0.0, 0.0));
+  }
+  {
+    PlanarDirection direction{1.0, -2.0};
+    direction.Set(std::array<double, 2>{0.0, 0.0});
+    EXPECT_EQ(direction.Value(), PlanarVector(0.0, 0.0));
+  }
+  {
+    PlanarDirection direction{1.0, -2.0};
+    direction.Set(PlanarVector{0.0, 0.0});
+    EXPECT_EQ(direction.Value(), PlanarVector(0.0, 0.0));
+  }
+  {
+    PlanarDirection direction{1.0, -2.0};
     direction.Set(0.0, -2.0);
     EXPECT_EQ(direction.Value(), PlanarVector(0.0, -1.0));
   }

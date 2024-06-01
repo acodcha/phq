@@ -289,55 +289,100 @@ TEST(SymmetricDyad, Cofactors) {
 
 TEST(SymmetricDyad, ComparisonOperators) {
   {
-    constexpr SymmetricDyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.000001F};
-    constexpr SymmetricDyad second{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
-    constexpr SymmetricDyad third{1.0F, -2.0F, 3.0F, 4.0F, 5.0F, -6.0F};
+    constexpr SymmetricDyad first{1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr SymmetricDyad second{2.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
+  }
+  {
+    constexpr SymmetricDyad first{1.0, -2.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr SymmetricDyad second{1.0, -1.0, 0.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr SymmetricDyad first{1.0, -2.0, 3.0, 0.0, 0.0, 0.0};
+    constexpr SymmetricDyad second{1.0, -2.0, 4.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 0.0, 0.0};
+    constexpr SymmetricDyad second{1.0, -2.0, 3.0, -3.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, 0.0};
+    constexpr SymmetricDyad second{1.0, -2.0, 3.0, -4.0, 6.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr SymmetricDyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.000001F};
+    constexpr SymmetricDyad second{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
   }
   {
     constexpr SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.000001};
     constexpr SymmetricDyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
-    constexpr SymmetricDyad third{1.0, -2.0, 3.0, 4.0, 5.0, -6.0};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
   }
   {
     constexpr SymmetricDyad first{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.000001L};
     constexpr SymmetricDyad second{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L};
-    constexpr SymmetricDyad third{1.0L, -2.0L, 3.0L, 4.0L, 5.0L, -6.0L};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
   }
 }
 

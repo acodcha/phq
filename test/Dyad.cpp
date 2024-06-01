@@ -274,55 +274,136 @@ TEST(Dyad, Cofactors) {
 
 TEST(Dyad, ComparisonOperators) {
   {
-    constexpr Dyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
-    constexpr Dyad second{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.000001F};
-    constexpr Dyad third{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, 6.0F, 7.0F, -8.0F, 9.0F};
+    constexpr Dyad first{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr Dyad second{2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr Dyad second{1.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr Dyad second{1.0, -2.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr Dyad second{1.0, -2.0, 3.0, -3.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, 0.0, 0.0, 0.0, 0.0};
+    constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 6.0, 0.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 0.0, 0.0, 0.0};
+    constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 5.0, -5.0, 0.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, 0.0, 0.0};
+    constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 8.0, 0.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 0.0};
+    constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -7.0, 0.0};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
+  }
+  {
+    constexpr Dyad first{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
+    constexpr Dyad second{1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.000001F};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GE(first, first);
+    EXPECT_GE(second, first);
   }
   {
     constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.000001};
-    constexpr Dyad third{1.0, -2.0, 3.0, -4.0, 5.0, 6.0, 7.0, -8.0, 9.0};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
   }
   {
     constexpr Dyad first{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
     constexpr Dyad second{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.000001L};
-    constexpr Dyad third{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, 6.0L, 7.0L, -8.0L, 9.0L};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
-    EXPECT_LT(second, third);
     EXPECT_GT(second, first);
-    EXPECT_GT(third, second);
     EXPECT_LE(first, first);
     EXPECT_LE(first, second);
-    EXPECT_LE(second, third);
     EXPECT_GE(first, first);
     EXPECT_GE(second, first);
-    EXPECT_GE(third, second);
   }
 }
 

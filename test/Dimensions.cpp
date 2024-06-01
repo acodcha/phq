@@ -63,30 +63,188 @@ TEST(Dimensions, Accessors) {
 }
 
 TEST(Dimensions, ComparisonOperators) {
-  constexpr Dimensions first{
-      Dimension::Time(-3),
-      Dimension::Length(-2),
-      Dimension::Mass(-1),
-      Dimension::ElectricCurrent(0),
-      Dimension::Temperature(1),
-      Dimension::SubstanceAmount(2),
-      Dimension::LuminousIntensity(3)};
-  constexpr Dimensions second{
-      Dimension::Time(-3),
-      Dimension::Length(-2),
-      Dimension::Mass(-1),
-      Dimension::ElectricCurrent(0),
-      Dimension::Temperature(1),
-      Dimension::SubstanceAmount(2),
-      Dimension::LuminousIntensity(4)};
-  EXPECT_EQ(first, first);
-  EXPECT_NE(first, second);
-  EXPECT_LT(first, second);
-  EXPECT_LE(first, first);
-  EXPECT_LE(first, second);
-  EXPECT_GT(second, first);
-  EXPECT_GE(second, first);
-  EXPECT_GE(first, first);
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(0),
+        Dimension::Mass(0),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    constexpr Dimensions second{
+        Dimension::Time(-2),
+        Dimension::Length(0),
+        Dimension::Mass(0),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(0),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    constexpr Dimensions second{
+        Dimension::Time(-3),
+        Dimension::Length(-1),
+        Dimension::Mass(0),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    constexpr Dimensions second{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(0),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    constexpr Dimensions second{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(1),
+        Dimension::Temperature(0),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(1),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    constexpr Dimensions second{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(2),
+        Dimension::SubstanceAmount(0),
+        Dimension::LuminousIntensity(0)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(1),
+        Dimension::SubstanceAmount(2),
+        Dimension::LuminousIntensity(0)};
+    constexpr Dimensions second{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(1),
+        Dimension::SubstanceAmount(3),
+        Dimension::LuminousIntensity(0)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
+  {
+    constexpr Dimensions first{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(1),
+        Dimension::SubstanceAmount(2),
+        Dimension::LuminousIntensity(3)};
+    constexpr Dimensions second{
+        Dimension::Time(-3),
+        Dimension::Length(-2),
+        Dimension::Mass(-1),
+        Dimension::ElectricCurrent(0),
+        Dimension::Temperature(1),
+        Dimension::SubstanceAmount(2),
+        Dimension::LuminousIntensity(4)};
+    EXPECT_EQ(first, first);
+    EXPECT_NE(first, second);
+    EXPECT_LT(first, second);
+    EXPECT_LE(first, first);
+    EXPECT_LE(first, second);
+    EXPECT_GT(second, first);
+    EXPECT_GE(second, first);
+    EXPECT_GE(first, first);
+  }
 }
 
 TEST(Dimensions, Constructor) {
@@ -141,6 +299,12 @@ TEST(Dimensions, JSON) {
                        Dimension::SubstanceAmount(-1), {})
                 .JSON(),
             "{\"mass\":1,\"substance_amount\":-1}");
+  EXPECT_EQ(Dimensions(Dimension::Time(1), Dimension::Length(-1), Dimension::Mass(2),
+                       Dimension::ElectricCurrent(-2), Dimension::Temperature(3),
+                       Dimension::SubstanceAmount(-3), Dimension::LuminousIntensity(4))
+                .JSON(),
+            "{\"time\":1,\"length\":-1,\"mass\":2,\"electric_current\":-2,\"temperature\":3,"
+            "\"substance_amount\":-3,\"luminous_intensity\":4}");
 }
 
 TEST(Dimensions, MoveAssignmentOperator) {
@@ -183,6 +347,11 @@ TEST(Dimensions, Print) {
                        Dimension::SubstanceAmount(0), Dimension::LuminousIntensity(1))
                 .Print(),
             "Θ^(-1)·J");
+  EXPECT_EQ(Dimensions(Dimension::Time(1), Dimension::Length(-1), Dimension::Mass(2),
+                       Dimension::ElectricCurrent(-2), Dimension::Temperature(3),
+                       Dimension::SubstanceAmount(-3), Dimension::LuminousIntensity(4))
+                .Print(),
+            "T·L^(-1)·M^2·I^(-2)·Θ^3·N^(-3)·J^4");
 }
 
 TEST(Dimensions, SizeOf) {
@@ -208,6 +377,13 @@ TEST(Dimensions, XML) {
                        Dimension::SubstanceAmount(-1), {})
                 .XML(),
             "<mass>1</mass><substance_amount>-1</substance_amount>");
+  EXPECT_EQ(Dimensions(Dimension::Time(1), Dimension::Length(-1), Dimension::Mass(2),
+                       Dimension::ElectricCurrent(-2), Dimension::Temperature(3),
+                       Dimension::SubstanceAmount(-3), Dimension::LuminousIntensity(4))
+                .XML(),
+            "<time>1</time><length>-1</length><mass>2</mass><electric_current>-2</"
+            "electric_current><temperature>3</temperature><substance_amount>-3</"
+            "substance_amount><luminous_intensity>4</luminous_intensity>");
 }
 
 TEST(Dimensions, YAML) {
@@ -220,6 +396,12 @@ TEST(Dimensions, YAML) {
                        Dimension::SubstanceAmount(-1), {})
                 .YAML(),
             "{mass:1,substance_amount:-1}");
+  EXPECT_EQ(Dimensions(Dimension::Time(1), Dimension::Length(-1), Dimension::Mass(2),
+                       Dimension::ElectricCurrent(-2), Dimension::Temperature(3),
+                       Dimension::SubstanceAmount(-3), Dimension::LuminousIntensity(4))
+                .YAML(),
+            "{time:1,length:-1,mass:2,electric_current:-2,temperature:3,substance_amount:-3,"
+            "luminous_intensity:4}");
 }
 
 }  // namespace
