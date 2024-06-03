@@ -117,14 +117,14 @@ public:
       PlanarAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar acceleration vector of zero.
-  static constexpr PlanarAcceleration<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Zero() {
     return PlanarAcceleration<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar acceleration vector from the given x and y Cartesian
   /// components expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr PlanarAcceleration<NumericType> Create(
+  [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarAcceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
@@ -134,7 +134,8 @@ public:
   /// \brief Statically creates a planar acceleration vector from the given x and y Cartesian
   /// components expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr PlanarAcceleration<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+  [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Create(
+      const std::array<NumericType, 2>& x_y) {
     return PlanarAcceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
             PlanarVector<NumericType>{x_y})};
@@ -143,7 +144,8 @@ public:
   /// \brief Statically creates a planar acceleration vector with a given value expressed in a given
   /// acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr PlanarAcceleration<NumericType> Create(const PlanarVector<NumericType>& value) {
+  [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Create(
+      const PlanarVector<NumericType>& value) {
     return PlanarAcceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }

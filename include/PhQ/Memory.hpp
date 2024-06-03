@@ -96,14 +96,14 @@ public:
   constexpr Memory<NumericType>& operator=(Memory<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a memory quantity of zero.
-  static constexpr Memory<NumericType> Zero() {
+  [[nodiscard]] static constexpr Memory<NumericType> Zero() {
     return Memory<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a memory quantity with a given value expressed in a given memory
   /// unit.
   template <Unit::Memory Unit>
-  static constexpr Memory<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Memory<NumericType> Create(const NumericType value) {
     return Memory<NumericType>{
         ConvertStatically<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }

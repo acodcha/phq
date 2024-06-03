@@ -109,7 +109,7 @@ public:
       ScalarDisplacementGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar displacement gradient of zero.
-  static constexpr ScalarDisplacementGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarDisplacementGradient<NumericType> Zero() {
     return ScalarDisplacementGradient<NumericType>{static_cast<NumericType>(0)};
   }
 

@@ -100,14 +100,14 @@ public:
       SpecificEnergy<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a specific energy quantity of zero.
-  static constexpr SpecificEnergy<NumericType> Zero() {
+  [[nodiscard]] static constexpr SpecificEnergy<NumericType> Zero() {
     return SpecificEnergy<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a specific energy quantity with a given value expressed in a given
   /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr SpecificEnergy<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SpecificEnergy<NumericType> Create(const NumericType value) {
     return SpecificEnergy<NumericType>{
         ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }

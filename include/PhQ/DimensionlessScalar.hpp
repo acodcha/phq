@@ -50,7 +50,7 @@ class DimensionlessScalar {
 public:
   /// \brief Physical dimension set of this physical quantity. Since this physical quantity is
   /// dimensionless, its physical dimension set is simply the null set.
-  static constexpr PhQ::Dimensions Dimensions() {
+  [[nodiscard]] static constexpr PhQ::Dimensions Dimensions() {
     return PhQ::Dimensionless;
   }
 
@@ -60,7 +60,7 @@ public:
   }
 
   /// \brief Returns the value of this physical quantity as a mutable value.
-  inline constexpr NumericType& MutableValue() noexcept {
+  [[nodiscard]] inline constexpr NumericType& MutableValue() noexcept {
     return value;
   }
 

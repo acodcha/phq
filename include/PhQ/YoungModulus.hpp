@@ -78,14 +78,14 @@ public:
       YoungModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Young's modulus of zero.
-  static constexpr YoungModulus<NumericType> Zero() {
+  [[nodiscard]] static constexpr YoungModulus<NumericType> Zero() {
     return YoungModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a Young's modulus with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr YoungModulus<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr YoungModulus<NumericType> Create(const NumericType value) {
     return YoungModulus<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

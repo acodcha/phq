@@ -101,13 +101,13 @@ public:
   constexpr MassRate<NumericType>& operator=(MassRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a mass rate of zero.
-  static constexpr MassRate<NumericType> Zero() {
+  [[nodiscard]] static constexpr MassRate<NumericType> Zero() {
     return MassRate<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a mass rate with a given value expressed in a given mass rate unit.
   template <Unit::MassRate Unit>
-  static constexpr MassRate<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr MassRate<NumericType> Create(const NumericType value) {
     return MassRate<NumericType>{
         ConvertStatically<Unit::MassRate, Unit, Standard<Unit::MassRate>>(value)};
   }

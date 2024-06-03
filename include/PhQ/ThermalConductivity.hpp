@@ -97,14 +97,14 @@ public:
       ThermalConductivity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a thermal conductivity tensor of zero.
-  static constexpr ThermalConductivity<NumericType> Zero() {
+  [[nodiscard]] static constexpr ThermalConductivity<NumericType> Zero() {
     return ThermalConductivity<NumericType>{SymmetricDyad<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and
   /// zz Cartesian components expressed in a given pressure unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity<NumericType> Create(
+  [[nodiscard]] static constexpr ThermalConductivity<NumericType> Create(
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return ThermalConductivity<NumericType>{
@@ -115,7 +115,7 @@ public:
   /// \brief Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and
   /// zz Cartesian components expressed in a given pressure unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity<NumericType> Create(
+  [[nodiscard]] static constexpr ThermalConductivity<NumericType> Create(
       const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return ThermalConductivity<NumericType>{
         ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
@@ -125,7 +125,7 @@ public:
   /// \brief Statically creates a thermal conductivity tensor with a given value expressed in a
   /// given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity<NumericType> Create(
+  [[nodiscard]] static constexpr ThermalConductivity<NumericType> Create(
       const SymmetricDyad<NumericType>& value) {
     return ThermalConductivity<NumericType>{
         ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(

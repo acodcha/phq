@@ -159,14 +159,14 @@ public:
       MassDensity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a mass density of zero.
-  static constexpr MassDensity<NumericType> Zero() {
+  [[nodiscard]] static constexpr MassDensity<NumericType> Zero() {
     return MassDensity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a mass density with a given value expressed in a given mass density
   /// unit.
   template <Unit::MassDensity Unit>
-  static constexpr MassDensity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr MassDensity<NumericType> Create(const NumericType value) {
     return MassDensity<NumericType>{
         ConvertStatically<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(value)};
   }

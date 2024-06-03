@@ -97,7 +97,7 @@ public:
       PrandtlNumber<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Prandtl number of zero.
-  static constexpr PrandtlNumber<NumericType> Zero() {
+  [[nodiscard]] static constexpr PrandtlNumber<NumericType> Zero() {
     return PrandtlNumber<NumericType>{static_cast<NumericType>(0)};
   }
 

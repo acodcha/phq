@@ -115,14 +115,14 @@ public:
       SpecificGasConstant<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a specific gas constant of zero.
-  static constexpr SpecificGasConstant<NumericType> Zero() {
+  [[nodiscard]] static constexpr SpecificGasConstant<NumericType> Zero() {
     return SpecificGasConstant<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a specific gas constant with a given value expressed in a given
   /// specific heat capacity unit.
   template <Unit::SpecificHeatCapacity Unit>
-  static constexpr SpecificGasConstant<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SpecificGasConstant<NumericType> Create(const NumericType value) {
     return SpecificGasConstant<NumericType>{
         ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
             value)};

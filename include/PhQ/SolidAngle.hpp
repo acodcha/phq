@@ -77,14 +77,14 @@ public:
   constexpr SolidAngle<NumericType>& operator=(SolidAngle<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a solid angle of zero.
-  static constexpr SolidAngle<NumericType> Zero() {
+  [[nodiscard]] static constexpr SolidAngle<NumericType> Zero() {
     return SolidAngle<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a solid angle with a given value expressed in a given solid angle
   /// unit.
   template <Unit::SolidAngle Unit>
-  static constexpr SolidAngle<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SolidAngle<NumericType> Create(const NumericType value) {
     return SolidAngle<NumericType>{
         ConvertStatically<Unit::SolidAngle, Unit, Standard<Unit::SolidAngle>>(value)};
   }

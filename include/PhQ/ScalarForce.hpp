@@ -112,13 +112,13 @@ public:
       ScalarForce<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar force of zero.
-  static constexpr ScalarForce<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarForce<NumericType> Zero() {
     return ScalarForce<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar force with a given value expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr ScalarForce<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarForce<NumericType> Create(const NumericType value) {
     return ScalarForce<NumericType>{
         ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }

@@ -107,14 +107,14 @@ public:
   constexpr Force<NumericType>& operator=(Force<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a force vector of zero.
-  static constexpr Force<NumericType> Zero() {
+  [[nodiscard]] static constexpr Force<NumericType> Zero() {
     return Force<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a force vector from the given x, y, and z Cartesian components
   /// expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force<NumericType> Create(
+  [[nodiscard]] static constexpr Force<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return Force<NumericType>{
         ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(Vector<NumericType>{x, y, z})};
@@ -123,14 +123,15 @@ public:
   /// \brief Statically creates a force vector from the given x, y, and z Cartesian components
   /// expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+  [[nodiscard]] static constexpr Force<NumericType> Create(
+      const std::array<NumericType, 3>& x_y_z) {
     return Force<NumericType>{
         ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a force vector with a given value expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force<NumericType> Create(const Vector<NumericType>& value) {
+  [[nodiscard]] static constexpr Force<NumericType> Create(const Vector<NumericType>& value) {
     return Force<NumericType>{ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 

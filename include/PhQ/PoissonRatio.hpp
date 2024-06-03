@@ -76,7 +76,7 @@ public:
       PoissonRatio<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Poisson's ratio of zero.
-  static constexpr PoissonRatio<NumericType> Zero() {
+  [[nodiscard]] static constexpr PoissonRatio<NumericType> Zero() {
     return PoissonRatio<NumericType>{static_cast<NumericType>(0)};
   }
 

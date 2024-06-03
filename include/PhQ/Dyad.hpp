@@ -144,7 +144,7 @@ public:
 
   /// \brief Statically creates a three-dimensional dyadic tensor with its xx, xy, xz, yx, yy, yz,
   /// zx, zy, and zz Cartesian components initialized to zero.
-  static constexpr Dyad<NumericType> Zero() {
+  [[nodiscard]] static constexpr Dyad<NumericType> Zero() {
     return Dyad<NumericType>{
         std::array<NumericType, 9>{
                                    static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0),
@@ -207,61 +207,62 @@ public:
 
   /// \brief Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yx, yy, yz, zx,
   /// zy, and zz Cartesian components as a mutable array.
-  constexpr std::array<NumericType, 9>& Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz() noexcept {
+  [[nodiscard]] constexpr std::array<NumericType, 9>&
+  Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's xx Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_xx() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_xx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's xy Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_xy() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_xy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's xz Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_xz() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_xz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's yx Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_yx() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_yx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's yy Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_yy() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_yy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's yz Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_yz() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_yz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's zx Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_zx() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_zx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's zy Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_zy() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_zy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
   /// \brief Returns this three-dimensional dyadic tensor's zz Cartesian component as a mutable
   /// value.
-  constexpr NumericType& Mutable_zz() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 

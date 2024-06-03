@@ -98,14 +98,15 @@ public:
       ScalarVelocityGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar velocity gradient of zero.
-  static constexpr ScalarVelocityGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarVelocityGradient<NumericType> Zero() {
     return ScalarVelocityGradient<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar velocity gradient with a given value expressed in a given
   /// frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr ScalarVelocityGradient<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarVelocityGradient<NumericType> Create(
+      const NumericType value) {
     return ScalarVelocityGradient<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }

@@ -180,13 +180,13 @@ public:
   constexpr Speed<NumericType>& operator=(Speed<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a speed of zero.
-  static constexpr Speed<NumericType> Zero() {
+  [[nodiscard]] static constexpr Speed<NumericType> Zero() {
     return Speed<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a speed with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Speed<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Speed<NumericType> Create(const NumericType value) {
     return Speed<NumericType>{ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 

@@ -171,13 +171,13 @@ public:
   constexpr Mass<NumericType>& operator=(Mass<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a mass of zero.
-  static constexpr Mass<NumericType> Zero() {
+  [[nodiscard]] static constexpr Mass<NumericType> Zero() {
     return Mass<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a mass with a given value expressed in a given mass unit.
   template <Unit::Mass Unit>
-  static constexpr Mass<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Mass<NumericType> Create(const NumericType value) {
     return Mass<NumericType>{ConvertStatically<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
   }
 

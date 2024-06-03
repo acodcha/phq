@@ -118,14 +118,14 @@ public:
   constexpr HeatFlux<NumericType>& operator=(HeatFlux<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a heat flux vector of zero.
-  static constexpr HeatFlux<NumericType> Zero() {
+  [[nodiscard]] static constexpr HeatFlux<NumericType> Zero() {
     return HeatFlux<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a heat flux vector from the given x, y, and z Cartesian components
   /// expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr HeatFlux<NumericType> Create(
+  [[nodiscard]] static constexpr HeatFlux<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return HeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
@@ -135,7 +135,8 @@ public:
   /// \brief Statically creates a heat flux vector from the given x, y, and z Cartesian components
   /// expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr HeatFlux<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+  [[nodiscard]] static constexpr HeatFlux<NumericType> Create(
+      const std::array<NumericType, 3>& x_y_z) {
     return HeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             Vector<NumericType>{x_y_z})};
@@ -144,7 +145,7 @@ public:
   /// \brief Statically creates a heat flux vector with a given value expressed in a given energy
   /// flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr HeatFlux<NumericType> Create(const Vector<NumericType>& value) {
+  [[nodiscard]] static constexpr HeatFlux<NumericType> Create(const Vector<NumericType>& value) {
     return HeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }

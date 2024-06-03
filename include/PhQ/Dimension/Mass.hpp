@@ -36,7 +36,7 @@ namespace PhQ::Dimension {
 
 /// \brief Base physical dimension of mass. Typically denoted "M". One of seven independent base
 /// physical dimensions that form the physical dimension set of any unit of measure or physical
-/// quantity.
+/// quantity. Part of PhQ::Dimensions.
 class Mass {
 public:
   /// \brief Default constructor. Constructs a base physical dimension of mass with a value of zero.

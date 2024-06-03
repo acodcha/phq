@@ -36,7 +36,7 @@ namespace PhQ::Dimension {
 
 /// \brief Base physical dimension of time. Typically denoted "T". One of seven independent base
 /// physical dimensions that form the physical dimension set of any unit of measure or physical
-/// quantity.
+/// quantity. Part of PhQ::Dimensions.
 class Time {
 public:
   /// \brief Default constructor. Constructs a base physical dimension of time with a value of zero.

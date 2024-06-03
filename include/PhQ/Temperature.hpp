@@ -77,14 +77,14 @@ public:
       Temperature<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a temperature of absolute zero.
-  static constexpr Temperature<NumericType> Zero() {
+  [[nodiscard]] static constexpr Temperature<NumericType> Zero() {
     return Temperature<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a temperature with a given value expressed in a given temperature
   /// unit.
   template <Unit::Temperature Unit>
-  static constexpr Temperature<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Temperature<NumericType> Create(const NumericType value) {
     return Temperature<NumericType>{
         ConvertStatically<Unit::Temperature, Unit, Standard<Unit::Temperature>>(value)};
   }

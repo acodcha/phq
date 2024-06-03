@@ -105,13 +105,13 @@ public:
   constexpr Power<NumericType>& operator=(Power<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a power quantity of zero.
-  static constexpr Power<NumericType> Zero() {
+  [[nodiscard]] static constexpr Power<NumericType> Zero() {
     return Power<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a power quantity with a given value expressed in a given power unit.
   template <Unit::Power Unit>
-  static constexpr Power<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Power<NumericType> Create(const NumericType value) {
     return Power<NumericType>{ConvertStatically<Unit::Power, Unit, Standard<Unit::Power>>(value)};
   }
 

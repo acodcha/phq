@@ -126,13 +126,13 @@ public:
   constexpr Area<NumericType>& operator=(Area<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an area of zero.
-  static constexpr Area<NumericType> Zero() {
+  [[nodiscard]] static constexpr Area<NumericType> Zero() {
     return Area<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr Area<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Area<NumericType> Create(const NumericType value) {
     return Area<NumericType>{ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 

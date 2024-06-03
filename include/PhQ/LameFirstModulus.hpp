@@ -81,14 +81,14 @@ public:
       LameFirstModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Lamé's first modulus of zero.
-  static constexpr LameFirstModulus<NumericType> Zero() {
+  [[nodiscard]] static constexpr LameFirstModulus<NumericType> Zero() {
     return LameFirstModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a Lamé's first modulus with a given value expressed in a given
   /// pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr LameFirstModulus<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr LameFirstModulus<NumericType> Create(const NumericType value) {
     return LameFirstModulus<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

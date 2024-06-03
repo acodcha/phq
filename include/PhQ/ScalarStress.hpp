@@ -80,14 +80,14 @@ public:
       ScalarStress<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar stress of zero.
-  static constexpr ScalarStress<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarStress<NumericType> Zero() {
     return ScalarStress<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar stress with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr ScalarStress<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarStress<NumericType> Create(const NumericType value) {
     return ScalarStress<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

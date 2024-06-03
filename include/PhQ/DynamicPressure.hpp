@@ -103,14 +103,14 @@ public:
       DynamicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a dynamic pressure of zero.
-  static constexpr DynamicPressure<NumericType> Zero() {
+  [[nodiscard]] static constexpr DynamicPressure<NumericType> Zero() {
     return DynamicPressure<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a dynamic pressure with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr DynamicPressure<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr DynamicPressure<NumericType> Create(const NumericType value) {
     return DynamicPressure<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

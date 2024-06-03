@@ -121,14 +121,15 @@ public:
       PlanarHeatFlux<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar heat flux vector of zero.
-  static constexpr PlanarHeatFlux<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Zero() {
     return PlanarHeatFlux<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar heat flux vector from the given x and y Cartesian
   /// components expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr PlanarHeatFlux<NumericType> Create(const NumericType x, const NumericType y) {
+  [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Create(
+      const NumericType x, const NumericType y) {
     return PlanarHeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             PlanarVector<NumericType>{x, y})};
@@ -137,7 +138,8 @@ public:
   /// \brief Statically creates a planar heat flux vector from the given x and y Cartesian
   /// components expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr PlanarHeatFlux<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+  [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Create(
+      const std::array<NumericType, 2>& x_y) {
     return PlanarHeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             PlanarVector<NumericType>{x_y})};
@@ -146,7 +148,8 @@ public:
   /// \brief Statically creates a planar heat flux vector with a given value expressed in a given
   /// energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr PlanarHeatFlux<NumericType> Create(const PlanarVector<NumericType>& value) {
+  [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Create(
+      const PlanarVector<NumericType>& value) {
     return PlanarHeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }

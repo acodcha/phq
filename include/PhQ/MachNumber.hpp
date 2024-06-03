@@ -81,7 +81,7 @@ public:
   constexpr MachNumber<NumericType>& operator=(MachNumber<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Mach number of zero.
-  static constexpr MachNumber<NumericType> Zero() {
+  [[nodiscard]] static constexpr MachNumber<NumericType> Zero() {
     return MachNumber<NumericType>{static_cast<NumericType>(0)};
   }
 

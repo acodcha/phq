@@ -104,14 +104,15 @@ public:
       StaticKinematicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a static kinematic pressure of zero.
-  static constexpr StaticKinematicPressure<NumericType> Zero() {
+  [[nodiscard]] static constexpr StaticKinematicPressure<NumericType> Zero() {
     return StaticKinematicPressure<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a static kinematic pressure with a given value expressed in a given
   /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr StaticKinematicPressure<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr StaticKinematicPressure<NumericType> Create(
+      const NumericType value) {
     return StaticKinematicPressure<NumericType>{
         ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }

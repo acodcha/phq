@@ -127,13 +127,13 @@ public:
   constexpr Frequency<NumericType>& operator=(Frequency<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a frequency of zero.
-  static constexpr Frequency<NumericType> Zero() {
+  [[nodiscard]] static constexpr Frequency<NumericType> Zero() {
     return Frequency<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a frequency with a given value expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr Frequency<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Frequency<NumericType> Create(const NumericType value) {
     return Frequency<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }

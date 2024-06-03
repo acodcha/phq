@@ -98,14 +98,14 @@ public:
       SpecificPower<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a specific power quantity of zero.
-  static constexpr SpecificPower<NumericType> Zero() {
+  [[nodiscard]] static constexpr SpecificPower<NumericType> Zero() {
     return SpecificPower<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a specific power quantity with a given value expressed in a given
   /// specific power unit.
   template <Unit::SpecificPower Unit>
-  static constexpr SpecificPower<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SpecificPower<NumericType> Create(const NumericType value) {
     return SpecificPower<NumericType>{
         ConvertStatically<Unit::SpecificPower, Unit, Standard<Unit::SpecificPower>>(value)};
   }

@@ -207,7 +207,8 @@ inline void ConvertInPlace(Dyad<NumericType>& dyad, const Unit original_unit, co
 /// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns
 /// the converted value. The original value remains unchanged.
 template <typename Unit, typename NumericType>
-inline NumericType Convert(const NumericType value, const Unit original_unit, const Unit new_unit) {
+[[nodiscard]] inline NumericType Convert(
+    const NumericType value, const Unit original_unit, const Unit new_unit) {
   NumericType result{value};
   ConvertInPlace<Unit, NumericType>(result, original_unit, new_unit);
   return result;
@@ -216,7 +217,7 @@ inline NumericType Convert(const NumericType value, const Unit original_unit, co
 /// \brief Converts an array of values expressed in a given unit of measure to a new unit of
 /// measure. Returns the converted values. The original values remain unchanged.
 template <typename Unit, std::size_t Size, typename NumericType>
-inline std::array<NumericType, Size> Convert(
+[[nodiscard]] inline std::array<NumericType, Size> Convert(
     const std::array<NumericType, Size>& values, const Unit original_unit, const Unit new_unit) {
   std::array<NumericType, Size> result{values};
   ConvertInPlace<Unit, Size, NumericType>(result, original_unit, new_unit);
@@ -226,7 +227,7 @@ inline std::array<NumericType, Size> Convert(
 /// \brief Converts a vector of values expressed in a given unit of measure to a new unit of
 /// measure. Returns the converted values. The original values remain unchanged.
 template <typename Unit, typename NumericType>
-inline std::vector<NumericType> Convert(
+[[nodiscard]] inline std::vector<NumericType> Convert(
     const std::vector<NumericType>& values, const Unit original_unit, const Unit new_unit) {
   std::vector<NumericType> result{values};
   ConvertInPlace<Unit, NumericType>(result, original_unit, new_unit);
@@ -237,7 +238,7 @@ inline std::vector<NumericType> Convert(
 /// unit of measure to a new unit of measure. Returns the converted vector. The original vector
 /// remains unchanged.
 template <typename Unit, typename NumericType>
-inline PlanarVector<NumericType> Convert(
+[[nodiscard]] inline PlanarVector<NumericType> Convert(
     const PlanarVector<NumericType>& planar_vector, const Unit original_unit, const Unit new_unit) {
   return PlanarVector{Convert<Unit, 2, NumericType>(planar_vector.x_y(), original_unit, new_unit)};
 }
@@ -245,7 +246,7 @@ inline PlanarVector<NumericType> Convert(
 /// \brief Converts a three-dimensional Euclidean vector expressed in a given unit of measure to a
 /// new unit of measure. Returns the converted vector. The original vector remains unchanged.
 template <typename Unit, typename NumericType>
-inline Vector<NumericType> Convert(
+[[nodiscard]] inline Vector<NumericType> Convert(
     const Vector<NumericType>& vector, const Unit original_unit, const Unit new_unit) {
   return Vector{Convert<Unit, 3, NumericType>(vector.x_y_z(), original_unit, new_unit)};
 }
@@ -254,8 +255,9 @@ inline Vector<NumericType> Convert(
 /// of measure to a new unit of measure. Returns the converted tensor. The original tensor remains
 /// unchanged.
 template <typename Unit, typename NumericType>
-inline SymmetricDyad<NumericType> Convert(const SymmetricDyad<NumericType>& symmetric_dyad,
-                                          const Unit original_unit, const Unit new_unit) {
+[[nodiscard]] inline SymmetricDyad<NumericType> Convert(
+    const SymmetricDyad<NumericType>& symmetric_dyad, const Unit original_unit,
+    const Unit new_unit) {
   return SymmetricDyad{
       Convert<Unit, 6, NumericType>(symmetric_dyad.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
 }
@@ -263,7 +265,7 @@ inline SymmetricDyad<NumericType> Convert(const SymmetricDyad<NumericType>& symm
 /// \brief Converts a three-dimensional Euclidean dyadic tensor expressed in a given unit of measure
 /// to a new unit of measure. Returns the converted tensor. The original tensor remains unchanged.
 template <typename Unit, typename NumericType>
-inline Dyad<NumericType> Convert(
+[[nodiscard]] inline Dyad<NumericType> Convert(
     const Dyad<NumericType>& dyad, const Unit original_unit, const Unit new_unit) {
   return Dyad{
       Convert<Unit, 9, NumericType>(dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
@@ -273,7 +275,7 @@ inline Dyad<NumericType> Convert(
 /// the converted value. The original value remains unchanged. This function can be evaluated at
 /// compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr NumericType ConvertStatically(const NumericType value) {
+[[nodiscard]] inline constexpr NumericType ConvertStatically(const NumericType value) {
   static_assert(std::is_floating_point<NumericType>::value,
                 "The NumericType template parameter of PhQ::ConvertStatically must be a numeric "
                 "floating-point type: float, double, or long double.");
@@ -287,7 +289,7 @@ inline constexpr NumericType ConvertStatically(const NumericType value) {
 /// measure. Returns the converted values. The original values remain unchanged. This function can
 /// be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size, typename NumericType>
-inline constexpr std::array<NumericType, Size> ConvertStatically(
+[[nodiscard]] inline constexpr std::array<NumericType, Size> ConvertStatically(
     const std::array<NumericType, Size>& values) {
   static_assert(std::is_floating_point<NumericType>::value,
                 "The NumericType template parameter of PhQ::ConvertStatically must be a numeric "
@@ -302,7 +304,7 @@ inline constexpr std::array<NumericType, Size> ConvertStatically(
 /// unit of measure to a new unit of measure. Returns the converted vector. The original vector
 /// remains unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr PlanarVector<NumericType> ConvertStatically(
+[[nodiscard]] inline constexpr PlanarVector<NumericType> ConvertStatically(
     const PlanarVector<NumericType>& planar_vector) {
   return PlanarVector{
       ConvertStatically<Unit, OriginalUnit, NewUnit, 2, NumericType>(planar_vector.x_y())};
@@ -312,7 +314,8 @@ inline constexpr PlanarVector<NumericType> ConvertStatically(
 /// new unit of measure. Returns the converted vector. The original vector remains unchanged. This
 /// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr Vector<NumericType> ConvertStatically(const Vector<NumericType>& vector) {
+[[nodiscard]] inline constexpr Vector<NumericType> ConvertStatically(
+    const Vector<NumericType>& vector) {
   return Vector{ConvertStatically<Unit, OriginalUnit, NewUnit, 3, NumericType>(vector.x_y_z())};
 }
 
@@ -320,7 +323,7 @@ inline constexpr Vector<NumericType> ConvertStatically(const Vector<NumericType>
 /// of measure to a new unit of measure. Returns the converted tensor. The original tensor remains
 /// unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr SymmetricDyad<NumericType> ConvertStatically(
+[[nodiscard]] inline constexpr SymmetricDyad<NumericType> ConvertStatically(
     const SymmetricDyad<NumericType>& symmetric_dyad) {
   return SymmetricDyad{ConvertStatically<Unit, OriginalUnit, NewUnit, 6, NumericType>(
       symmetric_dyad.xx_xy_xz_yy_yz_zz())};
@@ -330,7 +333,7 @@ inline constexpr SymmetricDyad<NumericType> ConvertStatically(
 /// to a new unit of measure. Returns the converted tensor. The original tensor remains unchanged.
 /// This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
-inline constexpr Dyad<NumericType> ConvertStatically(const Dyad<NumericType>& dyad) {
+[[nodiscard]] inline constexpr Dyad<NumericType> ConvertStatically(const Dyad<NumericType>& dyad) {
   return Dyad{ConvertStatically<Unit, OriginalUnit, NewUnit, 9, NumericType>(
       dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
 }

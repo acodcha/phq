@@ -78,14 +78,14 @@ public:
       ShearModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a shear modulus of zero.
-  static constexpr ShearModulus<NumericType> Zero() {
+  [[nodiscard]] static constexpr ShearModulus<NumericType> Zero() {
     return ShearModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a shear modulus with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr ShearModulus<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ShearModulus<NumericType> Create(const NumericType value) {
     return ShearModulus<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

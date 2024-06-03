@@ -123,14 +123,14 @@ public:
   constexpr Velocity<NumericType>& operator=(Velocity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a velocity vector of zero.
-  static constexpr Velocity<NumericType> Zero() {
+  [[nodiscard]] static constexpr Velocity<NumericType> Zero() {
     return Velocity<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
   /// expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity<NumericType> Create(
+  [[nodiscard]] static constexpr Velocity<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return Velocity<NumericType>{
         ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x, y, z})};
@@ -139,7 +139,8 @@ public:
   /// \brief Statically creates a velocity vector from the given x, y, and z Cartesian components
   /// expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+  [[nodiscard]] static constexpr Velocity<NumericType> Create(
+      const std::array<NumericType, 3>& x_y_z) {
     return Velocity<NumericType>{
         ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<NumericType>{x_y_z})};
   }
@@ -147,7 +148,7 @@ public:
   /// \brief Statically creates a velocity vector with a given value expressed in a given speed
   /// unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity<NumericType> Create(const Vector<NumericType>& value) {
+  [[nodiscard]] static constexpr Velocity<NumericType> Create(const Vector<NumericType>& value) {
     return Velocity<NumericType>{
         ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }

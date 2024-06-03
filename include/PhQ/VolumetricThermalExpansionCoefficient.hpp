@@ -93,14 +93,14 @@ public:
       VolumetricThermalExpansionCoefficient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a volumetric thermal expansion coefficient of zero.
-  static constexpr VolumetricThermalExpansionCoefficient<NumericType> Zero() {
+  [[nodiscard]] static constexpr VolumetricThermalExpansionCoefficient<NumericType> Zero() {
     return VolumetricThermalExpansionCoefficient<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a volumetric thermal expansion coefficient with a given value
   /// expressed in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
-  static constexpr VolumetricThermalExpansionCoefficient<NumericType> Create(
+  [[nodiscard]] static constexpr VolumetricThermalExpansionCoefficient<NumericType> Create(
       const NumericType value) {
     return VolumetricThermalExpansionCoefficient<NumericType>{
         ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};

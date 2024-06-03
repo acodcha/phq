@@ -116,14 +116,14 @@ public:
       PlanarTemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar temperature gradient vector of zero.
-  static constexpr PlanarTemperatureGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Zero() {
     return PlanarTemperatureGradient<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar temperature gradient vector from the given x and y
   /// Cartesian components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr PlanarTemperatureGradient<NumericType> Create(
+  [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarTemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
@@ -133,7 +133,7 @@ public:
   /// \brief Statically creates a planar temperature gradient vector from the given x and y
   /// Cartesian components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr PlanarTemperatureGradient<NumericType> Create(
+  [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarTemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
@@ -143,7 +143,7 @@ public:
   /// \brief Statically creates a planar temperature gradient vector with a given value expressed in
   /// a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr PlanarTemperatureGradient<NumericType> Create(
+  [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarTemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(

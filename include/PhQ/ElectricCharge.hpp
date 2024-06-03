@@ -98,14 +98,14 @@ public:
       ElectricCharge<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an electric charge of zero.
-  static constexpr ElectricCharge<NumericType> Zero() {
+  [[nodiscard]] static constexpr ElectricCharge<NumericType> Zero() {
     return ElectricCharge<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an electric charge with a given value expressed in a given electric
   /// charge unit.
   template <Unit::ElectricCharge Unit>
-  static constexpr ElectricCharge<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ElectricCharge<NumericType> Create(const NumericType value) {
     return ElectricCharge<NumericType>{
         ConvertStatically<Unit::ElectricCharge, Unit, Standard<Unit::ElectricCharge>>(value)};
   }

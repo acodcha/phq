@@ -123,14 +123,15 @@ public:
       ScalarThermalConductivity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar thermal conductivity of zero.
-  static constexpr ScalarThermalConductivity<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarThermalConductivity<NumericType> Zero() {
     return ScalarThermalConductivity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar thermal conductivity with a given value expressed in a
   /// given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ScalarThermalConductivity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarThermalConductivity<NumericType> Create(
+      const NumericType value) {
     return ScalarThermalConductivity<NumericType>{
         ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             value)};

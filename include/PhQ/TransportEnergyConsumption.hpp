@@ -96,14 +96,15 @@ public:
       TransportEnergyConsumption<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a transport energy consumption of zero.
-  static constexpr TransportEnergyConsumption<NumericType> Zero() {
+  [[nodiscard]] static constexpr TransportEnergyConsumption<NumericType> Zero() {
     return TransportEnergyConsumption<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a transport energy consumption with a given value expressed in a
   /// given transport energy consumption unit.
   template <Unit::TransportEnergyConsumption Unit>
-  static constexpr TransportEnergyConsumption<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr TransportEnergyConsumption<NumericType> Create(
+      const NumericType value) {
     return TransportEnergyConsumption<NumericType>{
         ConvertStatically<Unit::TransportEnergyConsumption, Unit,
                           Standard<Unit::TransportEnergyConsumption>>(value)};

@@ -36,7 +36,7 @@ namespace PhQ::Dimension {
 
 /// \brief Base physical dimension of amount of substance. Typically denoted "N". One of seven
 /// independent base physical dimensions that form the physical dimension set of any unit of measure
-/// or physical quantity.
+/// or physical quantity. Part of PhQ::Dimensions.
 class SubstanceAmount {
 public:
   /// \brief Default constructor. Constructs a base physical dimension of amount of substance with a

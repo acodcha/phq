@@ -111,14 +111,14 @@ public:
       TemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a temperature gradient vector of zero.
-  static constexpr TemperatureGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr TemperatureGradient<NumericType> Zero() {
     return TemperatureGradient<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a temperature gradient vector from the given x, y, and z Cartesian
   /// components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient<NumericType> Create(
+  [[nodiscard]] static constexpr TemperatureGradient<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return TemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
@@ -128,7 +128,7 @@ public:
   /// \brief Statically creates a temperature gradient vector from the given x, y, and z Cartesian
   /// components expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient<NumericType> Create(
+  [[nodiscard]] static constexpr TemperatureGradient<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return TemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
@@ -138,7 +138,8 @@ public:
   /// \brief Statically creates a temperature gradient vector with a given value expressed in a
   /// given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient<NumericType> Create(const Vector<NumericType>& value) {
+  [[nodiscard]] static constexpr TemperatureGradient<NumericType> Create(
+      const Vector<NumericType>& value) {
     return TemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};

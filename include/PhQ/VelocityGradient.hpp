@@ -111,14 +111,14 @@ public:
       VelocityGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a velocity gradient tensor of zero.
-  static constexpr VelocityGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr VelocityGradient<NumericType> Zero() {
     return VelocityGradient<NumericType>{Dyad<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
   /// zx,zy, and zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient<NumericType> Create(
+  [[nodiscard]] static constexpr VelocityGradient<NumericType> Create(
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yx,
       const NumericType yy, const NumericType yz, const NumericType zx, const NumericType zy,
       const NumericType zz) {
@@ -130,7 +130,7 @@ public:
   /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
   /// zx,zy, and zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient<NumericType> Create(
+  [[nodiscard]] static constexpr VelocityGradient<NumericType> Create(
       const std::array<NumericType, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     return VelocityGradient<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
@@ -140,7 +140,8 @@ public:
   /// \brief Statically creates a velocity gradient tensor with a given value expressed in a given
   /// frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient<NumericType> Create(const Dyad<NumericType>& value) {
+  [[nodiscard]] static constexpr VelocityGradient<NumericType> Create(
+      const Dyad<NumericType>& value) {
     return VelocityGradient<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }

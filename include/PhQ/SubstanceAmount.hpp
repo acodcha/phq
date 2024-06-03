@@ -77,14 +77,14 @@ public:
       SubstanceAmount<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a substance amount of zero.
-  static constexpr SubstanceAmount<NumericType> Zero() {
+  [[nodiscard]] static constexpr SubstanceAmount<NumericType> Zero() {
     return SubstanceAmount<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a substance amount with a given value expressed in a given substance
   /// amount unit.
   template <Unit::SubstanceAmount Unit>
-  static constexpr SubstanceAmount<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SubstanceAmount<NumericType> Create(const NumericType value) {
     return SubstanceAmount<NumericType>{
         ConvertStatically<Unit::SubstanceAmount, Unit, Standard<Unit::SubstanceAmount>>(value)};
   }

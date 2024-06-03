@@ -206,7 +206,7 @@ public:
       PlanarDirection<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar direction whose value is the zero vector.
-  static constexpr PlanarDirection<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarDirection<NumericType> Zero() {
     return PlanarDirection<NumericType>{};
   }
 

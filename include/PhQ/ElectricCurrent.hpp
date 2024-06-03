@@ -93,14 +93,14 @@ public:
       ElectricCurrent<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an electric current of zero.
-  static constexpr ElectricCurrent<NumericType> Zero() {
+  [[nodiscard]] static constexpr ElectricCurrent<NumericType> Zero() {
     return ElectricCurrent<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an electric current with a given value expressed in a given electric
   /// current unit.
   template <Unit::ElectricCurrent Unit>
-  static constexpr ElectricCurrent<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ElectricCurrent<NumericType> Create(const NumericType value) {
     return ElectricCurrent<NumericType>{
         ConvertStatically<Unit::ElectricCurrent, Unit, Standard<Unit::ElectricCurrent>>(value)};
   }

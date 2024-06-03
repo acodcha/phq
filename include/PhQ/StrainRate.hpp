@@ -108,14 +108,14 @@ public:
   constexpr StrainRate<NumericType>& operator=(StrainRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a strain rate tensor of zero.
-  static constexpr StrainRate<NumericType> Zero() {
+  [[nodiscard]] static constexpr StrainRate<NumericType> Zero() {
     return StrainRate<NumericType>{SymmetricDyad<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz
   /// Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr StrainRate<NumericType> Create(
+  [[nodiscard]] static constexpr StrainRate<NumericType> Create(
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return StrainRate<NumericType>{
@@ -126,7 +126,7 @@ public:
   /// \brief Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz
   /// Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr StrainRate<NumericType> Create(
+  [[nodiscard]] static constexpr StrainRate<NumericType> Create(
       const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return StrainRate<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
@@ -136,7 +136,8 @@ public:
   /// \brief Statically creates a strain rate tensor with a given value expressed in a given
   /// frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr StrainRate<NumericType> Create(const SymmetricDyad<NumericType>& value) {
+  [[nodiscard]] static constexpr StrainRate<NumericType> Create(
+      const SymmetricDyad<NumericType>& value) {
     return StrainRate<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }

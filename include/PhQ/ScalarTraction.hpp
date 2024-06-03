@@ -104,14 +104,14 @@ public:
       ScalarTraction<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar traction of zero.
-  static constexpr ScalarTraction<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarTraction<NumericType> Zero() {
     return ScalarTraction<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar traction with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr ScalarTraction<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarTraction<NumericType> Create(const NumericType value) {
     return ScalarTraction<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
