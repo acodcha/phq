@@ -97,14 +97,14 @@ public:
       ScalarHeatFlux<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar heat flux of zero.
-  static constexpr ScalarHeatFlux<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarHeatFlux<NumericType> Zero() {
     return ScalarHeatFlux<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar heat flux with a given value expressed in a given energy
   /// flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr ScalarHeatFlux<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarHeatFlux<NumericType> Create(const NumericType value) {
     return ScalarHeatFlux<NumericType>{
         ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }

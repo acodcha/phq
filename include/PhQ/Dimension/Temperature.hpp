@@ -36,7 +36,7 @@ namespace PhQ::Dimension {
 
 /// \brief Base physical dimension of temperature. Typically denoted "Θ". One of seven independent
 /// base physical dimensions that form the physical dimension set of any unit of measure or physical
-/// quantity.
+/// quantity. Part of PhQ::Dimensions.
 class Temperature {
 public:
   /// \brief Default constructor. Constructs a base physical dimension of temperature with a value

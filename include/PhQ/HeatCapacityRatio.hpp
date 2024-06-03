@@ -141,7 +141,7 @@ public:
       HeatCapacityRatio<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a heat capacity ratio of zero.
-  static constexpr HeatCapacityRatio<NumericType> Zero() {
+  [[nodiscard]] static constexpr HeatCapacityRatio<NumericType> Zero() {
     return HeatCapacityRatio<NumericType>{static_cast<NumericType>(0)};
   }
 

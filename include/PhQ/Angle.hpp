@@ -292,13 +292,13 @@ public:
   constexpr Angle<NumericType>& operator=(Angle<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an angle of zero.
-  static constexpr Angle<NumericType> Zero() {
+  [[nodiscard]] static constexpr Angle<NumericType> Zero() {
     return Angle<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an angle with a given value expressed in a given angle unit.
   template <Unit::Angle Unit>
-  static constexpr Angle<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Angle<NumericType> Create(const NumericType value) {
     return Angle<NumericType>{ConvertStatically<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 

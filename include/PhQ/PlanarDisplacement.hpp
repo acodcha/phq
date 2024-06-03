@@ -135,14 +135,14 @@ public:
       PlanarDisplacement<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar displacement vector of zero.
-  static constexpr PlanarDisplacement<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Zero() {
     return PlanarDisplacement<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar displacement vector from the given x and y Cartesian
   /// components expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarDisplacement<NumericType> Create(
+  [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarDisplacement<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
@@ -152,7 +152,8 @@ public:
   /// \brief Statically creates a planar displacement vector from the given x and y Cartesian
   /// components expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarDisplacement<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+  [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Create(
+      const std::array<NumericType, 2>& x_y) {
     return PlanarDisplacement<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
             PlanarVector<NumericType>{x_y})};
@@ -161,7 +162,8 @@ public:
   /// \brief Statically creates a planar displacement vector with a given value expressed in a given
   /// length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarDisplacement<NumericType> Create(const PlanarVector<NumericType>& value) {
+  [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Create(
+      const PlanarVector<NumericType>& value) {
     return PlanarDisplacement<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }

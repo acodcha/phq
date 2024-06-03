@@ -50,7 +50,7 @@ class DimensionlessPlanarVector {
 public:
   /// \brief Physical dimension set of this physical quantity. Since this physical quantity is
   /// dimensionless, its physical dimension set is simply the null set.
-  static constexpr PhQ::Dimensions Dimensions() {
+  [[nodiscard]] static constexpr PhQ::Dimensions Dimensions() {
     return PhQ::Dimensionless;
   }
 

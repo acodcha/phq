@@ -101,14 +101,15 @@ public:
       ScalarAngularAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar angular acceleration of zero.
-  static constexpr ScalarAngularAcceleration<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarAngularAcceleration<NumericType> Zero() {
     return ScalarAngularAcceleration<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar angular acceleration with a given value expressed in a
   /// given angular acceleration unit.
   template <Unit::AngularAcceleration Unit>
-  static constexpr ScalarAngularAcceleration<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarAngularAcceleration<NumericType> Create(
+      const NumericType value) {
     return ScalarAngularAcceleration<NumericType>{
         ConvertStatically<Unit::AngularAcceleration, Unit, Standard<Unit::AngularAcceleration>>(
             value)};

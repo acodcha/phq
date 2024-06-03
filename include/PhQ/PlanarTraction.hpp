@@ -116,14 +116,15 @@ public:
       PlanarTraction<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar traction vector of zero.
-  static constexpr PlanarTraction<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarTraction<NumericType> Zero() {
     return PlanarTraction<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar traction vector from the given x and y Cartesian components
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PlanarTraction<NumericType> Create(const NumericType x, const NumericType y) {
+  [[nodiscard]] static constexpr PlanarTraction<NumericType> Create(
+      const NumericType x, const NumericType y) {
     return PlanarTraction<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             PlanarVector<NumericType>{x, y})};
@@ -132,7 +133,8 @@ public:
   /// \brief Statically creates a planar traction vector from the given x and y Cartesian components
   /// expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PlanarTraction<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+  [[nodiscard]] static constexpr PlanarTraction<NumericType> Create(
+      const std::array<NumericType, 2>& x_y) {
     return PlanarTraction<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             PlanarVector<NumericType>{x_y})};
@@ -141,7 +143,8 @@ public:
   /// \brief Statically creates a planar traction vector with a given value expressed in a given
   /// pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr PlanarTraction<NumericType> Create(const PlanarVector<NumericType>& value) {
+  [[nodiscard]] static constexpr PlanarTraction<NumericType> Create(
+      const PlanarVector<NumericType>& value) {
     return PlanarTraction<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

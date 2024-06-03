@@ -126,14 +126,14 @@ public:
   constexpr Energy<NumericType>& operator=(Energy<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an energy quantity of zero.
-  static constexpr Energy<NumericType> Zero() {
+  [[nodiscard]] static constexpr Energy<NumericType> Zero() {
     return Energy<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an energy quantity with a given value expressed in a given energy
   /// unit.
   template <Unit::Energy Unit>
-  static constexpr Energy<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Energy<NumericType> Create(const NumericType value) {
     return Energy<NumericType>{
         ConvertStatically<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }

@@ -123,14 +123,14 @@ public:
       KinematicViscosity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a kinematic viscosity of zero.
-  static constexpr KinematicViscosity<NumericType> Zero() {
+  [[nodiscard]] static constexpr KinematicViscosity<NumericType> Zero() {
     return KinematicViscosity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a kinematic viscosity with a given value expressed in a given
   /// diffusivity unit.
   template <Unit::Diffusivity Unit>
-  static constexpr KinematicViscosity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr KinematicViscosity<NumericType> Create(const NumericType value) {
     return KinematicViscosity<NumericType>{
         ConvertStatically<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }

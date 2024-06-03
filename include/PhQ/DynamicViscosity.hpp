@@ -114,14 +114,14 @@ public:
       DynamicViscosity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a dynamic viscosity of zero.
-  static constexpr DynamicViscosity<NumericType> Zero() {
+  [[nodiscard]] static constexpr DynamicViscosity<NumericType> Zero() {
     return DynamicViscosity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a dynamic viscosity with a given value expressed in a given dynamic
   /// viscosity unit.
   template <Unit::DynamicViscosity Unit>
-  static constexpr DynamicViscosity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr DynamicViscosity<NumericType> Create(const NumericType value) {
     return DynamicViscosity<NumericType>{
         ConvertStatically<Unit::DynamicViscosity, Unit, Standard<Unit::DynamicViscosity>>(value)};
   }

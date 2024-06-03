@@ -121,7 +121,7 @@ public:
 
   /// \brief Statically creates a three-dimensional vector with its x, y, and z Cartesian components
   /// initialized to zero.
-  static constexpr Vector<NumericType> Zero() {
+  [[nodiscard]] static constexpr Vector<NumericType> Zero() {
     return Vector<NumericType>{
         std::array<NumericType, 3>{
                                    static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0)}
@@ -150,22 +150,22 @@ public:
 
   /// \brief Returns this three-dimensional vector's x, y, and z Cartesian components as a mutable
   /// array.
-  constexpr std::array<NumericType, 3>& Mutable_x_y_z() noexcept {
+  [[nodiscard]] constexpr std::array<NumericType, 3>& Mutable_x_y_z() noexcept {
     return x_y_z_;
   }
 
   /// \brief Returns this three-dimensional vector's x Cartesian component as a mutable value.
-  constexpr NumericType& Mutable_x() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_x() noexcept {
     return x_y_z_[0];
   }
 
   /// \brief Returns this three-dimensional vector's y Cartesian component as a mutable value.
-  constexpr NumericType& Mutable_y() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_y() noexcept {
     return x_y_z_[1];
   }
 
   /// \brief Returns this three-dimensional vector's z Cartesian component as a mutable value.
-  constexpr NumericType& Mutable_z() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_z() noexcept {
     return x_y_z_[2];
   }
 

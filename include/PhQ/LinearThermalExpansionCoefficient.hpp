@@ -93,14 +93,15 @@ public:
       LinearThermalExpansionCoefficient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a linear thermal expansion coefficient of zero.
-  static constexpr LinearThermalExpansionCoefficient<NumericType> Zero() {
+  [[nodiscard]] static constexpr LinearThermalExpansionCoefficient<NumericType> Zero() {
     return LinearThermalExpansionCoefficient<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a linear thermal expansion coefficient with a given value expressed
   /// in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
-  static constexpr LinearThermalExpansionCoefficient<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr LinearThermalExpansionCoefficient<NumericType> Create(
+      const NumericType value) {
     return LinearThermalExpansionCoefficient<NumericType>{
         ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
   }

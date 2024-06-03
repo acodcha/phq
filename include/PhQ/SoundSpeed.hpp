@@ -115,13 +115,13 @@ public:
   /// \brief Move assignment operator. Assigns this sound speed by moving another one.
   constexpr SoundSpeed<NumericType>& operator=(SoundSpeed<NumericType>&& other) noexcept = default;
 
-  static constexpr SoundSpeed<NumericType> Zero() {
+  [[nodiscard]] static constexpr SoundSpeed<NumericType> Zero() {
     return SoundSpeed<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Creates a sound speed from a given value and speed unit.
   template <Unit::Speed Unit>
-  static constexpr SoundSpeed<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SoundSpeed<NumericType> Create(const NumericType value) {
     return SoundSpeed<NumericType>{
         ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }

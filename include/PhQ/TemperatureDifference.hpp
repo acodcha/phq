@@ -113,14 +113,15 @@ public:
       TemperatureDifference<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a temperature difference of absolute zero.
-  static constexpr TemperatureDifference<NumericType> Zero() {
+  [[nodiscard]] static constexpr TemperatureDifference<NumericType> Zero() {
     return TemperatureDifference<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a temperature difference with a given value expressed in a given
   /// temperature unit.
   template <Unit::TemperatureDifference Unit>
-  static constexpr TemperatureDifference<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr TemperatureDifference<NumericType> Create(
+      const NumericType value) {
     return TemperatureDifference<NumericType>{
         ConvertStatically<Unit::TemperatureDifference, Unit, Standard<Unit::TemperatureDifference>>(
             value)};

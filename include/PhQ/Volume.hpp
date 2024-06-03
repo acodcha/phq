@@ -113,13 +113,13 @@ public:
   constexpr Volume<NumericType>& operator=(Volume<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a volume of zero.
-  static constexpr Volume<NumericType> Zero() {
+  [[nodiscard]] static constexpr Volume<NumericType> Zero() {
     return Volume<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a volume with a given value expressed in a given volume unit.
   template <Unit::Volume Unit>
-  static constexpr Volume<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Volume<NumericType> Create(const NumericType value) {
     return Volume<NumericType>{
         ConvertStatically<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }

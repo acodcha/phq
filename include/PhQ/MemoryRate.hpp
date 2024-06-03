@@ -88,14 +88,14 @@ public:
   constexpr MemoryRate<NumericType>& operator=(MemoryRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a memory rate of zero.
-  static constexpr MemoryRate<NumericType> Zero() {
+  [[nodiscard]] static constexpr MemoryRate<NumericType> Zero() {
     return MemoryRate<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a memory rate with a given value expressed in a given memory rate
   /// unit.
   template <Unit::MemoryRate Unit>
-  static constexpr MemoryRate<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr MemoryRate<NumericType> Create(const NumericType value) {
     return MemoryRate<NumericType>{
         ConvertStatically<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(value)};
   }

@@ -95,7 +95,7 @@ public:
       ReynoldsNumber<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a Reynolds number of zero.
-  static constexpr ReynoldsNumber<NumericType> Zero() {
+  [[nodiscard]] static constexpr ReynoldsNumber<NumericType> Zero() {
     return ReynoldsNumber<NumericType>{static_cast<NumericType>(0)};
   }
 

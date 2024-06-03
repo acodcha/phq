@@ -102,14 +102,14 @@ public:
   constexpr Stress<NumericType>& operator=(Stress<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a stress tensor of zero.
-  static constexpr Stress<NumericType> Zero() {
+  [[nodiscard]] static constexpr Stress<NumericType> Zero() {
     return Stress<NumericType>{SymmetricDyad<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
   /// components expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Stress<NumericType> Create(
+  [[nodiscard]] static constexpr Stress<NumericType> Create(
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return Stress<NumericType>{ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -119,7 +119,8 @@ public:
   /// \brief Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
   /// components expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Stress<NumericType> Create(const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
+  [[nodiscard]] static constexpr Stress<NumericType> Create(
+      const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return Stress<NumericType>{ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
         SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
   }
@@ -127,7 +128,8 @@ public:
   /// \brief Statically creates a stress tensor with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr Stress<NumericType> Create(const SymmetricDyad<NumericType>& value) {
+  [[nodiscard]] static constexpr Stress<NumericType> Create(
+      const SymmetricDyad<NumericType>& value) {
     return Stress<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

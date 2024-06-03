@@ -255,13 +255,13 @@ public:
   constexpr Time<NumericType>& operator=(Time<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a time quantity of zero.
-  static constexpr Time<NumericType> Zero() {
+  [[nodiscard]] static constexpr Time<NumericType> Zero() {
     return Time<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a time quantity with a given value expressed in a given time unit.
   template <Unit::Time Unit>
-  static constexpr Time<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Time<NumericType> Create(const NumericType value) {
     return Time<NumericType>{ConvertStatically<Unit::Time, Unit, Standard<Unit::Time>>(value)};
   }
 

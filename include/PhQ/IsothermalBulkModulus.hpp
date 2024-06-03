@@ -80,14 +80,15 @@ public:
       IsothermalBulkModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an isothermal bulk modulus of zero.
-  static constexpr IsothermalBulkModulus<NumericType> Zero() {
+  [[nodiscard]] static constexpr IsothermalBulkModulus<NumericType> Zero() {
     return IsothermalBulkModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an isothermal bulk modulus with a given value expressed in a given
   /// pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr IsothermalBulkModulus<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr IsothermalBulkModulus<NumericType> Create(
+      const NumericType value) {
     return IsothermalBulkModulus<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

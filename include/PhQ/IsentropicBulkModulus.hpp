@@ -93,14 +93,15 @@ public:
       IsentropicBulkModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an isentropic bulk modulus of zero.
-  static constexpr IsentropicBulkModulus<NumericType> Zero() {
+  [[nodiscard]] static constexpr IsentropicBulkModulus<NumericType> Zero() {
     return IsentropicBulkModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an isentropic bulk modulus with a given value expressed in a given
   /// pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr IsentropicBulkModulus<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr IsentropicBulkModulus<NumericType> Create(
+      const NumericType value) {
     return IsentropicBulkModulus<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

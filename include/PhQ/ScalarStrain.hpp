@@ -112,7 +112,7 @@ public:
       ScalarStrain<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar strain of zero.
-  static constexpr ScalarStrain<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarStrain<NumericType> Zero() {
     return ScalarStrain<NumericType>{static_cast<NumericType>(0)};
   }
 

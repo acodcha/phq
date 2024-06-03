@@ -133,7 +133,7 @@ public:
   constexpr Strain<NumericType>& operator=(Strain<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a strain tensor of zero.
-  static constexpr Strain<NumericType> Zero() {
+  [[nodiscard]] static constexpr Strain<NumericType> Zero() {
     return Strain<NumericType>{SymmetricDyad<NumericType>::Zero()};
   }
 

@@ -78,14 +78,14 @@ public:
       PWaveModulus<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a P-wave modulus of zero.
-  static constexpr PWaveModulus<NumericType> Zero() {
+  [[nodiscard]] static constexpr PWaveModulus<NumericType> Zero() {
     return PWaveModulus<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a P-wave modulus with a given value expressed in a given pressure
   /// unit.
   template <Unit::Pressure Unit>
-  static constexpr PWaveModulus<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr PWaveModulus<NumericType> Create(const NumericType value) {
     return PWaveModulus<NumericType>{
         ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }

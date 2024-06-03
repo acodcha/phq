@@ -105,14 +105,14 @@ public:
       AngularSpeed<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an angular speed of zero.
-  static constexpr AngularSpeed<NumericType> Zero() {
+  [[nodiscard]] static constexpr AngularSpeed<NumericType> Zero() {
     return AngularSpeed<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an angular speed with a given value expressed in a given angular
   /// speed unit.
   template <Unit::AngularSpeed Unit>
-  static constexpr AngularSpeed<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr AngularSpeed<NumericType> Create(const NumericType value) {
     return AngularSpeed<NumericType>{
         ConvertStatically<Unit::AngularSpeed, Unit, Standard<Unit::AngularSpeed>>(value)};
   }

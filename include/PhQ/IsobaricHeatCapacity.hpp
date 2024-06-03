@@ -103,14 +103,14 @@ public:
       IsobaricHeatCapacity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an isobaric heat capacity of zero.
-  static constexpr IsobaricHeatCapacity<NumericType> Zero() {
+  [[nodiscard]] static constexpr IsobaricHeatCapacity<NumericType> Zero() {
     return IsobaricHeatCapacity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates an isobaric heat capacity with a given value expressed in a given
   /// heat capacity unit.
   template <Unit::HeatCapacity Unit>
-  static constexpr IsobaricHeatCapacity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr IsobaricHeatCapacity<NumericType> Create(const NumericType value) {
     return IsobaricHeatCapacity<NumericType>{
         ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }

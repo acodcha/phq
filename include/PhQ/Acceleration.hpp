@@ -115,14 +115,14 @@ public:
       Acceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates an acceleration vector of zero.
-  static constexpr Acceleration<NumericType> Zero() {
+  [[nodiscard]] static constexpr Acceleration<NumericType> Zero() {
     return Acceleration<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates an acceleration vector from the given x, y, and z Cartesian
   /// components expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr Acceleration<NumericType> Create(
+  [[nodiscard]] static constexpr Acceleration<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return Acceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
@@ -132,7 +132,8 @@ public:
   /// \brief Statically creates an acceleration vector from the given x, y, and z Cartesian
   /// components expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr Acceleration<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+  [[nodiscard]] static constexpr Acceleration<NumericType> Create(
+      const std::array<NumericType, 3>& x_y_z) {
     return Acceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
             Vector<NumericType>{x_y_z})};
@@ -141,7 +142,8 @@ public:
   /// \brief Statically creates an acceleration vector with a given value expressed in a given
   /// acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr Acceleration<NumericType> Create(const Vector<NumericType>& value) {
+  [[nodiscard]] static constexpr Acceleration<NumericType> Create(
+      const Vector<NumericType>& value) {
     return Acceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }

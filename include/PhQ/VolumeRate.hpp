@@ -101,14 +101,14 @@ public:
   constexpr VolumeRate<NumericType>& operator=(VolumeRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a volume rate of zero.
-  static constexpr VolumeRate<NumericType> Zero() {
+  [[nodiscard]] static constexpr VolumeRate<NumericType> Zero() {
     return VolumeRate<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a volume rate with a given value expressed in a given volume rate
   /// unit.
   template <Unit::VolumeRate Unit>
-  static constexpr VolumeRate<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr VolumeRate<NumericType> Create(const NumericType value) {
     return VolumeRate<NumericType>{
         ConvertStatically<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
   }

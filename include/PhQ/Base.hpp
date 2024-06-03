@@ -84,7 +84,7 @@ inline const std::map<Enumeration, std::string_view> Abbreviations;
 /// \brief Returns the abbreviation of a given enumeration value. For example,
 /// PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
 template <typename Enumeration>
-inline std::string_view Abbreviation(const Enumeration enumeration) {
+[[nodiscard]] inline std::string_view Abbreviation(const Enumeration enumeration) {
   return Internal::Abbreviations<Enumeration>.find(enumeration)->second;
 }
 
@@ -102,7 +102,7 @@ inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 /// std::optional container that contains the resulting enumeration if successful, or std::nullopt
 /// if the given string could not be parsed into an enumeration of the given type.
 template <typename Enumeration>
-std::optional<Enumeration> ParseEnumeration(const std::string_view spelling) {
+[[nodiscard]] std::optional<Enumeration> ParseEnumeration(const std::string_view spelling) {
   const typename std::unordered_map<std::string_view, Enumeration>::const_iterator found{
       Internal::Spellings<Enumeration>.find(spelling)};
   if (found != Internal::Spellings<Enumeration>.cend()) {

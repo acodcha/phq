@@ -105,14 +105,15 @@ public:
       PlanarPosition<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a planar position vector of zero.
-  static constexpr PlanarPosition<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarPosition<NumericType> Zero() {
     return PlanarPosition<NumericType>{PlanarVector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a planar position vector from the given x and y Cartesian components
   /// expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarPosition<NumericType> Create(const NumericType x, const NumericType y) {
+  [[nodiscard]] static constexpr PlanarPosition<NumericType> Create(
+      const NumericType x, const NumericType y) {
     return PlanarPosition<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
             PlanarVector<NumericType>{x, y})};
@@ -121,7 +122,8 @@ public:
   /// \brief Statically creates a planar position vector from the given x and y Cartesian components
   /// expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarPosition<NumericType> Create(const std::array<NumericType, 2>& x_y) {
+  [[nodiscard]] static constexpr PlanarPosition<NumericType> Create(
+      const std::array<NumericType, 2>& x_y) {
     return PlanarPosition<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
             PlanarVector<NumericType>{x_y})};
@@ -130,7 +132,8 @@ public:
   /// \brief Statically creates a planar position vector with a given value expressed in a given
   /// length unit.
   template <Unit::Length Unit>
-  static constexpr PlanarPosition<NumericType> Create(const PlanarVector<NumericType>& value) {
+  [[nodiscard]] static constexpr PlanarPosition<NumericType> Create(
+      const PlanarVector<NumericType>& value) {
     return PlanarPosition<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }

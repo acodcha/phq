@@ -106,14 +106,15 @@ public:
       DynamicKinematicPressure<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a dynamic kinematic pressure of zero.
-  static constexpr DynamicKinematicPressure<NumericType> Zero() {
+  [[nodiscard]] static constexpr DynamicKinematicPressure<NumericType> Zero() {
     return DynamicKinematicPressure<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a dynamic kinematic pressure with a given value expressed in a given
   /// specific energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr DynamicKinematicPressure<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr DynamicKinematicPressure<NumericType> Create(
+      const NumericType value) {
     return DynamicKinematicPressure<NumericType>{
         ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }

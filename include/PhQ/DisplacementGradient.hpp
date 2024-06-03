@@ -115,7 +115,7 @@ public:
       DisplacementGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a displacement gradient tensor of zero.
-  static constexpr DisplacementGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr DisplacementGradient<NumericType> Zero() {
     return DisplacementGradient<NumericType>{Dyad<NumericType>::Zero()};
   }
 

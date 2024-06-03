@@ -48,13 +48,13 @@ class DimensionalScalar {
 
 public:
   /// \brief Physical dimension set of this physical quantity.
-  static constexpr const PhQ::Dimensions& Dimensions() {
+  [[nodiscard]] static constexpr const PhQ::Dimensions& Dimensions() {
     return PhQ::RelatedDimensions<UnitType>;
   }
 
   /// \brief Standard unit of measure for this physical quantity. This physical quantity's value is
   /// stored internally in this unit of measure.
-  static constexpr UnitType Unit() {
+  [[nodiscard]] static constexpr UnitType Unit() {
     return PhQ::Standard<UnitType>;
   }
 
@@ -77,7 +77,7 @@ public:
 
   /// \brief Returns the value of this physical quantity expressed in its standard unit of measure
   /// as a mutable value.
-  constexpr NumericType& MutableValue() noexcept {
+  [[nodiscard]] constexpr NumericType& MutableValue() noexcept {
     return value;
   }
 

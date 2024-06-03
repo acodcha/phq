@@ -94,14 +94,14 @@ public:
       ScalarStrainRate<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar strain rate of zero.
-  static constexpr ScalarStrainRate<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarStrainRate<NumericType> Zero() {
     return ScalarStrainRate<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar strain rate with a given value expressed in a given
   /// frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr ScalarStrainRate<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarStrainRate<NumericType> Create(const NumericType value) {
     return ScalarStrainRate<NumericType>{
         ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }

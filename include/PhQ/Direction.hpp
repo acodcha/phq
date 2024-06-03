@@ -198,7 +198,7 @@ public:
   constexpr Direction<NumericType>& operator=(Direction<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a direction whose value is the zero vector.
-  static constexpr Direction<NumericType> Zero() {
+  [[nodiscard]] static constexpr Direction<NumericType> Zero() {
     return Direction<NumericType>{};
   }
 

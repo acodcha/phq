@@ -176,13 +176,13 @@ public:
   constexpr Length<NumericType>& operator=(Length<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a length of zero.
-  static constexpr Length<NumericType> Zero() {
+  [[nodiscard]] static constexpr Length<NumericType> Zero() {
     return Length<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a length with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Length<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr Length<NumericType> Create(const NumericType value) {
     return Length<NumericType>{
         ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }

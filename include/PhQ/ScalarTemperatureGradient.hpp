@@ -112,14 +112,15 @@ public:
       ScalarTemperatureGradient<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar temperature gradient of zero.
-  static constexpr ScalarTemperatureGradient<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarTemperatureGradient<NumericType> Zero() {
     return ScalarTemperatureGradient<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar temperature gradient with a given value expressed in a
   /// given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr ScalarTemperatureGradient<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarTemperatureGradient<NumericType> Create(
+      const NumericType value) {
     return ScalarTemperatureGradient<NumericType>{
         ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};

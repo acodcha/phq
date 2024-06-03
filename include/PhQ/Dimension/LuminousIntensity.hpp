@@ -36,7 +36,7 @@ namespace PhQ::Dimension {
 
 /// \brief Base physical dimension of luminous intensity. Typically denoted "J". One of seven
 /// independent base physical dimensions that form the physical dimension set of any unit of measure
-/// or physical quantity.
+/// or physical quantity. Part of PhQ::Dimensions.
 class LuminousIntensity {
 public:
   /// \brief Default constructor. Constructs a base physical dimension of luminous intensity with a

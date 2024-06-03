@@ -117,14 +117,15 @@ public:
       SpecificIsochoricHeatCapacity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a specific isochoric heat capacity of zero.
-  static constexpr SpecificIsochoricHeatCapacity<NumericType> Zero() {
+  [[nodiscard]] static constexpr SpecificIsochoricHeatCapacity<NumericType> Zero() {
     return SpecificIsochoricHeatCapacity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a specific isochoric heat capacity with a given value expressed in a
   /// given specific heat capacity unit.
   template <Unit::SpecificHeatCapacity Unit>
-  static constexpr SpecificIsochoricHeatCapacity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr SpecificIsochoricHeatCapacity<NumericType> Create(
+      const NumericType value) {
     return SpecificIsochoricHeatCapacity<NumericType>{
         ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
             value)};

@@ -104,14 +104,14 @@ public:
       ThermalDiffusivity<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a thermal diffusivity of zero.
-  static constexpr ThermalDiffusivity<NumericType> Zero() {
+  [[nodiscard]] static constexpr ThermalDiffusivity<NumericType> Zero() {
     return ThermalDiffusivity<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a thermal diffusivity with a given value expressed in a given
   /// diffusivity unit.
   template <Unit::Diffusivity Unit>
-  static constexpr ThermalDiffusivity<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ThermalDiffusivity<NumericType> Create(const NumericType value) {
     return ThermalDiffusivity<NumericType>{
         ConvertStatically<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }

@@ -109,14 +109,14 @@ public:
       ScalarAcceleration<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a scalar acceleration of zero.
-  static constexpr ScalarAcceleration<NumericType> Zero() {
+  [[nodiscard]] static constexpr ScalarAcceleration<NumericType> Zero() {
     return ScalarAcceleration<NumericType>{static_cast<NumericType>(0)};
   }
 
   /// \brief Statically creates a scalar acceleration with a given value expressed in a given
   /// acceleration unit.
   template <Unit::Acceleration Unit>
-  static constexpr ScalarAcceleration<NumericType> Create(const NumericType value) {
+  [[nodiscard]] static constexpr ScalarAcceleration<NumericType> Create(const NumericType value) {
     return ScalarAcceleration<NumericType>{
         ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }

@@ -91,14 +91,14 @@ public:
   constexpr VectorArea<NumericType>& operator=(VectorArea<NumericType>&& other) noexcept = default;
 
   /// \brief Statically creates a vector area of zero.
-  static constexpr VectorArea<NumericType> Zero() {
+  [[nodiscard]] static constexpr VectorArea<NumericType> Zero() {
     return VectorArea<NumericType>{Vector<NumericType>::Zero()};
   }
 
   /// \brief Statically creates a vector area from the given x, y, and z Cartesian components
   /// expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea<NumericType> Create(
+  [[nodiscard]] static constexpr VectorArea<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return VectorArea<NumericType>{
         ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x, y, z})};
@@ -107,14 +107,15 @@ public:
   /// \brief Statically creates a vector area from the given x, y, and z Cartesian components
   /// expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea<NumericType> Create(const std::array<NumericType, 3>& x_y_z) {
+  [[nodiscard]] static constexpr VectorArea<NumericType> Create(
+      const std::array<NumericType, 3>& x_y_z) {
     return VectorArea<NumericType>{
         ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a vector area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea<NumericType> Create(const Vector<NumericType>& value) {
+  [[nodiscard]] static constexpr VectorArea<NumericType> Create(const Vector<NumericType>& value) {
     return VectorArea<NumericType>{
         ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }

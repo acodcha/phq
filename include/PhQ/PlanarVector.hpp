@@ -125,7 +125,7 @@ public:
 
   /// \brief Statically creates a two-dimensional planar vector with its x and y Cartesian
   /// components initialized to zero.
-  static constexpr PlanarVector<NumericType> Zero() {
+  [[nodiscard]] static constexpr PlanarVector<NumericType> Zero() {
     return PlanarVector<NumericType>{
         std::array<NumericType, 2>{static_cast<NumericType>(0), static_cast<NumericType>(0)}
     };
@@ -148,17 +148,17 @@ public:
 
   /// \brief Returns this two-dimensional planar vector's x and y Cartesian components as a mutable
   /// array.
-  constexpr std::array<NumericType, 2>& Mutable_x_y() noexcept {
+  [[nodiscard]] constexpr std::array<NumericType, 2>& Mutable_x_y() noexcept {
     return x_y_;
   }
 
   /// \brief Returns this two-dimensional planar vector's x Cartesian component as a mutable value.
-  constexpr NumericType& Mutable_x() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_x() noexcept {
     return x_y_[0];
   }
 
   /// \brief Returns this two-dimensional planar vector's y Cartesian component as a mutable value.
-  constexpr NumericType& Mutable_y() noexcept {
+  [[nodiscard]] constexpr NumericType& Mutable_y() noexcept {
     return x_y_[1];
   }
 
