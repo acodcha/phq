@@ -235,11 +235,11 @@ PhQ::HeatFlux heat_flux{{-200.0,  // x
                         PhQ::Unit::EnergyFlux::WattPerSquareMetre};
 heat_flux /= 7.0;
 PhQ::ScalarHeatFlux magnitude = heat_flux.Magnitude();
-std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::EnergyFlux::WattPerSquareMetre) << std::endl;
+std::cout << "Magnitude: " << magnitude.Print() << std::endl;
 // Magnitude: 100.000000000000000 W/m^2
 ```
 
-The above example creates a heat flux of (-200, 300, -600) W/m^2, divides it by 7, computes its magnitude, and prints the magnitude in pounds, which results in 100 W/m^2.
+The above example creates a heat flux of (-200, 300, -600) W/m^2, divides it by 7, and computes and prints its magnitude, which results in 100 W/m^2.
 
 Two-dimensional planar vectors in the XY plane are also supported. For example:
 
@@ -253,7 +253,7 @@ std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::Force::Pound) << std::e
 // Magnitude: 1000.00000000000000 lbf
 ```
 
-The above example creates a planar force of (-300, 400) lbf, doubles it, computes its magnitude, and prints the magnitude in pounds, which results in 1000 lbf.
+The above example creates a planar force of (-300, 400) lbf, doubles it, computes its magnitude, and prints the magnitude in pounds, which results in 1,000 lbf.
 
 The components of dyadic tensors are listed in alphabetical order: xx, xy, xz, yx, yy, yz, zx, zy, and zz. Some dyadic tensor physical quantities are symmetric while others are asymmetric. Symmetric dyadic tensors only need to specify their upper triangular components: xx, xy, xz, yy, yz, and zz. For example:
 
@@ -270,7 +270,7 @@ std::cout << "Equivalent von Mises stress: " << stress.VonMises() << std::endl;
 // Equivalent von Mises stress: 2.26053091109146290e+07 Pa
 ```
 
-The above example creates a stress quantity, asserts that it is symmetric, and computes and prints its equivalent von Mises stress.
+The above example creates a stress tensor, asserts that it is symmetric, and computes and prints its equivalent von Mises stress.
 
 [(Back to Usage)](#usage)
 
@@ -286,7 +286,7 @@ std::cout << "Acceleration: " << acceleration << std::endl;
 // Acceleration: (5.00000000000000000, -1.00000000000000000, 2.00000000000000000) m/s^2
 ```
 
-The above example creates a velocity quantity of (50, -10, 20) m/s and a time quantity of 10 s, then divides the velocity by the time to produce an acceleration quantity of (5, -1, 2) m/s^2.
+The above example creates a velocity of (50, -10, 20) m/s and a time of 10 s, then divides the velocity by the time to produce an acceleration of (5, -1, 2) m/s^2.
 
 Similarly, other meaningful mathematical operations are supported via member methods and constructors. For example:
 
@@ -303,11 +303,11 @@ std::cout << "Angle: " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
 // Angle: 90.0000000000000000 deg
 ```
 
-The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
+The above example creates a displacement of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
 
 The Physical Quantities library checks for divisions by zero in certain critical internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
 
-However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard such that divisions by zero result in `inf`, `-inf`, or `NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
+However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard such that divisions by zero result in `inf`, `-inf`, or `NaN`. If any of these special cases are a concern, use `try` and `catch` blocks or standard C++ utilities such as `std::isfinite`.
 
 Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
 
@@ -370,14 +370,14 @@ for (const double value : values) {
 The above example converts a collection of values from joules to foot-pounds. The same results can also be achieved using physical quantities instead of raw floating-point values. For example:
 
 ```C++
-const std::vector<PhQ::Energy<>> quantities = {
+const std::vector<PhQ::Energy<>> energies{
     {10.0, PhQ::Unit::Energy::Joule},
     {20.0, PhQ::Unit::Energy::Joule},
     {30.0, PhQ::Unit::Energy::Joule},
     {40.0, PhQ::Unit::Energy::Joule},
 };
-for (const PhQ::Energy<>& quantity : quantities) {
-  std::cout << quantity.Value(PhQ::Unit::Energy::FootPound) << std::endl;
+for (const PhQ::Energy& energy : energies) {
+  std::cout << energy.Value(PhQ::Unit::Energy::FootPound) << std::endl;
 }
 // 7.37562
 // 14.7512
@@ -402,17 +402,17 @@ Data can be expressed in the consistent units of any of these unit systems. The 
 
 ```C++
 PhQ::UnitSystem system = PhQ::UnitSystem::FootPoundSecondRankine;
-PhQ::Unit::SpecificEnergy unit = PhQ::ConsistentUnit<PhQ::Unit::SpecificEnergy>(system);
-std::cout << unit << std::endl;
+PhQ::Unit::SpecificEnergy consistent_unit = PhQ::ConsistentUnit<PhQ::Unit::SpecificEnergy>(system);
+std::cout << consistent_unit << std::endl;
 // ft·lbf/slug
 
 PhQ::SpecificEnergy specific_energy{10.0, PhQ::Unit::SpecificEnergy::JoulePerKilogram};
-double value = specific_energy.Value(unit);
+double value = specific_energy.Value(consistent_unit);
 std::cout << value << std::endl;
 // 107.639
 ```
 
-The above example creates a mass-specific energy quantity of 10 J/kg. Then, the mass-specific energy unit corresponding to the foot-pound-second-rankine (ft·lbf·s·°R) system is obtained, and the mass-specific energy value is expressed in this unit of measure.
+The above example obtains the consistent unit of mass-specific energy in the foot-pound-second-rankine (ft·lbf·s·°R) system, creates a mass-specific energy of 10 J/kg, and expresses this mass-specific energy in the consistent unit.
 
 Given a unit, it is also possible to obtain its related system of units, if any, with the `PhQ::RelatedUnitSystem` function. For example:
 
