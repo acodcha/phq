@@ -40,6 +40,9 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensional scalar physical quantity. Such a
 /// physical quantity is composed of a value and a unit of measure where the value is a scalar
 /// number.
+/// \tparam UnitType Unit of measure enumeration type.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename UnitType, typename NumericType = double>
 class DimensionalScalar {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -183,6 +186,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensional scalar physical quantity by copying another
   /// one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionalScalar(const DimensionalScalar<UnitType, OtherNumericType>& other)
     : value(static_cast<NumericType>(other.Value())) {}
@@ -198,6 +203,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensional scalar physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionalScalar<UnitType, NumericType>& operator=(
       const DimensionalScalar<UnitType, OtherNumericType>& other) {

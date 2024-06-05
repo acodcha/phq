@@ -42,6 +42,8 @@ namespace PhQ {
 /// Such a physical quantity is composed only of a value where the value is a three-dimensional
 /// dyadic tensor. The tensor may be non-symmetric. Such a physical quantity has no unit of measure
 /// and no dimension set.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class DimensionlessDyad {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -120,6 +122,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensionless dyadic tensor physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionlessDyad(const DimensionlessDyad<OtherNumericType>& other)
     : value(static_cast<PhQ::Dyad<NumericType>>(other.Value())) {}
@@ -135,6 +139,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensionless dyadic tensor physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionlessDyad<NumericType>& operator=(
       const DimensionlessDyad<OtherNumericType>& other) {

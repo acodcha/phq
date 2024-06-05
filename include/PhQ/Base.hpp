@@ -47,6 +47,8 @@
 namespace PhQ {
 
 /// \brief The mathematical constant π = 3.14...
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 inline constexpr NumericType Pi;
 
@@ -60,9 +62,9 @@ inline constexpr float Pi<float>{3.1415927F};
 template <>
 inline constexpr double Pi<double>{3.14159265358979323846};
 
-/// \brief The mathematical constant π = 3.14... expressed as a "long double". The exact
-/// implementation of the "long double" type varies by system; the most common implementations are
-/// 64-bit, 80-bit, 96-bit, or 128-bit binary floating-point numbers.
+/// \brief The mathematical constant π = 3.14... expressed as an extended-precision binary
+/// floating-point number. The exact implementation of the extended-precision type varies; the most
+/// common implementations are 64-bit, 80-bit, 96-bit, or 128-bit binary floating-point numbers.
 template <>
 inline constexpr const long double Pi<long double>{3.141592653589793238462643383279502884L};
 
@@ -114,6 +116,8 @@ template <typename Enumeration>
 /// \brief Parses the given string as a number of the given numeric type. Returns a std::optional
 /// container that contains the resulting number if successful, or std::nullopt if the string could
 /// not be parsed into the given numeric type.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 [[nodiscard]] inline std::optional<NumericType> ParseNumber(const std::string& string);
 
@@ -161,6 +165,7 @@ template <>
 
 /// \brief Prints a given floating-point number as a string. Prints enough digits to represent the
 /// number exactly. The printed number of digits depends on the type of the floating-point number.
+/// \tparam NumericType Floating-point numeric type of the given value. Deduced automatically.
 template <typename NumericType>
 [[nodiscard]] inline std::string Print(const NumericType value) {
   static_assert(std::is_floating_point<NumericType>::value,

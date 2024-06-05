@@ -40,6 +40,9 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensional planar vector physical quantity. Such
 /// a physical quantity is composed of a value and a unit of measure where the value is a two-
 /// dimensional planar vector in the XY plane.
+/// \tparam UnitType Unit of measure enumeration type.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename UnitType, typename NumericType = double>
 class DimensionalPlanarVector {
 public:
@@ -182,6 +185,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensional planar vector physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionalPlanarVector(
       const DimensionalPlanarVector<UnitType, OtherNumericType>& other)
@@ -199,6 +204,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensional planar vector physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionalPlanarVector<UnitType, NumericType>& operator=(
       const DimensionalPlanarVector<UnitType, OtherNumericType>& other) {

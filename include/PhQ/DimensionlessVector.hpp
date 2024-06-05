@@ -41,6 +41,8 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensionless vector physical quantity. Such a
 /// physical quantity is composed only of a value where the value is a three-dimensional vector.
 /// Such a physical quantity has no unit of measure and no dimension set.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class DimensionlessVector {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -105,6 +107,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensionless vector physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionlessVector(const DimensionlessVector<OtherNumericType>& other)
     : value(static_cast<PhQ::Vector<NumericType>>(other.Value())) {}
@@ -120,6 +124,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensionless vector physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionlessVector<NumericType>& operator=(
       const DimensionlessVector<OtherNumericType>& other) {
