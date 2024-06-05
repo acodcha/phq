@@ -103,10 +103,6 @@ class PlanarTraction;
 
 // Forward declaration for class PhQ::Angle.
 template <typename NumericType>
-class PlanarVectorArea;
-
-// Forward declaration for class PhQ::Angle.
-template <typename NumericType>
 class PlanarVelocity;
 
 // Forward declaration for class PhQ::Angle.
@@ -209,11 +205,6 @@ public:
   /// acceleration vectors.
   Angle(const PlanarAcceleration<NumericType>& planar_acceleration_1,
         const PlanarAcceleration<NumericType>& planar_acceleration_2);
-
-  /// \brief Constructor. Constructs an angle by computing the angle between two given planar vector
-  /// areas.
-  Angle(const PlanarVectorArea<NumericType>& planar_vector_area_1,
-        const PlanarVectorArea<NumericType>& planar_vector_area_2);
 
   /// \brief Constructor. Constructs an angle by computing the angle between two given planar
   /// displacements.
@@ -401,13 +392,13 @@ inline constexpr Angle<NumericType> operator*(
 
 template <typename NumericType>
 inline PhQ::Angle<NumericType> PlanarVector<NumericType>::Angle(
-    const PlanarVector<NumericType>& planar_vector) const {
-  return PhQ::Angle{*this, planar_vector};
+    const PlanarVector<NumericType>& other) const {
+  return PhQ::Angle{*this, other};
 }
 
 template <typename NumericType>
-inline PhQ::Angle<NumericType> Vector<NumericType>::Angle(const Vector<NumericType>& vector) const {
-  return PhQ::Angle{*this, vector};
+inline PhQ::Angle<NumericType> Vector<NumericType>::Angle(const Vector<NumericType>& other) const {
+  return PhQ::Angle{*this, other};
 }
 
 }  // namespace PhQ

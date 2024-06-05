@@ -40,6 +40,9 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensional dyadic tensor physical quantity. Such
 /// a physical quantity is composed of a value and a unit of measure where the value is a
 /// three-dimensional dyadic tensor. The tensor may be non-symmetric.
+/// \tparam UnitType Unit of measure enumeration type.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename UnitType, typename NumericType = double>
 class DimensionalDyad {
 public:
@@ -179,6 +182,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensional dyadic tensor physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionalDyad(const DimensionalDyad<UnitType, OtherNumericType>& other)
     : value(static_cast<PhQ::Dyad<NumericType>>(other.Value())) {}
@@ -194,6 +199,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensional dyadic tensor physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionalDyad<UnitType, NumericType>& operator=(
       const DimensionalDyad<UnitType, OtherNumericType>& other) {

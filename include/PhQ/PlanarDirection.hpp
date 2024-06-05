@@ -78,10 +78,6 @@ class PlanarTraction;
 
 // Forward declaration for class PhQ::PlanarDirection.
 template <typename NumericType>
-class PlanarVectorArea;
-
-// Forward declaration for class PhQ::PlanarDirection.
-template <typename NumericType>
 class PlanarVelocity;
 
 // Forward declaration for class PhQ::PlanarDirection.
@@ -167,9 +163,6 @@ public:
 
   /// \brief Constructor. Constructs a planar direction from a planar traction.
   explicit PlanarDirection(const PlanarTraction<NumericType>& planar_traction);
-
-  /// \brief Constructor. Constructs a planar direction from a planar vector area.
-  explicit PlanarDirection(const PlanarVectorArea<NumericType>& planar_vector_area);
 
   /// \brief Constructor. Constructs a planar direction from a planar velocity.
   explicit PlanarDirection(const PlanarVelocity<NumericType>& planar_velocity);
@@ -319,8 +312,6 @@ public:
 
   constexpr PlanarAcceleration<NumericType> operator*(
       const ScalarAcceleration<NumericType>& scalar_acceleration) const;
-
-  constexpr PlanarVectorArea<NumericType> operator*(const Area<NumericType>& area) const;
 
   constexpr PlanarPosition<NumericType> operator*(const Length<NumericType>& length) const;
 

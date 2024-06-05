@@ -45,10 +45,6 @@ class Force;
 
 // Forward declaration for class PhQ::Area.
 template <typename NumericType>
-class PlanarVectorArea;
-
-// Forward declaration for class PhQ::Area.
-template <typename NumericType>
 class ScalarForce;
 
 // Forward declaration for class PhQ::Area.
@@ -156,9 +152,6 @@ public:
   constexpr ScalarForce<NumericType> operator*(
       const StaticPressure<NumericType>& static_pressure) const;
 
-  constexpr PlanarVectorArea<NumericType> operator*(
-      const PlanarDirection<NumericType>& planar_direction) const;
-
   constexpr VectorArea<NumericType> operator*(const Direction<NumericType>& direction) const;
 
   constexpr Area<NumericType> operator/(const NumericType number) const {
@@ -193,9 +186,6 @@ private:
   /// \brief Constructor. Constructs an area with a given value expressed in the standard area unit.
   explicit constexpr Area(const NumericType value)
     : DimensionalScalar<Unit::Area, NumericType>(value) {}
-
-  template <typename OtherArea>
-  friend class PlanarVectorArea;
 
   template <typename OtherArea>
   friend class VectorArea;

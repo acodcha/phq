@@ -57,6 +57,8 @@ class Vector;
 /// coordinates: x and y. For a three-dimensional Euclidean vector, see PhQ::Vector. For a
 /// three-dimensional Euclidean dyadic tensor, see PhQ::Dyad. For a three-dimensional symmetric
 /// Euclidean dyadic tensor, see PhQ::SymmetricDyad.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class PlanarVector {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -201,9 +203,8 @@ public:
 
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
   /// two-dimensional planar vector and another one.
-  [[nodiscard]] constexpr NumericType Dot(
-      const PlanarVector<NumericType>& planar_vector) const noexcept {
-    return x_y_[0] * planar_vector.x_y_[0] + x_y_[1] * planar_vector.x_y_[1];
+  [[nodiscard]] constexpr NumericType Dot(const PlanarVector<NumericType>& other) const noexcept {
+    return x_y_[0] * other.x_y_[0] + x_y_[1] * other.x_y_[1];
   }
 
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
@@ -213,8 +214,7 @@ public:
 
   /// \brief Returns the cross product (also known as the vector product) of this two-dimensional
   /// planar vector and another one.
-  [[nodiscard]] constexpr Vector<NumericType> Cross(
-      const PlanarVector<NumericType>& planar_vector) const;
+  [[nodiscard]] constexpr Vector<NumericType> Cross(const PlanarVector<NumericType>& other) const;
 
   /// \brief Returns the cross product (also known as the vector product) of this two-dimensional
   /// planar vector and a given planar direction.
@@ -223,8 +223,7 @@ public:
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// two-dimensional planar vector and another one.
-  [[nodiscard]] constexpr Dyad<NumericType> Dyadic(
-      const PlanarVector<NumericType>& planar_vector) const;
+  [[nodiscard]] constexpr Dyad<NumericType> Dyadic(const PlanarVector<NumericType>& other) const;
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// two-dimensional planar vector and a given planar direction.
@@ -232,7 +231,7 @@ public:
       const PhQ::PlanarDirection<NumericType>& planar_direction) const;
 
   /// \brief Returns the angle between this two-dimensional planar vector and another one.
-  [[nodiscard]] PhQ::Angle<NumericType> Angle(const PlanarVector<NumericType>& planar_vector) const;
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const PlanarVector<NumericType>& other) const;
 
   /// \brief Returns the angle between this two-dimensional planar vector and a given planar
   /// direction.
@@ -259,22 +258,30 @@ public:
     return "{x:" + PhQ::Print(x_y_[0]) + ",y:" + PhQ::Print(x_y_[1]) + "}";
   }
 
-  constexpr void operator+=(const PlanarVector<NumericType>& planar_vector) noexcept {
-    x_y_[0] += planar_vector.x_y_[0];
-    x_y_[1] += planar_vector.x_y_[1];
+  /// \brief Adds another two-dimensional planar vector to this one.
+  constexpr void operator+=(const PlanarVector<NumericType>& other) noexcept {
+    x_y_[0] += other.x_y_[0];
+    x_y_[1] += other.x_y_[1];
   }
 
-  constexpr void operator-=(const PlanarVector<NumericType>& planar_vector) noexcept {
-    x_y_[0] -= planar_vector.x_y_[0];
-    x_y_[1] -= planar_vector.x_y_[1];
+  /// \brief Subtracts another two-dimensional planar vector from this one.
+  constexpr void operator-=(const PlanarVector<NumericType>& other) noexcept {
+    x_y_[0] -= other.x_y_[0];
+    x_y_[1] -= other.x_y_[1];
   }
 
+  /// \brief Multiplies this two-dimensional planar vector by the given number.
+  /// \tparam OtherNumericType Floating-point numeric type of the given number. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr void operator*=(const OtherNumericType number) noexcept {
     x_y_[0] *= static_cast<NumericType>(number);
     x_y_[1] *= static_cast<NumericType>(number);
   }
 
+  /// \brief Divides this two-dimensional planar vector by the given number.
+  /// \tparam OtherNumericType Floating-point numeric type of the given number. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr void operator/=(const OtherNumericType number) noexcept {
     x_y_[0] /= static_cast<NumericType>(number);

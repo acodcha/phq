@@ -44,6 +44,8 @@ namespace PhQ {
 /// three-dimensional Euclidean dyadic tensor which may be symmetric or asymmetric, see PhQ::Dyad.
 /// For a three-dimensional Euclidean vector, see PhQ::Vector. For a two-dimensional Euclidean
 /// vector in the XY plane, see PhQ::PlanarVector.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class SymmetricDyad {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -384,24 +386,29 @@ public:
            + "}";
   }
 
-  constexpr void operator+=(const SymmetricDyad<NumericType>& symmetric_dyad) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
-    xx_xy_xz_yy_yz_zz_[1] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
-    xx_xy_xz_yy_yz_zz_[2] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
-    xx_xy_xz_yy_yz_zz_[3] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[3];
-    xx_xy_xz_yy_yz_zz_[4] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[4];
-    xx_xy_xz_yy_yz_zz_[5] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
+  /// \brief Adds another three-dimensional symmetric dyadic tensor to this one.
+  constexpr void operator+=(const SymmetricDyad<NumericType>& other) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] += other.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] += other.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] += other.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] += other.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] += other.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] += other.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator-=(const SymmetricDyad<NumericType>& symmetric_dyad) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
-    xx_xy_xz_yy_yz_zz_[1] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
-    xx_xy_xz_yy_yz_zz_[2] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
-    xx_xy_xz_yy_yz_zz_[3] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[3];
-    xx_xy_xz_yy_yz_zz_[4] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[4];
-    xx_xy_xz_yy_yz_zz_[5] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
+  /// \brief Subtracts another three-dimensional symmetric dyadic tensor from this one.
+  constexpr void operator-=(const SymmetricDyad<NumericType>& other) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] -= other.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] -= other.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] -= other.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] -= other.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] -= other.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] -= other.xx_xy_xz_yy_yz_zz_[5];
   }
 
+  /// \brief Multiplies this three-dimensional symmetric dyadic tensor by the given number.
+  /// \tparam OtherNumericType Floating-point numeric type of the given number. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr void operator*=(const OtherNumericType number) noexcept {
     xx_xy_xz_yy_yz_zz_[0] *= static_cast<NumericType>(number);
@@ -412,6 +419,9 @@ public:
     xx_xy_xz_yy_yz_zz_[5] *= static_cast<NumericType>(number);
   }
 
+  /// \brief Divides this three-dimensional symmetric dyadic tensor by the given number.
+  /// \tparam OtherNumericType Floating-point numeric type of the given number. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr void operator/=(const OtherNumericType number) noexcept {
     xx_xy_xz_yy_yz_zz_[0] /= static_cast<NumericType>(number);

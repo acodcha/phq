@@ -54,6 +54,8 @@ class Dyad;
 /// x, y, and z. For a two-dimensional Euclidean vector in the XY plane, see PhQ::PlanarVector. For
 /// a three-dimensional Euclidean dyadic tensor, see PhQ::Dyad. For a three-dimensional symmetric
 /// Euclidean dyadic tensor, see PhQ::SymmetricDyad.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class Vector {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -213,9 +215,8 @@ public:
 
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
   /// three-dimensional vector and another one.
-  [[nodiscard]] constexpr NumericType Dot(const Vector<NumericType>& vector) const noexcept {
-    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
-           + x_y_z_[2] * vector.x_y_z_[2];
+  [[nodiscard]] constexpr NumericType Dot(const Vector<NumericType>& other) const noexcept {
+    return x_y_z_[0] * other.x_y_z_[0] + x_y_z_[1] * other.x_y_z_[1] + x_y_z_[2] * other.x_y_z_[2];
   }
 
   /// \brief Returns the dot product (also known as the inner product or scalar product) of this
@@ -225,10 +226,10 @@ public:
 
   /// \brief Returns the cross product (also known as the vector product) of this three-dimensional
   /// vector and another one.
-  [[nodiscard]] constexpr Vector<NumericType> Cross(const Vector<NumericType>& vector) const {
-    return Vector<NumericType>{x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
-                               x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
-                               x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
+  [[nodiscard]] constexpr Vector<NumericType> Cross(const Vector<NumericType>& other) const {
+    return Vector<NumericType>{x_y_z_[1] * other.x_y_z_[2] - x_y_z_[2] * other.x_y_z_[1],
+                               x_y_z_[2] * other.x_y_z_[0] - x_y_z_[0] * other.x_y_z_[2],
+                               x_y_z_[0] * other.x_y_z_[1] - x_y_z_[1] * other.x_y_z_[0]};
   }
 
   /// \brief Returns the cross product (also known as the vector product) of this three-dimensional
@@ -238,7 +239,7 @@ public:
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// three-dimensional vector and another one.
-  [[nodiscard]] constexpr Dyad<NumericType> Dyadic(const Vector<NumericType>& vector) const;
+  [[nodiscard]] constexpr Dyad<NumericType> Dyadic(const Vector<NumericType>& other) const;
 
   /// \brief Returns the dyadic tensor product (also known as the outer product) of this
   /// three-dimensional vector and a given direction.
@@ -246,7 +247,7 @@ public:
       const PhQ::Direction<NumericType>& direction) const;
 
   /// \brief Returns the angle between this three-dimensional vector and another one.
-  [[nodiscard]] PhQ::Angle<NumericType> Angle(const Vector<NumericType>& vector) const;
+  [[nodiscard]] PhQ::Angle<NumericType> Angle(const Vector<NumericType>& other) const;
 
   /// \brief Returns the angle between this three-dimensional vector and a given direction.
   [[nodiscard]] PhQ::Angle<NumericType> Angle(const PhQ::Direction<NumericType>& direction) const;
@@ -275,18 +276,23 @@ public:
            + ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  constexpr void operator+=(const Vector<NumericType>& vector) noexcept {
-    x_y_z_[0] += vector.x_y_z_[0];
-    x_y_z_[1] += vector.x_y_z_[1];
-    x_y_z_[2] += vector.x_y_z_[2];
+  /// \brief Adds another three-dimensional vector to this one.
+  constexpr void operator+=(const Vector<NumericType>& other) noexcept {
+    x_y_z_[0] += other.x_y_z_[0];
+    x_y_z_[1] += other.x_y_z_[1];
+    x_y_z_[2] += other.x_y_z_[2];
   }
 
-  constexpr void operator-=(const Vector<NumericType>& vector) noexcept {
-    x_y_z_[0] -= vector.x_y_z_[0];
-    x_y_z_[1] -= vector.x_y_z_[1];
-    x_y_z_[2] -= vector.x_y_z_[2];
+  /// \brief Subtracts another three-dimensional vector from this one.
+  constexpr void operator-=(const Vector<NumericType>& other) noexcept {
+    x_y_z_[0] -= other.x_y_z_[0];
+    x_y_z_[1] -= other.x_y_z_[1];
+    x_y_z_[2] -= other.x_y_z_[2];
   }
 
+  /// \brief Multiplies this three-dimensional vector by the given number.
+  /// \tparam OtherNumericType Floating-point numeric type of the given number. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr void operator*=(const OtherNumericType number) noexcept {
     x_y_z_[0] *= static_cast<NumericType>(number);
@@ -294,6 +300,9 @@ public:
     x_y_z_[2] *= static_cast<NumericType>(number);
   }
 
+  /// \brief Divides this three-dimensional vector by the given number.
+  /// \tparam OtherNumericType Floating-point numeric type of the given number. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr void operator/=(const OtherNumericType number) noexcept {
     x_y_z_[0] /= static_cast<NumericType>(number);
@@ -400,9 +409,9 @@ inline constexpr PlanarVector<NumericType>::PlanarVector(const Vector<NumericTyp
 
 template <typename NumericType>
 [[nodiscard]] constexpr Vector<NumericType> PlanarVector<NumericType>::Cross(
-    const PlanarVector<NumericType>& planar_vector) const {
+    const PlanarVector<NumericType>& other) const {
   return Vector<NumericType>{static_cast<NumericType>(0), static_cast<NumericType>(0),
-                             x_y_[0] * planar_vector.x_y_[1] - x_y_[1] * planar_vector.x_y_[0]};
+                             x_y_[0] * other.x_y_[1] - x_y_[1] * other.x_y_[0]};
 }
 
 }  // namespace PhQ

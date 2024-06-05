@@ -41,6 +41,8 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensionless planar vector physical quantity.
 /// Such a physical quantity is composed only of a value where the value is a two-dimensional planar
 /// vector in the XY plane. Such a physical quantity has no unit of measure and no dimension set.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class DimensionlessPlanarVector {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -108,6 +110,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensionless planar vector physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionlessPlanarVector(
       const DimensionlessPlanarVector<OtherNumericType>& other)
@@ -125,6 +129,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensionless planar vector physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionlessPlanarVector<NumericType>& operator=(
       const DimensionlessPlanarVector<OtherNumericType>& other) {

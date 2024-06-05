@@ -41,6 +41,8 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensionless scalar physical quantity. Such a
 /// physical quantity is composed only of a value where the value is a scalar number. Such a
 /// physical quantity has no unit of measure and no dimension set.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename NumericType = double>
 class DimensionlessScalar {
   static_assert(std::is_floating_point<NumericType>::value,
@@ -106,6 +108,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensionless scalar physical quantity by copying
   /// another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionlessScalar(const DimensionlessScalar<OtherNumericType>& other)
     : value(static_cast<NumericType>(other.Value())) {}
@@ -121,6 +125,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensionless scalar physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionlessScalar<NumericType>& operator=(
       const DimensionlessScalar<OtherNumericType>& other) {

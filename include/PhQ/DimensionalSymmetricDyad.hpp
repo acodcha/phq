@@ -40,6 +40,9 @@ namespace PhQ {
 /// \brief Abstract base class that represents any dimensional symmetric dyadic tensor physical
 /// quantity. Such a physical quantity is composed of a value and a unit of measure where the value
 /// is a three-dimensional symmetric dyadic tensor.
+/// \tparam UnitType Unit of measure enumeration type.
+/// \tparam NumericType Floating-point numeric type: float, double, or long double. Defaults to
+/// double if unspecified.
 template <typename UnitType, typename NumericType = double>
 class DimensionalSymmetricDyad {
 public:
@@ -182,6 +185,8 @@ protected:
 
   /// \brief Copy constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by
   /// copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   explicit constexpr DimensionalSymmetricDyad(
       const DimensionalSymmetricDyad<UnitType, OtherNumericType>& other)
@@ -199,6 +204,8 @@ protected:
 
   /// \brief Copy assignment operator. Assigns this dimensional symmetric dyadic tensor physical
   /// quantity by copying another one.
+  /// \tparam OtherNumericType Floating-point numeric type of the other physical quantity. Deduced
+  /// automatically.
   template <typename OtherNumericType>
   constexpr DimensionalSymmetricDyad<UnitType, NumericType>& operator=(
       const DimensionalSymmetricDyad<UnitType, OtherNumericType>& other) {
