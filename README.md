@@ -1,4 +1,4 @@
-# Physical Quantities (PhQ)
+# Physical Quantities
 
 [![tests](https://github.com/acodcha/phq/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/phq/actions/workflows/tests.yaml)
 
@@ -51,7 +51,7 @@ The Physical Quantities library requires the following packages:
   - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative means of installation.
   - **Bazel:** Follow the instructions at <https://bazel.build/install> to install Bazel on your system.
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ## Configuration
 
@@ -60,7 +60,7 @@ The Physical Quantities library can be configured with either the CMake build sy
 - [CMake](#configuration-cmake)
 - [Bazel](#configuration-bazel)
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ### Configuration: CMake
 
@@ -78,7 +78,7 @@ else()
         PhQ
         GIT_REPOSITORY https://github.com/acodcha/phq.git
         GIT_TAG main
-    )
+    )  # You can also use a specific version such as v1.0.0 instead of the main branch.
     FetchContent_MakeAvailable(PhQ)
     message(STATUS "The PhQ library was fetched from https://github.com/acodcha/phq.git")
 endif()
@@ -107,6 +107,7 @@ git_repository(
     remote = "https://github.com/acodcha/phq.git",
     branch = "main",
 )
+# Alternatively, you can use a version tag instead of a branch, such as: tag = "v1.0.0",
 ```
 
 The above code automatically downloads the Physical Quantities library and makes it available to your Bazel targets.
@@ -132,7 +133,7 @@ cc_library(
     ],
     copts = [
         "-your-other-parameters",
-        "-std=c++17"  # Or any more recent C++ standard.
+        "-std=c++17",  # Or any more recent C++ standard.
     ],
 )
 ```
@@ -155,7 +156,7 @@ This section contains basic usage information of the Physical Quantities library
 - [Models](#usage-models)
 - [Dimensions](#usage-dimensions)
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ### Usage: Basics
 
@@ -171,7 +172,7 @@ std::cout << "Average: " << average.Print(PhQ::Unit::Temperature::Celsius) << st
 
 The above example creates two temperature quantities, computes their average, and prints the result.
 
-Physical quantities support the `float`, `double`, and `long double` floating-point number types. A physical quantity's type is inferred from its constructor arguments and can also be explicitly specified. If no type is explicitly specified and the default constructor is used, the `double` type is used by default. For example:
+Physical quantities support the `float`, `double`, and `long double` floating-point numeric types. A physical quantity's type is inferred from its constructor arguments and can also be explicitly specified. If no type is explicitly specified and the default constructor is used, the `double` type is used by default. For example:
 
 ```C++
 // Defaults to PhQ::Area<double>.
@@ -305,6 +306,23 @@ std::cout << "Angle: " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
 
 The above example creates a displacement of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
 
+Physical quantities define the standard comparison operators (`==`, `!=`, `<`, `>`, `<=`, and `>=`) and specialize the `std::hash` function object such that they can be used in standard containers such as `std::set`, `std::unordered_set`, `std::map`, and `std::unordered_map`. For example:
+
+```C++
+assert(PhQ::MachNumber(0.8) == PhQ::MachNumber(0.8));
+assert(PhQ::ReynoldsNumber(5000.0) > PhQ::ReynoldsNumber(200.0));
+
+std::set<PhQ::AngularSpeed> angular_speed_set{
+  PhQ::AngularSpeed(1.23, PhQ::Unit::AngularSpeed::RadianPerSecond),
+  PhQ::AngularSpeed(4.56, PhQ::Unit::AngularSpeed::RevolutionPerMinute),
+};  // Uses the less-than comparison operator (<).
+
+std::unordered_set<PhQ::StaticPressure> static_pressure_unordered_set{
+  PhQ::StaticPressure(1.23, PhQ::Unit::Pressure::Kilopascal),
+  PhQ::StaticPressure(4.56, PhQ::Unit::Pressure::Bar),
+};  // Uses std::hash<PhQ::StaticPressure>.
+```
+
 The Physical Quantities library checks for divisions by zero in certain critical internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
 
 However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length<>::Zero() / PhQ::Time<>::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating-point arithmetic standard such that divisions by zero result in `inf`, `-inf`, or `NaN`. If any of these special cases are a concern, use `try` and `catch` blocks or standard C++ utilities such as `std::isfinite`.
@@ -353,7 +371,7 @@ std::cout << "Frequency: " << standard << " = " << kilohertz << std::endl;
 
 The above example creates a 1234.56789 Hz frequency and prints it both in hertz and in kilohertz.
 
-Unit conversions can also be performed explicitly on raw floating-point numbers without the use of physical quantities through the `PhQ::Convert`, `PhQ::ConvertInPlace`, and `PhQ::ConvertStatically` functions, which take one or more floating-point values, an original unit, and a new unit. For example:
+Unit conversions can also be performed directly on raw floating-point numbers through the `PhQ::Convert`, `PhQ::ConvertInPlace`, and `PhQ::ConvertStatically` functions, which take one or more floating-point values, an original unit, and a new unit. For example:
 
 ```C++
 std::vector<double> values = {10.0, 20.0, 30.0, 40.0};
@@ -525,7 +543,7 @@ doxygen Doxyfile
 
 This builds HTML documentation pages in the `PhQ/docs/html/` directory. Browse the documentation by opening the `PhQ/docs/html/index.html` file in a web browser.
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ## Installation
 
@@ -544,7 +562,7 @@ sudo make install
 
 This is a header-only library, so no compilation is needed. On most systems, the above code installs this library's headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ## Testing
 
@@ -577,7 +595,7 @@ bazel build //:all
 bazel test //:all
 ```
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ## Coverage
 
@@ -604,7 +622,7 @@ make --jobs=16
 
 This generates an HTML report in the `PhQ/coverage/` directory. Browse the report by opening the `PhQ/coverage/index.html` file in a web browser.
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
 
 ## License
 
@@ -612,13 +630,11 @@ Copyright © 2020-2024 Alexandre Coderre-Chabot
 
 Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 
-The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
-
-Physical Quantities (PhQ) is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
+The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>. Physical Quantities is authored by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the MIT License; see the [license file](LICENSE) or <https://mit-license.org>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 - The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[(Back to Top)](#physical-quantities-phq)
+[(Back to Top)](#physical-quantities)
