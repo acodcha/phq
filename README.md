@@ -320,7 +320,7 @@ std::set<PhQ::AngularSpeed<>> angular_speed_set{
 std::unordered_set<PhQ::StaticPressure<>> static_pressure_unordered_set{
   PhQ::StaticPressure(1.23, PhQ::Unit::Pressure::Kilopascal),
   PhQ::StaticPressure(4.56, PhQ::Unit::Pressure::Bar),
-};  // Uses std::hash<PhQ::StaticPressure>.
+};  // Uses std::hash<PhQ::StaticPressure<>>.
 ```
 
 The Physical Quantities library checks for divisions by zero in certain critical internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
