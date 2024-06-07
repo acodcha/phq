@@ -310,12 +310,12 @@
 /// assert(PhQ::MachNumber(0.8) == PhQ::MachNumber(0.8));
 /// assert(PhQ::ReynoldsNumber(5000.0) > PhQ::ReynoldsNumber(200.0));
 ///
-/// std::set<PhQ::AngularSpeed> angular_speed_set{
+/// std::set<PhQ::AngularSpeed<>> angular_speed_set{
 ///   PhQ::AngularSpeed(1.23, PhQ::Unit::AngularSpeed::RadianPerSecond),
 ///   PhQ::AngularSpeed(4.56, PhQ::Unit::AngularSpeed::RevolutionPerMinute),
 /// };  // Uses the less-than comparison operator (<).
 ///
-/// std::unordered_set<PhQ::StaticPressure> static_pressure_unordered_set{
+/// std::unordered_set<PhQ::StaticPressure<>> static_pressure_unordered_set{
 ///   PhQ::StaticPressure(1.23, PhQ::Unit::Pressure::Kilopascal),
 ///   PhQ::StaticPressure(4.56, PhQ::Unit::Pressure::Bar),
 /// };  // Uses std::hash<PhQ::StaticPressure>.
