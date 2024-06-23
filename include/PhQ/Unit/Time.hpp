@@ -102,6 +102,8 @@ inline const std::map<UnitSystem, Unit::Time> ConsistentUnits<Unit::Time>{
 template <>
 inline const std::map<Unit::Time, UnitSystem> RelatedUnitSystems<Unit::Time>{};
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Time, std::string_view> Abbreviations<Unit::Time>{
     {Unit::Time::Nanosecond,  "ns" },
@@ -136,6 +138,8 @@ inline const std::unordered_map<std::string_view, Unit::Time> Spellings<Unit::Ti
     {"hour",         Unit::Time::Hour       },
     {"hours",        Unit::Time::Hour       },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

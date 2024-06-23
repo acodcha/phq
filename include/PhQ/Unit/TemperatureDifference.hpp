@@ -101,6 +101,8 @@ template <>
 inline const std::map<Unit::TemperatureDifference, UnitSystem>
     RelatedUnitSystems<Unit::TemperatureDifference>{};
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::TemperatureDifference, std::string_view>
     Abbreviations<Unit::TemperatureDifference>{
@@ -126,6 +128,8 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
         {"F",    Unit::TemperatureDifference::Fahrenheit},
         {"degF", Unit::TemperatureDifference::Fahrenheit},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

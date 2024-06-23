@@ -102,6 +102,8 @@ inline const std::map<Unit::SolidAngle, std::string_view> Abbreviations<Unit::So
     {Unit::SolidAngle::SquareArcsecond, "arcsec^2"},
 };
 
+// clang-format off
+
 template <>
 inline const std::unordered_map<std::string_view, Unit::SolidAngle> Spellings<Unit::SolidAngle>{
     {"sr",           Unit::SolidAngle::Steradian      },
@@ -142,6 +144,8 @@ inline const std::unordered_map<std::string_view, Unit::SolidAngle> Spellings<Un
     {"arcseconds^2", Unit::SolidAngle::SquareArcsecond},
     {"arcseconds2",  Unit::SolidAngle::SquareArcsecond},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

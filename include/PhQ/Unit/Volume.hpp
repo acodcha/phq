@@ -134,6 +134,8 @@ inline const std::map<Unit::Volume, UnitSystem> RelatedUnitSystems<Unit::Volume>
     {Unit::Volume::CubicInch,       UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Volume, std::string_view> Abbreviations<Unit::Volume>{
     {Unit::Volume::CubicNauticalMile, "nmi^3"},
@@ -194,6 +196,8 @@ inline const std::unordered_map<std::string_view, Unit::Volume> Spellings<Unit::
     {"uin^3",       Unit::Volume::CubicMicroinch   },
     {"uin3",        Unit::Volume::CubicMicroinch   },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

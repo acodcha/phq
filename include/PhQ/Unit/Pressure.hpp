@@ -123,6 +123,8 @@ inline const std::map<Unit::Pressure, std::string_view> Abbreviations<Unit::Pres
     {Unit::Pressure::PoundPerSquareInch, "lbf/in^2"},
 };
 
+// clang-format off
+
 template <>
 inline const std::unordered_map<std::string_view, Unit::Pressure> Spellings<Unit::Pressure>{
     {"Pa",         Unit::Pressure::Pascal            },
@@ -161,6 +163,8 @@ inline const std::unordered_map<std::string_view, Unit::Pressure> Spellings<Unit
     {"lb/in2",     Unit::Pressure::PoundPerSquareInch},
     {"psi",        Unit::Pressure::PoundPerSquareInch},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

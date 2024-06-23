@@ -104,6 +104,8 @@ inline const std::map<Unit::Angle, std::string_view> Abbreviations<Unit::Angle>{
     {Unit::Angle::Revolution, "rev"   },
 };
 
+// clang-format off
+
 template <>
 inline const std::unordered_map<std::string_view, Unit::Angle> Spellings<Unit::Angle>{
     {"rad",         Unit::Angle::Radian    },
@@ -128,6 +130,8 @@ inline const std::unordered_map<std::string_view, Unit::Angle> Spellings<Unit::A
     {"revolution",  Unit::Angle::Revolution},
     {"revolutions", Unit::Angle::Revolution},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

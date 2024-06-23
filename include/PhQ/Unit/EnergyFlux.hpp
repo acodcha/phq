@@ -102,6 +102,8 @@ inline const std::map<Unit::EnergyFlux, UnitSystem> RelatedUnitSystems<Unit::Ene
     {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::EnergyFlux, std::string_view> Abbreviations<Unit::EnergyFlux>{
     {Unit::EnergyFlux::WattPerSquareMetre,              "W/m^2"        },
@@ -168,6 +170,8 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<Un
     {"slinch/s^3",      Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
     {"slinch/s3",       Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

@@ -5,32 +5,6 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  cmake:
-    name: Build and test with CMake
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: Install the C++ and CMake packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes g++ cmake
-      - name: Configure the PhQ library
-        run: |
-          mkdir --parents build
-          cd build
-          cmake .. -D PHYSICAL_QUANTITIES_PHQ_TEST=ON
-      - name: Build the PhQ tests
-        run: |
-          cd build
-          make --jobs=16
-      - name: Run the PhQ tests
-        run: |
-          cd build
-          make test
-      - name: Install the PhQ library
-        run: |
-          cd build
-          sudo make install
   bazel:
     name: Build and test with Bazel
     runs-on: ubuntu-latest
@@ -46,7 +20,49 @@ jobs:
           echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
           sudo apt-get update
           sudo apt-get install --yes bazel
-      - name: Build the PhQ tests
-        run: bazel build //:all
-      - name: Run the PhQ tests
+      - name: Build and run the Physical Quantities library tests
         run: bazel test //:all
+  cmake:
+    name: Build and test with CMake
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Install the C++ and CMake packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes g++ cmake
+      - name: Configure the Physical Quantities library
+        run: |
+          mkdir --parents build
+          cd build
+          cmake .. -D PHYSICAL_QUANTITIES_PHQ_TEST=ON
+      - name: Build the Physical Quantities library tests
+        run: |
+          cd build
+          make --jobs=16
+      - name: Run the Physical Quantities library tests
+        run: |
+          cd build
+          make test
+      - name: Install the Physical Quantities library
+        run: |
+          cd build
+          sudo make install
+  formatting:
+    name: Check source code formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Install the Findutils and ClangFormat packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes findutils clang-format-14
+      - name: Check that all source code files are correctly formatted
+        run: |
+          find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i
+          CHANGES=$(git diff --name-only)
+          if ! [ -z "$CHANGES" ]; then
+            echo "Some source code files are incorrectly formatted. To format all source code files, run:"
+            echo "    find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i"
+            exit 1;
+          fi

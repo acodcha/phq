@@ -102,6 +102,8 @@ inline const std::map<Unit::SpecificEnergy, UnitSystem> RelatedUnitSystems<Unit:
     {Unit::SpecificEnergy::InchPoundPerSlinch, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::SpecificEnergy, std::string_view> Abbreviations<Unit::SpecificEnergy>{
     {Unit::SpecificEnergy::JoulePerKilogram,   "J/kg"         },
@@ -152,6 +154,8 @@ inline const std::unordered_map<std::string_view, Unit::SpecificEnergy> Spelling
     {"in^2/s^2",      Unit::SpecificEnergy::InchPoundPerSlinch},
     {"in2/s2",        Unit::SpecificEnergy::InchPoundPerSlinch},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

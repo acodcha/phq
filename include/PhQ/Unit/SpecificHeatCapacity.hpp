@@ -105,6 +105,8 @@ inline const std::map<Unit::SpecificHeatCapacity, UnitSystem> RelatedUnitSystems
     {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::SpecificHeatCapacity, std::string_view>
     Abbreviations<Unit::SpecificHeatCapacity>{
@@ -420,6 +422,8 @@ inline const std::unordered_map<std::string_view, Unit::SpecificHeatCapacity> Sp
     {"in2/(s2·F)",         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine},
     {"in2/(s2*F)",         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

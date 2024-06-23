@@ -134,6 +134,8 @@ inline const std::map<Unit::Area, UnitSystem> RelatedUnitSystems<Unit::Area>{
     {Unit::Area::SquareInch,       UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
     {Unit::Area::SquareNauticalMile, "nmi^2"},
@@ -187,15 +189,17 @@ inline const std::unordered_map<std::string_view, Unit::Area> Spellings<Unit::Ar
     {"mil2",        Unit::Area::SquareMilliinch   },
     {"thou^2",      Unit::Area::SquareMilliinch   },
     {"thou2",       Unit::Area::SquareMilliinch   },
-    {"μm^2",       Unit::Area::SquareMicrometre  },
-    {"μm2",        Unit::Area::SquareMicrometre  },
+    {"μm^2",        Unit::Area::SquareMicrometre  },
+    {"μm2",         Unit::Area::SquareMicrometre  },
     {"um^2",        Unit::Area::SquareMicrometre  },
     {"um2",         Unit::Area::SquareMicrometre  },
-    {"μin^2",      Unit::Area::SquareMicroinch   },
-    {"μin2",       Unit::Area::SquareMicroinch   },
+    {"μin^2",       Unit::Area::SquareMicroinch   },
+    {"μin2",        Unit::Area::SquareMicroinch   },
     {"uin^2",       Unit::Area::SquareMicroinch   },
     {"uin2",        Unit::Area::SquareMicroinch   },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

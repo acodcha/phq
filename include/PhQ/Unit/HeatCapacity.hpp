@@ -102,6 +102,8 @@ inline const std::map<Unit::HeatCapacity, UnitSystem> RelatedUnitSystems<Unit::H
     {Unit::HeatCapacity::InchPoundPerRankine, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::HeatCapacity, std::string_view> Abbreviations<Unit::HeatCapacity>{
     {Unit::HeatCapacity::JoulePerKelvin,      "J/K"      },
@@ -153,6 +155,8 @@ inline const std::unordered_map<std::string_view, Unit::HeatCapacity> Spellings<
     {"in*lb/°R",       Unit::HeatCapacity::InchPoundPerRankine},
     {"in*lb/R",        Unit::HeatCapacity::InchPoundPerRankine},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

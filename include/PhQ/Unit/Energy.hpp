@@ -185,6 +185,8 @@ inline const std::map<Unit::Energy, UnitSystem> RelatedUnitSystems<Unit::Energy>
     {Unit::Energy::InchPound, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Energy, std::string_view> Abbreviations<Unit::Energy>{
     {Unit::Energy::Joule,              "J"     },
@@ -291,6 +293,8 @@ inline const std::unordered_map<std::string_view, Unit::Energy> Spellings<Unit::
     {"BTU",        Unit::Energy::BritishThermalUnit},
     {"btu",        Unit::Energy::BritishThermalUnit},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

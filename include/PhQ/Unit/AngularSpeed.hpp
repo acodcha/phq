@@ -149,6 +149,8 @@ inline const std::map<Unit::AngularSpeed, std::string_view> Abbreviations<Unit::
     {Unit::AngularSpeed::RevolutionPerHour,   "rev/hr"    },
 };
 
+// clang-format off
+
 template <>
 inline const std::unordered_map<std::string_view, Unit::AngularSpeed> Spellings<Unit::AngularSpeed>{
     {"rad/s",      Unit::AngularSpeed::RadianPerSecond    },
@@ -170,6 +172,8 @@ inline const std::unordered_map<std::string_view, Unit::AngularSpeed> Spellings<
     {"rev/min",    Unit::AngularSpeed::RevolutionPerMinute},
     {"rev/hr",     Unit::AngularSpeed::RevolutionPerHour  },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

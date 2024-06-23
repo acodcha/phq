@@ -116,6 +116,8 @@ inline const std::map<Unit::TemperatureGradient, UnitSystem>
         {Unit::TemperatureGradient::RankinePerInch,      UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::TemperatureGradient, std::string_view>
     Abbreviations<Unit::TemperatureGradient>{
@@ -157,6 +159,8 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureGradient>
         {"F/in",    Unit::TemperatureGradient::FahrenheitPerInch   },
         {"degF/in", Unit::TemperatureGradient::FahrenheitPerInch   },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>
