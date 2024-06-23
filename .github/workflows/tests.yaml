@@ -5,6 +5,23 @@ on:
   pull_request:
     branches: [main]
 jobs:
+  bazel:
+    name: Build and test with Bazel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Install the C++ and Curl packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes g++ curl
+      - name: Install the Bazel package
+        run: |
+          curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+          echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+          sudo apt-get update
+          sudo apt-get install --yes bazel
+      - name: Build and run the Physical Quantities library tests
+        run: bazel test //:all
   cmake:
     name: Build and test with CMake
     runs-on: ubuntu-latest
@@ -31,32 +48,15 @@ jobs:
         run: |
           cd build
           sudo make install
-  bazel:
-    name: Build and test with Bazel
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: Install the C++ and Curl packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes g++ curl
-      - name: Install the Bazel package
-        run: |
-          curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
-          echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
-          sudo apt-get update
-          sudo apt-get install --yes bazel
-      - name: Build and run the Physical Quantities library tests
-        run: bazel test //:all
   formatting:
     name: Check source code formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - name: Install the Grep, Cut, and ClangFormat packages
+      - name: Install the Findutils and ClangFormat packages
         run: |
           sudo apt-get update
-          sudo apt-get install --yes grep cut clang-format-14
+          sudo apt-get install --yes findutils clang-format-14
       - name: Check that all source code files are correctly formatted
         run: |
           find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i
