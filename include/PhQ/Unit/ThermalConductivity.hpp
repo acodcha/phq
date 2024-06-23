@@ -101,6 +101,8 @@ inline const std::map<Unit::ThermalConductivity, UnitSystem>
          UnitSystem::MillimetreGramSecondKelvin                                                          },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::ThermalConductivity, std::string_view>
     Abbreviations<Unit::ThermalConductivity>{
@@ -233,6 +235,8 @@ inline const std::unordered_map<std::string_view, Unit::ThermalConductivity> Spe
     {"lb/(s*F)",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
     {"lb/(s*degF)",     Unit::ThermalConductivity::PoundPerSecondPerRankine      },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

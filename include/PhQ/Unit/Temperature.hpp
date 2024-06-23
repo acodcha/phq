@@ -98,6 +98,8 @@ inline const std::map<UnitSystem, Unit::Temperature> ConsistentUnits<Unit::Tempe
 template <>
 inline const std::map<Unit::Temperature, UnitSystem> RelatedUnitSystems<Unit::Temperature>{};
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Temperature, std::string_view> Abbreviations<Unit::Temperature>{
     {Unit::Temperature::Kelvin,     "K" },
@@ -121,6 +123,8 @@ inline const std::unordered_map<std::string_view, Unit::Temperature> Spellings<U
     {"F",    Unit::Temperature::Fahrenheit},
     {"degF", Unit::Temperature::Fahrenheit},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

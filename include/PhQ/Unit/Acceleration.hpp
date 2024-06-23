@@ -207,6 +207,8 @@ inline const std::map<Unit::Acceleration, UnitSystem> RelatedUnitSystems<Unit::A
     {Unit::Acceleration::InchPerSquareSecond,       UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Acceleration, std::string_view> Abbreviations<Unit::Acceleration>{
     {Unit::Acceleration::NauticalMilePerSquareSecond, "nmi/s^2"  },
@@ -416,6 +418,8 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
     {"uin/hr2",           Unit::Acceleration::MicroinchPerSquareHour     },
     {"uin/hr/hr",         Unit::Acceleration::MicroinchPerSquareHour     },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

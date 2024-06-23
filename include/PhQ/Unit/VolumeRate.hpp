@@ -225,6 +225,8 @@ inline const std::map<Unit::VolumeRate, UnitSystem> RelatedUnitSystems<Unit::Vol
     {Unit::VolumeRate::CubicInchPerSecond,       UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::VolumeRate, std::string_view> Abbreviations<Unit::VolumeRate>{
     {Unit::VolumeRate::CubicNauticalMilePerSecond, "nmi^3/s"  },
@@ -391,6 +393,8 @@ inline const std::unordered_map<std::string_view, Unit::VolumeRate> Spellings<Un
     {"uin^3/hr",        Unit::VolumeRate::CubicMicroinchPerHour     },
     {"uin3/hr",         Unit::VolumeRate::CubicMicroinchPerHour     },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

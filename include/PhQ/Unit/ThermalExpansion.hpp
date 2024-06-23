@@ -98,6 +98,8 @@ template <>
 inline const std::map<Unit::ThermalExpansion, UnitSystem>
     RelatedUnitSystems<Unit::ThermalExpansion>{};
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::ThermalExpansion, std::string_view>
     Abbreviations<Unit::ThermalExpansion>{
@@ -135,6 +137,8 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
         {"/F",     Unit::ThermalExpansion::PerFahrenheit},
         {"/degF",  Unit::ThermalExpansion::PerFahrenheit},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

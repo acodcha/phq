@@ -160,6 +160,8 @@ inline const std::map<UnitSystem, Unit::ElectricCharge> ConsistentUnits<Unit::El
 template <>
 inline const std::map<Unit::ElectricCharge, UnitSystem> RelatedUnitSystems<Unit::ElectricCharge>{};
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::ElectricCharge, std::string_view> Abbreviations<Unit::ElectricCharge>{
     {Unit::ElectricCharge::Coulomb,           "C"     },
@@ -239,6 +241,8 @@ inline const std::unordered_map<std::string_view, Unit::ElectricCharge> Spelling
     {"nA·hr",  Unit::ElectricCharge::NanoampereHour   },
     {"nA*hr",  Unit::ElectricCharge::NanoampereHour   },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

@@ -119,6 +119,8 @@ template <>
 inline const std::map<Unit::ElectricCurrent, UnitSystem>
     RelatedUnitSystems<Unit::ElectricCurrent>{};
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::ElectricCurrent, std::string_view> Abbreviations<Unit::ElectricCurrent>{
     {Unit::ElectricCurrent::Ampere,                    "A"    },
@@ -150,6 +152,8 @@ inline const std::unordered_map<std::string_view, Unit::ElectricCurrent>
         {"e/min", Unit::ElectricCurrent::ElementaryChargePerMinute},
         {"e/hr",  Unit::ElectricCurrent::ElementaryChargePerHour  },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

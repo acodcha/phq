@@ -135,6 +135,8 @@ inline const std::map<Unit::Diffusivity, UnitSystem> RelatedUnitSystems<Unit::Di
     {Unit::Diffusivity::SquareInchPerSecond,       UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Diffusivity, std::string_view> Abbreviations<Unit::Diffusivity>{
     {Unit::Diffusivity::SquareNauticalMilePerSecond, "nmi^2/s"},
@@ -195,6 +197,8 @@ inline const std::unordered_map<std::string_view, Unit::Diffusivity> Spellings<U
     {"uin^2/s",       Unit::Diffusivity::SquareMicroinchPerSecond   },
     {"uin2/s",        Unit::Diffusivity::SquareMicroinchPerSecond   },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

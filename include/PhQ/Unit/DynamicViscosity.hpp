@@ -110,6 +110,8 @@ inline const std::map<Unit::DynamicViscosity, UnitSystem>
         {Unit::DynamicViscosity::PoundSecondPerSquareInch, UnitSystem::InchPoundSecondRankine},
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::DynamicViscosity, std::string_view>
     Abbreviations<Unit::DynamicViscosity>{
@@ -182,6 +184,8 @@ inline const std::unordered_map<std::string_view, Unit::DynamicViscosity> Spelli
     {"psi·s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
     {"psi*s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

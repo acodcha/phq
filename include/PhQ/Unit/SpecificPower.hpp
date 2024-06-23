@@ -102,6 +102,8 @@ inline const std::map<Unit::SpecificPower, UnitSystem> RelatedUnitSystems<Unit::
     {Unit::SpecificPower::InchPoundPerSlinchPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::SpecificPower, std::string_view> Abbreviations<Unit::SpecificPower>{
     {Unit::SpecificPower::WattPerKilogram,             "W/kg"           },
@@ -236,6 +238,8 @@ inline const std::unordered_map<std::string_view, Unit::SpecificPower> Spellings
     {"in^2/s^3",          Unit::SpecificPower::InchPoundPerSlinchPerSecond},
     {"in2/s3",            Unit::SpecificPower::InchPoundPerSlinchPerSecond},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

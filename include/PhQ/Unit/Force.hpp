@@ -114,6 +114,8 @@ inline const std::map<Unit::Force, UnitSystem> RelatedUnitSystems<Unit::Force>{
     {Unit::Force::Micronewton, UnitSystem::MillimetreGramSecondKelvin},
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Force, std::string_view> Abbreviations<Unit::Force>{
     {Unit::Force::Newton,      "N"  },
@@ -152,6 +154,8 @@ inline const std::unordered_map<std::string_view, Unit::Force> Spellings<Unit::F
     {"lbf",      Unit::Force::Pound      },
     {"lb",       Unit::Force::Pound      },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

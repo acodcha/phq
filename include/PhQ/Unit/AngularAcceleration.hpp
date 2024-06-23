@@ -152,6 +152,8 @@ inline const std::map<Unit::AngularAcceleration, std::string_view>
         {Unit::AngularAcceleration::RevolutionPerSquareHour,   "rev/hr^2"    },
 };
 
+// clang-format off
+
 template <>
 inline const std::unordered_map<std::string_view, Unit::AngularAcceleration> Spellings<
     Unit::AngularAcceleration>{
@@ -210,6 +212,8 @@ inline const std::unordered_map<std::string_view, Unit::AngularAcceleration> Spe
     {"rev/hr2",        Unit::AngularAcceleration::RevolutionPerSquareHour  },
     {"rev/hr/hr",      Unit::AngularAcceleration::RevolutionPerSquareHour  },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

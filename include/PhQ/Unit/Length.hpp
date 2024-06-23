@@ -128,6 +128,8 @@ inline const std::map<Unit::Length, UnitSystem> RelatedUnitSystems<Unit::Length>
     {Unit::Length::Inch,       UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Length, std::string_view> Abbreviations<Unit::Length>{
     {Unit::Length::NauticalMile, "nmi"},
@@ -210,6 +212,8 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::
     {"microinch",      Unit::Length::Microinch   },
     {"microinches",    Unit::Length::Microinch   },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

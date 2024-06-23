@@ -151,6 +151,8 @@ inline const std::map<Unit::TransportEnergyConsumption, UnitSystem>
         {Unit::TransportEnergyConsumption::InchPoundPerInch,       UnitSystem::InchPoundSecondRankine   },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::TransportEnergyConsumption, std::string_view>
     Abbreviations<Unit::TransportEnergyConsumption>{
@@ -212,6 +214,8 @@ inline const std::unordered_map<std::string_view, Unit::TransportEnergyConsumpti
         {"in·lbf/in", Unit::TransportEnergyConsumption::InchPoundPerInch          },
         {"in·lb/in",  Unit::TransportEnergyConsumption::InchPoundPerInch          },
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>

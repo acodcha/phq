@@ -116,6 +116,8 @@ inline const std::map<Unit::Power, UnitSystem> RelatedUnitSystems<Unit::Power>{
     {Unit::Power::InchPoundPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
+// clang-format off
+
 template <>
 inline const std::map<Unit::Power, std::string_view> Abbreviations<Unit::Power>{
     {Unit::Power::Watt,               "W"       },
@@ -170,6 +172,8 @@ inline const std::unordered_map<std::string_view, Unit::Power> Spellings<Unit::P
     {"in·lb/s",    Unit::Power::InchPoundPerSecond},
     {"in*lb/s",    Unit::Power::InchPoundPerSecond},
 };
+
+// clang-format on
 
 template <>
 template <typename NumericType>
