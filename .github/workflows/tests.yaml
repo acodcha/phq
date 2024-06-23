@@ -62,6 +62,7 @@ jobs:
           find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i
           CHANGES=$(git diff --name-only)
           if ! [ -z "$CHANGES" ]; then
-            echo "Some source code files are incorrectly formatted. Run 'find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i' to format all source code files."
+            echo "Some source code files are incorrectly formatted. To format all source code files, run:"
+            echo "    find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i"
             exit 1;
           fi
