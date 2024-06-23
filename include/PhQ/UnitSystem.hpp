@@ -74,7 +74,6 @@ inline constexpr const UnitSystem Standard<UnitSystem>{UnitSystem::MetreKilogram
 
 namespace Internal {
 
-
 // clang-format off
 
 template <>
