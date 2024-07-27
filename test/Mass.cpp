@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Mass.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -183,6 +184,14 @@ TEST(Mass, MutableValue) {
   double& value = mass.MutableValue();
   value = 2.0;
   EXPECT_EQ(mass.Value(), 2.0);
+}
+
+TEST(Mass, Performance) {
+  Mass first{1.2345678901234567890, Unit::Mass::Kilogram};
+  Mass second{1.2345678901234567890, Unit::Mass::Kilogram};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Mass, Print) {

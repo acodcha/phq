@@ -35,6 +35,7 @@
 #include "../include/PhQ/Unit/HeatCapacity.hpp"
 #include "../include/PhQ/Unit/Mass.hpp"
 #include "../include/PhQ/Unit/SpecificHeatCapacity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -275,6 +276,16 @@ TEST(SpecificIsochoricHeatCapacity, MutableValue) {
   double& value = quantity.MutableValue();
   value = 2.0;
   EXPECT_EQ(quantity.Value(), 2.0);
+}
+
+TEST(SpecificIsochoricHeatCapacity, Performance) {
+  SpecificIsochoricHeatCapacity first{
+      1.2345678901234567890, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  SpecificIsochoricHeatCapacity second{
+      1.2345678901234567890, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(SpecificIsochoricHeatCapacity, Print) {

@@ -34,6 +34,7 @@
 #include "../include/PhQ/Unit/Diffusivity.hpp"
 #include "../include/PhQ/Unit/DynamicViscosity.hpp"
 #include "../include/PhQ/Unit/MassDensity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -217,6 +218,14 @@ TEST(DynamicViscosity, MutableValue) {
   double& value = dynamic_viscosity.MutableValue();
   value = 2.0;
   EXPECT_EQ(dynamic_viscosity.Value(), 2.0);
+}
+
+TEST(DynamicViscosity, Performance) {
+  DynamicViscosity first{1.2345678901234567890, Unit::DynamicViscosity::PascalSecond};
+  DynamicViscosity second{1.2345678901234567890, Unit::DynamicViscosity::PascalSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(DynamicViscosity, Print) {

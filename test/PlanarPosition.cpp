@@ -37,6 +37,7 @@
 #include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -90,39 +91,39 @@ TEST(PlanarPosition, ArithmeticOperatorSubtraction) {
 
 TEST(PlanarPosition, AssignmentOperatorAddition) {
   {
-    PlanarPosition position({1.0, -2.0}, Unit::Length::Metre);
-    position += PlanarPosition({2.0, -4.0}, Unit::Length::Metre);
-    EXPECT_EQ(position, PlanarPosition({3.0, -6.0}, Unit::Length::Metre));
+    PlanarPosition planar_position({1.0, -2.0}, Unit::Length::Metre);
+    planar_position += PlanarPosition({2.0, -4.0}, Unit::Length::Metre);
+    EXPECT_EQ(planar_position, PlanarPosition({3.0, -6.0}, Unit::Length::Metre));
   }
   {
-    PlanarPosition position({1.0, -2.0}, Unit::Length::Metre);
-    position += PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
-    EXPECT_EQ(position, PlanarPosition({3.0, -6.0}, Unit::Length::Metre));
+    PlanarPosition planar_position({1.0, -2.0}, Unit::Length::Metre);
+    planar_position += PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
+    EXPECT_EQ(planar_position, PlanarPosition({3.0, -6.0}, Unit::Length::Metre));
   }
 }
 
 TEST(PlanarPosition, AssignmentOperatorDivision) {
-  PlanarPosition position({2.0, -4.0}, Unit::Length::Metre);
-  position /= 2.0;
-  EXPECT_EQ(position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+  PlanarPosition planar_position({2.0, -4.0}, Unit::Length::Metre);
+  planar_position /= 2.0;
+  EXPECT_EQ(planar_position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarPosition, AssignmentOperatorMultiplication) {
-  PlanarPosition position({1.0, -2.0}, Unit::Length::Metre);
-  position *= 2.0;
-  EXPECT_EQ(position, PlanarPosition({2.0, -4.0}, Unit::Length::Metre));
+  PlanarPosition planar_position({1.0, -2.0}, Unit::Length::Metre);
+  planar_position *= 2.0;
+  EXPECT_EQ(planar_position, PlanarPosition({2.0, -4.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarPosition, AssignmentOperatorSubtraction) {
   {
-    PlanarPosition position({3.0, -6.0}, Unit::Length::Metre);
-    position -= PlanarPosition({2.0, -4.0}, Unit::Length::Metre);
-    EXPECT_EQ(position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+    PlanarPosition planar_position({3.0, -6.0}, Unit::Length::Metre);
+    planar_position -= PlanarPosition({2.0, -4.0}, Unit::Length::Metre);
+    EXPECT_EQ(planar_position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
   }
   {
-    PlanarPosition position({3.0, -6.0}, Unit::Length::Metre);
-    position -= PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
-    EXPECT_EQ(position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+    PlanarPosition planar_position({3.0, -6.0}, Unit::Length::Metre);
+    planar_position -= PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
+    EXPECT_EQ(planar_position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
   }
 }
 
@@ -193,18 +194,19 @@ TEST(PlanarPosition, CopyConstructor) {
 
 TEST(PlanarPosition, Create) {
   {
-    constexpr PlanarPosition position = PlanarPosition<>::Create<Unit::Length::Metre>(1.0, -2.0);
-    EXPECT_EQ(position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+    constexpr PlanarPosition planar_position =
+        PlanarPosition<>::Create<Unit::Length::Metre>(1.0, -2.0);
+    EXPECT_EQ(planar_position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
   }
   {
-    constexpr PlanarPosition position =
+    constexpr PlanarPosition planar_position =
         PlanarPosition<>::Create<Unit::Length::Metre>(std::array<double, 2>{1.0, -2.0});
-    EXPECT_EQ(position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+    EXPECT_EQ(planar_position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
   }
   {
-    constexpr PlanarPosition position =
+    constexpr PlanarPosition planar_position =
         PlanarPosition<>::Create<Unit::Length::Metre>(PlanarVector{1.0, -2.0});
-    EXPECT_EQ(position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
+    EXPECT_EQ(planar_position, PlanarPosition({1.0, -2.0}, Unit::Length::Metre));
   }
 }
 
@@ -252,15 +254,30 @@ TEST(PlanarPosition, MoveConstructor) {
 }
 
 TEST(PlanarPosition, MutableValue) {
-  PlanarPosition position({1.0, -2.0}, Unit::Length::Metre);
-  PlanarVector<>& value = position.MutableValue();
+  PlanarPosition planar_position({1.0, -2.0}, Unit::Length::Metre);
+  PlanarVector<>& value = planar_position.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(position.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_position.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarPosition, PlanarDirection) {
   EXPECT_EQ(PlanarPosition({3.0, -4.0}, Unit::Length::Metre).PlanarDirection(),
             PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarPosition, Performance) {
+  PlanarPosition planar_position_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Length::Metre
+  };
+  PlanarPosition planar_position_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Length::Metre
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_position_1, planar_position_2, reference1, reference2);
 }
 
 TEST(PlanarPosition, Print) {
@@ -271,9 +288,9 @@ TEST(PlanarPosition, Print) {
 }
 
 TEST(PlanarPosition, SetValue) {
-  PlanarPosition position({1.0, -2.0}, Unit::Length::Metre);
-  position.SetValue({-4.0, 5.0});
-  EXPECT_EQ(position.Value(), PlanarVector(-4.0, 5.0));
+  PlanarPosition planar_position({1.0, -2.0}, Unit::Length::Metre);
+  planar_position.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_position.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarPosition, SizeOf) {
@@ -281,8 +298,9 @@ TEST(PlanarPosition, SizeOf) {
 }
 
 TEST(PlanarPosition, StaticValue) {
-  constexpr PlanarPosition position = PlanarPosition<>::Create<Unit::Length::Millimetre>(1.0, -2.0);
-  constexpr PlanarVector value = position.StaticValue<Unit::Length::Millimetre>();
+  constexpr PlanarPosition planar_position =
+      PlanarPosition<>::Create<Unit::Length::Millimetre>(1.0, -2.0);
+  constexpr PlanarVector value = planar_position.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

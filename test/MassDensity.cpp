@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Volume.hpp"
 #include "../include/PhQ/Volume.hpp"
 #include "../include/PhQ/VolumeRate.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -238,6 +239,14 @@ TEST(MassDensity, MutableValue) {
   double& value = mass_density.MutableValue();
   value = 2.0;
   EXPECT_EQ(mass_density.Value(), 2.0);
+}
+
+TEST(MassDensity, Performance) {
+  MassDensity first{1.2345678901234567890, Unit::MassDensity::KilogramPerCubicMetre};
+  MassDensity second{1.2345678901234567890, Unit::MassDensity::KilogramPerCubicMetre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(MassDensity, Print) {

@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -237,6 +238,14 @@ TEST(ScalarAcceleration, MutableValue) {
   double& value = scalar_acceleration.MutableValue();
   value = 2.0;
   EXPECT_EQ(scalar_acceleration.Value(), 2.0);
+}
+
+TEST(ScalarAcceleration, Performance) {
+  ScalarAcceleration first{1.2345678901234567890, Unit::Acceleration::MetrePerSquareSecond};
+  ScalarAcceleration second{1.2345678901234567890, Unit::Acceleration::MetrePerSquareSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ScalarAcceleration, Print) {

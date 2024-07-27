@@ -32,6 +32,7 @@
 #include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Vector.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -196,6 +197,14 @@ TEST(Angle, MutableValue) {
   double& value = angle.MutableValue();
   value = 2.0;
   EXPECT_EQ(angle.Value(), 2.0);
+}
+
+TEST(Angle, Performance) {
+  Angle first{1.2345678901234567890, Unit::Angle::Radian};
+  Angle second{1.2345678901234567890, Unit::Angle::Radian};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Angle, Print) {

@@ -42,6 +42,7 @@
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
 #include "../include/PhQ/Vector.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -260,6 +261,22 @@ TEST(Velocity, MutableValue) {
   Vector<>& value = velocity.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(velocity.Value(), Vector(-4.0, 5.0, -6.0));
+}
+
+TEST(Velocity, Performance) {
+  Velocity velocity1{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::Speed::MetrePerSecond
+  };
+  Velocity velocity2{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::Speed::MetrePerSecond
+  };
+  std::array<double, 3> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  std::array<double, 3> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  Internal::TestVectorPerformance(velocity1, velocity2, reference1, reference2);
 }
 
 TEST(Velocity, Print) {

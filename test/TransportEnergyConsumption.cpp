@@ -38,6 +38,7 @@
 #include "../include/PhQ/Unit/Power.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/TransportEnergyConsumption.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -260,6 +261,16 @@ TEST(TransportEnergyConsumption, MutableValue) {
   double& value = transport_energy_consumption.MutableValue();
   value = 2.0;
   EXPECT_EQ(transport_energy_consumption.Value(), 2.0);
+}
+
+TEST(TransportEnergyConsumption, Performance) {
+  TransportEnergyConsumption first{
+      1.2345678901234567890, Unit::TransportEnergyConsumption::JoulePerMetre};
+  TransportEnergyConsumption second{
+      1.2345678901234567890, Unit::TransportEnergyConsumption::JoulePerMetre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(TransportEnergyConsumption, Print) {

@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Pressure.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -187,6 +188,14 @@ TEST(YoungModulus, MutableValue) {
   double& value = young_modulus.MutableValue();
   value = 2.0;
   EXPECT_EQ(young_modulus.Value(), 2.0);
+}
+
+TEST(YoungModulus, Performance) {
+  YoungModulus first{1.2345678901234567890, Unit::Pressure::Pascal};
+  YoungModulus second{1.2345678901234567890, Unit::Pressure::Pascal};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(YoungModulus, Print) {

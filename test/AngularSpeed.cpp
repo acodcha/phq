@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/AngularSpeed.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -231,6 +232,14 @@ TEST(AngularSpeed, MutableValue) {
   double& value = angular_speed.MutableValue();
   value = 2.0;
   EXPECT_EQ(angular_speed.Value(), 2.0);
+}
+
+TEST(AngularSpeed, Performance) {
+  AngularSpeed first{1.2345678901234567890, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed second{1.2345678901234567890, Unit::AngularSpeed::RadianPerSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(AngularSpeed, Print) {

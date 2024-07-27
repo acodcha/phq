@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/SolidAngle.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -190,6 +191,14 @@ TEST(SolidAngle, MutableValue) {
   double& value = solid_angle.MutableValue();
   value = 2.0;
   EXPECT_EQ(solid_angle.Value(), 2.0);
+}
+
+TEST(SolidAngle, Performance) {
+  SolidAngle first{1.2345678901234567890, Unit::SolidAngle::Steradian};
+  SolidAngle second{1.2345678901234567890, Unit::SolidAngle::Steradian};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(SolidAngle, Print) {

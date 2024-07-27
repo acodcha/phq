@@ -34,6 +34,7 @@
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -220,6 +221,14 @@ TEST(ScalarVelocityGradient, MutableValue) {
   double& value = quantity.MutableValue();
   value = 2.0;
   EXPECT_EQ(quantity.Value(), 2.0);
+}
+
+TEST(ScalarVelocityGradient, Performance) {
+  ScalarVelocityGradient first{1.2345678901234567890, Unit::Frequency::Hertz};
+  ScalarVelocityGradient second{1.2345678901234567890, Unit::Frequency::Hertz};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ScalarVelocityGradient, Print) {

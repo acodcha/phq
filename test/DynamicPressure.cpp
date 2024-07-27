@@ -34,6 +34,7 @@
 #include "../include/PhQ/Unit/MassDensity.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -204,6 +205,14 @@ TEST(DynamicPressure, MutableValue) {
   double& value = dynamic_pressure.MutableValue();
   value = 2.0;
   EXPECT_EQ(dynamic_pressure.Value(), 2.0);
+}
+
+TEST(DynamicPressure, Performance) {
+  DynamicPressure first{1.2345678901234567890, Unit::Pressure::Pascal};
+  DynamicPressure second{1.2345678901234567890, Unit::Pressure::Pascal};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(DynamicPressure, Print) {

@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Volume.hpp"
 #include "../include/PhQ/Unit/VolumeRate.hpp"
 #include "../include/PhQ/Volume.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -228,6 +229,14 @@ TEST(VolumeRate, MutableValue) {
   double& value = volume_rate.MutableValue();
   value = 2.0;
   EXPECT_EQ(volume_rate.Value(), 2.0);
+}
+
+TEST(VolumeRate, Performance) {
+  VolumeRate first{1.2345678901234567890, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate second{1.2345678901234567890, Unit::VolumeRate::CubicMetrePerSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(VolumeRate, Print) {

@@ -34,6 +34,7 @@
 #include "../include/PhQ/Unit/Area.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
 #include "../include/PhQ/Unit/Volume.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -195,6 +196,14 @@ TEST(Volume, MutableValue) {
   double& value = volume.MutableValue();
   value = 2.0;
   EXPECT_EQ(volume.Value(), 2.0);
+}
+
+TEST(Volume, Performance) {
+  Volume first{1.2345678901234567890, Unit::Volume::CubicMetre};
+  Volume second{1.2345678901234567890, Unit::Volume::CubicMetre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Volume, Print) {

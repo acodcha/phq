@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Pressure.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -203,6 +204,14 @@ TEST(ScalarTraction, MutableValue) {
   double& value = quantity.MutableValue();
   value = 2.0;
   EXPECT_EQ(quantity.Value(), 2.0);
+}
+
+TEST(ScalarTraction, Performance) {
+  ScalarTraction first{1.2345678901234567890, Unit::Pressure::Pascal};
+  ScalarTraction second{1.2345678901234567890, Unit::Pressure::Pascal};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ScalarTraction, Print) {

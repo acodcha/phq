@@ -40,6 +40,7 @@
 #include "../include/PhQ/Unit/Force.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
 #include "../include/PhQ/Vector.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -252,6 +253,22 @@ TEST(Traction, MutableValue) {
   Vector<>& value = traction.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(traction.Value(), Vector(-4.0, 5.0, -6.0));
+}
+
+TEST(Traction, Performance) {
+  Traction traction1{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::Pressure::Pascal
+  };
+  Traction traction2{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::Pressure::Pascal
+  };
+  std::array<double, 3> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  std::array<double, 3> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  Internal::TestVectorPerformance(traction1, traction2, reference1, reference2);
 }
 
 TEST(Traction, Print) {

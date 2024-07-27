@@ -39,6 +39,7 @@
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Traction.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -251,6 +252,26 @@ TEST(Stress, MutableValue) {
   SymmetricDyad<>& value = stress.MutableValue();
   value = SymmetricDyad{-7.0, 8.0, -9.0, 10.0, -11.0, 12.0};
   EXPECT_EQ(stress.Value(), SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
+}
+
+TEST(Stress, Performance) {
+  Stress stress1{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+       5.6789012345678901234, 6.7890123456789012345},
+      Unit::Pressure::Pascal
+  };
+  Stress stress2{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+       5.6789012345678901234, 6.7890123456789012345},
+      Unit::Pressure::Pascal
+  };
+  std::array<double, 6> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  std::array<double, 6> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  Internal::TestSymmetricDyadPerformance(stress1, stress2, reference1, reference2);
 }
 
 TEST(Stress, Print) {

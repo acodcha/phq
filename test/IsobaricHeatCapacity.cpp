@@ -32,6 +32,7 @@
 #include "../include/PhQ/HeatCapacityRatio.hpp"
 #include "../include/PhQ/IsochoricHeatCapacity.hpp"
 #include "../include/PhQ/Unit/HeatCapacity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -212,6 +213,14 @@ TEST(IsobaricHeatCapacity, MutableValue) {
   double& value = isobaric_heat_capacity.MutableValue();
   value = 2.0;
   EXPECT_EQ(isobaric_heat_capacity.Value(), 2.0);
+}
+
+TEST(IsobaricHeatCapacity, Performance) {
+  IsobaricHeatCapacity first{1.2345678901234567890, Unit::HeatCapacity::JoulePerKelvin};
+  IsobaricHeatCapacity second{1.2345678901234567890, Unit::HeatCapacity::JoulePerKelvin};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(IsobaricHeatCapacity, Print) {

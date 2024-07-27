@@ -31,6 +31,7 @@
 #include <utility>
 
 #include "../include/PhQ/Dimensions.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -190,6 +191,14 @@ TEST(HeatCapacityRatio, MutableValue) {
   double& value = heat_capacity_ratio.MutableValue();
   value = 2.0;
   EXPECT_EQ(heat_capacity_ratio.Value(), 2.0);
+}
+
+TEST(HeatCapacityRatio, Performance) {
+  HeatCapacityRatio first{1.2345678901234567890};
+  HeatCapacityRatio second{1.2345678901234567890};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(HeatCapacityRatio, Print) {

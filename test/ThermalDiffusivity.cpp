@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/MassDensity.hpp"
 #include "../include/PhQ/Unit/SpecificHeatCapacity.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -222,6 +223,14 @@ TEST(ThermalDiffusivity, MutableValue) {
   double& value = thermal_diffusivity.MutableValue();
   value = 2.0;
   EXPECT_EQ(thermal_diffusivity.Value(), 2.0);
+}
+
+TEST(ThermalDiffusivity, Performance) {
+  ThermalDiffusivity first{1.2345678901234567890, Unit::Diffusivity::SquareMetrePerSecond};
+  ThermalDiffusivity second{1.2345678901234567890, Unit::Diffusivity::SquareMetrePerSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ThermalDiffusivity, Print) {

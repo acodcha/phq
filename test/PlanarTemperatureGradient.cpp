@@ -36,6 +36,7 @@
 #include "../include/PhQ/ScalarTemperatureGradient.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -79,36 +80,36 @@ TEST(PlanarTemperatureGradient, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PlanarTemperatureGradient, AssignmentOperatorAddition) {
-  PlanarTemperatureGradient temperature_gradient(
+  PlanarTemperatureGradient planar_temperature_gradient(
       {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  temperature_gradient +=
+  planar_temperature_gradient +=
       PlanarTemperatureGradient({2.0, -4.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  EXPECT_EQ(temperature_gradient,
+  EXPECT_EQ(planar_temperature_gradient,
             PlanarTemperatureGradient({3.0, -6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(PlanarTemperatureGradient, AssignmentOperatorDivision) {
-  PlanarTemperatureGradient temperature_gradient(
+  PlanarTemperatureGradient planar_temperature_gradient(
       {2.0, -4.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  temperature_gradient /= 2.0;
-  EXPECT_EQ(temperature_gradient,
+  planar_temperature_gradient /= 2.0;
+  EXPECT_EQ(planar_temperature_gradient,
             PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(PlanarTemperatureGradient, AssignmentOperatorMultiplication) {
-  PlanarTemperatureGradient temperature_gradient(
+  PlanarTemperatureGradient planar_temperature_gradient(
       {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  temperature_gradient *= 2.0;
-  EXPECT_EQ(temperature_gradient,
+  planar_temperature_gradient *= 2.0;
+  EXPECT_EQ(planar_temperature_gradient,
             PlanarTemperatureGradient({2.0, -4.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(PlanarTemperatureGradient, AssignmentOperatorSubtraction) {
-  PlanarTemperatureGradient temperature_gradient(
+  PlanarTemperatureGradient planar_temperature_gradient(
       {3.0, -6.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  temperature_gradient -=
+  planar_temperature_gradient -=
       PlanarTemperatureGradient({2.0, -4.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  EXPECT_EQ(temperature_gradient,
+  EXPECT_EQ(planar_temperature_gradient,
             PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
@@ -262,17 +263,32 @@ TEST(PlanarTemperatureGradient, MoveConstructor) {
 }
 
 TEST(PlanarTemperatureGradient, MutableValue) {
-  PlanarTemperatureGradient temperature_gradient(
+  PlanarTemperatureGradient planar_temperature_gradient(
       {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  PlanarVector<>& value = temperature_gradient.MutableValue();
+  PlanarVector<>& value = planar_temperature_gradient.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(temperature_gradient.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_temperature_gradient.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarTemperatureGradient, PlanarDirection) {
   EXPECT_EQ(PlanarTemperatureGradient({3.0, -4.0}, Unit::TemperatureGradient::KelvinPerMetre)
                 .PlanarDirection(),
             PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarTemperatureGradient, Performance) {
+  PlanarTemperatureGradient planar_temperature_gradient_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::TemperatureGradient::KelvinPerMetre
+  };
+  PlanarTemperatureGradient planar_temperature_gradient_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::TemperatureGradient::KelvinPerMetre
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_temperature_gradient_1, planar_temperature_gradient_2, reference1, reference2);
 }
 
 TEST(PlanarTemperatureGradient, Print) {
@@ -285,10 +301,10 @@ TEST(PlanarTemperatureGradient, Print) {
 }
 
 TEST(PlanarTemperatureGradient, SetValue) {
-  PlanarTemperatureGradient temperature_gradient(
+  PlanarTemperatureGradient planar_temperature_gradient(
       {1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  temperature_gradient.SetValue({-4.0, 5.0});
-  EXPECT_EQ(temperature_gradient.Value(), PlanarVector(-4.0, 5.0));
+  planar_temperature_gradient.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_temperature_gradient.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarTemperatureGradient, SizeOf) {
@@ -296,11 +312,11 @@ TEST(PlanarTemperatureGradient, SizeOf) {
 }
 
 TEST(PlanarTemperatureGradient, StaticValue) {
-  constexpr PlanarTemperatureGradient temperature_gradient =
+  constexpr PlanarTemperatureGradient planar_temperature_gradient =
       PlanarTemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(
           1.0, -2.0);
   constexpr PlanarVector value =
-      temperature_gradient.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
+      planar_temperature_gradient.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

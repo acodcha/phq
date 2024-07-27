@@ -40,6 +40,7 @@
 #include "../include/PhQ/Unit/SpecificEnergy.hpp"
 #include "../include/PhQ/Unit/SpecificPower.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -263,6 +264,14 @@ TEST(SpecificPower, MutableValue) {
   double& value = quantity.MutableValue();
   value = 2.0;
   EXPECT_EQ(quantity.Value(), 2.0);
+}
+
+TEST(SpecificPower, Performance) {
+  SpecificPower first{1.2345678901234567890, Unit::SpecificPower::WattPerKilogram};
+  SpecificPower second{1.2345678901234567890, Unit::SpecificPower::WattPerKilogram};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(SpecificPower, Print) {

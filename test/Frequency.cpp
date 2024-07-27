@@ -32,6 +32,7 @@
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -194,6 +195,14 @@ TEST(Frequency, MutableValue) {
   double& value = frequency.MutableValue();
   value = 2.0;
   EXPECT_EQ(frequency.Value(), 2.0);
+}
+
+TEST(Frequency, Performance) {
+  Frequency first{1.2345678901234567890, Unit::Frequency::Hertz};
+  Frequency second{1.2345678901234567890, Unit::Frequency::Hertz};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Frequency, Print) {

@@ -36,6 +36,7 @@
 #include "../include/PhQ/ScalarForce.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -76,27 +77,27 @@ TEST(PlanarForce, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PlanarForce, AssignmentOperatorAddition) {
-  PlanarForce force({1.0, -2.0}, Unit::Force::Newton);
-  force += PlanarForce({2.0, -4.0}, Unit::Force::Newton);
-  EXPECT_EQ(force, PlanarForce({3.0, -6.0}, Unit::Force::Newton));
+  PlanarForce planar_force({1.0, -2.0}, Unit::Force::Newton);
+  planar_force += PlanarForce({2.0, -4.0}, Unit::Force::Newton);
+  EXPECT_EQ(planar_force, PlanarForce({3.0, -6.0}, Unit::Force::Newton));
 }
 
 TEST(PlanarForce, AssignmentOperatorDivision) {
-  PlanarForce force({2.0, -4.0}, Unit::Force::Newton);
-  force /= 2.0;
-  EXPECT_EQ(force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+  PlanarForce planar_force({2.0, -4.0}, Unit::Force::Newton);
+  planar_force /= 2.0;
+  EXPECT_EQ(planar_force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
 }
 
 TEST(PlanarForce, AssignmentOperatorMultiplication) {
-  PlanarForce force({1.0, -2.0}, Unit::Force::Newton);
-  force *= 2.0;
-  EXPECT_EQ(force, PlanarForce({2.0, -4.0}, Unit::Force::Newton));
+  PlanarForce planar_force({1.0, -2.0}, Unit::Force::Newton);
+  planar_force *= 2.0;
+  EXPECT_EQ(planar_force, PlanarForce({2.0, -4.0}, Unit::Force::Newton));
 }
 
 TEST(PlanarForce, AssignmentOperatorSubtraction) {
-  PlanarForce force({3.0, -6.0}, Unit::Force::Newton);
-  force -= PlanarForce({2.0, -4.0}, Unit::Force::Newton);
-  EXPECT_EQ(force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+  PlanarForce planar_force({3.0, -6.0}, Unit::Force::Newton);
+  planar_force -= PlanarForce({2.0, -4.0}, Unit::Force::Newton);
+  EXPECT_EQ(planar_force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
 }
 
 TEST(PlanarForce, ComparisonOperators) {
@@ -165,18 +166,18 @@ TEST(PlanarForce, CopyConstructor) {
 
 TEST(PlanarForce, Create) {
   {
-    constexpr PlanarForce force = PlanarForce<>::Create<Unit::Force::Newton>(1.0, -2.0);
-    EXPECT_EQ(force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+    constexpr PlanarForce planar_force = PlanarForce<>::Create<Unit::Force::Newton>(1.0, -2.0);
+    EXPECT_EQ(planar_force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
   }
   {
-    constexpr PlanarForce force =
+    constexpr PlanarForce planar_force =
         PlanarForce<>::Create<Unit::Force::Newton>(std::array<double, 2>{1.0, -2.0});
-    EXPECT_EQ(force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+    EXPECT_EQ(planar_force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
   }
   {
-    constexpr PlanarForce force =
+    constexpr PlanarForce planar_force =
         PlanarForce<>::Create<Unit::Force::Newton>(PlanarVector{1.0, -2.0});
-    EXPECT_EQ(force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
+    EXPECT_EQ(planar_force, PlanarForce({1.0, -2.0}, Unit::Force::Newton));
   }
 }
 
@@ -224,15 +225,29 @@ TEST(PlanarForce, MoveConstructor) {
 }
 
 TEST(PlanarForce, MutableValue) {
-  PlanarForce force({1.0, -2.0}, Unit::Force::Newton);
-  PlanarVector<>& value = force.MutableValue();
+  PlanarForce planar_force({1.0, -2.0}, Unit::Force::Newton);
+  PlanarVector<>& value = planar_force.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(force.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_force.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarForce, PlanarDirection) {
   EXPECT_EQ(
       PlanarForce({3.0, -4.0}, Unit::Force::Newton).PlanarDirection(), PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarForce, Performance) {
+  PlanarForce planar_force_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Force::Newton
+  };
+  PlanarForce planar_force_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Force::Newton
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(planar_force_1, planar_force_2, reference1, reference2);
 }
 
 TEST(PlanarForce, Print) {
@@ -243,9 +258,9 @@ TEST(PlanarForce, Print) {
 }
 
 TEST(PlanarForce, SetValue) {
-  PlanarForce force({1.0, -2.0}, Unit::Force::Newton);
-  force.SetValue({-4.0, 5.0});
-  EXPECT_EQ(force.Value(), PlanarVector(-4.0, 5.0));
+  PlanarForce planar_force({1.0, -2.0}, Unit::Force::Newton);
+  planar_force.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_force.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarForce, SizeOf) {
@@ -253,8 +268,8 @@ TEST(PlanarForce, SizeOf) {
 }
 
 TEST(PlanarForce, StaticValue) {
-  constexpr PlanarForce force = PlanarForce<>::Create<Unit::Force::Pound>(1.0, -2.0);
-  constexpr PlanarVector value = force.StaticValue<Unit::Force::Pound>();
+  constexpr PlanarForce planar_force = PlanarForce<>::Create<Unit::Force::Pound>(1.0, -2.0);
+  constexpr PlanarVector value = planar_force.StaticValue<Unit::Force::Pound>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

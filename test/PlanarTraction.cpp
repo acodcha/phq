@@ -40,6 +40,7 @@
 #include "../include/PhQ/Unit/Area.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -82,27 +83,27 @@ TEST(PlanarTraction, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PlanarTraction, AssignmentOperatorAddition) {
-  PlanarTraction traction({1.0, -2.0}, Unit::Pressure::Pascal);
-  traction += PlanarTraction({2.0, -4.0}, Unit::Pressure::Pascal);
-  EXPECT_EQ(traction, PlanarTraction({3.0, -6.0}, Unit::Pressure::Pascal));
+  PlanarTraction planar_traction({1.0, -2.0}, Unit::Pressure::Pascal);
+  planar_traction += PlanarTraction({2.0, -4.0}, Unit::Pressure::Pascal);
+  EXPECT_EQ(planar_traction, PlanarTraction({3.0, -6.0}, Unit::Pressure::Pascal));
 }
 
 TEST(PlanarTraction, AssignmentOperatorDivision) {
-  PlanarTraction traction({2.0, -4.0}, Unit::Pressure::Pascal);
-  traction /= 2.0;
-  EXPECT_EQ(traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+  PlanarTraction planar_traction({2.0, -4.0}, Unit::Pressure::Pascal);
+  planar_traction /= 2.0;
+  EXPECT_EQ(planar_traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
 }
 
 TEST(PlanarTraction, AssignmentOperatorMultiplication) {
-  PlanarTraction traction({1.0, -2.0}, Unit::Pressure::Pascal);
-  traction *= 2.0;
-  EXPECT_EQ(traction, PlanarTraction({2.0, -4.0}, Unit::Pressure::Pascal));
+  PlanarTraction planar_traction({1.0, -2.0}, Unit::Pressure::Pascal);
+  planar_traction *= 2.0;
+  EXPECT_EQ(planar_traction, PlanarTraction({2.0, -4.0}, Unit::Pressure::Pascal));
 }
 
 TEST(PlanarTraction, AssignmentOperatorSubtraction) {
-  PlanarTraction traction({3.0, -6.0}, Unit::Pressure::Pascal);
-  traction -= PlanarTraction({2.0, -4.0}, Unit::Pressure::Pascal);
-  EXPECT_EQ(traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+  PlanarTraction planar_traction({3.0, -6.0}, Unit::Pressure::Pascal);
+  planar_traction -= PlanarTraction({2.0, -4.0}, Unit::Pressure::Pascal);
+  EXPECT_EQ(planar_traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
 }
 
 TEST(PlanarTraction, ComparisonOperators) {
@@ -177,18 +178,19 @@ TEST(PlanarTraction, CopyConstructor) {
 
 TEST(PlanarTraction, Create) {
   {
-    constexpr PlanarTraction traction = PlanarTraction<>::Create<Unit::Pressure::Pascal>(1.0, -2.0);
-    EXPECT_EQ(traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+    constexpr PlanarTraction planar_traction =
+        PlanarTraction<>::Create<Unit::Pressure::Pascal>(1.0, -2.0);
+    EXPECT_EQ(planar_traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
   }
   {
-    constexpr PlanarTraction traction =
+    constexpr PlanarTraction planar_traction =
         PlanarTraction<>::Create<Unit::Pressure::Pascal>(std::array<double, 2>{1.0, -2.0});
-    EXPECT_EQ(traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+    EXPECT_EQ(planar_traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
   }
   {
-    constexpr PlanarTraction traction =
+    constexpr PlanarTraction planar_traction =
         PlanarTraction<>::Create<Unit::Pressure::Pascal>(PlanarVector{1.0, -2.0});
-    EXPECT_EQ(traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
+    EXPECT_EQ(planar_traction, PlanarTraction({1.0, -2.0}, Unit::Pressure::Pascal));
   }
 }
 
@@ -237,15 +239,30 @@ TEST(PlanarTraction, MoveConstructor) {
 }
 
 TEST(PlanarTraction, MutableValue) {
-  PlanarTraction traction({1.0, -2.0}, Unit::Pressure::Pascal);
-  PlanarVector<>& value = traction.MutableValue();
+  PlanarTraction planar_traction({1.0, -2.0}, Unit::Pressure::Pascal);
+  PlanarVector<>& value = planar_traction.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(traction.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_traction.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarTraction, PlanarDirection) {
   EXPECT_EQ(PlanarTraction({3.0, -4.0}, Unit::Pressure::Pascal).PlanarDirection(),
             PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarTraction, Performance) {
+  PlanarTraction planar_traction_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Pressure::Pascal
+  };
+  PlanarTraction planar_traction_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Pressure::Pascal
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_traction_1, planar_traction_2, reference1, reference2);
 }
 
 TEST(PlanarTraction, Print) {
@@ -257,9 +274,9 @@ TEST(PlanarTraction, Print) {
 }
 
 TEST(PlanarTraction, SetValue) {
-  PlanarTraction traction({1.0, -2.0}, Unit::Pressure::Pascal);
-  traction.SetValue({-4.0, 5.0});
-  EXPECT_EQ(traction.Value(), PlanarVector(-4.0, 5.0));
+  PlanarTraction planar_traction({1.0, -2.0}, Unit::Pressure::Pascal);
+  planar_traction.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_traction.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarTraction, SizeOf) {
@@ -267,9 +284,9 @@ TEST(PlanarTraction, SizeOf) {
 }
 
 TEST(PlanarTraction, StaticValue) {
-  constexpr PlanarTraction traction =
+  constexpr PlanarTraction planar_traction =
       PlanarTraction<>::Create<Unit::Pressure::Kilopascal>(1.0, -2.0);
-  constexpr PlanarVector value = traction.StaticValue<Unit::Pressure::Kilopascal>();
+  constexpr PlanarVector value = planar_traction.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

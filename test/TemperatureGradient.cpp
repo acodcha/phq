@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
 #include "../include/PhQ/Vector.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -278,6 +279,23 @@ TEST(TemperatureGradient, MutableValue) {
   Vector<>& value = temperature_gradient.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(temperature_gradient.Value(), Vector(-4.0, 5.0, -6.0));
+}
+
+TEST(TemperatureGradient, Performance) {
+  TemperatureGradient temperature_gradient_1{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::TemperatureGradient::KelvinPerMetre
+  };
+  TemperatureGradient temperature_gradient_2{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::TemperatureGradient::KelvinPerMetre
+  };
+  std::array<double, 3> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  std::array<double, 3> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  Internal::TestVectorPerformance(
+      temperature_gradient_1, temperature_gradient_2, reference1, reference2);
 }
 
 TEST(TemperatureGradient, Print) {

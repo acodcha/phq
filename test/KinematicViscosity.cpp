@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Diffusivity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -192,6 +193,14 @@ TEST(KinematicViscosity, MutableValue) {
   double& value = kinematic_viscosity.MutableValue();
   value = 2.0;
   EXPECT_EQ(kinematic_viscosity.Value(), 2.0);
+}
+
+TEST(KinematicViscosity, Performance) {
+  KinematicViscosity first{1.2345678901234567890, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity second{1.2345678901234567890, Unit::Diffusivity::SquareMetrePerSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(KinematicViscosity, Print) {

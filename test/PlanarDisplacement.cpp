@@ -36,6 +36,7 @@
 #include "../include/PhQ/PlanarVector.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -73,27 +74,27 @@ TEST(PlanarDisplacement, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PlanarDisplacement, AssignmentOperatorAddition) {
-  PlanarDisplacement displacement({1.0, -2.0}, Unit::Length::Metre);
-  displacement += PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
-  EXPECT_EQ(displacement, PlanarDisplacement({3.0, -6.0}, Unit::Length::Metre));
+  PlanarDisplacement planar_displacement({1.0, -2.0}, Unit::Length::Metre);
+  planar_displacement += PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
+  EXPECT_EQ(planar_displacement, PlanarDisplacement({3.0, -6.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarDisplacement, AssignmentOperatorDivision) {
-  PlanarDisplacement displacement({2.0, -4.0}, Unit::Length::Metre);
-  displacement /= 2.0;
-  EXPECT_EQ(displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+  PlanarDisplacement planar_displacement({2.0, -4.0}, Unit::Length::Metre);
+  planar_displacement /= 2.0;
+  EXPECT_EQ(planar_displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarDisplacement, AssignmentOperatorMultiplication) {
-  PlanarDisplacement displacement({1.0, -2.0}, Unit::Length::Metre);
-  displacement *= 2.0;
-  EXPECT_EQ(displacement, PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre));
+  PlanarDisplacement planar_displacement({1.0, -2.0}, Unit::Length::Metre);
+  planar_displacement *= 2.0;
+  EXPECT_EQ(planar_displacement, PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarDisplacement, AssignmentOperatorSubtraction) {
-  PlanarDisplacement displacement({3.0, -6.0}, Unit::Length::Metre);
-  displacement -= PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
-  EXPECT_EQ(displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+  PlanarDisplacement planar_displacement({3.0, -6.0}, Unit::Length::Metre);
+  planar_displacement -= PlanarDisplacement({2.0, -4.0}, Unit::Length::Metre);
+  EXPECT_EQ(planar_displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
 }
 
 TEST(PlanarDisplacement, ComparisonOperators) {
@@ -161,19 +162,19 @@ TEST(PlanarDisplacement, CopyConstructor) {
 
 TEST(PlanarDisplacement, Create) {
   {
-    constexpr PlanarDisplacement displacement =
+    constexpr PlanarDisplacement planar_displacement =
         PlanarDisplacement<>::Create<Unit::Length::Metre>(1.0, -2.0);
-    EXPECT_EQ(displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+    EXPECT_EQ(planar_displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
   }
   {
-    constexpr PlanarDisplacement displacement =
+    constexpr PlanarDisplacement planar_displacement =
         PlanarDisplacement<>::Create<Unit::Length::Metre>(std::array<double, 2>{1.0, -2.0});
-    EXPECT_EQ(displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+    EXPECT_EQ(planar_displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
   }
   {
-    constexpr PlanarDisplacement displacement =
+    constexpr PlanarDisplacement planar_displacement =
         PlanarDisplacement<>::Create<Unit::Length::Metre>(PlanarVector{1.0, -2.0});
-    EXPECT_EQ(displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
+    EXPECT_EQ(planar_displacement, PlanarDisplacement({1.0, -2.0}, Unit::Length::Metre));
   }
 }
 
@@ -222,15 +223,30 @@ TEST(PlanarDisplacement, MoveConstructor) {
 }
 
 TEST(PlanarDisplacement, MutableValue) {
-  PlanarDisplacement displacement({1.0, -2.0}, Unit::Length::Metre);
-  PlanarVector<>& value = displacement.MutableValue();
+  PlanarDisplacement planar_displacement({1.0, -2.0}, Unit::Length::Metre);
+  PlanarVector<>& value = planar_displacement.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(displacement.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_displacement.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarDisplacement, PlanarDirection) {
   EXPECT_EQ(PlanarDisplacement({3.0, -4.0}, Unit::Length::Metre).PlanarDirection(),
             PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarDisplacement, Performance) {
+  PlanarDisplacement planar_displacement_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Length::Metre
+  };
+  PlanarDisplacement planar_displacement_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Length::Metre
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_displacement_1, planar_displacement_2, reference1, reference2);
 }
 
 TEST(PlanarDisplacement, Print) {
@@ -242,9 +258,9 @@ TEST(PlanarDisplacement, Print) {
 }
 
 TEST(PlanarDisplacement, SetValue) {
-  PlanarDisplacement displacement({1.0, -2.0}, Unit::Length::Metre);
-  displacement.SetValue({-4.0, 5.0});
-  EXPECT_EQ(displacement.Value(), PlanarVector(-4.0, 5.0));
+  PlanarDisplacement planar_displacement({1.0, -2.0}, Unit::Length::Metre);
+  planar_displacement.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_displacement.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarDisplacement, SizeOf) {
@@ -252,9 +268,9 @@ TEST(PlanarDisplacement, SizeOf) {
 }
 
 TEST(PlanarDisplacement, StaticValue) {
-  constexpr PlanarDisplacement displacement =
+  constexpr PlanarDisplacement planar_displacement =
       PlanarDisplacement<>::Create<Unit::Length::Millimetre>(1.0, -2.0);
-  constexpr PlanarVector value = displacement.StaticValue<Unit::Length::Millimetre>();
+  constexpr PlanarVector value = planar_displacement.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

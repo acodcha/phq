@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/DynamicViscosity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -199,6 +200,14 @@ TEST(BulkDynamicViscosity, MutableValue) {
   double& value = bulk_dynamic_viscosity.MutableValue();
   value = 2.0;
   EXPECT_EQ(bulk_dynamic_viscosity.Value(), 2.0);
+}
+
+TEST(BulkDynamicViscosity, Performance) {
+  BulkDynamicViscosity first{1.2345678901234567890, Unit::DynamicViscosity::PascalSecond};
+  BulkDynamicViscosity second{1.2345678901234567890, Unit::DynamicViscosity::PascalSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(BulkDynamicViscosity, Print) {

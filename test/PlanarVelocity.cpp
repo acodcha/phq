@@ -42,6 +42,7 @@
 #include "../include/PhQ/Unit/Length.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -256,6 +257,21 @@ TEST(PlanarVelocity, MutableValue) {
 TEST(PlanarVelocity, PlanarDirection) {
   EXPECT_EQ(PlanarVelocity({3.0, -4.0}, Unit::Speed::MetrePerSecond).PlanarDirection(),
             PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarVelocity, Performance) {
+  PlanarVelocity planar_velocity_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Speed::MetrePerSecond
+  };
+  PlanarVelocity planar_velocity_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Speed::MetrePerSecond
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_velocity_1, planar_velocity_2, reference1, reference2);
 }
 
 TEST(PlanarVelocity, Print) {
