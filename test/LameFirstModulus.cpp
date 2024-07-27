@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Pressure.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -191,6 +192,14 @@ TEST(LameFirstModulus, MutableValue) {
   double& value = lame_first_modulus.MutableValue();
   value = 2.0;
   EXPECT_EQ(lame_first_modulus.Value(), 2.0);
+}
+
+TEST(LameFirstModulus, Performance) {
+  LameFirstModulus first{1.2345678901234567890, Unit::Pressure::Pascal};
+  LameFirstModulus second{1.2345678901234567890, Unit::Pressure::Pascal};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(LameFirstModulus, Print) {

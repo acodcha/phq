@@ -40,6 +40,7 @@
 #include "../include/PhQ/Unit/DynamicViscosity.hpp"
 #include "../include/PhQ/Unit/SpecificHeatCapacity.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -255,6 +256,14 @@ TEST(PrandtlNumber, MutableValue) {
   double& value = prandtl_number.MutableValue();
   value = 2.0;
   EXPECT_EQ(prandtl_number.Value(), 2.0);
+}
+
+TEST(PrandtlNumber, Performance) {
+  PrandtlNumber first{1.2345678901234567890};
+  PrandtlNumber second{1.2345678901234567890};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(PrandtlNumber, Print) {

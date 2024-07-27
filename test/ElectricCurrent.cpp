@@ -33,6 +33,7 @@
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/ElectricCurrent.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -234,6 +235,14 @@ TEST(ElectricCurrent, MutableValue) {
   double& value = electric_current.MutableValue();
   value = 2.0;
   EXPECT_EQ(electric_current.Value(), 2.0);
+}
+
+TEST(ElectricCurrent, Performance) {
+  ElectricCurrent first{1.2345678901234567890, Unit::ElectricCurrent::Ampere};
+  ElectricCurrent second{1.2345678901234567890, Unit::ElectricCurrent::Ampere};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ElectricCurrent, Print) {

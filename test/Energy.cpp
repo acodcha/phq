@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Energy.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -183,6 +184,14 @@ TEST(Energy, MutableValue) {
   double& value = energy.MutableValue();
   value = 2.0;
   EXPECT_EQ(energy.Value(), 2.0);
+}
+
+TEST(Energy, Performance) {
+  Energy first{1.2345678901234567890, Unit::Energy::Joule};
+  Energy second{1.2345678901234567890, Unit::Energy::Joule};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Energy, Print) {

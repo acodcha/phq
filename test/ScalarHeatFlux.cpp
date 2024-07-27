@@ -34,6 +34,7 @@
 #include "../include/PhQ/Unit/EnergyFlux.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -200,6 +201,14 @@ TEST(ScalarHeatFlux, MutableValue) {
   double& value = quantity.MutableValue();
   value = 2.0;
   EXPECT_EQ(quantity.Value(), 2.0);
+}
+
+TEST(ScalarHeatFlux, Performance) {
+  ScalarHeatFlux first{1.2345678901234567890, Unit::EnergyFlux::WattPerSquareMetre};
+  ScalarHeatFlux second{1.2345678901234567890, Unit::EnergyFlux::WattPerSquareMetre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ScalarHeatFlux, Print) {

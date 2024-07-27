@@ -42,6 +42,7 @@
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -102,31 +103,31 @@ TEST(PlanarAcceleration, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PlanarAcceleration, AssignmentOperatorAddition) {
-  PlanarAcceleration acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
-  acceleration += PlanarAcceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond);
-  EXPECT_EQ(
-      acceleration, PlanarAcceleration({3.0, -6.0}, Unit::Acceleration::MetrePerSquareSecond));
+  PlanarAcceleration planar_acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
+  planar_acceleration += PlanarAcceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(planar_acceleration,
+            PlanarAcceleration({3.0, -6.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(PlanarAcceleration, AssignmentOperatorDivision) {
-  PlanarAcceleration acceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond);
-  acceleration /= 2.0;
-  EXPECT_EQ(
-      acceleration, PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  PlanarAcceleration planar_acceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond);
+  planar_acceleration /= 2.0;
+  EXPECT_EQ(planar_acceleration,
+            PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(PlanarAcceleration, AssignmentOperatorMultiplication) {
-  PlanarAcceleration acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
-  acceleration *= 2.0;
-  EXPECT_EQ(
-      acceleration, PlanarAcceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond));
+  PlanarAcceleration planar_acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
+  planar_acceleration *= 2.0;
+  EXPECT_EQ(planar_acceleration,
+            PlanarAcceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(PlanarAcceleration, AssignmentOperatorSubtraction) {
-  PlanarAcceleration acceleration({3.0, -6.0}, Unit::Acceleration::MetrePerSquareSecond);
-  acceleration -= PlanarAcceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond);
-  EXPECT_EQ(
-      acceleration, PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+  PlanarAcceleration planar_acceleration({3.0, -6.0}, Unit::Acceleration::MetrePerSquareSecond);
+  planar_acceleration -= PlanarAcceleration({2.0, -4.0}, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(planar_acceleration,
+            PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(PlanarAcceleration, ComparisonOperators) {
@@ -215,24 +216,24 @@ TEST(PlanarAcceleration, CopyConstructor) {
 
 TEST(PlanarAcceleration, Create) {
   {
-    constexpr PlanarAcceleration acceleration =
+    constexpr PlanarAcceleration planar_acceleration =
         PlanarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0, -2.0);
-    EXPECT_EQ(
-        acceleration, PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+    EXPECT_EQ(planar_acceleration,
+              PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
-    constexpr PlanarAcceleration acceleration =
+    constexpr PlanarAcceleration planar_acceleration =
         PlanarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(
             std::array<double, 2>{1.0, -2.0});
-    EXPECT_EQ(
-        acceleration, PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+    EXPECT_EQ(planar_acceleration,
+              PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
-    constexpr PlanarAcceleration acceleration =
+    constexpr PlanarAcceleration planar_acceleration =
         PlanarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(
             PlanarVector{1.0, -2.0});
-    EXPECT_EQ(
-        acceleration, PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
+    EXPECT_EQ(planar_acceleration,
+              PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
 }
 
@@ -281,10 +282,25 @@ TEST(PlanarAcceleration, MoveConstructor) {
 }
 
 TEST(PlanarAcceleration, MutableValue) {
-  PlanarAcceleration acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
-  PlanarVector<>& value = acceleration.MutableValue();
+  PlanarAcceleration planar_acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
+  PlanarVector<>& value = planar_acceleration.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(acceleration.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_acceleration.Value(), PlanarVector(-4.0, 5.0));
+}
+
+TEST(PlanarAcceleration, Performance) {
+  PlanarAcceleration planar_acceleration_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  PlanarAcceleration planar_acceleration_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_acceleration_1, planar_acceleration_2, reference1, reference2);
 }
 
 TEST(PlanarAcceleration, PlanarDirection) {
@@ -302,9 +318,9 @@ TEST(PlanarAcceleration, Print) {
 }
 
 TEST(PlanarAcceleration, SetValue) {
-  PlanarAcceleration acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
-  acceleration.SetValue({-4.0, 5.0});
-  EXPECT_EQ(acceleration.Value(), PlanarVector(-4.0, 5.0));
+  PlanarAcceleration planar_acceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond);
+  planar_acceleration.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_acceleration.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarAcceleration, SizeOf) {
@@ -312,10 +328,10 @@ TEST(PlanarAcceleration, SizeOf) {
 }
 
 TEST(PlanarAcceleration, StaticValue) {
-  constexpr PlanarAcceleration acceleration =
+  constexpr PlanarAcceleration planar_acceleration =
       PlanarAcceleration<>::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.0, -2.0);
   constexpr PlanarVector value =
-      acceleration.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
+      planar_acceleration.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

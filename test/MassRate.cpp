@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Mass.hpp"
 #include "../include/PhQ/Unit/MassRate.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -219,6 +220,14 @@ TEST(MassRate, MutableValue) {
   double& value = mass_rate.MutableValue();
   value = 2.0;
   EXPECT_EQ(mass_rate.Value(), 2.0);
+}
+
+TEST(MassRate, Performance) {
+  MassRate first{1.2345678901234567890, Unit::MassRate::KilogramPerSecond};
+  MassRate second{1.2345678901234567890, Unit::MassRate::KilogramPerSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(MassRate, Print) {

@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/AngularSpeed.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -272,6 +273,16 @@ TEST(ScalarAngularAcceleration, MutableValue) {
   double& value = scalar_angular_acceleration.MutableValue();
   value = 2.0;
   EXPECT_EQ(scalar_angular_acceleration.Value(), 2.0);
+}
+
+TEST(ScalarAngularAcceleration, Performance) {
+  ScalarAngularAcceleration first{
+      1.2345678901234567890, Unit::AngularAcceleration::RadianPerSquareSecond};
+  ScalarAngularAcceleration second{
+      1.2345678901234567890, Unit::AngularAcceleration::RadianPerSquareSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ScalarAngularAcceleration, Print) {

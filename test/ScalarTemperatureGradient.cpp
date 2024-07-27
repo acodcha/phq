@@ -34,6 +34,7 @@
 #include "../include/PhQ/Unit/Length.hpp"
 #include "../include/PhQ/Unit/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -219,6 +220,15 @@ TEST(ScalarTemperatureGradient, MutableValue) {
   double& value = quantity.MutableValue();
   value = 2.0;
   EXPECT_EQ(quantity.Value(), 2.0);
+}
+
+TEST(ScalarTemperatureGradient, Performance) {
+  ScalarTemperatureGradient first{1.2345678901234567890, Unit::TemperatureGradient::KelvinPerMetre};
+  ScalarTemperatureGradient second{
+      1.2345678901234567890, Unit::TemperatureGradient::KelvinPerMetre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(ScalarTemperatureGradient, Print) {

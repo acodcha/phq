@@ -33,6 +33,7 @@
 #include "../include/PhQ/ScalarThermalConductivity.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -282,6 +283,27 @@ TEST(ThermalConductivity, MutableValue) {
   SymmetricDyad<>& value = thermal_conductivity.MutableValue();
   value = SymmetricDyad{-7.0, 8.0, -9.0, 10.0, -11.0, 12.0};
   EXPECT_EQ(thermal_conductivity.Value(), SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
+}
+
+TEST(ThermalConductivity, Performance) {
+  ThermalConductivity thermal_conductivity_1{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+       5.6789012345678901234, 6.7890123456789012345},
+      Unit::ThermalConductivity::WattPerMetrePerKelvin
+  };
+  ThermalConductivity thermal_conductivity_2{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+       5.6789012345678901234, 6.7890123456789012345},
+      Unit::ThermalConductivity::WattPerMetrePerKelvin
+  };
+  std::array<double, 6> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  std::array<double, 6> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  Internal::TestSymmetricDyadPerformance(
+      thermal_conductivity_1, thermal_conductivity_2, reference1, reference2);
 }
 
 TEST(ThermalConductivity, Print) {

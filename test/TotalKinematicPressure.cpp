@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/MassDensity.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
 #include "../include/PhQ/Unit/SpecificEnergy.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -236,6 +237,14 @@ TEST(TotalKinematicPressure, MutableValue) {
   double& value = total_kinematic_pressure.MutableValue();
   value = 2.0;
   EXPECT_EQ(total_kinematic_pressure.Value(), 2.0);
+}
+
+TEST(TotalKinematicPressure, Performance) {
+  TotalKinematicPressure first{1.2345678901234567890, Unit::SpecificEnergy::JoulePerKilogram};
+  TotalKinematicPressure second{1.2345678901234567890, Unit::SpecificEnergy::JoulePerKilogram};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(TotalKinematicPressure, Print) {

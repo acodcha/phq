@@ -32,6 +32,7 @@
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Area.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -193,6 +194,14 @@ TEST(Area, MutableValue) {
   double& value = area.MutableValue();
   value = 2.0;
   EXPECT_EQ(area.Value(), 2.0);
+}
+
+TEST(Area, Performance) {
+  Area first{1.2345678901234567890, Unit::Area::SquareMetre};
+  Area second{1.2345678901234567890, Unit::Area::SquareMetre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Area, Print) {

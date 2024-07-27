@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/TemperatureDifference.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -197,6 +198,14 @@ TEST(TemperatureDifference, MutableValue) {
   double& value = temperature_difference.MutableValue();
   value = 2.0;
   EXPECT_EQ(temperature_difference.Value(), 2.0);
+}
+
+TEST(TemperatureDifference, Performance) {
+  TemperatureDifference first{1.2345678901234567890, Unit::TemperatureDifference::Kelvin};
+  TemperatureDifference second{1.2345678901234567890, Unit::TemperatureDifference::Kelvin};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(TemperatureDifference, Print) {

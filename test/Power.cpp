@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Power.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -216,6 +217,14 @@ TEST(Power, MutableValue) {
   double& value = power.MutableValue();
   value = 2.0;
   EXPECT_EQ(power.Value(), 2.0);
+}
+
+TEST(Power, Performance) {
+  Power first{1.2345678901234567890, Unit::Power::Watt};
+  Power second{1.2345678901234567890, Unit::Power::Watt};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Power, Print) {

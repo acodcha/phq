@@ -20,7 +20,9 @@ jobs:
           echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
           sudo apt-get update
           sudo apt-get install --yes bazel
-      - name: Build and run the Physical Quantities library tests
+      - name: Build the Physical Quantities library tests
+        run: bazel build //:all
+      - name: Run the Physical Quantities library tests
         run: bazel test //:all
   cmake:
     name: Build and test with CMake

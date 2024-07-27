@@ -36,6 +36,7 @@
 #include "../include/PhQ/Unit/Memory.hpp"
 #include "../include/PhQ/Unit/MemoryRate.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -223,6 +224,14 @@ TEST(MemoryRate, MutableValue) {
   double& value = memory_rate.MutableValue();
   value = 2.0;
   EXPECT_EQ(memory_rate.Value(), 2.0);
+}
+
+TEST(MemoryRate, Performance) {
+  MemoryRate first{1.2345678901234567890, Unit::MemoryRate::BitPerSecond};
+  MemoryRate second{1.2345678901234567890, Unit::MemoryRate::BitPerSecond};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(MemoryRate, Print) {

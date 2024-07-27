@@ -37,6 +37,7 @@
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
 #include "../include/PhQ/Vector.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -238,6 +239,22 @@ TEST(Displacement, MutableValue) {
   Vector<>& value = displacement.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(displacement.Value(), Vector(-4.0, 5.0, -6.0));
+}
+
+TEST(Displacement, Performance) {
+  Displacement displacement1{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::Length::Metre
+  };
+  Displacement displacement2{
+      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+      Unit::Length::Metre
+  };
+  std::array<double, 3> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  std::array<double, 3> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+  Internal::TestVectorPerformance(displacement1, displacement2, reference1, reference2);
 }
 
 TEST(Displacement, Print) {

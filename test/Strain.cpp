@@ -32,6 +32,7 @@
 
 #include "../include/PhQ/Dimensions.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -185,6 +186,20 @@ TEST(Strain, MutableValue) {
   SymmetricDyad<>& value = strain.MutableValue();
   value = SymmetricDyad{-7.0, 8.0, -9.0, 10.0, -11.0, 12.0};
   EXPECT_EQ(strain.Value(), SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
+}
+
+TEST(Strain, Performance) {
+  Strain strain1{1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+                 4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  Strain strain2{1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+                 4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  std::array<double, 6> reference1{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  std::array<double, 6> reference2{
+      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+  Internal::TestSymmetricDyadPerformance(strain1, strain2, reference1, reference2);
 }
 
 TEST(Strain, Print) {

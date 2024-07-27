@@ -32,6 +32,7 @@
 #include "../include/PhQ/DynamicPressure.hpp"
 #include "../include/PhQ/StaticPressure.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -210,6 +211,14 @@ TEST(TotalPressure, MutableValue) {
   double& value = total_pressure.MutableValue();
   value = 2.0;
   EXPECT_EQ(total_pressure.Value(), 2.0);
+}
+
+TEST(TotalPressure, Performance) {
+  TotalPressure first{1.2345678901234567890, Unit::Pressure::Pascal};
+  TotalPressure second{1.2345678901234567890, Unit::Pressure::Pascal};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(TotalPressure, Print) {

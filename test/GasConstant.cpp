@@ -33,6 +33,7 @@
 #include "../include/PhQ/IsobaricHeatCapacity.hpp"
 #include "../include/PhQ/IsochoricHeatCapacity.hpp"
 #include "../include/PhQ/Unit/HeatCapacity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -234,6 +235,14 @@ TEST(GasConstant, MutableValue) {
   double& value = gas_constant.MutableValue();
   value = 2.0;
   EXPECT_EQ(gas_constant.Value(), 2.0);
+}
+
+TEST(GasConstant, Performance) {
+  GasConstant first{1.2345678901234567890, Unit::HeatCapacity::JoulePerKelvin};
+  GasConstant second{1.2345678901234567890, Unit::HeatCapacity::JoulePerKelvin};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(GasConstant, Print) {

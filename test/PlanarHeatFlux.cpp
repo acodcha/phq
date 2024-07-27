@@ -41,6 +41,7 @@
 #include "../include/PhQ/Unit/EnergyFlux.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -81,27 +82,27 @@ TEST(PlanarHeatFlux, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PlanarHeatFlux, AssignmentOperatorAddition) {
-  PlanarHeatFlux heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  heat_flux += PlanarHeatFlux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(heat_flux, PlanarHeatFlux({3.0, -6.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  PlanarHeatFlux planar_heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  planar_heat_flux += PlanarHeatFlux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({3.0, -6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(PlanarHeatFlux, AssignmentOperatorDivision) {
-  PlanarHeatFlux heat_flux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  heat_flux /= 2.0;
-  EXPECT_EQ(heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  PlanarHeatFlux planar_heat_flux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  planar_heat_flux /= 2.0;
+  EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(PlanarHeatFlux, AssignmentOperatorMultiplication) {
-  PlanarHeatFlux heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  heat_flux *= 2.0;
-  EXPECT_EQ(heat_flux, PlanarHeatFlux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  PlanarHeatFlux planar_heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  planar_heat_flux *= 2.0;
+  EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(PlanarHeatFlux, AssignmentOperatorSubtraction) {
-  PlanarHeatFlux heat_flux({3.0, -6.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  heat_flux -= PlanarHeatFlux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  PlanarHeatFlux planar_heat_flux({3.0, -6.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  planar_heat_flux -= PlanarHeatFlux({2.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(PlanarHeatFlux, ComparisonOperators) {
@@ -179,20 +180,20 @@ TEST(PlanarHeatFlux, CopyConstructor) {
 
 TEST(PlanarHeatFlux, Create) {
   {
-    constexpr PlanarHeatFlux heat_flux =
+    constexpr PlanarHeatFlux planar_heat_flux =
         PlanarHeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.0, -2.0);
-    EXPECT_EQ(heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+    EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
   {
-    constexpr PlanarHeatFlux heat_flux =
+    constexpr PlanarHeatFlux planar_heat_flux =
         PlanarHeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(
             std::array<double, 2>{1.0, -2.0});
-    EXPECT_EQ(heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+    EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
   {
-    constexpr PlanarHeatFlux heat_flux =
+    constexpr PlanarHeatFlux planar_heat_flux =
         PlanarHeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(PlanarVector{1.0, -2.0});
-    EXPECT_EQ(heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
+    EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
 }
 
@@ -242,15 +243,30 @@ TEST(PlanarHeatFlux, MoveConstructor) {
 }
 
 TEST(PlanarHeatFlux, MutableValue) {
-  PlanarHeatFlux heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  PlanarVector<>& value = heat_flux.MutableValue();
+  PlanarHeatFlux planar_heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  PlanarVector<>& value = planar_heat_flux.MutableValue();
   value = PlanarVector{-4.0, 5.0};
-  EXPECT_EQ(heat_flux.Value(), PlanarVector(-4.0, 5.0));
+  EXPECT_EQ(planar_heat_flux.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarHeatFlux, PlanarDirection) {
   EXPECT_EQ(PlanarHeatFlux({3.0, -4.0}, Unit::EnergyFlux::WattPerSquareMetre).PlanarDirection(),
             PlanarDirection(3.0, -4.0));
+}
+
+TEST(PlanarHeatFlux, Performance) {
+  PlanarHeatFlux planar_heat_flux_1{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::EnergyFlux::WattPerSquareMetre
+  };
+  PlanarHeatFlux planar_heat_flux_2{
+      {1.2345678901234567890, 2.3456789012345678901},
+      Unit::EnergyFlux::WattPerSquareMetre
+  };
+  std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
+  std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
+  Internal::TestPlanarVectorPerformance(
+      planar_heat_flux_1, planar_heat_flux_2, reference1, reference2);
 }
 
 TEST(PlanarHeatFlux, Print) {
@@ -262,9 +278,9 @@ TEST(PlanarHeatFlux, Print) {
 }
 
 TEST(PlanarHeatFlux, SetValue) {
-  PlanarHeatFlux heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  heat_flux.SetValue({-4.0, 5.0});
-  EXPECT_EQ(heat_flux.Value(), PlanarVector(-4.0, 5.0));
+  PlanarHeatFlux planar_heat_flux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  planar_heat_flux.SetValue({-4.0, 5.0});
+  EXPECT_EQ(planar_heat_flux.Value(), PlanarVector(-4.0, 5.0));
 }
 
 TEST(PlanarHeatFlux, SizeOf) {
@@ -272,10 +288,10 @@ TEST(PlanarHeatFlux, SizeOf) {
 }
 
 TEST(PlanarHeatFlux, StaticValue) {
-  constexpr PlanarHeatFlux heat_flux =
+  constexpr PlanarHeatFlux planar_heat_flux =
       PlanarHeatFlux<>::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(1.0, -2.0);
   constexpr PlanarVector value =
-      heat_flux.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
+      planar_heat_flux.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));
 }
 

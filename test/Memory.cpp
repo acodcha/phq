@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Memory.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -182,6 +183,14 @@ TEST(Memory, MutableValue) {
   double& value = memory.MutableValue();
   value = 2.0;
   EXPECT_EQ(memory.Value(), 2.0);
+}
+
+TEST(Memory, Performance) {
+  Memory first{1.2345678901234567890, Unit::Memory::Bit};
+  Memory second{1.2345678901234567890, Unit::Memory::Bit};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Memory, Print) {

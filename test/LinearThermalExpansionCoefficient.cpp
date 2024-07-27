@@ -33,6 +33,7 @@
 #include "../include/PhQ/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/ThermalExpansion.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -228,6 +229,15 @@ TEST(LinearThermalExpansionCoefficient, MutableValue) {
   double& value = linear_thermal_expansion_coefficient.MutableValue();
   value = 2.0;
   EXPECT_EQ(linear_thermal_expansion_coefficient.Value(), 2.0);
+}
+
+TEST(LinearThermalExpansionCoefficient, Performance) {
+  LinearThermalExpansionCoefficient first{1.2345678901234567890, Unit::ThermalExpansion::PerKelvin};
+  LinearThermalExpansionCoefficient second{
+      1.2345678901234567890, Unit::ThermalExpansion::PerKelvin};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(LinearThermalExpansionCoefficient, Print) {

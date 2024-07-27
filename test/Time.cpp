@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Time.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -182,6 +183,14 @@ TEST(Time, MutableValue) {
   double& value = time.MutableValue();
   value = 2.0;
   EXPECT_EQ(time.Value(), 2.0);
+}
+
+TEST(Time, Performance) {
+  Time first{1.2345678901234567890, Unit::Time::Second};
+  Time second{1.2345678901234567890, Unit::Time::Second};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Time, Print) {

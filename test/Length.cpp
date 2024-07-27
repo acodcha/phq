@@ -30,6 +30,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Length.hpp"
+#include "Performance.hpp"
 
 namespace PhQ {
 
@@ -183,6 +184,14 @@ TEST(Length, MutableValue) {
   double& value = length.MutableValue();
   value = 2.0;
   EXPECT_EQ(length.Value(), 2.0);
+}
+
+TEST(Length, Performance) {
+  Length first{1.2345678901234567890, Unit::Length::Metre};
+  Length second{1.2345678901234567890, Unit::Length::Metre};
+  double first_reference{1.2345678901234567890};
+  double second_reference{1.2345678901234567890};
+  Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(Length, Print) {
