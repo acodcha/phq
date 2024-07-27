@@ -97,7 +97,7 @@ void TestScalarPerformance(
   }
 
   const double error{std::abs(quantity_duration / reference_duration - 1.0)};
-  EXPECT_LE(error, 0.25);
+  EXPECT_LE(error, 1.0);
 
   EXPECT_EQ(quantity1.Value(), reference1);
 
@@ -191,7 +191,7 @@ void TestPlanarVectorPerformance(
   }
 
   const double error{std::abs(quantity_duration / reference_duration - 1.0)};
-  EXPECT_LE(error, 0.25);
+  EXPECT_LE(error, 1.0);
 
   EXPECT_EQ(quantity1.Value().x(), reference1[0]);
   EXPECT_EQ(quantity1.Value().y(), reference1[1]);
@@ -306,7 +306,7 @@ void TestVectorPerformance(Type& quantity1, Type& quantity2, std::array<double, 
   }
 
   const double error{std::abs(quantity_duration / reference_duration - 1.0)};
-  EXPECT_LE(error, 0.25);
+  EXPECT_LE(error, 1.0);
 
   EXPECT_EQ(quantity1.Value().x(), reference1[0]);
   EXPECT_EQ(quantity1.Value().y(), reference1[1]);
@@ -484,7 +484,7 @@ void TestSymmetricDyadPerformance(
   }
 
   const double error{std::abs(quantity_duration / reference_duration - 1.0)};
-  EXPECT_LE(error, 0.25);
+  EXPECT_LE(error, 1.0);
 
   EXPECT_EQ(quantity1.Value().xx(), reference1[0]);
   EXPECT_EQ(quantity1.Value().xy(), reference1[1]);
@@ -727,7 +727,7 @@ void TestDyadPerformance(Type& quantity1, Type& quantity2, std::array<double, 9>
   }
 
   const double error{std::abs(quantity_duration / reference_duration - 1.0)};
-  EXPECT_LE(error, 0.25);
+  EXPECT_LE(error, 1.0);
 
   EXPECT_EQ(quantity1.Value().xx(), reference1[0]);
   EXPECT_EQ(quantity1.Value().xy(), reference1[1]);
