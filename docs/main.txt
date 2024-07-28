@@ -38,7 +38,7 @@
 ///
 /// \section configuration Configuration
 ///
-/// The Physical Quantities library is a header-only library written in C++17 and therefore requires a C++ compiler with support for the C++17 standard or any more recent standard. Any recent C++ compiler should do, such as GCC or Clang. Install GCC on Ubuntu with `sudo apt install g++` or visit <https://gcc.gnu.org> for alternate means of installation. Install Clang on Ubuntu with `sudo apt install clang` or visit <https://clang.llvm.org/> for alternate means of installation.
+/// The Physical Quantities library is a header-only library written in C++17 and therefore requires a C++ compiler with support for the C++17 standard or any more recent standard. Any recent C++ compiler should do, such as GCC or Clang. Install GCC on Ubuntu with `sudo apt install g++` or visit <https://gcc.gnu.org> for alternate means of installation. Install Clang on Ubuntu with `sudo apt install clang` or visit <https://clang.llvm.org> for alternate means of installation.
 ///
 /// The Physical Quantities library also requires a build system. Currently, both the CMake build system and the Bazel build system are supported:
 ///
