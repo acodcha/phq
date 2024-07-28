@@ -4,13 +4,9 @@
 
 Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
 
-- [Requirements](#requirements)
 - [Configuration](#configuration): [CMake](#configuration-cmake), [Bazel](#configuration-bazel)
-- [Usage](#usage): [Basics](#usage-basics), [Vectors and Tensors](#usage-vectors-and-tensors), [Operations](#usage-operations), [Units](#usage-units), [Unit Systems](#usage-unit-systems), [Models](#usage-models), [Dimensions](#usage-dimensions)
-- [Documentation](#documentation)
-- [Installation](#installation)
-- [Testing](#testing)
-- [Coverage](#coverage)
+- [User Guide](#user-guide): [Basics](#user-guide-basics), [Vectors and Tensors](#user-guide-vectors-and-tensors), [Operations](#user-guide-operations), [Units](#user-guide-units), [Unit Systems](#user-guide-unit-systems), [Models](#user-guide-models), [Dimensions](#user-guide-dimensions)
+- [Developer Guide](#developer-guide): [Documentation](#developer-guide-documentation), [Installation](#developer-guide-installation), [Testing](#developer-guide-testing), [Coverage](#developer-guide-coverage)
 - [License](#license)
 
 Example:
@@ -42,20 +38,11 @@ If you have ever made a unit conversion error, or if you have ever asked yoursel
 
 The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
-## Requirements
-
-The Physical Quantities library requires the following packages:
-
-- **C++ Compiler:** A C++ compiler with support for the C++17 standard or any more recent standard is needed. Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
-- **CMake** or **Bazel:** Either the CMake build system or the Bazel build system is required.
-  - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`. Visit <https://cmake.org> for alternative means of installation.
-  - **Bazel:** Follow the instructions at <https://bazel.build/install> to install Bazel on your system.
-
-[(Back to Top)](#physical-quantities)
-
 ## Configuration
 
-The Physical Quantities library can be configured with either the CMake build system or the Bazel build system.
+The Physical Quantities library is a header-only library written in C++17 and therefore requires a C++ compiler with support for the C++17 standard or any more recent standard. Any recent C++ compiler should do, such as GCC or Clang. Install GCC on Ubuntu with `sudo apt install g++` or visit <https://gcc.gnu.org> for alternate means of installation. Install Clang on Ubuntu with `sudo apt install clang` or visit <https://clang.llvm.org/> for alternate means of installation.
+
+The Physical Quantities library also requires a build system. Currently, both the CMake build system and the Bazel build system are supported:
 
 - [CMake](#configuration-cmake)
 - [Bazel](#configuration-bazel)
@@ -64,7 +51,9 @@ The Physical Quantities library can be configured with either the CMake build sy
 
 ### Configuration: CMake
 
-To use this library in one of your CMake C++ projects, add the following code to your project's `CMakeLists.txt` file:
+Install the CMake build system on Ubuntu with `sudo apt install cmake` or visit <https://cmake.org> for alternate means of installation.
+
+To use the Physical Quantities library in one of your CMake C++ projects, add the following code to your project's `CMakeLists.txt` file:
 
 ```cmake
 set(CMAKE_CXX_STANDARD 17)  # Or any more recent C++ standard.
@@ -88,17 +77,17 @@ endif()
 target_link_libraries(your_target_name [your_other_options] PhQ)
 ```
 
-The above code first checks whether the Physical Quantities library is installed on your system (see the [Installation](#installation) section). If found, the library is linked to your target. Otherwise, the library is automatically downloaded from its GitHub repository and linked to your target.
+The above code first checks whether the Physical Quantities library is installed on your system (see the [Developer Guide](#developer-guide) section). If found, the library is linked to your target. Otherwise, the library is automatically downloaded from its GitHub repository and linked to your target.
 
-Once this is done, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
+Once this is done, simply include the Physical Quantities library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
 
 [(Back to Configuration)](#configuration)
 
 ### Configuration: Bazel
 
-To use this library in one of your Bazel C++ projects, do the following.
+Follow the instructions at <https://bazel.build/install> to install the Bazel build system on your system.
 
-Add the following code to your project's `WORKSPACE.bazel` file:
+To use the Physical Quantities library in one of your Bazel C++ projects, first add the following code to your project's `WORKSPACE.bazel` file:
 
 ```bazel
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
@@ -140,25 +129,27 @@ cc_library(
 
 The above code adds the dependencies for the `PhQ::Position` and `PhQ::ConstitutiveModel::ElasticIsotropicSolid` classes to your Bazel C++ library.
 
-Finally, simply include this library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of this library's contents.
+Finally, simply include the Physical Quantities library's C++ headers in your project's C++ source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the Physical Quantities library's contents.
 
 [(Back to Configuration)](#configuration)
 
-## Usage
+## User Guide
 
-This section contains basic usage information of the Physical Quantities library; see the [Documentation](#documentation) section for the full documentation.
+This section contains a basic user guide for the Physical Quantities library:
 
-- [Basics](#usage-basics)
-- [Vectors and Tensors](#usage-vectors-and-tensors)
-- [Operations](#usage-operations)
-- [Units](#usage-units)
-- [Unit Systems](#usage-unit-systems)
-- [Models](#usage-models)
-- [Dimensions](#usage-dimensions)
+- [Basics](#user-guide-basics)
+- [Vectors and Tensors](#user-guide-vectors-and-tensors)
+- [Operations](#user-guide-operations)
+- [Units](#user-guide-units)
+- [Unit Systems](#user-guide-unit-systems)
+- [Models](#user-guide-models)
+- [Dimensions](#user-guide-dimensions)
+
+In addition to this user guide, the full documentation of the Physical Quantities library is hosted at <https://acodcha.github.io/phq-docs>.
 
 [(Back to Top)](#physical-quantities)
 
-### Usage: Basics
+### User Guide: Basics
 
 Physical quantities are constructed from a value and a unit and support standard arithmetic operations. For example:
 
@@ -221,11 +212,11 @@ assert(sizeof(position) == 3 * sizeof(float));
 
 The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new C++ object. In this case, C++ throws a `std::bad_alloc` exception.
 
-If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
+If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, the Physical Quantities library's functions and methods are marked `noexcept`.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-### Usage: Vectors and Tensors
+### User Guide: Vectors and Tensors
 
 Physical quantities' values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors are defined in three-dimensional Euclidean space and use Cartesian coordinates. For example:
 
@@ -273,9 +264,9 @@ std::cout << "Equivalent von Mises stress: " << stress.VonMises() << std::endl;
 
 The above example creates a stress tensor, asserts that it is symmetric, and computes and prints its equivalent von Mises stress.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-### Usage: Operations
+### User Guide: Operations
 
 Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating-point numbers to represent the same data. For example:
 
@@ -329,9 +320,9 @@ However, in general, divisions by zero can occur during arithmetic operations be
 
 Similarly, floating-point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating-point environment with `std::fetestexcept`.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-### Usage: Units
+### User Guide: Units
 
 The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
 
@@ -405,9 +396,9 @@ for (const PhQ::Energy& energy : energies) {
 
 In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than to explicitly invoke conversion functions.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-### Usage: Unit Systems
+### User Guide: Unit Systems
 
 Internally, physical quantities store their values in the metre-kilogram-second-kelvin (m·kg·s·K) system. Unit conversions are performed automatically when physical quantity objects are constructed. Other common systems of units of measure are also defined:
 
@@ -454,9 +445,9 @@ assert(!optional_system.has_value());
 
 The above example shows that the pound (lbm) mass unit does not relate to any particular system of units.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-### Usage: Models
+### User Guide: Models
 
 Some physical models and related operations are supported. Physical models allow complex mathematical calculations to be performed easily. For example:
 
@@ -477,9 +468,9 @@ std::cout << stress << std::endl;
 
 The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-### Usage: Dimensions
+### User Guide: Dimensions
 
 Seven independent base physical dimensions form the physical dimension set of any unit of measure or physical quantity. These seven independent base physical dimensions are: time (T), length (L), mass (M), electric current (I), temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that share the same physical dimension set are of the same type and can be converted between one another.
 
@@ -523,15 +514,24 @@ std::cout << "Dimensions: " << dimensions << std::endl;
 
 The above example obtains the physical dimension set of mass density, which is L^(-3)·M.
 
-[(Back to Usage)](#usage)
+[(Back to User Guide)](#user-guide)
 
-## Documentation
+## Developer Guide
+
+This section contains a developer guide for the Physical Quantities library.
+
+- [Documentation](#developer-guide-documentation)
+- [Installation](#developer-guide-installation)
+- [Testing](#developer-guide-testing)
+- [Coverage](#developer-guide-coverage)
+
+[(Back to Top)](#physical-quantities)
+
+### Developer Guide: Documentation
 
 The full documentation of the Physical Quantities library is hosted at <https://acodcha.github.io/phq-docs>.
 
-Alternatively, the documentation can be built locally on your system. Doing so requires the following additional package:
-
-- **Doxygen**: The Doxygen program (<https://www.doxygen.nl/index.html>) is used for building documentation. On Ubuntu, install it with `sudo apt install doxygen`.
+Alternatively, the Physical Quantities library's documentation can be built locally on your system with the Doxygen documentation generator. Install the Doxygen documentation generator on Ubuntu with `sudo apt install doxygen` or visit <https://www.doxygen.nl/index.html> for alternate means of installation.
 
 Clone the Physical Quantities library's repository and build its documentation with:
 
@@ -543,13 +543,13 @@ doxygen Doxyfile
 
 This builds HTML documentation pages in the `PhQ/docs/html/` directory. Browse the documentation by opening the `PhQ/docs/html/index.html` file in a web browser.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Developer Guide)](#developer-guide)
 
-## Installation
+### Developer Guide: Installation
 
 If using the CMake build system, the Physical Quantities library can optionally be installed on your system to conveniently use it in your CMake projects. Alternatively, see the [Configuration](#configuration) section for other methods of use.
 
-Clone this library's repository, configure it, and install it with:
+Clone the Physical Quantities library's repository, configure it, and install it with:
 
 ```bash
 git clone git@github.com:acodcha/phq.git PhQ
@@ -560,21 +560,17 @@ cmake ..
 sudo make install
 ```
 
-This is a header-only library, so no compilation is needed. On most systems, the above code installs this library's headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
+This is a header-only library, so no compilation is needed. On most systems, the above code installs the Physical Quantities library's headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Developer Guide)](#developer-guide)
 
-## Testing
+### Developer Guide: Testing
 
-The Physical Quantities library is automatically tested whenever it is updated.
-
-Testing can optionally be performed locally on your system. Doing so requires the following additional package:
-
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`.
+The Physical Quantities library makes extensive use of tests and is automatically tested before being updated. Testing can also be performed locally on your system with the GoogleTest library. Install the GoogleTest library on Ubuntu with `sudo apt install libgtest-dev` or visit <https://github.com/google/googletest> for alternate means of installation.
 
 Testing instructions differ depending on your build system.
 
-If using the CMake build system, you can manually test the Physical Quantities library on your system with:
+If using the CMake build system, test the Physical Quantities library on your system with:
 
 ```bash
 git clone git@github.com:acodcha/phq.git PhQ
@@ -586,7 +582,7 @@ make --jobs=16
 make test
 ```
 
-If using the Bazel build system, you can manually test the Physical Quantities library on your system with:
+If using the Bazel build system, test the Physical Quantities library on your system with:
 
 ```bash
 git clone git@github.com:acodcha/phq.git PhQ
@@ -595,18 +591,15 @@ bazel build //:all
 bazel test //:all
 ```
 
-[(Back to Top)](#physical-quantities)
+[(Back to Developer Guide)](#developer-guide)
 
-## Coverage
+### Developer Guide: Coverage
 
-Code coverage (also known as test coverage) measures the extent to which a library's source code is covered by its tests. The Physical Quantities library currently has 100% coverage.
+Code coverage (also known as test coverage) measures the extent to which a library's source code is covered by its tests. The Physical Quantities library currently has 100% code coverage and aims to maintain this complete level of coverage going forward.
 
-The Physical Quantities library's code coverage can optionally be computed locally on your system. Doing so requires the following additional package:
+The Physical Quantities library's code coverage can be computed locally on your system with the GoogleTest library and the LCOV program. Install the GoogleTest library on Ubuntu with `sudo apt install libgtest-dev` or visit <https://github.com/google/googletest> for alternate means of installation. Install the LCOV program on Ubuntu with `sudo apt install lcov` or visit <https://github.com/linux-test-project/lcov> for alternate means of installation.
 
-- **GoogleTest**: The GoogleTest library (<https://github.com/google/googletest>) is used for testing. On Ubuntu, install it with `sudo apt install libgtest-dev`.
-- **LCOV**: The LCOV program (<https://github.com/linux-test-project/lcov>) is used for computing code coverage. On Ubuntu, install it with `sudo apt install lcov`.
-
-In addition to these requirements, code coverage computation also requires the CMake build system and either the GCC C++ compiler or the Clang C++ compiler; see the [Requirements](#requirements) section for more information on these.
+In addition to these requirements, code coverage computation also requires the CMake build system and either the GCC C++ compiler or the Clang C++ compiler; see the [Configuration](#configuration) section for more information.
 
 Compute the Physical Quantities library's code coverage with:
 
@@ -622,7 +615,7 @@ make --jobs=16
 
 This generates an HTML report in the `PhQ/coverage/` directory. Browse the report by opening the `PhQ/coverage/index.html` file in a web browser.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Developer Guide)](#developer-guide)
 
 ## License
 
