@@ -51,6 +51,9 @@ namespace Unit {
 
 /// \brief Area units.
 enum class Area : int8_t {
+  /// \brief Square metre (m^2) area unit.
+  SquareMetre,
+
   /// \brief Square nautical mile (nmi^2) area unit.
   SquareNauticalMile,
 
@@ -65,9 +68,6 @@ enum class Area : int8_t {
 
   /// \brief Acre (ac) area unit.
   Acre,
-
-  /// \brief Square metre (m^2) area unit.
-  SquareMetre,
 
   /// \brief Square yard (yd^2) area unit.
   SquareYard,
@@ -138,12 +138,12 @@ inline const std::map<Unit::Area, UnitSystem> RelatedUnitSystems<Unit::Area>{
 
 template <>
 inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
+    {Unit::Area::SquareMetre,        "m^2"  },
     {Unit::Area::SquareNauticalMile, "nmi^2"},
     {Unit::Area::SquareMile,         "mi^2" },
     {Unit::Area::SquareKilometre,    "km^2" },
     {Unit::Area::Hectare,            "ha"   },
     {Unit::Area::Acre,               "ac"   },
-    {Unit::Area::SquareMetre,        "m^2"  },
     {Unit::Area::SquareYard,         "yd^2" },
     {Unit::Area::SquareFoot,         "ft^2" },
     {Unit::Area::SquareDecimetre,    "dm^2" },
@@ -157,6 +157,8 @@ inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Area> Spellings<Unit::Area>{
+    {"m^2",         Unit::Area::SquareMetre       },
+    {"m2",          Unit::Area::SquareMetre       },
     {"nmi^2",       Unit::Area::SquareNauticalMile},
     {"nmi2",        Unit::Area::SquareNauticalMile},
     {"NM^2",        Unit::Area::SquareNauticalMile},
@@ -167,8 +169,6 @@ inline const std::unordered_map<std::string_view, Unit::Area> Spellings<Unit::Ar
     {"km2",         Unit::Area::SquareKilometre   },
     {"ha",          Unit::Area::Hectare           },
     {"ac",          Unit::Area::Acre              },
-    {"m^2",         Unit::Area::SquareMetre       },
-    {"m2",          Unit::Area::SquareMetre       },
     {"yd^2",        Unit::Area::SquareYard        },
     {"yd2",         Unit::Area::SquareYard        },
     {"ft^2",        Unit::Area::SquareFoot        },
@@ -200,6 +200,16 @@ inline const std::unordered_map<std::string_view, Unit::Area> Spellings<Unit::Ar
 };
 
 // clang-format on
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMetre>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMetre>::ToStandard(
+    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -272,16 +282,6 @@ inline constexpr void Conversion<Unit::Area, Unit::Area::Acre>::ToStandard(
   value *= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L)
            / static_cast<NumericType>(640.0L);
 }
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMetre>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMetre>::ToStandard(
-    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -412,6 +412,8 @@ inline constexpr void Conversion<Unit::Area, Unit::Area::SquareMicroinch>::ToSta
 template <typename NumericType>
 inline const std::map<Unit::Area, std::function<void(NumericType* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Area, NumericType>{
+        {Unit::Area::SquareMetre,
+         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::FromStandard<NumericType>       },
         {Unit::Area::SquareNauticalMile,
          Conversions<Unit::Area,                                 Unit::Area::SquareNauticalMile>::FromStandard<NumericType>},
         {Unit::Area::SquareMile,
@@ -421,8 +423,6 @@ inline const std::map<Unit::Area, std::function<void(NumericType* const, const s
         {Unit::Area::Hectare,
          Conversions<Unit::Area,                                 Unit::Area::Hectare>::FromStandard<NumericType>           },
         {Unit::Area::Acre,               Conversions<Unit::Area, Unit::Area::Acre>::FromStandard<NumericType>              },
-        {Unit::Area::SquareMetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::FromStandard<NumericType>       },
         {Unit::Area::SquareYard,
          Conversions<Unit::Area,                                 Unit::Area::SquareYard>::FromStandard<NumericType>        },
         {Unit::Area::SquareFoot,
@@ -446,6 +446,8 @@ inline const std::map<Unit::Area, std::function<void(NumericType* const, const s
 template <typename NumericType>
 inline const std::map<Unit::Area, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Area, NumericType>{
+        {Unit::Area::SquareMetre,
+         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::ToStandard<NumericType>       },
         {Unit::Area::SquareNauticalMile,
          Conversions<Unit::Area,                                 Unit::Area::SquareNauticalMile>::ToStandard<NumericType>},
         {Unit::Area::SquareMile,
@@ -455,8 +457,6 @@ inline const std::map<Unit::Area, std::function<void(NumericType* values, const 
         {Unit::Area::Hectare,
          Conversions<Unit::Area,                                 Unit::Area::Hectare>::ToStandard<NumericType>           },
         {Unit::Area::Acre,               Conversions<Unit::Area, Unit::Area::Acre>::ToStandard<NumericType>              },
-        {Unit::Area::SquareMetre,
-         Conversions<Unit::Area,                                 Unit::Area::SquareMetre>::ToStandard<NumericType>       },
         {Unit::Area::SquareYard,
          Conversions<Unit::Area,                                 Unit::Area::SquareYard>::ToStandard<NumericType>        },
         {Unit::Area::SquareFoot,

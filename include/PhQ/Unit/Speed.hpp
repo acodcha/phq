@@ -51,6 +51,15 @@ namespace Unit {
 
 /// \brief Speed units.
 enum class Speed : int8_t {
+  /// \brief Metre per second (m/s) speed unit.
+  MetrePerSecond,
+
+  /// \brief Metre per minute (m/min) speed unit.
+  MetrePerMinute,
+
+  /// \brief Metre per hour (m/hr) speed unit.
+  MetrePerHour,
+
   /// \brief Nautical mile per second (nmi/s) speed unit.
   NauticalMilePerSecond,
 
@@ -77,15 +86,6 @@ enum class Speed : int8_t {
 
   /// \brief Kilometre per hour (km/hr) speed unit.
   KilometrePerHour,
-
-  /// \brief Metre per second (m/s) speed unit.
-  MetrePerSecond,
-
-  /// \brief Metre per minute (m/min) speed unit.
-  MetrePerMinute,
-
-  /// \brief Metre per hour (m/hr) speed unit.
-  MetrePerHour,
 
   /// \brief Yard per second (yd/s) speed unit.
   YardPerSecond,
@@ -210,6 +210,9 @@ inline const std::map<Unit::Speed, UnitSystem> RelatedUnitSystems<Unit::Speed>{
 
 template <>
 inline const std::map<Unit::Speed, std::string_view> Abbreviations<Unit::Speed>{
+    {Unit::Speed::MetrePerSecond,        "m/s"    },
+    {Unit::Speed::MetrePerMinute,        "m/min"  },
+    {Unit::Speed::MetrePerHour,          "m/hr"   },
     {Unit::Speed::NauticalMilePerSecond, "nmi/s"  },
     {Unit::Speed::NauticalMilePerMinute, "nmi/min"},
     {Unit::Speed::Knot,                  "kn"     },
@@ -219,9 +222,6 @@ inline const std::map<Unit::Speed, std::string_view> Abbreviations<Unit::Speed>{
     {Unit::Speed::KilometrePerSecond,    "km/s"   },
     {Unit::Speed::KilometrePerMinute,    "km/min" },
     {Unit::Speed::KilometrePerHour,      "km/hr"  },
-    {Unit::Speed::MetrePerSecond,        "m/s"    },
-    {Unit::Speed::MetrePerMinute,        "m/min"  },
-    {Unit::Speed::MetrePerHour,          "m/hr"   },
     {Unit::Speed::YardPerSecond,         "yd/s"   },
     {Unit::Speed::YardPerMinute,         "yd/min" },
     {Unit::Speed::YardPerHour,           "yd/hr"  },
@@ -253,6 +253,9 @@ inline const std::map<Unit::Speed, std::string_view> Abbreviations<Unit::Speed>{
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Speed> Spellings<Unit::Speed>{
+    {"m/s",           Unit::Speed::MetrePerSecond       },
+    {"m/min",         Unit::Speed::MetrePerMinute       },
+    {"m/hr",          Unit::Speed::MetrePerHour         },
     {"nmi/s",         Unit::Speed::NauticalMilePerSecond},
     {"nmi/min",       Unit::Speed::NauticalMilePerMinute},
     {"kn",            Unit::Speed::Knot                 },
@@ -265,9 +268,6 @@ inline const std::unordered_map<std::string_view, Unit::Speed> Spellings<Unit::S
     {"km/s",          Unit::Speed::KilometrePerSecond   },
     {"km/min",        Unit::Speed::KilometrePerMinute   },
     {"km/hr",         Unit::Speed::KilometrePerHour     },
-    {"m/s",           Unit::Speed::MetrePerSecond       },
-    {"m/min",         Unit::Speed::MetrePerMinute       },
-    {"m/hr",          Unit::Speed::MetrePerHour         },
     {"yd/s",          Unit::Speed::YardPerSecond        },
     {"yd/min",        Unit::Speed::YardPerMinute        },
     {"yd/hr",         Unit::Speed::YardPerHour          },
@@ -313,6 +313,44 @@ inline const std::unordered_map<std::string_view, Unit::Speed> Spellings<Unit::S
 };
 
 // clang-format on
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerSecond>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerSecond>::ToStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerMinute>::FromStandard(
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(60.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerMinute>::ToStandard(
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(60.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerHour>::FromStandard(
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerHour>::ToStandard(
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
+}
 
 template <>
 template <typename NumericType>
@@ -438,44 +476,6 @@ template <typename NumericType>
 inline constexpr void Conversion<Unit::Speed, Unit::Speed::KilometrePerHour>::ToStandard(
     NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000.0L) / static_cast<NumericType>(3600.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerSecond>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerSecond>::ToStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerMinute>::FromStandard(
-    NumericType& value) noexcept {
-  value *= static_cast<NumericType>(60.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerMinute>::ToStandard(
-    NumericType& value) noexcept {
-  value /= static_cast<NumericType>(60.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerHour>::FromStandard(
-    NumericType& value) noexcept {
-  value *= static_cast<NumericType>(3600.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Speed, Unit::Speed::MetrePerHour>::ToStandard(
-    NumericType& value) noexcept {
-  value /= static_cast<NumericType>(3600.0L);
 }
 
 template <>
@@ -859,6 +859,12 @@ inline constexpr void Conversion<Unit::Speed, Unit::Speed::MicroinchPerHour>::To
 template <typename NumericType>
 inline const std::map<Unit::Speed, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Speed, NumericType>{
+        {Unit::Speed::MetrePerSecond,
+         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerSecond>::FromStandard<NumericType>       },
+        {Unit::Speed::MetrePerMinute,
+         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerMinute>::FromStandard<NumericType>       },
+        {Unit::Speed::MetrePerHour,
+         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerHour>::FromStandard<NumericType>         },
         {Unit::Speed::NauticalMilePerSecond,
          Conversions<Unit::Speed,                                     Unit::Speed::NauticalMilePerSecond>::FromStandard<NumericType>},
         {Unit::Speed::NauticalMilePerMinute,
@@ -876,12 +882,6 @@ inline const std::map<Unit::Speed, std::function<void(NumericType* values, const
          Conversions<Unit::Speed,                                     Unit::Speed::KilometrePerMinute>::FromStandard<NumericType>   },
         {Unit::Speed::KilometrePerHour,
          Conversions<Unit::Speed,                                     Unit::Speed::KilometrePerHour>::FromStandard<NumericType>     },
-        {Unit::Speed::MetrePerSecond,
-         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerSecond>::FromStandard<NumericType>       },
-        {Unit::Speed::MetrePerMinute,
-         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerMinute>::FromStandard<NumericType>       },
-        {Unit::Speed::MetrePerHour,
-         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerHour>::FromStandard<NumericType>         },
         {Unit::Speed::YardPerSecond,
          Conversions<Unit::Speed,                                     Unit::Speed::YardPerSecond>::FromStandard<NumericType>        },
         {Unit::Speed::YardPerMinute,
@@ -942,6 +942,12 @@ template <typename NumericType>
 inline const std::map<Unit::Speed,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Speed, NumericType>{
+        {Unit::Speed::MetrePerSecond,
+         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerSecond>::ToStandard<NumericType>       },
+        {Unit::Speed::MetrePerMinute,
+         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerMinute>::ToStandard<NumericType>       },
+        {Unit::Speed::MetrePerHour,
+         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerHour>::ToStandard<NumericType>         },
         {Unit::Speed::NauticalMilePerSecond,
          Conversions<Unit::Speed,                                     Unit::Speed::NauticalMilePerSecond>::ToStandard<NumericType>},
         {Unit::Speed::NauticalMilePerMinute,
@@ -959,12 +965,6 @@ inline const std::map<Unit::Speed,
          Conversions<Unit::Speed,                                     Unit::Speed::KilometrePerMinute>::ToStandard<NumericType>   },
         {Unit::Speed::KilometrePerHour,
          Conversions<Unit::Speed,                                     Unit::Speed::KilometrePerHour>::ToStandard<NumericType>     },
-        {Unit::Speed::MetrePerSecond,
-         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerSecond>::ToStandard<NumericType>       },
-        {Unit::Speed::MetrePerMinute,
-         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerMinute>::ToStandard<NumericType>       },
-        {Unit::Speed::MetrePerHour,
-         Conversions<Unit::Speed,                                     Unit::Speed::MetrePerHour>::ToStandard<NumericType>         },
         {Unit::Speed::YardPerSecond,
          Conversions<Unit::Speed,                                     Unit::Speed::YardPerSecond>::ToStandard<NumericType>        },
         {Unit::Speed::YardPerMinute,

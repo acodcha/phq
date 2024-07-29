@@ -51,6 +51,9 @@ namespace Unit {
 
 /// \brief Time units.
 enum class Time : int8_t {
+  /// \brief Second (s) time unit.
+  Second,
+
   /// \brief Nanosecond (ns) time unit.
   Nanosecond,
 
@@ -59,9 +62,6 @@ enum class Time : int8_t {
 
   /// \brief Millisecond (ms) time unit.
   Millisecond,
-
-  /// \brief Second (s) time unit.
-  Second,
 
   /// \brief Minute (min) time unit.
   Minute,
@@ -106,16 +106,19 @@ inline const std::map<Unit::Time, UnitSystem> RelatedUnitSystems<Unit::Time>{};
 
 template <>
 inline const std::map<Unit::Time, std::string_view> Abbreviations<Unit::Time>{
+    {Unit::Time::Second,      "s"  },
     {Unit::Time::Nanosecond,  "ns" },
     {Unit::Time::Microsecond, "μs" },
     {Unit::Time::Millisecond, "ms" },
-    {Unit::Time::Second,      "s"  },
     {Unit::Time::Minute,      "min"},
     {Unit::Time::Hour,        "hr" },
 };
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Time> Spellings<Unit::Time>{
+    {"s",            Unit::Time::Second     },
+    {"second",       Unit::Time::Second     },
+    {"seconds",      Unit::Time::Second     },
     {"ns",           Unit::Time::Nanosecond },
     {"nanosecond",   Unit::Time::Nanosecond },
     {"nanoseconds",  Unit::Time::Nanosecond },
@@ -126,9 +129,6 @@ inline const std::unordered_map<std::string_view, Unit::Time> Spellings<Unit::Ti
     {"ms",           Unit::Time::Millisecond},
     {"millisecond",  Unit::Time::Millisecond},
     {"milliseconds", Unit::Time::Millisecond},
-    {"s",            Unit::Time::Second     },
-    {"second",       Unit::Time::Second     },
-    {"seconds",      Unit::Time::Second     },
     {"min",          Unit::Time::Minute     },
     {"mins",         Unit::Time::Minute     },
     {"minute",       Unit::Time::Minute     },
@@ -140,6 +140,16 @@ inline const std::unordered_map<std::string_view, Unit::Time> Spellings<Unit::Ti
 };
 
 // clang-format on
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Time, Unit::Time::Second>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Time, Unit::Time::Second>::ToStandard(
+    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -185,16 +195,6 @@ inline constexpr void Conversion<Unit::Time, Unit::Time::Millisecond>::ToStandar
 
 template <>
 template <typename NumericType>
-inline constexpr void Conversion<Unit::Time, Unit::Time::Second>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Time, Unit::Time::Second>::ToStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
 inline constexpr void Conversion<Unit::Time, Unit::Time::Minute>::FromStandard(
     NumericType& value) noexcept {
   value /= static_cast<NumericType>(60.0L);
@@ -224,14 +224,14 @@ inline constexpr void Conversion<Unit::Time, Unit::Time::Hour>::ToStandard(
 template <typename NumericType>
 inline const std::map<Unit::Time, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Time, NumericType>{
+        {Unit::Time::Second,
+         Conversions<Unit::Time,                          Unit::Time::Second>::FromStandard<NumericType>     },
         {Unit::Time::Nanosecond,
          Conversions<Unit::Time,                          Unit::Time::Nanosecond>::FromStandard<NumericType> },
         {Unit::Time::Microsecond,
          Conversions<Unit::Time,                          Unit::Time::Microsecond>::FromStandard<NumericType>},
         {Unit::Time::Millisecond,
          Conversions<Unit::Time,                          Unit::Time::Millisecond>::FromStandard<NumericType>},
-        {Unit::Time::Second,
-         Conversions<Unit::Time,                          Unit::Time::Second>::FromStandard<NumericType>     },
         {Unit::Time::Minute,
          Conversions<Unit::Time,                          Unit::Time::Minute>::FromStandard<NumericType>     },
         {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::FromStandard<NumericType>       },
@@ -241,13 +241,13 @@ template <typename NumericType>
 inline const std::map<Unit::Time,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Time, NumericType>{
+        {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::ToStandard<NumericType>     },
         {Unit::Time::Nanosecond,
          Conversions<Unit::Time,                          Unit::Time::Nanosecond>::ToStandard<NumericType> },
         {Unit::Time::Microsecond,
          Conversions<Unit::Time,                          Unit::Time::Microsecond>::ToStandard<NumericType>},
         {Unit::Time::Millisecond,
          Conversions<Unit::Time,                          Unit::Time::Millisecond>::ToStandard<NumericType>},
-        {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::ToStandard<NumericType>     },
         {Unit::Time::Minute,      Conversions<Unit::Time, Unit::Time::Minute>::ToStandard<NumericType>     },
         {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::ToStandard<NumericType>       },
 };
