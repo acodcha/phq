@@ -51,6 +51,9 @@ namespace Unit {
 
 /// \brief Diffusivity units.
 enum class Diffusivity : int8_t {
+  /// \brief Square metre per second (m^2/s) diffusivity unit.
+  SquareMetrePerSecond,
+
   /// \brief Square nautical mile per second (nmi^2/s) diffusivity unit.
   SquareNauticalMilePerSecond,
 
@@ -65,9 +68,6 @@ enum class Diffusivity : int8_t {
 
   /// \brief Acre per second (ac/s) diffusivity unit.
   AcrePerSecond,
-
-  /// \brief Square metre per second (m^2/s) diffusivity unit.
-  SquareMetrePerSecond,
 
   /// \brief Square yard per second (yd^2/s) diffusivity unit.
   SquareYardPerSecond,
@@ -139,12 +139,12 @@ inline const std::map<Unit::Diffusivity, UnitSystem> RelatedUnitSystems<Unit::Di
 
 template <>
 inline const std::map<Unit::Diffusivity, std::string_view> Abbreviations<Unit::Diffusivity>{
+    {Unit::Diffusivity::SquareMetrePerSecond,        "m^2/s"  },
     {Unit::Diffusivity::SquareNauticalMilePerSecond, "nmi^2/s"},
     {Unit::Diffusivity::SquareMilePerSecond,         "mi^2/s" },
     {Unit::Diffusivity::SquareKilometrePerSecond,    "km^2/s" },
     {Unit::Diffusivity::HectarePerSecond,            "ha/s"   },
     {Unit::Diffusivity::AcrePerSecond,               "ac/s"   },
-    {Unit::Diffusivity::SquareMetrePerSecond,        "m^2/s"  },
     {Unit::Diffusivity::SquareYardPerSecond,         "yd^2/s" },
     {Unit::Diffusivity::SquareFootPerSecond,         "ft^2/s" },
     {Unit::Diffusivity::SquareDecimetrePerSecond,    "dm^2/s" },
@@ -158,6 +158,8 @@ inline const std::map<Unit::Diffusivity, std::string_view> Abbreviations<Unit::D
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Diffusivity> Spellings<Unit::Diffusivity>{
+    {"m^2/s",         Unit::Diffusivity::SquareMetrePerSecond       },
+    {"m2/s",          Unit::Diffusivity::SquareMetrePerSecond       },
     {"nmi^2/s",       Unit::Diffusivity::SquareNauticalMilePerSecond},
     {"nmi2/s",        Unit::Diffusivity::SquareNauticalMilePerSecond},
     {"mi^2/s",        Unit::Diffusivity::SquareMilePerSecond        },
@@ -166,8 +168,6 @@ inline const std::unordered_map<std::string_view, Unit::Diffusivity> Spellings<U
     {"km2/s",         Unit::Diffusivity::SquareKilometrePerSecond   },
     {"ha/s",          Unit::Diffusivity::HectarePerSecond           },
     {"ac/s",          Unit::Diffusivity::AcrePerSecond              },
-    {"m^2/s",         Unit::Diffusivity::SquareMetrePerSecond       },
-    {"m2/s",          Unit::Diffusivity::SquareMetrePerSecond       },
     {"yd^2/s",        Unit::Diffusivity::SquareYardPerSecond        },
     {"yd2/s",         Unit::Diffusivity::SquareYardPerSecond        },
     {"ft^2/s",        Unit::Diffusivity::SquareFootPerSecond        },
@@ -199,6 +199,18 @@ inline const std::unordered_map<std::string_view, Unit::Diffusivity> Spellings<U
 };
 
 // clang-format on
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::ToStandard(
+    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -279,18 +291,6 @@ inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::AcrePerSe
   value *= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L)
            / static_cast<NumericType>(640.0L);
 }
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::ToStandard(
-    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -440,6 +440,9 @@ template <typename NumericType>
 inline const std::map<Unit::Diffusivity,
                       std::function<void(NumericType* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Diffusivity, NumericType>{
+        {Unit::Diffusivity::SquareMetrePerSecond,
+         Conversions<Unit::Diffusivity,
+         Unit::Diffusivity::SquareMetrePerSecond>::FromStandard<NumericType>       },
         {Unit::Diffusivity::SquareNauticalMilePerSecond,
          Conversions<Unit::Diffusivity,
          Unit::Diffusivity::SquareNauticalMilePerSecond>::FromStandard<NumericType>},
@@ -455,9 +458,6 @@ inline const std::map<Unit::Diffusivity,
         {Unit::Diffusivity::AcrePerSecond,
          Conversions<Unit::Diffusivity,
          Unit::Diffusivity::AcrePerSecond>::FromStandard<NumericType>              },
-        {Unit::Diffusivity::SquareMetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMetrePerSecond>::FromStandard<NumericType>       },
         {Unit::Diffusivity::SquareYardPerSecond,
          Conversions<Unit::Diffusivity,
          Unit::Diffusivity::SquareYardPerSecond>::FromStandard<NumericType>        },
@@ -491,6 +491,9 @@ template <typename NumericType>
 inline const std::map<Unit::Diffusivity,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Diffusivity, NumericType>{
+        {Unit::Diffusivity::SquareMetrePerSecond,
+         Conversions<Unit::Diffusivity,
+         Unit::Diffusivity::SquareMetrePerSecond>::ToStandard<NumericType>                        },
         {Unit::Diffusivity::SquareNauticalMilePerSecond,
          Conversions<Unit::Diffusivity,
          Unit::Diffusivity::SquareNauticalMilePerSecond>::ToStandard<NumericType>                 },
@@ -505,9 +508,6 @@ inline const std::map<Unit::Diffusivity,
          Unit::Diffusivity::HectarePerSecond>::ToStandard<NumericType>                            },
         {Unit::Diffusivity::AcrePerSecond,
          Conversions<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>::ToStandard<NumericType>},
-        {Unit::Diffusivity::SquareMetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMetrePerSecond>::ToStandard<NumericType>                        },
         {Unit::Diffusivity::SquareYardPerSecond,
          Conversions<Unit::Diffusivity,
          Unit::Diffusivity::SquareYardPerSecond>::ToStandard<NumericType>                         },

@@ -51,6 +51,9 @@ namespace Unit {
 
 /// \brief Volume units.
 enum class Volume : int8_t {
+  /// \brief Cubic metre (m^3) volume unit.
+  CubicMetre,
+
   /// \brief Cubic nautical mile (nmi^3) volume unit.
   CubicNauticalMile,
 
@@ -59,9 +62,6 @@ enum class Volume : int8_t {
 
   /// \brief Cubic kilometre (km^3) volume unit.
   CubicKilometre,
-
-  /// \brief Cubic metre (m^3) volume unit.
-  CubicMetre,
 
   /// \brief Cubic yard (yd^3) volume unit.
   CubicYard,
@@ -138,10 +138,10 @@ inline const std::map<Unit::Volume, UnitSystem> RelatedUnitSystems<Unit::Volume>
 
 template <>
 inline const std::map<Unit::Volume, std::string_view> Abbreviations<Unit::Volume>{
+    {Unit::Volume::CubicMetre,        "m^3"  },
     {Unit::Volume::CubicNauticalMile, "nmi^3"},
     {Unit::Volume::CubicMile,         "mi^3" },
     {Unit::Volume::CubicKilometre,    "km^3" },
-    {Unit::Volume::CubicMetre,        "m^3"  },
     {Unit::Volume::CubicYard,         "yd^3" },
     {Unit::Volume::CubicFoot,         "ft^3" },
     {Unit::Volume::CubicDecimetre,    "dm^3" },
@@ -157,14 +157,14 @@ inline const std::map<Unit::Volume, std::string_view> Abbreviations<Unit::Volume
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Volume> Spellings<Unit::Volume>{
+    {"m^3",         Unit::Volume::CubicMetre       },
+    {"m3",          Unit::Volume::CubicMetre       },
     {"nmi^3",       Unit::Volume::CubicNauticalMile},
     {"nmi3",        Unit::Volume::CubicNauticalMile},
     {"mi^3",        Unit::Volume::CubicMile        },
     {"mi3",         Unit::Volume::CubicMile        },
     {"km^3",        Unit::Volume::CubicKilometre   },
     {"km3",         Unit::Volume::CubicKilometre   },
-    {"m^3",         Unit::Volume::CubicMetre       },
-    {"m3",          Unit::Volume::CubicMetre       },
     {"yd^3",        Unit::Volume::CubicYard        },
     {"yd3",         Unit::Volume::CubicYard        },
     {"ft^3",        Unit::Volume::CubicFoot        },
@@ -198,6 +198,16 @@ inline const std::unordered_map<std::string_view, Unit::Volume> Spellings<Unit::
 };
 
 // clang-format on
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard(
+    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -244,16 +254,6 @@ inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicKilometre>::To
     NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E9L);
 }
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard(
-    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -422,14 +422,14 @@ inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMicroinch>::To
 template <typename NumericType>
 inline const std::map<Unit::Volume, std::function<void(NumericType* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Volume, NumericType>{
+        {Unit::Volume::CubicMetre,
+         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard<NumericType>       },
         {Unit::Volume::CubicNauticalMile,
          Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::FromStandard<NumericType>},
         {Unit::Volume::CubicMile,
          Conversions<Unit::Volume, Unit::Volume::CubicMile>::FromStandard<NumericType>        },
         {Unit::Volume::CubicKilometre,
          Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::FromStandard<NumericType>   },
-        {Unit::Volume::CubicMetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard<NumericType>       },
         {Unit::Volume::CubicYard,
          Conversions<Unit::Volume, Unit::Volume::CubicYard>::FromStandard<NumericType>        },
         {Unit::Volume::CubicFoot,
@@ -458,14 +458,14 @@ template <typename NumericType>
 inline const std::map<Unit::Volume,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Volume, NumericType>{
+        {Unit::Volume::CubicMetre,
+         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard<NumericType>       },
         {Unit::Volume::CubicNauticalMile,
          Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::ToStandard<NumericType>},
         {Unit::Volume::CubicMile,
          Conversions<Unit::Volume, Unit::Volume::CubicMile>::ToStandard<NumericType>        },
         {Unit::Volume::CubicKilometre,
          Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::ToStandard<NumericType>   },
-        {Unit::Volume::CubicMetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard<NumericType>       },
         {Unit::Volume::CubicYard,
          Conversions<Unit::Volume, Unit::Volume::CubicYard>::ToStandard<NumericType>        },
         {Unit::Volume::CubicFoot,

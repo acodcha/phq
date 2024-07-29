@@ -51,14 +51,14 @@ namespace Unit {
 
 /// \brief Energy consumption in transport units.
 enum class TransportEnergyConsumption : int8_t {
+  /// \brief Joule per metre (J/m) transport energy consumption unit.
+  JoulePerMetre,
+
   /// \brief Joule per mile (J/mi) transport energy consumption unit.
   JoulePerMile,
 
   /// \brief Joule per kilometre (J/km) transport energy consumption unit.
   JoulePerKilometre,
-
-  /// \brief Joule per metre (J/m) transport energy consumption unit.
-  JoulePerMetre,
 
   /// \brief Nanojoule per millimetre (nJ/mm) transport energy consumption unit.
   NanojoulePerMillimetre,
@@ -156,9 +156,9 @@ inline const std::map<Unit::TransportEnergyConsumption, UnitSystem>
 template <>
 inline const std::map<Unit::TransportEnergyConsumption, std::string_view>
     Abbreviations<Unit::TransportEnergyConsumption>{
+        {Unit::TransportEnergyConsumption::JoulePerMetre,              "J/m"      },
         {Unit::TransportEnergyConsumption::JoulePerMile,               "J/mi"     },
         {Unit::TransportEnergyConsumption::JoulePerKilometre,          "J/km"     },
-        {Unit::TransportEnergyConsumption::JoulePerMetre,              "J/m"      },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,     "nJ/mm"    },
         {Unit::TransportEnergyConsumption::KilojoulePerMile,           "kJ/mi"    },
         {Unit::TransportEnergyConsumption::WattMinutePerMile,          "W·min/mi" },
@@ -180,9 +180,9 @@ inline const std::map<Unit::TransportEnergyConsumption, std::string_view>
 template <>
 inline const std::unordered_map<std::string_view, Unit::TransportEnergyConsumption>
     Spellings<Unit::TransportEnergyConsumption>{
+        {"J/m",       Unit::TransportEnergyConsumption::JoulePerMetre             },
         {"J/mi",      Unit::TransportEnergyConsumption::JoulePerMile              },
         {"J/km",      Unit::TransportEnergyConsumption::JoulePerKilometre         },
-        {"J/m",       Unit::TransportEnergyConsumption::JoulePerMetre             },
         {"nJ/mm",     Unit::TransportEnergyConsumption::NanojoulePerMillimetre    },
         {"kJ/mi",     Unit::TransportEnergyConsumption::KilojoulePerMile          },
         {"W·min/mi",  Unit::TransportEnergyConsumption::WattMinutePerMile         },
@@ -220,6 +220,18 @@ inline const std::unordered_map<std::string_view, Unit::TransportEnergyConsumpti
 template <>
 template <typename NumericType>
 inline constexpr void
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMetre>::
+    FromStandard(NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMetre>::
+    ToStandard(NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void
 Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMile>::
     FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1609.344L);
@@ -248,18 +260,6 @@ Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::J
     ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.001L);
 }
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMetre>::
-    FromStandard(NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::TransportEnergyConsumption, Unit::TransportEnergyConsumption::JoulePerMetre>::
-    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -524,6 +524,9 @@ template <typename NumericType>
 inline const std::map<Unit::TransportEnergyConsumption,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::TransportEnergyConsumption, NumericType>{
+        {Unit::TransportEnergyConsumption::JoulePerMetre,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::JoulePerMetre>::FromStandard<NumericType>         },
         {Unit::TransportEnergyConsumption::JoulePerMile,
          Conversions<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerMile>::FromStandard<NumericType>          },
@@ -531,9 +534,6 @@ inline const std::map<Unit::TransportEnergyConsumption,
          Conversions<
              Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerKilometre>::FromStandard<NumericType>     },
-        {Unit::TransportEnergyConsumption::JoulePerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerMetre>::FromStandard<NumericType>         },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
          Conversions<
              Unit::TransportEnergyConsumption,
@@ -603,15 +603,15 @@ template <typename NumericType>
 inline const std::map<Unit::TransportEnergyConsumption,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TransportEnergyConsumption, NumericType>{
+        {Unit::TransportEnergyConsumption::JoulePerMetre,
+         Conversions<Unit::TransportEnergyConsumption,
+         Unit::TransportEnergyConsumption::JoulePerMetre>::ToStandard<NumericType>           },
         {Unit::TransportEnergyConsumption::JoulePerMile,
          Conversions<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerMile>::ToStandard<NumericType>            },
         {Unit::TransportEnergyConsumption::JoulePerKilometre,
          Conversions<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerKilometre>::ToStandard<NumericType>       },
-        {Unit::TransportEnergyConsumption::JoulePerMetre,
-         Conversions<Unit::TransportEnergyConsumption,
-         Unit::TransportEnergyConsumption::JoulePerMetre>::ToStandard<NumericType>           },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
          Conversions<
              Unit::TransportEnergyConsumption,

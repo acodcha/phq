@@ -51,6 +51,15 @@ namespace Unit {
 
 /// \brief Acceleration units.
 enum class Acceleration : int8_t {
+  /// \brief Metre per square second (m/s^2) acceleration unit.
+  MetrePerSquareSecond,
+
+  /// \brief Metre per square minute (m/min^2) acceleration unit.
+  MetrePerSquareMinute,
+
+  /// \brief Metre per square hour (m/hr^2) acceleration unit.
+  MetrePerSquareHour,
+
   /// \brief Nautical mile per square second (nmi/s^2) acceleration unit.
   NauticalMilePerSquareSecond,
 
@@ -77,15 +86,6 @@ enum class Acceleration : int8_t {
 
   /// \brief Kilometre per square hour (km/hr^2) acceleration unit.
   KilometrePerSquareHour,
-
-  /// \brief Metre per square second (m/s^2) acceleration unit.
-  MetrePerSquareSecond,
-
-  /// \brief Metre per square minute (m/min^2) acceleration unit.
-  MetrePerSquareMinute,
-
-  /// \brief Metre per square hour (m/hr^2) acceleration unit.
-  MetrePerSquareHour,
 
   /// \brief Yard per square second (yd/s^2) acceleration unit.
   YardPerSquareSecond,
@@ -211,6 +211,9 @@ inline const std::map<Unit::Acceleration, UnitSystem> RelatedUnitSystems<Unit::A
 
 template <>
 inline const std::map<Unit::Acceleration, std::string_view> Abbreviations<Unit::Acceleration>{
+    {Unit::Acceleration::MetrePerSquareSecond,        "m/s^2"    },
+    {Unit::Acceleration::MetrePerSquareMinute,        "m/min^2"  },
+    {Unit::Acceleration::MetrePerSquareHour,          "m/hr^2"   },
     {Unit::Acceleration::NauticalMilePerSquareSecond, "nmi/s^2"  },
     {Unit::Acceleration::NauticalMilePerSquareMinute, "nmi/min^2"},
     {Unit::Acceleration::KnotPerHour,                 "kn/hr"    },
@@ -223,9 +226,6 @@ inline const std::map<Unit::Acceleration, std::string_view> Abbreviations<Unit::
     {Unit::Acceleration::YardPerSquareSecond,         "yd/s^2"   },
     {Unit::Acceleration::YardPerSquareMinute,         "yd/min^2" },
     {Unit::Acceleration::YardPerSquareHour,           "yd/hr^2"  },
-    {Unit::Acceleration::MetrePerSquareSecond,        "m/s^2"    },
-    {Unit::Acceleration::MetrePerSquareMinute,        "m/min^2"  },
-    {Unit::Acceleration::MetrePerSquareHour,          "m/hr^2"   },
     {Unit::Acceleration::FootPerSquareSecond,         "ft/s^2"   },
     {Unit::Acceleration::FootPerSquareMinute,         "ft/min^2" },
     {Unit::Acceleration::FootPerSquareHour,           "ft/hr^2"  },
@@ -254,6 +254,15 @@ inline const std::map<Unit::Acceleration, std::string_view> Abbreviations<Unit::
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<Unit::Acceleration>{
+    {"m/s^2",             Unit::Acceleration::MetrePerSquareSecond       },
+    {"m/s2",              Unit::Acceleration::MetrePerSquareSecond       },
+    {"m/s/s",             Unit::Acceleration::MetrePerSquareSecond       },
+    {"m/min^2",           Unit::Acceleration::MetrePerSquareMinute       },
+    {"m/min2",            Unit::Acceleration::MetrePerSquareMinute       },
+    {"m/min/min",         Unit::Acceleration::MetrePerSquareMinute       },
+    {"m/hr^2",            Unit::Acceleration::MetrePerSquareHour         },
+    {"m/hr2",             Unit::Acceleration::MetrePerSquareHour         },
+    {"m/hr/hr",           Unit::Acceleration::MetrePerSquareHour         },
     {"nmi/s^2",           Unit::Acceleration::NauticalMilePerSquareSecond},
     {"nmi/s2",            Unit::Acceleration::NauticalMilePerSquareSecond},
     {"nmi/s/s",           Unit::Acceleration::NauticalMilePerSquareSecond},
@@ -291,15 +300,6 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
     {"yd/hr^2",           Unit::Acceleration::YardPerSquareHour          },
     {"yd/hr2",            Unit::Acceleration::YardPerSquareHour          },
     {"yd/hr/hr",          Unit::Acceleration::YardPerSquareHour          },
-    {"m/s^2",             Unit::Acceleration::MetrePerSquareSecond       },
-    {"m/s2",              Unit::Acceleration::MetrePerSquareSecond       },
-    {"m/s/s",             Unit::Acceleration::MetrePerSquareSecond       },
-    {"m/min^2",           Unit::Acceleration::MetrePerSquareMinute       },
-    {"m/min2",            Unit::Acceleration::MetrePerSquareMinute       },
-    {"m/min/min",         Unit::Acceleration::MetrePerSquareMinute       },
-    {"m/hr^2",            Unit::Acceleration::MetrePerSquareHour         },
-    {"m/hr2",             Unit::Acceleration::MetrePerSquareHour         },
-    {"m/hr/hr",           Unit::Acceleration::MetrePerSquareHour         },
     {"ft/s^2",            Unit::Acceleration::FootPerSquareSecond        },
     {"ft/s2",             Unit::Acceleration::FootPerSquareSecond        },
     {"ft/s/s",            Unit::Acceleration::FootPerSquareSecond        },
@@ -420,6 +420,50 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
 };
 
 // clang-format on
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>::ToStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>::FromStandard(
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(3600.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>::ToStandard(
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(3600.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>::FromStandard(
+    NumericType& value) noexcept {
+  value *= static_cast<NumericType>(12960000.0L);
+}
+
+template <>
+template <typename NumericType>
+inline constexpr void
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>::ToStandard(
+    NumericType& value) noexcept {
+  value /= static_cast<NumericType>(12960000.0L);
+}
 
 template <>
 template <typename NumericType>
@@ -561,50 +605,6 @@ inline constexpr void
 Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour>::ToStandard(
     NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000.0L) / static_cast<NumericType>(12960000.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>::ToStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>::FromStandard(
-    NumericType& value) noexcept {
-  value *= static_cast<NumericType>(3600.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>::ToStandard(
-    NumericType& value) noexcept {
-  value /= static_cast<NumericType>(3600.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>::FromStandard(
-    NumericType& value) noexcept {
-  value *= static_cast<NumericType>(12960000.0L);
-}
-
-template <>
-template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>::ToStandard(
-    NumericType& value) noexcept {
-  value /= static_cast<NumericType>(12960000.0L);
 }
 
 template <>
@@ -1043,6 +1043,15 @@ template <typename NumericType>
 inline const std::map<Unit::Acceleration,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Acceleration, NumericType>{
+        {Unit::Acceleration::MetrePerSquareSecond,
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareSecond>::FromStandard<NumericType>       },
+        {Unit::Acceleration::MetrePerSquareMinute,
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareMinute>::FromStandard<NumericType>       },
+        {Unit::Acceleration::MetrePerSquareHour,
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareHour>::FromStandard<NumericType>         },
         {Unit::Acceleration::NauticalMilePerSquareSecond,
          Conversions<Unit::Acceleration,
          Unit::Acceleration::NauticalMilePerSquareSecond>::FromStandard<NumericType>},
@@ -1070,15 +1079,6 @@ inline const std::map<Unit::Acceleration,
         {Unit::Acceleration::KilometrePerSquareHour,
          Conversions<Unit::Acceleration,
          Unit::Acceleration::KilometrePerSquareHour>::FromStandard<NumericType>     },
-        {Unit::Acceleration::MetrePerSquareSecond,
-         Conversions<Unit::Acceleration,
-         Unit::Acceleration::MetrePerSquareSecond>::FromStandard<NumericType>       },
-        {Unit::Acceleration::MetrePerSquareMinute,
-         Conversions<Unit::Acceleration,
-         Unit::Acceleration::MetrePerSquareMinute>::FromStandard<NumericType>       },
-        {Unit::Acceleration::MetrePerSquareHour,
-         Conversions<Unit::Acceleration,
-         Unit::Acceleration::MetrePerSquareHour>::FromStandard<NumericType>         },
         {Unit::Acceleration::YardPerSquareSecond,
          Conversions<Unit::Acceleration,
          Unit::Acceleration::YardPerSquareSecond>::FromStandard<NumericType>        },
@@ -1166,6 +1166,15 @@ template <typename NumericType>
 inline const std::map<Unit::Acceleration,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Acceleration, NumericType>{
+        {Unit::Acceleration::MetrePerSquareSecond,
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareSecond>::ToStandard<NumericType>                       },
+        {Unit::Acceleration::MetrePerSquareMinute,
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareMinute>::ToStandard<NumericType>                       },
+        {Unit::Acceleration::MetrePerSquareHour,
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareHour>::ToStandard<NumericType>                         },
         {Unit::Acceleration::NauticalMilePerSquareSecond,
          Conversions<Unit::Acceleration,
          Unit::Acceleration::NauticalMilePerSquareSecond>::ToStandard<NumericType>                },
@@ -1192,15 +1201,6 @@ inline const std::map<Unit::Acceleration,
         {Unit::Acceleration::KilometrePerSquareHour,
          Conversions<Unit::Acceleration,
          Unit::Acceleration::KilometrePerSquareHour>::ToStandard<NumericType>                     },
-        {Unit::Acceleration::MetrePerSquareSecond,
-         Conversions<Unit::Acceleration,
-         Unit::Acceleration::MetrePerSquareSecond>::ToStandard<NumericType>                       },
-        {Unit::Acceleration::MetrePerSquareMinute,
-         Conversions<Unit::Acceleration,
-         Unit::Acceleration::MetrePerSquareMinute>::ToStandard<NumericType>                       },
-        {Unit::Acceleration::MetrePerSquareHour,
-         Conversions<Unit::Acceleration,
-         Unit::Acceleration::MetrePerSquareHour>::ToStandard<NumericType>                         },
         {Unit::Acceleration::YardPerSquareSecond,
          Conversions<Unit::Acceleration,
          Unit::Acceleration::YardPerSquareSecond>::ToStandard<NumericType>                        },

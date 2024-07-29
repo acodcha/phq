@@ -51,6 +51,9 @@ namespace Unit {
 
 /// \brief Length units.
 enum class Length : int8_t {
+  /// \brief Metre (m) length unit.
+  Metre,
+
   /// \brief Nautical mile (nmi) length unit.
   NauticalMile,
 
@@ -59,9 +62,6 @@ enum class Length : int8_t {
 
   /// \brief Kilometre (km) length unit.
   Kilometre,
-
-  /// \brief Metre (m) length unit.
-  Metre,
 
   /// \brief Yard (yd) length unit.
   Yard,
@@ -132,10 +132,10 @@ inline const std::map<Unit::Length, UnitSystem> RelatedUnitSystems<Unit::Length>
 
 template <>
 inline const std::map<Unit::Length, std::string_view> Abbreviations<Unit::Length>{
+    {Unit::Length::Metre,        "m"  },
     {Unit::Length::NauticalMile, "nmi"},
     {Unit::Length::Mile,         "mi" },
     {Unit::Length::Kilometre,    "km" },
-    {Unit::Length::Metre,        "m"  },
     {Unit::Length::Yard,         "yd" },
     {Unit::Length::Foot,         "ft" },
     {Unit::Length::Decimetre,    "dm" },
@@ -149,6 +149,11 @@ inline const std::map<Unit::Length, std::string_view> Abbreviations<Unit::Length
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::Length>{
+    {"m",              Unit::Length::Metre       },
+    {"meter",          Unit::Length::Metre       },
+    {"meters",         Unit::Length::Metre       },
+    {"metre",          Unit::Length::Metre       },
+    {"metres",         Unit::Length::Metre       },
     {"nmi",            Unit::Length::NauticalMile},
     {"NM",             Unit::Length::NauticalMile},
     {"nautical mile",  Unit::Length::NauticalMile},
@@ -161,11 +166,6 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::
     {"kilometers",     Unit::Length::Kilometre   },
     {"kilometre",      Unit::Length::Kilometre   },
     {"kilometres",     Unit::Length::Kilometre   },
-    {"m",              Unit::Length::Metre       },
-    {"meter",          Unit::Length::Metre       },
-    {"meters",         Unit::Length::Metre       },
-    {"metre",          Unit::Length::Metre       },
-    {"metres",         Unit::Length::Metre       },
     {"yd",             Unit::Length::Yard        },
     {"yard",           Unit::Length::Yard        },
     {"yards",          Unit::Length::Yard        },
@@ -217,6 +217,16 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::
 
 template <>
 template <typename NumericType>
+inline constexpr void Conversion<Unit::Length, Unit::Length::Metre>::FromStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
+inline constexpr void Conversion<Unit::Length, Unit::Length::Metre>::ToStandard(
+    NumericType& /*value*/) noexcept {}
+
+template <>
+template <typename NumericType>
 inline constexpr void Conversion<Unit::Length, Unit::Length::NauticalMile>::FromStandard(
     NumericType& value) noexcept {
   value /= static_cast<NumericType>(1852.0L);
@@ -256,16 +266,6 @@ inline constexpr void Conversion<Unit::Length, Unit::Length::Kilometre>::ToStand
     NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000.0L);
 }
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Length, Unit::Length::Metre>::FromStandard(
-    NumericType& /*value*/) noexcept {}
-
-template <>
-template <typename NumericType>
-inline constexpr void Conversion<Unit::Length, Unit::Length::Metre>::ToStandard(
-    NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -397,14 +397,14 @@ template <typename NumericType>
 inline const std::map<Unit::Length,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Length, NumericType>{
+        {Unit::Length::Metre,
+         Conversions<Unit::Length, Unit::Length::Metre>::FromStandard<NumericType>       },
         {Unit::Length::NauticalMile,
          Conversions<Unit::Length, Unit::Length::NauticalMile>::FromStandard<NumericType>},
         {Unit::Length::Mile,
          Conversions<Unit::Length, Unit::Length::Mile>::FromStandard<NumericType>        },
         {Unit::Length::Kilometre,
          Conversions<Unit::Length, Unit::Length::Kilometre>::FromStandard<NumericType>   },
-        {Unit::Length::Metre,
-         Conversions<Unit::Length, Unit::Length::Metre>::FromStandard<NumericType>       },
         {Unit::Length::Yard,
          Conversions<Unit::Length, Unit::Length::Yard>::FromStandard<NumericType>        },
         {Unit::Length::Foot,
@@ -429,14 +429,14 @@ template <typename NumericType>
 inline const std::map<Unit::Length,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Length, NumericType>{
+        {Unit::Length::Metre,
+         Conversions<Unit::Length, Unit::Length::Metre>::ToStandard<NumericType>       },
         {Unit::Length::NauticalMile,
          Conversions<Unit::Length, Unit::Length::NauticalMile>::ToStandard<NumericType>},
         {Unit::Length::Mile,
          Conversions<Unit::Length, Unit::Length::Mile>::ToStandard<NumericType>        },
         {Unit::Length::Kilometre,
          Conversions<Unit::Length, Unit::Length::Kilometre>::ToStandard<NumericType>   },
-        {Unit::Length::Metre,
-         Conversions<Unit::Length, Unit::Length::Metre>::ToStandard<NumericType>       },
         {Unit::Length::Yard,
          Conversions<Unit::Length, Unit::Length::Yard>::ToStandard<NumericType>        },
         {Unit::Length::Foot,
