@@ -2,14 +2,20 @@
 
 [![tests](https://github.com/acodcha/phq/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/acodcha/phq/actions/workflows/tests.yaml)
 
-Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing.
+Physical Quantities (PhQ) is a C++ library of physical quantities, physical models, and units of measure for scientific computing. The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
 
+Contents:
+
+- [Introduction](#introduction)
 - [Configuration](#configuration): [CMake](#configuration-cmake), [Bazel](#configuration-bazel)
+- [Background](#background): [Theory](#background-theory), [Design](#background-design)
 - [User Guide](#user-guide): [Basics](#user-guide-basics), [Vectors and Tensors](#user-guide-vectors-and-tensors), [Operations](#user-guide-operations), [Units](#user-guide-units), [Unit Systems](#user-guide-unit-systems), [Models](#user-guide-models), [Dimensions](#user-guide-dimensions)
 - [Developer Guide](#developer-guide): [Documentation](#developer-guide-documentation), [Installation](#developer-guide-installation), [Testing](#developer-guide-testing), [Coverage](#developer-guide-coverage)
 - [License](#license)
 
-Example:
+## Introduction
+
+The following example illustrates the use of the Physical Quantities library:
 
 ```C++
 PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
@@ -28,15 +34,17 @@ std::cout << "Displacement: " << displacement.Print(PhQ::Unit::Length::Centimetr
 // Displacement: (1.80000000000000000e+04, -9000.00000000000000, 6000.00000000000000) cm
 ```
 
+The above example creates a velocity quantity, obtains and prints its magnitude and direction, and computes and prints the resulting displacement that occurs over the course of half a minute.
+
 If you have ever made a unit conversion error, or if you have ever asked yourself questions such as _"what is the correct unit of mass density in the foot-pound-second system?"_, _"how do I compute a stress field given a strain field?"_, or _"what is a slug unit?"_, then this library is for you!
 
 - Physical quantities have no memory overhead compared to using raw floating-point numbers to represent the same data.
 - Mathematical operations between physical quantities have no runtime overhead compared to using raw floating-point numbers to perform the same operations.
-- Unit conversions are handled automatically when physical quantities are constructed, so physical quantities are guaranteed to always be in a consistent state. No more unit conversion errors!
+- Unit conversions are handled automatically when physical quantities are constructed such that physical quantities are guaranteed to always be in a consistent state. No more unit conversion errors!
 - Physical models enable tedious mathematical computations involving physical quantities to be performed easily. No more tensor-vector multiplication errors when computing stresses!
 - Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
 
-The Physical Quantities library is hosted at <https://github.com/acodcha/phq> and its documentation is hosted at <https://acodcha.github.io/phq-docs>.
+[(Back to Top)](#physical-quantities)
 
 ## Configuration
 
@@ -133,9 +141,50 @@ Finally, simply include the Physical Quantities library's C++ headers in your pr
 
 [(Back to Configuration)](#configuration)
 
+## Background
+
+This section explains the theoretical foundation and the software design of the Physical Quantities library:
+
+- [Theory](#background-theory)
+- [Design](#background-design)
+
+[(Back to Top)](#physical-quantities)
+
+### Background: Theory
+
+In engineering and science, the field of dimensional analysis describes the relationships between physical dimensions, physical dimension sets, units of measure, consistent systems of units of measure, and physical quantities.
+
+Seven independent base physical dimensions form the physical dimension set of any unit of measure. These seven independent base physical dimensions are: time (T), length (L), mass (M), electric current (I), temperature (Θ), amount of substance (N), and luminous intensity (J). Each unit of measure therefore has a physical dimension set of the form T^a·L^b·M^c·I^d·Θ^e·N^f·J^g, where a, b, c, d, e, f, and g are integers.
+
+Units of measure that share the same physical dimension set are of the same type and can be converted between one another. For example, the metre per second (m/s) and the mile per hour (mi/hr) are both units of measure that have the same physical dimension set of T^(-1)·L, which is the physical dimension set of speed, so these two units of measure can be converted between one another. On the other hand, the kilogram per cubic metre (kg/m^3) is a unit of measure with physical dimension set L^(-3)·M, which is the physical dimension set of mass density, so this unit of measure cannot be converted to the speed units, which have a different physical dimension set.
+
+A physical quantity consists of a value expressed in a unit of measure. A physical quantity's value can be a scalar, a vector, or a tensor. For example, static pressure is a scalar quantity, traction is a vector quantity, and stress is a dyadic tensor quantity even though all three of these quantities share the same physical dimension set of pressure.
+
+A physical quantity inherits the physical dimension set of its unit of measure. Physical quantities with the same physical dimension set are of the same type and support mathematical operations between one another, though if their units of measure differ, their values should first be converted to a common unit of measure. For example, a physical quantity of 5 meters per second (5 m/s) and a physical quantity of 10 miles per hour (10 mi/hr) are both physical quantities of speed and can be added or subtracted from each other provided that they are both first converted to the same unit of measure.
+
+Physical quantities of different physical dimension sets can also support mathematical operations between one another if such operations are scientifically meaningful. In such cases, the operation is performed on both the values and the units of measure of the physical quantities, yielding a new physical quantity in a different unit of measure and therefore a new physical dimension set. For example, a speed quantity of 240 feet per minute (240 ft/min) divided by a time quantity of 2 seconds (2 s) results in an acceleration quantity of 120 feet per minute per second (120 ft/min/s). This result can be simplified to 2 feet per square second (2 ft/s^2) by converting minutes into seconds. The speed quantity and the time quantity have physical dimension sets of T^(-1)·L and T respectively, so T^(-1)·L/T yields the physical dimension set of acceleration, which is T^(-2)·L.
+
+Some physical quantities are dimensionless: they have no unit of measure and their physical dimension set is simply the null set. These physical quantities essentially behave like numbers and never require unit conversions. For example, the Mach number is a dimensionless scalar physical quantity while strain is a dimensionless symmetric dyadic tensor physical quantity.
+
+A consistent system of units of measure can be constructed from units of measure whose conversion factors are all unity. For example, the International System of Units (SI) defines the metre-kilogram-second-kelvin (m·kg·s·K) system. In this system, the physical dimension of length is expressed in the metre (m), mass is expressed in kilograms (kg), time in seconds (s), temperature in kelvin (K), electric current in amperes (A), amount of substance in moles (mol), and luminous intensity in candela (cd). All other units of measure are expressed as combinations of these basic units with multiplicative factors of unity. For example, the unit of speed is simply the metre per second (m/s), the unit of force is the newton (N), which equals 1 kg·m/s^2, the unit of energy is the joule (J), which equals 1 N·m = 1 kg·m^2/s^2, the unit of power is the Watt (W), which equals 1 J/s = 1 kg·m^2/s^3, and so on. When physical quantities express their values in units of measure that belong to a consistent system of units, no unit conversions are needed on operations between such physical quantities.
+
+[(Back to Background)](#background)
+
+### Background: Design
+
+A naive design for a physical quantity might be an object that contains a value and a unit of measure. However, this design has many shortcomings. First, it would have a larger memory footprint than a raw floating-point number that contained only the value. Second, a unit conversion would be required on every mathematical operation between physical quantities. For example, computing 20 centimeters + 3 feet would first require converting the 3 feet quantity into centimeters, which would require looking up the conversion operation in a table and then performing the conversion operation. This would be much more computationally expensive than simply adding two raw floating-point numbers. Thus, such a design would impose significant memory and runtime costs compared to using raw floating-point numbers.
+
+Instead, the Physical Quantities library employs a better design: each physical quantity only stores a value and always maintain this value in a consistent system of units. The constructors, accessors, and mutators of physical quantities are carefully designed to always enforce this requirement. This way, a physical quantity has the same memory footprint as a raw floating-point number.
+
+In addition, since the value of each physical quantity is always maintained in a consistent system of units, mathematical operations between physical quantities require no unit conversions and remain just as computationally efficient as mathematical operations between raw floating-point numbers. The only required unit conversion occurs during the initial construction of the physical quantity. However, this unit conversion is avoided when physical quantities are default-constructed, and in other cases, this unit conversion can be optimized to be a compile-time constant expression if the physical quantity's value and unit of measure are known at compile time.
+
+Thus, in the Physical Quantities library, physical quantities have no memory overhead compared to using raw floating-point numbers to represent the same data, mathematical operations between physical quantities have no runtime overhead compared to using raw floating-point numbers to perform the same operations, and unit conversions are handled automatically when physical quantities are constructed such that physical quantities are guaranteed to always be in a consistent state. These advantages make the Physical Quantities library suitable for use in scientific computing applications with tight performance requirements.
+
+[(Back to Background)](#background)
+
 ## User Guide
 
-This section contains a basic user guide for the Physical Quantities library:
+This section presents a basic guide on the use of the Physical Quantities library:
 
 - [Basics](#user-guide-basics)
 - [Vectors and Tensors](#user-guide-vectors-and-tensors)
@@ -326,9 +375,9 @@ Similarly, floating-point overflows and underflows can occur during arithmetic o
 
 The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
 
-When a physical quantity object is constructed, its value is immediately converted to the standard unit of measure in the standard system of units: the metre-kilogram-second-kelvin (m·kg·s·K) system. This way, all physical quantities maintain their values in a consistent system of units. This approach greatly minimizes the number of unit conversions during program execution; when arithmetic operations are performed between physical quantities, no unit conversion is needed.
+When a physical quantity object is constructed, its value is immediately converted to the standard unit of measure in the standard system of units: the metre-kilogram-second-kelvin (m·kg·s·K) system from the International System of Units (SI). This way, all physical quantities maintain their values in a consistent system of units. This approach greatly minimizes the number of unit conversions during program execution; when arithmetic operations are performed between physical quantities, no unit conversion is needed.
 
-The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure. These cases are illustrated in the following examples.
+The only other instances where a physical quantity undergoes a unit conversion is when its value is explicitly requested in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure. These cases are illustrated in the following examples.
 
 A physical quantity's value can be expressed in any unit of measure through its `Value` method. For example:
 
@@ -360,7 +409,7 @@ std::cout << "Frequency: " << standard << " = " << kilohertz << std::endl;
 // Frequency: 1234.56789000000003 Hz = 1.23456789000000011 kHz
 ```
 
-The above example creates a 1234.56789 Hz frequency and prints it both in hertz and in kilohertz.
+The above example creates a 1234.56789 Hz frequency and prints it both in hertz (Hz) and in kilohertz (kHz).
 
 Unit conversions can also be performed directly on raw floating-point numbers through the `PhQ::Convert`, `PhQ::ConvertInPlace`, and `PhQ::ConvertStatically` functions, which take one or more floating-point values, an original unit, and a new unit. For example:
 
@@ -376,7 +425,7 @@ for (const double value : values) {
 // 29.5025
 ```
 
-The above example converts a collection of values from joules to foot-pounds. The same results can also be achieved using physical quantities instead of raw floating-point values. For example:
+The above example converts a collection of values from joules (J) to foot-pounds (ft·lbf). The same results can also be achieved using physical quantities instead of raw floating-point values. For example:
 
 ```C++
 const std::vector<PhQ::Energy<>> energies{
@@ -394,13 +443,13 @@ for (const PhQ::Energy& energy : energies) {
 // 29.5025
 ```
 
-In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than to explicitly invoke conversion functions.
+In general, when it comes to unit conversions, it is simpler to use the `Value` or `Print` member methods of physical quantities rather than to explicitly invoke the `PhQ::Convert`, `PhQ::ConvertInPlace`, or `PhQ::ConvertStatically` functions.
 
 [(Back to User Guide)](#user-guide)
 
 ### User Guide: Unit Systems
 
-Internally, physical quantities store their values in the metre-kilogram-second-kelvin (m·kg·s·K) system. Unit conversions are performed automatically when physical quantity objects are constructed. Other common systems of units of measure are also defined:
+Internally, physical quantities store their values in the metre-kilogram-second-kelvin (m·kg·s·K) system from the International System of Units (SI). Unit conversions are performed automatically when physical quantity objects are constructed. The Physical Quantities library also defines other common systems of units of measure:
 
 - Metre-kilogram-second-kelvin (m·kg·s·K) system
 - Millimetre-gram-second-kelvin (mm·g·s·K) system
@@ -474,13 +523,7 @@ The above example creates an elastic isotropic solid constitutive model from a Y
 
 Seven independent base physical dimensions form the physical dimension set of any unit of measure or physical quantity. These seven independent base physical dimensions are: time (T), length (L), mass (M), electric current (I), temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that share the same physical dimension set are of the same type and can be converted between one another.
 
-For example, the metre per second and the mile per hour are both units of measure that have the same physical dimension set of T^(-1)·L, which is the physical dimension set of speed, so these two units of measure can be converted between one another.
-
-On the other hand, the kilogram per cubic metre is a unit of measure with physical dimension set L^(-3)·M, which is the physical dimension set of mass density, so this unit of measure cannot be converted to either the metre per second or the mile per hour, which have a different physical dimension set.
-
-The Physical Quantities library organizes units of measure into types, where each type roughly corresponds to a given physical dimension set.
-
-The physical dimension set of a unit of measure can be obtained with the `PhQ::RelatedDimensions` global variable. For example:
+The Physical Quantities library organizes units of measure into types, where each type roughly corresponds to a given physical dimension set. The physical dimension set of a unit of measure can be obtained with the `PhQ::RelatedDimensions` global variable. For example:
 
 ```C++
 const PhQ::Dimensions dimensions = PhQ::RelatedDimensions<Unit::HeatCapacity>;
@@ -518,7 +561,7 @@ The above example obtains the physical dimension set of mass density, which is L
 
 ## Developer Guide
 
-This section contains a developer guide for the Physical Quantities library.
+This section presents information pertinent to software developers of the Physical Quantities library:
 
 - [Documentation](#developer-guide-documentation)
 - [Installation](#developer-guide-installation)
