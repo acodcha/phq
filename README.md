@@ -10,7 +10,7 @@ Contents:
 - [Configuration](#configuration): [CMake](#configuration-cmake), [Bazel](#configuration-bazel)
 - [Background](#background): [Theory](#background-theory), [Design](#background-design)
 - [User Guide](#user-guide): [Basics](#user-guide-basics), [Vectors and Tensors](#user-guide-vectors-and-tensors), [Operations](#user-guide-operations), [Units](#user-guide-units), [Unit Systems](#user-guide-unit-systems), [Models](#user-guide-models), [Dimensions](#user-guide-dimensions)
-- [Features](#features): [Physical Quantities](#features-physical-quantities), [Physical Models](#features-physical-models), [Units](#features-units), [Unit Systems](#features-unit-systems)
+- [Features](#features): [Physical Quantities](#features-physical-quantities), [Models](#features-models), [Units](#features-units), [Unit Systems](#features-unit-systems)
 - [Developer Guide](#developer-guide): [Documentation](#developer-guide-documentation), [Installation](#developer-guide-installation), [Testing](#developer-guide-testing), [Coverage](#developer-guide-coverage)
 - [License](#license)
 
@@ -565,7 +565,7 @@ The above example obtains the physical dimension set of mass density, which is L
 This section provides an overview of the features of the Physical Quantities library:
 
 - [Physical Quantities](#features-physical-quantities)
-- [Physical Models](#features-physical-models)
+- [Models](#features-models)
 - [Units](#features-units)
 - [Unit Systems](#features-unit-systems)
 
@@ -670,7 +670,7 @@ The Physical Quantities library features the following physical quantities:
 
 [(Back to Features)](#features)
 
-### Features: Physical Models
+### Features: Models
 
 The Physical Quantities library features the following physical models:
 

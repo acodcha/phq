@@ -8,7 +8,7 @@
 /// - \ref configuration "Configuration": \ref configuration_cmake "CMake", \ref configuration_bazel "Bazel"
 /// - \ref background "Background": \ref background_theory "Theory", \ref background_design "Design"
 /// - \ref user_guide "User Guide": \ref user_guide_basics "Basics", \ref user_guide_vectors_and_tensors "Vectors and Tensors", \ref user_guide_operations "Operations", \ref user_guide_units "Units", \ref user_guide_unit_systems "Unit Systems", \ref user_guide_models "Models", \ref user_guide_dimensions "Dimensions"
-/// - \ref features "Features": \ref features_physical_quantities "Physical Quantities", \ref features_physical_models "Physical Models", \ref features_units "Units", \ref features_unit_systems "Unit Systems"
+/// - \ref features "Features": \ref features_physical_quantities "Physical Quantities", \ref features_models "Models", \ref features_units "Units", \ref features_unit_systems "Unit Systems"
 /// - \ref developer_guide "Developer Guide": \ref developer_guide_documentation "Documentation", \ref developer_guide_installation "Installation", \ref developer_guide_testing "Testing", \ref developer_guide_coverage "Coverage"
 /// - \ref license "License"
 ///
@@ -567,7 +567,7 @@
 /// This section provides an overview of the features of the Physical Quantities library:
 ///
 /// - \ref features_physical_quantities "Physical Quantities"
-/// - \ref features_physical_models "Physical Models"
+/// - \ref features_models "Models"
 /// - \ref features_units "Units"
 /// - \ref features_unit_systems "Unit Systems"
 ///
@@ -672,7 +672,7 @@
 ///
 /// \ref features "(Back to Features)"
 ///
-/// \subsection features_physical_models Features: Physical Models
+/// \subsection features_models Features: Models
 ///
 /// The Physical Quantities library features the following physical models:
 ///
