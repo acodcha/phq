@@ -37,8 +37,8 @@
 ///
 /// If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the foot-pound-second system?", "how do I compute a stress field given a strain field?", or "what is a slug unit?", then this library is for you!
 ///
-/// - Physical quantities have no memory overhead compared to using raw floating-point numbers to represent the same data.
-/// - Mathematical operations between physical quantities have no runtime overhead compared to using raw floating-point numbers to perform the same operations.
+/// - Physical quantities have no memory overhead compared to using plain floating-point numbers to represent the same data.
+/// - Mathematical operations between physical quantities have no runtime overhead compared to using plain floating-point numbers to perform the same operations.
 /// - Unit conversions are handled automatically when physical quantities are constructed such that physical quantities are guaranteed to always be in a consistent state. No more unit conversion errors!
 /// - Physical models enable tedious mathematical computations involving physical quantities to be performed easily. No more tensor-vector multiplication errors when computing stresses!
 /// - Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
@@ -171,13 +171,13 @@
 ///
 /// \subsection background_design Background: Design
 ///
-/// A naive design for a physical quantity might be an object that contains a value and a unit of measure. However, this design has many shortcomings. First, it would have a larger memory footprint than a raw floating-point number that contained only the value. Second, a unit conversion would be required on every mathematical operation between physical quantities. For example, computing 20 cm + 3 ft would require converting the 3 ft quantity into centimeters, which would be much more computationally expensive than simply adding two raw floating-point numbers. Thus, such a design would impose memory and runtime costs compared to using raw floating-point numbers.
+/// A naive design for a physical quantity might be an object that contains a value and a unit of measure. However, this design has many shortcomings. First, it would have a larger memory footprint than a plain floating-point number that contained only the value. Second, a unit conversion would be required on every mathematical operation between physical quantities. For example, computing 20 cm + 3 ft would require converting the 3 ft quantity into centimeters, which would be much more computationally expensive than simply adding two plain floating-point numbers. Thus, such a design would impose memory and runtime costs compared to using plain floating-point numbers.
 ///
-/// Instead, the Physical Quantities library employs a better design: each physical quantity only stores a value and always maintain this value in a consistent system of units. The constructors, accessors, and mutators of physical quantities are carefully designed to always enforce this requirement. This way, a physical quantity has the same memory footprint as a raw floating-point number.
+/// Instead, the Physical Quantities library employs a better design: each physical quantity only stores a value and always maintain this value in a consistent system of units. The constructors, accessors, and mutators of physical quantities are carefully designed to always enforce this requirement. This way, a physical quantity has the same memory footprint as a plain floating-point number.
 ///
-/// In addition, since the value of each physical quantity is always maintained in a consistent system of units, mathematical operations between physical quantities require no unit conversions and remain just as computationally efficient as mathematical operations between raw floating-point numbers. The only required unit conversion occurs during the initial construction of the physical quantity. However, this unit conversion is avoided when physical quantities are default-constructed, and in other cases, this unit conversion can be optimized to be a compile-time constant expression if the physical quantity's value and unit of measure are known at compile time.
+/// In addition, since the value of each physical quantity is always maintained in a consistent system of units, mathematical operations between physical quantities require no unit conversions and remain just as computationally efficient as mathematical operations between plain floating-point numbers. The only required unit conversion occurs during the initial construction of the physical quantity. However, this unit conversion is avoided when physical quantities are default-constructed, and in other cases, this unit conversion can be optimized to be a compile-time constant expression if the physical quantity's value and unit of measure are known at compile time.
 ///
-/// Thus, in the Physical Quantities library, physical quantities have no memory overhead compared to using raw floating-point numbers to represent the same data, mathematical operations between physical quantities have no runtime overhead compared to using raw floating-point numbers to perform the same operations, and unit conversions are handled automatically when physical quantities are constructed such that physical quantities are guaranteed to always be in a consistent state. These advantages make the Physical Quantities library suitable for use in scientific computing applications with tight performance requirements.
+/// Thus, in the Physical Quantities library, physical quantities have no memory overhead compared to using plain floating-point numbers to represent the same data, mathematical operations between physical quantities have no runtime overhead compared to using plain floating-point numbers to perform the same operations, and unit conversions are handled automatically when physical quantities are constructed such that physical quantities are guaranteed to always be in a consistent state. These advantages make the Physical Quantities library suitable for use in scientific computing applications with tight performance requirements.
 ///
 /// \ref background "(Back to Background)"
 ///
@@ -248,7 +248,7 @@
 /// // Power: 5000.000000 W
 /// ```
 ///
-/// Physical quantities are implemented efficiently with no memory overhead compared to using raw floating-point numbers to represent the same data. For example:
+/// Physical quantities are implemented efficiently with no memory overhead compared to using plain floating-point numbers to represent the same data. For example:
 ///
 /// ```
 /// PhQ::Volume<double> volume{10.0, PhQ::Unit::Volume::Litre};
@@ -316,7 +316,7 @@
 ///
 /// \subsection user_guide_operations User Guide: Operations
 ///
-/// Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating-point numbers to represent the same data. For example:
+/// Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using plain floating-point numbers to represent the same data. For example:
 ///
 /// ```
 /// PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
@@ -410,7 +410,7 @@
 ///
 /// The above example creates a 1234.56789 Hz frequency and prints it both in hertz (Hz) and in kilohertz (kHz).
 ///
-/// Unit conversions can also be performed directly on raw floating-point numbers through the `PhQ::Convert`, `PhQ::ConvertInPlace`, and `PhQ::ConvertStatically` functions, which take one or more floating-point values, an original unit, and a new unit. For example:
+/// Unit conversions can also be performed directly on plain floating-point numbers through the `PhQ::Convert`, `PhQ::ConvertInPlace`, and `PhQ::ConvertStatically` functions, which take one or more floating-point values, an original unit, and a new unit. For example:
 ///
 /// ```
 /// std::vector<double> values = {10.0, 20.0, 30.0, 40.0};
@@ -424,7 +424,7 @@
 /// // 29.5025
 /// ```
 ///
-/// The above example converts a collection of values from joules (J) to foot-pounds (ft·lbf). The same results can also be achieved using physical quantities instead of raw floating-point values. For example:
+/// The above example converts a collection of values from joules (J) to foot-pounds (ft·lbf). The same results can also be achieved using physical quantities instead of plain floating-point values. For example:
 ///
 /// ```
 /// const std::vector<PhQ::Energy<>> energies{
