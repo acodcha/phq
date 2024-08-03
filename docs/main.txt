@@ -7,7 +7,7 @@
 /// - \ref introduction "Introduction"
 /// - \ref configuration "Configuration": \ref configuration_cmake "CMake", \ref configuration_bazel "Bazel"
 /// - \ref background "Background": \ref background_theory "Theory", \ref background_design "Design"
-/// - \ref user_guide "User Guide": \ref user_guide_basics "Basics", \ref user_guide_vectors_and_tensors "Vectors and Tensors", \ref user_guide_operations "Operations", \ref user_guide_units "Units", \ref user_guide_unit_systems "Unit Systems", \ref user_guide_models "Models", \ref user_guide_dimensions "Dimensions"
+/// - \ref user_guide "User Guide": \ref user_guide_basics "Basics", \ref user_guide_vectors_and_tensors "Vectors and Tensors", \ref user_guide_operations "Operations", \ref user_guide_models "Models", \ref user_guide_units "Units", \ref user_guide_unit_systems "Unit Systems", \ref user_guide_dimensions "Dimensions"
 /// - \ref features "Features": \ref features_physical_quantities "Physical Quantities", \ref features_models "Models", \ref features_units "Units", \ref features_unit_systems "Unit Systems"
 /// - \ref developer_guide "Developer Guide": \ref developer_guide_documentation "Documentation", \ref developer_guide_installation "Installation", \ref developer_guide_testing "Testing", \ref developer_guide_coverage "Coverage"
 /// - \ref license "License"
@@ -188,9 +188,9 @@
 /// - \ref user_guide_basics "Basics"
 /// - \ref user_guide_vectors_and_tensors "Vectors and Tensors"
 /// - \ref user_guide_operations "Operations"
+/// - \ref user_guide_models "Models"
 /// - \ref user_guide_units "Units"
 /// - \ref user_guide_unit_systems "Unit Systems"
-/// - \ref user_guide_models "Models"
 /// - \ref user_guide_dimensions "Dimensions"
 ///
 /// In addition to this user guide, the full documentation of the Physical Quantities library is hosted at <https://acodcha.github.io/phq-docs>.
@@ -370,6 +370,33 @@
 ///
 /// \ref user_guide "(Back to User Guide)"
 ///
+/// \subsection user_guide_models User Guide: Models
+///
+/// The Physical Quantities library supports certain physical models. These physical models allow tedious mathematical calculations to be performed easily. For example:
+///
+/// ```
+/// const std::unique_ptr<const ConstitutiveModel> constitutive_model =
+///     std::make_unique<const ConstitutiveModel::ElasticIsotropicSolid<double>>(
+///         PhQ::YoungModulus<double>{70.0, PhQ::Unit::Pressure::Gigapascal},
+///         PhQ::PoissonRatio<double>{0.33});
+///
+/// PhQ::Strain<double> strain{32.0,  // xx
+///                            -4.0,  // xy
+///                            -2.0,  // xz
+///                            16.0,  // yy
+///                            -1.0,  // yz
+///                             8.0}; // zz
+///
+/// PhQ::Stress<double> stress = constitutive_model->Stress(strain);
+/// std::cout << stress << std::endl;
+/// // (4.54489164086687305e+12, -2.10526315789473663e+11, -1.05263157894736832e+11;
+/// //     3.70278637770897803e+12, -5.26315789473684158e+10; 3.28173374613003076e+12) Pa
+/// ```
+///
+/// The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
+///
+/// \ref user_guide "(Back to User Guide)"
+///
 /// \subsection user_guide_units User Guide: Units
 ///
 /// The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
@@ -492,33 +519,6 @@
 /// ```
 ///
 /// The above example shows that the pound (lbm) mass unit does not relate to any particular system of units.
-///
-/// \ref user_guide "(Back to User Guide)"
-///
-/// \subsection user_guide_models User Guide: Models
-///
-/// Some physical models and related operations are supported. Physical models allow complex mathematical calculations to be performed easily. For example:
-///
-/// ```
-/// const std::unique_ptr<const ConstitutiveModel> constitutive_model =
-///     std::make_unique<const ConstitutiveModel::ElasticIsotropicSolid<double>>(
-///         PhQ::YoungModulus<double>{70.0, PhQ::Unit::Pressure::Gigapascal},
-///         PhQ::PoissonRatio<double>{0.33});
-///
-/// PhQ::Strain<double> strain{32.0,  // xx
-///                            -4.0,  // xy
-///                            -2.0,  // xz
-///                            16.0,  // yy
-///                            -1.0,  // yz
-///                             8.0}; // zz
-///
-/// PhQ::Stress<double> stress = constitutive_model->Stress(strain);
-/// std::cout << stress << std::endl;
-/// // (4.54489164086687305e+12, -2.10526315789473663e+11, -1.05263157894736832e+11;
-/// //     3.70278637770897803e+12, -5.26315789473684158e+10; 3.28173374613003076e+12) Pa
-/// ```
-///
-/// The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
 ///
 /// \ref user_guide "(Back to User Guide)"
 ///
