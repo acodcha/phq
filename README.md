@@ -9,7 +9,7 @@ Contents:
 - [Introduction](#introduction)
 - [Configuration](#configuration): [CMake](#configuration-cmake), [Bazel](#configuration-bazel)
 - [Background](#background): [Theory](#background-theory), [Design](#background-design)
-- [User Guide](#user-guide): [Basics](#user-guide-basics), [Vectors and Tensors](#user-guide-vectors-and-tensors), [Operations](#user-guide-operations), [Units](#user-guide-units), [Unit Systems](#user-guide-unit-systems), [Models](#user-guide-models), [Dimensions](#user-guide-dimensions)
+- [User Guide](#user-guide): [Basics](#user-guide-basics), [Vectors and Tensors](#user-guide-vectors-and-tensors), [Operations](#user-guide-operations), [Models](#user-guide-models), [Units](#user-guide-units), [Unit Systems](#user-guide-unit-systems), [Dimensions](#user-guide-dimensions)
 - [Features](#features): [Physical Quantities](#features-physical-quantities), [Models](#features-models), [Units](#features-units), [Unit Systems](#features-unit-systems)
 - [Developer Guide](#developer-guide): [Documentation](#developer-guide-documentation), [Installation](#developer-guide-installation), [Testing](#developer-guide-testing), [Coverage](#developer-guide-coverage)
 - [License](#license)
@@ -190,9 +190,9 @@ This section presents a basic guide on the use of the Physical Quantities librar
 - [Basics](#user-guide-basics)
 - [Vectors and Tensors](#user-guide-vectors-and-tensors)
 - [Operations](#user-guide-operations)
+- [Models](#user-guide-models)
 - [Units](#user-guide-units)
 - [Unit Systems](#user-guide-unit-systems)
-- [Models](#user-guide-models)
 - [Dimensions](#user-guide-dimensions)
 
 In addition to this user guide, the full documentation of the Physical Quantities library is hosted at <https://acodcha.github.io/phq-docs>.
@@ -372,6 +372,29 @@ Similarly, floating-point overflows and underflows can occur during arithmetic o
 
 [(Back to User Guide)](#user-guide)
 
+### User Guide: Models
+
+The Physical Quantities library supports certain physical models. These physical models allow tedious mathematical calculations to be performed easily. For example:
+
+```C++
+const std::unique_ptr<const ConstitutiveModel> constitutive_model =
+    std::make_unique<const ConstitutiveModel::ElasticIsotropicSolid<double>>(
+        PhQ::YoungModulus<double>{70.0, PhQ::Unit::Pressure::Gigapascal},
+        PhQ::PoissonRatio<double>{0.33});
+
+PhQ::Strain<double> strain{
+    /*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0};
+
+PhQ::Stress<double> stress = constitutive_model->Stress(strain);
+std::cout << stress << std::endl;
+// (4.54489164086687305e+12, -2.10526315789473663e+11, -1.05263157894736832e+11;
+//     3.70278637770897803e+12, -5.26315789473684158e+10; 3.28173374613003076e+12) Pa
+```
+
+The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
+
+[(Back to User Guide)](#user-guide)
+
 ### User Guide: Units
 
 The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating-point arithmetic precision.
@@ -494,29 +517,6 @@ assert(!optional_system.has_value());
 ```
 
 The above example shows that the pound (lbm) mass unit does not relate to any particular system of units.
-
-[(Back to User Guide)](#user-guide)
-
-### User Guide: Models
-
-Some physical models and related operations are supported. Physical models allow complex mathematical calculations to be performed easily. For example:
-
-```C++
-const std::unique_ptr<const ConstitutiveModel> constitutive_model =
-    std::make_unique<const ConstitutiveModel::ElasticIsotropicSolid<double>>(
-        PhQ::YoungModulus<double>{70.0, PhQ::Unit::Pressure::Gigapascal},
-        PhQ::PoissonRatio<double>{0.33});
-
-PhQ::Strain<double> strain{
-    /*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0};
-
-PhQ::Stress<double> stress = constitutive_model->Stress(strain);
-std::cout << stress << std::endl;
-// (4.54489164086687305e+12, -2.10526315789473663e+11, -1.05263157894736832e+11;
-//     3.70278637770897803e+12, -5.26315789473684158e+10; 3.28173374613003076e+12) Pa
-```
-
-The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a given strain tensor.
 
 [(Back to User Guide)](#user-guide)
 
