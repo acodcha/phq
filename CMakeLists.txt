@@ -626,9 +626,9 @@ if(PHYSICAL_QUANTITIES_PHQ_TEST)
   target_link_libraries(unit_thermal_conductivity GTest::gtest_main)
   gtest_discover_tests(unit_thermal_conductivity)
 
-  add_executable(unit_thermal_expansion ${PROJECT_SOURCE_DIR}/test/Unit/ThermalExpansion.cpp)
-  target_link_libraries(unit_thermal_expansion GTest::gtest_main)
-  gtest_discover_tests(unit_thermal_expansion)
+  add_executable(unit_reciprocal_temperature ${PROJECT_SOURCE_DIR}/test/Unit/ReciprocalTemperature.cpp)
+  target_link_libraries(unit_reciprocal_temperature GTest::gtest_main)
+  gtest_discover_tests(unit_reciprocal_temperature)
 
   add_executable(unit_time ${PROJECT_SOURCE_DIR}/test/Unit/Time.cpp)
   target_link_libraries(unit_time GTest::gtest_main)

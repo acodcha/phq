@@ -32,7 +32,7 @@
 #include "DimensionalScalar.hpp"
 #include "ScalarStrain.hpp"
 #include "TemperatureDifference.hpp"
-#include "Unit/ThermalExpansion.hpp"
+#include "Unit/ReciprocalTemperature.hpp"
 
 namespace PhQ {
 
@@ -42,7 +42,7 @@ namespace PhQ {
 /// coefficient.
 template <typename NumericType = double>
 class LinearThermalExpansionCoefficient
-  : public DimensionalScalar<Unit::ThermalExpansion, NumericType> {
+  : public DimensionalScalar<Unit::ReciprocalTemperature, NumericType> {
 public:
   /// \brief Default constructor. Constructs a linear thermal expansion coefficient with an
   /// uninitialized value.
@@ -50,8 +50,8 @@ public:
 
   /// \brief Constructor. Constructs a linear thermal expansion coefficient with a given value
   /// expressed in a given thermal expansion unit.
-  LinearThermalExpansionCoefficient(const NumericType value, const Unit::ThermalExpansion unit)
-    : DimensionalScalar<Unit::ThermalExpansion, NumericType>(value, unit) {}
+  LinearThermalExpansionCoefficient(const NumericType value, const Unit::ReciprocalTemperature unit)
+    : DimensionalScalar<Unit::ReciprocalTemperature, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this linear thermal expansion coefficient.
   ~LinearThermalExpansionCoefficient() noexcept = default;
@@ -99,11 +99,12 @@ public:
 
   /// \brief Statically creates a linear thermal expansion coefficient with a given value expressed
   /// in a given thermal expansion unit.
-  template <Unit::ThermalExpansion Unit>
+  template <Unit::ReciprocalTemperature Unit>
   [[nodiscard]] static constexpr LinearThermalExpansionCoefficient<NumericType> Create(
       const NumericType value) {
     return LinearThermalExpansionCoefficient<NumericType>{
-        ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
+        ConvertStatically<Unit::ReciprocalTemperature, Unit, Standard<Unit::ReciprocalTemperature>>(
+            value)};
   }
 
   constexpr LinearThermalExpansionCoefficient<NumericType> operator+(
@@ -163,7 +164,7 @@ private:
   /// \brief Constructor. Constructs a linear thermal expansion coefficient with a given value
   /// expressed in the standard thermal expansion unit.
   explicit constexpr LinearThermalExpansionCoefficient(const NumericType value)
-    : DimensionalScalar<Unit::ThermalExpansion, NumericType>(value) {}
+    : DimensionalScalar<Unit::ReciprocalTemperature, NumericType>(value) {}
 };
 
 template <typename NumericType>

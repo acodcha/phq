@@ -709,6 +709,7 @@
 /// - PhQ::Unit::MemoryRate
 /// - PhQ::Unit::Power
 /// - PhQ::Unit::Pressure
+/// - PhQ::Unit::ReciprocalTemperature
 /// - PhQ::Unit::SolidAngle
 /// - PhQ::Unit::SpecificEnergy
 /// - PhQ::Unit::SpecificHeatCapacity
@@ -719,7 +720,6 @@
 /// - PhQ::Unit::TemperatureDifference
 /// - PhQ::Unit::TemperatureGradient
 /// - PhQ::Unit::ThermalConductivity
-/// - PhQ::Unit::ThermalExpansion
 /// - PhQ::Unit::Time
 /// - PhQ::Unit::TransportEnergyConsumption
 /// - PhQ::Unit::Volume
