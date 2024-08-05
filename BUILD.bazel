@@ -864,7 +864,7 @@ phq_library(
         ":DimensionalScalar",
         ":ScalarStrain",
         ":TemperatureDifference",
-        ":Unit/ThermalExpansion",
+        ":Unit/ReciprocalTemperature",
     ],
 )
 
@@ -2737,6 +2737,33 @@ phq_test(
 )
 
 phq_library(
+    name = "Unit/ReciprocalTemperature",
+    hdrs = ["include/PhQ/Unit/ReciprocalTemperature.hpp"],
+    deps = [
+        ":Base",
+        ":Dimension/ElectricCurrent",
+        ":Dimension/Length",
+        ":Dimension/LuminousIntensity",
+        ":Dimension/Mass",
+        ":Dimension/SubstanceAmount",
+        ":Dimension/Temperature",
+        ":Dimension/Time",
+        ":Dimensions",
+        ":Unit",
+        ":UnitSystem",
+    ],
+)
+
+phq_test(
+    name = "test/Unit/ReciprocalTemperature",
+    srcs = ["test/Unit/ReciprocalTemperature.cpp"],
+    deps = [
+        ":Unit/ReciprocalTemperature",
+        ":test/Unit",
+    ],
+)
+
+phq_library(
     name = "Unit/SolidAngle",
     hdrs = ["include/PhQ/Unit/SolidAngle.hpp"],
     deps = [
@@ -3007,33 +3034,6 @@ phq_test(
 )
 
 phq_library(
-    name = "Unit/ThermalExpansion",
-    hdrs = ["include/PhQ/Unit/ThermalExpansion.hpp"],
-    deps = [
-        ":Base",
-        ":Dimension/ElectricCurrent",
-        ":Dimension/Length",
-        ":Dimension/LuminousIntensity",
-        ":Dimension/Mass",
-        ":Dimension/SubstanceAmount",
-        ":Dimension/Temperature",
-        ":Dimension/Time",
-        ":Dimensions",
-        ":Unit",
-        ":UnitSystem",
-    ],
-)
-
-phq_test(
-    name = "test/Unit/ThermalExpansion",
-    srcs = ["test/Unit/ThermalExpansion.cpp"],
-    deps = [
-        ":Unit/ThermalExpansion",
-        ":test/Unit",
-    ],
-)
-
-phq_library(
     name = "Unit/Time",
     hdrs = ["include/PhQ/Unit/Time.hpp"],
     deps = [
@@ -3288,7 +3288,7 @@ phq_library(
         ":DimensionalScalar",
         ":Strain",
         ":TemperatureDifference",
-        ":Unit/ThermalExpansion",
+        ":Unit/ReciprocalTemperature",
     ],
 )
 

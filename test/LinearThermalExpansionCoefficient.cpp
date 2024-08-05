@@ -31,8 +31,8 @@
 
 #include "../include/PhQ/ScalarStrain.hpp"
 #include "../include/PhQ/TemperatureDifference.hpp"
+#include "../include/PhQ/Unit/ReciprocalTemperature.hpp"
 #include "../include/PhQ/Unit/TemperatureDifference.hpp"
-#include "../include/PhQ/Unit/ThermalExpansion.hpp"
 #include "Performance.hpp"
 
 namespace PhQ {
@@ -40,75 +40,75 @@ namespace PhQ {
 namespace {
 
 TEST(LinearThermalExpansionCoefficient, ArithmeticOperatorAddition) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin)
-                + LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
-            LinearThermalExpansionCoefficient(3.0, Unit::ThermalExpansion::PerKelvin));
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin)
+                + LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin),
+            LinearThermalExpansionCoefficient(3.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, ArithmeticOperatorDivision) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin) / 2.0,
-            LinearThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin));
-  EXPECT_EQ(LinearThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin)
-                / LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(8.0, Unit::ReciprocalTemperature::PerKelvin) / 2.0,
+            LinearThermalExpansionCoefficient(4.0, Unit::ReciprocalTemperature::PerKelvin));
+  EXPECT_EQ(LinearThermalExpansionCoefficient(8.0, Unit::ReciprocalTemperature::PerKelvin)
+                / LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin),
             4.0);
 }
 
 TEST(LinearThermalExpansionCoefficient, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin) * 2.0,
-            LinearThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
-  EXPECT_EQ(2.0 * LinearThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin),
-            LinearThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
-  EXPECT_EQ(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin)
+  EXPECT_EQ(LinearThermalExpansionCoefficient(4.0, Unit::ReciprocalTemperature::PerKelvin) * 2.0,
+            LinearThermalExpansionCoefficient(8.0, Unit::ReciprocalTemperature::PerKelvin));
+  EXPECT_EQ(2.0 * LinearThermalExpansionCoefficient(4.0, Unit::ReciprocalTemperature::PerKelvin),
+            LinearThermalExpansionCoefficient(8.0, Unit::ReciprocalTemperature::PerKelvin));
+  EXPECT_EQ(LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin)
                 * TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin),
             ScalarStrain(8.0));
   EXPECT_EQ(TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)
-                * LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
+                * LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin),
             ScalarStrain(8.0));
 }
 
 TEST(LinearThermalExpansionCoefficient, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(3.0, Unit::ThermalExpansion::PerKelvin)
-                - LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
-            LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
+  EXPECT_EQ(LinearThermalExpansionCoefficient(3.0, Unit::ReciprocalTemperature::PerKelvin)
+                - LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin),
+            LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, AssignmentOperatorAddition) {
   LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient{
-      1.0, Unit::ThermalExpansion::PerKelvin};
+      1.0, Unit::ReciprocalTemperature::PerKelvin};
   linear_thermal_expansion_coefficient +=
-      LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin);
+      LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin);
   EXPECT_EQ(linear_thermal_expansion_coefficient,
-            LinearThermalExpansionCoefficient(3.0, Unit::ThermalExpansion::PerKelvin));
+            LinearThermalExpansionCoefficient(3.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, AssignmentOperatorDivision) {
   LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient{
-      8.0, Unit::ThermalExpansion::PerKelvin};
+      8.0, Unit::ReciprocalTemperature::PerKelvin};
   linear_thermal_expansion_coefficient /= 2.0;
   EXPECT_EQ(linear_thermal_expansion_coefficient,
-            LinearThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin));
+            LinearThermalExpansionCoefficient(4.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, AssignmentOperatorMultiplication) {
   LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient{
-      4.0, Unit::ThermalExpansion::PerKelvin};
+      4.0, Unit::ReciprocalTemperature::PerKelvin};
   linear_thermal_expansion_coefficient *= 2.0;
   EXPECT_EQ(linear_thermal_expansion_coefficient,
-            LinearThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
+            LinearThermalExpansionCoefficient(8.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, AssignmentOperatorSubtraction) {
   LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient{
-      3.0, Unit::ThermalExpansion::PerKelvin};
+      3.0, Unit::ReciprocalTemperature::PerKelvin};
   linear_thermal_expansion_coefficient -=
-      LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin);
+      LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin);
   EXPECT_EQ(linear_thermal_expansion_coefficient,
-            LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
+            LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, ComparisonOperators) {
-  const LinearThermalExpansionCoefficient first{0.1, Unit::ThermalExpansion::PerKelvin};
-  const LinearThermalExpansionCoefficient second{0.2, Unit::ThermalExpansion::PerKelvin};
+  const LinearThermalExpansionCoefficient first{0.1, Unit::ReciprocalTemperature::PerKelvin};
+  const LinearThermalExpansionCoefficient second{0.2, Unit::ReciprocalTemperature::PerKelvin};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -120,67 +120,72 @@ TEST(LinearThermalExpansionCoefficient, ComparisonOperators) {
 }
 
 TEST(LinearThermalExpansionCoefficient, Constructor) {
-  EXPECT_NO_THROW(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine));
-  EXPECT_EQ(ScalarStrain(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
-                         TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)),
-            ScalarStrain(8.0));
+  EXPECT_NO_THROW(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerRankine));
+  EXPECT_EQ(
+      ScalarStrain(LinearThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin),
+                   TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)),
+      ScalarStrain(8.0));
 }
 
 TEST(LinearThermalExpansionCoefficient, CopyAssignmentOperator) {
   {
-    const LinearThermalExpansionCoefficient<float> first(1.0F, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<float> first(
+        1.0F, Unit::ReciprocalTemperature::PerKelvin);
     LinearThermalExpansionCoefficient<double> second =
         LinearThermalExpansionCoefficient<double>::Zero();
     second = first;
-    EXPECT_EQ(
-        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+    EXPECT_EQ(second, LinearThermalExpansionCoefficient<double>(
+                          1.0, Unit::ReciprocalTemperature::PerKelvin));
   }
   {
-    const LinearThermalExpansionCoefficient<double> first(1.0, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<double> first(
+        1.0, Unit::ReciprocalTemperature::PerKelvin);
     LinearThermalExpansionCoefficient<double> second =
         LinearThermalExpansionCoefficient<double>::Zero();
     second = first;
-    EXPECT_EQ(
-        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+    EXPECT_EQ(second, LinearThermalExpansionCoefficient<double>(
+                          1.0, Unit::ReciprocalTemperature::PerKelvin));
   }
   {
     const LinearThermalExpansionCoefficient<long double> first(
-        1.0L, Unit::ThermalExpansion::PerKelvin);
+        1.0L, Unit::ReciprocalTemperature::PerKelvin);
     LinearThermalExpansionCoefficient<double> second =
         LinearThermalExpansionCoefficient<double>::Zero();
     second = first;
-    EXPECT_EQ(
-        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+    EXPECT_EQ(second, LinearThermalExpansionCoefficient<double>(
+                          1.0, Unit::ReciprocalTemperature::PerKelvin));
   }
 }
 
 TEST(LinearThermalExpansionCoefficient, CopyConstructor) {
   {
-    const LinearThermalExpansionCoefficient<float> first(1.0F, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<float> first(
+        1.0F, Unit::ReciprocalTemperature::PerKelvin);
     const LinearThermalExpansionCoefficient<double> second{first};
-    EXPECT_EQ(
-        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+    EXPECT_EQ(second, LinearThermalExpansionCoefficient<double>(
+                          1.0, Unit::ReciprocalTemperature::PerKelvin));
   }
   {
-    const LinearThermalExpansionCoefficient<double> first(1.0, Unit::ThermalExpansion::PerKelvin);
+    const LinearThermalExpansionCoefficient<double> first(
+        1.0, Unit::ReciprocalTemperature::PerKelvin);
     const LinearThermalExpansionCoefficient<double> second{first};
-    EXPECT_EQ(
-        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+    EXPECT_EQ(second, LinearThermalExpansionCoefficient<double>(
+                          1.0, Unit::ReciprocalTemperature::PerKelvin));
   }
   {
     const LinearThermalExpansionCoefficient<long double> first(
-        1.0L, Unit::ThermalExpansion::PerKelvin);
+        1.0L, Unit::ReciprocalTemperature::PerKelvin);
     const LinearThermalExpansionCoefficient<double> second{first};
-    EXPECT_EQ(
-        second, LinearThermalExpansionCoefficient<double>(1.0, Unit::ThermalExpansion::PerKelvin));
+    EXPECT_EQ(second, LinearThermalExpansionCoefficient<double>(
+                          1.0, Unit::ReciprocalTemperature::PerKelvin));
   }
 }
 
 TEST(LinearThermalExpansionCoefficient, Create) {
   constexpr LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient =
-      LinearThermalExpansionCoefficient<>::Create<Unit::ThermalExpansion::PerKelvin>(1.0);
+      LinearThermalExpansionCoefficient<>::Create<Unit::ReciprocalTemperature::PerKelvin>(1.0);
   EXPECT_EQ(linear_thermal_expansion_coefficient,
-            LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
+            LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, DefaultConstructor) {
@@ -188,14 +193,14 @@ TEST(LinearThermalExpansionCoefficient, DefaultConstructor) {
 }
 
 TEST(LinearThermalExpansionCoefficient, Dimensions) {
-  EXPECT_EQ(
-      LinearThermalExpansionCoefficient<>::Dimensions(), RelatedDimensions<Unit::ThermalExpansion>);
+  EXPECT_EQ(LinearThermalExpansionCoefficient<>::Dimensions(),
+            RelatedDimensions<Unit::ReciprocalTemperature>);
 }
 
 TEST(LinearThermalExpansionCoefficient, Hash) {
-  const LinearThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerRankine};
-  const LinearThermalExpansionCoefficient second{1.00001, Unit::ThermalExpansion::PerRankine};
-  const LinearThermalExpansionCoefficient third{-1.0, Unit::ThermalExpansion::PerRankine};
+  const LinearThermalExpansionCoefficient first{1.0, Unit::ReciprocalTemperature::PerRankine};
+  const LinearThermalExpansionCoefficient second{1.00001, Unit::ReciprocalTemperature::PerRankine};
+  const LinearThermalExpansionCoefficient third{-1.0, Unit::ReciprocalTemperature::PerRankine};
   const std::hash<LinearThermalExpansionCoefficient<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -203,54 +208,55 @@ TEST(LinearThermalExpansionCoefficient, Hash) {
 }
 
 TEST(LinearThermalExpansionCoefficient, JSON) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).JSON(),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin).JSON(),
             "{\"value\":" + Print(1.0) + ",\"unit\":\"/K\"}");
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
-                .JSON(Unit::ThermalExpansion::PerRankine),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerRankine)
+                .JSON(Unit::ReciprocalTemperature::PerRankine),
             "{\"value\":" + Print(1.0) + ",\"unit\":\"/°R\"}");
 }
 
 TEST(LinearThermalExpansionCoefficient, MoveAssignmentOperator) {
-  LinearThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
+  LinearThermalExpansionCoefficient first{1.0, Unit::ReciprocalTemperature::PerKelvin};
   LinearThermalExpansionCoefficient second = LinearThermalExpansionCoefficient<>::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
+  EXPECT_EQ(second, LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, MoveConstructor) {
-  LinearThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
+  LinearThermalExpansionCoefficient first{1.0, Unit::ReciprocalTemperature::PerKelvin};
   const LinearThermalExpansionCoefficient second{std::move(first)};
-  EXPECT_EQ(second, LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
+  EXPECT_EQ(second, LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 TEST(LinearThermalExpansionCoefficient, MutableValue) {
   LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient{
-      1.0, Unit::ThermalExpansion::PerKelvin};
+      1.0, Unit::ReciprocalTemperature::PerKelvin};
   double& value = linear_thermal_expansion_coefficient.MutableValue();
   value = 2.0;
   EXPECT_EQ(linear_thermal_expansion_coefficient.Value(), 2.0);
 }
 
 TEST(LinearThermalExpansionCoefficient, Performance) {
-  LinearThermalExpansionCoefficient first{1.2345678901234567890, Unit::ThermalExpansion::PerKelvin};
+  LinearThermalExpansionCoefficient first{
+      1.2345678901234567890, Unit::ReciprocalTemperature::PerKelvin};
   LinearThermalExpansionCoefficient second{
-      1.2345678901234567890, Unit::ThermalExpansion::PerKelvin};
+      1.2345678901234567890, Unit::ReciprocalTemperature::PerKelvin};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);
 }
 
 TEST(LinearThermalExpansionCoefficient, Print) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).Print(),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin).Print(),
             Print(1.0) + " /K");
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
-                .Print(Unit::ThermalExpansion::PerRankine),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerRankine)
+                .Print(Unit::ReciprocalTemperature::PerRankine),
             Print(1.0) + " /°R");
 }
 
 TEST(LinearThermalExpansionCoefficient, SetValue) {
   LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient{
-      1.0, Unit::ThermalExpansion::PerKelvin};
+      1.0, Unit::ReciprocalTemperature::PerKelvin};
   linear_thermal_expansion_coefficient.SetValue(2.0);
   EXPECT_EQ(linear_thermal_expansion_coefficient.Value(), 2.0);
 }
@@ -261,49 +267,50 @@ TEST(LinearThermalExpansionCoefficient, SizeOf) {
 
 TEST(LinearThermalExpansionCoefficient, StaticValue) {
   constexpr LinearThermalExpansionCoefficient linear_thermal_expansion_coefficient =
-      LinearThermalExpansionCoefficient<>::Create<Unit::ThermalExpansion::PerRankine>(1.0);
+      LinearThermalExpansionCoefficient<>::Create<Unit::ReciprocalTemperature::PerRankine>(1.0);
   constexpr double value =
-      linear_thermal_expansion_coefficient.StaticValue<Unit::ThermalExpansion::PerRankine>();
+      linear_thermal_expansion_coefficient.StaticValue<Unit::ReciprocalTemperature::PerRankine>();
   EXPECT_EQ(value, 1.0);
 }
 
 TEST(LinearThermalExpansionCoefficient, Stream) {
   std::ostringstream stream;
-  stream << LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin);
+  stream << LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin);
   EXPECT_EQ(stream.str(),
-            LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).Print());
+            LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin).Print());
 }
 
 TEST(LinearThermalExpansionCoefficient, Unit) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient<>::Unit(), Standard<Unit::ThermalExpansion>);
+  EXPECT_EQ(LinearThermalExpansionCoefficient<>::Unit(), Standard<Unit::ReciprocalTemperature>);
 }
 
 TEST(LinearThermalExpansionCoefficient, Value) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).Value(), 1.0);
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
-                .Value(Unit::ThermalExpansion::PerRankine),
+  EXPECT_EQ(
+      LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin).Value(), 1.0);
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerRankine)
+                .Value(Unit::ReciprocalTemperature::PerRankine),
             1.0);
 }
 
 TEST(LinearThermalExpansionCoefficient, XML) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).XML(),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin).XML(),
             "<value>" + Print(1.0) + "</value><unit>/K</unit>");
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
-                .XML(Unit::ThermalExpansion::PerRankine),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerRankine)
+                .XML(Unit::ReciprocalTemperature::PerRankine),
             "<value>" + Print(1.0) + "</value><unit>/°R</unit>");
 }
 
 TEST(LinearThermalExpansionCoefficient, YAML) {
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).YAML(),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerKelvin).YAML(),
             "{value:" + Print(1.0) + ",unit:\"/K\"}");
-  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
-                .YAML(Unit::ThermalExpansion::PerRankine),
+  EXPECT_EQ(LinearThermalExpansionCoefficient(1.0, Unit::ReciprocalTemperature::PerRankine)
+                .YAML(Unit::ReciprocalTemperature::PerRankine),
             "{value:" + Print(1.0) + ",unit:\"/°R\"}");
 }
 
 TEST(LinearThermalExpansionCoefficient, Zero) {
   EXPECT_EQ(LinearThermalExpansionCoefficient<>::Zero(),
-            LinearThermalExpansionCoefficient(0.0, Unit::ThermalExpansion::PerKelvin));
+            LinearThermalExpansionCoefficient(0.0, Unit::ReciprocalTemperature::PerKelvin));
 }
 
 }  // namespace

@@ -32,7 +32,7 @@
 #include "DimensionalScalar.hpp"
 #include "Strain.hpp"
 #include "TemperatureDifference.hpp"
-#include "Unit/ThermalExpansion.hpp"
+#include "Unit/ReciprocalTemperature.hpp"
 
 namespace PhQ {
 
@@ -42,16 +42,17 @@ namespace PhQ {
 /// coefficient.
 template <typename NumericType = double>
 class VolumetricThermalExpansionCoefficient
-  : public DimensionalScalar<Unit::ThermalExpansion, NumericType> {
+  : public DimensionalScalar<Unit::ReciprocalTemperature, NumericType> {
 public:
   /// \brief Default constructor. Constructs a volumetric thermal expansion coefficient with an
   /// uninitialized value.
   VolumetricThermalExpansionCoefficient() = default;
 
   /// \brief Constructor. Constructs a volumetric thermal expansion coefficient with a given value
-  /// expressed in a given thermal expansion unit.
-  VolumetricThermalExpansionCoefficient(const NumericType value, const Unit::ThermalExpansion unit)
-    : DimensionalScalar<Unit::ThermalExpansion, NumericType>(value, unit) {}
+  /// expressed in a given reciprocal temperature unit.
+  VolumetricThermalExpansionCoefficient(
+      const NumericType value, const Unit::ReciprocalTemperature unit)
+    : DimensionalScalar<Unit::ReciprocalTemperature, NumericType>(value, unit) {}
 
   /// \brief Destructor. Destroys this volumetric thermal expansion coefficient.
   ~VolumetricThermalExpansionCoefficient() noexcept = default;
@@ -98,12 +99,13 @@ public:
   }
 
   /// \brief Statically creates a volumetric thermal expansion coefficient with a given value
-  /// expressed in a given thermal expansion unit.
-  template <Unit::ThermalExpansion Unit>
+  /// expressed in a given reciprocal temperature unit.
+  template <Unit::ReciprocalTemperature Unit>
   [[nodiscard]] static constexpr VolumetricThermalExpansionCoefficient<NumericType> Create(
       const NumericType value) {
     return VolumetricThermalExpansionCoefficient<NumericType>{
-        ConvertStatically<Unit::ThermalExpansion, Unit, Standard<Unit::ThermalExpansion>>(value)};
+        ConvertStatically<Unit::ReciprocalTemperature, Unit, Standard<Unit::ReciprocalTemperature>>(
+            value)};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<NumericType> operator+(
@@ -160,9 +162,9 @@ public:
 
 private:
   /// \brief Constructor. Constructs a volumetric thermal expansion coefficient with a given value
-  /// expressed in the standard thermal expansion unit.
+  /// expressed in the standard reciprocal temperature unit.
   explicit constexpr VolumetricThermalExpansionCoefficient(const NumericType value)
-    : DimensionalScalar<Unit::ThermalExpansion, NumericType>(value) {}
+    : DimensionalScalar<Unit::ReciprocalTemperature, NumericType>(value) {}
 };
 
 template <typename NumericType>
