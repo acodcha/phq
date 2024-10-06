@@ -16,6 +16,7 @@ jobs:
           sudo apt-get install --yes findutils clang-format
       - name: Check that all source code files are correctly formatted
         run: |
+          clang-format --version
           find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i
           CHANGES=$(git diff --name-only)
           if ! [ -z "$CHANGES" ]; then
