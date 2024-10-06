@@ -40,14 +40,14 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<AngularAcceleration, 15> Units = {
-    AngularAcceleration::RadianPerSquareSecond,     AngularAcceleration::RadianPerSquareMinute,
-    AngularAcceleration::RadianPerSquareHour,       AngularAcceleration::DegreePerSquareSecond,
-    AngularAcceleration::DegreePerSquareMinute,     AngularAcceleration::DegreePerSquareHour,
-    AngularAcceleration::ArcminutePerSquareSecond,  AngularAcceleration::ArcminutePerSquareMinute,
-    AngularAcceleration::ArcminutePerSquareHour,    AngularAcceleration::ArcsecondPerSquareSecond,
-    AngularAcceleration::ArcsecondPerSquareMinute,  AngularAcceleration::ArcsecondPerSquareHour,
-    AngularAcceleration::RevolutionPerSquareSecond, AngularAcceleration::RevolutionPerSquareMinute,
-    AngularAcceleration::RevolutionPerSquareHour,
+  AngularAcceleration::RadianPerSquareSecond,     AngularAcceleration::RadianPerSquareMinute,
+  AngularAcceleration::RadianPerSquareHour,       AngularAcceleration::DegreePerSquareSecond,
+  AngularAcceleration::DegreePerSquareMinute,     AngularAcceleration::DegreePerSquareHour,
+  AngularAcceleration::ArcminutePerSquareSecond,  AngularAcceleration::ArcminutePerSquareMinute,
+  AngularAcceleration::ArcminutePerSquareHour,    AngularAcceleration::ArcsecondPerSquareSecond,
+  AngularAcceleration::ArcsecondPerSquareMinute,  AngularAcceleration::ArcsecondPerSquareHour,
+  AngularAcceleration::RevolutionPerSquareSecond, AngularAcceleration::RevolutionPerSquareMinute,
+  AngularAcceleration::RevolutionPerSquareHour,
 };
 
 TEST(UnitAngularAcceleration, Abbreviation) {

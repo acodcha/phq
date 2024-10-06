@@ -41,28 +41,28 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<MemoryRate, 66> Units = {
-    MemoryRate::BitPerSecond,      MemoryRate::BytePerSecond,     MemoryRate::KilobitPerSecond,
-    MemoryRate::KibibitPerSecond,  MemoryRate::KilobytePerSecond, MemoryRate::KibibytePerSecond,
-    MemoryRate::MegabitPerSecond,  MemoryRate::MebibitPerSecond,  MemoryRate::MegabytePerSecond,
-    MemoryRate::MebibytePerSecond, MemoryRate::GigabitPerSecond,  MemoryRate::GibibitPerSecond,
-    MemoryRate::GigabytePerSecond, MemoryRate::GibibytePerSecond, MemoryRate::TerabitPerSecond,
-    MemoryRate::TebibitPerSecond,  MemoryRate::TerabytePerSecond, MemoryRate::TebibytePerSecond,
-    MemoryRate::PetabitPerSecond,  MemoryRate::PebibitPerSecond,  MemoryRate::PetabytePerSecond,
-    MemoryRate::PebibytePerSecond, MemoryRate::BitPerMinute,      MemoryRate::BytePerMinute,
-    MemoryRate::KilobitPerMinute,  MemoryRate::KibibitPerMinute,  MemoryRate::KilobytePerMinute,
-    MemoryRate::KibibytePerMinute, MemoryRate::MegabitPerMinute,  MemoryRate::MebibitPerMinute,
-    MemoryRate::MegabytePerMinute, MemoryRate::MebibytePerMinute, MemoryRate::GigabitPerMinute,
-    MemoryRate::GibibitPerMinute,  MemoryRate::GigabytePerMinute, MemoryRate::GibibytePerMinute,
-    MemoryRate::TerabitPerMinute,  MemoryRate::TebibitPerMinute,  MemoryRate::TerabytePerMinute,
-    MemoryRate::TebibytePerMinute, MemoryRate::PetabitPerMinute,  MemoryRate::PebibitPerMinute,
-    MemoryRate::PetabytePerMinute, MemoryRate::PebibytePerMinute, MemoryRate::BitPerHour,
-    MemoryRate::BytePerHour,       MemoryRate::KilobitPerHour,    MemoryRate::KibibitPerHour,
-    MemoryRate::KilobytePerHour,   MemoryRate::KibibytePerHour,   MemoryRate::MegabitPerHour,
-    MemoryRate::MebibitPerHour,    MemoryRate::MegabytePerHour,   MemoryRate::MebibytePerHour,
-    MemoryRate::GigabitPerHour,    MemoryRate::GibibitPerHour,    MemoryRate::GigabytePerHour,
-    MemoryRate::GibibytePerHour,   MemoryRate::TerabitPerHour,    MemoryRate::TebibitPerHour,
-    MemoryRate::TerabytePerHour,   MemoryRate::TebibytePerHour,   MemoryRate::PetabitPerHour,
-    MemoryRate::PebibitPerHour,    MemoryRate::PetabytePerHour,   MemoryRate::PebibytePerHour,
+  MemoryRate::BitPerSecond,      MemoryRate::BytePerSecond,     MemoryRate::KilobitPerSecond,
+  MemoryRate::KibibitPerSecond,  MemoryRate::KilobytePerSecond, MemoryRate::KibibytePerSecond,
+  MemoryRate::MegabitPerSecond,  MemoryRate::MebibitPerSecond,  MemoryRate::MegabytePerSecond,
+  MemoryRate::MebibytePerSecond, MemoryRate::GigabitPerSecond,  MemoryRate::GibibitPerSecond,
+  MemoryRate::GigabytePerSecond, MemoryRate::GibibytePerSecond, MemoryRate::TerabitPerSecond,
+  MemoryRate::TebibitPerSecond,  MemoryRate::TerabytePerSecond, MemoryRate::TebibytePerSecond,
+  MemoryRate::PetabitPerSecond,  MemoryRate::PebibitPerSecond,  MemoryRate::PetabytePerSecond,
+  MemoryRate::PebibytePerSecond, MemoryRate::BitPerMinute,      MemoryRate::BytePerMinute,
+  MemoryRate::KilobitPerMinute,  MemoryRate::KibibitPerMinute,  MemoryRate::KilobytePerMinute,
+  MemoryRate::KibibytePerMinute, MemoryRate::MegabitPerMinute,  MemoryRate::MebibitPerMinute,
+  MemoryRate::MegabytePerMinute, MemoryRate::MebibytePerMinute, MemoryRate::GigabitPerMinute,
+  MemoryRate::GibibitPerMinute,  MemoryRate::GigabytePerMinute, MemoryRate::GibibytePerMinute,
+  MemoryRate::TerabitPerMinute,  MemoryRate::TebibitPerMinute,  MemoryRate::TerabytePerMinute,
+  MemoryRate::TebibytePerMinute, MemoryRate::PetabitPerMinute,  MemoryRate::PebibitPerMinute,
+  MemoryRate::PetabytePerMinute, MemoryRate::PebibytePerMinute, MemoryRate::BitPerHour,
+  MemoryRate::BytePerHour,       MemoryRate::KilobitPerHour,    MemoryRate::KibibitPerHour,
+  MemoryRate::KilobytePerHour,   MemoryRate::KibibytePerHour,   MemoryRate::MegabitPerHour,
+  MemoryRate::MebibitPerHour,    MemoryRate::MegabytePerHour,   MemoryRate::MebibytePerHour,
+  MemoryRate::GigabitPerHour,    MemoryRate::GibibitPerHour,    MemoryRate::GigabytePerHour,
+  MemoryRate::GibibytePerHour,   MemoryRate::TerabitPerHour,    MemoryRate::TebibitPerHour,
+  MemoryRate::TerabytePerHour,   MemoryRate::TebibytePerHour,   MemoryRate::PetabitPerHour,
+  MemoryRate::PebibitPerHour,    MemoryRate::PetabytePerHour,   MemoryRate::PebibytePerHour,
 };
 
 TEST(UnitMemoryRate, Abbreviation) {
@@ -283,8 +283,9 @@ TEST(UnitMemoryRate, Convert) {
 
 TEST(UnitMemoryRate, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<MemoryRate, MemoryRate::BitPerSecond,
-                                  MemoryRate::KilobytePerSecond>(value, value / (8.0L * 1000.0L));
+  Internal::
+      TestConvertStatically<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobytePerSecond>(
+          value, value / (8.0L * 1000.0L));
 }
 
 TEST(UnitMemoryRate, ParseEnumeration) {

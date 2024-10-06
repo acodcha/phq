@@ -42,10 +42,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<SpecificPower, 4> Units = {
-    SpecificPower::WattPerKilogram,
-    SpecificPower::NanowattPerGram,
-    SpecificPower::FootPoundPerSlugPerSecond,
-    SpecificPower::InchPoundPerSlinchPerSecond,
+  SpecificPower::WattPerKilogram,
+  SpecificPower::NanowattPerGram,
+  SpecificPower::FootPoundPerSlugPerSecond,
+  SpecificPower::InchPoundPerSlinchPerSecond,
 };
 
 TEST(UnitSpecificPower, Abbreviation) {

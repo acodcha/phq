@@ -44,10 +44,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<ReciprocalTemperature, 4> Units = {
-    ReciprocalTemperature::PerKelvin,
-    ReciprocalTemperature::PerCelsius,
-    ReciprocalTemperature::PerRankine,
-    ReciprocalTemperature::PerFahrenheit,
+  ReciprocalTemperature::PerKelvin,
+  ReciprocalTemperature::PerCelsius,
+  ReciprocalTemperature::PerRankine,
+  ReciprocalTemperature::PerFahrenheit,
 };
 
 TEST(UnitThermalExpansion, Abbreviation) {

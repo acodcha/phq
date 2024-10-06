@@ -115,8 +115,8 @@ public:
   [[nodiscard]] static constexpr PlanarPosition<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarPosition<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
-            PlanarVector<NumericType>{x, y})};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
+          PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar position vector from the given x and y Cartesian components
@@ -125,8 +125,8 @@ public:
   [[nodiscard]] static constexpr PlanarPosition<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarPosition<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
-            PlanarVector<NumericType>{x_y})};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
+          PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar position vector with a given value expressed in a given
@@ -135,7 +135,7 @@ public:
   [[nodiscard]] static constexpr PlanarPosition<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarPosition<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar position vector.

@@ -161,34 +161,34 @@ public:
 };
 
 template <>
-inline const std::map<typename ConstitutiveModel::Type, std::string_view>
-    Internal::Abbreviations<typename ConstitutiveModel::Type>{
-        {ConstitutiveModel::Type::ElasticIsotropicSolid,        "Elastic Isotropic Solid"       },
-        {ConstitutiveModel::Type::IncompressibleNewtonianFluid, "Incompressible Newtonian Fluid"},
-        {ConstitutiveModel::Type::CompressibleNewtonianFluid,   "Compressible Newtonian Fluid"  },
+inline const std::map<typename ConstitutiveModel::Type, std::string_view> Internal::
+    Abbreviations<typename ConstitutiveModel::Type>{
+      {ConstitutiveModel::Type::ElasticIsotropicSolid,        "Elastic Isotropic Solid"       },
+      {ConstitutiveModel::Type::IncompressibleNewtonianFluid, "Incompressible Newtonian Fluid"},
+      {ConstitutiveModel::Type::CompressibleNewtonianFluid,   "Compressible Newtonian Fluid"  },
 };
 
 template <>
-inline const std::unordered_map<std::string_view, typename ConstitutiveModel::Type>
-    Internal::Spellings<typename ConstitutiveModel::Type>{
-        {"Elastic Isotropic Solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"ELASTIC ISOTROPIC SOLID",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"elastic isotropic solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"ElasticIsotropicSolid",          ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"ELASTIC_ISOTROPIC_SOLID",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"elastic_isotropic_solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
-        {"Incompressible Newtonian Fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"INCOMPRESSIBLE NEWTONIAN FLUID", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"incompressible newtonian fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"IncompressibleNewtonianFluid",   ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"INCOMPRESSIBLE_NEWTONIAN_FLUID", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"incompressible_newtonian_fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
-        {"Compressible Newtonian Fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
-        {"COMPRESSIBLE NEWTONIAN FLUID",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
-        {"compressible newtonian fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
-        {"CompressibleNewtonianFluid",     ConstitutiveModel::Type::CompressibleNewtonianFluid  },
-        {"COMPRESSIBLE_NEWTONIAN_FLUID",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
-        {"compressible_newtonian_fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+inline const std::unordered_map<std::string_view, typename ConstitutiveModel::Type> Internal::
+    Spellings<typename ConstitutiveModel::Type>{
+      {"Elastic Isotropic Solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
+      {"ELASTIC ISOTROPIC SOLID",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
+      {"elastic isotropic solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
+      {"ElasticIsotropicSolid",          ConstitutiveModel::Type::ElasticIsotropicSolid       },
+      {"ELASTIC_ISOTROPIC_SOLID",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
+      {"elastic_isotropic_solid",        ConstitutiveModel::Type::ElasticIsotropicSolid       },
+      {"Incompressible Newtonian Fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+      {"INCOMPRESSIBLE NEWTONIAN FLUID", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+      {"incompressible newtonian fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+      {"IncompressibleNewtonianFluid",   ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+      {"INCOMPRESSIBLE_NEWTONIAN_FLUID", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+      {"incompressible_newtonian_fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+      {"Compressible Newtonian Fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+      {"COMPRESSIBLE NEWTONIAN FLUID",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+      {"compressible newtonian fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+      {"CompressibleNewtonianFluid",     ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+      {"COMPRESSIBLE_NEWTONIAN_FLUID",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+      {"compressible_newtonian_fluid",   ConstitutiveModel::Type::CompressibleNewtonianFluid  },
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const ConstitutiveModel& model) {

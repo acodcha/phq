@@ -238,12 +238,12 @@ TEST(PlanarForce, PlanarDirection) {
 
 TEST(PlanarForce, Performance) {
   PlanarForce planar_force_1{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Force::Newton
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Force::Newton
   };
   PlanarForce planar_force_2{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Force::Newton
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Force::Newton
   };
   std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
   std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};

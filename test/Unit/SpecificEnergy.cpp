@@ -42,10 +42,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<SpecificEnergy, 4> Units = {
-    SpecificEnergy::JoulePerKilogram,
-    SpecificEnergy::NanojoulePerGram,
-    SpecificEnergy::FootPoundPerSlug,
-    SpecificEnergy::InchPoundPerSlinch,
+  SpecificEnergy::JoulePerKilogram,
+  SpecificEnergy::NanojoulePerGram,
+  SpecificEnergy::FootPoundPerSlug,
+  SpecificEnergy::InchPoundPerSlinch,
 };
 
 TEST(UnitSpecificEnergy, Abbreviation) {

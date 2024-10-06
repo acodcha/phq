@@ -81,7 +81,7 @@ TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorSubtraction) {
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorAddition) {
   VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
-      1.0, Unit::ReciprocalTemperature::PerKelvin};
+    1.0, Unit::ReciprocalTemperature::PerKelvin};
   volumetric_thermal_expansion_coefficient +=
       VolumetricThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin);
   EXPECT_EQ(volumetric_thermal_expansion_coefficient,
@@ -90,7 +90,7 @@ TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorAddition) {
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorDivision) {
   VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
-      8.0, Unit::ReciprocalTemperature::PerKelvin};
+    8.0, Unit::ReciprocalTemperature::PerKelvin};
   volumetric_thermal_expansion_coefficient /= 2.0;
   EXPECT_EQ(volumetric_thermal_expansion_coefficient,
             VolumetricThermalExpansionCoefficient(4.0, Unit::ReciprocalTemperature::PerKelvin));
@@ -98,7 +98,7 @@ TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorDivision) {
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorMultiplication) {
   VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
-      4.0, Unit::ReciprocalTemperature::PerKelvin};
+    4.0, Unit::ReciprocalTemperature::PerKelvin};
   volumetric_thermal_expansion_coefficient *= 2.0;
   EXPECT_EQ(volumetric_thermal_expansion_coefficient,
             VolumetricThermalExpansionCoefficient(8.0, Unit::ReciprocalTemperature::PerKelvin));
@@ -106,7 +106,7 @@ TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorMultiplication) {
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorSubtraction) {
   VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
-      3.0, Unit::ReciprocalTemperature::PerKelvin};
+    3.0, Unit::ReciprocalTemperature::PerKelvin};
   volumetric_thermal_expansion_coefficient -=
       VolumetricThermalExpansionCoefficient(2.0, Unit::ReciprocalTemperature::PerKelvin);
   EXPECT_EQ(volumetric_thermal_expansion_coefficient,
@@ -208,7 +208,7 @@ TEST(VolumetricThermalExpansionCoefficient, Dimensions) {
 TEST(VolumetricThermalExpansionCoefficient, Hash) {
   const VolumetricThermalExpansionCoefficient first{1.0, Unit::ReciprocalTemperature::PerRankine};
   const VolumetricThermalExpansionCoefficient second{
-      1.000001, Unit::ReciprocalTemperature::PerRankine};
+    1.000001, Unit::ReciprocalTemperature::PerRankine};
   const VolumetricThermalExpansionCoefficient third{-1.0, Unit::ReciprocalTemperature::PerRankine};
   const std::hash<VolumetricThermalExpansionCoefficient<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
@@ -242,7 +242,7 @@ TEST(VolumetricThermalExpansionCoefficient, MoveConstructor) {
 
 TEST(VolumetricThermalExpansionCoefficient, MutableValue) {
   VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
-      1.0, Unit::ReciprocalTemperature::PerKelvin};
+    1.0, Unit::ReciprocalTemperature::PerKelvin};
   double& value = volumetric_thermal_expansion_coefficient.MutableValue();
   value = 2.0;
   EXPECT_EQ(volumetric_thermal_expansion_coefficient.Value(), 2.0);
@@ -250,9 +250,9 @@ TEST(VolumetricThermalExpansionCoefficient, MutableValue) {
 
 TEST(VolumetricThermalExpansionCoefficient, Performance) {
   VolumetricThermalExpansionCoefficient first{
-      1.2345678901234567890, Unit::ReciprocalTemperature::PerKelvin};
+    1.2345678901234567890, Unit::ReciprocalTemperature::PerKelvin};
   VolumetricThermalExpansionCoefficient second{
-      1.2345678901234567890, Unit::ReciprocalTemperature::PerKelvin};
+    1.2345678901234567890, Unit::ReciprocalTemperature::PerKelvin};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);
@@ -269,7 +269,7 @@ TEST(VolumetricThermalExpansionCoefficient, Print) {
 
 TEST(VolumetricThermalExpansionCoefficient, SetValue) {
   VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
-      1.0, Unit::ReciprocalTemperature::PerKelvin};
+    1.0, Unit::ReciprocalTemperature::PerKelvin};
   volumetric_thermal_expansion_coefficient.SetValue(2.0);
   EXPECT_EQ(volumetric_thermal_expansion_coefficient.Value(), 2.0);
 }

@@ -39,19 +39,19 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<ElectricCharge, 25> Units = {
-    ElectricCharge::Coulomb,          ElectricCharge::Kilocoulomb,
-    ElectricCharge::Megacoulomb,      ElectricCharge::Gigacoulomb,
-    ElectricCharge::Teracoulomb,      ElectricCharge::Millicoulomb,
-    ElectricCharge::Microcoulomb,     ElectricCharge::Nanocoulomb,
-    ElectricCharge::ElementaryCharge, ElectricCharge::AmpereMinute,
-    ElectricCharge::AmpereHour,       ElectricCharge::KiloampereMinute,
-    ElectricCharge::KiloampereHour,   ElectricCharge::MegaampereMinute,
-    ElectricCharge::MegaampereHour,   ElectricCharge::GigaampereMinute,
-    ElectricCharge::GigaampereHour,   ElectricCharge::TeraampereMinute,
-    ElectricCharge::TeraampereHour,   ElectricCharge::MilliampereMinute,
-    ElectricCharge::MilliampereHour,  ElectricCharge::MicroampereMinute,
-    ElectricCharge::MicroampereHour,  ElectricCharge::NanoampereMinute,
-    ElectricCharge::NanoampereHour,
+  ElectricCharge::Coulomb,          ElectricCharge::Kilocoulomb,
+  ElectricCharge::Megacoulomb,      ElectricCharge::Gigacoulomb,
+  ElectricCharge::Teracoulomb,      ElectricCharge::Millicoulomb,
+  ElectricCharge::Microcoulomb,     ElectricCharge::Nanocoulomb,
+  ElectricCharge::ElementaryCharge, ElectricCharge::AmpereMinute,
+  ElectricCharge::AmpereHour,       ElectricCharge::KiloampereMinute,
+  ElectricCharge::KiloampereHour,   ElectricCharge::MegaampereMinute,
+  ElectricCharge::MegaampereHour,   ElectricCharge::GigaampereMinute,
+  ElectricCharge::GigaampereHour,   ElectricCharge::TeraampereMinute,
+  ElectricCharge::TeraampereHour,   ElectricCharge::MilliampereMinute,
+  ElectricCharge::MilliampereHour,  ElectricCharge::MicroampereMinute,
+  ElectricCharge::MicroampereHour,  ElectricCharge::NanoampereMinute,
+  ElectricCharge::NanoampereHour,
 };
 
 TEST(UnitAngle, Abbreviation) {
@@ -149,8 +149,9 @@ TEST(UnitAngle, Convert) {
 
 TEST(UnitAngle, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<ElectricCharge, ElectricCharge::Coulomb,
-                                  ElectricCharge::Kilocoulomb>(value, value * 0.001L);
+  Internal::
+      TestConvertStatically<ElectricCharge, ElectricCharge::Coulomb, ElectricCharge::Kilocoulomb>(
+          value, value * 0.001L);
 }
 
 TEST(UnitAngle, ParseEnumeration) {

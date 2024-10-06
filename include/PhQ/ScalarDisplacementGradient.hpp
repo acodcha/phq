@@ -116,13 +116,13 @@ public:
   constexpr ScalarDisplacementGradient<NumericType> operator+(
       const ScalarDisplacementGradient<NumericType>& scalar_displacement_gradient) const {
     return ScalarDisplacementGradient<NumericType>{
-        this->value + scalar_displacement_gradient.value};
+      this->value + scalar_displacement_gradient.value};
   }
 
   constexpr ScalarDisplacementGradient<NumericType> operator-(
       const ScalarDisplacementGradient<NumericType>& scalar_displacement_gradient) const {
     return ScalarDisplacementGradient<NumericType>{
-        this->value - scalar_displacement_gradient.value};
+      this->value - scalar_displacement_gradient.value};
   }
 
   constexpr ScalarDisplacementGradient<NumericType> operator*(const NumericType number) const {

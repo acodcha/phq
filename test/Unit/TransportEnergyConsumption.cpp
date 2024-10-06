@@ -42,25 +42,25 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<TransportEnergyConsumption, 19> Units = {
-    TransportEnergyConsumption::JoulePerMile,
-    TransportEnergyConsumption::JoulePerKilometre,
-    TransportEnergyConsumption::JoulePerMetre,
-    TransportEnergyConsumption::NanojoulePerMillimetre,
-    TransportEnergyConsumption::KilojoulePerMile,
-    TransportEnergyConsumption::WattMinutePerMile,
-    TransportEnergyConsumption::WattHourPerMile,
-    TransportEnergyConsumption::WattMinutePerKilometre,
-    TransportEnergyConsumption::WattHourPerKilometre,
-    TransportEnergyConsumption::WattMinutePerMetre,
-    TransportEnergyConsumption::WattHourPerMetre,
-    TransportEnergyConsumption::KilowattMinutePerMile,
-    TransportEnergyConsumption::KilowattHourPerMile,
-    TransportEnergyConsumption::KilowattMinutePerKilometre,
-    TransportEnergyConsumption::KilowattHourPerKilometre,
-    TransportEnergyConsumption::KilowattMinutePerMetre,
-    TransportEnergyConsumption::KilowattHourPerMetre,
-    TransportEnergyConsumption::FootPoundPerFoot,
-    TransportEnergyConsumption::InchPoundPerInch,
+  TransportEnergyConsumption::JoulePerMile,
+  TransportEnergyConsumption::JoulePerKilometre,
+  TransportEnergyConsumption::JoulePerMetre,
+  TransportEnergyConsumption::NanojoulePerMillimetre,
+  TransportEnergyConsumption::KilojoulePerMile,
+  TransportEnergyConsumption::WattMinutePerMile,
+  TransportEnergyConsumption::WattHourPerMile,
+  TransportEnergyConsumption::WattMinutePerKilometre,
+  TransportEnergyConsumption::WattHourPerKilometre,
+  TransportEnergyConsumption::WattMinutePerMetre,
+  TransportEnergyConsumption::WattHourPerMetre,
+  TransportEnergyConsumption::KilowattMinutePerMile,
+  TransportEnergyConsumption::KilowattHourPerMile,
+  TransportEnergyConsumption::KilowattMinutePerKilometre,
+  TransportEnergyConsumption::KilowattHourPerKilometre,
+  TransportEnergyConsumption::KilowattMinutePerMetre,
+  TransportEnergyConsumption::KilowattHourPerMetre,
+  TransportEnergyConsumption::FootPoundPerFoot,
+  TransportEnergyConsumption::InchPoundPerInch,
 };
 
 TEST(UnitTransportEnergyConsumption, Abbreviation) {
@@ -159,9 +159,10 @@ TEST(UnitTransportEnergyConsumption, Convert) {
 
 TEST(UnitTransportEnergyConsumption, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237L * 9.80665L));
+  Internal::
+      TestConvertStatically<TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::FootPoundPerFoot>(
+          value, value / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitTransportEnergyConsumption, ParseEnumeration) {

@@ -127,14 +127,14 @@ public:
   [[nodiscard]] static constexpr SpecificIsochoricHeatCapacity<NumericType> Create(
       const NumericType value) {
     return SpecificIsochoricHeatCapacity<NumericType>{
-        ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
-            value)};
+      ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
+          value)};
   }
 
   constexpr SpecificIsochoricHeatCapacity<NumericType> operator+(
       const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity) const {
     return SpecificIsochoricHeatCapacity<NumericType>{
-        this->value + specific_isochoric_heat_capacity.value};
+      this->value + specific_isochoric_heat_capacity.value};
   }
 
   constexpr SpecificIsobaricHeatCapacity<NumericType> operator+(
@@ -143,7 +143,7 @@ public:
   constexpr SpecificIsochoricHeatCapacity<NumericType> operator-(
       const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity) const {
     return SpecificIsochoricHeatCapacity<NumericType>{
-        this->value - specific_isochoric_heat_capacity.value};
+      this->value - specific_isochoric_heat_capacity.value};
   }
 
   constexpr SpecificIsochoricHeatCapacity<NumericType> operator*(const NumericType number) const {
@@ -262,8 +262,8 @@ inline constexpr IsochoricHeatCapacity<NumericType> Mass<NumericType>::operator*
 }
 
 template <typename NumericType>
-inline constexpr SpecificIsochoricHeatCapacity<NumericType>
-IsochoricHeatCapacity<NumericType>::operator/(const Mass<NumericType>& mass) const {
+inline constexpr SpecificIsochoricHeatCapacity<NumericType> IsochoricHeatCapacity<NumericType>::
+operator/(const Mass<NumericType>& mass) const {
   return SpecificIsochoricHeatCapacity<NumericType>{*this, mass};
 }
 
@@ -280,8 +280,8 @@ namespace std {
 template <typename NumericType>
 struct hash<PhQ::SpecificIsochoricHeatCapacity<NumericType>> {
   inline size_t operator()(
-      const PhQ::SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity)
-      const {
+      const PhQ::
+          SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity) const {
     return hash<NumericType>()(specific_isochoric_heat_capacity.Value());
   }
 };

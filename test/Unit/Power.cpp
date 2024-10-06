@@ -42,9 +42,9 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Power, 9> Units = {
-    Power::Watt,     Power::Milliwatt,          Power::Microwatt,
-    Power::Nanowatt, Power::Kilowatt,           Power::Megawatt,
-    Power::Gigawatt, Power::FootPoundPerSecond, Power::InchPoundPerSecond,
+  Power::Watt,     Power::Milliwatt,          Power::Microwatt,
+  Power::Nanowatt, Power::Kilowatt,           Power::Megawatt,
+  Power::Gigawatt, Power::FootPoundPerSecond, Power::InchPoundPerSecond,
 };
 
 TEST(UnitPower, Abbreviation) {

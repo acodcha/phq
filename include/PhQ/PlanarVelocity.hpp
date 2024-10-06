@@ -136,8 +136,8 @@ public:
   template <Unit::Speed Unit>
   [[nodiscard]] static constexpr PlanarVelocity<NumericType> Create(
       const NumericType x, const NumericType y) {
-    return PlanarVelocity<NumericType>{ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(
-        PlanarVector<NumericType>{x, y})};
+    return PlanarVelocity<NumericType>{
+      ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar velocity vector from the given x and y Cartesian
@@ -145,8 +145,8 @@ public:
   template <Unit::Speed Unit>
   [[nodiscard]] static constexpr PlanarVelocity<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
-    return PlanarVelocity<NumericType>{ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(
-        PlanarVector<NumericType>{x_y})};
+    return PlanarVelocity<NumericType>{
+      ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar velocity vector with a given value expressed in a given
@@ -155,7 +155,7 @@ public:
   [[nodiscard]] static constexpr PlanarVelocity<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarVelocity<NumericType>{
-        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+      ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar velocity vector.

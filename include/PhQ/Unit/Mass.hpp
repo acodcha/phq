@@ -76,9 +76,9 @@ inline constexpr const Unit::Mass Standard<Unit::Mass>{Unit::Mass::Kilogram};
 /// \brief Physical dimension set of mass units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Mass>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Mass unit) {
@@ -90,37 +90,37 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Mass> ConsistentUnits<Unit::Mass>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Mass::Kilogram},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Mass::Gram    },
-    {UnitSystem::FootPoundSecondRankine,     Unit::Mass::Slug    },
-    {UnitSystem::InchPoundSecondRankine,     Unit::Mass::Slinch  },
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Mass::Kilogram},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Mass::Gram    },
+  {UnitSystem::FootPoundSecondRankine,     Unit::Mass::Slug    },
+  {UnitSystem::InchPoundSecondRankine,     Unit::Mass::Slinch  },
 };
 
 template <>
 inline const std::map<Unit::Mass, UnitSystem> RelatedUnitSystems<Unit::Mass>{
-    {Unit::Mass::Kilogram, UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Mass::Gram,     UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Mass::Slug,     UnitSystem::FootPoundSecondRankine    },
-    {Unit::Mass::Slinch,   UnitSystem::InchPoundSecondRankine    },
+  {Unit::Mass::Kilogram, UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::Mass::Gram,     UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Mass::Slug,     UnitSystem::FootPoundSecondRankine    },
+  {Unit::Mass::Slinch,   UnitSystem::InchPoundSecondRankine    },
 };
 
 template <>
 inline const std::map<Unit::Mass, std::string_view> Abbreviations<Unit::Mass>{
-    {Unit::Mass::Kilogram, "kg"    },
-    {Unit::Mass::Gram,     "g"     },
-    {Unit::Mass::Slug,     "slug"  },
-    {Unit::Mass::Slinch,   "slinch"},
-    {Unit::Mass::Pound,    "lbm"   },
+  {Unit::Mass::Kilogram, "kg"    },
+  {Unit::Mass::Gram,     "g"     },
+  {Unit::Mass::Slug,     "slug"  },
+  {Unit::Mass::Slinch,   "slinch"},
+  {Unit::Mass::Pound,    "lbm"   },
 };
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Mass> Spellings<Unit::Mass>{
-    {"kg",     Unit::Mass::Kilogram},
-    {"g",      Unit::Mass::Gram    },
-    {"slug",   Unit::Mass::Slug    },
-    {"slinch", Unit::Mass::Slinch  },
-    {"lbm",    Unit::Mass::Pound   },
-    {"lb",     Unit::Mass::Pound   },
+  {"kg",     Unit::Mass::Kilogram},
+  {"g",      Unit::Mass::Gram    },
+  {"slug",   Unit::Mass::Slug    },
+  {"slinch", Unit::Mass::Slinch  },
+  {"lbm",    Unit::Mass::Pound   },
+  {"lb",     Unit::Mass::Pound   },
 };
 
 template <>
@@ -196,25 +196,25 @@ inline constexpr void Conversion<Unit::Mass, Unit::Mass::Pound>::ToStandard(
 template <typename NumericType>
 inline const std::map<Unit::Mass, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Mass, NumericType>{
-        {Unit::Mass::Kilogram,
-         Conversions<Unit::Mass,                       Unit::Mass::Kilogram>::FromStandard<NumericType>},
-        {Unit::Mass::Gram,     Conversions<Unit::Mass, Unit::Mass::Gram>::FromStandard<NumericType>    },
-        {Unit::Mass::Slug,     Conversions<Unit::Mass, Unit::Mass::Slug>::FromStandard<NumericType>    },
-        {Unit::Mass::Slinch,
-         Conversions<Unit::Mass,                       Unit::Mass::Slinch>::FromStandard<NumericType>  },
-        {Unit::Mass::Pound,    Conversions<Unit::Mass, Unit::Mass::Pound>::FromStandard<NumericType>   },
+      {Unit::Mass::Kilogram,
+       Conversions<Unit::Mass,                       Unit::Mass::Kilogram>::FromStandard<NumericType>},
+      {Unit::Mass::Gram,     Conversions<Unit::Mass, Unit::Mass::Gram>::FromStandard<NumericType>    },
+      {Unit::Mass::Slug,     Conversions<Unit::Mass, Unit::Mass::Slug>::FromStandard<NumericType>    },
+      {Unit::Mass::Slinch,   Conversions<Unit::Mass, Unit::Mass::Slinch>::FromStandard<NumericType>  },
+      {Unit::Mass::Pound,    Conversions<Unit::Mass, Unit::Mass::Pound>::FromStandard<NumericType>   },
 };
 
 template <typename NumericType>
-inline const std::map<Unit::Mass,
-                      std::function<void(NumericType* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Mass, NumericType>{
-        {Unit::Mass::Kilogram,
-         Conversions<Unit::Mass,                       Unit::Mass::Kilogram>::ToStandard<NumericType>},
-        {Unit::Mass::Gram,     Conversions<Unit::Mass, Unit::Mass::Gram>::ToStandard<NumericType>    },
-        {Unit::Mass::Slug,     Conversions<Unit::Mass, Unit::Mass::Slug>::ToStandard<NumericType>    },
-        {Unit::Mass::Slinch,   Conversions<Unit::Mass, Unit::Mass::Slinch>::ToStandard<NumericType>  },
-        {Unit::Mass::Pound,    Conversions<Unit::Mass, Unit::Mass::Pound>::ToStandard<NumericType>   },
+inline const std::
+    map<Unit::Mass, std::function<void(NumericType* const values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::Mass, NumericType>{
+          {Unit::Mass::Kilogram,
+           Conversions<Unit::Mass,                       Unit::Mass::Kilogram>::ToStandard<NumericType>},
+          {Unit::Mass::Gram,     Conversions<Unit::Mass, Unit::Mass::Gram>::ToStandard<NumericType>    },
+          {Unit::Mass::Slug,     Conversions<Unit::Mass, Unit::Mass::Slug>::ToStandard<NumericType>    },
+          {Unit::Mass::Slinch,
+           Conversions<Unit::Mass,                       Unit::Mass::Slinch>::ToStandard<NumericType>  },
+          {Unit::Mass::Pound,    Conversions<Unit::Mass, Unit::Mass::Pound>::ToStandard<NumericType>   },
 };
 
 }  // namespace Internal

@@ -267,12 +267,12 @@ TEST(PlanarPosition, PlanarDirection) {
 
 TEST(PlanarPosition, Performance) {
   PlanarPosition planar_position_1{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Length::Metre
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Length::Metre
   };
   PlanarPosition planar_position_2{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Length::Metre
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Length::Metre
   };
   std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
   std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};

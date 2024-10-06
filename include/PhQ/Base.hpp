@@ -106,7 +106,7 @@ inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 template <typename Enumeration>
 [[nodiscard]] std::optional<Enumeration> ParseEnumeration(const std::string_view spelling) {
   const typename std::unordered_map<std::string_view, Enumeration>::const_iterator found{
-      Internal::Spellings<Enumeration>.find(spelling)};
+    Internal::Spellings<Enumeration>.find(spelling)};
   if (found != Internal::Spellings<Enumeration>.cend()) {
     return found->second;
   }

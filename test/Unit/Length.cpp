@@ -41,10 +41,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Length, 13> Units = {
-    Length::NauticalMile, Length::Mile,       Length::Kilometre, Length::Metre,
-    Length::Yard,         Length::Foot,       Length::Decimetre, Length::Inch,
-    Length::Centimetre,   Length::Millimetre, Length::Milliinch, Length::Micrometre,
-    Length::Microinch,
+  Length::NauticalMile, Length::Mile,       Length::Kilometre, Length::Metre,
+  Length::Yard,         Length::Foot,       Length::Decimetre, Length::Inch,
+  Length::Centimetre,   Length::Millimetre, Length::Milliinch, Length::Micrometre,
+  Length::Microinch,
 };
 
 TEST(UnitLength, Abbreviation) {

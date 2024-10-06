@@ -68,15 +68,15 @@ enum class EnergyFlux : int8_t {
 
 /// \brief Standard energy flux unit: watt per square metre (W/m^2).
 template <>
-inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
-    Unit::EnergyFlux::WattPerSquareMetre};
+inline constexpr const Unit::
+    EnergyFlux Standard<Unit::EnergyFlux>{Unit::EnergyFlux::WattPerSquareMetre};
 
 /// \brief Physical dimension set of energy flux units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::EnergyFlux>{
-    Dimensions{Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::EnergyFlux unit) {
@@ -88,18 +88,18 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::EnergyFlux> ConsistentUnits<Unit::EnergyFlux>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::EnergyFlux::WattPerSquareMetre             },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::EnergyFlux::NanowattPerSquareMillimetre    },
-    {UnitSystem::FootPoundSecondRankine,     Unit::EnergyFlux::FootPoundPerSquareFootPerSecond},
-    {UnitSystem::InchPoundSecondRankine,     Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::EnergyFlux::WattPerSquareMetre             },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::EnergyFlux::NanowattPerSquareMillimetre    },
+  {UnitSystem::FootPoundSecondRankine,     Unit::EnergyFlux::FootPoundPerSquareFootPerSecond},
+  {UnitSystem::InchPoundSecondRankine,     Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
 };
 
 template <>
 inline const std::map<Unit::EnergyFlux, UnitSystem> RelatedUnitSystems<Unit::EnergyFlux>{
-    {Unit::EnergyFlux::WattPerSquareMetre,              UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::EnergyFlux::NanowattPerSquareMillimetre,     UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, UnitSystem::FootPoundSecondRankine    },
-    {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, UnitSystem::InchPoundSecondRankine    },
+  {Unit::EnergyFlux::WattPerSquareMetre,              UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::EnergyFlux::NanowattPerSquareMillimetre,     UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, UnitSystem::FootPoundSecondRankine    },
+  {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -175,29 +175,25 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<Un
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>::FromStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>::
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>::ToStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>::
+    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.001L);
 }
 
@@ -238,39 +234,39 @@ Conversion<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>:
 }
 
 template <typename NumericType>
-inline const std::map<Unit::EnergyFlux,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::EnergyFlux, NumericType>{
-        {Unit::EnergyFlux::WattPerSquareMetre,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::WattPerSquareMetre>::FromStandard<NumericType>             },
-        {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::NanowattPerSquareMillimetre>::FromStandard<NumericType>    },
-        {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>::FromStandard<NumericType>},
-        {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>::FromStandard<NumericType>},
+inline const std::
+    map<Unit::EnergyFlux, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsFromStandard<Unit::EnergyFlux, NumericType>{
+          {Unit::EnergyFlux::WattPerSquareMetre,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>::
+               FromStandard<NumericType>},
+          {Unit::EnergyFlux::NanowattPerSquareMillimetre,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>::
+               FromStandard<NumericType>},
+          {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>::
+               FromStandard<NumericType>},
+          {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>::
+               FromStandard<NumericType>},
 };
 
 template <typename NumericType>
-inline const std::map<Unit::EnergyFlux,
-                      std::function<void(NumericType* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::EnergyFlux, NumericType>{
-        {Unit::EnergyFlux::WattPerSquareMetre,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::WattPerSquareMetre>::ToStandard<NumericType>             },
-        {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::NanowattPerSquareMillimetre>::ToStandard<NumericType>    },
-        {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>::ToStandard<NumericType>},
-        {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         Conversions<Unit::EnergyFlux,
-         Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>::ToStandard<NumericType>},
+inline const std::
+    map<Unit::EnergyFlux, std::function<void(NumericType* const values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::EnergyFlux, NumericType>{
+          {Unit::EnergyFlux::WattPerSquareMetre,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>::
+               ToStandard<NumericType>},
+          {Unit::EnergyFlux::NanowattPerSquareMillimetre,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>::
+               ToStandard<NumericType>},
+          {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>::
+               ToStandard<NumericType>},
+          {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
+           Conversions<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>::
+               ToStandard<NumericType>},
 };
 
 }  // namespace Internal

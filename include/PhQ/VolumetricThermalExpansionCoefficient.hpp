@@ -104,22 +104,22 @@ public:
   [[nodiscard]] static constexpr VolumetricThermalExpansionCoefficient<NumericType> Create(
       const NumericType value) {
     return VolumetricThermalExpansionCoefficient<NumericType>{
-        ConvertStatically<Unit::ReciprocalTemperature, Unit, Standard<Unit::ReciprocalTemperature>>(
-            value)};
+      ConvertStatically<Unit::ReciprocalTemperature, Unit, Standard<Unit::ReciprocalTemperature>>(
+          value)};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<NumericType> operator+(
       const VolumetricThermalExpansionCoefficient<NumericType>&
           volumetric_thermal_expansion_coefficient) const {
     return VolumetricThermalExpansionCoefficient<NumericType>{
-        this->value + volumetric_thermal_expansion_coefficient.value};
+      this->value + volumetric_thermal_expansion_coefficient.value};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<NumericType> operator-(
       const VolumetricThermalExpansionCoefficient<NumericType>&
           volumetric_thermal_expansion_coefficient) const {
     return VolumetricThermalExpansionCoefficient<NumericType>{
-        this->value - volumetric_thermal_expansion_coefficient.value};
+      this->value - volumetric_thermal_expansion_coefficient.value};
   }
 
   constexpr VolumetricThermalExpansionCoefficient<NumericType> operator*(
@@ -230,14 +230,14 @@ inline constexpr PhQ::Strain<NumericType>::Strain(
         volumetric_thermal_expansion_coefficient,
     const TemperatureDifference<NumericType>& temperature_difference)
   : Strain<NumericType>(
-      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
-          / static_cast<NumericType>(3),
-      static_cast<NumericType>(0), static_cast<NumericType>(0),
-      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
-          / static_cast<NumericType>(3),
-      static_cast<NumericType>(0),
-      volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
-          / static_cast<NumericType>(3)) {}
+        volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+            / static_cast<NumericType>(3),
+        static_cast<NumericType>(0), static_cast<NumericType>(0),
+        volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+            / static_cast<NumericType>(3),
+        static_cast<NumericType>(0),
+        volumetric_thermal_expansion_coefficient.Value() * temperature_difference.Value()
+            / static_cast<NumericType>(3)) {}
 
 template <typename NumericType>
 inline constexpr Strain<NumericType> TemperatureDifference<NumericType>::operator*(

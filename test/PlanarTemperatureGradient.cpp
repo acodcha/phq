@@ -198,15 +198,13 @@ TEST(PlanarTemperatureGradient, Create) {
   EXPECT_EQ(
       first, PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
-  constexpr PlanarTemperatureGradient second =
-      PlanarTemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(
-          std::array<double, 2>{1.0, -2.0});
+  constexpr PlanarTemperatureGradient second = PlanarTemperatureGradient<>::
+      Create<Unit::TemperatureGradient::KelvinPerMetre>(std::array<double, 2>{1.0, -2.0});
   EXPECT_EQ(
       second, PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
-  constexpr PlanarTemperatureGradient third =
-      PlanarTemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(
-          PlanarVector{1.0, -2.0});
+  constexpr PlanarTemperatureGradient third = PlanarTemperatureGradient<>::
+      Create<Unit::TemperatureGradient::KelvinPerMetre>(PlanarVector{1.0, -2.0});
   EXPECT_EQ(
       third, PlanarTemperatureGradient({1.0, -2.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
@@ -278,12 +276,12 @@ TEST(PlanarTemperatureGradient, PlanarDirection) {
 
 TEST(PlanarTemperatureGradient, Performance) {
   PlanarTemperatureGradient planar_temperature_gradient_1{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::TemperatureGradient::KelvinPerMetre
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::TemperatureGradient::KelvinPerMetre
   };
   PlanarTemperatureGradient planar_temperature_gradient_2{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::TemperatureGradient::KelvinPerMetre
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::TemperatureGradient::KelvinPerMetre
   };
   std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
   std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};
@@ -312,9 +310,8 @@ TEST(PlanarTemperatureGradient, SizeOf) {
 }
 
 TEST(PlanarTemperatureGradient, StaticValue) {
-  constexpr PlanarTemperatureGradient planar_temperature_gradient =
-      PlanarTemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(
-          1.0, -2.0);
+  constexpr PlanarTemperatureGradient planar_temperature_gradient = PlanarTemperatureGradient<>::
+      Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.0, -2.0);
   constexpr PlanarVector value =
       planar_temperature_gradient.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
   EXPECT_EQ(value, PlanarVector(1.0, -2.0));

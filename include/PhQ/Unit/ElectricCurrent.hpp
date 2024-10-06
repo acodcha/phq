@@ -89,15 +89,15 @@ enum class ElectricCurrent : int8_t {
 
 /// \brief Standard electric current unit: ampere (A).
 template <>
-inline constexpr const Unit::ElectricCurrent Standard<Unit::ElectricCurrent>{
-    Unit::ElectricCurrent::Ampere};
+inline constexpr const Unit::
+    ElectricCurrent Standard<Unit::ElectricCurrent>{Unit::ElectricCurrent::Ampere};
 
 /// \brief Physical dimension set of electric current units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::ElectricCurrent>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{1}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{1}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::ElectricCurrent unit) {
@@ -109,10 +109,10 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::ElectricCurrent> ConsistentUnits<Unit::ElectricCurrent>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::ElectricCurrent::Ampere},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::ElectricCurrent::Ampere},
-    {UnitSystem::FootPoundSecondRankine,     Unit::ElectricCurrent::Ampere},
-    {UnitSystem::InchPoundSecondRankine,     Unit::ElectricCurrent::Ampere},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::ElectricCurrent::Ampere},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::ElectricCurrent::Ampere},
+  {UnitSystem::FootPoundSecondRankine,     Unit::ElectricCurrent::Ampere},
+  {UnitSystem::InchPoundSecondRankine,     Unit::ElectricCurrent::Ampere},
 };
 
 template <>
@@ -157,9 +157,8 @@ inline const std::unordered_map<std::string_view, Unit::ElectricCurrent>
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Ampere>::FromStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Ampere>::
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -168,113 +167,99 @@ inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::A
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Kiloampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Kiloampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Kiloampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Kiloampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Megaampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Megaampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Megaampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Megaampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Gigaampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Gigaampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-9L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Gigaampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Gigaampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Teraampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Teraampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-12L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Teraampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Teraampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E12L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Milliampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Milliampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Milliampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Milliampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Microampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Microampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E6L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Microampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Microampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-6L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Nanoampere>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Nanoampere>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E9L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Nanoampere>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::Nanoampere>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-9L);
 }
 
@@ -327,81 +312,80 @@ Conversion<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerHour
 }
 
 template <typename NumericType>
-inline const std::map<Unit::ElectricCurrent,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::ElectricCurrent, NumericType>{
-        {Unit::ElectricCurrent::Ampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Ampere>::FromStandard<NumericType>                   },
-        {Unit::ElectricCurrent::Kiloampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Kiloampere>::FromStandard<NumericType>               },
-        {Unit::ElectricCurrent::Megaampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Megaampere>::FromStandard<NumericType>               },
-        {Unit::ElectricCurrent::Gigaampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Gigaampere>::FromStandard<NumericType>               },
-        {Unit::ElectricCurrent::Teraampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Teraampere>::FromStandard<NumericType>               },
-        {Unit::ElectricCurrent::Milliampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Milliampere>::FromStandard<NumericType>              },
-        {Unit::ElectricCurrent::Microampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Microampere>::FromStandard<NumericType>              },
-        {Unit::ElectricCurrent::Nanoampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Nanoampere>::FromStandard<NumericType>               },
-        {Unit::ElectricCurrent::ElementaryChargePerSecond,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::ElementaryChargePerSecond>::FromStandard<NumericType>},
-        {Unit::ElectricCurrent::ElementaryChargePerMinute,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::ElementaryChargePerMinute>::FromStandard<NumericType>},
-        {Unit::ElectricCurrent::ElementaryChargePerHour,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::ElementaryChargePerHour>::FromStandard<NumericType>  },
+inline const std::
+    map<Unit::ElectricCurrent, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsFromStandard<Unit::ElectricCurrent, NumericType>{
+          {Unit::ElectricCurrent::Ampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Ampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Kiloampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Kiloampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Megaampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Megaampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Gigaampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Gigaampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Teraampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Teraampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Milliampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Milliampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Microampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Microampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::Nanoampere,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Nanoampere>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::ElementaryChargePerSecond,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerSecond>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::ElementaryChargePerMinute,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerMinute>::
+               FromStandard<NumericType>},
+          {Unit::ElectricCurrent::ElementaryChargePerHour,
+           Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerHour>::
+               FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::ElectricCurrent,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::ElectricCurrent, NumericType>{
-        {Unit::ElectricCurrent::Ampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Ampere>::ToStandard<NumericType>                   },
-        {Unit::ElectricCurrent::Kiloampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Kiloampere>::ToStandard<NumericType>               },
-        {Unit::ElectricCurrent::Megaampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Megaampere>::ToStandard<NumericType>               },
-        {Unit::ElectricCurrent::Gigaampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Gigaampere>::ToStandard<NumericType>               },
-        {Unit::ElectricCurrent::Teraampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Teraampere>::ToStandard<NumericType>               },
-        {Unit::ElectricCurrent::Milliampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Milliampere>::ToStandard<NumericType>              },
-        {Unit::ElectricCurrent::Microampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Microampere>::ToStandard<NumericType>              },
-        {Unit::ElectricCurrent::Nanoampere,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::Nanoampere>::ToStandard<NumericType>               },
-        {Unit::ElectricCurrent::ElementaryChargePerSecond,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::ElementaryChargePerSecond>::ToStandard<NumericType>},
-        {Unit::ElectricCurrent::ElementaryChargePerMinute,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::ElementaryChargePerMinute>::ToStandard<NumericType>},
-        {Unit::ElectricCurrent::ElementaryChargePerHour,
-         Conversions<Unit::ElectricCurrent,
-         Unit::ElectricCurrent::ElementaryChargePerHour>::ToStandard<NumericType>  },
+      {Unit::ElectricCurrent::Ampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Ampere>::ToStandard<NumericType>},
+      {Unit::ElectricCurrent::Kiloampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Kiloampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::Megaampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Megaampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::Gigaampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Gigaampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::Teraampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Teraampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::Milliampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Milliampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::Microampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Microampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::Nanoampere,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::Nanoampere>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::ElementaryChargePerSecond,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerSecond>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::ElementaryChargePerMinute,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerMinute>::
+           ToStandard<NumericType>                      },
+      {Unit::ElectricCurrent::ElementaryChargePerHour,
+       Conversions<Unit::ElectricCurrent, Unit::ElectricCurrent::ElementaryChargePerHour>::
+           ToStandard<NumericType>                      },
 };
 
 }  // namespace Internal

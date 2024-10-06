@@ -101,15 +101,15 @@ enum class Diffusivity : int8_t {
 
 /// \brief Standard diffusivity unit: square metre per second (m^2/s).
 template <>
-inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
-    Unit::Diffusivity::SquareMetrePerSecond};
+inline constexpr const Unit::
+    Diffusivity Standard<Unit::Diffusivity>{Unit::Diffusivity::SquareMetrePerSecond};
 
 /// \brief Physical dimension set of diffusivity units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Diffusivity>{
-    Dimensions{Dimension::Time{-1}, Dimension::Length{2}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-1}, Dimension::Length{2}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Diffusivity unit) {
@@ -121,18 +121,18 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Diffusivity> ConsistentUnits<Unit::Diffusivity>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Diffusivity::SquareMetrePerSecond     },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Diffusivity::SquareMillimetrePerSecond},
-    {UnitSystem::FootPoundSecondRankine,     Unit::Diffusivity::SquareFootPerSecond      },
-    {UnitSystem::InchPoundSecondRankine,     Unit::Diffusivity::SquareInchPerSecond      },
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Diffusivity::SquareMetrePerSecond     },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Diffusivity::SquareMillimetrePerSecond},
+  {UnitSystem::FootPoundSecondRankine,     Unit::Diffusivity::SquareFootPerSecond      },
+  {UnitSystem::InchPoundSecondRankine,     Unit::Diffusivity::SquareInchPerSecond      },
 };
 
 template <>
 inline const std::map<Unit::Diffusivity, UnitSystem> RelatedUnitSystems<Unit::Diffusivity>{
-    {Unit::Diffusivity::SquareMetrePerSecond,      UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Diffusivity::SquareMillimetrePerSecond, UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Diffusivity::SquareFootPerSecond,       UnitSystem::FootPoundSecondRankine    },
-    {Unit::Diffusivity::SquareInchPerSecond,       UnitSystem::InchPoundSecondRankine    },
+  {Unit::Diffusivity::SquareMetrePerSecond,      UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::Diffusivity::SquareMillimetrePerSecond, UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Diffusivity::SquareFootPerSecond,       UnitSystem::FootPoundSecondRankine    },
+  {Unit::Diffusivity::SquareInchPerSecond,       UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -202,15 +202,13 @@ inline const std::unordered_map<std::string_view, Unit::Diffusivity> Spellings<U
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::FromStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::ToStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::
+    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -230,49 +228,43 @@ Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>::T
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1609.344L) * static_cast<NumericType>(1609.344L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.0001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(10000.0L);
 }
 
@@ -294,145 +286,127 @@ inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::AcrePerSe
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.9144L) * static_cast<NumericType>(0.9144L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.9144L) * static_cast<NumericType>(0.9144L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(100.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.01L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(10000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.0001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.0000254L) * static_cast<NumericType>(0.0000254L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.0000254L) * static_cast<NumericType>(0.0000254L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000000000000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.000000000001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.0000000254L) * static_cast<NumericType>(0.0000000254L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.0000000254L) * static_cast<NumericType>(0.0000000254L);
 }
 
@@ -440,101 +414,100 @@ template <typename NumericType>
 inline const std::map<Unit::Diffusivity,
                       std::function<void(NumericType* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Diffusivity, NumericType>{
-        {Unit::Diffusivity::SquareMetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMetrePerSecond>::FromStandard<NumericType>       },
-        {Unit::Diffusivity::SquareNauticalMilePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareNauticalMilePerSecond>::FromStandard<NumericType>},
-        {Unit::Diffusivity::SquareMilePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMilePerSecond>::FromStandard<NumericType>        },
-        {Unit::Diffusivity::SquareKilometrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareKilometrePerSecond>::FromStandard<NumericType>   },
-        {Unit::Diffusivity::HectarePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::HectarePerSecond>::FromStandard<NumericType>           },
-        {Unit::Diffusivity::AcrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::AcrePerSecond>::FromStandard<NumericType>              },
-        {Unit::Diffusivity::SquareYardPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareYardPerSecond>::FromStandard<NumericType>        },
-        {Unit::Diffusivity::SquareFootPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareFootPerSecond>::FromStandard<NumericType>        },
-        {Unit::Diffusivity::SquareDecimetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareDecimetrePerSecond>::FromStandard<NumericType>   },
-        {Unit::Diffusivity::SquareInchPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareInchPerSecond>::FromStandard<NumericType>        },
-        {Unit::Diffusivity::SquareCentimetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareCentimetrePerSecond>::FromStandard<NumericType>  },
-        {Unit::Diffusivity::SquareMillimetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMillimetrePerSecond>::FromStandard<NumericType>  },
-        {Unit::Diffusivity::SquareMilliinchPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMilliinchPerSecond>::FromStandard<NumericType>   },
-        {Unit::Diffusivity::SquareMicrometrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMicrometrePerSecond>::FromStandard<NumericType>  },
-        {Unit::Diffusivity::SquareMicroinchPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMicroinchPerSecond>::FromStandard<NumericType>   },
+      {Unit::Diffusivity::SquareMetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareNauticalMilePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMilePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareKilometrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::HectarePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::AcrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>::FromStandard<NumericType>},
+      {Unit::Diffusivity::SquareYardPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareFootPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareDecimetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareInchPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareCentimetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMillimetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMilliinchPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMicrometrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>::
+           FromStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMicroinchPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>::
+           FromStandard<NumericType>                         },
 };
 
 template <typename NumericType>
 inline const std::map<Unit::Diffusivity,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Diffusivity, NumericType>{
-        {Unit::Diffusivity::SquareMetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMetrePerSecond>::ToStandard<NumericType>                        },
-        {Unit::Diffusivity::SquareNauticalMilePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareNauticalMilePerSecond>::ToStandard<NumericType>                 },
-        {Unit::Diffusivity::SquareMilePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMilePerSecond>::ToStandard<NumericType>                         },
-        {Unit::Diffusivity::SquareKilometrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareKilometrePerSecond>::ToStandard<NumericType>                    },
-        {Unit::Diffusivity::HectarePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::HectarePerSecond>::ToStandard<NumericType>                            },
-        {Unit::Diffusivity::AcrePerSecond,
-         Conversions<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>::ToStandard<NumericType>},
-        {Unit::Diffusivity::SquareYardPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareYardPerSecond>::ToStandard<NumericType>                         },
-        {Unit::Diffusivity::SquareFootPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareFootPerSecond>::ToStandard<NumericType>                         },
-        {Unit::Diffusivity::SquareDecimetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareDecimetrePerSecond>::ToStandard<NumericType>                    },
-        {Unit::Diffusivity::SquareInchPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareInchPerSecond>::ToStandard<NumericType>                         },
-        {Unit::Diffusivity::SquareCentimetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareCentimetrePerSecond>::ToStandard<NumericType>                   },
-        {Unit::Diffusivity::SquareMillimetrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMillimetrePerSecond>::ToStandard<NumericType>                   },
-        {Unit::Diffusivity::SquareMilliinchPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMilliinchPerSecond>::ToStandard<NumericType>                    },
-        {Unit::Diffusivity::SquareMicrometrePerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMicrometrePerSecond>::ToStandard<NumericType>                   },
-        {Unit::Diffusivity::SquareMicroinchPerSecond,
-         Conversions<Unit::Diffusivity,
-         Unit::Diffusivity::SquareMicroinchPerSecond>::ToStandard<NumericType>                    },
+      {Unit::Diffusivity::SquareMetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareNauticalMilePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMilePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareKilometrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::HectarePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::AcrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>::ToStandard<NumericType>},
+      {Unit::Diffusivity::SquareYardPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareFootPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareDecimetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareInchPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareCentimetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMillimetrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMilliinchPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMicrometrePerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>::
+           ToStandard<NumericType>                         },
+      {Unit::Diffusivity::SquareMicroinchPerSecond,
+       Conversions<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>::
+           ToStandard<NumericType>                         },
 };
 
 }  // namespace Internal

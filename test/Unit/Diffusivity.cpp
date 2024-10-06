@@ -42,21 +42,21 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Diffusivity, 15> Units = {
-    Diffusivity::SquareNauticalMilePerSecond,
-    Diffusivity::SquareMilePerSecond,
-    Diffusivity::SquareKilometrePerSecond,
-    Diffusivity::HectarePerSecond,
-    Diffusivity::AcrePerSecond,
-    Diffusivity::SquareMetrePerSecond,
-    Diffusivity::SquareYardPerSecond,
-    Diffusivity::SquareFootPerSecond,
-    Diffusivity::SquareDecimetrePerSecond,
-    Diffusivity::SquareInchPerSecond,
-    Diffusivity::SquareCentimetrePerSecond,
-    Diffusivity::SquareMillimetrePerSecond,
-    Diffusivity::SquareMilliinchPerSecond,
-    Diffusivity::SquareMicrometrePerSecond,
-    Diffusivity::SquareMicroinchPerSecond,
+  Diffusivity::SquareNauticalMilePerSecond,
+  Diffusivity::SquareMilePerSecond,
+  Diffusivity::SquareKilometrePerSecond,
+  Diffusivity::HectarePerSecond,
+  Diffusivity::AcrePerSecond,
+  Diffusivity::SquareMetrePerSecond,
+  Diffusivity::SquareYardPerSecond,
+  Diffusivity::SquareFootPerSecond,
+  Diffusivity::SquareDecimetrePerSecond,
+  Diffusivity::SquareInchPerSecond,
+  Diffusivity::SquareCentimetrePerSecond,
+  Diffusivity::SquareMillimetrePerSecond,
+  Diffusivity::SquareMilliinchPerSecond,
+  Diffusivity::SquareMicrometrePerSecond,
+  Diffusivity::SquareMicroinchPerSecond,
 };
 
 TEST(UnitDiffusivity, Abbreviation) {

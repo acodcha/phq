@@ -222,16 +222,14 @@ TEST(PlanarAcceleration, Create) {
               PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
-    constexpr PlanarAcceleration planar_acceleration =
-        PlanarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(
-            std::array<double, 2>{1.0, -2.0});
+    constexpr PlanarAcceleration planar_acceleration = PlanarAcceleration<>::
+        Create<Unit::Acceleration::MetrePerSquareSecond>(std::array<double, 2>{1.0, -2.0});
     EXPECT_EQ(planar_acceleration,
               PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
-    constexpr PlanarAcceleration planar_acceleration =
-        PlanarAcceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(
-            PlanarVector{1.0, -2.0});
+    constexpr PlanarAcceleration planar_acceleration = PlanarAcceleration<>::
+        Create<Unit::Acceleration::MetrePerSquareSecond>(PlanarVector{1.0, -2.0});
     EXPECT_EQ(planar_acceleration,
               PlanarAcceleration({1.0, -2.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
@@ -290,12 +288,12 @@ TEST(PlanarAcceleration, MutableValue) {
 
 TEST(PlanarAcceleration, Performance) {
   PlanarAcceleration planar_acceleration_1{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Acceleration::MetrePerSquareSecond
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Acceleration::MetrePerSquareSecond
   };
   PlanarAcceleration planar_acceleration_2{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Acceleration::MetrePerSquareSecond
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Acceleration::MetrePerSquareSecond
   };
   std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
   std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};

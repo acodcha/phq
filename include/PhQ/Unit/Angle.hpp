@@ -86,10 +86,10 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Angle> ConsistentUnits<Unit::Angle>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Angle::Radian},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Angle::Radian},
-    {UnitSystem::FootPoundSecondRankine,     Unit::Angle::Radian},
-    {UnitSystem::InchPoundSecondRankine,     Unit::Angle::Radian},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Angle::Radian},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Angle::Radian},
+  {UnitSystem::FootPoundSecondRankine,     Unit::Angle::Radian},
+  {UnitSystem::InchPoundSecondRankine,     Unit::Angle::Radian},
 };
 
 template <>
@@ -97,11 +97,11 @@ inline const std::map<Unit::Angle, UnitSystem> RelatedUnitSystems<Unit::Angle>{}
 
 template <>
 inline const std::map<Unit::Angle, std::string_view> Abbreviations<Unit::Angle>{
-    {Unit::Angle::Radian,     "rad"   },
-    {Unit::Angle::Degree,     "deg"   },
-    {Unit::Angle::Arcminute,  "arcmin"},
-    {Unit::Angle::Arcsecond,  "arcsec"},
-    {Unit::Angle::Revolution, "rev"   },
+  {Unit::Angle::Radian,     "rad"   },
+  {Unit::Angle::Degree,     "deg"   },
+  {Unit::Angle::Arcminute,  "arcmin"},
+  {Unit::Angle::Arcsecond,  "arcsec"},
+  {Unit::Angle::Revolution, "rev"   },
 };
 
 // clang-format off
@@ -202,32 +202,32 @@ inline constexpr void Conversion<Unit::Angle, Unit::Angle::Revolution>::ToStanda
 template <typename NumericType>
 inline const std::map<Unit::Angle, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Angle, NumericType>{
-        {Unit::Angle::Radian,
-         Conversions<Unit::Angle, Unit::Angle::Radian>::FromStandard<NumericType>    },
-        {Unit::Angle::Degree,
-         Conversions<Unit::Angle, Unit::Angle::Degree>::FromStandard<NumericType>    },
-        {Unit::Angle::Arcminute,
-         Conversions<Unit::Angle, Unit::Angle::Arcminute>::FromStandard<NumericType> },
-        {Unit::Angle::Arcsecond,
-         Conversions<Unit::Angle, Unit::Angle::Arcsecond>::FromStandard<NumericType> },
-        {Unit::Angle::Revolution,
-         Conversions<Unit::Angle, Unit::Angle::Revolution>::FromStandard<NumericType>},
+      {Unit::Angle::Radian,
+       Conversions<Unit::Angle, Unit::Angle::Radian>::FromStandard<NumericType>    },
+      {Unit::Angle::Degree,
+       Conversions<Unit::Angle, Unit::Angle::Degree>::FromStandard<NumericType>    },
+      {Unit::Angle::Arcminute,
+       Conversions<Unit::Angle, Unit::Angle::Arcminute>::FromStandard<NumericType> },
+      {Unit::Angle::Arcsecond,
+       Conversions<Unit::Angle, Unit::Angle::Arcsecond>::FromStandard<NumericType> },
+      {Unit::Angle::Revolution,
+       Conversions<Unit::Angle, Unit::Angle::Revolution>::FromStandard<NumericType>},
 };
 
 template <typename NumericType>
-inline const std::map<Unit::Angle,
-                      std::function<void(NumericType* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Angle, NumericType>{
-        {Unit::Angle::Radian,
-         Conversions<Unit::Angle, Unit::Angle::Radian>::ToStandard<NumericType>    },
-        {Unit::Angle::Degree,
-         Conversions<Unit::Angle, Unit::Angle::Degree>::ToStandard<NumericType>    },
-        {Unit::Angle::Arcminute,
-         Conversions<Unit::Angle, Unit::Angle::Arcminute>::ToStandard<NumericType> },
-        {Unit::Angle::Arcsecond,
-         Conversions<Unit::Angle, Unit::Angle::Arcsecond>::ToStandard<NumericType> },
-        {Unit::Angle::Revolution,
-         Conversions<Unit::Angle, Unit::Angle::Revolution>::ToStandard<NumericType>},
+inline const std::
+    map<Unit::Angle, std::function<void(NumericType* const values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::Angle, NumericType>{
+          {Unit::Angle::Radian,
+           Conversions<Unit::Angle, Unit::Angle::Radian>::ToStandard<NumericType>    },
+          {Unit::Angle::Degree,
+           Conversions<Unit::Angle, Unit::Angle::Degree>::ToStandard<NumericType>    },
+          {Unit::Angle::Arcminute,
+           Conversions<Unit::Angle, Unit::Angle::Arcminute>::ToStandard<NumericType> },
+          {Unit::Angle::Arcsecond,
+           Conversions<Unit::Angle, Unit::Angle::Arcsecond>::ToStandard<NumericType> },
+          {Unit::Angle::Revolution,
+           Conversions<Unit::Angle, Unit::Angle::Revolution>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

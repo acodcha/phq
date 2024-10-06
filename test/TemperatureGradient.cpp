@@ -205,15 +205,13 @@ TEST(TemperatureGradient, Create) {
   EXPECT_EQ(
       first, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
-  constexpr TemperatureGradient second =
-      TemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(
-          std::array<double, 3>{1.0, -2.0, 3.0});
+  constexpr TemperatureGradient second = TemperatureGradient<>::
+      Create<Unit::TemperatureGradient::KelvinPerMetre>(std::array<double, 3>{1.0, -2.0, 3.0});
   EXPECT_EQ(
       second, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
-  constexpr TemperatureGradient third =
-      TemperatureGradient<>::Create<Unit::TemperatureGradient::KelvinPerMetre>(
-          Vector{1.0, -2.0, 3.0});
+  constexpr TemperatureGradient third = TemperatureGradient<>::
+      Create<Unit::TemperatureGradient::KelvinPerMetre>(Vector{1.0, -2.0, 3.0});
   EXPECT_EQ(
       third, TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
@@ -283,17 +281,17 @@ TEST(TemperatureGradient, MutableValue) {
 
 TEST(TemperatureGradient, Performance) {
   TemperatureGradient temperature_gradient_1{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
-      Unit::TemperatureGradient::KelvinPerMetre
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+    Unit::TemperatureGradient::KelvinPerMetre
   };
   TemperatureGradient temperature_gradient_2{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
-      Unit::TemperatureGradient::KelvinPerMetre
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+    Unit::TemperatureGradient::KelvinPerMetre
   };
   std::array<double, 3> reference1{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
   std::array<double, 3> reference2{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
   Internal::TestVectorPerformance(
       temperature_gradient_1, temperature_gradient_2, reference1, reference2);
 }

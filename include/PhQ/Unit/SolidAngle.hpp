@@ -85,10 +85,10 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::SolidAngle> ConsistentUnits<Unit::SolidAngle>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::SolidAngle::Steradian},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::SolidAngle::Steradian},
-    {UnitSystem::FootPoundSecondRankine,     Unit::SolidAngle::Steradian},
-    {UnitSystem::InchPoundSecondRankine,     Unit::SolidAngle::Steradian},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::SolidAngle::Steradian},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::SolidAngle::Steradian},
+  {UnitSystem::FootPoundSecondRankine,     Unit::SolidAngle::Steradian},
+  {UnitSystem::InchPoundSecondRankine,     Unit::SolidAngle::Steradian},
 };
 
 template <>
@@ -96,10 +96,10 @@ inline const std::map<Unit::SolidAngle, UnitSystem> RelatedUnitSystems<Unit::Sol
 
 template <>
 inline const std::map<Unit::SolidAngle, std::string_view> Abbreviations<Unit::SolidAngle>{
-    {Unit::SolidAngle::Steradian,       "sr"      },
-    {Unit::SolidAngle::SquareDegree,    "deg^2"   },
-    {Unit::SolidAngle::SquareArcminute, "arcmin^2"},
-    {Unit::SolidAngle::SquareArcsecond, "arcsec^2"},
+  {Unit::SolidAngle::Steradian,       "sr"      },
+  {Unit::SolidAngle::SquareDegree,    "deg^2"   },
+  {Unit::SolidAngle::SquareArcminute, "arcmin^2"},
+  {Unit::SolidAngle::SquareArcsecond, "arcsec^2"},
 };
 
 // clang-format off
@@ -169,8 +169,8 @@ template <>
 template <typename NumericType>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::ToStandard(
     NumericType& value) noexcept {
-  value *=
-      Pi<NumericType> * Pi<NumericType> / (static_cast<NumericType>(180.0L) * static_cast<NumericType>(180.0L));
+  value *= Pi<NumericType> * Pi<NumericType>
+           / (static_cast<NumericType>(180.0L) * static_cast<NumericType>(180.0L));
 }
 
 template <>
@@ -185,8 +185,8 @@ template <>
 template <typename NumericType>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareArcminute>::ToStandard(
     NumericType& value) noexcept {
-  value *=
-      Pi<NumericType> * Pi<NumericType> / (static_cast<NumericType>(10800.0L) * static_cast<NumericType>(10800.0L));
+  value *= Pi<NumericType> * Pi<NumericType>
+           / (static_cast<NumericType>(10800.0L) * static_cast<NumericType>(10800.0L));
 }
 
 template <>
@@ -201,38 +201,36 @@ template <>
 template <typename NumericType>
 inline constexpr void Conversion<Unit::SolidAngle, Unit::SolidAngle::SquareArcsecond>::ToStandard(
     NumericType& value) noexcept {
-  value *=
-      Pi<NumericType> * Pi<NumericType> / (static_cast<NumericType>(648000.0L) * static_cast<NumericType>(648000.0L));
+  value *= Pi<NumericType> * Pi<NumericType>
+           / (static_cast<NumericType>(648000.0L) * static_cast<NumericType>(648000.0L));
 }
 
 template <typename NumericType>
 inline const std::map<Unit::SolidAngle,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::SolidAngle, NumericType>{
-        {Unit::SolidAngle::Steradian,
-         Conversions<Unit::SolidAngle, Unit::SolidAngle::Steradian>::FromStandard<NumericType>   },
-        {Unit::SolidAngle::SquareDegree,
-         Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::FromStandard<NumericType>},
-        {Unit::SolidAngle::SquareArcminute,
-         Conversions<Unit::SolidAngle,
-         Unit::SolidAngle::SquareArcminute>::FromStandard<NumericType>                           },
-        {Unit::SolidAngle::SquareArcsecond,
-         Conversions<Unit::SolidAngle,
-         Unit::SolidAngle::SquareArcsecond>::FromStandard<NumericType>                           },
+      {Unit::SolidAngle::Steradian,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::Steradian>::FromStandard<NumericType>      },
+      {Unit::SolidAngle::SquareDegree,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::FromStandard<NumericType>   },
+      {Unit::SolidAngle::SquareArcminute,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareArcminute>::FromStandard<NumericType>},
+      {Unit::SolidAngle::SquareArcsecond,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareArcsecond>::FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::SolidAngle,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::SolidAngle, NumericType>{
-        {Unit::SolidAngle::Steradian,
-         Conversions<Unit::SolidAngle, Unit::SolidAngle::Steradian>::ToStandard<NumericType>      },
-        {Unit::SolidAngle::SquareDegree,
-         Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::ToStandard<NumericType>   },
-        {Unit::SolidAngle::SquareArcminute,
-         Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareArcminute>::ToStandard<NumericType>},
-        {Unit::SolidAngle::SquareArcsecond,
-         Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareArcsecond>::ToStandard<NumericType>},
+      {Unit::SolidAngle::Steradian,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::Steradian>::ToStandard<NumericType>      },
+      {Unit::SolidAngle::SquareDegree,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareDegree>::ToStandard<NumericType>   },
+      {Unit::SolidAngle::SquareArcminute,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareArcminute>::ToStandard<NumericType>},
+      {Unit::SolidAngle::SquareArcsecond,
+       Conversions<Unit::SolidAngle, Unit::SolidAngle::SquareArcsecond>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

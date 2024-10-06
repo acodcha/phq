@@ -40,11 +40,11 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Memory, 22> Units = {
-    Memory::Bit,      Memory::Byte,     Memory::Kilobit,  Memory::Kibibit,  Memory::Kilobyte,
-    Memory::Kibibyte, Memory::Megabit,  Memory::Mebibit,  Memory::Megabyte, Memory::Mebibyte,
-    Memory::Gigabit,  Memory::Gibibit,  Memory::Gigabyte, Memory::Gibibyte, Memory::Terabit,
-    Memory::Tebibit,  Memory::Terabyte, Memory::Tebibyte, Memory::Petabit,  Memory::Pebibit,
-    Memory::Petabyte, Memory::Pebibyte,
+  Memory::Bit,      Memory::Byte,     Memory::Kilobit,  Memory::Kibibit,  Memory::Kilobyte,
+  Memory::Kibibyte, Memory::Megabit,  Memory::Mebibit,  Memory::Megabyte, Memory::Mebibyte,
+  Memory::Gigabit,  Memory::Gibibit,  Memory::Gigabyte, Memory::Gibibyte, Memory::Terabit,
+  Memory::Tebibit,  Memory::Terabyte, Memory::Tebibyte, Memory::Petabit,  Memory::Pebibit,
+  Memory::Petabyte, Memory::Pebibyte,
 };
 
 TEST(UnitMemory, Abbreviation) {

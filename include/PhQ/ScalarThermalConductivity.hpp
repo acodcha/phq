@@ -133,8 +133,8 @@ public:
   [[nodiscard]] static constexpr ScalarThermalConductivity<NumericType> Create(
       const NumericType value) {
     return ScalarThermalConductivity<NumericType>{
-        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-            value)};
+      ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+          value)};
   }
 
   constexpr ScalarThermalConductivity<NumericType> operator+(

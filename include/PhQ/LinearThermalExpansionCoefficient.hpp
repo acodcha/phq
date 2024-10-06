@@ -103,22 +103,22 @@ public:
   [[nodiscard]] static constexpr LinearThermalExpansionCoefficient<NumericType> Create(
       const NumericType value) {
     return LinearThermalExpansionCoefficient<NumericType>{
-        ConvertStatically<Unit::ReciprocalTemperature, Unit, Standard<Unit::ReciprocalTemperature>>(
-            value)};
+      ConvertStatically<Unit::ReciprocalTemperature, Unit, Standard<Unit::ReciprocalTemperature>>(
+          value)};
   }
 
   constexpr LinearThermalExpansionCoefficient<NumericType> operator+(
       const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient)
       const {
     return LinearThermalExpansionCoefficient<NumericType>{
-        this->value + linear_thermal_expansion_coefficient.value};
+      this->value + linear_thermal_expansion_coefficient.value};
   }
 
   constexpr LinearThermalExpansionCoefficient<NumericType> operator-(
       const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient)
       const {
     return LinearThermalExpansionCoefficient<NumericType>{
-        this->value - linear_thermal_expansion_coefficient.value};
+      this->value - linear_thermal_expansion_coefficient.value};
   }
 
   constexpr LinearThermalExpansionCoefficient<NumericType> operator*(
@@ -229,7 +229,7 @@ inline constexpr ScalarStrain<NumericType>::ScalarStrain(
     const LinearThermalExpansionCoefficient<NumericType>& linear_thermal_expansion_coefficient,
     const TemperatureDifference<NumericType>& temperature_difference)
   : ScalarStrain<NumericType>(
-      linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
+        linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
 
 template <typename NumericType>
 inline constexpr ScalarStrain<NumericType> TemperatureDifference<NumericType>::operator*(

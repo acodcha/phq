@@ -103,7 +103,7 @@ public:
   template <Unit::Frequency Unit>
   [[nodiscard]] static constexpr ScalarStrainRate<NumericType> Create(const NumericType value) {
     return ScalarStrainRate<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   constexpr ScalarStrainRate<NumericType> operator+(

@@ -66,14 +66,14 @@ enum class ThermalConductivity : int8_t {
 /// \brief Standard thermal conductivity unit: watt per metre per kelvin (W/m/K).
 template <>
 inline constexpr const Unit::ThermalConductivity Standard<Unit::ThermalConductivity>{
-    Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  Unit::ThermalConductivity::WattPerMetrePerKelvin};
 
 /// \brief Physical dimension set of thermal conductivity units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::ThermalConductivity>{
-    Dimensions{Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::ThermalConductivity unit) {
@@ -86,19 +86,19 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::ThermalConductivity>
     ConsistentUnits<Unit::ThermalConductivity>{
-        {UnitSystem::MetreKilogramSecondKelvin,  Unit::ThermalConductivity::WattPerMetrePerKelvin   },
-        {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                                  },
-        {UnitSystem::FootPoundSecondRankine,     Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {UnitSystem::InchPoundSecondRankine,     Unit::ThermalConductivity::PoundPerSecondPerRankine},
+      {UnitSystem::MetreKilogramSecondKelvin,  Unit::ThermalConductivity::WattPerMetrePerKelvin   },
+      {UnitSystem::MillimetreGramSecondKelvin,
+       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                                  },
+      {UnitSystem::FootPoundSecondRankine,     Unit::ThermalConductivity::PoundPerSecondPerRankine},
+      {UnitSystem::InchPoundSecondRankine,     Unit::ThermalConductivity::PoundPerSecondPerRankine},
 };
 
 template <>
 inline const std::map<Unit::ThermalConductivity, UnitSystem>
     RelatedUnitSystems<Unit::ThermalConductivity>{
-        {Unit::ThermalConductivity::WattPerMetrePerKelvin,          UnitSystem::MetreKilogramSecondKelvin},
-        {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
-         UnitSystem::MillimetreGramSecondKelvin                                                          },
+      {Unit::ThermalConductivity::WattPerMetrePerKelvin,          UnitSystem::MetreKilogramSecondKelvin},
+      {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
+       UnitSystem::MillimetreGramSecondKelvin                                                          },
 };
 
 // clang-format off
@@ -288,33 +288,32 @@ template <typename NumericType>
 inline const std::map<Unit::ThermalConductivity,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::ThermalConductivity, NumericType>{
-        {Unit::ThermalConductivity::WattPerMetrePerKelvin,
-         Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin>::FromStandard<NumericType>         },
-        {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
-         Conversions<
-             Unit::ThermalConductivity,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::FromStandard<NumericType>},
-        {Unit::ThermalConductivity::PoundPerSecondPerRankine,
-         Conversions<
-             Unit::ThermalConductivity,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine>::FromStandard<NumericType>      },
+      {Unit::ThermalConductivity::WattPerMetrePerKelvin,
+       Conversions<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>::
+           FromStandard<NumericType>},
+      {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
+       Conversions<Unit::ThermalConductivity,
+       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::
+           FromStandard<NumericType>                                             },
+      {Unit::ThermalConductivity::PoundPerSecondPerRankine,
+       Conversions<Unit::ThermalConductivity, Unit::ThermalConductivity::PoundPerSecondPerRankine>::
+           FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::ThermalConductivity,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::ThermalConductivity, NumericType>{
-        {Unit::ThermalConductivity::WattPerMetrePerKelvin,
-         Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin>::ToStandard<NumericType>         },
-        {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
-         Conversions<
-             Unit::ThermalConductivity,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::ToStandard<NumericType>},
-        {Unit::ThermalConductivity::PoundPerSecondPerRankine,
-         Conversions<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine>::ToStandard<NumericType>      },
+      {Unit::ThermalConductivity::WattPerMetrePerKelvin,
+       Conversions<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>::
+           ToStandard<NumericType>},
+      {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
+       Conversions<Unit::ThermalConductivity,
+       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>::
+           ToStandard<NumericType>                                             },
+      {Unit::ThermalConductivity::PoundPerSecondPerRankine,
+       Conversions<Unit::ThermalConductivity, Unit::ThermalConductivity::PoundPerSecondPerRankine>::
+           ToStandard<NumericType>},
 };
 
 }  // namespace Internal

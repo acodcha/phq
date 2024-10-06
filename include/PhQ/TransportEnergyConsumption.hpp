@@ -106,20 +106,20 @@ public:
   [[nodiscard]] static constexpr TransportEnergyConsumption<NumericType> Create(
       const NumericType value) {
     return TransportEnergyConsumption<NumericType>{
-        ConvertStatically<Unit::TransportEnergyConsumption, Unit,
-                          Standard<Unit::TransportEnergyConsumption>>(value)};
+      ConvertStatically<Unit::TransportEnergyConsumption, Unit,
+                        Standard<Unit::TransportEnergyConsumption>>(value)};
   }
 
   constexpr TransportEnergyConsumption<NumericType> operator+(
       const TransportEnergyConsumption<NumericType>& transport_energy_consumption) const {
     return TransportEnergyConsumption<NumericType>{
-        this->value + transport_energy_consumption.value};
+      this->value + transport_energy_consumption.value};
   }
 
   constexpr TransportEnergyConsumption<NumericType> operator-(
       const TransportEnergyConsumption<NumericType>& transport_energy_consumption) const {
     return TransportEnergyConsumption<NumericType>{
-        this->value - transport_energy_consumption.value};
+      this->value - transport_energy_consumption.value};
   }
 
   constexpr TransportEnergyConsumption<NumericType> operator*(const NumericType number) const {

@@ -264,12 +264,12 @@ template <typename NumericType>
 inline constexpr Strain<NumericType>::Strain(
     const DisplacementGradient<NumericType>& displacement_gradient)
   : Strain<NumericType>(
-      displacement_gradient.Value().xx(),
-      0.5 * (displacement_gradient.Value().xy() + displacement_gradient.Value().yx()),
-      0.5 * (displacement_gradient.Value().xz() + displacement_gradient.Value().zx()),
-      displacement_gradient.Value().yy(),
-      0.5 * (displacement_gradient.Value().yz() + displacement_gradient.Value().zy()),
-      displacement_gradient.Value().zz()) {}
+        displacement_gradient.Value().xx(),
+        0.5 * (displacement_gradient.Value().xy() + displacement_gradient.Value().yx()),
+        0.5 * (displacement_gradient.Value().xz() + displacement_gradient.Value().zx()),
+        displacement_gradient.Value().yy(),
+        0.5 * (displacement_gradient.Value().yz() + displacement_gradient.Value().zy()),
+        displacement_gradient.Value().zz()) {}
 
 }  // namespace PhQ
 

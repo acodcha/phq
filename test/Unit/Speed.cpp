@@ -41,19 +41,19 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Speed, 39> Units = {
-    Speed::NauticalMilePerSecond, Speed::NauticalMilePerMinute, Speed::Knot,
-    Speed::MilePerSecond,         Speed::MilePerMinute,         Speed::MilePerHour,
-    Speed::KilometrePerSecond,    Speed::KilometrePerMinute,    Speed::KilometrePerHour,
-    Speed::MetrePerSecond,        Speed::MetrePerMinute,        Speed::MetrePerHour,
-    Speed::YardPerSecond,         Speed::YardPerMinute,         Speed::YardPerHour,
-    Speed::FootPerSecond,         Speed::FootPerMinute,         Speed::FootPerHour,
-    Speed::DecimetrePerSecond,    Speed::DecimetrePerMinute,    Speed::DecimetrePerHour,
-    Speed::InchPerSecond,         Speed::InchPerMinute,         Speed::InchPerHour,
-    Speed::CentimetrePerSecond,   Speed::CentimetrePerMinute,   Speed::CentimetrePerHour,
-    Speed::MillimetrePerSecond,   Speed::MillimetrePerMinute,   Speed::MillimetrePerHour,
-    Speed::MilliinchPerSecond,    Speed::MilliinchPerMinute,    Speed::MilliinchPerHour,
-    Speed::MicrometrePerSecond,   Speed::MicrometrePerMinute,   Speed::MicrometrePerHour,
-    Speed::MicroinchPerSecond,    Speed::MicroinchPerMinute,    Speed::MicroinchPerHour,
+  Speed::NauticalMilePerSecond, Speed::NauticalMilePerMinute, Speed::Knot,
+  Speed::MilePerSecond,         Speed::MilePerMinute,         Speed::MilePerHour,
+  Speed::KilometrePerSecond,    Speed::KilometrePerMinute,    Speed::KilometrePerHour,
+  Speed::MetrePerSecond,        Speed::MetrePerMinute,        Speed::MetrePerHour,
+  Speed::YardPerSecond,         Speed::YardPerMinute,         Speed::YardPerHour,
+  Speed::FootPerSecond,         Speed::FootPerMinute,         Speed::FootPerHour,
+  Speed::DecimetrePerSecond,    Speed::DecimetrePerMinute,    Speed::DecimetrePerHour,
+  Speed::InchPerSecond,         Speed::InchPerMinute,         Speed::InchPerHour,
+  Speed::CentimetrePerSecond,   Speed::CentimetrePerMinute,   Speed::CentimetrePerHour,
+  Speed::MillimetrePerSecond,   Speed::MillimetrePerMinute,   Speed::MillimetrePerHour,
+  Speed::MilliinchPerSecond,    Speed::MilliinchPerMinute,    Speed::MilliinchPerHour,
+  Speed::MicrometrePerSecond,   Speed::MicrometrePerMinute,   Speed::MicrometrePerHour,
+  Speed::MicroinchPerSecond,    Speed::MicroinchPerMinute,    Speed::MicroinchPerHour,
 };
 
 TEST(UnitSpeed, Abbreviation) {

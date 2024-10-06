@@ -105,7 +105,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr TotalPressure<NumericType> Create(const NumericType value) {
     return TotalPressure<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr TotalPressure<NumericType> operator+(

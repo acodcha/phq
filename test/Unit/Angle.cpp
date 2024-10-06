@@ -39,7 +39,7 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Angle, 5> Units = {
-    Angle::Radian, Angle::Degree, Angle::Arcminute, Angle::Arcsecond, Angle::Revolution,
+  Angle::Radian, Angle::Degree, Angle::Arcminute, Angle::Arcsecond, Angle::Revolution,
 };
 
 TEST(UnitAngle, Abbreviation) {

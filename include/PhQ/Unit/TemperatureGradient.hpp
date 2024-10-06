@@ -81,14 +81,14 @@ enum class TemperatureGradient : int8_t {
 /// \brief Standard temperature gradient unit: kelvin per metre (K/m).
 template <>
 inline constexpr const Unit::TemperatureGradient Standard<Unit::TemperatureGradient>{
-    Unit::TemperatureGradient::KelvinPerMetre};
+  Unit::TemperatureGradient::KelvinPerMetre};
 
 /// \brief Physical dimension set of temperature gradient units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureGradient>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{-1}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{-1}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::TemperatureGradient unit) {
@@ -101,19 +101,19 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::TemperatureGradient>
     ConsistentUnits<Unit::TemperatureGradient>{
-        {UnitSystem::MetreKilogramSecondKelvin,  Unit::TemperatureGradient::KelvinPerMetre     },
-        {UnitSystem::MillimetreGramSecondKelvin, Unit::TemperatureGradient::KelvinPerMillimetre},
-        {UnitSystem::FootPoundSecondRankine,     Unit::TemperatureGradient::RankinePerFoot     },
-        {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureGradient::RankinePerInch     },
+      {UnitSystem::MetreKilogramSecondKelvin,  Unit::TemperatureGradient::KelvinPerMetre     },
+      {UnitSystem::MillimetreGramSecondKelvin, Unit::TemperatureGradient::KelvinPerMillimetre},
+      {UnitSystem::FootPoundSecondRankine,     Unit::TemperatureGradient::RankinePerFoot     },
+      {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureGradient::RankinePerInch     },
 };
 
 template <>
 inline const std::map<Unit::TemperatureGradient, UnitSystem>
     RelatedUnitSystems<Unit::TemperatureGradient>{
-        {Unit::TemperatureGradient::KelvinPerMetre,      UnitSystem::MetreKilogramSecondKelvin },
-        {Unit::TemperatureGradient::KelvinPerMillimetre, UnitSystem::MillimetreGramSecondKelvin},
-        {Unit::TemperatureGradient::RankinePerFoot,      UnitSystem::FootPoundSecondRankine    },
-        {Unit::TemperatureGradient::RankinePerInch,      UnitSystem::InchPoundSecondRankine    },
+      {Unit::TemperatureGradient::KelvinPerMetre,      UnitSystem::MetreKilogramSecondKelvin },
+      {Unit::TemperatureGradient::KelvinPerMillimetre, UnitSystem::MillimetreGramSecondKelvin},
+      {Unit::TemperatureGradient::RankinePerFoot,      UnitSystem::FootPoundSecondRankine    },
+      {Unit::TemperatureGradient::RankinePerInch,      UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -283,63 +283,63 @@ Conversion<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerIn
 }
 
 template <typename NumericType>
-inline const std::map<Unit::TemperatureGradient,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::TemperatureGradient, NumericType>{
-        {Unit::TemperatureGradient::KelvinPerMetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::KelvinPerMetre>::FromStandard<NumericType>      },
-        {Unit::TemperatureGradient::KelvinPerMillimetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::KelvinPerMillimetre>::FromStandard<NumericType> },
-        {Unit::TemperatureGradient::CelsiusPerMetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::CelsiusPerMetre>::FromStandard<NumericType>     },
-        {Unit::TemperatureGradient::CelsiusPerMillimetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::CelsiusPerMillimetre>::FromStandard<NumericType>},
-        {Unit::TemperatureGradient::RankinePerFoot,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::RankinePerFoot>::FromStandard<NumericType>      },
-        {Unit::TemperatureGradient::RankinePerInch,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::RankinePerInch>::FromStandard<NumericType>      },
-        {Unit::TemperatureGradient::FahrenheitPerFoot,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::FahrenheitPerFoot>::FromStandard<NumericType>   },
-        {Unit::TemperatureGradient::FahrenheitPerInch,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::FahrenheitPerInch>::FromStandard<NumericType>   },
+inline const std::
+    map<Unit::TemperatureGradient, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsFromStandard<Unit::TemperatureGradient, NumericType>{
+          {Unit::TemperatureGradient::KelvinPerMetre,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::KelvinPerMillimetre,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::CelsiusPerMetre,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::CelsiusPerMillimetre,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::RankinePerFoot,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::RankinePerInch,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::FahrenheitPerFoot,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>::
+               FromStandard<NumericType>},
+          {Unit::TemperatureGradient::FahrenheitPerInch,
+           Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>::
+               FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::TemperatureGradient,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TemperatureGradient, NumericType>{
-        {Unit::TemperatureGradient::KelvinPerMetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::KelvinPerMetre>::ToStandard<NumericType>      },
-        {Unit::TemperatureGradient::KelvinPerMillimetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::KelvinPerMillimetre>::ToStandard<NumericType> },
-        {Unit::TemperatureGradient::CelsiusPerMetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::CelsiusPerMetre>::ToStandard<NumericType>     },
-        {Unit::TemperatureGradient::CelsiusPerMillimetre,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::CelsiusPerMillimetre>::ToStandard<NumericType>},
-        {Unit::TemperatureGradient::RankinePerFoot,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::RankinePerFoot>::ToStandard<NumericType>      },
-        {Unit::TemperatureGradient::RankinePerInch,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::RankinePerInch>::ToStandard<NumericType>      },
-        {Unit::TemperatureGradient::FahrenheitPerFoot,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::FahrenheitPerFoot>::ToStandard<NumericType>   },
-        {Unit::TemperatureGradient::FahrenheitPerInch,
-         Conversions<Unit::TemperatureGradient,
-         Unit::TemperatureGradient::FahrenheitPerInch>::ToStandard<NumericType>   },
+      {Unit::TemperatureGradient::KelvinPerMetre,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::KelvinPerMillimetre,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::CelsiusPerMetre,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::CelsiusPerMillimetre,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::RankinePerFoot,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::RankinePerInch,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::FahrenheitPerFoot,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureGradient::FahrenheitPerInch,
+       Conversions<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>::
+           ToStandard<NumericType>},
 };
 
 }  // namespace Internal

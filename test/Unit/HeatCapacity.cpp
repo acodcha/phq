@@ -44,10 +44,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<HeatCapacity, 4> Units = {
-    HeatCapacity::JoulePerKelvin,
-    HeatCapacity::NanojoulePerKelvin,
-    HeatCapacity::FootPoundPerRankine,
-    HeatCapacity::InchPoundPerRankine,
+  HeatCapacity::JoulePerKelvin,
+  HeatCapacity::NanojoulePerKelvin,
+  HeatCapacity::FootPoundPerRankine,
+  HeatCapacity::InchPoundPerRankine,
 };
 
 TEST(UnitHeatCapacity, Abbreviation) {

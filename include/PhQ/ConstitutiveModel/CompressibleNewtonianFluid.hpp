@@ -166,10 +166,10 @@ public:
     const float b{static_cast<float>(bulk_dynamic_viscosity.Value())
                   * static_cast<float>(strain_rate.Value().Trace())};
     return PhQ::Stress<float>{
-        SymmetricDyad<float>{a * static_cast<SymmetricDyad<float>>(strain_rate.Value())}
-            + SymmetricDyad<float>{ b, static_cast<float>(0), static_cast<float>(0), b,
-                             static_cast<float>(0), b},
-        Standard<Unit::Pressure>
+      SymmetricDyad<float>{a * static_cast<SymmetricDyad<float>>(strain_rate.Value())}
+          + SymmetricDyad<float>{b, static_cast<float>(0), static_cast<float>(0), b,
+                           static_cast<float>(0), b},
+      Standard<Unit::Pressure>
     };
   }
 
@@ -183,10 +183,10 @@ public:
     const double b{static_cast<double>(bulk_dynamic_viscosity.Value())
                    * static_cast<double>(strain_rate.Value().Trace())};
     return PhQ::Stress<double>{
-        SymmetricDyad<double>{a * static_cast<SymmetricDyad<double>>(strain_rate.Value())}
-            + SymmetricDyad<double>{ b, static_cast<double>(0), static_cast<double>(0), b,
-                              static_cast<double>(0), b},
-        Standard<Unit::Pressure>
+      SymmetricDyad<double>{a * static_cast<SymmetricDyad<double>>(strain_rate.Value())}
+          + SymmetricDyad<double>{b, static_cast<double>(0), static_cast<double>(0), b,
+                            static_cast<double>(0), b},
+      Standard<Unit::Pressure>
     };
   }
 
@@ -197,15 +197,14 @@ public:
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
     const long double a{
-        static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())};
+      static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())};
     const long double b{static_cast<long double>(bulk_dynamic_viscosity.Value())
                         * static_cast<long double>(strain_rate.Value().Trace())};
     return PhQ::Stress<long double>{
-        SymmetricDyad<long double>{a * static_cast<SymmetricDyad<long double>>(strain_rate.Value())}
-            + SymmetricDyad<long double>{ b, static_cast<long double>(0),
-                                   static_cast<long double>(0), b,
-                                   static_cast<long double>(0), b},
-        Standard<Unit::Pressure>
+      SymmetricDyad<long double>{a * static_cast<SymmetricDyad<long double>>(strain_rate.Value())}
+          + SymmetricDyad<long double>{b, static_cast<long double>(0), static_cast<long double>(0),
+                                 b, static_cast<long double>(0), b},
+      Standard<Unit::Pressure>
     };
   }
 
@@ -243,16 +242,16 @@ public:
     const float a{static_cast<float>(1)
                   / (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value()))};
     const float b{
-        static_cast<float>(-bulk_dynamic_viscosity.Value())
-        / (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value())
-           * (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value())
-              + static_cast<float>(3) * static_cast<float>(bulk_dynamic_viscosity.Value())))};
+      static_cast<float>(-bulk_dynamic_viscosity.Value())
+      / (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value())
+         * (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value())
+            + static_cast<float>(3) * static_cast<float>(bulk_dynamic_viscosity.Value())))};
     const float c{b * static_cast<float>(stress.Value().Trace())};
     return PhQ::StrainRate<float>{
-        a * static_cast<SymmetricDyad<float>>(stress.Value())
-            + SymmetricDyad<float>{c, static_cast<float>(0), static_cast<float>(0), c,
-                                   static_cast<float>(0), c},
-        Standard<Unit::Frequency>
+      a * static_cast<SymmetricDyad<float>>(stress.Value())
+          + SymmetricDyad<float>{c, static_cast<float>(0), static_cast<float>(0), c,
+                                 static_cast<float>(0), c},
+      Standard<Unit::Frequency>
     };
   }
 
@@ -266,16 +265,16 @@ public:
     const double a{static_cast<double>(1)
                    / (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value()))};
     const double b{
-        static_cast<double>(-bulk_dynamic_viscosity.Value())
-        / (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value())
-           * (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value())
-              + static_cast<double>(3) * static_cast<double>(bulk_dynamic_viscosity.Value())))};
+      static_cast<double>(-bulk_dynamic_viscosity.Value())
+      / (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value())
+         * (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value())
+            + static_cast<double>(3) * static_cast<double>(bulk_dynamic_viscosity.Value())))};
     const double c{b * static_cast<double>(stress.Value().Trace())};
     return PhQ::StrainRate<double>{
-        a * static_cast<SymmetricDyad<double>>(stress.Value())
-            + SymmetricDyad<double>{c, static_cast<double>(0), static_cast<double>(0), c,
-                                    static_cast<double>(0), c},
-        Standard<Unit::Frequency>
+      a * static_cast<SymmetricDyad<double>>(stress.Value())
+          + SymmetricDyad<double>{c, static_cast<double>(0), static_cast<double>(0), c,
+                                  static_cast<double>(0), c},
+      Standard<Unit::Frequency>
     };
   }
 
@@ -287,21 +286,20 @@ public:
     // b = -1 * bulk_dynamic_viscosity /
     //     (2 * dynamic_viscosity * (2 * dynamic_viscosity + 3 * bulk_dynamic_viscosity))
     const long double a{
-        static_cast<long double>(1)
-        / (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value()))};
+      static_cast<long double>(1)
+      / (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value()))};
     const long double b{
-        static_cast<long double>(-bulk_dynamic_viscosity.Value())
-        / (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())
-           * (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())
-              + static_cast<long double>(3)
-                    * static_cast<long double>(bulk_dynamic_viscosity.Value())))};
+      static_cast<long double>(-bulk_dynamic_viscosity.Value())
+      / (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())
+         * (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())
+            + static_cast<long double>(3)
+                  * static_cast<long double>(bulk_dynamic_viscosity.Value())))};
     const long double c{b * static_cast<long double>(stress.Value().Trace())};
     return PhQ::StrainRate<long double>{
-        a * static_cast<SymmetricDyad<long double>>(stress.Value())
-            + SymmetricDyad<long double>{c, static_cast<long double>(0),
-                                         static_cast<long double>(0), c,
-                                         static_cast<long double>(0), c},
-        Standard<Unit::Frequency>
+      a * static_cast<SymmetricDyad<long double>>(stress.Value())
+          + SymmetricDyad<long double>{c, static_cast<long double>(0), static_cast<long double>(0),
+                                       c, static_cast<long double>(0), c},
+      Standard<Unit::Frequency>
     };
   }
 

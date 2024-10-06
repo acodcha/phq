@@ -42,8 +42,8 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Force, 9> Units = {
-    Force::Newton,      Force::Kilonewton, Force::Meganewton, Force::Giganewton, Force::Millinewton,
-    Force::Micronewton, Force::Nanonewton, Force::Dyne,       Force::Pound,
+  Force::Newton,      Force::Kilonewton, Force::Meganewton, Force::Giganewton, Force::Millinewton,
+  Force::Micronewton, Force::Nanonewton, Force::Dyne,       Force::Pound,
 };
 
 TEST(UnitForce, Abbreviation) {

@@ -110,7 +110,7 @@ public:
   [[nodiscard]] static constexpr IsochoricHeatCapacity<NumericType> Create(
       const NumericType value) {
     return IsochoricHeatCapacity<NumericType>{
-        ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
+      ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr IsochoricHeatCapacity<NumericType> operator+(

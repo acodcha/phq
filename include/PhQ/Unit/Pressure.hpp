@@ -85,9 +85,9 @@ inline constexpr const Unit::Pressure Standard<Unit::Pressure>{Unit::Pressure::P
 /// \brief Physical dimension set of pressure units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Pressure>{
-    Dimensions{Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Pressure unit) {
@@ -99,28 +99,28 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Pressure> ConsistentUnits<Unit::Pressure>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Pressure::Pascal            },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Pressure::Pascal            },
-    {UnitSystem::FootPoundSecondRankine,     Unit::Pressure::PoundPerSquareFoot},
-    {UnitSystem::InchPoundSecondRankine,     Unit::Pressure::PoundPerSquareInch},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Pressure::Pascal            },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Pressure::Pascal            },
+  {UnitSystem::FootPoundSecondRankine,     Unit::Pressure::PoundPerSquareFoot},
+  {UnitSystem::InchPoundSecondRankine,     Unit::Pressure::PoundPerSquareInch},
 };
 
 template <>
 inline const std::map<Unit::Pressure, UnitSystem> RelatedUnitSystems<Unit::Pressure>{
-    {Unit::Pressure::PoundPerSquareFoot, UnitSystem::FootPoundSecondRankine},
-    {Unit::Pressure::PoundPerSquareInch, UnitSystem::InchPoundSecondRankine},
+  {Unit::Pressure::PoundPerSquareFoot, UnitSystem::FootPoundSecondRankine},
+  {Unit::Pressure::PoundPerSquareInch, UnitSystem::InchPoundSecondRankine},
 };
 
 template <>
 inline const std::map<Unit::Pressure, std::string_view> Abbreviations<Unit::Pressure>{
-    {Unit::Pressure::Pascal,             "Pa"      },
-    {Unit::Pressure::Kilopascal,         "kPa"     },
-    {Unit::Pressure::Megapascal,         "MPa"     },
-    {Unit::Pressure::Gigapascal,         "GPa"     },
-    {Unit::Pressure::Bar,                "bar"     },
-    {Unit::Pressure::Atmosphere,         "atm"     },
-    {Unit::Pressure::PoundPerSquareFoot, "lbf/ft^2"},
-    {Unit::Pressure::PoundPerSquareInch, "lbf/in^2"},
+  {Unit::Pressure::Pascal,             "Pa"      },
+  {Unit::Pressure::Kilopascal,         "kPa"     },
+  {Unit::Pressure::Megapascal,         "MPa"     },
+  {Unit::Pressure::Gigapascal,         "GPa"     },
+  {Unit::Pressure::Bar,                "bar"     },
+  {Unit::Pressure::Atmosphere,         "atm"     },
+  {Unit::Pressure::PoundPerSquareFoot, "lbf/ft^2"},
+  {Unit::Pressure::PoundPerSquareInch, "lbf/in^2"},
 };
 
 // clang-format off
@@ -282,46 +282,44 @@ template <typename NumericType>
 inline const std::map<Unit::Pressure,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Pressure, NumericType>{
-        {Unit::Pressure::Pascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Pascal>::FromStandard<NumericType>    },
-        {Unit::Pressure::Kilopascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Kilopascal>::FromStandard<NumericType>},
-        {Unit::Pressure::Megapascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Megapascal>::FromStandard<NumericType>},
-        {Unit::Pressure::Gigapascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Gigapascal>::FromStandard<NumericType>},
-        {Unit::Pressure::Bar,
-         Conversions<Unit::Pressure, Unit::Pressure::Bar>::FromStandard<NumericType>       },
-        {Unit::Pressure::Atmosphere,
-         Conversions<Unit::Pressure, Unit::Pressure::Atmosphere>::FromStandard<NumericType>},
-        {Unit::Pressure::PoundPerSquareFoot,
-         Conversions<Unit::Pressure,
-         Unit::Pressure::PoundPerSquareFoot>::FromStandard<NumericType>                    },
-        {Unit::Pressure::PoundPerSquareInch,
-         Conversions<Unit::Pressure,
-         Unit::Pressure::PoundPerSquareInch>::FromStandard<NumericType>                    },
+      {Unit::Pressure::Pascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Pascal>::FromStandard<NumericType>            },
+      {Unit::Pressure::Kilopascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Kilopascal>::FromStandard<NumericType>        },
+      {Unit::Pressure::Megapascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Megapascal>::FromStandard<NumericType>        },
+      {Unit::Pressure::Gigapascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Gigapascal>::FromStandard<NumericType>        },
+      {Unit::Pressure::Bar,
+       Conversions<Unit::Pressure, Unit::Pressure::Bar>::FromStandard<NumericType>               },
+      {Unit::Pressure::Atmosphere,
+       Conversions<Unit::Pressure, Unit::Pressure::Atmosphere>::FromStandard<NumericType>        },
+      {Unit::Pressure::PoundPerSquareFoot,
+       Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>::FromStandard<NumericType>},
+      {Unit::Pressure::PoundPerSquareInch,
+       Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>::FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::Pressure,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Pressure, NumericType>{
-        {Unit::Pressure::Pascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Pascal>::ToStandard<NumericType>            },
-        {Unit::Pressure::Kilopascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Kilopascal>::ToStandard<NumericType>        },
-        {Unit::Pressure::Megapascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Megapascal>::ToStandard<NumericType>        },
-        {Unit::Pressure::Gigapascal,
-         Conversions<Unit::Pressure, Unit::Pressure::Gigapascal>::ToStandard<NumericType>        },
-        {Unit::Pressure::Bar,
-         Conversions<Unit::Pressure, Unit::Pressure::Bar>::ToStandard<NumericType>               },
-        {Unit::Pressure::Atmosphere,
-         Conversions<Unit::Pressure, Unit::Pressure::Atmosphere>::ToStandard<NumericType>        },
-        {Unit::Pressure::PoundPerSquareFoot,
-         Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>::ToStandard<NumericType>},
-        {Unit::Pressure::PoundPerSquareInch,
-         Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>::ToStandard<NumericType>},
+      {Unit::Pressure::Pascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Pascal>::ToStandard<NumericType>            },
+      {Unit::Pressure::Kilopascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Kilopascal>::ToStandard<NumericType>        },
+      {Unit::Pressure::Megapascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Megapascal>::ToStandard<NumericType>        },
+      {Unit::Pressure::Gigapascal,
+       Conversions<Unit::Pressure, Unit::Pressure::Gigapascal>::ToStandard<NumericType>        },
+      {Unit::Pressure::Bar,
+       Conversions<Unit::Pressure, Unit::Pressure::Bar>::ToStandard<NumericType>               },
+      {Unit::Pressure::Atmosphere,
+       Conversions<Unit::Pressure, Unit::Pressure::Atmosphere>::ToStandard<NumericType>        },
+      {Unit::Pressure::PoundPerSquareFoot,
+       Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>::ToStandard<NumericType>},
+      {Unit::Pressure::PoundPerSquareInch,
+       Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

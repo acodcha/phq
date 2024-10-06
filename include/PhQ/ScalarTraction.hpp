@@ -113,7 +113,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr ScalarTraction<NumericType> Create(const NumericType value) {
     return ScalarTraction<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr ScalarTraction<NumericType> operator+(const ScalarTraction<NumericType>& other) const {

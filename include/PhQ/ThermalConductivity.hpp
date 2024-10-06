@@ -60,8 +60,8 @@ public:
   explicit constexpr ThermalConductivity(
       const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity)
     : ThermalConductivity<NumericType>(
-        {scalar_thermal_conductivity.Value(), 0.0, 0.0, scalar_thermal_conductivity.Value(), 0.0,
-         scalar_thermal_conductivity.Value()}) {}
+          {scalar_thermal_conductivity.Value(), 0.0, 0.0, scalar_thermal_conductivity.Value(), 0.0,
+           scalar_thermal_conductivity.Value()}) {}
 
   /// \brief Destructor. Destroys this thermal conductivity tensor.
   ~ThermalConductivity() noexcept = default;
@@ -108,8 +108,8 @@ public:
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return ThermalConductivity<NumericType>{
-        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-            SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
+      ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+          SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
   }
 
   /// \brief Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and
@@ -118,8 +118,8 @@ public:
   [[nodiscard]] static constexpr ThermalConductivity<NumericType> Create(
       const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return ThermalConductivity<NumericType>{
-        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-            SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
+      ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+          SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
   }
 
   /// \brief Statically creates a thermal conductivity tensor with a given value expressed in a
@@ -128,8 +128,8 @@ public:
   [[nodiscard]] static constexpr ThermalConductivity<NumericType> Create(
       const SymmetricDyad<NumericType>& value) {
     return ThermalConductivity<NumericType>{
-        ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-            value)};
+      ConvertStatically<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+          value)};
   }
 
   /// \brief Returns the xx Cartesian component of this thermal conductivity tensor.

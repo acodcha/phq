@@ -75,9 +75,9 @@ inline constexpr const Unit::Temperature Standard<Unit::Temperature>{Unit::Tempe
 /// \brief Physical dimension set of temperature units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Temperature>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Temperature unit) {
@@ -89,10 +89,10 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Temperature> ConsistentUnits<Unit::Temperature>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Temperature::Kelvin },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin },
-    {UnitSystem::FootPoundSecondRankine,     Unit::Temperature::Rankine},
-    {UnitSystem::InchPoundSecondRankine,     Unit::Temperature::Rankine},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Temperature::Kelvin },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin },
+  {UnitSystem::FootPoundSecondRankine,     Unit::Temperature::Rankine},
+  {UnitSystem::InchPoundSecondRankine,     Unit::Temperature::Rankine},
 };
 
 template <>
@@ -179,31 +179,32 @@ inline constexpr void Conversion<Unit::Temperature, Unit::Temperature::Fahrenhei
 }
 
 template <typename NumericType>
-inline const std::map<Unit::Temperature,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Temperature, NumericType>{
-        {Unit::Temperature::Kelvin,
-         Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::FromStandard<NumericType>    },
-        {Unit::Temperature::Celsius,
-         Conversions<Unit::Temperature, Unit::Temperature::Celsius>::FromStandard<NumericType>   },
-        {Unit::Temperature::Rankine,
-         Conversions<Unit::Temperature, Unit::Temperature::Rankine>::FromStandard<NumericType>   },
-        {Unit::Temperature::Fahrenheit,
-         Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::FromStandard<NumericType>},
+inline const std::
+    map<Unit::Temperature, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsFromStandard<Unit::Temperature, NumericType>{
+          {Unit::Temperature::Kelvin,
+           Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::FromStandard<NumericType> },
+          {Unit::Temperature::Celsius,
+           Conversions<Unit::Temperature, Unit::Temperature::Celsius>::FromStandard<NumericType>},
+          {Unit::Temperature::Rankine,
+           Conversions<Unit::Temperature, Unit::Temperature::Rankine>::FromStandard<NumericType>},
+          {Unit::Temperature::Fahrenheit,
+           Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::
+               FromStandard<NumericType>               },
 };
 
 template <typename NumericType>
-inline const std::map<Unit::Temperature,
-                      std::function<void(NumericType* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Temperature, NumericType>{
-        {Unit::Temperature::Kelvin,
-         Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::ToStandard<NumericType>    },
-        {Unit::Temperature::Celsius,
-         Conversions<Unit::Temperature, Unit::Temperature::Celsius>::ToStandard<NumericType>   },
-        {Unit::Temperature::Rankine,
-         Conversions<Unit::Temperature, Unit::Temperature::Rankine>::ToStandard<NumericType>   },
-        {Unit::Temperature::Fahrenheit,
-         Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::ToStandard<NumericType>},
+inline const std::
+    map<Unit::Temperature, std::function<void(NumericType* const values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::Temperature, NumericType>{
+          {Unit::Temperature::Kelvin,
+           Conversions<Unit::Temperature, Unit::Temperature::Kelvin>::ToStandard<NumericType>    },
+          {Unit::Temperature::Celsius,
+           Conversions<Unit::Temperature, Unit::Temperature::Celsius>::ToStandard<NumericType>   },
+          {Unit::Temperature::Rankine,
+           Conversions<Unit::Temperature, Unit::Temperature::Rankine>::ToStandard<NumericType>   },
+          {Unit::Temperature::Fahrenheit,
+           Conversions<Unit::Temperature, Unit::Temperature::Fahrenheit>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

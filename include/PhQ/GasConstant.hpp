@@ -64,14 +64,14 @@ public:
   constexpr GasConstant(const HeatCapacityRatio<NumericType>& heat_capacity_ratio,
                         const IsobaricHeatCapacity<NumericType>& isobaric_heat_capacity)
     : GasConstant<NumericType>(
-        (1.0 - 1.0 / heat_capacity_ratio.Value()) * isobaric_heat_capacity.Value()) {}
+          (1.0 - 1.0 / heat_capacity_ratio.Value()) * isobaric_heat_capacity.Value()) {}
 
   /// \brief Constructor. Constructs a gas constant from a given isochoric heat capacity and heat
   /// capacity ratio using the definition of the heat capacity ratio and Mayer's relation.
   constexpr GasConstant(const HeatCapacityRatio<NumericType>& heat_capacity_ratio,
                         const IsochoricHeatCapacity<NumericType>& isochoric_heat_capacity)
     : GasConstant<NumericType>(
-        (heat_capacity_ratio.Value() - 1.0) * isochoric_heat_capacity.Value()) {}
+          (heat_capacity_ratio.Value() - 1.0) * isochoric_heat_capacity.Value()) {}
 
   /// \brief Constructor. Constructs a gas constant from a given specific gas constant and mass
   /// using the definition of the specific gas constant.
@@ -116,7 +116,7 @@ public:
   template <Unit::HeatCapacity Unit>
   [[nodiscard]] static constexpr GasConstant<NumericType> Create(const NumericType value) {
     return GasConstant<NumericType>{
-        ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
+      ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr GasConstant<NumericType> operator+(const GasConstant<NumericType>& gas_constant) const {
@@ -226,7 +226,7 @@ inline constexpr HeatCapacityRatio<NumericType>::HeatCapacityRatio(
     const IsobaricHeatCapacity<NumericType>& isobaric_heat_capacity,
     const GasConstant<NumericType>& gas_constant)
   : HeatCapacityRatio<NumericType>(
-      isobaric_heat_capacity.Value() / (isobaric_heat_capacity.Value() - gas_constant.Value())) {}
+        isobaric_heat_capacity.Value() / (isobaric_heat_capacity.Value() - gas_constant.Value())) {}
 
 template <typename NumericType>
 inline constexpr HeatCapacityRatio<NumericType>::HeatCapacityRatio(
@@ -258,7 +258,7 @@ inline constexpr IsobaricHeatCapacity<NumericType>::IsobaricHeatCapacity(
     const HeatCapacityRatio<NumericType>& heat_capacity_ratio,
     const GasConstant<NumericType>& gas_constant)
   : IsobaricHeatCapacity<NumericType>(
-      heat_capacity_ratio.Value() * gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
+        heat_capacity_ratio.Value() * gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
 
 template <typename NumericType>
 inline constexpr IsobaricHeatCapacity<NumericType> IsochoricHeatCapacity<NumericType>::operator+(

@@ -129,7 +129,7 @@ public:
   /// components initialized to zero.
   [[nodiscard]] static constexpr PlanarVector<NumericType> Zero() {
     return PlanarVector<NumericType>{
-        std::array<NumericType, 2>{static_cast<NumericType>(0), static_cast<NumericType>(0)}
+      std::array<NumericType, 2>{static_cast<NumericType>(0), static_cast<NumericType>(0)}
     };
   }
 

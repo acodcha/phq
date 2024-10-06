@@ -132,7 +132,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr StaticPressure<NumericType> Create(const NumericType value) {
     return StaticPressure<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   [[nodiscard]] constexpr PhQ::Stress<NumericType> Stress() const;

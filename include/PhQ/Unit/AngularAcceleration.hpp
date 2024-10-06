@@ -102,14 +102,14 @@ enum class AngularAcceleration : int8_t {
 /// \brief Standard angular acceleration unit: radian per square second (rad/s^2).
 template <>
 inline constexpr const Unit::AngularAcceleration Standard<Unit::AngularAcceleration>{
-    Unit::AngularAcceleration::RadianPerSquareSecond};
+  Unit::AngularAcceleration::RadianPerSquareSecond};
 
 /// \brief Physical dimension set of angular acceleration units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::AngularAcceleration>{
-    Dimensions{Dimension::Time{-2}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-2}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::AngularAcceleration unit) {
@@ -122,10 +122,10 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::AngularAcceleration>
     ConsistentUnits<Unit::AngularAcceleration>{
-        {UnitSystem::MetreKilogramSecondKelvin,  Unit::AngularAcceleration::RadianPerSquareSecond},
-        {UnitSystem::MillimetreGramSecondKelvin, Unit::AngularAcceleration::RadianPerSquareSecond},
-        {UnitSystem::FootPoundSecondRankine,     Unit::AngularAcceleration::RadianPerSquareSecond},
-        {UnitSystem::InchPoundSecondRankine,     Unit::AngularAcceleration::RadianPerSquareSecond},
+      {UnitSystem::MetreKilogramSecondKelvin,  Unit::AngularAcceleration::RadianPerSquareSecond},
+      {UnitSystem::MillimetreGramSecondKelvin, Unit::AngularAcceleration::RadianPerSquareSecond},
+      {UnitSystem::FootPoundSecondRankine,     Unit::AngularAcceleration::RadianPerSquareSecond},
+      {UnitSystem::InchPoundSecondRankine,     Unit::AngularAcceleration::RadianPerSquareSecond},
 };
 
 template <>
@@ -135,21 +135,21 @@ inline const std::map<Unit::AngularAcceleration, UnitSystem>
 template <>
 inline const std::map<Unit::AngularAcceleration, std::string_view>
     Abbreviations<Unit::AngularAcceleration>{
-        {Unit::AngularAcceleration::RadianPerSquareSecond,     "rad/s^2"     },
-        {Unit::AngularAcceleration::RadianPerSquareMinute,     "rad/min^2"   },
-        {Unit::AngularAcceleration::RadianPerSquareHour,       "rad/hr^2"    },
-        {Unit::AngularAcceleration::DegreePerSquareSecond,     "deg/s^2"     },
-        {Unit::AngularAcceleration::DegreePerSquareMinute,     "deg/min^2"   },
-        {Unit::AngularAcceleration::DegreePerSquareHour,       "deg/hr^2"    },
-        {Unit::AngularAcceleration::ArcminutePerSquareSecond,  "arcmin/s^2"  },
-        {Unit::AngularAcceleration::ArcminutePerSquareMinute,  "arcmin/min^2"},
-        {Unit::AngularAcceleration::ArcminutePerSquareHour,    "arcmin/hr^2" },
-        {Unit::AngularAcceleration::ArcsecondPerSquareSecond,  "arcsec/s^2"  },
-        {Unit::AngularAcceleration::ArcsecondPerSquareMinute,  "arcsec/min^2"},
-        {Unit::AngularAcceleration::ArcsecondPerSquareHour,    "arcsec/hr^2" },
-        {Unit::AngularAcceleration::RevolutionPerSquareSecond, "rev/s^2"     },
-        {Unit::AngularAcceleration::RevolutionPerSquareMinute, "rev/min^2"   },
-        {Unit::AngularAcceleration::RevolutionPerSquareHour,   "rev/hr^2"    },
+      {Unit::AngularAcceleration::RadianPerSquareSecond,     "rad/s^2"     },
+      {Unit::AngularAcceleration::RadianPerSquareMinute,     "rad/min^2"   },
+      {Unit::AngularAcceleration::RadianPerSquareHour,       "rad/hr^2"    },
+      {Unit::AngularAcceleration::DegreePerSquareSecond,     "deg/s^2"     },
+      {Unit::AngularAcceleration::DegreePerSquareMinute,     "deg/min^2"   },
+      {Unit::AngularAcceleration::DegreePerSquareHour,       "deg/hr^2"    },
+      {Unit::AngularAcceleration::ArcminutePerSquareSecond,  "arcmin/s^2"  },
+      {Unit::AngularAcceleration::ArcminutePerSquareMinute,  "arcmin/min^2"},
+      {Unit::AngularAcceleration::ArcminutePerSquareHour,    "arcmin/hr^2" },
+      {Unit::AngularAcceleration::ArcsecondPerSquareSecond,  "arcsec/s^2"  },
+      {Unit::AngularAcceleration::ArcsecondPerSquareMinute,  "arcsec/min^2"},
+      {Unit::AngularAcceleration::ArcsecondPerSquareHour,    "arcsec/hr^2" },
+      {Unit::AngularAcceleration::RevolutionPerSquareSecond, "rev/s^2"     },
+      {Unit::AngularAcceleration::RevolutionPerSquareMinute, "rev/min^2"   },
+      {Unit::AngularAcceleration::RevolutionPerSquareHour,   "rev/hr^2"    },
 };
 
 // clang-format off
@@ -455,111 +455,104 @@ template <typename NumericType>
 inline const std::map<Unit::AngularAcceleration,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::AngularAcceleration, NumericType>{
-        {Unit::AngularAcceleration::RadianPerSquareSecond,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareSecond>::FromStandard<NumericType>    },
-        {Unit::AngularAcceleration::RadianPerSquareMinute,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareMinute>::FromStandard<NumericType>    },
-        {Unit::AngularAcceleration::RadianPerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareHour>::FromStandard<NumericType>      },
-        {Unit::AngularAcceleration::DegreePerSquareSecond,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareSecond>::FromStandard<NumericType>    },
-        {Unit::AngularAcceleration::DegreePerSquareMinute,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareMinute>::FromStandard<NumericType>    },
-        {Unit::AngularAcceleration::DegreePerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareHour>::FromStandard<NumericType>      },
-        {Unit::AngularAcceleration::ArcminutePerSquareSecond,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareSecond>::FromStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcminutePerSquareMinute,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareMinute>::FromStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcminutePerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareHour>::FromStandard<NumericType>   },
-        {Unit::AngularAcceleration::ArcsecondPerSquareSecond,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareSecond>::FromStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcsecondPerSquareMinute,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareMinute>::FromStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcsecondPerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareHour>::FromStandard<NumericType>   },
-        {Unit::AngularAcceleration::RevolutionPerSquareSecond,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareSecond>::FromStandard<NumericType>},
-        {Unit::AngularAcceleration::RevolutionPerSquareMinute,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareMinute>::FromStandard<NumericType>},
-        {Unit::AngularAcceleration::RevolutionPerSquareHour,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareHour>::FromStandard<NumericType>  },
+      {Unit::AngularAcceleration::RadianPerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::RadianPerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareMinute>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::RadianPerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareHour>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::DegreePerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareSecond>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::DegreePerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareMinute>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::DegreePerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareHour>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::ArcminutePerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareSecond>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::ArcminutePerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareMinute>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::ArcminutePerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareHour>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::ArcsecondPerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareSecond>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::ArcsecondPerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareMinute>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::ArcsecondPerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareHour>::
+           FromStandard<NumericType>},
+      {Unit::AngularAcceleration::RevolutionPerSquareSecond,
+       Conversions<Unit::AngularAcceleration,
+       Unit::AngularAcceleration::RevolutionPerSquareSecond>::
+           FromStandard<NumericType>                                             },
+      {Unit::AngularAcceleration::RevolutionPerSquareMinute,
+       Conversions<Unit::AngularAcceleration,
+       Unit::AngularAcceleration::RevolutionPerSquareMinute>::
+           FromStandard<NumericType>                                             },
+      {Unit::AngularAcceleration::RevolutionPerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareHour>::
+           FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::AngularAcceleration,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::AngularAcceleration, NumericType>{
-        {Unit::AngularAcceleration::RadianPerSquareSecond,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareSecond>::ToStandard<NumericType>    },
-        {Unit::AngularAcceleration::RadianPerSquareMinute,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareMinute>::ToStandard<NumericType>    },
-        {Unit::AngularAcceleration::RadianPerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareHour>::ToStandard<NumericType>      },
-        {Unit::AngularAcceleration::DegreePerSquareSecond,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareSecond>::ToStandard<NumericType>    },
-        {Unit::AngularAcceleration::DegreePerSquareMinute,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareMinute>::ToStandard<NumericType>    },
-        {Unit::AngularAcceleration::DegreePerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareHour>::ToStandard<NumericType>      },
-        {Unit::AngularAcceleration::ArcminutePerSquareSecond,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareSecond>::ToStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcminutePerSquareMinute,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareMinute>::ToStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcminutePerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareHour>::ToStandard<NumericType>   },
-        {Unit::AngularAcceleration::ArcsecondPerSquareSecond,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareSecond>::ToStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcsecondPerSquareMinute,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareMinute>::ToStandard<NumericType> },
-        {Unit::AngularAcceleration::ArcsecondPerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareHour>::ToStandard<NumericType>   },
-        {Unit::AngularAcceleration::RevolutionPerSquareSecond,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareSecond>::ToStandard<NumericType>},
-        {Unit::AngularAcceleration::RevolutionPerSquareMinute,
-         Conversions<
-             Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareMinute>::ToStandard<NumericType>},
-        {Unit::AngularAcceleration::RevolutionPerSquareHour,
-         Conversions<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareHour>::ToStandard<NumericType>  },
+      {Unit::AngularAcceleration::RadianPerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::RadianPerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareMinute>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::RadianPerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareHour>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::DegreePerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareSecond>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::DegreePerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareMinute>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::DegreePerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareHour>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::ArcminutePerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareSecond>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::ArcminutePerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareMinute>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::ArcminutePerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareHour>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::ArcsecondPerSquareSecond,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareSecond>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::ArcsecondPerSquareMinute,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareMinute>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::ArcsecondPerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareHour>::
+           ToStandard<NumericType>      },
+      {Unit::AngularAcceleration::RevolutionPerSquareSecond,
+       Conversions<Unit::AngularAcceleration,
+       Unit::AngularAcceleration::RevolutionPerSquareSecond>::ToStandard<NumericType>},
+      {Unit::AngularAcceleration::RevolutionPerSquareMinute,
+       Conversions<Unit::AngularAcceleration,
+       Unit::AngularAcceleration::RevolutionPerSquareMinute>::ToStandard<NumericType>},
+      {Unit::AngularAcceleration::RevolutionPerSquareHour,
+       Conversions<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareHour>::
+           ToStandard<NumericType>      },
 };
 
 }  // namespace Internal

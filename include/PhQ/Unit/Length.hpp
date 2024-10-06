@@ -100,9 +100,9 @@ inline constexpr const Unit::Length Standard<Unit::Length>{Unit::Length::Metre};
 /// \brief Physical dimension set of length units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Length>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{1}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{1}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Length unit) {
@@ -114,18 +114,18 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Length::Metre     },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
-    {UnitSystem::FootPoundSecondRankine,     Unit::Length::Foot      },
-    {UnitSystem::InchPoundSecondRankine,     Unit::Length::Inch      },
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Length::Metre     },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
+  {UnitSystem::FootPoundSecondRankine,     Unit::Length::Foot      },
+  {UnitSystem::InchPoundSecondRankine,     Unit::Length::Inch      },
 };
 
 template <>
 inline const std::map<Unit::Length, UnitSystem> RelatedUnitSystems<Unit::Length>{
-    {Unit::Length::Metre,      UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Length::Foot,       UnitSystem::FootPoundSecondRankine    },
-    {Unit::Length::Inch,       UnitSystem::InchPoundSecondRankine    },
+  {Unit::Length::Metre,      UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Length::Foot,       UnitSystem::FootPoundSecondRankine    },
+  {Unit::Length::Inch,       UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -394,67 +394,63 @@ inline constexpr void Conversion<Unit::Length, Unit::Length::Microinch>::ToStand
 }
 
 template <typename NumericType>
-inline const std::map<Unit::Length,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Length, NumericType>{
-        {Unit::Length::Metre,
-         Conversions<Unit::Length, Unit::Length::Metre>::FromStandard<NumericType>       },
-        {Unit::Length::NauticalMile,
-         Conversions<Unit::Length, Unit::Length::NauticalMile>::FromStandard<NumericType>},
-        {Unit::Length::Mile,
-         Conversions<Unit::Length, Unit::Length::Mile>::FromStandard<NumericType>        },
-        {Unit::Length::Kilometre,
-         Conversions<Unit::Length, Unit::Length::Kilometre>::FromStandard<NumericType>   },
-        {Unit::Length::Yard,
-         Conversions<Unit::Length, Unit::Length::Yard>::FromStandard<NumericType>        },
-        {Unit::Length::Foot,
-         Conversions<Unit::Length, Unit::Length::Foot>::FromStandard<NumericType>        },
-        {Unit::Length::Decimetre,
-         Conversions<Unit::Length, Unit::Length::Decimetre>::FromStandard<NumericType>   },
-        {Unit::Length::Inch,
-         Conversions<Unit::Length, Unit::Length::Inch>::FromStandard<NumericType>        },
-        {Unit::Length::Centimetre,
-         Conversions<Unit::Length, Unit::Length::Centimetre>::FromStandard<NumericType>  },
-        {Unit::Length::Millimetre,
-         Conversions<Unit::Length, Unit::Length::Millimetre>::FromStandard<NumericType>  },
-        {Unit::Length::Milliinch,
-         Conversions<Unit::Length, Unit::Length::Milliinch>::FromStandard<NumericType>   },
-        {Unit::Length::Micrometre,
-         Conversions<Unit::Length, Unit::Length::Micrometre>::FromStandard<NumericType>  },
-        {Unit::Length::Microinch,
-         Conversions<Unit::Length, Unit::Length::Microinch>::FromStandard<NumericType>   },
+inline const std::
+    map<Unit::Length, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsFromStandard<Unit::Length, NumericType>{
+          {Unit::Length::Metre,
+           Conversions<Unit::Length, Unit::Length::Metre>::FromStandard<NumericType>       },
+          {Unit::Length::NauticalMile,
+           Conversions<Unit::Length, Unit::Length::NauticalMile>::FromStandard<NumericType>},
+          {Unit::Length::Mile,
+           Conversions<Unit::Length, Unit::Length::Mile>::FromStandard<NumericType>        },
+          {Unit::Length::Kilometre,
+           Conversions<Unit::Length, Unit::Length::Kilometre>::FromStandard<NumericType>   },
+          {Unit::Length::Yard,
+           Conversions<Unit::Length, Unit::Length::Yard>::FromStandard<NumericType>        },
+          {Unit::Length::Foot,
+           Conversions<Unit::Length, Unit::Length::Foot>::FromStandard<NumericType>        },
+          {Unit::Length::Decimetre,
+           Conversions<Unit::Length, Unit::Length::Decimetre>::FromStandard<NumericType>   },
+          {Unit::Length::Inch,
+           Conversions<Unit::Length, Unit::Length::Inch>::FromStandard<NumericType>        },
+          {Unit::Length::Centimetre,
+           Conversions<Unit::Length, Unit::Length::Centimetre>::FromStandard<NumericType>  },
+          {Unit::Length::Millimetre,
+           Conversions<Unit::Length, Unit::Length::Millimetre>::FromStandard<NumericType>  },
+          {Unit::Length::Milliinch,
+           Conversions<Unit::Length, Unit::Length::Milliinch>::FromStandard<NumericType>   },
+          {Unit::Length::Micrometre,
+           Conversions<Unit::Length, Unit::Length::Micrometre>::FromStandard<NumericType>  },
+          {Unit::Length::Microinch,
+           Conversions<Unit::Length, Unit::Length::Microinch>::FromStandard<NumericType>   },
 };
 
 template <typename NumericType>
 inline const std::map<Unit::Length,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Length, NumericType>{
-        {Unit::Length::Metre,
-         Conversions<Unit::Length, Unit::Length::Metre>::ToStandard<NumericType>       },
-        {Unit::Length::NauticalMile,
-         Conversions<Unit::Length, Unit::Length::NauticalMile>::ToStandard<NumericType>},
-        {Unit::Length::Mile,
-         Conversions<Unit::Length, Unit::Length::Mile>::ToStandard<NumericType>        },
-        {Unit::Length::Kilometre,
-         Conversions<Unit::Length, Unit::Length::Kilometre>::ToStandard<NumericType>   },
-        {Unit::Length::Yard,
-         Conversions<Unit::Length, Unit::Length::Yard>::ToStandard<NumericType>        },
-        {Unit::Length::Foot,
-         Conversions<Unit::Length, Unit::Length::Foot>::ToStandard<NumericType>        },
-        {Unit::Length::Decimetre,
-         Conversions<Unit::Length, Unit::Length::Decimetre>::ToStandard<NumericType>   },
-        {Unit::Length::Inch,
-         Conversions<Unit::Length, Unit::Length::Inch>::ToStandard<NumericType>        },
-        {Unit::Length::Centimetre,
-         Conversions<Unit::Length, Unit::Length::Centimetre>::ToStandard<NumericType>  },
-        {Unit::Length::Millimetre,
-         Conversions<Unit::Length, Unit::Length::Millimetre>::ToStandard<NumericType>  },
-        {Unit::Length::Milliinch,
-         Conversions<Unit::Length, Unit::Length::Milliinch>::ToStandard<NumericType>   },
-        {Unit::Length::Micrometre,
-         Conversions<Unit::Length, Unit::Length::Micrometre>::ToStandard<NumericType>  },
-        {Unit::Length::Microinch,
-         Conversions<Unit::Length, Unit::Length::Microinch>::ToStandard<NumericType>   },
+      {Unit::Length::Metre,
+       Conversions<Unit::Length,                             Unit::Length::Metre>::ToStandard<NumericType>       },
+      {Unit::Length::NauticalMile,
+       Conversions<Unit::Length,                             Unit::Length::NauticalMile>::ToStandard<NumericType>},
+      {Unit::Length::Mile,         Conversions<Unit::Length, Unit::Length::Mile>::ToStandard<NumericType>        },
+      {Unit::Length::Kilometre,
+       Conversions<Unit::Length,                             Unit::Length::Kilometre>::ToStandard<NumericType>   },
+      {Unit::Length::Yard,         Conversions<Unit::Length, Unit::Length::Yard>::ToStandard<NumericType>        },
+      {Unit::Length::Foot,         Conversions<Unit::Length, Unit::Length::Foot>::ToStandard<NumericType>        },
+      {Unit::Length::Decimetre,
+       Conversions<Unit::Length,                             Unit::Length::Decimetre>::ToStandard<NumericType>   },
+      {Unit::Length::Inch,         Conversions<Unit::Length, Unit::Length::Inch>::ToStandard<NumericType>        },
+      {Unit::Length::Centimetre,
+       Conversions<Unit::Length,                             Unit::Length::Centimetre>::ToStandard<NumericType>  },
+      {Unit::Length::Millimetre,
+       Conversions<Unit::Length,                             Unit::Length::Millimetre>::ToStandard<NumericType>  },
+      {Unit::Length::Milliinch,
+       Conversions<Unit::Length,                             Unit::Length::Milliinch>::ToStandard<NumericType>   },
+      {Unit::Length::Micrometre,
+       Conversions<Unit::Length,                             Unit::Length::Micrometre>::ToStandard<NumericType>  },
+      {Unit::Length::Microinch,
+       Conversions<Unit::Length,                             Unit::Length::Microinch>::ToStandard<NumericType>   },
 };
 
 }  // namespace Internal

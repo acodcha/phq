@@ -39,17 +39,17 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<ElectricCurrent, 11> Units = {
-    ElectricCurrent::Ampere,
-    ElectricCurrent::Kiloampere,
-    ElectricCurrent::Megaampere,
-    ElectricCurrent::Gigaampere,
-    ElectricCurrent::Teraampere,
-    ElectricCurrent::Milliampere,
-    ElectricCurrent::Microampere,
-    ElectricCurrent::Nanoampere,
-    ElectricCurrent::ElementaryChargePerSecond,
-    ElectricCurrent::ElementaryChargePerMinute,
-    ElectricCurrent::ElementaryChargePerHour,
+  ElectricCurrent::Ampere,
+  ElectricCurrent::Kiloampere,
+  ElectricCurrent::Megaampere,
+  ElectricCurrent::Gigaampere,
+  ElectricCurrent::Teraampere,
+  ElectricCurrent::Milliampere,
+  ElectricCurrent::Microampere,
+  ElectricCurrent::Nanoampere,
+  ElectricCurrent::ElementaryChargePerSecond,
+  ElectricCurrent::ElementaryChargePerMinute,
+  ElectricCurrent::ElementaryChargePerHour,
 };
 
 TEST(UnitAngle, Abbreviation) {
@@ -108,8 +108,9 @@ TEST(UnitAngle, Convert) {
 
 TEST(UnitAngle, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<ElectricCurrent, ElectricCurrent::Ampere,
-                                  ElectricCurrent::Kiloampere>(value, value * 0.001L);
+  Internal::
+      TestConvertStatically<ElectricCurrent, ElectricCurrent::Ampere, ElectricCurrent::Kiloampere>(
+          value, value * 0.001L);
 }
 
 TEST(UnitAngle, ParseEnumeration) {

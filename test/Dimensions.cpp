@@ -44,13 +44,13 @@ namespace {
 
 TEST(Dimensions, Accessors) {
   constexpr Dimensions dimensions{
-      Dimension::Time(-3),
-      Dimension::Length(-2),
-      Dimension::Mass(-1),
-      Dimension::ElectricCurrent(0),
-      Dimension::Temperature(1),
-      Dimension::SubstanceAmount(2),
-      Dimension::LuminousIntensity(3)};
+    Dimension::Time(-3),
+    Dimension::Length(-2),
+    Dimension::Mass(-1),
+    Dimension::ElectricCurrent(0),
+    Dimension::Temperature(1),
+    Dimension::SubstanceAmount(2),
+    Dimension::LuminousIntensity(3)};
   EXPECT_EQ(dimensions.Time(), Dimension::Time(-3));
   EXPECT_EQ(dimensions.Length(), Dimension::Length(-2));
   EXPECT_EQ(dimensions.Mass(), Dimension::Mass(-1));
@@ -63,21 +63,21 @@ TEST(Dimensions, Accessors) {
 TEST(Dimensions, ComparisonOperators) {
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(0),
-        Dimension::Mass(0),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(0),
+      Dimension::Mass(0),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     constexpr Dimensions second{
-        Dimension::Time(-2),
-        Dimension::Length(0),
-        Dimension::Mass(0),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-2),
+      Dimension::Length(0),
+      Dimension::Mass(0),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -89,21 +89,21 @@ TEST(Dimensions, ComparisonOperators) {
   }
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(0),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(0),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     constexpr Dimensions second{
-        Dimension::Time(-3),
-        Dimension::Length(-1),
-        Dimension::Mass(0),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-1),
+      Dimension::Mass(0),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -115,21 +115,21 @@ TEST(Dimensions, ComparisonOperators) {
   }
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     constexpr Dimensions second{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(0),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(0),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -141,21 +141,21 @@ TEST(Dimensions, ComparisonOperators) {
   }
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     constexpr Dimensions second{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(1),
-        Dimension::Temperature(0),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(1),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -167,21 +167,21 @@ TEST(Dimensions, ComparisonOperators) {
   }
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(1),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     constexpr Dimensions second{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(2),
-        Dimension::SubstanceAmount(0),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(2),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(0)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -193,21 +193,21 @@ TEST(Dimensions, ComparisonOperators) {
   }
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(1),
-        Dimension::SubstanceAmount(2),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(2),
+      Dimension::LuminousIntensity(0)};
     constexpr Dimensions second{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(1),
-        Dimension::SubstanceAmount(3),
-        Dimension::LuminousIntensity(0)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(3),
+      Dimension::LuminousIntensity(0)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -219,21 +219,21 @@ TEST(Dimensions, ComparisonOperators) {
   }
   {
     constexpr Dimensions first{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(1),
-        Dimension::SubstanceAmount(2),
-        Dimension::LuminousIntensity(3)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(2),
+      Dimension::LuminousIntensity(3)};
     constexpr Dimensions second{
-        Dimension::Time(-3),
-        Dimension::Length(-2),
-        Dimension::Mass(-1),
-        Dimension::ElectricCurrent(0),
-        Dimension::Temperature(1),
-        Dimension::SubstanceAmount(2),
-        Dimension::LuminousIntensity(4)};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(2),
+      Dimension::LuminousIntensity(4)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -272,15 +272,15 @@ TEST(Dimensions, DefaultConstructor) {
 TEST(Dimensions, Hash) {
   constexpr Dimensions first;
   constexpr Dimensions second{
-      Dimension::Time(3), Dimension::Length(0), Dimension::Mass(-1), {}, {}, {}, {}};
+    Dimension::Time(3), Dimension::Length(0), Dimension::Mass(-1), {}, {}, {}, {}};
   constexpr Dimensions third{
-      Dimension::Time(3),
-      Dimension::Length(0),
-      Dimension::Mass(-1),
-      Dimension::ElectricCurrent(0),
-      Dimension::Temperature(0),
-      Dimension::SubstanceAmount(0),
-      Dimension::LuminousIntensity(1)};
+    Dimension::Time(3),
+    Dimension::Length(0),
+    Dimension::Mass(-1),
+    Dimension::ElectricCurrent(0),
+    Dimension::Temperature(0),
+    Dimension::SubstanceAmount(0),
+    Dimension::LuminousIntensity(1)};
   const std::hash<Dimensions> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));

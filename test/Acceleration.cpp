@@ -218,9 +218,8 @@ TEST(Acceleration, Create) {
         acceleration, Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
   {
-    constexpr Acceleration acceleration =
-        Acceleration<>::Create<Unit::Acceleration::MetrePerSquareSecond>(
-            std::array<double, 3>{1.0, -2.0, 3.0});
+    constexpr Acceleration acceleration = Acceleration<>::
+        Create<Unit::Acceleration::MetrePerSquareSecond>(std::array<double, 3>{1.0, -2.0, 3.0});
     EXPECT_EQ(
         acceleration, Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
   }
@@ -292,17 +291,17 @@ TEST(Acceleration, MutableValue) {
 
 TEST(Acceleration, Performance) {
   Acceleration acceleration1{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
-      Unit::Acceleration::MetrePerSquareSecond
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+    Unit::Acceleration::MetrePerSquareSecond
   };
   Acceleration acceleration2{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
-      Unit::Acceleration::MetrePerSquareSecond
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012},
+    Unit::Acceleration::MetrePerSquareSecond
   };
   std::array<double, 3> reference1{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
   std::array<double, 3> reference2{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012};
   Internal::TestVectorPerformance(acceleration1, acceleration2, reference1, reference2);
 }
 

@@ -42,10 +42,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<EnergyFlux, 4> Units = {
-    EnergyFlux::WattPerSquareMetre,
-    EnergyFlux::NanowattPerSquareMillimetre,
-    EnergyFlux::FootPoundPerSquareFootPerSecond,
-    EnergyFlux::InchPoundPerSquareInchPerSecond,
+  EnergyFlux::WattPerSquareMetre,
+  EnergyFlux::NanowattPerSquareMillimetre,
+  EnergyFlux::FootPoundPerSquareFootPerSecond,
+  EnergyFlux::InchPoundPerSquareInchPerSecond,
 };
 
 TEST(UnitEnergyFlux, Abbreviation) {

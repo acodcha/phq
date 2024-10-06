@@ -168,7 +168,7 @@ public:
   template <Unit::MassDensity Unit>
   [[nodiscard]] static constexpr MassDensity<NumericType> Create(const NumericType value) {
     return MassDensity<NumericType>{
-        ConvertStatically<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(value)};
+      ConvertStatically<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(value)};
   }
 
   constexpr MassDensity<NumericType> operator+(const MassDensity<NumericType>& mass_density) const {

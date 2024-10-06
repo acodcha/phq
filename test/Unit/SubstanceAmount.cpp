@@ -45,8 +45,8 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<SubstanceAmount, 5> Units = {
-    SubstanceAmount::Mole,     SubstanceAmount::Kilomole,  SubstanceAmount::Megamole,
-    SubstanceAmount::Gigamole, SubstanceAmount::Particles,
+  SubstanceAmount::Mole,     SubstanceAmount::Kilomole,  SubstanceAmount::Megamole,
+  SubstanceAmount::Gigamole, SubstanceAmount::Particles,
 };
 
 TEST(UnitSubstanceAmount, Abbreviation) {
@@ -84,8 +84,9 @@ TEST(UnitSubstanceAmount, Convert) {
 
 TEST(UnitSubstanceAmount, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<SubstanceAmount, SubstanceAmount::Mole,
-                                  SubstanceAmount::Particles>(value, value * 6.02214076E23L);
+  Internal::
+      TestConvertStatically<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Particles>(
+          value, value * 6.02214076E23L);
 }
 
 TEST(UnitSubstanceAmount, ParseEnumeration) {

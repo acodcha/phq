@@ -42,21 +42,21 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Area, 15> Units = {
-    Area::SquareNauticalMile,
-    Area::SquareMile,
-    Area::SquareKilometre,
-    Area::Hectare,
-    Area::Acre,
-    Area::SquareMetre,
-    Area::SquareYard,
-    Area::SquareFoot,
-    Area::SquareDecimetre,
-    Area::SquareInch,
-    Area::SquareCentimetre,
-    Area::SquareMillimetre,
-    Area::SquareMilliinch,
-    Area::SquareMicrometre,
-    Area::SquareMicroinch,
+  Area::SquareNauticalMile,
+  Area::SquareMile,
+  Area::SquareKilometre,
+  Area::Hectare,
+  Area::Acre,
+  Area::SquareMetre,
+  Area::SquareYard,
+  Area::SquareFoot,
+  Area::SquareDecimetre,
+  Area::SquareInch,
+  Area::SquareCentimetre,
+  Area::SquareMillimetre,
+  Area::SquareMilliinch,
+  Area::SquareMicrometre,
+  Area::SquareMicroinch,
 };
 
 TEST(UnitArea, Abbreviation) {

@@ -120,7 +120,7 @@ TEST(DisplacementGradient, Constructor) {
 TEST(DisplacementGradient, CopyAssignmentOperator) {
   {
     const DisplacementGradient<float> first{
-        1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
+      1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
     DisplacementGradient<double> second = DisplacementGradient<double>::Zero();
     second = first;
     EXPECT_EQ(
@@ -135,7 +135,7 @@ TEST(DisplacementGradient, CopyAssignmentOperator) {
   }
   {
     const DisplacementGradient<long double> first{
-        1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
+      1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
     DisplacementGradient<double> second = DisplacementGradient<double>::Zero();
     second = first;
     EXPECT_EQ(
@@ -146,7 +146,7 @@ TEST(DisplacementGradient, CopyAssignmentOperator) {
 TEST(DisplacementGradient, CopyConstructor) {
   {
     const DisplacementGradient<float> first{
-        1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
+      1.0F, -2.0F, 3.0F, -4.0F, 5.0F, -6.0F, 7.0F, -8.0F, 9.0F};
     const DisplacementGradient<double> second{first};
     EXPECT_EQ(
         second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
@@ -159,7 +159,7 @@ TEST(DisplacementGradient, CopyConstructor) {
   }
   {
     const DisplacementGradient<long double> first{
-        1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
+      1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
     const DisplacementGradient<double> second{first};
     EXPECT_EQ(
         second, DisplacementGradient<double>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
@@ -215,21 +215,21 @@ TEST(DisplacementGradient, MutableValue) {
 
 TEST(DisplacementGradient, Performance) {
   DisplacementGradient displacement_gradient_1{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
-      7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
+    7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
   DisplacementGradient displacement_gradient_2{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
-      7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
+    7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
   std::array<double, 9> reference1{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
-      7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
+    7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
   std::array<double, 9> reference2{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
-      7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
+    7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
   Internal::TestDyadPerformance(
       displacement_gradient_1, displacement_gradient_2, reference1, reference2);
 }

@@ -115,8 +115,8 @@ public:
   template <Unit::Force Unit>
   [[nodiscard]] static constexpr PlanarForce<NumericType> Create(
       const NumericType x, const NumericType y) {
-    return PlanarForce<NumericType>{ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(
-        PlanarVector<NumericType>{x, y})};
+    return PlanarForce<NumericType>{
+      ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar force vector from the given x and y Cartesian components
@@ -124,8 +124,8 @@ public:
   template <Unit::Force Unit>
   [[nodiscard]] static constexpr PlanarForce<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
-    return PlanarForce<NumericType>{ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(
-        PlanarVector<NumericType>{x_y})};
+    return PlanarForce<NumericType>{
+      ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar force vector with a given value expressed in a given force
@@ -134,7 +134,7 @@ public:
   [[nodiscard]] static constexpr PlanarForce<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarForce<NumericType>{
-        ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(value)};
+      ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar force vector.

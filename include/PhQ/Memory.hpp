@@ -105,7 +105,7 @@ public:
   template <Unit::Memory Unit>
   [[nodiscard]] static constexpr Memory<NumericType> Create(const NumericType value) {
     return Memory<NumericType>{
-        ConvertStatically<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
+      ConvertStatically<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }
 
   constexpr Memory<NumericType> operator+(const Memory<NumericType>& memory) const {
