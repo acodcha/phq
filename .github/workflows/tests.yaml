@@ -13,7 +13,7 @@ jobs:
       - name: Install the Findutils and ClangFormat packages
         run: |
           sudo apt-get update
-          sudo apt-get install --yes findutils clang-format-14
+          sudo apt-get install --yes findutils clang-format-18
       - name: Check that all source code files are correctly formatted
         run: |
           find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i
