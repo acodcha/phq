@@ -43,14 +43,14 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Pressure, 8> Units = {
-    Pressure::Pascal,
-    Pressure::Kilopascal,
-    Pressure::Megapascal,
-    Pressure::Gigapascal,
-    Pressure::Bar,
-    Pressure::Atmosphere,
-    Pressure::PoundPerSquareFoot,
-    Pressure::PoundPerSquareInch,
+  Pressure::Pascal,
+  Pressure::Kilopascal,
+  Pressure::Megapascal,
+  Pressure::Gigapascal,
+  Pressure::Bar,
+  Pressure::Atmosphere,
+  Pressure::PoundPerSquareFoot,
+  Pressure::PoundPerSquareInch,
 };
 
 TEST(UnitPressure, Abbreviation) {

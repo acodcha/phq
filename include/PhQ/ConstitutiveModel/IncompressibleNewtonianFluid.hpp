@@ -153,9 +153,9 @@ public:
       const PhQ::StrainRate<double>& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
     return PhQ::Stress<double>{
-        {static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value())
-         * static_cast<PhQ::SymmetricDyad<double>>(strain_rate.Value())},
-        Standard<PhQ::Unit::Pressure>};
+      {static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value())
+       * static_cast<PhQ::SymmetricDyad<double>>(strain_rate.Value())},
+      Standard<PhQ::Unit::Pressure>};
   }
 
   /// \brief Returns the stress resulting from a given strain rate.
@@ -163,9 +163,9 @@ public:
       const PhQ::StrainRate<long double>& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
     return PhQ::Stress<long double>{
-        {static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())
-         * static_cast<PhQ::SymmetricDyad<long double>>(strain_rate.Value())},
-        Standard<PhQ::Unit::Pressure>};
+      {static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value())
+       * static_cast<PhQ::SymmetricDyad<long double>>(strain_rate.Value())},
+      Standard<PhQ::Unit::Pressure>};
   }
 
   /// \brief Returns the strain resulting from a given stress. Since this is an incompressible
@@ -197,9 +197,9 @@ public:
       const PhQ::Stress<float>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
     return PhQ::StrainRate<float>{
-        {static_cast<PhQ::SymmetricDyad<float>>(stress.Value())
-         / (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value()))},
-        Standard<PhQ::Unit::Frequency>};
+      {static_cast<PhQ::SymmetricDyad<float>>(stress.Value())
+       / (static_cast<float>(2) * static_cast<float>(dynamic_viscosity.Value()))},
+      Standard<PhQ::Unit::Frequency>};
   }
 
   /// \brief Returns the strain rate resulting from a given stress.
@@ -207,9 +207,9 @@ public:
       const PhQ::Stress<double>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
     return PhQ::StrainRate<double>{
-        {static_cast<PhQ::SymmetricDyad<double>>(stress.Value())
-         / (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value()))},
-        Standard<PhQ::Unit::Frequency>};
+      {static_cast<PhQ::SymmetricDyad<double>>(stress.Value())
+       / (static_cast<double>(2) * static_cast<double>(dynamic_viscosity.Value()))},
+      Standard<PhQ::Unit::Frequency>};
   }
 
   /// \brief Returns the strain rate resulting from a given stress.
@@ -217,9 +217,9 @@ public:
       const PhQ::Stress<long double>& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
     return PhQ::StrainRate<long double>{
-        {static_cast<PhQ::SymmetricDyad<long double>>(stress.Value())
-         / (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value()))},
-        Standard<PhQ::Unit::Frequency>};
+      {static_cast<PhQ::SymmetricDyad<long double>>(stress.Value())
+       / (static_cast<long double>(2) * static_cast<long double>(dynamic_viscosity.Value()))},
+      Standard<PhQ::Unit::Frequency>};
   }
 
   /// \brief Prints this incompressible Newtonian fluid constitutive model as a string.
@@ -307,9 +307,8 @@ namespace std {
 
 template <typename NumericType>
 struct hash<typename PhQ::ConstitutiveModel::IncompressibleNewtonianFluid<NumericType>> {
-  size_t operator()(
-      const typename PhQ::ConstitutiveModel::IncompressibleNewtonianFluid<NumericType>& model)
-      const {
+  size_t operator()(const typename PhQ::ConstitutiveModel::
+                        IncompressibleNewtonianFluid<NumericType>& model) const {
     return hash<PhQ::DynamicViscosity<NumericType>>()(model.DynamicViscosity());
   }
 };

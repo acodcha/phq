@@ -40,7 +40,7 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Time, 6> Units = {
-    Time::Nanosecond, Time::Microsecond, Time::Millisecond, Time::Second, Time::Minute, Time::Hour,
+  Time::Nanosecond, Time::Microsecond, Time::Millisecond, Time::Second, Time::Minute, Time::Hour,
 };
 
 TEST(UnitTime, Abbreviation) {

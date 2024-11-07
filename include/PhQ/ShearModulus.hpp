@@ -87,7 +87,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr ShearModulus<NumericType> Create(const NumericType value) {
     return ShearModulus<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr ShearModulus<NumericType> operator+(

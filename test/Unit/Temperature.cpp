@@ -44,10 +44,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Temperature, 4> Units = {
-    Temperature::Kelvin,
-    Temperature::Celsius,
-    Temperature::Rankine,
-    Temperature::Fahrenheit,
+  Temperature::Kelvin,
+  Temperature::Celsius,
+  Temperature::Rankine,
+  Temperature::Fahrenheit,
 };
 
 TEST(UnitTemperature, Abbreviation) {

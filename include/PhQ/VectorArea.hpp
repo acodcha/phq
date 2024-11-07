@@ -101,7 +101,7 @@ public:
   [[nodiscard]] static constexpr VectorArea<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return VectorArea<NumericType>{
-        ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x, y, z})};
+      ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a vector area from the given x, y, and z Cartesian components
@@ -110,14 +110,14 @@ public:
   [[nodiscard]] static constexpr VectorArea<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return VectorArea<NumericType>{
-        ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x_y_z})};
+      ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a vector area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
   [[nodiscard]] static constexpr VectorArea<NumericType> Create(const Vector<NumericType>& value) {
     return VectorArea<NumericType>{
-        ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
+      ConvertStatically<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this vector area.

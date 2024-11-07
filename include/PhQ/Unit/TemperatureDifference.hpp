@@ -71,14 +71,14 @@ enum class TemperatureDifference : int8_t {
 /// \brief Standard temperature difference unit: kelvin (K).
 template <>
 inline constexpr const Unit::TemperatureDifference Standard<Unit::TemperatureDifference>{
-    Unit::TemperatureDifference::Kelvin};
+  Unit::TemperatureDifference::Kelvin};
 
 /// \brief Physical dimension set of temperature difference units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureDifference>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{1},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::TemperatureDifference unit) {
@@ -91,10 +91,10 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::TemperatureDifference>
     ConsistentUnits<Unit::TemperatureDifference>{
-        {UnitSystem::MetreKilogramSecondKelvin,  Unit::TemperatureDifference::Kelvin },
-        {UnitSystem::MillimetreGramSecondKelvin, Unit::TemperatureDifference::Kelvin },
-        {UnitSystem::FootPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
-        {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
+      {UnitSystem::MetreKilogramSecondKelvin,  Unit::TemperatureDifference::Kelvin },
+      {UnitSystem::MillimetreGramSecondKelvin, Unit::TemperatureDifference::Kelvin },
+      {UnitSystem::FootPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
+      {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
 };
 
 template <>
@@ -133,15 +133,13 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>::FromStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>::
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>::ToStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>::
+    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
@@ -191,36 +189,36 @@ template <typename NumericType>
 inline const std::map<Unit::TemperatureDifference,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::TemperatureDifference, NumericType>{
-        {Unit::TemperatureDifference::Kelvin,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Kelvin>::FromStandard<NumericType>    },
-        {Unit::TemperatureDifference::Celsius,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Celsius>::FromStandard<NumericType>   },
-        {Unit::TemperatureDifference::Rankine,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Rankine>::FromStandard<NumericType>   },
-        {Unit::TemperatureDifference::Fahrenheit,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Fahrenheit>::FromStandard<NumericType>},
+      {Unit::TemperatureDifference::Kelvin,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>::
+           FromStandard<NumericType>},
+      {Unit::TemperatureDifference::Celsius,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>::
+           FromStandard<NumericType>},
+      {Unit::TemperatureDifference::Rankine,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>::
+           FromStandard<NumericType>},
+      {Unit::TemperatureDifference::Fahrenheit,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>::
+           FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::TemperatureDifference,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TemperatureDifference, NumericType>{
-        {Unit::TemperatureDifference::Kelvin,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Kelvin>::ToStandard<NumericType>    },
-        {Unit::TemperatureDifference::Celsius,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Celsius>::ToStandard<NumericType>   },
-        {Unit::TemperatureDifference::Rankine,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Rankine>::ToStandard<NumericType>   },
-        {Unit::TemperatureDifference::Fahrenheit,
-         Conversions<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Fahrenheit>::ToStandard<NumericType>},
+      {Unit::TemperatureDifference::Kelvin,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureDifference::Celsius,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureDifference::Rankine,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>::
+           ToStandard<NumericType>},
+      {Unit::TemperatureDifference::Fahrenheit,
+       Conversions<Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>::
+           ToStandard<NumericType>},
 };
 
 }  // namespace Internal

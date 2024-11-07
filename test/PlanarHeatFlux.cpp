@@ -185,9 +185,8 @@ TEST(PlanarHeatFlux, Create) {
     EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
   {
-    constexpr PlanarHeatFlux planar_heat_flux =
-        PlanarHeatFlux<>::Create<Unit::EnergyFlux::WattPerSquareMetre>(
-            std::array<double, 2>{1.0, -2.0});
+    constexpr PlanarHeatFlux planar_heat_flux = PlanarHeatFlux<>::
+        Create<Unit::EnergyFlux::WattPerSquareMetre>(std::array<double, 2>{1.0, -2.0});
     EXPECT_EQ(planar_heat_flux, PlanarHeatFlux({1.0, -2.0}, Unit::EnergyFlux::WattPerSquareMetre));
   }
   {
@@ -256,12 +255,12 @@ TEST(PlanarHeatFlux, PlanarDirection) {
 
 TEST(PlanarHeatFlux, Performance) {
   PlanarHeatFlux planar_heat_flux_1{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::EnergyFlux::WattPerSquareMetre
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::EnergyFlux::WattPerSquareMetre
   };
   PlanarHeatFlux planar_heat_flux_2{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::EnergyFlux::WattPerSquareMetre
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::EnergyFlux::WattPerSquareMetre
   };
   std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
   std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};

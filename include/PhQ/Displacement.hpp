@@ -137,8 +137,8 @@ public:
   template <Unit::Length Unit>
   [[nodiscard]] static constexpr Displacement<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
-    return Displacement<NumericType>{ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
-        Vector<NumericType>{x, y, z})};
+    return Displacement<NumericType>{
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a displacement vector from the given x, y, and z Cartesian
@@ -147,7 +147,7 @@ public:
   [[nodiscard]] static constexpr Displacement<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return Displacement<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(Vector<NumericType>{x_y_z})};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a displacement vector with a given value expressed in a given length
@@ -156,7 +156,7 @@ public:
   [[nodiscard]] static constexpr Displacement<NumericType> Create(
       const Vector<NumericType>& value) {
     return Displacement<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this displacement vector.

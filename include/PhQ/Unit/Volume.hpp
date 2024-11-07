@@ -106,9 +106,9 @@ inline constexpr const Unit::Volume Standard<Unit::Volume>{Unit::Volume::CubicMe
 /// \brief Physical dimension set of volume units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Volume>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{3}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{3}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Volume unit) {
@@ -120,18 +120,18 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Volume> ConsistentUnits<Unit::Volume>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Volume::CubicMetre     },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Volume::CubicMillimetre},
-    {UnitSystem::FootPoundSecondRankine,     Unit::Volume::CubicFoot      },
-    {UnitSystem::InchPoundSecondRankine,     Unit::Volume::CubicInch      },
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Volume::CubicMetre     },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Volume::CubicMillimetre},
+  {UnitSystem::FootPoundSecondRankine,     Unit::Volume::CubicFoot      },
+  {UnitSystem::InchPoundSecondRankine,     Unit::Volume::CubicInch      },
 };
 
 template <>
 inline const std::map<Unit::Volume, UnitSystem> RelatedUnitSystems<Unit::Volume>{
-    {Unit::Volume::CubicMetre,      UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Volume::CubicMillimetre, UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Volume::CubicFoot,       UnitSystem::FootPoundSecondRankine    },
-    {Unit::Volume::CubicInch,       UnitSystem::InchPoundSecondRankine    },
+  {Unit::Volume::CubicMetre,      UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::Volume::CubicMillimetre, UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Volume::CubicFoot,       UnitSystem::FootPoundSecondRankine    },
+  {Unit::Volume::CubicInch,       UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -422,72 +422,72 @@ inline constexpr void Conversion<Unit::Volume, Unit::Volume::CubicMicroinch>::To
 template <typename NumericType>
 inline const std::map<Unit::Volume, std::function<void(NumericType* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Volume, NumericType>{
-        {Unit::Volume::CubicMetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard<NumericType>       },
-        {Unit::Volume::CubicNauticalMile,
-         Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::FromStandard<NumericType>},
-        {Unit::Volume::CubicMile,
-         Conversions<Unit::Volume, Unit::Volume::CubicMile>::FromStandard<NumericType>        },
-        {Unit::Volume::CubicKilometre,
-         Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::FromStandard<NumericType>   },
-        {Unit::Volume::CubicYard,
-         Conversions<Unit::Volume, Unit::Volume::CubicYard>::FromStandard<NumericType>        },
-        {Unit::Volume::CubicFoot,
-         Conversions<Unit::Volume, Unit::Volume::CubicFoot>::FromStandard<NumericType>        },
-        {Unit::Volume::CubicDecimetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicDecimetre>::FromStandard<NumericType>   },
-        {Unit::Volume::Litre,
-         Conversions<Unit::Volume, Unit::Volume::Litre>::FromStandard<NumericType>            },
-        {Unit::Volume::CubicInch,
-         Conversions<Unit::Volume, Unit::Volume::CubicInch>::FromStandard<NumericType>        },
-        {Unit::Volume::CubicCentimetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicCentimetre>::FromStandard<NumericType>  },
-        {Unit::Volume::Millilitre,
-         Conversions<Unit::Volume, Unit::Volume::Millilitre>::FromStandard<NumericType>       },
-        {Unit::Volume::CubicMillimetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMillimetre>::FromStandard<NumericType>  },
-        {Unit::Volume::CubicMilliinch,
-         Conversions<Unit::Volume, Unit::Volume::CubicMilliinch>::FromStandard<NumericType>   },
-        {Unit::Volume::CubicMicrometre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMicrometre>::FromStandard<NumericType>  },
-        {Unit::Volume::CubicMicroinch,
-         Conversions<Unit::Volume, Unit::Volume::CubicMicroinch>::FromStandard<NumericType>   },
+      {Unit::Volume::CubicMetre,
+       Conversions<Unit::Volume, Unit::Volume::CubicMetre>::FromStandard<NumericType>       },
+      {Unit::Volume::CubicNauticalMile,
+       Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::FromStandard<NumericType>},
+      {Unit::Volume::CubicMile,
+       Conversions<Unit::Volume, Unit::Volume::CubicMile>::FromStandard<NumericType>        },
+      {Unit::Volume::CubicKilometre,
+       Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::FromStandard<NumericType>   },
+      {Unit::Volume::CubicYard,
+       Conversions<Unit::Volume, Unit::Volume::CubicYard>::FromStandard<NumericType>        },
+      {Unit::Volume::CubicFoot,
+       Conversions<Unit::Volume, Unit::Volume::CubicFoot>::FromStandard<NumericType>        },
+      {Unit::Volume::CubicDecimetre,
+       Conversions<Unit::Volume, Unit::Volume::CubicDecimetre>::FromStandard<NumericType>   },
+      {Unit::Volume::Litre,
+       Conversions<Unit::Volume, Unit::Volume::Litre>::FromStandard<NumericType>            },
+      {Unit::Volume::CubicInch,
+       Conversions<Unit::Volume, Unit::Volume::CubicInch>::FromStandard<NumericType>        },
+      {Unit::Volume::CubicCentimetre,
+       Conversions<Unit::Volume, Unit::Volume::CubicCentimetre>::FromStandard<NumericType>  },
+      {Unit::Volume::Millilitre,
+       Conversions<Unit::Volume, Unit::Volume::Millilitre>::FromStandard<NumericType>       },
+      {Unit::Volume::CubicMillimetre,
+       Conversions<Unit::Volume, Unit::Volume::CubicMillimetre>::FromStandard<NumericType>  },
+      {Unit::Volume::CubicMilliinch,
+       Conversions<Unit::Volume, Unit::Volume::CubicMilliinch>::FromStandard<NumericType>   },
+      {Unit::Volume::CubicMicrometre,
+       Conversions<Unit::Volume, Unit::Volume::CubicMicrometre>::FromStandard<NumericType>  },
+      {Unit::Volume::CubicMicroinch,
+       Conversions<Unit::Volume, Unit::Volume::CubicMicroinch>::FromStandard<NumericType>   },
 };
 
 template <typename NumericType>
-inline const std::map<Unit::Volume,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Volume, NumericType>{
-        {Unit::Volume::CubicMetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard<NumericType>       },
-        {Unit::Volume::CubicNauticalMile,
-         Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::ToStandard<NumericType>},
-        {Unit::Volume::CubicMile,
-         Conversions<Unit::Volume, Unit::Volume::CubicMile>::ToStandard<NumericType>        },
-        {Unit::Volume::CubicKilometre,
-         Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::ToStandard<NumericType>   },
-        {Unit::Volume::CubicYard,
-         Conversions<Unit::Volume, Unit::Volume::CubicYard>::ToStandard<NumericType>        },
-        {Unit::Volume::CubicFoot,
-         Conversions<Unit::Volume, Unit::Volume::CubicFoot>::ToStandard<NumericType>        },
-        {Unit::Volume::CubicDecimetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicDecimetre>::ToStandard<NumericType>   },
-        {Unit::Volume::Litre,
-         Conversions<Unit::Volume, Unit::Volume::Litre>::ToStandard<NumericType>            },
-        {Unit::Volume::CubicInch,
-         Conversions<Unit::Volume, Unit::Volume::CubicInch>::ToStandard<NumericType>        },
-        {Unit::Volume::CubicCentimetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicCentimetre>::ToStandard<NumericType>  },
-        {Unit::Volume::Millilitre,
-         Conversions<Unit::Volume, Unit::Volume::Millilitre>::ToStandard<NumericType>       },
-        {Unit::Volume::CubicMillimetre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMillimetre>::ToStandard<NumericType>  },
-        {Unit::Volume::CubicMilliinch,
-         Conversions<Unit::Volume, Unit::Volume::CubicMilliinch>::ToStandard<NumericType>   },
-        {Unit::Volume::CubicMicrometre,
-         Conversions<Unit::Volume, Unit::Volume::CubicMicrometre>::ToStandard<NumericType>  },
-        {Unit::Volume::CubicMicroinch,
-         Conversions<Unit::Volume, Unit::Volume::CubicMicroinch>::ToStandard<NumericType>   },
+inline const std::
+    map<Unit::Volume, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::Volume, NumericType>{
+          {Unit::Volume::CubicMetre,
+           Conversions<Unit::Volume, Unit::Volume::CubicMetre>::ToStandard<NumericType>       },
+          {Unit::Volume::CubicNauticalMile,
+           Conversions<Unit::Volume, Unit::Volume::CubicNauticalMile>::ToStandard<NumericType>},
+          {Unit::Volume::CubicMile,
+           Conversions<Unit::Volume, Unit::Volume::CubicMile>::ToStandard<NumericType>        },
+          {Unit::Volume::CubicKilometre,
+           Conversions<Unit::Volume, Unit::Volume::CubicKilometre>::ToStandard<NumericType>   },
+          {Unit::Volume::CubicYard,
+           Conversions<Unit::Volume, Unit::Volume::CubicYard>::ToStandard<NumericType>        },
+          {Unit::Volume::CubicFoot,
+           Conversions<Unit::Volume, Unit::Volume::CubicFoot>::ToStandard<NumericType>        },
+          {Unit::Volume::CubicDecimetre,
+           Conversions<Unit::Volume, Unit::Volume::CubicDecimetre>::ToStandard<NumericType>   },
+          {Unit::Volume::Litre,
+           Conversions<Unit::Volume, Unit::Volume::Litre>::ToStandard<NumericType>            },
+          {Unit::Volume::CubicInch,
+           Conversions<Unit::Volume, Unit::Volume::CubicInch>::ToStandard<NumericType>        },
+          {Unit::Volume::CubicCentimetre,
+           Conversions<Unit::Volume, Unit::Volume::CubicCentimetre>::ToStandard<NumericType>  },
+          {Unit::Volume::Millilitre,
+           Conversions<Unit::Volume, Unit::Volume::Millilitre>::ToStandard<NumericType>       },
+          {Unit::Volume::CubicMillimetre,
+           Conversions<Unit::Volume, Unit::Volume::CubicMillimetre>::ToStandard<NumericType>  },
+          {Unit::Volume::CubicMilliinch,
+           Conversions<Unit::Volume, Unit::Volume::CubicMilliinch>::ToStandard<NumericType>   },
+          {Unit::Volume::CubicMicrometre,
+           Conversions<Unit::Volume, Unit::Volume::CubicMicrometre>::ToStandard<NumericType>  },
+          {Unit::Volume::CubicMicroinch,
+           Conversions<Unit::Volume, Unit::Volume::CubicMicroinch>::ToStandard<NumericType>   },
 };
 
 }  // namespace Internal

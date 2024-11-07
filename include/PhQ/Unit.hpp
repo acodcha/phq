@@ -259,7 +259,7 @@ template <typename Unit, typename NumericType>
     const SymmetricDyad<NumericType>& symmetric_dyad, const Unit original_unit,
     const Unit new_unit) {
   return SymmetricDyad{
-      Convert<Unit, 6, NumericType>(symmetric_dyad.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
+    Convert<Unit, 6, NumericType>(symmetric_dyad.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
 }
 
 /// \brief Converts a three-dimensional Euclidean dyadic tensor expressed in a given unit of measure
@@ -268,7 +268,7 @@ template <typename Unit, typename NumericType>
 [[nodiscard]] inline Dyad<NumericType> Convert(
     const Dyad<NumericType>& dyad, const Unit original_unit, const Unit new_unit) {
   return Dyad{
-      Convert<Unit, 9, NumericType>(dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
+    Convert<Unit, 9, NumericType>(dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
 }
 
 /// \brief Converts a value expressed in a given unit of measure to a new unit of measure. Returns
@@ -307,7 +307,7 @@ template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumericType>
 [[nodiscard]] inline constexpr PlanarVector<NumericType> ConvertStatically(
     const PlanarVector<NumericType>& planar_vector) {
   return PlanarVector{
-      ConvertStatically<Unit, OriginalUnit, NewUnit, 2, NumericType>(planar_vector.x_y())};
+    ConvertStatically<Unit, OriginalUnit, NewUnit, 2, NumericType>(planar_vector.x_y())};
 }
 
 /// \brief Converts a three-dimensional Euclidean vector expressed in a given unit of measure to a

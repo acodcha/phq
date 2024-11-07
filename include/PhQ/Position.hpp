@@ -112,8 +112,8 @@ public:
   template <Unit::Length Unit>
   [[nodiscard]] static constexpr Position<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
-    return Position<NumericType>{ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
-        Vector<NumericType>{x, y, z})};
+    return Position<NumericType>{
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a position vector from the given x, y, and z Cartesian components
@@ -122,7 +122,7 @@ public:
   [[nodiscard]] static constexpr Position<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return Position<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(Vector<NumericType>{x_y_z})};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a position vector with a given value expressed in a given length
@@ -130,7 +130,7 @@ public:
   template <Unit::Length Unit>
   [[nodiscard]] static constexpr Position<NumericType> Create(const Vector<NumericType>& value) {
     return Position<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this position vector.

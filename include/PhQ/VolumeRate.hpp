@@ -110,7 +110,7 @@ public:
   template <Unit::VolumeRate Unit>
   [[nodiscard]] static constexpr VolumeRate<NumericType> Create(const NumericType value) {
     return VolumeRate<NumericType>{
-        ConvertStatically<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
+      ConvertStatically<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
   }
 
   constexpr VolumeRate<NumericType> operator+(const VolumeRate<NumericType>& volume_rate) const {

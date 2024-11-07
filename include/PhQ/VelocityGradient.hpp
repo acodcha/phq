@@ -123,8 +123,8 @@ public:
       const NumericType yy, const NumericType yz, const NumericType zx, const NumericType zy,
       const NumericType zz) {
     return VelocityGradient<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            Dyad<NumericType>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+          Dyad<NumericType>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
   }
 
   /// \brief Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz,
@@ -133,8 +133,8 @@ public:
   [[nodiscard]] static constexpr VelocityGradient<NumericType> Create(
       const std::array<NumericType, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     return VelocityGradient<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            Dyad<NumericType>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+          Dyad<NumericType>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
   }
 
   /// \brief Statically creates a velocity gradient tensor with a given value expressed in a given
@@ -143,7 +143,7 @@ public:
   [[nodiscard]] static constexpr VelocityGradient<NumericType> Create(
       const Dyad<NumericType>& value) {
     return VelocityGradient<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this velocity gradient tensor.
@@ -300,12 +300,12 @@ template <typename NumericType>
 inline constexpr StrainRate<NumericType>::StrainRate(
     const VelocityGradient<NumericType>& velocity_gradient)
   : StrainRate<NumericType>(
-      {velocity_gradient.Value().xx(),
-       0.5 * (velocity_gradient.Value().xy() + velocity_gradient.Value().yx()),
-       0.5 * (velocity_gradient.Value().xz() + velocity_gradient.Value().zx()),
-       velocity_gradient.Value().yy(),
-       0.5 * (velocity_gradient.Value().yz() + velocity_gradient.Value().zy()),
-       velocity_gradient.Value().zz()}) {}
+        {velocity_gradient.Value().xx(),
+         0.5 * (velocity_gradient.Value().xy() + velocity_gradient.Value().yx()),
+         0.5 * (velocity_gradient.Value().xz() + velocity_gradient.Value().zx()),
+         velocity_gradient.Value().yy(),
+         0.5 * (velocity_gradient.Value().yz() + velocity_gradient.Value().zy()),
+         velocity_gradient.Value().zz()}) {}
 
 template <typename NumericType>
 inline constexpr DisplacementGradient<NumericType>::DisplacementGradient(

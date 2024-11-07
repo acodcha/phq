@@ -91,7 +91,7 @@ TEST(ScalarAngularAcceleration, ArithmeticOperatorSubtraction) {
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorAddition) {
   ScalarAngularAcceleration scalar_angular_acceleration{
-      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+    1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   scalar_angular_acceleration +=
       ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
   EXPECT_EQ(scalar_angular_acceleration,
@@ -100,7 +100,7 @@ TEST(ScalarAngularAcceleration, AssignmentOperatorAddition) {
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorDivision) {
   ScalarAngularAcceleration scalar_angular_acceleration{
-      8.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+    8.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   scalar_angular_acceleration /= 2.0;
   EXPECT_EQ(scalar_angular_acceleration,
             ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond));
@@ -108,7 +108,7 @@ TEST(ScalarAngularAcceleration, AssignmentOperatorDivision) {
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorMultiplication) {
   ScalarAngularAcceleration scalar_angular_acceleration{
-      4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+    4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   scalar_angular_acceleration *= 2.0;
   EXPECT_EQ(scalar_angular_acceleration,
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
@@ -116,7 +116,7 @@ TEST(ScalarAngularAcceleration, AssignmentOperatorMultiplication) {
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorSubtraction) {
   ScalarAngularAcceleration scalar_angular_acceleration{
-      3.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+    3.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   scalar_angular_acceleration -=
       ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
   EXPECT_EQ(scalar_angular_acceleration,
@@ -236,7 +236,7 @@ TEST(ScalarAngularAcceleration, Dimensions) {
 TEST(ScalarAngularAcceleration, Hash) {
   const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const ScalarAngularAcceleration second{
-      1.000001, Unit::AngularAcceleration::DegreePerSquareSecond};
+    1.000001, Unit::AngularAcceleration::DegreePerSquareSecond};
   const ScalarAngularAcceleration third{-1.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const std::hash<ScalarAngularAcceleration<>> hash;
   EXPECT_NE(hash(first), hash(second));
@@ -269,7 +269,7 @@ TEST(ScalarAngularAcceleration, MoveConstructor) {
 
 TEST(ScalarAngularAcceleration, MutableValue) {
   ScalarAngularAcceleration scalar_angular_acceleration{
-      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+    1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   double& value = scalar_angular_acceleration.MutableValue();
   value = 2.0;
   EXPECT_EQ(scalar_angular_acceleration.Value(), 2.0);
@@ -277,9 +277,9 @@ TEST(ScalarAngularAcceleration, MutableValue) {
 
 TEST(ScalarAngularAcceleration, Performance) {
   ScalarAngularAcceleration first{
-      1.2345678901234567890, Unit::AngularAcceleration::RadianPerSquareSecond};
+    1.2345678901234567890, Unit::AngularAcceleration::RadianPerSquareSecond};
   ScalarAngularAcceleration second{
-      1.2345678901234567890, Unit::AngularAcceleration::RadianPerSquareSecond};
+    1.2345678901234567890, Unit::AngularAcceleration::RadianPerSquareSecond};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);
@@ -296,7 +296,7 @@ TEST(ScalarAngularAcceleration, Print) {
 
 TEST(ScalarAngularAcceleration, SetValue) {
   ScalarAngularAcceleration scalar_angular_acceleration{
-      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+    1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   scalar_angular_acceleration.SetValue(2.0);
   EXPECT_EQ(scalar_angular_acceleration.Value(), 2.0);
 }

@@ -79,7 +79,7 @@ public:
       const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
       const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient)
     : PlanarHeatFlux<NumericType>(
-        -scalar_thermal_conductivity.Value() * planar_temperature_gradient.Value()) {}
+          -scalar_thermal_conductivity.Value() * planar_temperature_gradient.Value()) {}
 
   /// \brief Constructor. Constructs a planar heat flux vector from a given thermal conductivity
   /// tensor and planar temperature gradient vector using Fourier's law of heat conduction. Since
@@ -131,8 +131,8 @@ public:
   [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarHeatFlux<NumericType>{
-        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
-            PlanarVector<NumericType>{x, y})};
+      ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+          PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar heat flux vector from the given x and y Cartesian
@@ -141,8 +141,8 @@ public:
   [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarHeatFlux<NumericType>{
-        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
-            PlanarVector<NumericType>{x_y})};
+      ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+          PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar heat flux vector with a given value expressed in a given
@@ -151,7 +151,7 @@ public:
   [[nodiscard]] static constexpr PlanarHeatFlux<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarHeatFlux<NumericType>{
-        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
+      ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar heat flux vector.

@@ -44,9 +44,9 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<ThermalConductivity, 3> Units = {
-    ThermalConductivity::WattPerMetrePerKelvin,
-    ThermalConductivity::NanowattPerMillimetrePerKelvin,
-    ThermalConductivity::PoundPerSecondPerRankine,
+  ThermalConductivity::WattPerMetrePerKelvin,
+  ThermalConductivity::NanowattPerMillimetrePerKelvin,
+  ThermalConductivity::PoundPerSecondPerRankine,
 };
 
 TEST(UnitThermalConductivity, Abbreviation) {

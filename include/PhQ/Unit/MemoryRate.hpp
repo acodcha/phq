@@ -260,9 +260,9 @@ inline constexpr const Unit::MemoryRate Standard<Unit::MemoryRate>{Unit::MemoryR
 /// \brief Physical dimension set of computer memory rate units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MemoryRate>{
-    Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::MemoryRate unit) {
@@ -274,10 +274,10 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::MemoryRate> ConsistentUnits<Unit::MemoryRate>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::MemoryRate::BitPerSecond},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::MemoryRate::BitPerSecond},
-    {UnitSystem::FootPoundSecondRankine,     Unit::MemoryRate::BitPerSecond},
-    {UnitSystem::InchPoundSecondRankine,     Unit::MemoryRate::BitPerSecond},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::MemoryRate::BitPerSecond},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::MemoryRate::BitPerSecond},
+  {UnitSystem::FootPoundSecondRankine,     Unit::MemoryRate::BitPerSecond},
+  {UnitSystem::InchPoundSecondRankine,     Unit::MemoryRate::BitPerSecond},
 };
 
 template <>
@@ -285,142 +285,142 @@ inline const std::map<Unit::MemoryRate, UnitSystem> RelatedUnitSystems<Unit::Mem
 
 template <>
 inline const std::map<Unit::MemoryRate, std::string_view> Abbreviations<Unit::MemoryRate>{
-    {Unit::MemoryRate::BitPerSecond,      "b/s"    },
-    {Unit::MemoryRate::BytePerSecond,     "B/s"    },
-    {Unit::MemoryRate::KilobitPerSecond,  "kb/s"   },
-    {Unit::MemoryRate::KibibitPerSecond,  "kib/s"  },
-    {Unit::MemoryRate::KilobytePerSecond, "kB/s"   },
-    {Unit::MemoryRate::KibibytePerSecond, "kiB/s"  },
-    {Unit::MemoryRate::MegabitPerSecond,  "Mb/s"   },
-    {Unit::MemoryRate::MebibitPerSecond,  "Mib/s"  },
-    {Unit::MemoryRate::MegabytePerSecond, "MB/s"   },
-    {Unit::MemoryRate::MebibytePerSecond, "MiB/s"  },
-    {Unit::MemoryRate::GigabitPerSecond,  "Gb/s"   },
-    {Unit::MemoryRate::GibibitPerSecond,  "Gib/s"  },
-    {Unit::MemoryRate::GigabytePerSecond, "GB/s"   },
-    {Unit::MemoryRate::GibibytePerSecond, "GiB/s"  },
-    {Unit::MemoryRate::TerabitPerSecond,  "Tb/s"   },
-    {Unit::MemoryRate::TebibitPerSecond,  "Tib/s"  },
-    {Unit::MemoryRate::TerabytePerSecond, "TB/s"   },
-    {Unit::MemoryRate::TebibytePerSecond, "TiB/s"  },
-    {Unit::MemoryRate::PetabitPerSecond,  "Pb/s"   },
-    {Unit::MemoryRate::PebibitPerSecond,  "Pib/s"  },
-    {Unit::MemoryRate::PetabytePerSecond, "PB/s"   },
-    {Unit::MemoryRate::PebibytePerSecond, "PiB/s"  },
-    {Unit::MemoryRate::BitPerMinute,      "b/min"  },
-    {Unit::MemoryRate::BytePerMinute,     "B/min"  },
-    {Unit::MemoryRate::KilobitPerMinute,  "kb/min" },
-    {Unit::MemoryRate::KibibitPerMinute,  "kib/min"},
-    {Unit::MemoryRate::KilobytePerMinute, "kB/min" },
-    {Unit::MemoryRate::KibibytePerMinute, "kiB/min"},
-    {Unit::MemoryRate::MegabitPerMinute,  "Mb/min" },
-    {Unit::MemoryRate::MebibitPerMinute,  "Mib/min"},
-    {Unit::MemoryRate::MegabytePerMinute, "MB/min" },
-    {Unit::MemoryRate::MebibytePerMinute, "MiB/min"},
-    {Unit::MemoryRate::GigabitPerMinute,  "Gb/min" },
-    {Unit::MemoryRate::GibibitPerMinute,  "Gib/min"},
-    {Unit::MemoryRate::GigabytePerMinute, "GB/min" },
-    {Unit::MemoryRate::GibibytePerMinute, "GiB/min"},
-    {Unit::MemoryRate::TerabitPerMinute,  "Tb/min" },
-    {Unit::MemoryRate::TebibitPerMinute,  "Tib/min"},
-    {Unit::MemoryRate::TerabytePerMinute, "TB/min" },
-    {Unit::MemoryRate::TebibytePerMinute, "TiB/min"},
-    {Unit::MemoryRate::PetabitPerMinute,  "Pb/min" },
-    {Unit::MemoryRate::PebibitPerMinute,  "Pib/min"},
-    {Unit::MemoryRate::PetabytePerMinute, "PB/min" },
-    {Unit::MemoryRate::PebibytePerMinute, "PiB/min"},
-    {Unit::MemoryRate::BitPerHour,        "b/hr"   },
-    {Unit::MemoryRate::BytePerHour,       "B/hr"   },
-    {Unit::MemoryRate::KilobitPerHour,    "kb/hr"  },
-    {Unit::MemoryRate::KibibitPerHour,    "kib/hr" },
-    {Unit::MemoryRate::KilobytePerHour,   "kB/hr"  },
-    {Unit::MemoryRate::KibibytePerHour,   "kiB/hr" },
-    {Unit::MemoryRate::MegabitPerHour,    "Mb/hr"  },
-    {Unit::MemoryRate::MebibitPerHour,    "Mib/hr" },
-    {Unit::MemoryRate::MegabytePerHour,   "MB/hr"  },
-    {Unit::MemoryRate::MebibytePerHour,   "MiB/hr" },
-    {Unit::MemoryRate::GigabitPerHour,    "Gb/hr"  },
-    {Unit::MemoryRate::GibibitPerHour,    "Gib/hr" },
-    {Unit::MemoryRate::GigabytePerHour,   "GB/hr"  },
-    {Unit::MemoryRate::GibibytePerHour,   "GiB/hr" },
-    {Unit::MemoryRate::TerabitPerHour,    "Tb/hr"  },
-    {Unit::MemoryRate::TebibitPerHour,    "Tib/hr" },
-    {Unit::MemoryRate::TerabytePerHour,   "TB/hr"  },
-    {Unit::MemoryRate::TebibytePerHour,   "TiB/hr" },
-    {Unit::MemoryRate::PetabitPerHour,    "Pb/hr"  },
-    {Unit::MemoryRate::PebibitPerHour,    "Pib/hr" },
-    {Unit::MemoryRate::PetabytePerHour,   "PB/hr"  },
-    {Unit::MemoryRate::PebibytePerHour,   "PiB/hr" },
+  {Unit::MemoryRate::BitPerSecond,      "b/s"    },
+  {Unit::MemoryRate::BytePerSecond,     "B/s"    },
+  {Unit::MemoryRate::KilobitPerSecond,  "kb/s"   },
+  {Unit::MemoryRate::KibibitPerSecond,  "kib/s"  },
+  {Unit::MemoryRate::KilobytePerSecond, "kB/s"   },
+  {Unit::MemoryRate::KibibytePerSecond, "kiB/s"  },
+  {Unit::MemoryRate::MegabitPerSecond,  "Mb/s"   },
+  {Unit::MemoryRate::MebibitPerSecond,  "Mib/s"  },
+  {Unit::MemoryRate::MegabytePerSecond, "MB/s"   },
+  {Unit::MemoryRate::MebibytePerSecond, "MiB/s"  },
+  {Unit::MemoryRate::GigabitPerSecond,  "Gb/s"   },
+  {Unit::MemoryRate::GibibitPerSecond,  "Gib/s"  },
+  {Unit::MemoryRate::GigabytePerSecond, "GB/s"   },
+  {Unit::MemoryRate::GibibytePerSecond, "GiB/s"  },
+  {Unit::MemoryRate::TerabitPerSecond,  "Tb/s"   },
+  {Unit::MemoryRate::TebibitPerSecond,  "Tib/s"  },
+  {Unit::MemoryRate::TerabytePerSecond, "TB/s"   },
+  {Unit::MemoryRate::TebibytePerSecond, "TiB/s"  },
+  {Unit::MemoryRate::PetabitPerSecond,  "Pb/s"   },
+  {Unit::MemoryRate::PebibitPerSecond,  "Pib/s"  },
+  {Unit::MemoryRate::PetabytePerSecond, "PB/s"   },
+  {Unit::MemoryRate::PebibytePerSecond, "PiB/s"  },
+  {Unit::MemoryRate::BitPerMinute,      "b/min"  },
+  {Unit::MemoryRate::BytePerMinute,     "B/min"  },
+  {Unit::MemoryRate::KilobitPerMinute,  "kb/min" },
+  {Unit::MemoryRate::KibibitPerMinute,  "kib/min"},
+  {Unit::MemoryRate::KilobytePerMinute, "kB/min" },
+  {Unit::MemoryRate::KibibytePerMinute, "kiB/min"},
+  {Unit::MemoryRate::MegabitPerMinute,  "Mb/min" },
+  {Unit::MemoryRate::MebibitPerMinute,  "Mib/min"},
+  {Unit::MemoryRate::MegabytePerMinute, "MB/min" },
+  {Unit::MemoryRate::MebibytePerMinute, "MiB/min"},
+  {Unit::MemoryRate::GigabitPerMinute,  "Gb/min" },
+  {Unit::MemoryRate::GibibitPerMinute,  "Gib/min"},
+  {Unit::MemoryRate::GigabytePerMinute, "GB/min" },
+  {Unit::MemoryRate::GibibytePerMinute, "GiB/min"},
+  {Unit::MemoryRate::TerabitPerMinute,  "Tb/min" },
+  {Unit::MemoryRate::TebibitPerMinute,  "Tib/min"},
+  {Unit::MemoryRate::TerabytePerMinute, "TB/min" },
+  {Unit::MemoryRate::TebibytePerMinute, "TiB/min"},
+  {Unit::MemoryRate::PetabitPerMinute,  "Pb/min" },
+  {Unit::MemoryRate::PebibitPerMinute,  "Pib/min"},
+  {Unit::MemoryRate::PetabytePerMinute, "PB/min" },
+  {Unit::MemoryRate::PebibytePerMinute, "PiB/min"},
+  {Unit::MemoryRate::BitPerHour,        "b/hr"   },
+  {Unit::MemoryRate::BytePerHour,       "B/hr"   },
+  {Unit::MemoryRate::KilobitPerHour,    "kb/hr"  },
+  {Unit::MemoryRate::KibibitPerHour,    "kib/hr" },
+  {Unit::MemoryRate::KilobytePerHour,   "kB/hr"  },
+  {Unit::MemoryRate::KibibytePerHour,   "kiB/hr" },
+  {Unit::MemoryRate::MegabitPerHour,    "Mb/hr"  },
+  {Unit::MemoryRate::MebibitPerHour,    "Mib/hr" },
+  {Unit::MemoryRate::MegabytePerHour,   "MB/hr"  },
+  {Unit::MemoryRate::MebibytePerHour,   "MiB/hr" },
+  {Unit::MemoryRate::GigabitPerHour,    "Gb/hr"  },
+  {Unit::MemoryRate::GibibitPerHour,    "Gib/hr" },
+  {Unit::MemoryRate::GigabytePerHour,   "GB/hr"  },
+  {Unit::MemoryRate::GibibytePerHour,   "GiB/hr" },
+  {Unit::MemoryRate::TerabitPerHour,    "Tb/hr"  },
+  {Unit::MemoryRate::TebibitPerHour,    "Tib/hr" },
+  {Unit::MemoryRate::TerabytePerHour,   "TB/hr"  },
+  {Unit::MemoryRate::TebibytePerHour,   "TiB/hr" },
+  {Unit::MemoryRate::PetabitPerHour,    "Pb/hr"  },
+  {Unit::MemoryRate::PebibitPerHour,    "Pib/hr" },
+  {Unit::MemoryRate::PetabytePerHour,   "PB/hr"  },
+  {Unit::MemoryRate::PebibytePerHour,   "PiB/hr" },
 };
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::MemoryRate> Spellings<Unit::MemoryRate>{
-    {"b/s",     Unit::MemoryRate::BitPerSecond     },
-    {"B/s",     Unit::MemoryRate::BytePerSecond    },
-    {"kb/s",    Unit::MemoryRate::KilobitPerSecond },
-    {"kB/s",    Unit::MemoryRate::KilobytePerSecond},
-    {"kib/s",   Unit::MemoryRate::KibibitPerSecond },
-    {"kiB/s",   Unit::MemoryRate::KibibytePerSecond},
-    {"Mb/s",    Unit::MemoryRate::MegabitPerSecond },
-    {"MB/s",    Unit::MemoryRate::MegabytePerSecond},
-    {"Mib/s",   Unit::MemoryRate::MebibitPerSecond },
-    {"MiB/s",   Unit::MemoryRate::MebibytePerSecond},
-    {"Gb/s",    Unit::MemoryRate::GigabitPerSecond },
-    {"GB/s",    Unit::MemoryRate::GigabytePerSecond},
-    {"Gib/s",   Unit::MemoryRate::GibibitPerSecond },
-    {"GiB/s",   Unit::MemoryRate::GibibytePerSecond},
-    {"Tb/s",    Unit::MemoryRate::TerabitPerSecond },
-    {"TB/s",    Unit::MemoryRate::TerabytePerSecond},
-    {"Tib/s",   Unit::MemoryRate::TebibitPerSecond },
-    {"TiB/s",   Unit::MemoryRate::TebibytePerSecond},
-    {"Pb/s",    Unit::MemoryRate::PetabitPerSecond },
-    {"PB/s",    Unit::MemoryRate::PetabytePerSecond},
-    {"Pib/s",   Unit::MemoryRate::PebibitPerSecond },
-    {"PiB/s",   Unit::MemoryRate::PebibytePerSecond},
-    {"b/min",   Unit::MemoryRate::BitPerMinute     },
-    {"B/min",   Unit::MemoryRate::BytePerMinute    },
-    {"kb/min",  Unit::MemoryRate::KilobitPerMinute },
-    {"kB/min",  Unit::MemoryRate::KilobytePerMinute},
-    {"kib/min", Unit::MemoryRate::KibibitPerMinute },
-    {"kiB/min", Unit::MemoryRate::KibibytePerMinute},
-    {"Mb/min",  Unit::MemoryRate::MegabitPerMinute },
-    {"MB/min",  Unit::MemoryRate::MegabytePerMinute},
-    {"Mib/min", Unit::MemoryRate::MebibitPerMinute },
-    {"MiB/min", Unit::MemoryRate::MebibytePerMinute},
-    {"Gb/min",  Unit::MemoryRate::GigabitPerMinute },
-    {"GB/min",  Unit::MemoryRate::GigabytePerMinute},
-    {"Gib/min", Unit::MemoryRate::GibibitPerMinute },
-    {"GiB/min", Unit::MemoryRate::GibibytePerMinute},
-    {"Tb/min",  Unit::MemoryRate::TerabitPerMinute },
-    {"TB/min",  Unit::MemoryRate::TerabytePerMinute},
-    {"Tib/min", Unit::MemoryRate::TebibitPerMinute },
-    {"TiB/min", Unit::MemoryRate::TebibytePerMinute},
-    {"Pb/min",  Unit::MemoryRate::PetabitPerMinute },
-    {"PB/min",  Unit::MemoryRate::PetabytePerMinute},
-    {"Pib/min", Unit::MemoryRate::PebibitPerMinute },
-    {"PiB/min", Unit::MemoryRate::PebibytePerMinute},
-    {"b/hr",    Unit::MemoryRate::BitPerHour       },
-    {"B/hr",    Unit::MemoryRate::BytePerHour      },
-    {"kb/hr",   Unit::MemoryRate::KilobitPerHour   },
-    {"kB/hr",   Unit::MemoryRate::KilobytePerHour  },
-    {"kib/hr",  Unit::MemoryRate::KibibitPerHour   },
-    {"kiB/hr",  Unit::MemoryRate::KibibytePerHour  },
-    {"Mb/hr",   Unit::MemoryRate::MegabitPerHour   },
-    {"MB/hr",   Unit::MemoryRate::MegabytePerHour  },
-    {"Mib/hr",  Unit::MemoryRate::MebibitPerHour   },
-    {"MiB/hr",  Unit::MemoryRate::MebibytePerHour  },
-    {"Gb/hr",   Unit::MemoryRate::GigabitPerHour   },
-    {"GB/hr",   Unit::MemoryRate::GigabytePerHour  },
-    {"Gib/hr",  Unit::MemoryRate::GibibitPerHour   },
-    {"GiB/hr",  Unit::MemoryRate::GibibytePerHour  },
-    {"Tb/hr",   Unit::MemoryRate::TerabitPerHour   },
-    {"TB/hr",   Unit::MemoryRate::TerabytePerHour  },
-    {"Tib/hr",  Unit::MemoryRate::TebibitPerHour   },
-    {"TiB/hr",  Unit::MemoryRate::TebibytePerHour  },
-    {"Pb/hr",   Unit::MemoryRate::PetabitPerHour   },
-    {"PB/hr",   Unit::MemoryRate::PetabytePerHour  },
-    {"Pib/hr",  Unit::MemoryRate::PebibitPerHour   },
-    {"PiB/hr",  Unit::MemoryRate::PebibytePerHour  },
+  {"b/s",     Unit::MemoryRate::BitPerSecond     },
+  {"B/s",     Unit::MemoryRate::BytePerSecond    },
+  {"kb/s",    Unit::MemoryRate::KilobitPerSecond },
+  {"kB/s",    Unit::MemoryRate::KilobytePerSecond},
+  {"kib/s",   Unit::MemoryRate::KibibitPerSecond },
+  {"kiB/s",   Unit::MemoryRate::KibibytePerSecond},
+  {"Mb/s",    Unit::MemoryRate::MegabitPerSecond },
+  {"MB/s",    Unit::MemoryRate::MegabytePerSecond},
+  {"Mib/s",   Unit::MemoryRate::MebibitPerSecond },
+  {"MiB/s",   Unit::MemoryRate::MebibytePerSecond},
+  {"Gb/s",    Unit::MemoryRate::GigabitPerSecond },
+  {"GB/s",    Unit::MemoryRate::GigabytePerSecond},
+  {"Gib/s",   Unit::MemoryRate::GibibitPerSecond },
+  {"GiB/s",   Unit::MemoryRate::GibibytePerSecond},
+  {"Tb/s",    Unit::MemoryRate::TerabitPerSecond },
+  {"TB/s",    Unit::MemoryRate::TerabytePerSecond},
+  {"Tib/s",   Unit::MemoryRate::TebibitPerSecond },
+  {"TiB/s",   Unit::MemoryRate::TebibytePerSecond},
+  {"Pb/s",    Unit::MemoryRate::PetabitPerSecond },
+  {"PB/s",    Unit::MemoryRate::PetabytePerSecond},
+  {"Pib/s",   Unit::MemoryRate::PebibitPerSecond },
+  {"PiB/s",   Unit::MemoryRate::PebibytePerSecond},
+  {"b/min",   Unit::MemoryRate::BitPerMinute     },
+  {"B/min",   Unit::MemoryRate::BytePerMinute    },
+  {"kb/min",  Unit::MemoryRate::KilobitPerMinute },
+  {"kB/min",  Unit::MemoryRate::KilobytePerMinute},
+  {"kib/min", Unit::MemoryRate::KibibitPerMinute },
+  {"kiB/min", Unit::MemoryRate::KibibytePerMinute},
+  {"Mb/min",  Unit::MemoryRate::MegabitPerMinute },
+  {"MB/min",  Unit::MemoryRate::MegabytePerMinute},
+  {"Mib/min", Unit::MemoryRate::MebibitPerMinute },
+  {"MiB/min", Unit::MemoryRate::MebibytePerMinute},
+  {"Gb/min",  Unit::MemoryRate::GigabitPerMinute },
+  {"GB/min",  Unit::MemoryRate::GigabytePerMinute},
+  {"Gib/min", Unit::MemoryRate::GibibitPerMinute },
+  {"GiB/min", Unit::MemoryRate::GibibytePerMinute},
+  {"Tb/min",  Unit::MemoryRate::TerabitPerMinute },
+  {"TB/min",  Unit::MemoryRate::TerabytePerMinute},
+  {"Tib/min", Unit::MemoryRate::TebibitPerMinute },
+  {"TiB/min", Unit::MemoryRate::TebibytePerMinute},
+  {"Pb/min",  Unit::MemoryRate::PetabitPerMinute },
+  {"PB/min",  Unit::MemoryRate::PetabytePerMinute},
+  {"Pib/min", Unit::MemoryRate::PebibitPerMinute },
+  {"PiB/min", Unit::MemoryRate::PebibytePerMinute},
+  {"b/hr",    Unit::MemoryRate::BitPerHour       },
+  {"B/hr",    Unit::MemoryRate::BytePerHour      },
+  {"kb/hr",   Unit::MemoryRate::KilobitPerHour   },
+  {"kB/hr",   Unit::MemoryRate::KilobytePerHour  },
+  {"kib/hr",  Unit::MemoryRate::KibibitPerHour   },
+  {"kiB/hr",  Unit::MemoryRate::KibibytePerHour  },
+  {"Mb/hr",   Unit::MemoryRate::MegabitPerHour   },
+  {"MB/hr",   Unit::MemoryRate::MegabytePerHour  },
+  {"Mib/hr",  Unit::MemoryRate::MebibitPerHour   },
+  {"MiB/hr",  Unit::MemoryRate::MebibytePerHour  },
+  {"Gb/hr",   Unit::MemoryRate::GigabitPerHour   },
+  {"GB/hr",   Unit::MemoryRate::GigabytePerHour  },
+  {"Gib/hr",  Unit::MemoryRate::GibibitPerHour   },
+  {"GiB/hr",  Unit::MemoryRate::GibibytePerHour  },
+  {"Tb/hr",   Unit::MemoryRate::TerabitPerHour   },
+  {"TB/hr",   Unit::MemoryRate::TerabytePerHour  },
+  {"Tib/hr",  Unit::MemoryRate::TebibitPerHour   },
+  {"TiB/hr",  Unit::MemoryRate::TebibytePerHour  },
+  {"Pb/hr",   Unit::MemoryRate::PetabitPerHour   },
+  {"PB/hr",   Unit::MemoryRate::PetabytePerHour  },
+  {"Pib/hr",  Unit::MemoryRate::PebibitPerHour   },
+  {"PiB/hr",  Unit::MemoryRate::PebibytePerHour  },
 };
 
 template <>
@@ -449,9 +449,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::BytePerSeco
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.001L);
 }
 
@@ -464,9 +463,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(1024.0L);
 }
 
@@ -479,9 +477,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(8000.0L);
 }
 
@@ -494,9 +491,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L));
 }
 
@@ -509,9 +505,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-6L);
 }
 
@@ -524,9 +519,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
 
@@ -539,9 +533,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(8000000.0L);
 }
 
@@ -554,9 +547,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L));
 }
@@ -571,9 +563,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-9L);
 }
 
@@ -586,9 +577,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L));
 }
@@ -603,9 +593,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(8.0E9L);
 }
 
@@ -618,9 +607,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
@@ -635,9 +623,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-12L);
 }
 
@@ -650,9 +637,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
@@ -667,9 +653,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(8.0E12L);
 }
 
@@ -682,9 +667,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L));
@@ -701,9 +685,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1.0E-15L);
 }
 
@@ -716,9 +699,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L));
@@ -735,9 +717,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibitPerS
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(8.0E15L);
 }
 
@@ -750,9 +731,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>::
+    FromStandard(NumericType& value) noexcept {
   value /= (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
             * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
@@ -797,9 +777,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::BytePerMinu
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1000.0L);
 }
 
@@ -812,9 +791,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1024.0L);
 }
 
@@ -827,9 +805,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(8000.0L);
 }
 
@@ -842,9 +819,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KilobytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L));
 }
@@ -859,9 +835,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::KibibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1000000.0L);
 }
 
@@ -874,9 +849,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
 }
@@ -891,9 +865,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(8000000.0L);
 }
 
@@ -906,9 +879,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MegabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L));
@@ -924,9 +896,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::MebibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1.0E9L);
 }
 
@@ -939,9 +910,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L));
@@ -957,9 +927,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / (static_cast<NumericType>(8.0E9L));
 }
 
@@ -972,9 +941,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GigabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
@@ -991,9 +959,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::GibibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1.0E12L);
 }
 
@@ -1006,9 +973,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L));
@@ -1025,9 +991,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(8.0E12L);
 }
 
@@ -1040,9 +1005,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TerabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
@@ -1060,9 +1024,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::TebibytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(1.0E15L);
 }
 
@@ -1075,9 +1038,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibitPerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibitPerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
@@ -1095,9 +1057,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibitPerM
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L) / static_cast<NumericType>(8.0E15L);
 }
 
@@ -1110,9 +1071,8 @@ inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PetabytePer
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibytePerMinute>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::MemoryRate, Unit::MemoryRate::PebibytePerMinute>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(60.0L)
            / (static_cast<NumericType>(8.0L) * static_cast<NumericType>(1024.0L)
               * static_cast<NumericType>(1024.0L) * static_cast<NumericType>(1024.0L)
@@ -1475,376 +1435,316 @@ template <typename NumericType>
 inline const std::map<Unit::MemoryRate,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::MemoryRate, NumericType>{
-        {Unit::MemoryRate::BitPerSecond,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>::FromStandard<NumericType> },
-        {Unit::MemoryRate::BytePerSecond,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>::FromStandard<NumericType>},
-        {Unit::MemoryRate::KilobitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::KibibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::KilobytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::KibibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::MegabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::MebibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::MegabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::MebibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::GigabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::GibibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::GigabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::GibibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::TerabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::TebibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::TerabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::TebibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::PetabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::PebibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibitPerSecond>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::PetabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::PebibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibytePerSecond>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::BitPerMinute,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerMinute>::FromStandard<NumericType> },
-        {Unit::MemoryRate::BytePerMinute,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerMinute>::FromStandard<NumericType>},
-        {Unit::MemoryRate::KilobitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::KibibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::KilobytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::KibibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::MegabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::MebibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::MegabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::MebibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::GigabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::GibibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::GigabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::GibibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::TerabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::TebibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::TerabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::TebibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::PetabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::PebibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibitPerMinute>::FromStandard<NumericType>                           },
-        {Unit::MemoryRate::PetabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::PebibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibytePerMinute>::FromStandard<NumericType>                          },
-        {Unit::MemoryRate::BitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerHour>::FromStandard<NumericType>   },
-        {Unit::MemoryRate::BytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerHour>::FromStandard<NumericType>  },
-        {Unit::MemoryRate::KilobitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::KibibitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::KilobytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::KibibytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::MegabitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::MebibitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::MegabytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::MebibytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::GigabitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::GibibitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::GigabytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::GibibytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::TerabitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::TebibitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::TerabytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::TebibytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::PetabitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::PebibitPerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibitPerHour>::FromStandard<NumericType>                             },
-        {Unit::MemoryRate::PetabytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabytePerHour>::FromStandard<NumericType>                            },
-        {Unit::MemoryRate::PebibytePerHour,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibytePerHour>::FromStandard<NumericType>                            },
+      {Unit::MemoryRate::BitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>::FromStandard<NumericType>   },
+      {Unit::MemoryRate::BytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>::FromStandard<NumericType>  },
+      {Unit::MemoryRate::KilobitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::KibibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::KilobytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::KibibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MegabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MebibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MegabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MebibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GigabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GibibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GigabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GibibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TerabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TebibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TerabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TebibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PetabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PebibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PetabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PebibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::BitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerMinute>::FromStandard<NumericType>   },
+      {Unit::MemoryRate::BytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerMinute>::FromStandard<NumericType>  },
+      {Unit::MemoryRate::KilobitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::KibibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::KilobytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::KibibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MegabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MebibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MegabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::MebibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GigabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GibibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GigabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::GibibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TerabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TebibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TerabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::TebibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PetabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PebibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PetabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::PebibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerMinute>::
+           FromStandard<NumericType>                          },
+      {Unit::MemoryRate::BitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerHour>::FromStandard<NumericType>     },
+      {Unit::MemoryRate::BytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerHour>::FromStandard<NumericType>    },
+      {Unit::MemoryRate::KilobitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::KibibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::KilobytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::KibibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::MegabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::MebibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::MegabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::MebibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::GigabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::GibibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::GigabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::GibibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::TerabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::TebibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::TerabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::TebibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::PetabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::PebibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerHour>::FromStandard<NumericType> },
+      {Unit::MemoryRate::PetabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerHour>::FromStandard<NumericType>},
+      {Unit::MemoryRate::PebibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerHour>::FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::MemoryRate,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::MemoryRate, NumericType>{
-        {Unit::MemoryRate::BitPerSecond,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>::ToStandard<NumericType>   },
-        {Unit::MemoryRate::BytePerSecond,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>::ToStandard<NumericType>  },
-        {Unit::MemoryRate::KilobitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::KibibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::KilobytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::KibibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::MegabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::MebibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::MegabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::MebibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::GigabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::GibibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::GigabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::GibibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::TerabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::TebibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::TerabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::TebibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::PetabitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::PebibitPerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibitPerSecond>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::PetabytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::PebibytePerSecond,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibytePerSecond>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::BitPerMinute,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerMinute>::ToStandard<NumericType>   },
-        {Unit::MemoryRate::BytePerMinute,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerMinute>::ToStandard<NumericType>  },
-        {Unit::MemoryRate::KilobitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::KibibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::KilobytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KilobytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::KibibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::KibibytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::MegabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::MebibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::MegabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MegabytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::MebibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::MebibytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::GigabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::GibibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::GigabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GigabytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::GibibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::GibibytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::TerabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::TebibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::TerabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TerabytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::TebibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::TebibytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::PetabitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::PebibitPerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibitPerMinute>::ToStandard<NumericType>                             },
-        {Unit::MemoryRate::PetabytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PetabytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::PebibytePerMinute,
-         Conversions<Unit::MemoryRate,
-         Unit::MemoryRate::PebibytePerMinute>::ToStandard<NumericType>                            },
-        {Unit::MemoryRate::BitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerHour>::ToStandard<NumericType>     },
-        {Unit::MemoryRate::BytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerHour>::ToStandard<NumericType>    },
-        {Unit::MemoryRate::KilobitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::KibibitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::KilobytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::KibibytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::MegabitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::MebibitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::MegabytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::MebibytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::GigabitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::GibibitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::GigabytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::GibibytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::TerabitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::TebibitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::TerabytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::TebibytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::PetabitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::PebibitPerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerHour>::ToStandard<NumericType> },
-        {Unit::MemoryRate::PetabytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerHour>::ToStandard<NumericType>},
-        {Unit::MemoryRate::PebibytePerHour,
-         Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerHour>::ToStandard<NumericType>},
+      {Unit::MemoryRate::BitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>::ToStandard<NumericType>     },
+      {Unit::MemoryRate::BytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>::ToStandard<NumericType>    },
+      {Unit::MemoryRate::KilobitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::KibibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::KilobytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::KibibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::MegabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::MebibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::MegabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::MebibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::GigabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::GibibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::GigabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::GibibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::TerabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::TebibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::TerabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::TebibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::PetabitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::PebibitPerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>::ToStandard<NumericType> },
+      {Unit::MemoryRate::PetabytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::PebibytePerSecond,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>::ToStandard<NumericType>},
+      {Unit::MemoryRate::BitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerMinute>::ToStandard<NumericType>     },
+      {Unit::MemoryRate::BytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerMinute>::ToStandard<NumericType>    },
+      {Unit::MemoryRate::KilobitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::KibibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::KilobytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::KibibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::MegabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::MebibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::MegabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::MebibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::GigabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::GibibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::GigabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::GibibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::TerabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::TebibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::TerabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::TebibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::PetabitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::PebibitPerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerMinute>::ToStandard<NumericType> },
+      {Unit::MemoryRate::PetabytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::PebibytePerMinute,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerMinute>::ToStandard<NumericType>},
+      {Unit::MemoryRate::BitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BitPerHour>::ToStandard<NumericType>       },
+      {Unit::MemoryRate::BytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::BytePerHour>::ToStandard<NumericType>      },
+      {Unit::MemoryRate::KilobitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::KibibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::KilobytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KilobytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::KibibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::KibibytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::MegabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::MebibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::MegabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MegabytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::MebibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::MebibytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::GigabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::GibibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::GigabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GigabytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::GibibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::GibibytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::TerabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::TebibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::TerabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TerabytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::TebibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::TebibytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::PetabitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::PebibitPerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibitPerHour>::ToStandard<NumericType>   },
+      {Unit::MemoryRate::PetabytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PetabytePerHour>::ToStandard<NumericType>  },
+      {Unit::MemoryRate::PebibytePerHour,
+       Conversions<Unit::MemoryRate, Unit::MemoryRate::PebibytePerHour>::ToStandard<NumericType>  },
 };
 
 }  // namespace Internal

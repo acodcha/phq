@@ -121,8 +121,8 @@ public:
   [[nodiscard]] static constexpr TemperatureGradient<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return TemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Vector<NumericType>{x, y, z})};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a temperature gradient vector from the given x, y, and z Cartesian
@@ -131,8 +131,8 @@ public:
   [[nodiscard]] static constexpr TemperatureGradient<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return TemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Vector<NumericType>{x_y_z})};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a temperature gradient vector with a given value expressed in a
@@ -141,8 +141,8 @@ public:
   [[nodiscard]] static constexpr TemperatureGradient<NumericType> Create(
       const Vector<NumericType>& value) {
     return TemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            value)};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          value)};
   }
 
   /// \brief Returns the x Cartesian component of this temperature gradient vector.

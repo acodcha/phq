@@ -105,7 +105,7 @@ public:
       const PhQ::ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
       const PhQ::SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity) const {
     return PhQ::DynamicViscosity<NumericType>{
-        *this, scalar_thermal_conductivity, specific_isobaric_heat_capacity};
+      *this, scalar_thermal_conductivity, specific_isobaric_heat_capacity};
   }
 
   [[nodiscard]] constexpr PhQ::KinematicViscosity<NumericType> KinematicViscosity(
@@ -118,14 +118,14 @@ public:
       const PhQ::ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
       const PhQ::DynamicViscosity<NumericType>& dynamic_viscosity) const {
     return PhQ::SpecificIsobaricHeatCapacity<NumericType>{
-        *this, scalar_thermal_conductivity, dynamic_viscosity};
+      *this, scalar_thermal_conductivity, dynamic_viscosity};
   }
 
   [[nodiscard]] constexpr PhQ::ScalarThermalConductivity<NumericType> ScalarThermalConductivity(
       const PhQ::SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
       const PhQ::DynamicViscosity<NumericType>& dynamic_viscosity) const {
     return PhQ::ScalarThermalConductivity<NumericType>{
-        specific_isobaric_heat_capacity, dynamic_viscosity, *this};
+      specific_isobaric_heat_capacity, dynamic_viscosity, *this};
   }
 
   [[nodiscard]] constexpr PhQ::ThermalDiffusivity<NumericType> ThermalDiffusivity(
@@ -241,7 +241,7 @@ inline constexpr SpecificIsobaricHeatCapacity<NumericType>::SpecificIsobaricHeat
     const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
     const DynamicViscosity<NumericType>& dynamic_viscosity)
   : SpecificIsobaricHeatCapacity<NumericType>(
-      prandtl_number.Value() * scalar_thermal_conductivity.Value() / dynamic_viscosity.Value()) {}
+        prandtl_number.Value() * scalar_thermal_conductivity.Value() / dynamic_viscosity.Value()) {}
 
 template <typename NumericType>
 inline constexpr DynamicViscosity<NumericType>::DynamicViscosity(

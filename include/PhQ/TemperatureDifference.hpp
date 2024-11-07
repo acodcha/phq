@@ -123,8 +123,8 @@ public:
   [[nodiscard]] static constexpr TemperatureDifference<NumericType> Create(
       const NumericType value) {
     return TemperatureDifference<NumericType>{
-        ConvertStatically<Unit::TemperatureDifference, Unit, Standard<Unit::TemperatureDifference>>(
-            value)};
+      ConvertStatically<Unit::TemperatureDifference, Unit, Standard<Unit::TemperatureDifference>>(
+          value)};
   }
 
   constexpr Temperature<NumericType> operator+(const Temperature<NumericType>& temperature) const;

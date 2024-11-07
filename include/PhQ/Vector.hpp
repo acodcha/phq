@@ -125,8 +125,8 @@ public:
   /// initialized to zero.
   [[nodiscard]] static constexpr Vector<NumericType> Zero() {
     return Vector<NumericType>{
-        std::array<NumericType, 3>{
-                                   static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0)}
+      std::array<NumericType, 3>{
+                                 static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0)}
     };
   }
 
@@ -379,8 +379,8 @@ template <typename NumericType, typename OtherNumericType>
 inline constexpr Vector<NumericType> operator*(
     const Vector<NumericType>& vector, const OtherNumericType number) {
   return Vector<NumericType>{
-      vector.x() * static_cast<NumericType>(number), vector.y() * static_cast<NumericType>(number),
-      vector.z() * static_cast<NumericType>(number)};
+    vector.x() * static_cast<NumericType>(number), vector.y() * static_cast<NumericType>(number),
+    vector.z() * static_cast<NumericType>(number)};
 }
 
 template <typename NumericType, typename OtherNumericType>
@@ -393,8 +393,8 @@ template <typename NumericType, typename OtherNumericType>
 inline constexpr Vector<NumericType> operator/(
     const Vector<NumericType>& vector, const OtherNumericType number) {
   return Vector<NumericType>{
-      vector.x() / static_cast<NumericType>(number), vector.y() / static_cast<NumericType>(number),
-      vector.z() / static_cast<NumericType>(number)};
+    vector.x() / static_cast<NumericType>(number), vector.y() / static_cast<NumericType>(number),
+    vector.z() / static_cast<NumericType>(number)};
 }
 
 template <typename NumericType>

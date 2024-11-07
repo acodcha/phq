@@ -68,15 +68,15 @@ enum class SpecificEnergy : int8_t {
 
 /// \brief Standard mass-specific energy unit: joule per kilogram (J/kg).
 template <>
-inline constexpr const Unit::SpecificEnergy Standard<Unit::SpecificEnergy>{
-    Unit::SpecificEnergy::JoulePerKilogram};
+inline constexpr const Unit::
+    SpecificEnergy Standard<Unit::SpecificEnergy>{Unit::SpecificEnergy::JoulePerKilogram};
 
 /// \brief Physical dimension set of mass-specific energy units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SpecificEnergy>{
-    Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::SpecificEnergy unit) {
@@ -88,18 +88,18 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::SpecificEnergy> ConsistentUnits<Unit::SpecificEnergy>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::SpecificEnergy::JoulePerKilogram  },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::SpecificEnergy::NanojoulePerGram  },
-    {UnitSystem::FootPoundSecondRankine,     Unit::SpecificEnergy::FootPoundPerSlug  },
-    {UnitSystem::InchPoundSecondRankine,     Unit::SpecificEnergy::InchPoundPerSlinch},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::SpecificEnergy::JoulePerKilogram  },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::SpecificEnergy::NanojoulePerGram  },
+  {UnitSystem::FootPoundSecondRankine,     Unit::SpecificEnergy::FootPoundPerSlug  },
+  {UnitSystem::InchPoundSecondRankine,     Unit::SpecificEnergy::InchPoundPerSlinch},
 };
 
 template <>
 inline const std::map<Unit::SpecificEnergy, UnitSystem> RelatedUnitSystems<Unit::SpecificEnergy>{
-    {Unit::SpecificEnergy::JoulePerKilogram,   UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::SpecificEnergy::NanojoulePerGram,   UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::SpecificEnergy::FootPoundPerSlug,   UnitSystem::FootPoundSecondRankine    },
-    {Unit::SpecificEnergy::InchPoundPerSlinch, UnitSystem::InchPoundSecondRankine    },
+  {Unit::SpecificEnergy::JoulePerKilogram,   UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::SpecificEnergy::NanojoulePerGram,   UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::SpecificEnergy::FootPoundPerSlug,   UnitSystem::FootPoundSecondRankine    },
+  {Unit::SpecificEnergy::InchPoundPerSlinch, UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -159,98 +159,90 @@ inline const std::unordered_map<std::string_view, Unit::SpecificEnergy> Spelling
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::FromStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::
+    FromStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::ToStandard(
-    NumericType& /*value*/) noexcept {}
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::
+    ToStandard(NumericType& /*value*/) noexcept {}
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::
+    FromStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(1000000.0L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.000001L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.3048L) * static_cast<NumericType>(0.3048L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::FromStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::
+    FromStandard(NumericType& value) noexcept {
   value /= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <>
 template <typename NumericType>
-inline constexpr void
-Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::ToStandard(
-    NumericType& value) noexcept {
+inline constexpr void Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::
+    ToStandard(NumericType& value) noexcept {
   value *= static_cast<NumericType>(0.0254L) * static_cast<NumericType>(0.0254L);
 }
 
 template <typename NumericType>
-inline const std::map<Unit::SpecificEnergy,
-                      std::function<void(NumericType* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificEnergy, NumericType>{
-        {Unit::SpecificEnergy::JoulePerKilogram,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::JoulePerKilogram>::FromStandard<NumericType>  },
-        {Unit::SpecificEnergy::NanojoulePerGram,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::NanojoulePerGram>::FromStandard<NumericType>  },
-        {Unit::SpecificEnergy::FootPoundPerSlug,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::FootPoundPerSlug>::FromStandard<NumericType>  },
-        {Unit::SpecificEnergy::InchPoundPerSlinch,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::InchPoundPerSlinch>::FromStandard<NumericType>},
+inline const std::
+    map<Unit::SpecificEnergy, std::function<void(NumericType* values, const std::size_t size)>>
+        MapOfConversionsFromStandard<Unit::SpecificEnergy, NumericType>{
+          {Unit::SpecificEnergy::JoulePerKilogram,
+           Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::
+               FromStandard<NumericType>},
+          {Unit::SpecificEnergy::NanojoulePerGram,
+           Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::
+               FromStandard<NumericType>},
+          {Unit::SpecificEnergy::FootPoundPerSlug,
+           Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::
+               FromStandard<NumericType>},
+          {Unit::SpecificEnergy::InchPoundPerSlinch,
+           Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::
+               FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::SpecificEnergy,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::SpecificEnergy, NumericType>{
-        {Unit::SpecificEnergy::JoulePerKilogram,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::JoulePerKilogram>::ToStandard<NumericType>  },
-        {Unit::SpecificEnergy::NanojoulePerGram,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::NanojoulePerGram>::ToStandard<NumericType>  },
-        {Unit::SpecificEnergy::FootPoundPerSlug,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::FootPoundPerSlug>::ToStandard<NumericType>  },
-        {Unit::SpecificEnergy::InchPoundPerSlinch,
-         Conversions<Unit::SpecificEnergy,
-         Unit::SpecificEnergy::InchPoundPerSlinch>::ToStandard<NumericType>},
+      {Unit::SpecificEnergy::JoulePerKilogram,
+       Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::
+           ToStandard<NumericType>},
+      {Unit::SpecificEnergy::NanojoulePerGram,
+       Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::
+           ToStandard<NumericType>},
+      {Unit::SpecificEnergy::FootPoundPerSlug,
+       Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::
+           ToStandard<NumericType>},
+      {Unit::SpecificEnergy::InchPoundPerSlinch,
+       Conversions<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::
+           ToStandard<NumericType>},
 };
 
 }  // namespace Internal

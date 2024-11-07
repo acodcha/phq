@@ -43,9 +43,9 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<MassDensity, 6> Units = {
-    MassDensity::KilogramPerCubicMetre, MassDensity::GramPerCubicMillimetre,
-    MassDensity::SlugPerCubicFoot,      MassDensity::SlinchPerCubicInch,
-    MassDensity::PoundPerCubicFoot,     MassDensity::PoundPerCubicInch,
+  MassDensity::KilogramPerCubicMetre, MassDensity::GramPerCubicMillimetre,
+  MassDensity::SlugPerCubicFoot,      MassDensity::SlinchPerCubicInch,
+  MassDensity::PoundPerCubicFoot,     MassDensity::PoundPerCubicInch,
 };
 
 TEST(UnitMassDensity, Abbreviation) {

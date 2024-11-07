@@ -90,7 +90,7 @@ TEST(TransportEnergyConsumption, ArithmeticOperatorSubtraction) {
 
 TEST(TransportEnergyConsumption, AssignmentOperatorAddition) {
   TransportEnergyConsumption transport_energy_consumption{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+    1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   transport_energy_consumption +=
       TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre);
   EXPECT_EQ(transport_energy_consumption,
@@ -99,7 +99,7 @@ TEST(TransportEnergyConsumption, AssignmentOperatorAddition) {
 
 TEST(TransportEnergyConsumption, AssignmentOperatorDivision) {
   TransportEnergyConsumption transport_energy_consumption{
-      8.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+    8.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   transport_energy_consumption /= 2.0;
   EXPECT_EQ(transport_energy_consumption,
             TransportEnergyConsumption(4.0, Unit::TransportEnergyConsumption::JoulePerMetre));
@@ -107,7 +107,7 @@ TEST(TransportEnergyConsumption, AssignmentOperatorDivision) {
 
 TEST(TransportEnergyConsumption, AssignmentOperatorMultiplication) {
   TransportEnergyConsumption transport_energy_consumption{
-      4.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+    4.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   transport_energy_consumption *= 2.0;
   EXPECT_EQ(transport_energy_consumption,
             TransportEnergyConsumption(8.0, Unit::TransportEnergyConsumption::JoulePerMetre));
@@ -115,7 +115,7 @@ TEST(TransportEnergyConsumption, AssignmentOperatorMultiplication) {
 
 TEST(TransportEnergyConsumption, AssignmentOperatorSubtraction) {
   TransportEnergyConsumption transport_energy_consumption{
-      3.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+    3.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   transport_energy_consumption -=
       TransportEnergyConsumption(2.0, Unit::TransportEnergyConsumption::JoulePerMetre);
   EXPECT_EQ(transport_energy_consumption,
@@ -223,7 +223,7 @@ TEST(TransportEnergyConsumption, Dimensions) {
 TEST(TransportEnergyConsumption, Hash) {
   const TransportEnergyConsumption first{1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   const TransportEnergyConsumption second{
-      1.000001, Unit::TransportEnergyConsumption::JoulePerMetre};
+    1.000001, Unit::TransportEnergyConsumption::JoulePerMetre};
   const TransportEnergyConsumption third{-1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   const std::hash<TransportEnergyConsumption<>> hash;
   EXPECT_NE(hash(first), hash(second));
@@ -257,7 +257,7 @@ TEST(TransportEnergyConsumption, MoveConstructor) {
 
 TEST(TransportEnergyConsumption, MutableValue) {
   TransportEnergyConsumption transport_energy_consumption{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+    1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   double& value = transport_energy_consumption.MutableValue();
   value = 2.0;
   EXPECT_EQ(transport_energy_consumption.Value(), 2.0);
@@ -265,9 +265,9 @@ TEST(TransportEnergyConsumption, MutableValue) {
 
 TEST(TransportEnergyConsumption, Performance) {
   TransportEnergyConsumption first{
-      1.2345678901234567890, Unit::TransportEnergyConsumption::JoulePerMetre};
+    1.2345678901234567890, Unit::TransportEnergyConsumption::JoulePerMetre};
   TransportEnergyConsumption second{
-      1.2345678901234567890, Unit::TransportEnergyConsumption::JoulePerMetre};
+    1.2345678901234567890, Unit::TransportEnergyConsumption::JoulePerMetre};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);
@@ -285,7 +285,7 @@ TEST(TransportEnergyConsumption, Print) {
 
 TEST(TransportEnergyConsumption, SetValue) {
   TransportEnergyConsumption transport_energy_consumption{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+    1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   transport_energy_consumption.SetValue(2.0);
   EXPECT_EQ(transport_energy_consumption.Value(), 2.0);
 }
@@ -295,9 +295,8 @@ TEST(TransportEnergyConsumption, SizeOf) {
 }
 
 TEST(TransportEnergyConsumption, StaticValue) {
-  constexpr TransportEnergyConsumption transport_energy_consumption =
-      TransportEnergyConsumption<>::Create<
-          Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(1.0);
+  constexpr TransportEnergyConsumption transport_energy_consumption = TransportEnergyConsumption<>::
+      Create<Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(1.0);
   constexpr double value =
       transport_energy_consumption
           .StaticValue<Unit::TransportEnergyConsumption::KilowattHourPerKilometre>();

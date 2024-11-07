@@ -122,8 +122,8 @@ public:
   [[nodiscard]] static constexpr ScalarTemperatureGradient<NumericType> Create(
       const NumericType value) {
     return ScalarTemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            value)};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          value)};
   }
 
   constexpr ScalarTemperatureGradient<NumericType> operator+(
@@ -248,8 +248,8 @@ inline constexpr TemperatureDifference<NumericType>::TemperatureDifference(
   : TemperatureDifference<NumericType>(scalar_temperature_gradient.Value() * length.Value()) {}
 
 template <typename NumericType>
-inline constexpr ScalarTemperatureGradient<NumericType>
-TemperatureDifference<NumericType>::operator/(const Length<NumericType>& length) const {
+inline constexpr ScalarTemperatureGradient<NumericType> TemperatureDifference<NumericType>::
+operator/(const Length<NumericType>& length) const {
   return ScalarTemperatureGradient<NumericType>{*this, length};
 }
 

@@ -248,9 +248,8 @@ TEST(VelocityGradient, CopyConstructor) {
 
 TEST(VelocityGradient, Create) {
   {
-    constexpr VelocityGradient velocity_gradient =
-        VelocityGradient<>::Create<Unit::Frequency::Hertz>(
-            1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    constexpr VelocityGradient velocity_gradient = VelocityGradient<>::
+        Create<Unit::Frequency::Hertz>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
     EXPECT_EQ(velocity_gradient, VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                                                   Unit::Frequency::Hertz));
   }
@@ -262,9 +261,8 @@ TEST(VelocityGradient, Create) {
                                                   Unit::Frequency::Hertz));
   }
   {
-    constexpr VelocityGradient velocity_gradient =
-        VelocityGradient<>::Create<Unit::Frequency::Hertz>(
-            Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
+    constexpr VelocityGradient velocity_gradient = VelocityGradient<>::
+        Create<Unit::Frequency::Hertz>(Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
     EXPECT_EQ(velocity_gradient, VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                                                   Unit::Frequency::Hertz));
   }
@@ -341,25 +339,25 @@ TEST(VelocityGradient, MutableValue) {
 
 TEST(VelocityGradient, Performance) {
   VelocityGradient velocity_gradient_1{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
-       5.6789012345678901234, 6.7890123456789012345, 7.8901234567890123456, 8.9012345678901234567,
-       9.0123456789012345678},
-      Unit::Frequency::Hertz
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+     5.6789012345678901234, 6.7890123456789012345, 7.8901234567890123456, 8.9012345678901234567,
+     9.0123456789012345678},
+    Unit::Frequency::Hertz
   };
   VelocityGradient velocity_gradient_2{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
-       5.6789012345678901234, 6.7890123456789012345, 7.8901234567890123456, 8.9012345678901234567,
-       9.0123456789012345678},
-      Unit::Frequency::Hertz
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+     5.6789012345678901234, 6.7890123456789012345, 7.8901234567890123456, 8.9012345678901234567,
+     9.0123456789012345678},
+    Unit::Frequency::Hertz
   };
   std::array<double, 9> reference1{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
-      7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
+    7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
   std::array<double, 9> reference2{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
-      7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345,
+    7.8901234567890123456, 8.9012345678901234567, 9.0123456789012345678};
   Internal::TestDyadPerformance(velocity_gradient_1, velocity_gradient_2, reference1, reference2);
 }
 
@@ -392,9 +390,8 @@ TEST(VelocityGradient, SizeOf) {
 }
 
 TEST(VelocityGradient, StaticValue) {
-  constexpr VelocityGradient velocity_gradient =
-      VelocityGradient<>::Create<Unit::Frequency::Kilohertz>(
-          1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  constexpr VelocityGradient velocity_gradient = VelocityGradient<>::
+      Create<Unit::Frequency::Kilohertz>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   constexpr Dyad value = velocity_gradient.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }

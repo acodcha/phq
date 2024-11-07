@@ -39,10 +39,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<SolidAngle, 4> Units = {
-    SolidAngle::Steradian,
-    SolidAngle::SquareDegree,
-    SolidAngle::SquareArcminute,
-    SolidAngle::SquareArcsecond,
+  SolidAngle::Steradian,
+  SolidAngle::SquareDegree,
+  SolidAngle::SquareArcminute,
+  SolidAngle::SquareArcsecond,
 };
 
 TEST(UnitAngle, Abbreviation) {

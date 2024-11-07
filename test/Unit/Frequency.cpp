@@ -40,8 +40,8 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Frequency, 6> Units = {
-    Frequency::Hertz,     Frequency::Kilohertz, Frequency::Megahertz,
-    Frequency::Gigahertz, Frequency::PerMinute, Frequency::PerHour,
+  Frequency::Hertz,     Frequency::Kilohertz, Frequency::Megahertz,
+  Frequency::Gigahertz, Frequency::PerMinute, Frequency::PerHour,
 };
 
 TEST(UnitFrequency, Abbreviation) {

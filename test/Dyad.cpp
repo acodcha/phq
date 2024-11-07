@@ -426,7 +426,7 @@ TEST(Dyad, Constructor) {
   {
     Dyad dyad{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
     dyad = std::array<long double, 9>{
-        -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L};
+      -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L};
     EXPECT_EQ(dyad, Dyad(-10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L));
   }
 }
@@ -729,7 +729,7 @@ TEST(Dyad, Mutable) {
     std::array<float, 9>& mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz =
         dyad.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz();
     mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz = {
-        -10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F};
+      -10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F};
     EXPECT_EQ(dyad, Dyad(-10.0F, 11.0F, -12.0F, 13.0F, -14.0F, 15.0F, -16.0F, 17.0F, -18.0F));
   }
   {
@@ -737,7 +737,7 @@ TEST(Dyad, Mutable) {
     std::array<double, 9>& mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz =
         dyad.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz();
     mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz = {
-        -10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
+      -10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
     EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
   }
   {
@@ -745,7 +745,7 @@ TEST(Dyad, Mutable) {
     std::array<long double, 9>& mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz =
         dyad.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz();
     mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz = {
-        -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L};
+      -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L};
     EXPECT_EQ(dyad, Dyad(-10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L));
   }
   {
@@ -888,7 +888,7 @@ TEST(Dyad, Set) {
   {
     Dyad dyad{1.0L, -2.0L, 3.0L, -4.0L, 5.0L, -6.0L, 7.0L, -8.0L, 9.0L};
     dyad.Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(std::array<long double, 9>{
-        -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L});
+      -10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L});
     EXPECT_EQ(dyad, Dyad(-10.0L, 11.0L, -12.0L, 13.0L, -14.0L, 15.0L, -16.0L, 17.0L, -18.0L));
   }
   {

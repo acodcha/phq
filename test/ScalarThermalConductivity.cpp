@@ -219,9 +219,9 @@ TEST(ScalarThermalConductivity, MutableValue) {
 
 TEST(ScalarThermalConductivity, Performance) {
   ScalarThermalConductivity first{
-      1.2345678901234567890, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+    1.2345678901234567890, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   ScalarThermalConductivity second{
-      1.2345678901234567890, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+    1.2345678901234567890, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);
@@ -248,8 +248,8 @@ TEST(ScalarThermalConductivity, SizeOf) {
 }
 
 TEST(ScalarThermalConductivity, StaticValue) {
-  constexpr ScalarThermalConductivity quantity = ScalarThermalConductivity<>::Create<
-      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(2.0);
+  constexpr ScalarThermalConductivity quantity = ScalarThermalConductivity<>::
+      Create<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(2.0);
   constexpr double value =
       quantity.StaticValue<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>();
   EXPECT_EQ(value, 2.0);

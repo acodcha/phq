@@ -74,7 +74,8 @@ public:
              const StaticPressure<NumericType>& static_pressure,
              const MassDensity<NumericType>& mass_density)
     : SoundSpeed<NumericType>(
-        std::sqrt(heat_capacity_ratio.Value() * static_pressure.Value() / mass_density.Value())) {}
+          std::sqrt(heat_capacity_ratio.Value() * static_pressure.Value() / mass_density.Value())) {
+  }
 
   /// \brief Constructs a sound speed from a heat capacity ratio, a specific gas constant, and a
   /// temperature. This relation applies only to an ideal gas.
@@ -82,7 +83,7 @@ public:
              const SpecificGasConstant<NumericType>& specific_gas_constant,
              const Temperature<NumericType>& temperature)
     : SoundSpeed<NumericType>(std::sqrt(
-        heat_capacity_ratio.Value() * specific_gas_constant.Value() * temperature.Value())) {}
+          heat_capacity_ratio.Value() * specific_gas_constant.Value() * temperature.Value())) {}
 
   /// \brief Constructs a sound speed from a speed and a Mach number. This uses the definition of
   /// the Mach number; this relation always holds true.
@@ -123,7 +124,7 @@ public:
   template <Unit::Speed Unit>
   [[nodiscard]] static constexpr SoundSpeed<NumericType> Create(const NumericType value) {
     return SoundSpeed<NumericType>{
-        ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+      ConvertStatically<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   constexpr SoundSpeed<NumericType> operator+(const SoundSpeed<NumericType>& speed) const {

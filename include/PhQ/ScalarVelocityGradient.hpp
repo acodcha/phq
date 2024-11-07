@@ -65,7 +65,7 @@ public:
       const ScalarDisplacementGradient<NumericType>& scalar_displacement_gradient,
       const Frequency<NumericType>& frequency)
     : ScalarVelocityGradient<NumericType>(
-        scalar_displacement_gradient.Value() * frequency.Value()) {}
+          scalar_displacement_gradient.Value() * frequency.Value()) {}
 
   /// \brief Destructor. Destroys this scalar velocity gradient.
   ~ScalarVelocityGradient() noexcept = default;
@@ -108,7 +108,7 @@ public:
   [[nodiscard]] static constexpr ScalarVelocityGradient<NumericType> Create(
       const NumericType value) {
     return ScalarVelocityGradient<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   constexpr ScalarVelocityGradient<NumericType> operator+(
@@ -230,14 +230,14 @@ inline constexpr ScalarDisplacementGradient<NumericType>::ScalarDisplacementGrad
   : ScalarDisplacementGradient<NumericType>(scalar_velocity_gradient.Value() / frequency.Value()) {}
 
 template <typename NumericType>
-inline constexpr ScalarVelocityGradient<NumericType>
-ScalarDisplacementGradient<NumericType>::operator*(const Frequency<NumericType>& frequency) const {
+inline constexpr ScalarVelocityGradient<NumericType> ScalarDisplacementGradient<NumericType>::
+operator*(const Frequency<NumericType>& frequency) const {
   return ScalarVelocityGradient<NumericType>{*this, frequency};
 }
 
 template <typename NumericType>
-inline constexpr ScalarVelocityGradient<NumericType>
-ScalarDisplacementGradient<NumericType>::operator/(const Time<NumericType>& time) const {
+inline constexpr ScalarVelocityGradient<NumericType> ScalarDisplacementGradient<NumericType>::
+operator/(const Time<NumericType>& time) const {
   return ScalarVelocityGradient<NumericType>{*this, time};
 }
 

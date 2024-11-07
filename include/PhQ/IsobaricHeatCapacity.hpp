@@ -64,7 +64,7 @@ public:
   constexpr IsobaricHeatCapacity(const HeatCapacityRatio<NumericType>& heat_capacity_ratio,
                                  const IsochoricHeatCapacity<NumericType>& isochoric_heat_capacity)
     : IsobaricHeatCapacity<NumericType>(
-        heat_capacity_ratio.Value() * isochoric_heat_capacity.Value()) {}
+          heat_capacity_ratio.Value() * isochoric_heat_capacity.Value()) {}
 
   /// \brief Constructor. Constructs an isobaric heat capacity from a given specific isobaric heat
   /// capacity and mass using the definition of the specific isobaric heat capacity.
@@ -112,7 +112,7 @@ public:
   template <Unit::HeatCapacity Unit>
   [[nodiscard]] static constexpr IsobaricHeatCapacity<NumericType> Create(const NumericType value) {
     return IsobaricHeatCapacity<NumericType>{
-        ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
+      ConvertStatically<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr IsobaricHeatCapacity<NumericType> operator+(
@@ -239,14 +239,14 @@ inline constexpr HeatCapacityRatio<NumericType>::HeatCapacityRatio(
     const IsobaricHeatCapacity<NumericType>& isobaric_heat_capacity,
     const IsochoricHeatCapacity<NumericType>& isochoric_heat_capacity)
   : HeatCapacityRatio<NumericType>(
-      isobaric_heat_capacity.Value() / isochoric_heat_capacity.Value()) {}
+        isobaric_heat_capacity.Value() / isochoric_heat_capacity.Value()) {}
 
 template <typename NumericType>
 inline constexpr IsochoricHeatCapacity<NumericType>::IsochoricHeatCapacity(
     const IsobaricHeatCapacity<NumericType>& isobaric_heat_capacity,
     const HeatCapacityRatio<NumericType>& heat_capacity_ratio)
   : IsochoricHeatCapacity<NumericType>(
-      isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
+        isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
 
 template <typename NumericType>
 inline constexpr IsobaricHeatCapacity<NumericType> HeatCapacityRatio<NumericType>::operator*(

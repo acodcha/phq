@@ -79,9 +79,9 @@ inline constexpr const Unit::Time Standard<Unit::Time>{Unit::Time::Second};
 /// \brief Physical dimension set of time units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Time>{
-    Dimensions{Dimension::Time{1}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{1}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Time unit) {
@@ -93,10 +93,10 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Time> ConsistentUnits<Unit::Time>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Time::Second},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Time::Second},
-    {UnitSystem::FootPoundSecondRankine,     Unit::Time::Second},
-    {UnitSystem::InchPoundSecondRankine,     Unit::Time::Second},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Time::Second},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Time::Second},
+  {UnitSystem::FootPoundSecondRankine,     Unit::Time::Second},
+  {UnitSystem::InchPoundSecondRankine,     Unit::Time::Second},
 };
 
 template <>
@@ -224,32 +224,32 @@ inline constexpr void Conversion<Unit::Time, Unit::Time::Hour>::ToStandard(
 template <typename NumericType>
 inline const std::map<Unit::Time, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Time, NumericType>{
-        {Unit::Time::Second,
-         Conversions<Unit::Time,                          Unit::Time::Second>::FromStandard<NumericType>     },
-        {Unit::Time::Nanosecond,
-         Conversions<Unit::Time,                          Unit::Time::Nanosecond>::FromStandard<NumericType> },
-        {Unit::Time::Microsecond,
-         Conversions<Unit::Time,                          Unit::Time::Microsecond>::FromStandard<NumericType>},
-        {Unit::Time::Millisecond,
-         Conversions<Unit::Time,                          Unit::Time::Millisecond>::FromStandard<NumericType>},
-        {Unit::Time::Minute,
-         Conversions<Unit::Time,                          Unit::Time::Minute>::FromStandard<NumericType>     },
-        {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::FromStandard<NumericType>       },
+      {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::FromStandard<NumericType>     },
+      {Unit::Time::Nanosecond,
+       Conversions<Unit::Time,                          Unit::Time::Nanosecond>::FromStandard<NumericType> },
+      {Unit::Time::Microsecond,
+       Conversions<Unit::Time,                          Unit::Time::Microsecond>::FromStandard<NumericType>},
+      {Unit::Time::Millisecond,
+       Conversions<Unit::Time,                          Unit::Time::Millisecond>::FromStandard<NumericType>},
+      {Unit::Time::Minute,      Conversions<Unit::Time, Unit::Time::Minute>::FromStandard<NumericType>     },
+      {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::FromStandard<NumericType>       },
 };
 
 template <typename NumericType>
-inline const std::map<Unit::Time,
-                      std::function<void(NumericType* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Time, NumericType>{
-        {Unit::Time::Second,      Conversions<Unit::Time, Unit::Time::Second>::ToStandard<NumericType>     },
-        {Unit::Time::Nanosecond,
-         Conversions<Unit::Time,                          Unit::Time::Nanosecond>::ToStandard<NumericType> },
-        {Unit::Time::Microsecond,
-         Conversions<Unit::Time,                          Unit::Time::Microsecond>::ToStandard<NumericType>},
-        {Unit::Time::Millisecond,
-         Conversions<Unit::Time,                          Unit::Time::Millisecond>::ToStandard<NumericType>},
-        {Unit::Time::Minute,      Conversions<Unit::Time, Unit::Time::Minute>::ToStandard<NumericType>     },
-        {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::ToStandard<NumericType>       },
+inline const std::
+    map<Unit::Time, std::function<void(NumericType* const values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::Time, NumericType>{
+          {Unit::Time::Second,
+           Conversions<Unit::Time,                          Unit::Time::Second>::ToStandard<NumericType>     },
+          {Unit::Time::Nanosecond,
+           Conversions<Unit::Time,                          Unit::Time::Nanosecond>::ToStandard<NumericType> },
+          {Unit::Time::Microsecond,
+           Conversions<Unit::Time,                          Unit::Time::Microsecond>::ToStandard<NumericType>},
+          {Unit::Time::Millisecond,
+           Conversions<Unit::Time,                          Unit::Time::Millisecond>::ToStandard<NumericType>},
+          {Unit::Time::Minute,
+           Conversions<Unit::Time,                          Unit::Time::Minute>::ToStandard<NumericType>     },
+          {Unit::Time::Hour,        Conversions<Unit::Time, Unit::Time::Hour>::ToStandard<NumericType>       },
 };
 
 }  // namespace Internal

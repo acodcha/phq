@@ -90,7 +90,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr LameFirstModulus<NumericType> Create(const NumericType value) {
     return LameFirstModulus<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr LameFirstModulus<NumericType> operator+(

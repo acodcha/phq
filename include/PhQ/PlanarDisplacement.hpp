@@ -145,8 +145,8 @@ public:
   [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarDisplacement<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
-            PlanarVector<NumericType>{x, y})};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
+          PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar displacement vector from the given x and y Cartesian
@@ -155,8 +155,8 @@ public:
   [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarDisplacement<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
-            PlanarVector<NumericType>{x_y})};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(
+          PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar displacement vector with a given value expressed in a given
@@ -165,7 +165,7 @@ public:
   [[nodiscard]] static constexpr PlanarDisplacement<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarDisplacement<NumericType>{
-        ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+      ConvertStatically<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar displacement vector.

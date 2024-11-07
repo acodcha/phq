@@ -88,9 +88,9 @@ inline constexpr const Unit::Power Standard<Unit::Power>{Unit::Power::Watt};
 /// \brief Physical dimension set of power units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Power>{
-    Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Power unit) {
@@ -102,18 +102,18 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Power> ConsistentUnits<Unit::Power>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Power::Watt              },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Power::Nanowatt          },
-    {UnitSystem::FootPoundSecondRankine,     Unit::Power::FootPoundPerSecond},
-    {UnitSystem::InchPoundSecondRankine,     Unit::Power::InchPoundPerSecond},
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Power::Watt              },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Power::Nanowatt          },
+  {UnitSystem::FootPoundSecondRankine,     Unit::Power::FootPoundPerSecond},
+  {UnitSystem::InchPoundSecondRankine,     Unit::Power::InchPoundPerSecond},
 };
 
 template <>
 inline const std::map<Unit::Power, UnitSystem> RelatedUnitSystems<Unit::Power>{
-    {Unit::Power::Watt,               UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Power::Nanowatt,           UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Power::FootPoundPerSecond, UnitSystem::FootPoundSecondRankine    },
-    {Unit::Power::InchPoundPerSecond, UnitSystem::InchPoundSecondRankine    },
+  {Unit::Power::Watt,               UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::Power::Nanowatt,           UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Power::FootPoundPerSecond, UnitSystem::FootPoundSecondRankine    },
+  {Unit::Power::InchPoundPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
 // clang-format off
@@ -304,46 +304,46 @@ inline constexpr void Conversion<Unit::Power, Unit::Power::InchPoundPerSecond>::
 template <typename NumericType>
 inline const std::map<Unit::Power, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Power, NumericType>{
-        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::FromStandard<NumericType>              },
-        {Unit::Power::Milliwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::FromStandard<NumericType>         },
-        {Unit::Power::Microwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::FromStandard<NumericType>         },
-        {Unit::Power::Nanowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::FromStandard<NumericType>          },
-        {Unit::Power::Kilowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::FromStandard<NumericType>          },
-        {Unit::Power::Megawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::FromStandard<NumericType>          },
-        {Unit::Power::Gigawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::FromStandard<NumericType>          },
-        {Unit::Power::FootPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::FromStandard<NumericType>},
-        {Unit::Power::InchPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::FromStandard<NumericType>},
+      {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::FromStandard<NumericType>              },
+      {Unit::Power::Milliwatt,
+       Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::FromStandard<NumericType>         },
+      {Unit::Power::Microwatt,
+       Conversions<Unit::Power,                                  Unit::Power::Microwatt>::FromStandard<NumericType>         },
+      {Unit::Power::Nanowatt,
+       Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::FromStandard<NumericType>          },
+      {Unit::Power::Kilowatt,
+       Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::FromStandard<NumericType>          },
+      {Unit::Power::Megawatt,
+       Conversions<Unit::Power,                                  Unit::Power::Megawatt>::FromStandard<NumericType>          },
+      {Unit::Power::Gigawatt,
+       Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::FromStandard<NumericType>          },
+      {Unit::Power::FootPoundPerSecond,
+       Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::FromStandard<NumericType>},
+      {Unit::Power::InchPoundPerSecond,
+       Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::FromStandard<NumericType>},
 };
 
 template <typename NumericType>
-inline const std::map<Unit::Power,
-                      std::function<void(NumericType* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Power, NumericType>{
-        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::ToStandard<NumericType>              },
-        {Unit::Power::Milliwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::ToStandard<NumericType>         },
-        {Unit::Power::Microwatt,
-         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::ToStandard<NumericType>         },
-        {Unit::Power::Nanowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::ToStandard<NumericType>          },
-        {Unit::Power::Kilowatt,
-         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::ToStandard<NumericType>          },
-        {Unit::Power::Megawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::ToStandard<NumericType>          },
-        {Unit::Power::Gigawatt,
-         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::ToStandard<NumericType>          },
-        {Unit::Power::FootPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::ToStandard<NumericType>},
-        {Unit::Power::InchPoundPerSecond,
-         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::ToStandard<NumericType>},
+inline const std::
+    map<Unit::Power, std::function<void(NumericType* const values, const std::size_t size)>>
+        MapOfConversionsToStandard<Unit::Power, NumericType>{
+          {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::ToStandard<NumericType>              },
+          {Unit::Power::Milliwatt,
+           Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::ToStandard<NumericType>         },
+          {Unit::Power::Microwatt,
+           Conversions<Unit::Power,                                  Unit::Power::Microwatt>::ToStandard<NumericType>         },
+          {Unit::Power::Nanowatt,
+           Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::ToStandard<NumericType>          },
+          {Unit::Power::Kilowatt,
+           Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::ToStandard<NumericType>          },
+          {Unit::Power::Megawatt,
+           Conversions<Unit::Power,                                  Unit::Power::Megawatt>::ToStandard<NumericType>          },
+          {Unit::Power::Gigawatt,
+           Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::ToStandard<NumericType>          },
+          {Unit::Power::FootPoundPerSecond,
+           Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::ToStandard<NumericType>},
+          {Unit::Power::InchPoundPerSecond,
+           Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::ToStandard<NumericType>},
 };
 
 }  // namespace Internal

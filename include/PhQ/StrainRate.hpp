@@ -64,7 +64,7 @@ public:
              const ScalarStrainRate<NumericType>& xz, const ScalarStrainRate<NumericType>& yy,
              const ScalarStrainRate<NumericType>& yz, const ScalarStrainRate<NumericType>& zz)
     : StrainRate<NumericType>(
-        {xx.Value(), xy.Value(), xz.Value(), yy.Value(), yz.Value(), zz.Value()}) {}
+          {xx.Value(), xy.Value(), xz.Value(), yy.Value(), yz.Value(), zz.Value()}) {}
 
   /// \brief Constructor. Constructs a strain rate tensor from a given strain tensor and time using
   /// the definition of the strain rate tensor.
@@ -119,8 +119,8 @@ public:
       const NumericType xx, const NumericType xy, const NumericType xz, const NumericType yy,
       const NumericType yz, const NumericType zz) {
     return StrainRate<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+          SymmetricDyad<NumericType>{xx, xy, xz, yy, yz, zz})};
   }
 
   /// \brief Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz
@@ -129,8 +129,8 @@ public:
   [[nodiscard]] static constexpr StrainRate<NumericType> Create(
       const std::array<NumericType, 6>& xx_xy_xz_yy_yz_zz) {
     return StrainRate<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+          SymmetricDyad<NumericType>{xx_xy_xz_yy_yz_zz})};
   }
 
   /// \brief Statically creates a strain rate tensor with a given value expressed in a given
@@ -139,7 +139,7 @@ public:
   [[nodiscard]] static constexpr StrainRate<NumericType> Create(
       const SymmetricDyad<NumericType>& value) {
     return StrainRate<NumericType>{
-        ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+      ConvertStatically<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this strain rate tensor.

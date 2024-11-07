@@ -44,9 +44,9 @@ namespace {
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, ComparisonOperators) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> first{
-      DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
   const ConstitutiveModel::IncompressibleNewtonianFluid<> second{
-      DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond)};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -59,22 +59,22 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, ComparisonOperators) {
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Constructor) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> model{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   EXPECT_EQ(model.DynamicViscosity(), DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, CopyAssignmentOperator) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> first{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   ConstitutiveModel::IncompressibleNewtonianFluid<> second{
-      DynamicViscosity(12.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(12.0, Unit::DynamicViscosity::PascalSecond)};
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, CopyConstructor) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> first{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   const ConstitutiveModel::IncompressibleNewtonianFluid<> second{first};
   EXPECT_EQ(second, first);
 }
@@ -85,11 +85,11 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, DefaultConstructor) {
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Hash) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> first{
-      DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
   const ConstitutiveModel::IncompressibleNewtonianFluid<> second{
-      DynamicViscosity(4.000001, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(4.000001, Unit::DynamicViscosity::PascalSecond)};
   const ConstitutiveModel::IncompressibleNewtonianFluid<> third{
-      DynamicViscosity(4.0e32, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(4.0e32, Unit::DynamicViscosity::PascalSecond)};
   const std::hash<ConstitutiveModel::IncompressibleNewtonianFluid<>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -108,9 +108,9 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, JSON) {
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveAssignmentOperator) {
   ConstitutiveModel::IncompressibleNewtonianFluid<> first{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   ConstitutiveModel::IncompressibleNewtonianFluid<> second{
-      DynamicViscosity(12.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(12.0, Unit::DynamicViscosity::PascalSecond)};
   second = std::move(first);
   EXPECT_EQ(second, ConstitutiveModel::IncompressibleNewtonianFluid<>(
                         DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)));
@@ -118,7 +118,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveAssignmentOperator) {
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveConstructor) {
   ConstitutiveModel::IncompressibleNewtonianFluid<> first{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   const ConstitutiveModel::IncompressibleNewtonianFluid<> second{std::move(first)};
   EXPECT_EQ(second, ConstitutiveModel::IncompressibleNewtonianFluid<>(
                         DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)));
@@ -136,7 +136,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, Print) {
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Stream) {
   const ConstitutiveModel::IncompressibleNewtonianFluid<> first_model{
-      DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
+    DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
   std::ostringstream first_stream;
   first_stream << first_model;
   EXPECT_EQ(first_stream.str(), first_model.Print());
@@ -157,8 +157,8 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, StressAndStrainFloat) {
   ASSERT_NE(model, nullptr);
   const Strain<float> strain{32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F};
   const StrainRate<float> strain_rate{
-      {32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F},
-      Unit::Frequency::Hertz
+    {32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F},
+    Unit::Frequency::Hertz
   };
   const Stress stress = model->Stress(strain_rate);
   EXPECT_EQ(model->Strain(stress), Strain<float>::Zero());
@@ -176,8 +176,8 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, StressAndStrainDouble) {
   ASSERT_NE(model, nullptr);
   const Strain strain{32.0, -4.0, -2.0, 16.0, -1.0, 8.0};
   const StrainRate strain_rate{
-      {32.0, -4.0, -2.0, 16.0, -1.0, 8.0},
-      Unit::Frequency::Hertz
+    {32.0, -4.0, -2.0, 16.0, -1.0, 8.0},
+    Unit::Frequency::Hertz
   };
   const Stress stress = model->Stress(strain_rate);
   EXPECT_EQ(model->Strain(stress), Strain<>::Zero());
@@ -195,8 +195,8 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, StressAndStrainLongDouble) {
   ASSERT_NE(model, nullptr);
   const Strain<long double> strain{32.0L, -4.0L, -2.0L, 16.0L, -1.0L, 8.0L};
   const StrainRate<long double> strain_rate{
-      {32.0L, -4.0L, -2.0L, 16.0L, -1.0L, 8.0L},
-      Unit::Frequency::Hertz
+    {32.0L, -4.0L, -2.0L, 16.0L, -1.0L, 8.0L},
+    Unit::Frequency::Hertz
   };
   const Stress stress = model->Stress(strain_rate);
   EXPECT_EQ(model->Strain(stress), Strain<long double>::Zero());

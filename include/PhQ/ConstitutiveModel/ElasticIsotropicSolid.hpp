@@ -326,24 +326,24 @@ public:
   /// \brief Isentropic bulk modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::IsentropicBulkModulus<NumericType> IsentropicBulkModulus() const {
     return PhQ::IsentropicBulkModulus<NumericType>{
-        lame_first_modulus.Value()
-            + static_cast<NumericType>(2) / static_cast<NumericType>(3) * shear_modulus.Value(),
-        Standard<Unit::Pressure>};
+      lame_first_modulus.Value()
+          + static_cast<NumericType>(2) / static_cast<NumericType>(3) * shear_modulus.Value(),
+      Standard<Unit::Pressure>};
   }
 
   /// \brief Isothermal bulk modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::IsothermalBulkModulus<NumericType> IsothermalBulkModulus() const {
     return PhQ::IsothermalBulkModulus<NumericType>{
-        lame_first_modulus.Value()
-            + static_cast<NumericType>(2) / static_cast<NumericType>(3) * shear_modulus.Value(),
-        Standard<Unit::Pressure>};
+      lame_first_modulus.Value()
+          + static_cast<NumericType>(2) / static_cast<NumericType>(3) * shear_modulus.Value(),
+      Standard<Unit::Pressure>};
   }
 
   /// \brief P-wave modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::PWaveModulus<NumericType> PWaveModulus() const {
     return PhQ::PWaveModulus<NumericType>{
-        lame_first_modulus.Value() + static_cast<NumericType>(2) * shear_modulus.Value(),
-        Standard<Unit::Pressure>};
+      lame_first_modulus.Value() + static_cast<NumericType>(2) * shear_modulus.Value(),
+      Standard<Unit::Pressure>};
   }
 
   /// \brief Poisson's ratio of this elastic isotropic solid constitutive model.
@@ -390,14 +390,14 @@ public:
     // stress = a * strain + b * trace(strain) * identity_matrix
     // a = 2 * shear_modulus
     // b = lame_first_modulus
-    const float temporary{static_cast<float>(lame_first_modulus.Value())
-                          * static_cast<float>(strain.Value().Trace())};
+    const float temporary{
+      static_cast<float>(lame_first_modulus.Value()) * static_cast<float>(strain.Value().Trace())};
     return {
-        static_cast<float>(2) * static_cast<float>(shear_modulus.Value())
-                * static_cast<SymmetricDyad<float>>(strain.Value())
-            + SymmetricDyad<float>{temporary, static_cast<float>(0), static_cast<float>(0),
-                                   temporary, static_cast<float>(0), temporary},
-        Standard<Unit::Pressure>
+      static_cast<float>(2) * static_cast<float>(shear_modulus.Value())
+              * static_cast<SymmetricDyad<float>>(strain.Value())
+          + SymmetricDyad<float>{temporary, static_cast<float>(0), static_cast<float>(0), temporary,
+                                 static_cast<float>(0), temporary},
+      Standard<Unit::Pressure>
     };
   }
 
@@ -410,11 +410,11 @@ public:
     const double temporary{static_cast<double>(lame_first_modulus.Value())
                            * static_cast<double>(strain.Value().Trace())};
     return {
-        static_cast<double>(2) * static_cast<double>(shear_modulus.Value())
-                * static_cast<SymmetricDyad<double>>(strain.Value())
-            + SymmetricDyad<double>{temporary, static_cast<double>(0), static_cast<double>(0),
-                                    temporary, static_cast<double>(0), temporary},
-        Standard<Unit::Pressure>
+      static_cast<double>(2) * static_cast<double>(shear_modulus.Value())
+              * static_cast<SymmetricDyad<double>>(strain.Value())
+          + SymmetricDyad<double>{temporary, static_cast<double>(0), static_cast<double>(0),
+                                  temporary, static_cast<double>(0), temporary},
+      Standard<Unit::Pressure>
     };
   }
 
@@ -427,12 +427,12 @@ public:
     const long double temporary{static_cast<long double>(lame_first_modulus.Value())
                                 * static_cast<long double>(strain.Value().Trace())};
     return {
-        static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value())
-                * static_cast<SymmetricDyad<long double>>(strain.Value())
-            + SymmetricDyad<long double>{temporary, static_cast<long double>(0),
-                                         static_cast<long double>(0), temporary,
-                                         static_cast<long double>(0), temporary},
-        Standard<Unit::Pressure>
+      static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value())
+              * static_cast<SymmetricDyad<long double>>(strain.Value())
+          + SymmetricDyad<long double>{temporary, static_cast<long double>(0),
+                                       static_cast<long double>(0), temporary,
+                                       static_cast<long double>(0), temporary},
+      Standard<Unit::Pressure>
     };
   }
 
@@ -466,17 +466,17 @@ public:
     // a = 1 / (2 * shear_modulus)
     // b = -1 * lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3
     //     * lame_first_modulus))
-    const float a{static_cast<float>(1)
-                  / (static_cast<float>(2) * static_cast<float>(shear_modulus.Value()))};
+    const float a{
+      static_cast<float>(1) / (static_cast<float>(2) * static_cast<float>(shear_modulus.Value()))};
     const float b{-static_cast<float>(lame_first_modulus.Value())
                   / (static_cast<float>(2) * static_cast<float>(shear_modulus.Value())
                      * (static_cast<float>(2) * static_cast<float>(shear_modulus.Value())
                         + static_cast<float>(3) * static_cast<float>(lame_first_modulus.Value())))};
     const float c{b * static_cast<float>(stress.Value().Trace())};
     return PhQ::Strain<float>{
-        a * static_cast<SymmetricDyad<float>>(stress.Value())
-        + SymmetricDyad<float>{
-                               c, static_cast<float>(0), static_cast<float>(0), c, static_cast<float>(0), c}
+      a * static_cast<SymmetricDyad<float>>(stress.Value())
+      + SymmetricDyad<float>{
+                             c, static_cast<float>(0), static_cast<float>(0), c, static_cast<float>(0), c}
     };
   }
 
@@ -490,15 +490,15 @@ public:
     const double a{static_cast<double>(1)
                    / (static_cast<double>(2) * static_cast<double>(shear_modulus.Value()))};
     const double b{
-        -static_cast<double>(lame_first_modulus.Value())
-        / (static_cast<double>(2) * static_cast<double>(shear_modulus.Value())
-           * (static_cast<double>(2) * static_cast<double>(shear_modulus.Value())
-              + static_cast<double>(3) * static_cast<double>(lame_first_modulus.Value())))};
+      -static_cast<double>(lame_first_modulus.Value())
+      / (static_cast<double>(2) * static_cast<double>(shear_modulus.Value())
+         * (static_cast<double>(2) * static_cast<double>(shear_modulus.Value())
+            + static_cast<double>(3) * static_cast<double>(lame_first_modulus.Value())))};
     const double c{b * static_cast<double>(stress.Value().Trace())};
     return PhQ::Strain<double>{
-        a * static_cast<SymmetricDyad<double>>(stress.Value())
-        + SymmetricDyad<double>{
-                                c, static_cast<double>(0), static_cast<double>(0), c, static_cast<double>(0), c}
+      a * static_cast<SymmetricDyad<double>>(stress.Value())
+      + SymmetricDyad<double>{
+                              c, static_cast<double>(0), static_cast<double>(0), c, static_cast<double>(0), c}
     };
   }
 
@@ -510,19 +510,18 @@ public:
     // b = -1 * lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3
     //     * lame_first_modulus))
     const long double a{
-        static_cast<long double>(1)
-        / (static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value()))};
+      static_cast<long double>(1)
+      / (static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value()))};
     const long double b{
-        -static_cast<long double>(lame_first_modulus.Value())
-        / (static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value())
-           * (static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value())
-              + static_cast<long double>(3)
-                    * static_cast<long double>(lame_first_modulus.Value())))};
+      -static_cast<long double>(lame_first_modulus.Value())
+      / (static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value())
+         * (static_cast<long double>(2) * static_cast<long double>(shear_modulus.Value())
+            + static_cast<long double>(3) * static_cast<long double>(lame_first_modulus.Value())))};
     const long double c{b * static_cast<long double>(stress.Value().Trace())};
     return PhQ::Strain<long double>{
-        a * static_cast<SymmetricDyad<long double>>(stress.Value())
-        + SymmetricDyad<long double>{c, static_cast<long double>(0), static_cast<long double>(0), c,
-                                     static_cast<long double>(0), c}
+      a * static_cast<SymmetricDyad<long double>>(stress.Value())
+      + SymmetricDyad<long double>{c, static_cast<long double>(0), static_cast<long double>(0), c,
+                                   static_cast<long double>(0), c}
     };
   }
 

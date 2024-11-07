@@ -126,8 +126,8 @@ public:
   [[nodiscard]] static constexpr PlanarTraction<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarTraction<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            PlanarVector<NumericType>{x, y})};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+          PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar traction vector from the given x and y Cartesian components
@@ -136,8 +136,8 @@ public:
   [[nodiscard]] static constexpr PlanarTraction<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarTraction<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            PlanarVector<NumericType>{x_y})};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+          PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar traction vector with a given value expressed in a given
@@ -146,7 +146,7 @@ public:
   [[nodiscard]] static constexpr PlanarTraction<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarTraction<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar traction vector.

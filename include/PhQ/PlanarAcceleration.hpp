@@ -127,8 +127,8 @@ public:
   [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarAcceleration<NumericType>{
-        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
-            PlanarVector<NumericType>{x, y})};
+      ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
+          PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar acceleration vector from the given x and y Cartesian
@@ -137,8 +137,8 @@ public:
   [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarAcceleration<NumericType>{
-        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
-            PlanarVector<NumericType>{x_y})};
+      ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
+          PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar acceleration vector with a given value expressed in a given
@@ -147,7 +147,7 @@ public:
   [[nodiscard]] static constexpr PlanarAcceleration<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarAcceleration<NumericType>{
-        ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
+      ConvertStatically<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this acceleration vector.

@@ -235,7 +235,7 @@ public:
   /// vector.
   constexpr void Set(const std::array<NumericType, 3>& x_y_z) {
     const NumericType magnitude_squared{
-        x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
+      x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > static_cast<NumericType>(0)) {
       const NumericType magnitude{std::sqrt(magnitude_squared)};
       this->value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};

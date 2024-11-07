@@ -111,8 +111,8 @@ public:
   [[nodiscard]] static constexpr ScalarAngularAcceleration<NumericType> Create(
       const NumericType value) {
     return ScalarAngularAcceleration<NumericType>{
-        ConvertStatically<Unit::AngularAcceleration, Unit, Standard<Unit::AngularAcceleration>>(
-            value)};
+      ConvertStatically<Unit::AngularAcceleration, Unit, Standard<Unit::AngularAcceleration>>(
+          value)};
   }
 
   constexpr ScalarAngularAcceleration<NumericType> operator+(

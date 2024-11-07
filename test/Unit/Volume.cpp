@@ -42,11 +42,11 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Volume, 15> Units = {
-    Volume::CubicNauticalMile, Volume::CubicMile,       Volume::CubicKilometre,
-    Volume::CubicMetre,        Volume::CubicYard,       Volume::CubicFoot,
-    Volume::CubicDecimetre,    Volume::Litre,           Volume::CubicInch,
-    Volume::CubicCentimetre,   Volume::Millilitre,      Volume::CubicMillimetre,
-    Volume::CubicMilliinch,    Volume::CubicMicrometre, Volume::CubicMicroinch,
+  Volume::CubicNauticalMile, Volume::CubicMile,       Volume::CubicKilometre,
+  Volume::CubicMetre,        Volume::CubicYard,       Volume::CubicFoot,
+  Volume::CubicDecimetre,    Volume::Litre,           Volume::CubicInch,
+  Volume::CubicCentimetre,   Volume::Millilitre,      Volume::CubicMillimetre,
+  Volume::CubicMilliinch,    Volume::CubicMicrometre, Volume::CubicMicroinch,
 };
 
 TEST(UnitVolume, Abbreviation) {

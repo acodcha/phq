@@ -51,9 +51,9 @@ namespace {
 TEST(ConstitutiveModelElasticIsotropicSolid, ComparisonOperators) {
   {
     const ConstitutiveModel::ElasticIsotropicSolid<> first{
-        ShearModulus(1.0, Unit::Pressure::Pascal), LameFirstModulus(0.0, Unit::Pressure::Pascal)};
+      ShearModulus(1.0, Unit::Pressure::Pascal), LameFirstModulus(0.0, Unit::Pressure::Pascal)};
     const ConstitutiveModel::ElasticIsotropicSolid<> second{
-        ShearModulus(2.0, Unit::Pressure::Pascal), LameFirstModulus(0.0, Unit::Pressure::Pascal)};
+      ShearModulus(2.0, Unit::Pressure::Pascal), LameFirstModulus(0.0, Unit::Pressure::Pascal)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -65,9 +65,9 @@ TEST(ConstitutiveModelElasticIsotropicSolid, ComparisonOperators) {
   }
   {
     const ConstitutiveModel::ElasticIsotropicSolid<> first{
-        ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
     const ConstitutiveModel::ElasticIsotropicSolid<> second{
-        ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(2.0, Unit::Pressure::Pascal)};
+      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(2.0, Unit::Pressure::Pascal)};
     EXPECT_EQ(first, first);
     EXPECT_NE(first, second);
     EXPECT_LT(first, second);
@@ -125,7 +125,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Constructor) {
   EXPECT_EQ(model09.PoissonRatio(), poisson_ratio);
 
   const ConstitutiveModel::ElasticIsotropicSolid<> model10{
-      isentropic_bulk_modulus, lame_first_modulus};
+    isentropic_bulk_modulus, lame_first_modulus};
   EXPECT_EQ(model10.IsentropicBulkModulus(), isentropic_bulk_modulus);
   EXPECT_EQ(model10.LameFirstModulus(), lame_first_modulus);
 
@@ -152,16 +152,16 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Constructor) {
 
 TEST(ConstitutiveModelElasticIsotropicSolid, CopyAssignmentOperator) {
   const ConstitutiveModel::ElasticIsotropicSolid<> first{
-      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+    ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
   ConstitutiveModel::ElasticIsotropicSolid<> second{
-      ShearModulus(16.0, Unit::Pressure::Pascal), LameFirstModulus(2.0, Unit::Pressure::Pascal)};
+    ShearModulus(16.0, Unit::Pressure::Pascal), LameFirstModulus(2.0, Unit::Pressure::Pascal)};
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, CopyConstructor) {
   const ConstitutiveModel::ElasticIsotropicSolid<> first{
-      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+    ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
   const ConstitutiveModel::ElasticIsotropicSolid<> second{first};
   EXPECT_EQ(second, first);
 }
@@ -172,14 +172,14 @@ TEST(ConstitutiveModelElasticIsotropicSolid, DefaultConstructor) {
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Hash) {
   const ConstitutiveModel::ElasticIsotropicSolid<> first{
-      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+    ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
   const ConstitutiveModel::ElasticIsotropicSolid<> second{
-      ShearModulus{4.000001, Unit::Pressure::Pascal},
-      LameFirstModulus{1.0,      Unit::Pressure::Pascal}
+    ShearModulus{4.000001, Unit::Pressure::Pascal},
+    LameFirstModulus{1.0,      Unit::Pressure::Pascal}
   };
   const ConstitutiveModel::ElasticIsotropicSolid<> third{
-      ShearModulus{4.0,      Unit::Pressure::Pascal},
-      LameFirstModulus{1.000001, Unit::Pressure::Pascal}
+    ShearModulus{4.0,      Unit::Pressure::Pascal},
+    LameFirstModulus{1.000001, Unit::Pressure::Pascal}
   };
   const std::hash<ConstitutiveModel::ElasticIsotropicSolid<>> hash;
   EXPECT_NE(hash(first), hash(second));
@@ -200,9 +200,9 @@ TEST(ConstitutiveModelElasticIsotropicSolid, JSON) {
 
 TEST(ConstitutiveModelElasticIsotropicSolid, MoveAssignmentOperator) {
   ConstitutiveModel::ElasticIsotropicSolid<> first{
-      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+    ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
   ConstitutiveModel::ElasticIsotropicSolid<> second{
-      ShearModulus(16.0, Unit::Pressure::Pascal), LameFirstModulus(4.0, Unit::Pressure::Pascal)};
+    ShearModulus(16.0, Unit::Pressure::Pascal), LameFirstModulus(4.0, Unit::Pressure::Pascal)};
   second = std::move(first);
   EXPECT_EQ(second, ConstitutiveModel::ElasticIsotropicSolid<>(
                         ShearModulus(4.0, Unit::Pressure::Pascal),
@@ -211,7 +211,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, MoveAssignmentOperator) {
 
 TEST(ConstitutiveModelElasticIsotropicSolid, MoveConstructor) {
   ConstitutiveModel::ElasticIsotropicSolid<> first{
-      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+    ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
   const ConstitutiveModel::ElasticIsotropicSolid<> second{std::move(first)};
   EXPECT_EQ(second, ConstitutiveModel::ElasticIsotropicSolid<>(
                         ShearModulus(4.0, Unit::Pressure::Pascal),
@@ -231,7 +231,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Print) {
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Stream) {
   const ConstitutiveModel::ElasticIsotropicSolid<> first_model{
-      ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
+    ShearModulus(4.0, Unit::Pressure::Pascal), LameFirstModulus(1.0, Unit::Pressure::Pascal)};
   std::ostringstream first_stream;
   first_stream << first_model;
   EXPECT_EQ(first_stream.str(), first_model.Print());
@@ -253,8 +253,8 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrainFloat) {
   ASSERT_NE(model, nullptr);
   const Strain<float> strain{32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F};
   const StrainRate<float> strain_rate{
-      {32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F},
-      Unit::Frequency::Hertz
+    {32.0F, -4.0F, -2.0F, 16.0F, -1.0F, 8.0F},
+    Unit::Frequency::Hertz
   };
   const Stress<float> stress = model->Stress(strain);
   EXPECT_EQ(model->Strain(stress), strain);
@@ -272,8 +272,8 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrainDouble) {
   ASSERT_NE(model, nullptr);
   const Strain strain{32.0, -4.0, -2.0, 16.0, -1.0, 8.0};
   const StrainRate strain_rate{
-      {32.0, -4.0, -2.0, 16.0, -1.0, 8.0},
-      Unit::Frequency::Hertz
+    {32.0, -4.0, -2.0, 16.0, -1.0, 8.0},
+    Unit::Frequency::Hertz
   };
   const Stress stress = model->Stress(strain);
   EXPECT_EQ(model->Strain(stress), strain);
@@ -292,8 +292,8 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrainLongDouble) {
   ASSERT_NE(model, nullptr);
   const Strain<long double> strain{32.0L, -4.0L, -2.0L, 16.0L, -1.0L, 8.0L};
   const StrainRate<long double> strain_rate{
-      {32.0L, -4.0L, -2.0L, 16.0L, -1.0L, 8.0L},
-      Unit::Frequency::Hertz
+    {32.0L, -4.0L, -2.0L, 16.0L, -1.0L, 8.0L},
+    Unit::Frequency::Hertz
   };
   const Stress<long double> stress = model->Stress(strain);
   EXPECT_EQ(model->Strain(stress), strain);

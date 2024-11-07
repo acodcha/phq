@@ -80,9 +80,9 @@ public:
   template <typename OtherNumericType>
   explicit constexpr SymmetricDyad<NumericType>(const SymmetricDyad<OtherNumericType>& other)
     : xx_xy_xz_yy_yz_zz_(
-        {static_cast<NumericType>(other.xx()), static_cast<NumericType>(other.xy()),
-         static_cast<NumericType>(other.xz()), static_cast<NumericType>(other.yy()),
-         static_cast<NumericType>(other.yz()), static_cast<NumericType>(other.zz())}) {}
+          {static_cast<NumericType>(other.xx()), static_cast<NumericType>(other.xy()),
+           static_cast<NumericType>(other.xz()), static_cast<NumericType>(other.yy()),
+           static_cast<NumericType>(other.yz()), static_cast<NumericType>(other.zz())}) {}
 
   /// \brief Move constructor. Constructs a three-dimensional symmetric dyadic tensor by moving
   /// another one.
@@ -123,9 +123,9 @@ public:
   /// yz, and zz Cartesian components initialized to zero.
   [[nodiscard]] static constexpr SymmetricDyad<NumericType> Zero() {
     return SymmetricDyad<NumericType>{
-        std::array<NumericType, 6>{
-                                   static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0),
-                                   static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0)}
+      std::array<NumericType, 6>{
+                                 static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0),
+                                 static_cast<NumericType>(0), static_cast<NumericType>(0), static_cast<NumericType>(0)}
     };
   }
 
@@ -339,7 +339,7 @@ public:
     const NumericType cofactor_yz{xy() * xz() - xx() * yz()};
     const NumericType cofactor_zz{xx() * yy() - xy() * xy()};
     return SymmetricDyad<NumericType>{
-        cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
+      cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
   /// \brief Returns the adjugate of this three-dimensional symmetric dyadic tensor.
@@ -509,28 +509,28 @@ template <typename NumericType>
 inline constexpr SymmetricDyad<NumericType> operator+(
     const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) {
   return SymmetricDyad<NumericType>{
-      left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
-      left.yy() + right.yy(), left.yz() + right.yz(), left.zz() + right.zz()};
+    left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
+    left.yy() + right.yy(), left.yz() + right.yz(), left.zz() + right.zz()};
 }
 
 template <typename NumericType>
 inline constexpr SymmetricDyad<NumericType> operator-(
     const SymmetricDyad<NumericType>& left, const SymmetricDyad<NumericType>& right) {
   return SymmetricDyad<NumericType>{
-      left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
-      left.yy() - right.yy(), left.yz() - right.yz(), left.zz() - right.zz()};
+    left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
+    left.yy() - right.yy(), left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
 template <typename NumericType, typename OtherNumericType>
 inline constexpr SymmetricDyad<NumericType> operator*(
     const SymmetricDyad<NumericType>& symmetric_dyad, const OtherNumericType number) {
   return SymmetricDyad<NumericType>{
-      symmetric_dyad.xx() * static_cast<NumericType>(number),
-      symmetric_dyad.xy() * static_cast<NumericType>(number),
-      symmetric_dyad.xz() * static_cast<NumericType>(number),
-      symmetric_dyad.yy() * static_cast<NumericType>(number),
-      symmetric_dyad.yz() * static_cast<NumericType>(number),
-      symmetric_dyad.zz() * static_cast<NumericType>(number)};
+    symmetric_dyad.xx() * static_cast<NumericType>(number),
+    symmetric_dyad.xy() * static_cast<NumericType>(number),
+    symmetric_dyad.xz() * static_cast<NumericType>(number),
+    symmetric_dyad.yy() * static_cast<NumericType>(number),
+    symmetric_dyad.yz() * static_cast<NumericType>(number),
+    symmetric_dyad.zz() * static_cast<NumericType>(number)};
 }
 
 template <typename NumericType, typename OtherNumericType>
@@ -543,21 +543,21 @@ template <typename NumericType>
 inline constexpr Vector<NumericType> operator*(const SymmetricDyad<NumericType>& symmetric_dyad,
                                                const PlanarVector<NumericType>& planar_vector) {
   return Vector<NumericType>{
-      symmetric_dyad.xx() * planar_vector.x() + symmetric_dyad.xy() * planar_vector.y(),
-      symmetric_dyad.xy() * planar_vector.x() + symmetric_dyad.yy() * planar_vector.y(),
-      symmetric_dyad.xz() * planar_vector.x() + symmetric_dyad.yz() * planar_vector.y()};
+    symmetric_dyad.xx() * planar_vector.x() + symmetric_dyad.xy() * planar_vector.y(),
+    symmetric_dyad.xy() * planar_vector.x() + symmetric_dyad.yy() * planar_vector.y(),
+    symmetric_dyad.xz() * planar_vector.x() + symmetric_dyad.yz() * planar_vector.y()};
 }
 
 template <typename NumericType>
 inline constexpr Vector<NumericType> operator*(
     const SymmetricDyad<NumericType>& symmetric_dyad, const Vector<NumericType>& vector) {
   return Vector<NumericType>{
-      symmetric_dyad.xx() * vector.x() + symmetric_dyad.xy() * vector.y()
-          + symmetric_dyad.xz() * vector.z(),
-      symmetric_dyad.xy() * vector.x() + symmetric_dyad.yy() * vector.y()
-          + symmetric_dyad.yz() * vector.z(),
-      symmetric_dyad.xz() * vector.x() + symmetric_dyad.yz() * vector.y()
-          + symmetric_dyad.zz() * vector.z()};
+    symmetric_dyad.xx() * vector.x() + symmetric_dyad.xy() * vector.y()
+        + symmetric_dyad.xz() * vector.z(),
+    symmetric_dyad.xy() * vector.x() + symmetric_dyad.yy() * vector.y()
+        + symmetric_dyad.yz() * vector.z(),
+    symmetric_dyad.xz() * vector.x() + symmetric_dyad.yz() * vector.y()
+        + symmetric_dyad.zz() * vector.z()};
 }
 
 template <typename NumericType>
@@ -572,12 +572,12 @@ template <typename NumericType, typename OtherNumericType>
 inline constexpr SymmetricDyad<NumericType> operator/(
     const SymmetricDyad<NumericType>& symmetric_dyad, const OtherNumericType number) {
   return SymmetricDyad<NumericType>{
-      symmetric_dyad.xx() / static_cast<NumericType>(number),
-      symmetric_dyad.xy() / static_cast<NumericType>(number),
-      symmetric_dyad.xz() / static_cast<NumericType>(number),
-      symmetric_dyad.yy() / static_cast<NumericType>(number),
-      symmetric_dyad.yz() / static_cast<NumericType>(number),
-      symmetric_dyad.zz() / static_cast<NumericType>(number)};
+    symmetric_dyad.xx() / static_cast<NumericType>(number),
+    symmetric_dyad.xy() / static_cast<NumericType>(number),
+    symmetric_dyad.xz() / static_cast<NumericType>(number),
+    symmetric_dyad.yy() / static_cast<NumericType>(number),
+    symmetric_dyad.yz() / static_cast<NumericType>(number),
+    symmetric_dyad.zz() / static_cast<NumericType>(number)};
 }
 
 template <typename NumericType>

@@ -306,9 +306,9 @@ TEST(SpecificGasConstant, MutableValue) {
 
 TEST(SpecificGasConstant, Performance) {
   SpecificGasConstant first{
-      1.2345678901234567890, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+    1.2345678901234567890, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   SpecificGasConstant second{
-      1.2345678901234567890, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+    1.2345678901234567890, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);

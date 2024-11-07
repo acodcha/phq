@@ -44,10 +44,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<TemperatureDifference, 4> Units = {
-    TemperatureDifference::Kelvin,
-    TemperatureDifference::Celsius,
-    TemperatureDifference::Rankine,
-    TemperatureDifference::Fahrenheit,
+  TemperatureDifference::Kelvin,
+  TemperatureDifference::Celsius,
+  TemperatureDifference::Rankine,
+  TemperatureDifference::Fahrenheit,
 };
 
 TEST(UnitTemperatureDifference, Abbreviation) {

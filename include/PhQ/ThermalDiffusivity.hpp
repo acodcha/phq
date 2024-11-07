@@ -65,8 +65,8 @@ public:
       const MassDensity<NumericType>& mass_density,
       const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity)
     : ThermalDiffusivity<NumericType>(
-        scalar_thermal_conductivity.Value()
-        / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
+          scalar_thermal_conductivity.Value()
+          / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
 
   /// \brief Constructor. Constructs a thermal diffusivity from a given kinematic viscosity and
   /// Prandtl number using the definition of the Prandtl number.
@@ -113,7 +113,7 @@ public:
   template <Unit::Diffusivity Unit>
   [[nodiscard]] static constexpr ThermalDiffusivity<NumericType> Create(const NumericType value) {
     return ThermalDiffusivity<NumericType>{
-        ConvertStatically<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
+      ConvertStatically<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }
 
   constexpr ThermalDiffusivity<NumericType> operator+(
@@ -217,8 +217,8 @@ inline constexpr ScalarThermalConductivity<NumericType>::ScalarThermalConductivi
     const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
     const ThermalDiffusivity<NumericType>& thermal_diffusivity)
   : ScalarThermalConductivity<NumericType>(
-      mass_density.Value() * specific_isobaric_heat_capacity.Value()
-      * thermal_diffusivity.Value()) {}
+        mass_density.Value() * specific_isobaric_heat_capacity.Value()
+        * thermal_diffusivity.Value()) {}
 
 template <typename NumericType>
 inline constexpr MassDensity<NumericType>::MassDensity(
@@ -226,8 +226,8 @@ inline constexpr MassDensity<NumericType>::MassDensity(
     const ThermalDiffusivity<NumericType>& thermal_diffusivity,
     const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity)
   : MassDensity<NumericType>(
-      scalar_thermal_conductivity.Value()
-      / (thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value())) {}
+        scalar_thermal_conductivity.Value()
+        / (thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value())) {}
 
 template <typename NumericType>
 inline constexpr SpecificIsobaricHeatCapacity<NumericType>::SpecificIsobaricHeatCapacity(
@@ -235,7 +235,8 @@ inline constexpr SpecificIsobaricHeatCapacity<NumericType>::SpecificIsobaricHeat
     const MassDensity<NumericType>& mass_density,
     const ThermalDiffusivity<NumericType>& thermal_diffusivity)
   : SpecificIsobaricHeatCapacity<NumericType>(
-      scalar_thermal_conductivity.Value() / (mass_density.Value() * thermal_diffusivity.Value())) {}
+        scalar_thermal_conductivity.Value()
+        / (mass_density.Value() * thermal_diffusivity.Value())) {}
 
 }  // namespace PhQ
 

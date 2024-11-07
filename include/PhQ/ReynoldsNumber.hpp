@@ -57,7 +57,7 @@ public:
       const MassDensity<NumericType>& mass_density, const Speed<NumericType>& speed,
       const Length<NumericType>& length, const DynamicViscosity<NumericType>& dynamic_viscosity)
     : ReynoldsNumber<NumericType>(
-        mass_density.Value() * speed.Value() * length.Value() / dynamic_viscosity.Value()) {}
+          mass_density.Value() * speed.Value() * length.Value() / dynamic_viscosity.Value()) {}
 
   /// \brief Constructor. Constructs a Reynolds number from a given speed, length, and kinematic
   /// viscosity using the definition of the Reynolds number.
@@ -265,7 +265,7 @@ inline constexpr MassDensity<NumericType>::MassDensity(
     const DynamicViscosity<NumericType>& dynamic_viscosity, const Speed<NumericType>& speed,
     const Length<NumericType>& length)
   : MassDensity<NumericType>(
-      reynolds_number.Value() * dynamic_viscosity.Value() / (speed.Value() * length.Value())) {}
+        reynolds_number.Value() * dynamic_viscosity.Value() / (speed.Value() * length.Value())) {}
 
 template <typename NumericType>
 inline constexpr KinematicViscosity<NumericType>::KinematicViscosity(
@@ -278,7 +278,7 @@ inline constexpr DynamicViscosity<NumericType>::DynamicViscosity(
     const MassDensity<NumericType>& mass_density, const Speed<NumericType>& speed,
     const Length<NumericType>& length, const ReynoldsNumber<NumericType>& reynolds_number)
   : DynamicViscosity<NumericType>(
-      mass_density.Value() * speed.Value() * length.Value() / reynolds_number.Value()) {}
+        mass_density.Value() * speed.Value() * length.Value() / reynolds_number.Value()) {}
 
 }  // namespace PhQ
 

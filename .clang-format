@@ -26,25 +26,41 @@
 # This is a configuration file for use with LLVM's ClangFormat automatic source code formatter:
 #     https://clang.llvm.org/docs/ClangFormat.html
 #
-# This file is compatible with ClangFormat version 14.0.0 or any later version. To format source
+# This file is compatible with ClangFormat version 18.0.0 or any later version. To format source
 # code files in the Physical Quantities (PhQ) repository, run:
 #     clang-format --style=file -i path/to/source/code/files
 #
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AlignArrayOfStructures: Left
-AlignConsecutiveAssignments: false
-AlignConsecutiveBitFields: false
-AlignConsecutiveDeclarations: false
-AlignConsecutiveMacros: false
+AlignConsecutiveAssignments:
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
+  AlignCompound: false
+  PadOperators: false
+AlignConsecutiveBitFields:
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
+AlignConsecutiveDeclarations:
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
+AlignConsecutiveMacros:
+  Enabled: false
+  AcrossEmptyLines: false
+  AcrossComments: false
 AlignEscapedNewlines: Left
 AlignOperands: Align
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
+AllowBreakBeforeNoexceptSpecifier: OnlyWithParen
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
+AllowShortCompoundRequirementOnASingleLine: true
 AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
@@ -58,6 +74,7 @@ AttributeMacros: ["__capability"]
 BinPackArguments: true
 BinPackParameters: true
 BitFieldColonSpacing: Both
+BracedInitializerIndentWidth: 2
 BraceWrapping:
   AfterCaseLabel: false
   AfterClass: false
@@ -77,10 +94,14 @@ BraceWrapping:
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
+BreakAdjacentStringLiterals: false
+BreakAfterAttributes: Never
 BreakAfterJavaFieldAnnotations: false
+BreakArrays: false
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeBraces: Custom
-BreakBeforeConceptDeclarations: true
+BreakBeforeConceptDeclarations: Always
+BreakBeforeInlineASMColon: OnlyMultiline
 BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
@@ -119,17 +140,28 @@ IndentCaseLabels: true
 IndentExternBlock: NoIndent
 IndentGotoLabels: true
 IndentPPDirectives: BeforeHash
-IndentRequires: false
+IndentRequiresClause: false
 IndentWidth: 2
 IndentWrappedFunctionNames: false
+InsertBraces: true
+InsertNewlineAtEOF: true
 InsertTrailingCommas: None
+IntegerLiteralSeparator:
+  Binary: 0
+  BinaryMinDigits: 0
+  Decimal: 0
+  DecimalMinDigits: 0
+  Hex: 0
+  HexMinDigits: 0
 JavaImportGroups: []
 JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 LambdaBodyIndentation: Signature
+LineEnding: DeriveLF
 MacroBlockBegin: ""
 MacroBlockEnd: ""
+Macros: []
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
 NamespaceMacros: []
@@ -145,6 +177,7 @@ PenaltyBreakBeforeFirstCallParameter: 4
 PenaltyBreakComment: 8
 PenaltyBreakFirstLessLess: 4
 PenaltyBreakOpenParenthesis: 4
+PenaltyBreakScopeResolution: 50
 PenaltyBreakString: 100
 PenaltyBreakTemplateDeclaration: 0
 PenaltyExcessCharacter: 10000
@@ -174,11 +207,15 @@ RawStringFormats:
 ReferenceAlignment: Left
 ReflowComments: true
 RemoveBracesLLVM: false
+RemoveSemicolon: false
+RequiresClausePosition: SingleLine
+RequiresExpressionIndentation: OuterScope
 SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 0
+SkipMacroDefinitionBody: true
 SortIncludes: CaseInsensitive
 SortJavaStaticImport: Before
-SortUsingDeclarations: true
+SortUsingDeclarations: Lexicographic
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
@@ -188,6 +225,7 @@ SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
+SpaceBeforeJsonColon: false
 SpaceBeforeParens: Custom
 SpaceBeforeParensOptions:
   AfterControlStatements: true
@@ -196,6 +234,8 @@ SpaceBeforeParensOptions:
   AfterFunctionDefinitionName: false
   AfterIfMacros: true
   AfterOverloadedOperator: false
+  AfterRequiresInClause: true
+  AfterRequiresInExpression: true
   BeforeNonEmptyParentheses: false
 SpaceBeforeRangeBasedForLoopColon: true
 SpaceBeforeSquareBrackets: false
@@ -218,6 +258,7 @@ TabWidth: 8
 TypenameMacros: ["STACK_OF", "LIST"]
 UseCRLF: false
 UseTab: Never
+VerilogBreakBetweenInstancePorts: false
 WhitespaceSensitiveMacros:
   - "STRINGIZE"
   - "PP_STRINGIZE"

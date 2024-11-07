@@ -261,12 +261,12 @@ TEST(PlanarVelocity, PlanarDirection) {
 
 TEST(PlanarVelocity, Performance) {
   PlanarVelocity planar_velocity_1{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Speed::MetrePerSecond
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Speed::MetrePerSecond
   };
   PlanarVelocity planar_velocity_2{
-      {1.2345678901234567890, 2.3456789012345678901},
-      Unit::Speed::MetrePerSecond
+    {1.2345678901234567890, 2.3456789012345678901},
+    Unit::Speed::MetrePerSecond
   };
   std::array<double, 2> reference1{1.2345678901234567890, 2.3456789012345678901};
   std::array<double, 2> reference2{1.2345678901234567890, 2.3456789012345678901};

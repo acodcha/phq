@@ -65,7 +65,7 @@ public:
       const ScalarThermalConductivity<NumericType>& scalar_thermal_conductivity,
       const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient)
     : ScalarHeatFlux<NumericType>(
-        -scalar_thermal_conductivity.Value() * scalar_temperature_gradient.Value()) {}
+          -scalar_thermal_conductivity.Value() * scalar_temperature_gradient.Value()) {}
 
   /// \brief Destructor. Destroys this scalar heat flux.
   ~ScalarHeatFlux() noexcept = default;
@@ -106,7 +106,7 @@ public:
   template <Unit::EnergyFlux Unit>
   [[nodiscard]] static constexpr ScalarHeatFlux<NumericType> Create(const NumericType value) {
     return ScalarHeatFlux<NumericType>{
-        ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
+      ConvertStatically<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
   constexpr ScalarHeatFlux<NumericType> operator+(

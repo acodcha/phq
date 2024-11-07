@@ -45,10 +45,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<SpecificHeatCapacity, 4> Units = {
-    SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-    SpecificHeatCapacity::NanojoulePerGramPerKelvin,
-    SpecificHeatCapacity::FootPoundPerSlugPerRankine,
-    SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
+  SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+  SpecificHeatCapacity::NanojoulePerGramPerKelvin,
+  SpecificHeatCapacity::FootPoundPerSlugPerRankine,
+  SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
 };
 
 TEST(UnitSpecificHeatCapacity, Abbreviation) {
@@ -89,10 +89,10 @@ TEST(UnitSpecificHeatCapacity, Convert) {
 
 TEST(UnitSpecificHeatCapacity, ConvertStatically) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConvertStatically<SpecificHeatCapacity,
-                                  SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                                  SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
-      value, value / (1.8L * std::pow(0.3048L, 2)));
+  Internal::
+      TestConvertStatically<SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+                            SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
+          value, value / (1.8L * std::pow(0.3048L, 2)));
 }
 
 TEST(UnitSpecificHeatCapacity, ParseEnumeration) {

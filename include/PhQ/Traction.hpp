@@ -141,7 +141,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr Traction<NumericType> Create(const Vector<NumericType>& value) {
     return Traction<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the x Cartesian component of this traction vector.

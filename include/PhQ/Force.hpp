@@ -117,7 +117,7 @@ public:
   [[nodiscard]] static constexpr Force<NumericType> Create(
       const NumericType x, const NumericType y, const NumericType z) {
     return Force<NumericType>{
-        ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(Vector<NumericType>{x, y, z})};
+      ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(Vector<NumericType>{x, y, z})};
   }
 
   /// \brief Statically creates a force vector from the given x, y, and z Cartesian components
@@ -126,7 +126,7 @@ public:
   [[nodiscard]] static constexpr Force<NumericType> Create(
       const std::array<NumericType, 3>& x_y_z) {
     return Force<NumericType>{
-        ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(Vector<NumericType>{x_y_z})};
+      ConvertStatically<Unit::Force, Unit, Standard<Unit::Force>>(Vector<NumericType>{x_y_z})};
   }
 
   /// \brief Statically creates a force vector with a given value expressed in a given force unit.

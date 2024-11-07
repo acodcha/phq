@@ -57,7 +57,7 @@ public:
       const StaticKinematicPressure<NumericType>& static_kinematic_pressure,
       const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure)
     : TotalKinematicPressure<NumericType>(
-        static_kinematic_pressure.Value() + dynamic_kinematic_pressure.Value()) {}
+          static_kinematic_pressure.Value() + dynamic_kinematic_pressure.Value()) {}
 
   /// \brief Constructor. Constructs a total kinematic pressure from a given total pressure and mass
   /// density using the definition of total kinematic pressure.
@@ -106,7 +106,7 @@ public:
   [[nodiscard]] static constexpr TotalKinematicPressure<NumericType> Create(
       const NumericType value) {
     return TotalKinematicPressure<NumericType>{
-        ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
+      ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
   constexpr TotalKinematicPressure<NumericType> operator+(
@@ -227,26 +227,24 @@ inline constexpr StaticKinematicPressure<NumericType>::StaticKinematicPressure(
     const TotalKinematicPressure<NumericType>& total_kinematic_pressure,
     const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure)
   : StaticKinematicPressure<NumericType>(
-      total_kinematic_pressure.Value() - dynamic_kinematic_pressure.Value()) {}
+        total_kinematic_pressure.Value() - dynamic_kinematic_pressure.Value()) {}
 
 template <typename NumericType>
 inline constexpr DynamicKinematicPressure<NumericType>::DynamicKinematicPressure(
     const TotalKinematicPressure<NumericType>& total_kinematic_pressure,
     const StaticKinematicPressure<NumericType>& static_kinematic_pressure)
   : DynamicKinematicPressure<NumericType>(
-      total_kinematic_pressure.Value() - static_kinematic_pressure.Value()) {}
+        total_kinematic_pressure.Value() - static_kinematic_pressure.Value()) {}
 
 template <typename NumericType>
-inline constexpr TotalKinematicPressure<NumericType>
-StaticKinematicPressure<NumericType>::operator+(
-    const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure) const {
+inline constexpr TotalKinematicPressure<NumericType> StaticKinematicPressure<NumericType>::
+operator+(const DynamicKinematicPressure<NumericType>& dynamic_kinematic_pressure) const {
   return TotalKinematicPressure<NumericType>{*this, dynamic_kinematic_pressure};
 }
 
 template <typename NumericType>
-inline constexpr TotalKinematicPressure<NumericType>
-DynamicKinematicPressure<NumericType>::operator+(
-    const StaticKinematicPressure<NumericType>& static_kinematic_pressure) const {
+inline constexpr TotalKinematicPressure<NumericType> DynamicKinematicPressure<NumericType>::
+operator+(const StaticKinematicPressure<NumericType>& static_kinematic_pressure) const {
   return TotalKinematicPressure<NumericType>{static_kinematic_pressure, *this};
 }
 

@@ -7,13 +7,15 @@ on:
 jobs:
   formatting:
     name: Check source code formatting
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@main
       - name: Install the Findutils and ClangFormat packages
         run: |
           sudo apt-get update
-          sudo apt-get install --yes findutils clang-format-14
+          sudo apt-get install --yes findutils clang-format
+      - name: Check the version of ClangFormat
+        run: clang-format --version
       - name: Check that all source code files are correctly formatted
         run: |
           find include/ test/ -iname *.hpp -or -iname *.cpp | xargs clang-format --style=file -i

@@ -225,7 +225,7 @@ TEST(ScalarTemperatureGradient, MutableValue) {
 TEST(ScalarTemperatureGradient, Performance) {
   ScalarTemperatureGradient first{1.2345678901234567890, Unit::TemperatureGradient::KelvinPerMetre};
   ScalarTemperatureGradient second{
-      1.2345678901234567890, Unit::TemperatureGradient::KelvinPerMetre};
+    1.2345678901234567890, Unit::TemperatureGradient::KelvinPerMetre};
   double first_reference{1.2345678901234567890};
   double second_reference{1.2345678901234567890};
   Internal::TestScalarPerformance(first, second, first_reference, second_reference);

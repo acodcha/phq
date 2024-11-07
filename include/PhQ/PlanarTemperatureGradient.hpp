@@ -69,7 +69,7 @@ public:
       const ScalarTemperatureGradient<NumericType>& scalar_temperature_gradient,
       const PlanarDirection<NumericType>& planar_direction)
     : PlanarTemperatureGradient<NumericType>(
-        scalar_temperature_gradient.Value() * planar_direction.Value()) {}
+          scalar_temperature_gradient.Value() * planar_direction.Value()) {}
 
   /// \brief Constructor. Constructs a planar temperature gradient vector from a given temperature
   /// gradient vector by projecting the temperature gradient vector onto the XY plane.
@@ -126,8 +126,8 @@ public:
   [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Create(
       const NumericType x, const NumericType y) {
     return PlanarTemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            PlanarVector<NumericType>{x, y})};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          PlanarVector<NumericType>{x, y})};
   }
 
   /// \brief Statically creates a planar temperature gradient vector from the given x and y
@@ -136,8 +136,8 @@ public:
   [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Create(
       const std::array<NumericType, 2>& x_y) {
     return PlanarTemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            PlanarVector<NumericType>{x_y})};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          PlanarVector<NumericType>{x_y})};
   }
 
   /// \brief Statically creates a planar temperature gradient vector with a given value expressed in
@@ -146,8 +146,8 @@ public:
   [[nodiscard]] static constexpr PlanarTemperatureGradient<NumericType> Create(
       const PlanarVector<NumericType>& value) {
     return PlanarTemperatureGradient<NumericType>{
-        ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            value)};
+      ConvertStatically<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+          value)};
   }
 
   /// \brief Returns the x Cartesian component of this planar temperature gradient vector.
@@ -280,7 +280,7 @@ inline Angle<NumericType>::Angle(
     const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient_1,
     const PlanarTemperatureGradient<NumericType>& planar_temperature_gradient_2)
   : Angle<NumericType>(
-      planar_temperature_gradient_1.Value(), planar_temperature_gradient_2.Value()) {}
+        planar_temperature_gradient_1.Value(), planar_temperature_gradient_2.Value()) {}
 
 template <typename NumericType>
 inline constexpr PlanarTemperatureGradient<NumericType> PlanarDirection<NumericType>::operator*(
@@ -289,9 +289,8 @@ inline constexpr PlanarTemperatureGradient<NumericType> PlanarDirection<NumericT
 }
 
 template <typename NumericType>
-inline constexpr PlanarTemperatureGradient<NumericType>
-ScalarTemperatureGradient<NumericType>::operator*(
-    const PlanarDirection<NumericType>& planar_direction) const {
+inline constexpr PlanarTemperatureGradient<NumericType> ScalarTemperatureGradient<NumericType>::
+operator*(const PlanarDirection<NumericType>& planar_direction) const {
   return PlanarTemperatureGradient<NumericType>{*this, planar_direction};
 }
 

@@ -232,7 +232,7 @@ inline Unit ConsistentUnit(const UnitSystem& system) {
 template <typename Unit>
 inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
-      Internal::RelatedUnitSystems<Unit>.find(unit)};
+    Internal::RelatedUnitSystems<Unit>.find(unit)};
   if (system != Internal::RelatedUnitSystems<Unit>.cend()) {
     return system->second;
   }

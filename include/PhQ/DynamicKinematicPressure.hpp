@@ -116,7 +116,7 @@ public:
   [[nodiscard]] static constexpr DynamicKinematicPressure<NumericType> Create(
       const NumericType value) {
     return DynamicKinematicPressure<NumericType>{
-        ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
+      ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
   constexpr DynamicKinematicPressure<NumericType> operator+(

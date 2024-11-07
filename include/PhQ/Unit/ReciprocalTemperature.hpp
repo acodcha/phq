@@ -69,14 +69,14 @@ enum class ReciprocalTemperature : int8_t {
 /// \brief Standard reciprocal temperature unit: per kelvin (/K).
 template <>
 inline constexpr const Unit::ReciprocalTemperature Standard<Unit::ReciprocalTemperature>{
-    Unit::ReciprocalTemperature::PerKelvin};
+  Unit::ReciprocalTemperature::PerKelvin};
 
 /// \brief Physical dimension set of reciprocal temperature units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::ReciprocalTemperature>{
-    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::ReciprocalTemperature unit) {
@@ -89,10 +89,10 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::ReciprocalTemperature>
     ConsistentUnits<Unit::ReciprocalTemperature>{
-        {UnitSystem::MetreKilogramSecondKelvin,  Unit::ReciprocalTemperature::PerKelvin },
-        {UnitSystem::MillimetreGramSecondKelvin, Unit::ReciprocalTemperature::PerKelvin },
-        {UnitSystem::FootPoundSecondRankine,     Unit::ReciprocalTemperature::PerRankine},
-        {UnitSystem::InchPoundSecondRankine,     Unit::ReciprocalTemperature::PerRankine},
+      {UnitSystem::MetreKilogramSecondKelvin,  Unit::ReciprocalTemperature::PerKelvin },
+      {UnitSystem::MillimetreGramSecondKelvin, Unit::ReciprocalTemperature::PerKelvin },
+      {UnitSystem::FootPoundSecondRankine,     Unit::ReciprocalTemperature::PerRankine},
+      {UnitSystem::InchPoundSecondRankine,     Unit::ReciprocalTemperature::PerRankine},
 };
 
 template <>
@@ -201,36 +201,36 @@ template <typename NumericType>
 inline const std::map<Unit::ReciprocalTemperature,
                       std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::ReciprocalTemperature, NumericType>{
-        {Unit::ReciprocalTemperature::PerKelvin,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerKelvin>::FromStandard<NumericType>    },
-        {Unit::ReciprocalTemperature::PerCelsius,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerCelsius>::FromStandard<NumericType>   },
-        {Unit::ReciprocalTemperature::PerRankine,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerRankine>::FromStandard<NumericType>   },
-        {Unit::ReciprocalTemperature::PerFahrenheit,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerFahrenheit>::FromStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerKelvin,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerKelvin>::
+           FromStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerCelsius,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerCelsius>::
+           FromStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerRankine,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerRankine>::
+           FromStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerFahrenheit,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerFahrenheit>::
+           FromStandard<NumericType>},
 };
 
 template <typename NumericType>
 inline const std::map<Unit::ReciprocalTemperature,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::ReciprocalTemperature, NumericType>{
-        {Unit::ReciprocalTemperature::PerKelvin,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerKelvin>::ToStandard<NumericType>    },
-        {Unit::ReciprocalTemperature::PerCelsius,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerCelsius>::ToStandard<NumericType>   },
-        {Unit::ReciprocalTemperature::PerRankine,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerRankine>::ToStandard<NumericType>   },
-        {Unit::ReciprocalTemperature::PerFahrenheit,
-         Conversions<Unit::ReciprocalTemperature,
-         Unit::ReciprocalTemperature::PerFahrenheit>::ToStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerKelvin,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerKelvin>::
+           ToStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerCelsius,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerCelsius>::
+           ToStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerRankine,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerRankine>::
+           ToStandard<NumericType>},
+      {Unit::ReciprocalTemperature::PerFahrenheit,
+       Conversions<Unit::ReciprocalTemperature, Unit::ReciprocalTemperature::PerFahrenheit>::
+           ToStandard<NumericType>},
 };
 
 }  // namespace Internal

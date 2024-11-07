@@ -93,7 +93,7 @@ public:
       const HeatCapacityRatio<NumericType>& heat_capacity_ratio,
       const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity)
     : SpecificIsobaricHeatCapacity<NumericType>(
-        heat_capacity_ratio.Value() * specific_isochoric_heat_capacity.Value()) {}
+          heat_capacity_ratio.Value() * specific_isochoric_heat_capacity.Value()) {}
 
   /// \brief Constructor. Constructs a specific isobaric heat capacity from a given isobaric heat
   /// capacity and mass using the definition of the specific isobaric heat capacity.
@@ -164,20 +164,20 @@ public:
   [[nodiscard]] static constexpr SpecificIsobaricHeatCapacity<NumericType> Create(
       const NumericType value) {
     return SpecificIsobaricHeatCapacity<NumericType>{
-        ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
-            value)};
+      ConvertStatically<Unit::SpecificHeatCapacity, Unit, Standard<Unit::SpecificHeatCapacity>>(
+          value)};
   }
 
   constexpr SpecificIsobaricHeatCapacity<NumericType> operator+(
       const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity) const {
     return SpecificIsobaricHeatCapacity<NumericType>{
-        this->value + specific_isobaric_heat_capacity.value};
+      this->value + specific_isobaric_heat_capacity.value};
   }
 
   constexpr SpecificIsobaricHeatCapacity<NumericType> operator-(
       const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity) const {
     return SpecificIsobaricHeatCapacity<NumericType>{
-        this->value - specific_isobaric_heat_capacity.value};
+      this->value - specific_isobaric_heat_capacity.value};
   }
 
   constexpr SpecificGasConstant<NumericType> operator-(
@@ -295,7 +295,7 @@ inline constexpr HeatCapacityRatio<NumericType>::HeatCapacityRatio(
     const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
     const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity)
   : HeatCapacityRatio<NumericType>(
-      specific_isobaric_heat_capacity.Value() / specific_isochoric_heat_capacity.Value()) {}
+        specific_isobaric_heat_capacity.Value() / specific_isochoric_heat_capacity.Value()) {}
 
 template <typename NumericType>
 inline constexpr Mass<NumericType>::Mass(
@@ -314,7 +314,7 @@ inline constexpr SpecificIsochoricHeatCapacity<NumericType>::SpecificIsochoricHe
     const SpecificIsobaricHeatCapacity<NumericType>& specific_isobaric_heat_capacity,
     const HeatCapacityRatio<NumericType>& heat_capacity_ratio)
   : SpecificIsochoricHeatCapacity<NumericType>(
-      specific_isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
+        specific_isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
 
 template <typename NumericType>
 inline constexpr IsobaricHeatCapacity<NumericType> Mass<NumericType>::operator*(
@@ -323,8 +323,8 @@ inline constexpr IsobaricHeatCapacity<NumericType> Mass<NumericType>::operator*(
 }
 
 template <typename NumericType>
-inline constexpr SpecificIsobaricHeatCapacity<NumericType>
-HeatCapacityRatio<NumericType>::operator*(
+inline constexpr SpecificIsobaricHeatCapacity<NumericType> HeatCapacityRatio<NumericType>::
+operator*(
     const SpecificIsochoricHeatCapacity<NumericType>& specific_isochoric_heat_capacity) const {
   return SpecificIsobaricHeatCapacity<NumericType>{*this, specific_isochoric_heat_capacity};
 }
@@ -337,8 +337,8 @@ SpecificIsochoricHeatCapacity<NumericType>::operator*(
 }
 
 template <typename NumericType>
-inline constexpr SpecificIsobaricHeatCapacity<NumericType>
-IsobaricHeatCapacity<NumericType>::operator/(const Mass<NumericType>& mass) const {
+inline constexpr SpecificIsobaricHeatCapacity<NumericType> IsobaricHeatCapacity<NumericType>::
+operator/(const Mass<NumericType>& mass) const {
   return SpecificIsobaricHeatCapacity<NumericType>{*this, mass};
 }
 

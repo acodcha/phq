@@ -114,7 +114,7 @@ public:
   template <Unit::AngularSpeed Unit>
   [[nodiscard]] static constexpr AngularSpeed<NumericType> Create(const NumericType value) {
     return AngularSpeed<NumericType>{
-        ConvertStatically<Unit::AngularSpeed, Unit, Standard<Unit::AngularSpeed>>(value)};
+      ConvertStatically<Unit::AngularSpeed, Unit, Standard<Unit::AngularSpeed>>(value)};
   }
 
   constexpr AngularSpeed<NumericType> operator+(

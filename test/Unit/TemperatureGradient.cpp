@@ -44,10 +44,10 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<TemperatureGradient, 8> Units = {
-    TemperatureGradient::KelvinPerMetre,    TemperatureGradient::KelvinPerMillimetre,
-    TemperatureGradient::CelsiusPerMetre,   TemperatureGradient::CelsiusPerMillimetre,
-    TemperatureGradient::RankinePerFoot,    TemperatureGradient::RankinePerInch,
-    TemperatureGradient::FahrenheitPerFoot, TemperatureGradient::FahrenheitPerInch,
+  TemperatureGradient::KelvinPerMetre,    TemperatureGradient::KelvinPerMillimetre,
+  TemperatureGradient::CelsiusPerMetre,   TemperatureGradient::CelsiusPerMillimetre,
+  TemperatureGradient::RankinePerFoot,    TemperatureGradient::RankinePerInch,
+  TemperatureGradient::FahrenheitPerFoot, TemperatureGradient::FahrenheitPerInch,
 };
 
 TEST(UnitTemperatureGradient, Abbreviation) {

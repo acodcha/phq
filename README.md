@@ -729,10 +729,10 @@ The Physical Quantities library features the following units of measure:
 
 The Physical Quantities library features the following consistent systems of units of measure:
 
-- [PhQ::UnitSystem::MetreKilogramSecondKelvin](include/PhQ/UnitSystem.hpp)
-- [PhQ::UnitSystem::MillimetreGramSecondKelvin](include/PhQ/UnitSystem.hpp)
-- [PhQ::UnitSystem::FootPoundSecondRankine](include/PhQ/UnitSystem.hpp)
-- [PhQ::UnitSystem::InchPoundSecondRankine](include/PhQ/UnitSystem.hpp)
+- The metre-kilogram-second-kelvin system: [PhQ::UnitSystem::MetreKilogramSecondKelvin](include/PhQ/UnitSystem.hpp)
+- The millimetre-gram-second-kelvin system: [PhQ::UnitSystem::MillimetreGramSecondKelvin](include/PhQ/UnitSystem.hpp)
+- The foot-pound-second-rankine system: [PhQ::UnitSystem::FootPoundSecondRankine](include/PhQ/UnitSystem.hpp)
+- The inch-pound-second-rankine system: [PhQ::UnitSystem::InchPoundSecondRankine](include/PhQ/UnitSystem.hpp)
 
 [(Back to Features)](#features)
 

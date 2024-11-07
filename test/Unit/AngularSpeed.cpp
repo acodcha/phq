@@ -40,14 +40,14 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<AngularSpeed, 15> Units = {
-    AngularSpeed::RadianPerSecond,     AngularSpeed::RadianPerMinute,
-    AngularSpeed::RadianPerHour,       AngularSpeed::DegreePerSecond,
-    AngularSpeed::DegreePerMinute,     AngularSpeed::DegreePerHour,
-    AngularSpeed::ArcminutePerSecond,  AngularSpeed::ArcminutePerMinute,
-    AngularSpeed::ArcminutePerHour,    AngularSpeed::ArcsecondPerSecond,
-    AngularSpeed::ArcsecondPerMinute,  AngularSpeed::ArcsecondPerHour,
-    AngularSpeed::RevolutionPerSecond, AngularSpeed::RevolutionPerMinute,
-    AngularSpeed::RevolutionPerHour,
+  AngularSpeed::RadianPerSecond,     AngularSpeed::RadianPerMinute,
+  AngularSpeed::RadianPerHour,       AngularSpeed::DegreePerSecond,
+  AngularSpeed::DegreePerMinute,     AngularSpeed::DegreePerHour,
+  AngularSpeed::ArcminutePerSecond,  AngularSpeed::ArcminutePerMinute,
+  AngularSpeed::ArcminutePerHour,    AngularSpeed::ArcsecondPerSecond,
+  AngularSpeed::ArcsecondPerMinute,  AngularSpeed::ArcsecondPerHour,
+  AngularSpeed::RevolutionPerSecond, AngularSpeed::RevolutionPerMinute,
+  AngularSpeed::RevolutionPerHour,
 };
 
 TEST(UnitAngularSpeed, Abbreviation) {

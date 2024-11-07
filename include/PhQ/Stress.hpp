@@ -62,17 +62,17 @@ public:
          const ScalarStress<NumericType>& xz, const ScalarStress<NumericType>& yy,
          const ScalarStress<NumericType>& yz, const ScalarStress<NumericType>& zz)
     : Stress<NumericType>(
-        {xx.Value(), xy.Value(), xz.Value(), yy.Value(), yz.Value(), zz.Value()}) {}
+          {xx.Value(), xy.Value(), xz.Value(), yy.Value(), yz.Value(), zz.Value()}) {}
 
   /// \brief Constructor. Constructs a stress tensor from a given static pressure using the
   /// definition of stress due to pressure. Since pressure is compressive, the negative of the
   /// static pressure contributes to the stress.
   constexpr explicit Stress(const StaticPressure<NumericType>& static_pressure)
     : Stress<NumericType>(
-        {static_cast<NumericType>(-1.0) * static_pressure.Value(), static_cast<NumericType>(0.0),
-         static_cast<NumericType>(0.0), static_cast<NumericType>(-1.0) * static_pressure.Value(),
-         static_cast<NumericType>(0.0), static_cast<NumericType>(-1.0) * static_pressure.Value()}) {
-  }
+          {static_cast<NumericType>(-1.0) * static_pressure.Value(), static_cast<NumericType>(0.0),
+           static_cast<NumericType>(0.0), static_cast<NumericType>(-1.0) * static_pressure.Value(),
+           static_cast<NumericType>(0.0),
+           static_cast<NumericType>(-1.0) * static_pressure.Value()}) {}
 
   /// \brief Destructor. Destroys this stress tensor.
   ~Stress() noexcept = default;
@@ -131,7 +131,7 @@ public:
   [[nodiscard]] static constexpr Stress<NumericType> Create(
       const SymmetricDyad<NumericType>& value) {
     return Stress<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   /// \brief Returns the xx Cartesian component of this stress tensor.

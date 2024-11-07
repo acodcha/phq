@@ -88,9 +88,9 @@ inline constexpr const Unit::Force Standard<Unit::Force>{Unit::Force::Newton};
 /// \brief Physical dimension set of force units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Force>{
-    Dimensions{Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1},
-               Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-               Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
+  Dimensions{Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1},
+             Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+             Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{0}}
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Force unit) {
@@ -102,16 +102,16 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, Unit::Force> ConsistentUnits<Unit::Force>{
-    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Force::Newton     },
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Force::Micronewton},
-    {UnitSystem::FootPoundSecondRankine,     Unit::Force::Pound      },
-    {UnitSystem::InchPoundSecondRankine,     Unit::Force::Pound      },
+  {UnitSystem::MetreKilogramSecondKelvin,  Unit::Force::Newton     },
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Force::Micronewton},
+  {UnitSystem::FootPoundSecondRankine,     Unit::Force::Pound      },
+  {UnitSystem::InchPoundSecondRankine,     Unit::Force::Pound      },
 };
 
 template <>
 inline const std::map<Unit::Force, UnitSystem> RelatedUnitSystems<Unit::Force>{
-    {Unit::Force::Newton,      UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Force::Micronewton, UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Force::Newton,      UnitSystem::MetreKilogramSecondKelvin },
+  {Unit::Force::Micronewton, UnitSystem::MillimetreGramSecondKelvin},
 };
 
 // clang-format off
@@ -282,45 +282,43 @@ inline constexpr void Conversion<Unit::Force, Unit::Force::Pound>::ToStandard(
 template <typename NumericType>
 inline const std::map<Unit::Force, std::function<void(NumericType* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Force, NumericType>{
-        {Unit::Force::Newton,
-         Conversions<Unit::Force,                           Unit::Force::Newton>::FromStandard<NumericType>     },
-        {Unit::Force::Kilonewton,
-         Conversions<Unit::Force,                           Unit::Force::Kilonewton>::FromStandard<NumericType> },
-        {Unit::Force::Meganewton,
-         Conversions<Unit::Force,                           Unit::Force::Meganewton>::FromStandard<NumericType> },
-        {Unit::Force::Giganewton,
-         Conversions<Unit::Force,                           Unit::Force::Giganewton>::FromStandard<NumericType> },
-        {Unit::Force::Millinewton,
-         Conversions<Unit::Force,                           Unit::Force::Millinewton>::FromStandard<NumericType>},
-        {Unit::Force::Micronewton,
-         Conversions<Unit::Force,                           Unit::Force::Micronewton>::FromStandard<NumericType>},
-        {Unit::Force::Nanonewton,
-         Conversions<Unit::Force,                           Unit::Force::Nanonewton>::FromStandard<NumericType> },
-        {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::FromStandard<NumericType>       },
-        {Unit::Force::Pound,
-         Conversions<Unit::Force,                           Unit::Force::Pound>::FromStandard<NumericType>      },
+      {Unit::Force::Newton,
+       Conversions<Unit::Force,                           Unit::Force::Newton>::FromStandard<NumericType>     },
+      {Unit::Force::Kilonewton,
+       Conversions<Unit::Force,                           Unit::Force::Kilonewton>::FromStandard<NumericType> },
+      {Unit::Force::Meganewton,
+       Conversions<Unit::Force,                           Unit::Force::Meganewton>::FromStandard<NumericType> },
+      {Unit::Force::Giganewton,
+       Conversions<Unit::Force,                           Unit::Force::Giganewton>::FromStandard<NumericType> },
+      {Unit::Force::Millinewton,
+       Conversions<Unit::Force,                           Unit::Force::Millinewton>::FromStandard<NumericType>},
+      {Unit::Force::Micronewton,
+       Conversions<Unit::Force,                           Unit::Force::Micronewton>::FromStandard<NumericType>},
+      {Unit::Force::Nanonewton,
+       Conversions<Unit::Force,                           Unit::Force::Nanonewton>::FromStandard<NumericType> },
+      {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::FromStandard<NumericType>       },
+      {Unit::Force::Pound,       Conversions<Unit::Force, Unit::Force::Pound>::FromStandard<NumericType>      },
 };
 
 template <typename NumericType>
 inline const std::map<Unit::Force,
                       std::function<void(NumericType* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Force, NumericType>{
-        {Unit::Force::Newton,
-         Conversions<Unit::Force,                           Unit::Force::Newton>::ToStandard<NumericType>     },
-        {Unit::Force::Kilonewton,
-         Conversions<Unit::Force,                           Unit::Force::Kilonewton>::ToStandard<NumericType> },
-        {Unit::Force::Meganewton,
-         Conversions<Unit::Force,                           Unit::Force::Meganewton>::ToStandard<NumericType> },
-        {Unit::Force::Giganewton,
-         Conversions<Unit::Force,                           Unit::Force::Giganewton>::ToStandard<NumericType> },
-        {Unit::Force::Millinewton,
-         Conversions<Unit::Force,                           Unit::Force::Millinewton>::ToStandard<NumericType>},
-        {Unit::Force::Micronewton,
-         Conversions<Unit::Force,                           Unit::Force::Micronewton>::ToStandard<NumericType>},
-        {Unit::Force::Nanonewton,
-         Conversions<Unit::Force,                           Unit::Force::Nanonewton>::ToStandard<NumericType> },
-        {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::ToStandard<NumericType>       },
-        {Unit::Force::Pound,       Conversions<Unit::Force, Unit::Force::Pound>::ToStandard<NumericType>      },
+      {Unit::Force::Newton,      Conversions<Unit::Force, Unit::Force::Newton>::ToStandard<NumericType>     },
+      {Unit::Force::Kilonewton,
+       Conversions<Unit::Force,                           Unit::Force::Kilonewton>::ToStandard<NumericType> },
+      {Unit::Force::Meganewton,
+       Conversions<Unit::Force,                           Unit::Force::Meganewton>::ToStandard<NumericType> },
+      {Unit::Force::Giganewton,
+       Conversions<Unit::Force,                           Unit::Force::Giganewton>::ToStandard<NumericType> },
+      {Unit::Force::Millinewton,
+       Conversions<Unit::Force,                           Unit::Force::Millinewton>::ToStandard<NumericType>},
+      {Unit::Force::Micronewton,
+       Conversions<Unit::Force,                           Unit::Force::Micronewton>::ToStandard<NumericType>},
+      {Unit::Force::Nanonewton,
+       Conversions<Unit::Force,                           Unit::Force::Nanonewton>::ToStandard<NumericType> },
+      {Unit::Force::Dyne,        Conversions<Unit::Force, Unit::Force::Dyne>::ToStandard<NumericType>       },
+      {Unit::Force::Pound,       Conversions<Unit::Force, Unit::Force::Pound>::ToStandard<NumericType>      },
 };
 
 }  // namespace Internal

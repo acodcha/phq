@@ -42,7 +42,7 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Mass, 5> Units = {
-    Mass::Kilogram, Mass::Gram, Mass::Slug, Mass::Slinch, Mass::Pound,
+  Mass::Kilogram, Mass::Gram, Mass::Slug, Mass::Slinch, Mass::Pound,
 };
 
 TEST(UnitMass, Abbreviation) {

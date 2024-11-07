@@ -109,7 +109,7 @@ public:
   template <Unit::SpecificEnergy Unit>
   [[nodiscard]] static constexpr SpecificEnergy<NumericType> Create(const NumericType value) {
     return SpecificEnergy<NumericType>{
-        ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
+      ConvertStatically<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
   constexpr SpecificEnergy<NumericType> operator+(

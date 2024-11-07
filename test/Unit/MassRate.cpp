@@ -42,11 +42,11 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<MassRate, 15> Units = {
-    MassRate::KilogramPerSecond, MassRate::GramPerSecond,   MassRate::SlugPerSecond,
-    MassRate::SlinchPerSecond,   MassRate::PoundPerSecond,  MassRate::KilogramPerMinute,
-    MassRate::GramPerMinute,     MassRate::SlugPerMinute,   MassRate::SlinchPerMinute,
-    MassRate::PoundPerMinute,    MassRate::KilogramPerHour, MassRate::GramPerHour,
-    MassRate::SlugPerHour,       MassRate::SlinchPerHour,   MassRate::PoundPerHour,
+  MassRate::KilogramPerSecond, MassRate::GramPerSecond,   MassRate::SlugPerSecond,
+  MassRate::SlinchPerSecond,   MassRate::PoundPerSecond,  MassRate::KilogramPerMinute,
+  MassRate::GramPerMinute,     MassRate::SlugPerMinute,   MassRate::SlinchPerMinute,
+  MassRate::PoundPerMinute,    MassRate::KilogramPerHour, MassRate::GramPerHour,
+  MassRate::SlugPerHour,       MassRate::SlinchPerHour,   MassRate::PoundPerHour,
 };
 
 TEST(UnitMassRate, Abbreviation) {

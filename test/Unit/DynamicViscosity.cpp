@@ -43,13 +43,13 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<DynamicViscosity, 7> Units = {
-    DynamicViscosity::PascalSecond,
-    DynamicViscosity::KilopascalSecond,
-    DynamicViscosity::MegapascalSecond,
-    DynamicViscosity::GigapascalSecond,
-    DynamicViscosity::Poise,
-    DynamicViscosity::PoundSecondPerSquareFoot,
-    DynamicViscosity::PoundSecondPerSquareInch,
+  DynamicViscosity::PascalSecond,
+  DynamicViscosity::KilopascalSecond,
+  DynamicViscosity::MegapascalSecond,
+  DynamicViscosity::GigapascalSecond,
+  DynamicViscosity::Poise,
+  DynamicViscosity::PoundSecondPerSquareFoot,
+  DynamicViscosity::PoundSecondPerSquareInch,
 };
 
 TEST(UnitDynamicViscosity, Abbreviation) {

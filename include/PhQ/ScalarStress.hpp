@@ -89,7 +89,7 @@ public:
   template <Unit::Pressure Unit>
   [[nodiscard]] static constexpr ScalarStress<NumericType> Create(const NumericType value) {
     return ScalarStress<NumericType>{
-        ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+      ConvertStatically<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr ScalarStress<NumericType> operator+(

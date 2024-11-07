@@ -199,9 +199,8 @@ TEST(ThermalConductivity, CopyConstructor) {
 
 TEST(ThermalConductivity, Create) {
   {
-    constexpr ThermalConductivity thermal_conductivity =
-        ThermalConductivity<>::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-            1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    constexpr ThermalConductivity thermal_conductivity = ThermalConductivity<>::
+        Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
     EXPECT_EQ(thermal_conductivity,
               ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                                   Unit::ThermalConductivity::WattPerMetrePerKelvin));
@@ -287,21 +286,21 @@ TEST(ThermalConductivity, MutableValue) {
 
 TEST(ThermalConductivity, Performance) {
   ThermalConductivity thermal_conductivity_1{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
-       5.6789012345678901234, 6.7890123456789012345},
-      Unit::ThermalConductivity::WattPerMetrePerKelvin
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+     5.6789012345678901234, 6.7890123456789012345},
+    Unit::ThermalConductivity::WattPerMetrePerKelvin
   };
   ThermalConductivity thermal_conductivity_2{
-      {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
-       5.6789012345678901234, 6.7890123456789012345},
-      Unit::ThermalConductivity::WattPerMetrePerKelvin
+    {1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012, 4.5678901234567890123,
+     5.6789012345678901234, 6.7890123456789012345},
+    Unit::ThermalConductivity::WattPerMetrePerKelvin
   };
   std::array<double, 6> reference1{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
   std::array<double, 6> reference2{
-      1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
-      4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
+    1.2345678901234567890, 2.3456789012345678901, 3.4567890123456789012,
+    4.5678901234567890123, 5.6789012345678901234, 6.7890123456789012345};
   Internal::TestSymmetricDyadPerformance(
       thermal_conductivity_1, thermal_conductivity_2, reference1, reference2);
 }
